@@ -13,12 +13,13 @@ public class Space {
         this.position = position;
     }
 
-    public boolean isFree() {
-        return worker == null;
+    public boolean isBorderLine() {
+        return (position.getRow() - 1 < 0 || position.getRow() + 1 > 5
+                || position.getColumn() - 1 < 0 || position.getColumn() + 1 > 5);
     }
 
-    public boolean isBuildable() {
-        return isFree() && !dome;
+    public boolean isFree() {
+        return (worker == null) && !dome;
     }
 
     public int getLevel() {

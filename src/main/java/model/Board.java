@@ -23,4 +23,8 @@ public class Board {
             }
         }
     }
+
+    public Space[][] getSpaces() {
+        return spaces;
+    }
 }

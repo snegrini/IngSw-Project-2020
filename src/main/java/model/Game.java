@@ -17,4 +17,7 @@ public class Game {
         return instance;
     }
 
+    public Board getBoard() {
+        return board;
+    }
 }

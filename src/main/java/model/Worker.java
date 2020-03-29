@@ -18,7 +18,7 @@ public class Worker {
         this.effects = effects;
     }
 
-    public void build(Position p){
+    public void build(Position p) {
         //calls controller.
     }
 
@@ -26,35 +26,48 @@ public class Worker {
      *
      * @param p a valid position to move
      */
-    public void move(Position p){
+    public void move(Position p) {
 
-        updateMoveHistory(this.position);
-        this.position=p; //worker is now in the new position
+        //check if destination space is free:
+        if (Game.instance.getBoard().getSpaces()[p.getRow()][p.getColumn()].isFree()) {
+
+            //check level compatibility
+            int pLevel = Game.instance.getBoard().getSpaces()[p.getRow()][p.getColumn()].getLevel();
+            int actualLevel = Game.instance.getBoard().getSpaces()[position.getRow()][position.getColumn()].getLevel();
+
+            if (pLevel - actualLevel <= 1 || pLevel - actualLevel >= -1) {
+
+                //Executing move
+                updateMoveHistory(this.position);
+                this.position = p; //worker is now in the new position
+            }
+        }
     }
 
     /**
      *
      * @return a List of adjacent positions to the worker's position
      */
-    public List<Position> getRange(){
+    public List<Position> getRange() {
 
         List<Position> positionList = new ArrayList<Position>();
 
-        if(position.getColumn()-1>=0 && position.getRow()-1>=0)
+
+        if (position.getColumn()-1>=0 && position.getRow()-1>=0)
             positionList.add(new Position(position.getRow() - 1, position.getColumn() - 1));
-        if(position.getRow()-1>=0)
+        if (position.getRow()-1>=0)
             positionList.add(new Position(position.getRow()-1, position.getColumn()));
-        if(position.getColumn()+1<=5 && position.getRow()-1>=0)
+        if (position.getColumn()+1<=5 && position.getRow()-1>=0)
             positionList.add(new Position(position.getRow()-1, position.getColumn()+1));
-        if(position.getColumn()+1<=5)
+        if (position.getColumn()+1<=5)
             positionList.add(new Position(position.getRow(), position.getColumn()+1));
-        if(position.getColumn()+1<=5 && position.getRow()+1<=5)
+        if (position.getColumn()+1<=5 && position.getRow()+1<=5)
             positionList.add(new Position(position.getRow()+1, position.getColumn()+1));
-        if(position.getRow()+1<=5)
+        if (position.getRow()+1<=5)
             positionList.add(new Position(position.getRow()+1, position.getColumn()));
-        if(position.getColumn()-1>=0 && position.getRow()+1<=5)
+        if (position.getColumn()-1>=0 && position.getRow()+1<=5)
             positionList.add(new Position(position.getRow()+1, position.getColumn()-1));
-        if(position.getColumn()-1>=0)
+        if (position.getColumn()-1>=0)
             positionList.add(new Position(position.getRow(), position.getColumn()-1));
 
         return positionList;
