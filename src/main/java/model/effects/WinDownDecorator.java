@@ -1,21 +1,20 @@
 package model.effects;
 
-import model.enumerations.EffectType;
-
 public class WinDownDecorator extends EffectDecorator {
 
     private int numOfLevel;
+
+    public WinDownDecorator(Effect effect, int numOfLevel) {
+        this.effect = effect;
+        this.numOfLevel = numOfLevel;
+    }
+
     public void apply(){
-        // TO DO
+        // TODO
     }
 
     public boolean require(){
-        //TO DO
-    }
-
-    public WinDownDecorator(EffectType effectType, int numOfLevel) {
-        super(effectType);
-        this.numOfLevel = numOfLevel;
+        // TODO
     }
 
     public int getNumOfLevel() {

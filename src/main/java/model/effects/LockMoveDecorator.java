@@ -1,20 +1,19 @@
 package model.effects;
 
-import model.enumerations.EffectType;
-
-public class LockMoveDecorator extends EffectDecorator{
+public class LockMoveDecorator extends EffectDecorator {
 
     private int numOfLevel;
-    public void apply(){
-        //TO DO
-    }
-    public boolean require(){
-        //TO DO
 
-    }
-
-    public LockMoveDecorator(int numOfLevel) {
+    public LockMoveDecorator(Effect effect, int numOfLevel) {
+        this.effect = effect;
         this.numOfLevel = numOfLevel;
+    }
+
+    public void apply() {
+        // TODO
+    }
+    public boolean require() {
+        // TODO
     }
 
     public int getNumOfLevel() {

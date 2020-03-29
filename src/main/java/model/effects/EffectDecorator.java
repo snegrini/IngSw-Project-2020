@@ -1,30 +1,12 @@
 package model.effects;
-import model.enumerations.EffectType;
 
-public abstract class EffectDecorator implements Effect{
+public abstract class EffectDecorator implements Effect {
 
     protected Effect effect;
 
-    public EffectType effectType;
+    @Override
+    public abstract void apply();
 
-
-
-    public void apply(){
-
-    }
-
+    @Override
     public abstract boolean require();
-
-    public EffectDecorator(Effect effect, EffectType effectType) {
-        this.effect = effect;
-        this.effectType = effectType;
-    }
-
-    public Effect getEffect() {
-        return effect;
-    }
-
-    public EffectType getEffectType() {
-        return effectType;
-    }
 }

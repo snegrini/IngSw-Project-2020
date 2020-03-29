@@ -1,7 +1,9 @@
 package model.player;
 
 import model.Game;
+import model.board.Board;
 import model.board.Position;
+import model.effects.Effect;
 import model.enumerations.Color;
 
 import java.util.ArrayList;
@@ -16,32 +18,34 @@ public class Worker {
 
     public Worker(Position position, List<Effect> effects) {
         this.position = position;
-        this.moveHistory = new MoveHistory(position);
+        this.moveHistory = new MoveHistory(position, 0);
         this.effects = effects;
     }
 
     public void build(Position p) {
-        //calls controller.
+        // Calls controller.
     }
 
     /**
+     * Move the Worker to the given position.
      *
-     * @param p a valid position to move
+     * @param position a valid position to move
      */
-    public void move(Position p) {
+    public void move(Position position) {
+        Board board = Game.getInstance().getBoard();
 
-        //check if destination space is free:
-        if (Game.instance.getBoard().getSpaces()[p.getRow()][p.getColumn()].isFree()) {
+        // Check if destination space is free:
+        if (board.getSpace(position).isFree()) {
 
-            //check level compatibility
-            int pLevel = Game.instance.getBoard().getSpaces()[p.getRow()][p.getColumn()].getLevel();
-            int actualLevel = Game.instance.getBoard().getSpaces()[position.getRow()][position.getColumn()].getLevel();
+            // Check level compatibility
+            int pLevel = board.getSpace(position).getLevel();
+            int actualLevel = board.getSpace(position).getLevel();
 
             if (pLevel - actualLevel <= 1 || pLevel - actualLevel >= -1) {
 
-                //Executing move
-                updateMoveHistory(this.position);
-                this.position = p; //worker is now in the new position
+                // Executing move
+                updateMoveHistory(this.position, board.getSpace(this.position).getLevel());
+                this.position = position; // Worker is now in the new position
             }
         }
     }
@@ -77,11 +81,14 @@ public class Worker {
 
 
     /**
+     * Update the worker move history.
      *
-     * @param p is the worker's position in the previous turn
+     * @param position worker's position in the previous turn
+     * @param level worker's level in the previous turn
      */
-    private void updateMoveHistory(Position p){
-        moveHistory.setLastPosition(p);
+    private void updateMoveHistory(Position position, int level){
+        moveHistory.setLastPosition(position);
+        moveHistory.setLastLevel(level);
     }
 
     public static Color getColor() {

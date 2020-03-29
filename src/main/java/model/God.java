@@ -1,18 +1,22 @@
 package model;
 
+import model.effects.Effect;
+
+import java.util.List;
+
 public class  God {
     private int id;
     private String name;
     private String caption;
     private String description;
-    private List<Effect> effectList;
+    private List<Effect> effects;
 
-    public God(int id, String name, String caption, String description, List<Effect> effectList) {
+    public God(int id, String name, String caption, String description, List<Effect> effects) {
         this.id = id;
         this.name = name;
         this.caption = caption;
         this.description = description;
-        this.effectList = effectList;
+        this.effects = effects;
     }
 
     public int getId() {
@@ -47,11 +51,11 @@ public class  God {
         this.description = description;
     }
 
-    public List<Effect> getEffectList() {
-        return effectList;
+    public List<Effect> getEffects() {
+        return effects;
     }
 
-    public void setEffectList(List<Effect> effectList) {
-        this.effectList = effectList;
+    public void setEffects(List<Effect> effects) {
+        this.effects = effects;
     }
 }
