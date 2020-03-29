@@ -1,5 +1,7 @@
 package model;
 
+import model.board.Board;
+
 public class Game {
 
     public static Game instance;

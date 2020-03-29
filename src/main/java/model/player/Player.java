@@ -1,4 +1,7 @@
-package model;
+package model.player;
+
+import model.God;
+import model.enumerations.PlayerState;
 
 import java.util.ArrayList;
 import java.util.List;

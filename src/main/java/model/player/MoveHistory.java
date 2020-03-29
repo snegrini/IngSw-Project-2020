@@ -1,4 +1,6 @@
-package model;
+package model.player;
+
+import model.board.Position;
 
 public class MoveHistory {
 

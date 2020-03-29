@@ -1,6 +1,6 @@
 package model;
 
-public class God {
+public class  God {
     private int id;
     private String name;
     private String caption;

@@ -1,6 +1,8 @@
-package model;
+package model.player;
 
-import org.graalvm.compiler.virtual.phases.ea.EffectList;
+import model.Game;
+import model.board.Position;
+import model.enumerations.Color;
 
 import java.util.ArrayList;
 import java.util.List;

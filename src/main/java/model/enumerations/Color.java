@@ -1,4 +1,4 @@
-package model;
+package model.enumerations;
 
 public enum Color {
     BLUE, GRAY, WHITE;

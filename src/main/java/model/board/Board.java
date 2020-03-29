@@ -1,9 +1,12 @@
-package model;
+package model.board;
+
+import model.board.Position;
+import model.board.Space;
 
 public class Board {
 
-    private static final int MAX_ROWS = 5;
-    private static final int MAX_COLUMNS = 5;
+    public static final int MAX_ROWS = 5;
+    public static final int MAX_COLUMNS = 5;
 
     private Space[][] spaces;
 
