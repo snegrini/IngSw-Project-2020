@@ -17,8 +17,8 @@ public class Space {
     }
 
     public boolean isBorderLine() {
-        return position.getRow() == 0 || position.getRow() == (Board.MAX_ROWS - 1)
-                || position.getColumn() == 0 || position.getColumn() == (Board.MAX_COLUMNS - 1);
+        return position.getRow() == 0 || position.getRow() == (Board.MAX_ROWS - 1) ||
+                position.getColumn() == 0 || position.getColumn() == (Board.MAX_COLUMNS - 1);
     }
 
     public boolean isFree() {

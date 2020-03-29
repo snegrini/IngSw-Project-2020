@@ -13,7 +13,6 @@ public class Board {
     public Board() {
         this.spaces = new Space[MAX_ROWS][MAX_COLUMNS];
         initSpaces();
-
     }
 
     /**
@@ -27,7 +26,13 @@ public class Board {
         }
     }
 
-    public Space[][] getSpaces() {
-        return spaces;
+    /**
+     * Returns the space at a given position.
+     *
+     * @param position position of a Square.
+     * @return the Space at the given Position.
+     */
+    public Space getSpace(Position position) {
+        return spaces[position.getRow()][position.getColumn()];
     }
 }
