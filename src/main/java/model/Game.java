@@ -4,7 +4,7 @@ import model.board.Board;
 
 public class Game {
 
-    public static Game instance;
+    private static Game instance;
     private Board board;
 
     private Game() {}

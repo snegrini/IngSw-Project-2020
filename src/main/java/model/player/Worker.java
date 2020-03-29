@@ -14,18 +14,14 @@ public class Worker {
     private MoveHistory moveHistory;
     private List<Effect> effects;
 
-
     public Worker(Position position, List<Effect> effects) {
         this.position = position;
         this.moveHistory = new MoveHistory(position);
         this.effects = effects;
     }
 
-
     public void build(Position p) {
         //calls controller.
-
-
     }
 
     /**
@@ -119,5 +115,4 @@ public class Worker {
     public void setEffects(List<Effect> effects) {
         this.effects = effects;
     }
-
 }
