@@ -29,8 +29,7 @@ public class WorkerTest {
 
     @Test
     public void move_correctInput_correctOutput() {
-        
-        Game game = new Game();
+
 
         worker.move(new Position(3, 3));
         assertEquals(new Position(3, 3), worker.getPosition());

@@ -7,7 +7,7 @@ public class Game {
     private static Game instance;
     private Board board;
 
-    public Game() {
+    private Game() {
         this.board = new Board();
     }
 
