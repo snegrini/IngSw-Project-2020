@@ -1,20 +1,28 @@
 package model.effects;
 
 
+import model.enumerations.EffectType;
+
 /**
- * Interface used to implement the Decorator Pattern for the effects.
+ * Abstract class used to implement the Decorator Pattern for the effects.
  */
-public interface Effect {
+public abstract class Effect {
+
+    protected EffectType effectType;
 
     /**
      *  Applies the effect.
      */
-    void apply();
+    public abstract void apply();
 
     /**
      * Checks the necessary conditions for the effect to be applied.
      *
      * @return {@code true} if the conditions are satisfied, {@code false} otherwise.
      */
-    boolean require();
+    public abstract boolean require();
+
+    public EffectType getEffectType() {
+        return effectType;
+    }
 }

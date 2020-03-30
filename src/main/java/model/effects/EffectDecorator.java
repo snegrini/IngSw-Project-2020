@@ -1,6 +1,6 @@
 package model.effects;
 
-public abstract class EffectDecorator implements Effect {
+public abstract class EffectDecorator extends Effect {
 
     protected Effect effect;
 

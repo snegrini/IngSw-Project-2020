@@ -15,6 +15,7 @@ public class WinDownDecorator extends EffectDecorator {
 
     public boolean require(){
         // TODO
+        return effect.require();
     }
 
     public int getNumOfLevel() {

@@ -7,19 +7,14 @@ public class Space {
 
     private int level;
     private boolean dome;
-    private final Position position;
     private Worker worker;
 
-    public Space(Position position) {
+    public Space() {
         this.level = 0;
         this.dome = false;
-        this.position = position;
     }
 
-    public boolean isBorderLine() {
-        return position.getRow() == 0 || position.getRow() == (Board.MAX_ROWS - 1) ||
-                position.getColumn() == 0 || position.getColumn() == (Board.MAX_COLUMNS - 1);
-    }
+    /*public boolean isBorderline() { }*/
 
     public boolean isFree() {
         return (worker == null) && !dome;
@@ -39,10 +34,6 @@ public class Space {
 
     public void setDome(boolean dome) {
         this.dome = dome;
-    }
-
-    public Position getPosition() {
-        return position;
     }
 
     public Worker getWorker() {

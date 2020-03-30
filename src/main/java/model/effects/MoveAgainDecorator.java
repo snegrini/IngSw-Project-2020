@@ -17,6 +17,8 @@ public class MoveAgainDecorator extends EffectDecorator {
 
     public boolean require() {
         // TODO
+
+        return effect.require();
     }
 
     public int getNumOfMoves() {

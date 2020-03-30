@@ -1,6 +1,7 @@
 package model.effects;
 
 import model.Game;
+import model.board.Board;
 
 public class MoveOverDecorator extends EffectDecorator {
 
@@ -11,7 +12,7 @@ public class MoveOverDecorator extends EffectDecorator {
         this.swapSpace = swapSpace;
     }
 
-    public void apply(){
+    public void apply() {
         // TODO
     }
     public boolean require() {
@@ -22,6 +23,8 @@ public class MoveOverDecorator extends EffectDecorator {
         //          Otherwise it is necessary to check the backwards space
         //          (see Minotaur effect for more info).
         //       Otherwise effect is not applicable.
+
+        return effect.require();
     }
 
     public boolean isSwapSpace() {

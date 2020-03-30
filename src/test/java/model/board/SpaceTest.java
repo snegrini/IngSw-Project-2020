@@ -2,19 +2,24 @@ package model.board;
 
 import static org.junit.Assert.*;
 
+import model.effects.Effect;
+import model.effects.SimpleEffect;
+import model.player.Worker;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class SpaceTest {
 
-    private Space space1;
-    private Space space2;
+    private Board board;
+    private Space space;
 
     @Before
     public void setUp() throws Exception {
-        space1 = new Space(new Position(0, 0));
-        space2 = new Space(new Position(1, 2));
+        board = new Board();
+        space = board.getSpace(new Position(0, 0));
     }
 
     @After
@@ -22,22 +27,25 @@ public class SpaceTest {
     }
 
     @Test
-    public void isBorderLine_True() {
-        assertTrue(space1.isBorderLine());
-    }
-
-    @Test
-    public void isBorderLine_False() {
-        assertFalse(space2.isBorderLine());
-    }
-
-    @Test
     public void isFree_True() {
-        assertTrue(space1.isFree());
+        assertTrue(space.isFree());
     }
 
     @Test
-    public void isFree_False() {
-        assertFalse(space2.isFree());
+    public void isFree_noDome_True() {
+        space.setDome(false);
+        assertTrue(space.isFree());
+    }
+
+    @Test
+    public void isFree_setDome_False() {
+        space.setDome(true);
+        assertFalse(space.isFree());
+    }
+
+    @Test
+    public void isFree_setWorker_False() {
+        space.setWorker(new Worker(new Position(0, 0), new ArrayList<Effect>()));
+        assertFalse(space.isFree());
     }
 }

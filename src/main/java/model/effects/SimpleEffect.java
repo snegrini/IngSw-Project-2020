@@ -2,9 +2,7 @@ package model.effects;
 
 import model.enumerations.EffectType;
 
-public class SimpleEffect implements Effect {
-
-    private EffectType effectType;
+public class SimpleEffect extends Effect {
 
     public SimpleEffect(EffectType effectType) {
         this.effectType = effectType;
