@@ -32,46 +32,48 @@ public class Worker {
      * @param position a valid position to move
      */
     public void move(Position position) {
-        Board board = Game.getInstance().getBoard();
+        // Executing move
+        updateMoveHistory(this.position, Game.getInstance().getBoard().getSpace(this.position).getLevel());
+        this.position = position; // Worker is now in the new position
+    }
 
-        // Check if destination space is free:
-        if (board.getSpace(position).isFree()) {
+    /**
+     *
+     * @param position1 obj of class Position
+     * @param position2 obf of class Position
+     * @return true if difference of position's space's levels is not greater than 1
+     */
+    public boolean checkLevel(Position position1, Position position2){
 
-            // Check level compatibility
-            int pLevel = board.getSpace(position).getLevel();
-            int actualLevel = board.getSpace(position).getLevel();
+        int level1 =  Game.getInstance().getBoard().getSpace(position1).getLevel();
+        int level2 = Game.getInstance().getBoard().getSpace(position2).getLevel();
 
-            if (pLevel - actualLevel <= 1 || pLevel - actualLevel >= -1) {
+        return (level1 - level2) <= 1 || (level1 - level2) >= -1;
 
-                // Executing move
-                updateMoveHistory(this.position, board.getSpace(this.position).getLevel());
-                this.position = position; // Worker is now in the new position
-            }
-        }
     }
 
     /**
      *
      * @return a List of adjacent positions to the worker's position
      */
-    public List<Position> getRange() {
+    public List<Position> getPossibleBuilds() {
 
         List<Position> positionList = new ArrayList<Position>();
 
-
+        //Check all adjacent positions clockwise
         if (position.getColumn()-1>=0 && position.getRow()-1>=0)
             positionList.add(new Position(position.getRow() - 1, position.getColumn() - 1));
         if (position.getRow()-1>=0)
             positionList.add(new Position(position.getRow()-1, position.getColumn()));
-        if (position.getColumn()+1<=5 && position.getRow()-1>=0)
+        if (position.getColumn()+1<5 && position.getRow()-1>=0)
             positionList.add(new Position(position.getRow()-1, position.getColumn()+1));
-        if (position.getColumn()+1<=5)
+        if (position.getColumn()+1<5)
             positionList.add(new Position(position.getRow(), position.getColumn()+1));
-        if (position.getColumn()+1<=5 && position.getRow()+1<=5)
+        if (position.getColumn()+1<5 && position.getRow()+1<5)
             positionList.add(new Position(position.getRow()+1, position.getColumn()+1));
         if (position.getRow()+1<=5)
             positionList.add(new Position(position.getRow()+1, position.getColumn()));
-        if (position.getColumn()-1>=0 && position.getRow()+1<=5)
+        if (position.getColumn()-1>=0 && position.getRow()+1<5)
             positionList.add(new Position(position.getRow()+1, position.getColumn()-1));
         if (position.getColumn()-1>=0)
             positionList.add(new Position(position.getRow(), position.getColumn()-1));
@@ -79,6 +81,67 @@ public class Worker {
         return positionList;
     }
 
+    /**
+     *
+     * @return a List of adjacent and "level compatible" positions to the worker's position
+     */
+    public List<Position> getPossibleMoves() {
+
+        List<Position> positionList = new ArrayList<Position>();
+        Position rotatingPosition = new Position(0,0);
+
+        //Check all adjacent positions clockwise
+        if (position.getColumn()-1>=0 && position.getRow()-1>=0) {  //UP LEFT
+            rotatingPosition.setColumn(position.getColumn() - 1);
+            rotatingPosition.setRow(position.getRow() - 1);
+            if(checkLevel(rotatingPosition, position))
+                 positionList.add(rotatingPosition);
+        }
+        if (position.getRow()-1>=0) { //UP
+            rotatingPosition.setColumn(position.getColumn());
+            rotatingPosition.setRow(position.getRow() - 1);
+            if(checkLevel(rotatingPosition, position))
+                positionList.add(rotatingPosition);
+        }
+        if (position.getColumn()+1<5 && position.getRow()-1>=0) {//UP RIGHT
+            rotatingPosition.setColumn(position.getColumn() + 1);
+            rotatingPosition.setRow(position.getRow() - 1);
+            if(checkLevel(rotatingPosition, position))
+                positionList.add(rotatingPosition);
+        }
+        if (position.getColumn()+1<5) {//RIGHT
+            rotatingPosition.setColumn(position.getColumn() + 1);
+            rotatingPosition.setRow(position.getRow());
+            if (checkLevel(rotatingPosition, position))
+                positionList.add(rotatingPosition);
+        }
+        if (position.getColumn()+1<5 && position.getRow()+1<5) {//DOWN RIGHT
+            rotatingPosition.setColumn(position.getColumn() + 1);
+            rotatingPosition.setRow(position.getRow() + 1);
+            if (checkLevel(rotatingPosition, position))
+                positionList.add(rotatingPosition);
+        }
+        if (position.getRow()+1<5) {//DOWN
+            rotatingPosition.setColumn(position.getColumn());
+            rotatingPosition.setRow(position.getRow() + 1);
+            if (checkLevel(rotatingPosition, position))
+                positionList.add(rotatingPosition);
+        }
+        if (position.getColumn()-1>=0 && position.getRow()+1<5) {//DOWN LEFT
+            rotatingPosition.setColumn(position.getColumn() - 1);
+            rotatingPosition.setRow(position.getRow() + 1);
+            if (checkLevel(rotatingPosition, position))
+                positionList.add(rotatingPosition);
+        }
+        if (position.getColumn()-1>=0) {//LEFT
+            rotatingPosition.setColumn(position.getColumn() - 1);
+            rotatingPosition.setRow(position.getRow());
+            if (checkLevel(rotatingPosition, position))
+                positionList.add(rotatingPosition);
+        }
+
+        return positionList;
+    }
 
     /**
      * Update the worker move history.
