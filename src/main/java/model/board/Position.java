@@ -42,4 +42,8 @@ public class Position {
     public int hashCode() {
         return Objects.hash(row, column);
     }
+
+    public boolean equals (Position position){
+        return (position.getRow() == row) && (position.getColumn() == column);
+    }
 }

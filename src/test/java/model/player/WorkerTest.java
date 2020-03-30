@@ -1,5 +1,6 @@
 package model.player;
 
+import model.Game;
 import model.board.Position;
 import model.effects.Effect;
 import org.junit.After;
@@ -27,13 +28,16 @@ public class WorkerTest {
 
 
     @Test
-    public void testMove() {
+    public void move_correctInput_correctOutput() {
+        
+        Game game = new Game();
+
         worker.move(new Position(3, 3));
         assertEquals(new Position(3, 3), worker.getPosition());
     }
 
     @Test
-    public void testGetPossibleMoves() {
+    public void getPossibleMoves_correctInput_correctOutput() {
         List<Position> listPositions = new ArrayList<Position>();
         listPositions = worker.getPossibleBuilds();
 
