@@ -61,22 +61,22 @@ public class Worker {
         List<Position> positionList = new ArrayList<Position>();
 
         //Check all adjacent positions clockwise
-        if (position.getColumn()-1>=0 && position.getRow()-1>=0)
+        if (position.getColumn() - 1 >= 0 && position.getRow() - 1 >= 0)
             positionList.add(new Position(position.getRow() - 1, position.getColumn() - 1));
-        if (position.getRow()-1>=0)
-            positionList.add(new Position(position.getRow()-1, position.getColumn()));
-        if (position.getColumn()+1<5 && position.getRow()-1>=0)
-            positionList.add(new Position(position.getRow()-1, position.getColumn()+1));
-        if (position.getColumn()+1<5)
-            positionList.add(new Position(position.getRow(), position.getColumn()+1));
-        if (position.getColumn()+1<5 && position.getRow()+1<5)
-            positionList.add(new Position(position.getRow()+1, position.getColumn()+1));
-        if (position.getRow()+1<=5)
-            positionList.add(new Position(position.getRow()+1, position.getColumn()));
-        if (position.getColumn()-1>=0 && position.getRow()+1<5)
-            positionList.add(new Position(position.getRow()+1, position.getColumn()-1));
-        if (position.getColumn()-1>=0)
-            positionList.add(new Position(position.getRow(), position.getColumn()-1));
+        if (position.getRow() - 1 >= 0)
+            positionList.add(new Position(position.getRow() - 1, position.getColumn()));
+        if (position.getColumn() + 1 < 5 && position.getRow() - 1 >= 0)
+            positionList.add(new Position(position.getRow() - 1, position.getColumn() + 1));
+        if (position.getColumn() + 1 < 5)
+            positionList.add(new Position(position.getRow(), position.getColumn() + 1 ));
+        if (position.getColumn() + 1 < 5 && position.getRow() + 1 < 5)
+            positionList.add(new Position(position.getRow() + 1, position.getColumn() + 1));
+        if (position.getRow() + 1 <= 5)
+            positionList.add(new Position(position.getRow() + 1, position.getColumn()));
+        if (position.getColumn() - 1 >= 0 && position.getRow() + 1 < 5)
+            positionList.add(new Position(position.getRow() + 1, position.getColumn() - 1));
+        if (position.getColumn() - 1 >= 0)
+            positionList.add(new Position(position.getRow(), position.getColumn() - 1));
 
         return positionList;
     }
@@ -91,49 +91,49 @@ public class Worker {
         Position rotatingPosition = new Position(0,0);
 
         //Check all adjacent positions clockwise
-        if (position.getColumn()-1>=0 && position.getRow()-1>=0) {  //UP LEFT
+        if (position.getColumn() - 1 >= 0 && position.getRow() - 1 >= 0) {  //UP LEFT
             rotatingPosition.setColumn(position.getColumn() - 1);
             rotatingPosition.setRow(position.getRow() - 1);
             if(checkLevel(rotatingPosition, position))
                  positionList.add(rotatingPosition);
         }
-        if (position.getRow()-1>=0) { //UP
+        if (position.getRow() - 1 >= 0) { //UP
             rotatingPosition.setColumn(position.getColumn());
             rotatingPosition.setRow(position.getRow() - 1);
             if(checkLevel(rotatingPosition, position))
                 positionList.add(rotatingPosition);
         }
-        if (position.getColumn()+1<5 && position.getRow()-1>=0) {//UP RIGHT
+        if (position.getColumn() + 1 < 5 && position.getRow() - 1 >= 0) {//UP RIGHT
             rotatingPosition.setColumn(position.getColumn() + 1);
             rotatingPosition.setRow(position.getRow() - 1);
             if(checkLevel(rotatingPosition, position))
                 positionList.add(rotatingPosition);
         }
-        if (position.getColumn()+1<5) {//RIGHT
+        if (position.getColumn() + 1 < 5) {//RIGHT
             rotatingPosition.setColumn(position.getColumn() + 1);
             rotatingPosition.setRow(position.getRow());
             if (checkLevel(rotatingPosition, position))
                 positionList.add(rotatingPosition);
         }
-        if (position.getColumn()+1<5 && position.getRow()+1<5) {//DOWN RIGHT
+        if (position.getColumn() + 1 < 5 && position.getRow() + 1 < 5) {//DOWN RIGHT
             rotatingPosition.setColumn(position.getColumn() + 1);
             rotatingPosition.setRow(position.getRow() + 1);
             if (checkLevel(rotatingPosition, position))
                 positionList.add(rotatingPosition);
         }
-        if (position.getRow()+1<5) {//DOWN
+        if (position.getRow() + 1< 5) {//DOWN
             rotatingPosition.setColumn(position.getColumn());
             rotatingPosition.setRow(position.getRow() + 1);
             if (checkLevel(rotatingPosition, position))
                 positionList.add(rotatingPosition);
         }
-        if (position.getColumn()-1>=0 && position.getRow()+1<5) {//DOWN LEFT
+        if (position.getColumn() - 1 >= 0 && position.getRow() + 1 < 5) {//DOWN LEFT
             rotatingPosition.setColumn(position.getColumn() - 1);
             rotatingPosition.setRow(position.getRow() + 1);
             if (checkLevel(rotatingPosition, position))
                 positionList.add(rotatingPosition);
         }
-        if (position.getColumn()-1>=0) {//LEFT
+        if (position.getColumn() - 1 >= 0) {//LEFT
             rotatingPosition.setColumn(position.getColumn() - 1);
             rotatingPosition.setRow(position.getRow());
             if (checkLevel(rotatingPosition, position))
