@@ -2,6 +2,8 @@ package model.effects;
 
 
 import model.enumerations.EffectType;
+import model.player.Player;
+import model.player.Worker;
 
 /**
  * Abstract class used to implement the Decorator Pattern for the effects.

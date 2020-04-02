@@ -1,7 +1,6 @@
 package model.player;
 
 import model.Game;
-import model.board.Board;
 import model.board.Position;
 import model.effects.Effect;
 import model.enumerations.Color;
@@ -11,15 +10,16 @@ import java.util.List;
 
 public class Worker {
 
-    private static Color color;
+    private final Color color;
     private Position position;
     private MoveHistory moveHistory;
     private List<Effect> effects;
 
-    public Worker(Position position, List<Effect> effects) {
+    public Worker(Color color, Position position) {
+        this.color = color;
         this.position = position;
         this.moveHistory = new MoveHistory(position, 0);
-        this.effects = effects;
+        this.effects = new ArrayList<>();
     }
 
     public void build(Position p) {
@@ -154,12 +154,8 @@ public class Worker {
         moveHistory.setLastLevel(level);
     }
 
-    public static Color getColor() {
+    public Color getColor() {
         return color;
-    }
-
-    public static void setColor(Color color) {
-        Worker.color = color;
     }
 
     public Position getPosition() {
@@ -179,10 +175,12 @@ public class Worker {
     }
 
     public List<Effect> getEffects() {
-        return effects;
+        return List.copyOf(effects);
     }
 
-    public void setEffects(List<Effect> effects) {
-        this.effects = effects;
+    public void addEffect(Effect effect) {
+        effects.add(effect);
     }
+
+
 }

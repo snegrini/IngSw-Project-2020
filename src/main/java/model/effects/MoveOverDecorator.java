@@ -15,15 +15,15 @@ public class MoveOverDecorator extends EffectDecorator {
     public void apply() {
         // TODO
     }
+
     public boolean require() {
         // TODO: get the current worker. Check if in his range
         //       there are enemies' workers.
-        //       If there are, then another condition need to be checked:
+        //       If there are, then another condition needs to be checked:
         //          If swapSpace == true, then the effect is applicable.
         //          Otherwise it is necessary to check the backwards space
         //          (see Minotaur effect for more info).
         //       Otherwise effect is not applicable.
-
         return effect.require();
     }
 

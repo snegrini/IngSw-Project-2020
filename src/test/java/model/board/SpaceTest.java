@@ -3,7 +3,7 @@ package model.board;
 import static org.junit.Assert.*;
 
 import model.effects.Effect;
-import model.effects.SimpleEffect;
+import model.enumerations.Color;
 import model.player.Worker;
 import org.junit.After;
 import org.junit.Before;
@@ -45,7 +45,7 @@ public class SpaceTest {
 
     @Test
     public void isFree_setWorker_False() {
-        space.setWorker(new Worker(new Position(0, 0), new ArrayList<Effect>()));
+        space.setWorker(new Worker(Color.BLUE, new Position(0, 0)));
         assertFalse(space.isFree());
     }
 }
