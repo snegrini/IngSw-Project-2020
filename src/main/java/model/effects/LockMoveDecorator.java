@@ -1,5 +1,9 @@
 package model.effects;
 
+import model.player.Worker;
+
+import java.util.List;
+
 public class LockMoveDecorator extends EffectDecorator {
 
     private int numOfLevel;
@@ -9,12 +13,12 @@ public class LockMoveDecorator extends EffectDecorator {
         this.numOfLevel = numOfLevel;
     }
 
-    public void apply() {
+    public void apply(List<Worker> targetWorkers) {
         // TODO
     }
-    public boolean require() {
+    public boolean require(Worker worker) {
         // TODO
-        return effect.require();
+        return effect.require(worker);
     }
 
     public int getNumOfLevel() {
