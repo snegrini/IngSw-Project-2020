@@ -1,6 +1,7 @@
 package model.player;
 
 import model.Game;
+import model.board.Board;
 import model.board.Position;
 import model.effects.Effect;
 import model.enumerations.Color;
@@ -13,17 +14,18 @@ public class Worker {
     private final Color color;
     private Position position;
     private MoveHistory moveHistory;
-    private List<Effect> effects;
+    //private List<Effect> effects;
 
     public Worker(Color color, Position position) {
         this.color = color;
         this.position = position;
         this.moveHistory = new MoveHistory(position, 0);
-        this.effects = new ArrayList<>();
+        //this.effects = new ArrayList<>();
+        //this.effects = new ArrayList<>();
     }
 
-    public void build(Position p) {
-        // Calls controller.
+    public void build(Position position) {
+        Game.getInstance().getBoard().getSpace(position).increaseLevel(1);
     }
 
     /**
@@ -32,24 +34,23 @@ public class Worker {
      * @param position a valid position to move
      */
     public void move(Position position) {
-        // Executing move
         updateMoveHistory(this.position, Game.getInstance().getBoard().getSpace(this.position).getLevel());
         this.position = position; // Worker is now in the new position
     }
 
     /**
+     * Checks the level of the spaces at the given positions.
      *
-     * @param position1 obj of class Position
-     * @param position2 obf of class Position
-     * @return true if difference of position's space's levels is not greater than 1
+     * @param position1 position of the first space
+     * @param position2 position of the second space
+     * @return {@code true} if the difference of spaces' levels is not greater than 1, {@code false} otherwise.
      */
-    public boolean checkLevel(Position position1, Position position2){
-
-        int level1 =  Game.getInstance().getBoard().getSpace(position1).getLevel();
-        int level2 = Game.getInstance().getBoard().getSpace(position2).getLevel();
+    public boolean checkLevel(Position position1, Position position2) {
+        Board board = Game.getInstance().getBoard();
+        int level1 = board.getSpace(position1).getLevel();
+        int level2 = board.getSpace(position2).getLevel();
 
         return (level1 - level2) <= 1 || (level1 - level2) >= -1;
-
     }
 
     /**
@@ -174,13 +175,13 @@ public class Worker {
         this.moveHistory = moveHistory;
     }
 
-    public List<Effect> getEffects() {
+    /*public List<Effect> getEffects() {
         return List.copyOf(effects);
     }
 
     public void addEffect(Effect effect) {
         effects.add(effect);
-    }
+    }*/
 
 
 }
