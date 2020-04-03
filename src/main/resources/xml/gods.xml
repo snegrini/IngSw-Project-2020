@@ -1,96 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gods>
-    <god>
+    <god id="1">
         <name>Apollo</name>
         <caption>God of Music</caption>
         <description>Your Move: Your Worker may move into an opponent Worker's space by forcing their Worker to the space yours just vacated.</description>
         <effects>
-            <effect>
-            <type>YOUR_MOVE</type>
+            <effect type="YOUR_MOVE">
+                <parameters>
+                    <swapspace>true</swapspace>
+                </parameters>
             </effect>
         </effects>
     </god>
-    <god>
+    <god id="2">
         <name>Artemis</name>
         <caption>Goddess of the Hunt</caption>
         <description>Your Move: Your Worker may move one additional time, but not back to its initial space.</description>
         <effects>
-            <effect>
-                <type>YOUR_MOVE</type>
+            <effect type="YOUR_MOVE">
+                <parameters>
+                    <numofmoves>1</numofmoves>
+                    <goback>false</goback>
+                </parameters>
             </effect>
         </effects>
     </god>
-    <god>
+    <god id="3">
         <name>Athena</name>
         <caption>Goddess of Wisdom</caption>
         <description>Opponent's turn: If one of your Workers moved up on your last turn, opponent Workers
             cannot move up this turn.
         </description>
         <effects>
-            <effect>
-                <type>OPP_TURN</type>
+            <effect type="OPP_TURN">
+                <parameters>
+                    <numoflevels>1</numoflevels>
+                </parameters>
             </effect>
         </effects>
     </god>
-    <god>
+    <god id="4">
         <name>Atlas</name>
         <caption>Titan Shouldering the Heavens</caption>
         <description>Your Build: Your Worker may build a dome at any level.</description>
         <effects>
-            <effect>
-                <type>YOUR_BUILD</type>
+            <effect type="YOUR_BUILD">
+                <parameters>
+                    <samespace>false</samespace>
+                    <builddome>true</builddome>
+                </parameters>
             </effect>
         </effects>
     </god>
-    <god>
+    <god id="5">
         <name>Demeter</name>
         <caption>Goddess of the Harvest</caption>
         <description>Your Build: Your Worker may build one additional time, but not on the same space.</description>
         <effects>
-            <effect>
-                <type>YOUR_BUILD</type>
+            <effect type="YOUR_BUILD">
+                <parameters>
+                    <samespace>false</samespace>
+                    <builddome>false</builddome>
+                </parameters>
             </effect>
         </effects>
     </god>
-    <god>
+    <god id="6">
         <name>Hephaestus</name>
         <caption>God of Blacksmiths</caption>
         <description>Your Build: Your Worker may build one additional block (not dome) on top of your first block.</description>
         <effects>
-            <effect>
-                <type>YOUR_BUILD</type>
+            <effect type="YOUR_BUILD">
+                <parameters>
+                    <samespace>true</samespace>
+                    <builddome>false</builddome>
+                </parameters>
             </effect>
         </effects>
     </god>
-    <god>
+    <god id="8">
         <name>Minotaur</name>
         <caption>Bull-headed Monster</caption>
         <description>Your Move: Your Worker may move into an opponent Worker's space, if their Worker can be forced
             one space straight backwards to an unoccupied space at any level.
         </description>
         <effects>
-            <effect>
-                <type>YOUR_MOVE</type>
+            <effect type="YOUR_MOVE">
+                <parameters>
+                    <swapspace>false</swapspace>
+                </parameters>
             </effect>
         </effects>
     </god>
-    <god>
+    <god id="9">
         <name>Pan</name>
         <caption>God of the Wild</caption>
         <description>Win Condition: You also win if your Worker moves down two or more levels.</description>
         <effects>
-            <effect>
-                <type>WIN_COND</type>
+            <effect type="WIN_COND">
+                <parameters>
+                    <numoflevels>2</numoflevels>
+                </parameters>
             </effect>
         </effects>
     </god>
-    <god>
+    <god id="10">
         <name>Prometheus</name>
         <caption>Titan Benefactor of Mankind</caption>
         <description>Your Turn: If your Worker does not move up, it may build both before and after moving.</description>
         <effects>
-            <effect>
-                <type>YOUR_TURN</type>
+            <effect type="YOUR_TURN">
+                <parameters>
+                    <numoflevels>0</numoflevels>
+                </parameters>
             </effect>
         </effects>
     </god>
