@@ -14,6 +14,7 @@ public class Worker {
     private Position position;
     private MoveHistory moveHistory;
     private List<Effect> effects;
+    private int id;
 
     public Worker(Color color, Position position) {
         this.color = color;
@@ -45,7 +46,7 @@ public class Worker {
      */
     public boolean checkLevel(Position position1, Position position2){
 
-        int level1 =  Game.getInstance().getBoard().getSpace(position1).getLevel();
+        int level1 = Game.getInstance().getBoard().getSpace(position1).getLevel();
         int level2 = Game.getInstance().getBoard().getSpace(position2).getLevel();
 
         return (level1 - level2) <= 1 || (level1 - level2) >= -1;
