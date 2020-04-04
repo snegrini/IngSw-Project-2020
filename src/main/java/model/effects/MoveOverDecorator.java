@@ -2,6 +2,9 @@ package model.effects;
 
 import model.Game;
 import model.board.Board;
+import model.player.Worker;
+
+import java.util.List;
 
 public class MoveOverDecorator extends EffectDecorator {
 
@@ -12,11 +15,11 @@ public class MoveOverDecorator extends EffectDecorator {
         this.swapSpace = swapSpace;
     }
 
-    public void apply() {
+    public void apply(List<Worker> targetWorkers) {
         // TODO
     }
 
-    public boolean require() {
+    public boolean require(Worker worker) {
         // TODO: get the current worker. Check if in his range
         //       there are enemies' workers.
         //       If there are, then another condition needs to be checked:
@@ -24,7 +27,7 @@ public class MoveOverDecorator extends EffectDecorator {
         //          Otherwise it is necessary to check the backwards space
         //          (see Minotaur effect for more info).
         //       Otherwise effect is not applicable.
-        return effect.require();
+        return effect.require(worker);
     }
 
     public boolean isSwapSpace() {

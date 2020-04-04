@@ -26,7 +26,7 @@ public class SimpleEffectTest {
 
     @Test
     public void require_True() {
-        assertTrue(simpleEffect.require());
+        assertTrue(simpleEffect.require(null));
     }
 
     @Test

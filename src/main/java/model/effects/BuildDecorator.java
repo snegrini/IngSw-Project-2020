@@ -1,5 +1,9 @@
 package model.effects;
 
+import model.player.Worker;
+
+import java.util.List;
+
 public class BuildDecorator extends EffectDecorator {
     private boolean sameSpace;
     private boolean buildDome;
@@ -11,13 +15,13 @@ public class BuildDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply() {
-        effect.apply();
+    public void apply(List<Worker> targetWorkers) {
+        effect.apply(targetWorkers);
     }
 
     @Override
-    public boolean require() {
-        return effect.require();
+    public boolean require(Worker worker) {
+        return effect.require(worker);
     }
 
 

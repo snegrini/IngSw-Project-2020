@@ -1,6 +1,9 @@
 package model.effects;
 
 import model.enumerations.EffectType;
+import model.player.Worker;
+
+import java.util.List;
 
 public class SimpleEffect extends Effect {
 
@@ -9,12 +12,12 @@ public class SimpleEffect extends Effect {
     }
 
     @Override
-    public void apply() {
+    public void apply(List<Worker> targetWorkers) {
         // DO NOTHING.
     }
 
     @Override
-    public boolean require() {
+    public boolean require(Worker worker) {
         return true;
     }
 }
