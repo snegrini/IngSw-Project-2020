@@ -11,12 +11,49 @@ public class  God {
     private String description;
     private List<Effect> effects;
 
-    public God(int id, String name, String caption, String description, List<Effect> effects) {
-        this.id = id;
-        this.name = name;
-        this.caption = caption;
-        this.description = description;
-        this.effects = effects;
+    public static class Builder{
+        private int id;
+        private String name;
+        private String caption;
+        private String description;
+        private List<Effect> effects;
+
+        public Builder(int id){
+            this.id = id;
+        }
+
+        public Builder withName(String name){
+            this.name = name;
+            return this;
+        }
+
+        public Builder withCaption(String caption){
+            this.caption = caption;
+            return this;
+        }
+
+        public Builder withDescription(String description){
+            this.description = description;
+            return  this;
+        }
+
+        public Builder withEffects(List <Effect> effects){
+            this.effects = effects;
+            return this;
+        }
+
+        public God build(){
+            return new God(this);
+        }
+
+    }
+
+    private God(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.caption = builder.caption;
+        this.description = builder.description;
+        this.effects = builder.effects;
     }
 
     public int getId() {
