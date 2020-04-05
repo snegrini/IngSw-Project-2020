@@ -27,19 +27,19 @@ public class SocketServer extends Thread{
 
     public void run() {
 
-        int idClient = 0;
+        int idClient = 1;
 
         while(true) {
             try {
                 Socket client = serverSocket.accept();
                 idClient += 1;
 
-                ClientHandler clientHandler = new ClientHandler(client, idClient);
+                SocketClientHandler clientHandler = new SocketClientHandler(client, idClient);
                 Thread thread = new Thread(clientHandler, "server_" + client.getInetAddress());
                 thread.start();
 
             } catch (IOException e) {
-                System.out.println("Connection dropped");
+                Server.LOGGER.severe("Connection dropped");
             }
         }
     }

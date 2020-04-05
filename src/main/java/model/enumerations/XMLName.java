@@ -28,4 +28,9 @@ public enum XMLName {
     public String getText() {
         return text;
     }
+
+    @Override
+    public String toString() {
+        return text;
+    }
 }
