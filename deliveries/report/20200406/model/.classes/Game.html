@@ -1,0 +1,153 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Game</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Game (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Game</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (15/ 15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import model.board.Board;
+<i>4</i>&nbsp;import model.player.Player;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.util.ArrayList;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;public class Game {
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;    private static Game instance;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    public static final int MAX_PLAYERS = 3;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    private Board board;
+<i>16</i>&nbsp;    private List&lt;Player&gt; players;
+<i>17</i>&nbsp;
+<b class="fc"><i>18</i>&nbsp;    private Game() {</b>
+<b class="fc"><i>19</i>&nbsp;        this.board = new Board();</b>
+<b class="fc"><i>20</i>&nbsp;        this.players = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>21</i>&nbsp;    }</b>
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     *
+<i>25</i>&nbsp;     * @return the singleton instance.
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    public static Game getInstance() {
+<b class="fc"><i>28</i>&nbsp;        if (instance == null)</b>
+<b class="fc"><i>29</i>&nbsp;            instance = new Game();</b>
+<b class="fc"><i>30</i>&nbsp;        return instance;</b>
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * Returns a player given his {@code nickname}.
+<i>35</i>&nbsp;     * Only the first occurrence is returned because
+<i>36</i>&nbsp;     * the player nickname is considered to be unique.
+<i>37</i>&nbsp;     * If no player is found {@code null} is returned.
+<i>38</i>&nbsp;     *
+<i>39</i>&nbsp;     * @param nickname the nickname of the player to be found.
+<i>40</i>&nbsp;     * @return Returns the corresponding player, {@code null} otherwise.
+<i>41</i>&nbsp;     */
+<i>42</i>&nbsp;    public Player getPlayerByNickname(String nickname) {
+<b class="fc"><i>43</i>&nbsp;        return players.stream()</b>
+<b class="fc"><i>44</i>&nbsp;                .filter(player -&gt; nickname.equals(player.getNickname()))</b>
+<b class="fc"><i>45</i>&nbsp;                .findFirst()</b>
+<b class="fc"><i>46</i>&nbsp;                .orElse(null);</b>
+<i>47</i>&nbsp;    }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * Adds a player to the game.
+<i>51</i>&nbsp;     *
+<i>52</i>&nbsp;     * @param player the player to add to the game.
+<i>53</i>&nbsp;     */
+<i>54</i>&nbsp;    public void addPlayer(Player player) {
+<b class="fc"><i>55</i>&nbsp;        players.add(player);</b>
+<b class="fc"><i>56</i>&nbsp;    }</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    /**
+<i>59</i>&nbsp;     * Number of current players added in the game.
+<i>60</i>&nbsp;     *
+<i>61</i>&nbsp;     * @return the number of players.
+<i>62</i>&nbsp;     */
+<i>63</i>&nbsp;    public int getCurrentPlayers() {
+<b class="fc"><i>64</i>&nbsp;        return players.size();</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    public Board getBoard() {
+<b class="fc"><i>68</i>&nbsp;        return board;</b>
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-04-06 19:06</div>
+</div>
+</body>
+</html>

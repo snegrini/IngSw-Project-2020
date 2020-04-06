@@ -1,0 +1,102 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ClientMain</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">network.client</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ClientMain (network.client)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ClientMain</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package network.client;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import controller.ClientController;
+<i>4</i>&nbsp;import view.cli.Cli;
+<i>5</i>&nbsp;
+<b class="nc"><i>6</i>&nbsp;public class ClientMain {</b>
+<i>7</i>&nbsp;    public static void main(String[] args) {
+<i>8</i>&nbsp;        // TODO: parse cmd parameters to select CLI or GUI view.
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;        // FIXME pass view to controller in order to manage from there which
+<i>11</i>&nbsp;        //       view to show. Change also the flow-control in the CLI view.
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;
+<b class="nc"><i>14</i>&nbsp;        Cli cli = new Cli();</b>
+<b class="nc"><i>15</i>&nbsp;        ClientController clientcontroller = new ClientController(cli);</b>
+<b class="nc"><i>16</i>&nbsp;        cli.addListener(clientcontroller);</b>
+<b class="nc"><i>17</i>&nbsp;        cli.init();</b>
+<i>18</i>&nbsp;    }
+<i>19</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-04-06 19:06</div>
+</div>
+</body>
+</html>
