@@ -5,13 +5,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 public class SocketClientHandler implements ClientHandler, Runnable {
     private Socket client;
     private int idClient;
 
-    SocketClientHandler(Socket client, int idClient) {
+    public SocketClientHandler(Socket client, int idClient) {
         this.client = client;
         this.idClient = idClient;
     }
@@ -60,7 +59,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
             }*/
 
         } catch (ClassCastException | ClassNotFoundException e) {
-            System.out.println("Invalid stream from client");
+            Server.LOGGER.severe("Invalid stream from client");
         }
 
         client.close();
