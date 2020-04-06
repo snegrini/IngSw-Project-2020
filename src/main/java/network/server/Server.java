@@ -17,9 +17,10 @@ public class Server { /*implements Runnable {*/
      * In this case, only Socket is implemented.
      */
     private void startServers() {
-        SocketServer serverSocket = new SocketServer(this, 16847);
-        // FIXME SocketServer serverSocket = new SocketServer(this, socketPort);
-        serverSocket.startServer();
+        socketPort = 16847;  // FIXME
+        SocketServer serverSocket = new SocketServer(this, socketPort);
+        Thread thread = new Thread(serverSocket, "socketserver_");
+        thread.start();
         LOGGER.info("Socket server started");
     }
 

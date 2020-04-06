@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SocketServer extends Thread{
+public class SocketServer implements Runnable {
 
     private final Server server;
     private final int port;
@@ -16,16 +16,13 @@ public class SocketServer extends Thread{
         this.port = port;
     }
 
-    void startServer() {
+    @Override
+    public void run() {
         try {
             serverSocket = new ServerSocket(port);
-            start();
         } catch (IOException e) {
             System.out.println("Server didn't start");
         }
-    }
-
-    public void run() {
 
         int idClient = 1;
 
@@ -35,7 +32,7 @@ public class SocketServer extends Thread{
                 idClient += 1;
 
                 SocketClientHandler clientHandler = new SocketClientHandler(client, idClient);
-                Thread thread = new Thread(clientHandler, "server_" + client.getInetAddress());
+                Thread thread = new Thread(clientHandler, "ss_handler" + client.getInetAddress());
                 thread.start();
 
             } catch (IOException e) {
