@@ -4,14 +4,14 @@ import model.effects.Effect;
 
 import java.util.List;
 
-public class  God {
+public class God {
     private int id;
     private String name;
     private String caption;
     private String description;
     private List<Effect> effects;
 
-    public static class Builder{
+    public static class Builder {
         private int id;
         private String name;
         private String caption;
@@ -22,22 +22,22 @@ public class  God {
             this.id = id;
         }
 
-        public Builder withName(String name){
+        public Builder withName(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder withCaption(String caption){
+        public Builder withCaption(String caption) {
             this.caption = caption;
             return this;
         }
 
-        public Builder withDescription(String description){
+        public Builder withDescription(String description) {
             this.description = description;
             return  this;
         }
 
-        public Builder withEffects(List <Effect> effects){
+        public Builder withEffects(List <Effect> effects) {
             this.effects = effects;
             return this;
         }

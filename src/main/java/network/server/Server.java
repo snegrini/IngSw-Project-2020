@@ -8,7 +8,7 @@ public class Server { /*implements Runnable {*/
     private int socketPort;
     public static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
-    private Server() {
+    public Server() {
         startServers();
     }
 
@@ -23,13 +23,6 @@ public class Server { /*implements Runnable {*/
         thread.start();
         LOGGER.info("Socket server started");
     }
-
-
-    public static void main(String[] args) {
-        // TODO parse cmd parameteres and pass server port
-        new Server();
-    }
-
 
     /*@Override
     public void run() {

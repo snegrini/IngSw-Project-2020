@@ -37,7 +37,6 @@ public class Cli {
     }
 
     public void askNickname() {
-        // TODO check user input
         System.out.print("Enter your nickname: ");
         String nickname = scanner.nextLine();
         notifyListeners((ViewListener lis) -> lis.checkNickname(nickname));

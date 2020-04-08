@@ -37,7 +37,7 @@ public class Game {
      * If no player is found {@code null} is returned.
      *
      * @param nickname the nickname of the player to be found.
-     * @return Returns the corresponding player, {@code null} otherwise.
+     * @return Returns the player given his {@code nickname}, {@code null} otherwise.
      */
     public Player getPlayerByNickname(String nickname) {
         return players.stream()

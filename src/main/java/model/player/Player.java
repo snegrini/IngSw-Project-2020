@@ -22,11 +22,17 @@ public class Player {
         this.workers = new ArrayList<>();
     }
 
-
     public String getNickname() {
         return nickname;
     }
 
+    /**
+     * Returns the worker given his position.
+     *
+     * @param position the position where the worker should be returned.
+     * @return Returns the worker given his position.
+     *         {@code null} is returned if no worker is found.
+     */
     public Worker getWorkerByPosition(Position position) {
         return workers.stream()
                 .filter(w -> position.equals(w.getPosition()))
@@ -34,8 +40,13 @@ public class Player {
                 .orElse(null);
     }
 
+    /**
+     * Adds the given worker to the Player.
+     *
+     * @param worker the worker to be added.
+     */
     public void addWorker(Worker worker) {
-        // TODO: check workers with unique id
+        // TODO check workers with unique id
         workers.add(worker);
     }
 

@@ -26,15 +26,12 @@ public class Space {
 
     public boolean increaseLevel(int value) {
         if (value < 0) return false;
-
         level += value;
         return true;
     }
 
     public boolean decreaseLevel(int value) {
-        // Meglio eccezione di return, per esempio ExpectedNegativeValue ?
         if (value > 0) return false;
-
         level -= value;
         return true;
     }

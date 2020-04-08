@@ -1,6 +1,5 @@
 package model.player;
 
-import groovy.lang.DelegatesTo;
 import model.Game;
 import model.board.Board;
 import model.board.Position;
