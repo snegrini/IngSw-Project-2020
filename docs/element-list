@@ -1,0 +1,12 @@
+unnamed package
+controller
+model
+model.board
+model.effects
+model.enumerations
+model.player
+network.client
+network.server
+parser
+view
+view.cli
