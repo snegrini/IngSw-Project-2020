@@ -3,14 +3,15 @@ package model.effects;
 import model.player.Worker;
 
 import java.util.List;
+import java.util.Map;
 
 public class WinDownDecorator extends EffectDecorator {
 
-    private int numOfLevel;
+    private Map<String, String> requirements;
 
-    public WinDownDecorator(Effect effect, int numOfLevel) {
+    public WinDownDecorator(Effect effect, Map<String, String> requirements) {
         this.effect = effect;
-        this.numOfLevel = numOfLevel;
+        this.requirements = requirements;
     }
 
     public void apply(List<Worker> targetWorkers) {
@@ -22,7 +23,4 @@ public class WinDownDecorator extends EffectDecorator {
         return effect.require(worker);
     }
 
-    public int getNumOfLevel() {
-        return numOfLevel;
-    }
 }

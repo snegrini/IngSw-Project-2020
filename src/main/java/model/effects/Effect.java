@@ -6,13 +6,14 @@ import model.player.Player;
 import model.player.Worker;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Abstract class used to implement the Decorator Pattern for the effects.
  */
 public abstract class Effect {
 
-    protected EffectType effectType;
+    private EffectType effectType;
 
     /**
      *  Applies the effect.
@@ -28,5 +29,17 @@ public abstract class Effect {
 
     public EffectType getEffectType() {
         return effectType;
+    }
+
+    /**
+     * Sets the effect type only if it hasn't already been set.
+     * The attribute {@code effectType} may not be modified again from decorators.
+     *
+     * @param effectType the type of the effect.
+     */
+    public void setEffectType(EffectType effectType) {
+        if (null == this.effectType) {
+            this.effectType = effectType;
+        }
     }
 }

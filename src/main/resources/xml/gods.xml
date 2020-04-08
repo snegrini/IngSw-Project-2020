@@ -7,7 +7,8 @@
         <effects>
             <effect type="YOUR_MOVE">
                 <parameters>
-                    <swapspace>true</swapspace>
+                    <target>YOUR_WORKER</target>
+                    <move over="true" swapspace="true"/>
                 </parameters>
             </effect>
         </effects>
@@ -19,8 +20,8 @@
         <effects>
             <effect type="YOUR_MOVE">
                 <parameters>
-                    <numofmoves>1</numofmoves>
-                    <goback>false</goback>
+                    <target>YOUR_WORKER</target>
+                    <move again="1" back="false"/>
                 </parameters>
             </effect>
         </effects>
@@ -28,13 +29,16 @@
     <god id="3">
         <name>Athena</name>
         <caption>Goddess of Wisdom</caption>
-        <description>Opponent's turn: If one of your Workers moved up on your last turn, opponent Workers
-            cannot move up this turn.
-        </description>
+        <description>Opponent's turn: If one of your Workers moved up on your last turn, opponent Workers cannot move up this turn.</description>
         <effects>
             <effect type="OPP_TURN">
+                <requirements>
+                    <target active="true">YOUR_WORKER</target>
+                    <move>UP</move>
+                </requirements>
                 <parameters>
-                    <numoflevels>1</numoflevels>
+                    <target all="true">OPP_WORKER</target>
+                    <move lock="true">UP</move>
                 </parameters>
             </effect>
         </effects>
@@ -46,8 +50,8 @@
         <effects>
             <effect type="YOUR_BUILD">
                 <parameters>
-                    <samespace>false</samespace>
-                    <builddome>true</builddome>
+                    <target>YOUR_WORKER</target>
+                    <build dome="true"/>
                 </parameters>
             </effect>
         </effects>
@@ -59,8 +63,8 @@
         <effects>
             <effect type="YOUR_BUILD">
                 <parameters>
-                    <samespace>false</samespace>
-                    <builddome>false</builddome>
+                    <target>YOUR_WORKER</target>
+                    <build again="1" samespace="false"/>
                 </parameters>
             </effect>
         </effects>
@@ -72,8 +76,10 @@
         <effects>
             <effect type="YOUR_BUILD">
                 <parameters>
-                    <samespace>true</samespace>
-                    <builddome>false</builddome>
+                    <parameters>
+                        <target>YOUR_WORKER</target>
+                        <build again="1" minblock="1" dome="false"/>
+                    </parameters>
                 </parameters>
             </effect>
         </effects>
@@ -86,8 +92,13 @@
         </description>
         <effects>
             <effect type="YOUR_MOVE">
+                <requirements>
+                    <target>OPP_WORKER</target>
+                    <space free="true">BACK</space>
+                </requirements>
                 <parameters>
-                    <swapspace>false</swapspace>
+                    <target>YOUR_WORKER</target>
+                    <move over="true" pushback="true"/>
                 </parameters>
             </effect>
         </effects>
@@ -98,9 +109,10 @@
         <description>Win Condition: You also win if your Worker moves down two or more levels.</description>
         <effects>
             <effect type="WIN_COND">
-                <parameters>
-                    <numoflevels>2</numoflevels>
-                </parameters>
+                <requirements>
+                    <target>YOUR_WORKER</target>
+                    <move lvl="2">DOWN</move>
+                </requirements>
             </effect>
         </effects>
     </god>
@@ -110,8 +122,13 @@
         <description>Your Turn: If your Worker does not move up, it may build both before and after moving.</description>
         <effects>
             <effect type="YOUR_TURN">
+                <requirements>
+                    <target>YOUR_WORKER</target>
+                    <move lock="true">UP</move>
+                </requirements>
                 <parameters>
-                    <numoflevels>0</numoflevels>
+                    <target>YOUR_WORKER</target>
+                    <build again="1"/>
                 </parameters>
             </effect>
         </effects>

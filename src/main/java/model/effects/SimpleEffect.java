@@ -8,7 +8,7 @@ import java.util.List;
 public class SimpleEffect extends Effect {
 
     public SimpleEffect(EffectType effectType) {
-        this.effectType = effectType;
+        super.setEffectType(effectType);
     }
 
     @Override

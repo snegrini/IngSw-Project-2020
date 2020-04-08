@@ -3,16 +3,18 @@ package model.effects;
 import model.player.Worker;
 
 import java.util.List;
+import java.util.Map;
 
 public class MoveAgainDecorator extends EffectDecorator {
 
-    private int numOfMoves;
-    private boolean goBack;
+    private Map<String, String> requirements;
+    private Map<String, String> parameters;
 
-    public MoveAgainDecorator(Effect effect, int numOfMoves, boolean goBack) {
+    public MoveAgainDecorator(Effect effect, Map<String, String> requirements,
+                              Map<String, String> parameters) {
         this.effect = effect;
-        this.numOfMoves = numOfMoves;
-        this.goBack = goBack;
+        this.requirements = requirements;
+        this.parameters = parameters;
     }
 
     public void apply(List<Worker> targetWorkers) {
@@ -23,13 +25,5 @@ public class MoveAgainDecorator extends EffectDecorator {
         // TODO
 
         return effect.require(worker);
-    }
-
-    public int getNumOfMoves() {
-        return numOfMoves;
-    }
-
-    public boolean isGoBack() {
-        return goBack;
     }
 }

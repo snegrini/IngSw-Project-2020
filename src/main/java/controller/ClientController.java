@@ -27,7 +27,7 @@ public class ClientController implements ViewListener {
         try {
             client = new SocketClient(serverInfo.get("address"), Integer.parseInt(serverInfo.get("port")));
         } catch (IOException e) {
-            // TODO show error in view.
+            // TODO show error in view and return the old view.
             System.out.println("could not contact server");
         }
         cli.askNickname();
@@ -57,4 +57,6 @@ public class ClientController implements ViewListener {
 
         client.disconnect();
     }
+
+
 }

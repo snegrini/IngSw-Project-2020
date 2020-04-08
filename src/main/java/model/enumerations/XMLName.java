@@ -1,21 +1,36 @@
 package model.enumerations;
 
 public enum XMLName {
+    // Elements
     GODS("gods"),
     GOD("god"),
-    ID("id"),
     NAME("name"),
     CAPTION("caption"),
     DESCRIPTION("description"),
     EFFECTS("effects"),
     EFFECT("effect"),
     TYPE("type"),
+    REQUIREMENTS("requirements"),
     PARAMETERS("parameters"),
+    TARGET("target"),
+    BUILD("build"),
+    MOVE("move"),
+    SPACE("space"),
+
+    // Attributes
+    ID("id"),
+    AGAIN("again"),
+    OVER("over"),
     SWAP_SPACE("swapspace"),
-    NUM_OF_MOVES("numofmoves"),
-    GO_BACK("go_back"),
-    NUM_OF_LEVELS("numoflevels"),
-    BUILD_DOME("builddome"),
+    ACTIVE("active"),
+    BACK("back"),
+    LEVEL("lvl"),
+    LOCK("lock"),
+    DOME("dome"),
+    FREE("free"),
+    ALL("all"),
+    MIN_BLOCK("minblock"),
+    PUSH_BACK("pushback"),
     SAME_SPACE("samespace");
 
     private final String text;

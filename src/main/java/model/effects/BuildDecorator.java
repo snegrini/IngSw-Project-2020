@@ -3,15 +3,15 @@ package model.effects;
 import model.player.Worker;
 
 import java.util.List;
+import java.util.Map;
 
 public class BuildDecorator extends EffectDecorator {
-    private boolean sameSpace;
-    private boolean buildDome;
 
-    public BuildDecorator(Effect effect, boolean sameSpace, boolean buildDome) {
+    private Map<String, String> parameters;
+
+    public BuildDecorator(Effect effect, Map<String, String> parameters) {
         this.effect = effect;
-        this.sameSpace = sameSpace;
-        this.buildDome = buildDome;
+        this.parameters = parameters;
     }
 
     @Override
@@ -22,14 +22,5 @@ public class BuildDecorator extends EffectDecorator {
     @Override
     public boolean require(Worker worker) {
         return effect.require(worker);
-    }
-
-
-    public boolean isSameSpace() {
-        return sameSpace;
-    }
-
-    public boolean isBuildDome() {
-        return buildDome;
     }
 }

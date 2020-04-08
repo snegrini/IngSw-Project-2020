@@ -5,14 +5,22 @@ import model.board.Board;
 import model.player.Worker;
 
 import java.util.List;
+import java.util.Map;
 
 public class MoveOverDecorator extends EffectDecorator {
 
-    private boolean swapSpace;
+    private Map<String, String> requirements;
+    private Map<String, String> parameters;
 
-    public MoveOverDecorator(Effect effect, boolean swapSpace) {
+    public MoveOverDecorator(Effect effect, Map<String, String> requirements,
+                             Map<String, String> parameters) {
         this.effect = effect;
-        this.swapSpace = swapSpace;
+        this.requirements = requirements;
+        this.parameters = parameters;
+    }
+
+    public MoveOverDecorator(Effect effect, Map<String, String> parameters) {
+        this(effect, null, parameters);
     }
 
     public void apply(List<Worker> targetWorkers) {
@@ -27,10 +35,7 @@ public class MoveOverDecorator extends EffectDecorator {
         //          Otherwise it is necessary to check the backwards space
         //          (see Minotaur effect for more info).
         //       Otherwise effect is not applicable.
-        return effect.require(worker);
-    }
 
-    public boolean isSwapSpace() {
-        return swapSpace;
+        return effect.require(worker);
     }
 }
