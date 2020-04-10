@@ -2,7 +2,7 @@ package network.message;
 
 import java.io.Serializable;
 
-public class Message implements Serializable {
+public abstract class Message implements Serializable {
     //serialVersionUID
 
     private final String nickname;
@@ -12,7 +12,6 @@ public class Message implements Serializable {
         this.nickname = nickname;
         this.messageType = messageType;
     }
-
 
     public String getNickname() {
         return nickname;
