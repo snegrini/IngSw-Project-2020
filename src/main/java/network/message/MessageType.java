@@ -2,9 +2,9 @@ package network.message;
 
 public enum MessageType {
     LOGIN_REQUEST, LOGIN_REPLY,
-    NUMBEROFPLAYER_REQUEST, NUMBEROFPLAYER_REPLY,
+    PLAYERNUMBER_REQUEST, PLAYERNUMBER_REPLY,
     GODLIST,
-    INIT, INIT_REPLY,
+    INIT,
     MOVE,
     BUILD,
     WIN,
