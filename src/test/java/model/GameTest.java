@@ -44,6 +44,6 @@ public class GameTest {
         instance.addPlayer(new Player("sam"));
         instance.addPlayer(new Player("andre"));
 
-        assertEquals(2, instance.getCurrentPlayers());
+        assertEquals(2, instance.getNumCurrentPlayers());
     }
 }

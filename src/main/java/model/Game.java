@@ -15,6 +15,8 @@ public class Game {
     private Board board;
     private List<Player> players;
 
+
+
     private Game() {
         this.board = new Board();
         this.players = new ArrayList<>();
@@ -60,11 +62,16 @@ public class Game {
      *
      * @return the number of players.
      */
-    public int getCurrentPlayers() {
+    public int getNumCurrentPlayers() {
         return players.size();
     }
 
     public Board getBoard() {
         return board;
     }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
 }

@@ -8,8 +8,8 @@ public class Server { /*implements Runnable {*/
     private int socketPort;
     public static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
-    public Server() {
-        startServers();
+    public Server(int socketPort) {
+        this.socketPort = socketPort;
     }
 
     /**
@@ -17,7 +17,7 @@ public class Server { /*implements Runnable {*/
      * In this case, only Socket is implemented.
      */
     private void startServers() {
-        socketPort = 16847;  // FIXME
+
         SocketServer serverSocket = new SocketServer(this, socketPort);
         Thread thread = new Thread(serverSocket, "socketserver_");
         thread.start();
