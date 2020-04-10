@@ -3,7 +3,7 @@ package network.message;
 import java.io.Serializable;
 
 public abstract class Message implements Serializable {
-    //serialVersionUID
+    //TODO serialVersionUID
 
     private final String nickname;
     private final MessageType messageType;
@@ -21,6 +21,11 @@ public abstract class Message implements Serializable {
         return messageType;
     }
 
-    //implements to string
-
+    @Override
+    public String toString() {
+        return "Message{" +
+                "nickname='" + nickname + '\'' +
+                ", messageType=" + messageType +
+                '}';
+    }
 }
