@@ -1,14 +1,10 @@
 package parser;
 
 import model.God;
-import model.effects.Effect;
-import model.effects.SimpleEffect;
+import model.effects.*;
 import model.enumerations.EffectType;
 import model.enumerations.XMLName;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -16,10 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -117,15 +110,28 @@ public class GodParser {
         NodeList reqNodeList = effectElement.getElementsByTagName(XMLName.REQUIREMENTS.getText());
         NodeList parNodeList = effectElement.getElementsByTagName(XMLName.PARAMETERS.getText());
 
-        Map<String, String> requirements = toMap(reqNodeList);
-        Map<String, String> parameters = toMap(parNodeList);
+        Map<String, String> requirements = Map.of();
+        Map<String, String> parameters = Map.of();
 
+        // Retrieve only the child nodes of the first element found
+        if (reqNodeList.getLength() > 0) {
+            reqNodeList = reqNodeList.item(0).getChildNodes();
+            requirements = toMap(reqNodeList);
+        }
+        if (parNodeList.getLength() > 0) {
+            parNodeList = parNodeList.item(0).getChildNodes();
+            parameters = toMap(parNodeList);
+        }
+
+        // FIXME
         switch (effect.getEffectType()) {
             case YOUR_MOVE:
                 effect = decorateMove(effect, requirements, parameters);
                 break;
+            case YOUR_BUILD:
+                effect = decorateBuild(effect, requirements, parameters);
+                break;
         }
-
 
         return effect;
     }
@@ -133,41 +139,62 @@ public class GodParser {
     private static Effect decorateBuild(Effect effect, Map<String, String> requirements,
                                         Map<String, String> parameters) {
 
+        if (parameters.containsKey(XMLName.BUILD.getText())) {
+            effect = new BuildDecorator(effect, requirements, parameters);
+        }
+
         return effect;
     }
 
     private static Effect decorateMove(Effect effect, Map<String, String> requirements,
                                        Map<String, String> parameters) {
+        if (parameters.containsKey(XMLName.MOVE.getText() + XMLName.OVER.getText())) {
+            effect = new MoveOverDecorator(effect, requirements, parameters);
+        }
+
+        if (parameters.containsKey(XMLName.MOVE.getText() + XMLName.AGAIN.getText())) {
+            effect = new MoveAgainDecorator(effect, requirements, parameters);
+        }
 
         return effect;
     }
 
     private static Effect decorateWin(Effect effect, Map<String, String> requirements,
                                       Map<String, String> parameters) {
+        effect = new WinDownDecorator(effect, requirements, parameters);
 
         return effect;
     }
 
     /**
-     * Returns a map containing all of the elements and attributes in the given nodeList.
+     * Returns an immutable map containing all of the elements and attributes in the given nodeList.
      * The root Element of the NodeList will be ignored.
      * Only elements within a depth level of 1 will be considered.
      * Other nested elements will be ignored.
      *
      * @param nodeList the NodeList to transform into a map.
-     * @return Returns a map containing all of the elements and attributes in the given nodeList.
+     * @return Returns an immutable map containing all of the elements and attributes in the given nodeList.
+     *         Returns an immutable empty map if the nodeList is empty.
      */
     private static Map<String, String> toMap(NodeList nodeList) {
         Map<String, String> map = new HashMap<>();
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
+
             if (node.getNodeType() == Node.ELEMENT_NODE) {
-                 // TODO
+                map.put(node.getNodeName(), node.getTextContent());
+
+                if (node.hasAttributes()) {
+                    NamedNodeMap attributes = node.getAttributes();
+
+                    for (int j = 0; j < attributes.getLength(); j++) {
+                        Node attr = attributes.item(j);
+                        map.put(node.getNodeName() + attr.getNodeName(), attr.getNodeValue());
+                    }
+                }
             }
         }
-
-        return map;
-
+        return Collections.unmodifiableMap(map);
     }
 }

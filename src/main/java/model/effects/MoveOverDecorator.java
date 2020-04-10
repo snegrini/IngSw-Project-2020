@@ -2,6 +2,7 @@ package model.effects;
 
 import model.Game;
 import model.board.Board;
+import model.enumerations.EffectType;
 import model.player.Worker;
 
 import java.util.List;
@@ -20,13 +21,15 @@ public class MoveOverDecorator extends EffectDecorator {
     }
 
     public MoveOverDecorator(Effect effect, Map<String, String> parameters) {
-        this(effect, null, parameters);
+        this(effect, Map.of(), parameters);
     }
 
+    @Override
     public void apply(List<Worker> targetWorkers) {
         // TODO
     }
 
+    @Override
     public boolean require(Worker worker) {
         // TODO: get the current worker. Check if in his range
         //       there are enemies' workers.
@@ -37,5 +40,10 @@ public class MoveOverDecorator extends EffectDecorator {
         //       Otherwise effect is not applicable.
 
         return effect.require(worker);
+    }
+
+    @Override
+    public EffectType getEffectType() {
+        return effect.getEffectType();
     }
 }

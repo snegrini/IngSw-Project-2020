@@ -1,5 +1,6 @@
 package model.effects;
 
+import model.enumerations.EffectType;
 import model.player.Worker;
 
 import java.util.List;
@@ -22,13 +23,19 @@ public class LockMoveDecorator extends EffectDecorator {
         this(effect, null, parameters);
     }
 
+    @Override
     public void apply(List<Worker> targetWorkers) {
         // TODO
     }
+
+    @Override
     public boolean require(Worker worker) {
         // TODO
         return effect.require(worker);
     }
 
-
+    @Override
+    public EffectType getEffectType() {
+        return effect.getEffectType();
+    }
 }
