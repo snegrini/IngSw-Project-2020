@@ -1,28 +1,25 @@
 package view.cli;
 
-import view.ViewListener;
+import view.View;
+import view.ViewObserver;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.function.Consumer;
 
-public class Cli {
+public class Cli extends View {
 
     private Scanner scanner;
-    private List<ViewListener> listeners;
 
     public Cli() {
         scanner = new Scanner(System.in);
-        listeners = new ArrayList<>();
-
     }
 
+    @Override
     public void init() {
-        Map<String, String> serverInfo = askServerInfo();
-        notifyListeners((ViewListener lis) -> lis.doConnect(serverInfo));
+        // TODO show welcome screen
     }
 
-    private Map<String, String> askServerInfo() {
+    @Override
+    public void askServerInfo() {
         Map<String, String> serverInfo = new HashMap<>();
 
         // TODO check user input
@@ -33,29 +30,21 @@ public class Cli {
         System.out.print("Server port: ");
         serverInfo.put("port", scanner.nextLine());
 
-        return serverInfo;
+        notifyListeners((ViewObserver lis) -> lis.doConnect(serverInfo));
     }
 
+    @Override
     public void askNickname() {
         System.out.print("Enter your nickname: ");
         String nickname = scanner.nextLine();
-        notifyListeners((ViewListener lis) -> lis.checkNickname(nickname));
+        notifyListeners((ViewObserver lis) -> lis.checkNickname(nickname));
     }
 
-    public void addListener(ViewListener lis) {
-        listeners.add(lis);
+    @Override
+    public void askPlayerNumber() {
+
     }
 
-    public void removeListener(ViewListener lis) {
-        listeners.remove(lis);
-    }
-
-    private void notifyListeners(Consumer<ViewListener> lambda)
-    {
-        for (ViewListener listener: listeners) {
-            lambda.accept(listener);
-        }
-    }
 
 
 

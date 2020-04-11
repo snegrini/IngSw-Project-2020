@@ -2,8 +2,8 @@ package controller;
 
 import network.client.Client;
 import network.client.SocketClient;
-import view.ViewListener;
-import view.cli.Cli;
+import view.View;
+import view.ViewObserver;
 
 import java.io.IOException;
 import java.util.Map;
@@ -12,14 +12,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class ClientController implements ViewListener {
+public class ClientController implements ViewObserver {
 
-    private Cli cli;
+    private View view;
     private Client client;
 
-    // TODO generalize view type received as parameter. Could also be GUI?
-    public ClientController(Cli cli) {
-        this.cli = cli;
+    public ClientController(View view) {
+        this.view = view;
     }
 
     @Override
@@ -30,7 +29,7 @@ public class ClientController implements ViewListener {
             // TODO show error in view and return the old view.
             System.out.println("could not contact server");
         }
-        cli.askNickname();
+        view.askNickname();
     }
 
     @Override
@@ -52,7 +51,7 @@ public class ClientController implements ViewListener {
                 seconds++;
             }
             System.out.println(response);
-            cli.askNickname();
+            view.askNickname();
         }
 
         client.disconnect();

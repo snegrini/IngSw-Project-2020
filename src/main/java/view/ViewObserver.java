@@ -3,7 +3,7 @@ package view;
 import java.io.IOException;
 import java.util.Map;
 
-public interface ViewListener {
+public interface ViewObserver {
 
     void doConnect(Map<String, String> serverInfo);
 
