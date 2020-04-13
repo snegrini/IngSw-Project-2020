@@ -1,7 +1,7 @@
 package view.cli;
 
+import observer.ViewObserver;
 import view.View;
-import view.ViewObserver;
 
 import java.util.*;
 
@@ -30,14 +30,14 @@ public class Cli extends View {
         System.out.print("Server port: ");
         serverInfo.put("port", scanner.nextLine());
 
-        notifyListeners((ViewObserver lis) -> lis.doConnect(serverInfo));
+        notifyObserver((ViewObserver obs) -> obs.onUpdateServerInfo(serverInfo));
     }
 
     @Override
     public void askNickname() {
         System.out.print("Enter your nickname: ");
         String nickname = scanner.nextLine();
-        notifyListeners((ViewObserver lis) -> lis.checkNickname(nickname));
+        notifyObserver((ViewObserver obs) -> obs.onUpdateNickname(nickname));
     }
 
     @Override

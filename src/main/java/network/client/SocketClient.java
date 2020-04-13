@@ -1,5 +1,7 @@
 package network.client;
 
+import network.message.Message;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -37,11 +39,11 @@ public class SocketClient implements Client {
     }
 
     @Override
-    public Future<String> requestConversion(String input)
+    public Future<Message> sendMessage(Message message)
     {
         return executionQueue.submit(() -> {
-            outputStm.writeObject(input);
-            return (String)inputStm.readObject();
+            outputStm.writeObject(message);
+            return (Message)inputStm.readObject();
         });
     }
 

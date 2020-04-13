@@ -1,5 +1,7 @@
 package network.client;
 
+import network.message.Message;
+
 import java.util.concurrent.Future;
 
 /**
@@ -7,7 +9,13 @@ import java.util.concurrent.Future;
  */
 public interface Client {
 
-    Future<String> requestConversion(String input);
+    /**
+     * Sends a message to the server and waits for the response.
+     *
+     * @param message the message to be sent.
+     * @return the response Message received from the server.
+     */
+    Future<Message> sendMessage(Message message);
 
     void disconnect();
 }

@@ -1,5 +1,7 @@
 package view;
 
+import observer.ViewObserver;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -22,19 +24,18 @@ public abstract class View {
 
     public abstract void askPlayerNumber();
 
-
-    public void addListener(ViewObserver vl) {
-        observers.add(vl);
+    public void addObserver(ViewObserver obs) {
+        observers.add(obs);
     }
 
-    public void removeListener(ViewObserver vl) {
-        observers.remove(vl);
+    public void removeObserver(ViewObserver obs) {
+        observers.remove(obs);
     }
 
-    protected void notifyListeners(Consumer<ViewObserver> lambda)
-    {
-        for (ViewObserver listener: observers) {
-            lambda.accept(listener);
+    protected void notifyObserver(Consumer<ViewObserver> lambda) {
+        for (ViewObserver observer : observers) {
+            lambda.accept(observer);
         }
     }
+
 }

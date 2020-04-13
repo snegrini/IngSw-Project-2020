@@ -1,4 +1,5 @@
 import controller.ClientController;
+import view.View;
 import view.cli.Cli;
 
 public class ClientApp {
@@ -9,9 +10,9 @@ public class ClientApp {
         //       view to show. Change also the flow-control in the CLI view.
 
 
-        Cli cli = new Cli();
+        View cli = new Cli();
         ClientController clientcontroller = new ClientController(cli);
-        cli.addListener(clientcontroller);
+        cli.addObserver(clientcontroller);
         cli.init();
     }
 }

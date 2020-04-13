@@ -1,10 +1,13 @@
 package network.server;
 
+import network.message.Message;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
+
 
 public class SocketClientHandler implements ClientHandler, Runnable {
     private Socket client;
@@ -23,7 +26,6 @@ public class SocketClientHandler implements ClientHandler, Runnable {
             Server.LOGGER.severe("client " +  client.getInetAddress() + " connection dropped");
         }
     }
-
 
     private void handleClientConnection() throws IOException {
         Server.LOGGER.info("Connected to " + client.getInetAddress());
@@ -73,6 +75,11 @@ public class SocketClientHandler implements ClientHandler, Runnable {
 
     @Override
     public void disconnect() {
+        // TODO
+    }
+
+    @Override
+    public void sendMessage(Message message) {
         // TODO
     }
 }

@@ -2,8 +2,10 @@ package controller;
 
 import network.client.Client;
 import network.client.SocketClient;
+import network.message.LoginRequest;
+import network.message.Message;
 import view.View;
-import view.ViewObserver;
+import observer.ViewObserver;
 
 import java.io.IOException;
 import java.util.Map;
@@ -22,7 +24,7 @@ public class ClientController implements ViewObserver {
     }
 
     @Override
-    public void doConnect(Map<String, String> serverInfo) {
+    public void onUpdateServerInfo(Map<String, String> serverInfo) {
         try {
             client = new SocketClient(serverInfo.get("address"), Integer.parseInt(serverInfo.get("port")));
         } catch (IOException e) {
@@ -33,10 +35,13 @@ public class ClientController implements ViewObserver {
     }
 
     @Override
-    public void checkNickname(String nickname) {
+    public void onUpdateNickname(String nickname) {
+
+        Message message = new LoginRequest(nickname);
+
         while (!"".equals(nickname)) {
-            Future<String> stringFuture = client.requestConversion(nickname);
-            String response = null;
+            Future<Message> stringFuture = client.sendMessage(message);
+            Message response = null;
 
             int seconds = 0;
             while (response == null) {
