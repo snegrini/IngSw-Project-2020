@@ -5,7 +5,7 @@ import network.message.Message;
 import java.util.concurrent.Future;
 
 /**
- *  Interface to communicate with the server. Every type of connection must implement this interface.
+ * Interface to communicate with the server. Every type of connection must implement this interface.
  */
 public interface Client {
 

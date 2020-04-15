@@ -3,12 +3,13 @@ package model.player;
 import model.God;
 import model.board.Position;
 import model.enumerations.PlayerState;
+import observer.Observable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Player {
+public class Player extends Observable {
 
     private static final int MAX_WORKERS = 2;
 

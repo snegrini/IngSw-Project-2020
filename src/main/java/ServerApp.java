@@ -1,3 +1,4 @@
+import controller.GameController;
 import network.server.Server;
 import network.server.SocketServer;
 
@@ -7,7 +8,8 @@ public class ServerApp {
         // TODO parse cmd parameteres and pass server port
         int serverPort = 16847;
 
-        Server server = new Server();
+        GameController gameController = new GameController();
+        Server server = new Server(gameController);
 
         SocketServer socketServer = new SocketServer(server, serverPort);
         Thread thread = new Thread(socketServer, "socketserver_");

@@ -1,5 +1,7 @@
 package network.server;
 
+import network.message.Message;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -22,19 +24,29 @@ public class SocketServer implements Runnable {
             System.out.println("Server didn't start");
         }
 
-        int clientId = 1;
-
         while(true) {
             try {
                 Socket client = serverSocket.accept();
 
-                SocketClientHandler clientHandler = new SocketClientHandler(client, clientId);
+                SocketClientHandler clientHandler = new SocketClientHandler(this, client);
                 Thread thread = new Thread(clientHandler, "ss_handler" + client.getInetAddress());
                 thread.start();
-                clientId++;
             } catch (IOException e) {
                 Server.LOGGER.severe("Connection dropped");
             }
         }
     }
+
+    public void addClient(String nickname, ClientHandler clientHandler) {
+        server.addClient(nickname, clientHandler);
+    }
+
+    public void removeClient(String nickname) {
+        server.removeClient(nickname);
+    }
+
+    public void onMessageReceived(Message message) {
+        server.onMessageReceived(message);
+    }
+
 }

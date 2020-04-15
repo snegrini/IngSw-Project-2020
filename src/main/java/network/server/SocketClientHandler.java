@@ -1,21 +1,31 @@
 package network.server;
 
 import network.message.Message;
+import network.message.MessageType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.concurrent.TimeUnit;
 
 
 public class SocketClientHandler implements ClientHandler, Runnable {
     private Socket client;
-    private int idClient;
+    private SocketServer socketServer;
 
-    public SocketClientHandler(Socket client, int idClient) {
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
+
+    public SocketClientHandler(SocketServer socketServer, Socket client) {
+        this.socketServer = socketServer;
         this.client = client;
-        this.idClient = idClient;
+
+        try {
+            this.output = new ObjectOutputStream(client.getOutputStream());
+            this.input = new ObjectInputStream(client.getInputStream());
+        } catch (IOException e) {
+            Server.LOGGER.severe(e.getMessage());
+        }
     }
 
     @Override
@@ -30,36 +40,18 @@ public class SocketClientHandler implements ClientHandler, Runnable {
     private void handleClientConnection() throws IOException {
         Server.LOGGER.info("Connected to " + client.getInetAddress());
 
-        ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
-        ObjectInputStream input = new ObjectInputStream(client.getInputStream());
-
         try {
             while (true) {
-                Object next = input.readObject();
-                String str = (String) next;
+                Message message = (Message) input.readObject();
 
-                try {
-                    /* simulate a complex computation */
-                    TimeUnit.SECONDS.sleep(10);
-                } catch (InterruptedException e) {
+                if (message != null) {
+                    if (message.getMessageType() == MessageType.LOGIN_REQUEST) {
+                        socketServer.addClient(message.getNickname(), this);
+                    } else {
+                        socketServer.onMessageReceived(message);
+                    }
                 }
-
-                output.writeObject(str.toUpperCase());
             }
-
-            /*output.writeObject("You're the 1st player");
-
-            if (idClient == 1) {
-                output.writeObject("You're the 1st player. How many players do you want in your game?");
-                int numPlayers = input.readInt();
-            } else {
-
-                /*while(true) {
-                    // read command and execute it
-                }
-
-            }*/
-
         } catch (ClassCastException | ClassNotFoundException e) {
             Server.LOGGER.severe("Invalid stream from client");
         }
@@ -80,6 +72,11 @@ public class SocketClientHandler implements ClientHandler, Runnable {
 
     @Override
     public void sendMessage(Message message) {
-        // TODO
+        try {
+            output.writeObject(message);
+        } catch (IOException e) {
+            Server.LOGGER.severe(e.getMessage());
+            disconnect();
+        }
     }
 }

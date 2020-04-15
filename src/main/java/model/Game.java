@@ -2,11 +2,12 @@ package model;
 
 import model.board.Board;
 import model.player.Player;
+import observer.Observable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game extends Observable {
 
     private static Game instance;
 

@@ -1,9 +1,11 @@
 package view;
 
+import network.message.Message;
+import network.message.PlayerNumberRequest;
 import network.server.ClientHandler;
-import observer.ModelObserver;
+import observer.Observer;
 
-public class VirtualView extends View implements ModelObserver {
+public class VirtualView extends View implements Observer {
     private final ClientHandler clientHandler;
 
     public VirtualView(ClientHandler clientHandler) {
@@ -22,7 +24,7 @@ public class VirtualView extends View implements ModelObserver {
 
     @Override
     public void askNickname() {
-
+        clientHandler.sendMessage(new PlayerNumberRequest());
     }
 
     @Override
@@ -30,12 +32,22 @@ public class VirtualView extends View implements ModelObserver {
 
     }
 
+    /**
+     * Receives an update from the model. A proper action is taken based on the type of the received message.
+     *
+     * @param message the update message.
+     */
     @Override
-    public void update() {
-
+    public void update(Message message) {
+        // TODO
     }
 
-    public ClientHandler getClientHandler() {
-        return clientHandler;
+    /**
+     * Sends a message to the client by using the associated client handler.
+     *
+     * @param message the message to be sent.
+     */
+    public void sendMessage(Message message) {
+        clientHandler.sendMessage(message);
     }
 }
