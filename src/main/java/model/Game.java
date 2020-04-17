@@ -90,4 +90,12 @@ public class Game extends Observable {
         return players;
     }
 
+
+    public boolean isPlayerInList(String nickname) {
+        for (Player p : players) {
+            if (p.getNickname().equals(nickname))
+                return true;
+        }
+        return false;
+    }
 }
