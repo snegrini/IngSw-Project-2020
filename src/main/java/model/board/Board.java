@@ -35,4 +35,16 @@ public class Board {
     public Space getSpace(Position position) {
         return spaces[position.getRow()][position.getColumn()];
     }
+
+    /**
+     * Return the next Space on the line passing between {@code orig} and {@code dest}.
+     *
+     * @param orig the starting position.
+     * @param dest the destination position.
+     * @return the next Space on the line passing between {@code orig} and {@code dest}.
+     */
+    public Space getNextSpaceInLine(Position orig, Position dest) {
+        // TODO
+        return null;
+    }
 }

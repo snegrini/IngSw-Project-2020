@@ -31,6 +31,7 @@ public class LockMoveDecorator extends EffectDecorator {
     @Override
     public boolean require(Worker worker) {
         // TODO
+
         return effect.require(worker);
     }
 

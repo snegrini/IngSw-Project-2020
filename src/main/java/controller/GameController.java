@@ -1,6 +1,7 @@
 package controller;
 
-import network.server.Server;
+import model.Game;
+import network.message.Message;
 import observer.ViewObserver;
 import view.VirtualView;
 
@@ -8,15 +9,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameController implements ViewObserver {
+public class GameController { // implements ViewObserver {
 
+    private Game game;
     private Map<String, VirtualView> virtualViews;
 
     public GameController() {
+        this.game = Game.getInstance();
         this.virtualViews = Collections.synchronizedMap(new HashMap<>());
     }
 
-    @Override
+   /*@Override
     public void onUpdateServerInfo(Map<String, String> serverInfo) {
 
     }
@@ -26,16 +29,47 @@ public class GameController implements ViewObserver {
 
     }
 
+    @Override
+    public void onUpdatePlayersNumber(int chosenPlayersNumber) {
+
+    }*/
+
     /**
-     * Adds a VirtualView to the controller.
-     * An observer to this controller is also added to the VirtualView.
+     * Takes action based on the message received from a client.
+     */
+    public void onMessageReceived(Message message) {
+        switch (message.getMessageType()) {
+            case PLAYERNUMBER_REQUEST:
+                break;
+            default:
+                // TODO show exception
+                break;
+        }
+    }
+
+    /**
+     * Adds a Player VirtualView to the controller if the first player max_players is not exceeded.
+     * Then adds a controller observer to the view.
+     * dds the VirtualView to the game model observers.
      *
-     * @param nickname the player nickname to identify his associated VirtualView.
+     * @param nickname    the player nickname to identify his associated VirtualView.
      * @param virtualView the virtualview to be added.
      */
     public void addVirtualView(String nickname, VirtualView virtualView) {
-        virtualViews.put(nickname, virtualView);
-        virtualView.addObserver(this);
+        // This is the first player connecting
+        if (virtualViews.size() == 0) {
+            // FIXME virtualView.addObserver(this);
+            virtualViews.put(nickname, virtualView);
+            game.addObserver(virtualView);
+            virtualView.askPlayersNumber();
+        } else if (virtualViews.size() < game.getChosenPlayersNumber()) {
+            // FIXME virtualView.addObserver(this);
+            virtualViews.put(nickname, virtualView);
+            game.addObserver(virtualView);
+            virtualView.showLoginResult(true, true);
+        } else {
+            virtualView.showLoginResult(true, false);
+        }
     }
 
     /**
@@ -44,6 +78,7 @@ public class GameController implements ViewObserver {
      * @param nickname the nickname of the VirtualView associated.
      */
     public void removeVirtualView(String nickname) {
-        virtualViews.remove(nickname);
+        VirtualView vv = virtualViews.remove(nickname);
+        game.removeObserver(vv);
     }
 }

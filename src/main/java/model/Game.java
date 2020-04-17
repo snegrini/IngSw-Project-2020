@@ -12,11 +12,10 @@ public class Game extends Observable {
     private static Game instance;
 
     public static final int MAX_PLAYERS = 3;
+    private int chosenPlayersNumber;
 
     private Board board;
     private List<Player> players;
-
-
 
     private Game() {
         this.board = new Board();
@@ -24,7 +23,6 @@ public class Game extends Observable {
     }
 
     /**
-     *
      * @return the singleton instance.
      */
     public static Game getInstance() {
@@ -65,6 +63,23 @@ public class Game extends Observable {
      */
     public int getNumCurrentPlayers() {
         return players.size();
+    }
+
+    /**
+     * Sets the max number of players chosen by the first player joining the game.
+     *
+     * @param chosenMaxPlayers the max players number. Value can be 0 < x < {@code MAX_PLAYERS}.
+     */
+    public boolean setChosenMaxPlayers(int chosenMaxPlayers) {
+        if (chosenMaxPlayers > 0 && chosenMaxPlayers < MAX_PLAYERS) {
+            this.chosenPlayersNumber = chosenMaxPlayers;
+            return true;
+        }
+        return false;
+    }
+
+    public int getChosenPlayersNumber() {
+        return chosenPlayersNumber;
     }
 
     public Board getBoard() {
