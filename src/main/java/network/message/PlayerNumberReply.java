@@ -1,8 +1,8 @@
 package network.message;
 
 public class PlayerNumberReply extends Message {
-    //TODO serialVersionUID
 
+    private static final long serialVersionUID = -4419241297635925047L;
     private int playerNumber;
 
     public PlayerNumberReply(String nickname, int playerNumber) {

@@ -2,13 +2,13 @@ package network.message;
 
 import model.board.Position;
 
-public class Build extends  Message {
-    //TODO serialVersionUID
-
+public class Build extends Message {
+    private static final long serialVersionUID = -5330536550018687004L;
     private Position position;
 
     /**
      * Constructor of message from Client -> Server for Build
+     *
      * @param nickname of player
      * @param position of new build
      */
