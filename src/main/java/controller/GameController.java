@@ -87,7 +87,8 @@ public class GameController { // implements ViewObserver {
                 // TODO show exception
                 break;
         }
-
+        // TODO
+        return null;
     }
 
     /**
