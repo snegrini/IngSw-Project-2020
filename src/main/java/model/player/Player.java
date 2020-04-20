@@ -79,4 +79,8 @@ public class Player extends Observable {
     public int hashCode() {
         return Objects.hash(nickname);
     }
+
+    public List<Worker> getWorkers() {
+        return workers;
+    }
 }

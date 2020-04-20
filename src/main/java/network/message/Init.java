@@ -53,4 +53,8 @@ public class Init extends Message {
                 ", positionList=" + positionList +
                 '}';
     }
+
+    public Color getColor() {
+        return color;
+    }
 }
