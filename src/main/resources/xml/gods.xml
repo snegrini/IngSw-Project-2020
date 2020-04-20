@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gods>
-    <god id="1">
+    <god>
         <name>Apollo</name>
         <caption>God of Music</caption>
-        <description>Your Move: Your Worker may move into an opponent Worker's space by forcing their Worker to the space yours just vacated.</description>
+        <description>Your Move: Your Worker may move into an opponent Worker's space by forcing their Worker to the
+            space yours just vacated.
+        </description>
         <effects>
             <effect type="YOUR_MOVE">
                 <parameters>
@@ -13,10 +15,11 @@
             </effect>
         </effects>
     </god>
-    <god id="2">
+    <god>
         <name>Artemis</name>
         <caption>Goddess of the Hunt</caption>
-        <description>Your Move: Your Worker may move one additional time, but not back to its initial space.</description>
+        <description>Your Move: Your Worker may move one additional time, but not back to its initial space.
+        </description>
         <effects>
             <effect type="YOUR_MOVE">
                 <parameters>
@@ -26,10 +29,12 @@
             </effect>
         </effects>
     </god>
-    <god id="3">
+    <god>
         <name>Athena</name>
         <caption>Goddess of Wisdom</caption>
-        <description>Opponent's turn: If one of your Workers moved up on your last turn, opponent Workers cannot move up this turn.</description>
+        <description>Opponent's turn: If one of your Workers moved up on your last turn, opponent Workers cannot move up
+            this turn.
+        </description>
         <effects>
             <effect type="OPP_TURN">
                 <requirements>
@@ -43,7 +48,7 @@
             </effect>
         </effects>
     </god>
-    <god id="4">
+    <god>
         <name>Atlas</name>
         <caption>Titan Shouldering the Heavens</caption>
         <description>Your Build: Your Worker may build a dome at any level.</description>
@@ -56,7 +61,7 @@
             </effect>
         </effects>
     </god>
-    <god id="5">
+    <god>
         <name>Demeter</name>
         <caption>Goddess of the Harvest</caption>
         <description>Your Build: Your Worker may build one additional time, but not on the same space.</description>
@@ -69,10 +74,11 @@
             </effect>
         </effects>
     </god>
-    <god id="6">
+    <god>
         <name>Hephaestus</name>
         <caption>God of Blacksmiths</caption>
-        <description>Your Build: Your Worker may build one additional block (not dome) on top of your first block.</description>
+        <description>Your Build: Your Worker may build one additional block (not dome) on top of your first block.
+        </description>
         <effects>
             <effect type="YOUR_BUILD">
                 <parameters>
@@ -84,7 +90,7 @@
             </effect>
         </effects>
     </god>
-    <god id="8">
+    <god>
         <name>Minotaur</name>
         <caption>Bull-headed Monster</caption>
         <description>Your Move: Your Worker may move into an opponent Worker's space, if their Worker can be forced
@@ -103,7 +109,7 @@
             </effect>
         </effects>
     </god>
-    <god id="9">
+    <god>
         <name>Pan</name>
         <caption>God of the Wild</caption>
         <description>Win Condition: You also win if your Worker moves down two or more levels.</description>
@@ -116,10 +122,11 @@
             </effect>
         </effects>
     </god>
-    <god id="10">
+    <god>
         <name>Prometheus</name>
         <caption>Titan Benefactor of Mankind</caption>
-        <description>Your Turn: If your Worker does not move up, it may build both before and after moving.</description>
+        <description>Your Turn: If your Worker does not move up, it may build both before and after moving.
+        </description>
         <effects>
             <effect type="YOUR_TURN">
                 <requirements>

@@ -5,22 +5,16 @@ import model.effects.Effect;
 import java.util.List;
 
 public class God {
-    private int id;
     private String name;
     private String caption;
     private String description;
     private List<Effect> effects;
 
     private God(Builder builder) {
-        this.id = builder.id;
         this.name = builder.name;
         this.caption = builder.caption;
         this.description = builder.description;
         this.effects = builder.effects;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {
@@ -40,19 +34,13 @@ public class God {
     }
 
     public static class Builder {
-        private int id;
         private String name;
         private String caption;
         private String description;
         private List<Effect> effects;
 
-        public Builder(int id){
-            this.id = id;
-        }
-
-        public Builder withName(String name) {
+        public Builder(String name) {
             this.name = name;
-            return this;
         }
 
         public Builder withCaption(String caption) {
@@ -62,7 +50,7 @@ public class God {
 
         public Builder withDescription(String description) {
             this.description = description;
-            return  this;
+            return this;
         }
 
         public Builder withEffects(List <Effect> effects) {
@@ -73,6 +61,5 @@ public class God {
         public God build(){
             return new God(this);
         }
-
     }
 }
