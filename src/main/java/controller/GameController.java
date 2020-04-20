@@ -1,11 +1,13 @@
 package controller;
 
+import model.enumerations.Color;
 import network.server.Server;
 import observer.ViewObserver;
 import view.VirtualView;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GameController implements ViewObserver {
@@ -26,11 +28,21 @@ public class GameController implements ViewObserver {
 
     }
 
+    @Override
+    public void onUpdatePlayersNumber(int playerNumber) {
+
+    }
+
+    @Override
+    public void onUpdateWorkersColor(Color color) {
+
+    }
+
     /**
      * Adds a VirtualView to the controller.
      * An observer to this controller is also added to the VirtualView.
      *
-     * @param nickname the player nickname to identify his associated VirtualView.
+     * @param nickname    the player nickname to identify his associated VirtualView.
      * @param virtualView the virtualview to be added.
      */
     public void addVirtualView(String nickname, VirtualView virtualView) {

@@ -1,5 +1,7 @@
 package controller;
 
+import model.God;
+import model.enumerations.Color;
 import network.client.Client;
 import network.client.SocketClient;
 import network.message.LoginRequest;
@@ -62,5 +64,37 @@ public class ClientController implements ViewObserver {
         client.disconnect();
     }
 
+    @Override
+    public void onUpdatePlayersNumber(int playerNumber) {
+        // TODO check user input.
+
+        //view.askPlayerNumber();
+
+    }
+
+    @Override
+    public void onUpdateWorkersColor(Color color) {
+
+    }
+
+    @Override
+    public void onUpdateGod(God god) {
+
+    }
+
+    @Override
+    public void onUpdateWorkerToMove(int chosenRow, int chosenColumn) {
+
+    }
+
+    @Override
+    public void onUpdateWorkerPosition(int chosenRow, int chosenColumn) {
+
+    }
+
+    @Override
+    public void onUpdateBuild(int chosenRow, int chosenColumn) {
+
+    }
 
 }

@@ -1,5 +1,9 @@
 package view;
 
+import model.God;
+import model.enumerations.Color;
+import model.player.Worker;
+import network.message.Message;
 import observer.ViewObserver;
 
 import java.util.ArrayList;
@@ -13,6 +17,7 @@ public abstract class View {
 
     private final List<ViewObserver> observers = new ArrayList<>();
 
+
     /**
      * Initialize the view, show welcome screen.
      */
@@ -22,7 +27,21 @@ public abstract class View {
 
     public abstract void askNickname();
 
-    public abstract void askPlayerNumber();
+    public abstract void askWorkerToMove(List<Worker> workers);
+
+    public abstract void askPlayersNumber();
+
+    public abstract void askWorkersColor(List<Color> colors);
+
+    public abstract void askGod(List<God> gods);
+
+    public abstract String showBoard();
+
+    public abstract void askNewBuildingPosition(Worker worker);
+
+    public abstract void askNewPosition(Worker worker);
+
+    public abstract void initializeBoard();
 
     public void addObserver(ViewObserver obs) {
         observers.add(obs);

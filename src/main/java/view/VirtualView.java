@@ -1,9 +1,14 @@
 package view;
 
+import model.God;
+import model.enumerations.Color;
+import model.player.Worker;
 import network.message.Message;
 import network.message.PlayerNumberRequest;
 import network.server.ClientHandler;
 import observer.Observer;
+
+import java.util.List;
 
 public class VirtualView extends View implements Observer {
     private final ClientHandler clientHandler;
@@ -28,9 +33,15 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public void askPlayerNumber() {
+    public void askPlayersNumber() {
 
     }
+
+    @Override
+    public void askWorkersColor(List<Color> colors) {
+
+    }
+
 
     /**
      * Receives an update from the model. A proper action is taken based on the type of the received message.
@@ -50,4 +61,30 @@ public class VirtualView extends View implements Observer {
     public void sendMessage(Message message) {
         clientHandler.sendMessage(message);
     }
+
+    public String showBoard() {
+        // TODO
+        return null;
+    }
+
+    public void askGod(List<God> gods) {
+
+    }
+
+    public void askWorkerToMove(List<Worker> workers) {
+
+    }
+
+    public void askNewBuildingPosition(Worker worker) {
+
+    }
+
+    public void askNewPosition(Worker worker) {
+
+    }
+
+    public void initializeBoard() {
+
+    }
 }
+
