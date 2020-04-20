@@ -69,7 +69,6 @@ public class GodParser {
      * @return the built God object.
      */
     private static God buildGodObject(Element godElement) {
-        int id = Integer.parseInt(godElement.getAttribute(XMLName.ID.getText()));
         String name = godElement.getElementsByTagName(XMLName.NAME.getText()).item(0).getTextContent();
         String caption = godElement.getElementsByTagName(XMLName.CAPTION.getText()).item(0).getTextContent();
         String description = godElement.getElementsByTagName(XMLName.DESCRIPTION.getText())
@@ -89,8 +88,7 @@ public class GodParser {
             }
         }
 
-        return new God.Builder(id)
-                .withName(name)
+        return new God.Builder(name)
                 .withCaption(caption)
                 .withDescription(description)
                 .withEffects(effects)

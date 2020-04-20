@@ -57,4 +57,16 @@ public abstract class View {
         }
     }
 
+    /**
+     * Initialize the view, show welcome screen.
+     */
+    public abstract void init();
+
+    public abstract void askServerInfo();
+
+    public abstract void askNickname();
+
+    public abstract void askPlayersNumber();
+
+    public abstract void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful);
 }
