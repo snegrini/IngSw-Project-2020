@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.lang.StrictMath.abs;
-
 public class Worker {
 
     private final Color color;
@@ -24,7 +22,6 @@ public class Worker {
         this.color = color;
         this.position = position;
         this.moveHistory = new MoveHistory(position, 0);
-        //this.effects = new ArrayList<>();
         //this.effects = new ArrayList<>();
     }
 

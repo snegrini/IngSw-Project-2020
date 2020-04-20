@@ -5,7 +5,6 @@ public enum Color {
 
     private final String text;
 
-
     Color(final String text) {
         this.text = text;
     }

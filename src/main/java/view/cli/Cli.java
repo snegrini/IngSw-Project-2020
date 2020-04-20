@@ -197,8 +197,8 @@ public class Cli extends View {
 
     }
 
-    @Override
-    public void initializeBoard() {
+
+    private void initializeBoard() {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
                 board[i][j] = "       ";
