@@ -4,31 +4,49 @@ import model.God;
 import model.enumerations.Color;
 import network.client.Client;
 import network.client.SocketClient;
+import network.message.GodReply;
 import network.message.LoginRequest;
 import network.message.Message;
+import network.message.PlayerNumberReply;
+import observer.Observer;
 import view.View;
 import observer.ViewObserver;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
-public class ClientController implements ViewObserver {
+public class ClientController implements ViewObserver, Observer {
 
     private View view;
     private Client client;
+    private String nickname;
 
     public ClientController(View view) {
         this.view = view;
+    }
+
+    /**
+     * Takes action based on the message type received from the server.
+     *
+     * @param message the message received from the server.
+     */
+    @Override
+    public void update(Message message) {
+        switch (message.getMessageType()) {
+            case PLAYERNUMBER_REQUEST:
+                view.askPlayersNumber();
+                break;
+            default: // Should never reach this condition
+                break;
+        }
     }
 
     @Override
     public void onUpdateServerInfo(Map<String, String> serverInfo) {
         try {
             client = new SocketClient(serverInfo.get("address"), Integer.parseInt(serverInfo.get("port")));
+            client.addObserver(this);
+            client.readMessage(); // Starts an asynchronous reading from the server.
         } catch (IOException e) {
             // TODO show error in view and return the old view.
             System.out.println("could not contact server");
@@ -38,38 +56,13 @@ public class ClientController implements ViewObserver {
 
     @Override
     public void onUpdateNickname(String nickname) {
-
-        Message message = new LoginRequest(nickname);
-
-        while (!"".equals(nickname)) {
-            Future<Message> stringFuture = client.sendMessage(message);
-            Message response = null;
-
-            int seconds = 0;
-            while (response == null) {
-                System.out.println("been waiting for " + seconds + " seconds");
-                try {
-                    response = stringFuture.get(1, TimeUnit.SECONDS);
-                } catch (InterruptedException | TimeoutException e) {
-                } catch (ExecutionException e) {
-                    System.out.println("server not reachable");
-                    return;
-                }
-                seconds++;
-            }
-            System.out.println(response);
-            view.askNickname();
-        }
-
-        client.disconnect();
+        this.nickname = nickname;
+        client.sendMessage(new LoginRequest(this.nickname));
     }
 
     @Override
-    public void onUpdatePlayersNumber(int playerNumber) {
-        // TODO check user input.
-
-        //view.askPlayerNumber();
-
+    public void onUpdatePlayersNumber(int playersNumber) {
+        client.sendMessage(new PlayerNumberReply(this.nickname, playersNumber));
     }
 
     @Override
@@ -78,8 +71,8 @@ public class ClientController implements ViewObserver {
     }
 
     @Override
-    public void onUpdateGod(God god) {
-
+    public void onUpdateGod(int godId) {
+        client.sendMessage(new GodReply(this.nickname, godId));
     }
 
     @Override

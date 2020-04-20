@@ -15,7 +15,7 @@ public interface ViewObserver {
 
     void onUpdateWorkersColor(Color color);
 
-    void onUpdateGod(God god);
+    void onUpdateGod(int godId);
 
     void onUpdateWorkerToMove(int chosenRow, int chosenColumn);
 

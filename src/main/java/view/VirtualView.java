@@ -3,6 +3,7 @@ package view;
 import model.God;
 import model.enumerations.Color;
 import model.player.Worker;
+import network.message.LoginReply;
 import network.message.Message;
 import network.message.PlayerNumberRequest;
 import network.server.ClientHandler;
@@ -10,6 +11,11 @@ import observer.Observer;
 
 import java.util.List;
 
+/**
+ * Hides the network implementation from the controller.
+ * The controller calls methods from this class as if it was a normal view.
+ * Instead, a network protocol is used to communicate with the real view on the client side.
+ */
 public class VirtualView extends View implements Observer {
     private final ClientHandler clientHandler;
 
@@ -24,17 +30,20 @@ public class VirtualView extends View implements Observer {
 
     @Override
     public void askServerInfo() {
-
     }
 
     @Override
     public void askNickname() {
-        clientHandler.sendMessage(new PlayerNumberRequest());
+    }
+
+    @Override
+    public void askWorkerToMove(List<Worker> workers) {
+
     }
 
     @Override
     public void askPlayersNumber() {
-
+        clientHandler.sendMessage(new PlayerNumberRequest());
     }
 
     @Override
@@ -42,15 +51,46 @@ public class VirtualView extends View implements Observer {
 
     }
 
+    @Override
+    public void askGod(List<God> gods) {
+
+    }
+
+    @Override
+    public String showBoard() {
+        return null;
+    }
+
+    @Override
+    public void askNewBuildingPosition(Worker worker) {
+
+    }
+
+    @Override
+    public void askNewPosition(Worker worker) {
+
+    }
+
+    @Override
+    public void initializeBoard() {
+
+    }
+
+    @Override
+    public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
+        clientHandler.sendMessage(new LoginReply(nicknameAccepted, connectionSuccessful));
+    }
 
     /**
-     * Receives an update from the model. A proper action is taken based on the type of the received message.
+     * Receives an update message from the model.
+     * The message is sent over the network to the client.
+     * The proper action based on the message type will be taken by the real view on the client.
      *
      * @param message the update message.
      */
     @Override
     public void update(Message message) {
-        // TODO
+        clientHandler.sendMessage(message);
     }
 
     /**
@@ -61,30 +101,4 @@ public class VirtualView extends View implements Observer {
     public void sendMessage(Message message) {
         clientHandler.sendMessage(message);
     }
-
-    public String showBoard() {
-        // TODO
-        return null;
-    }
-
-    public void askGod(List<God> gods) {
-
-    }
-
-    public void askWorkerToMove(List<Worker> workers) {
-
-    }
-
-    public void askNewBuildingPosition(Worker worker) {
-
-    }
-
-    public void askNewPosition(Worker worker) {
-
-    }
-
-    public void initializeBoard() {
-
-    }
 }
-

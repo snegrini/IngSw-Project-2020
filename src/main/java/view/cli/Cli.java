@@ -58,7 +58,7 @@ public class Cli extends View {
     @Override
     public void askPlayersNumber() {
         int playerNumber;
-        System.out.println("How many players are going to play? (You can choose between 2 or 3 players)");
+        System.out.print("How many players are going to play? (You can choose between 2 or 3 players): ");
         do {
             playerNumber = scanner.nextInt();
             if (playerNumber != 2 && playerNumber != 3)
@@ -66,6 +66,11 @@ public class Cli extends View {
         } while (playerNumber != 2 && playerNumber != 3);
         int finalPlayerNumber = playerNumber;
         notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(finalPlayerNumber));
+    }
+
+    @Override
+    public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
+
     }
 
     @Override
@@ -94,30 +99,26 @@ public class Cli extends View {
 
     @Override
     public void askGod(List<God> gods) {
-        int in;
-        int index;
         System.out.println("Select your own personal God!");
-        for (God g : gods) {
-            System.out.println("id: " + g.getId());
-            System.out.println("Name: " + g.getName());
-            System.out.println("Caption: " + g.getCaption());
-            System.out.println("Description: " + g.getDescription());
-            System.out.println(" ");
-        }
-        System.out.println("To select one God type in his ID");
-        do {
-            in = scanner.nextInt();
-            if (in != 1 && in != 2 && in != 3 && in != 4 && in != 5 && in != 6 && in != 7 && in != 8 && in != 9 && in != 10)
-                System.out.println("You have not inserted a valid ID! Please try again!");
-        } while (in != 1 && in != 2 && in != 3 && in != 4 && in != 5 && in != 6 && in != 7 && in != 8 && in != 9 && in != 10);
 
-        for (index = 0; index < gods.size(); index++) {
-            if (in == gods.get(index).getId()) {
-                break;
-            }
+        for (int i = 0; i < gods.size(); i++) {
+            God god = gods.get(i);
+            System.out.println("ID: " + (i + 1));
+            System.out.println("Name: " + god.getName());
+            System.out.println("Caption: " + god.getCaption());
+            System.out.println("Description: " + god.getDescription() + "\n");
         }
-        int finalIndex = index;
-        notifyObserver((ViewObserver obs) -> obs.onUpdateGod(gods.get(finalIndex)));
+        int godId;
+        System.out.print("To select one God type in his ID: ");
+        do {
+            godId = Integer.parseInt(scanner.nextLine()) - 1;
+            if (godId < 0 && godId > gods.size()) {
+                System.out.println("You have not inserted a valid ID! Please try again.");
+            }
+        } while (godId < 0 && godId > gods.size());
+
+        int finalGodId = godId;
+        notifyObserver((ViewObserver obs) -> obs.onUpdateGod(finalGodId));
     }
 
     @Override

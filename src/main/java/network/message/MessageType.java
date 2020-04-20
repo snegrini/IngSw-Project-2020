@@ -4,6 +4,7 @@ public enum MessageType {
     LOGIN_REQUEST, LOGIN_REPLY,
     PLAYERNUMBER_REQUEST, PLAYERNUMBER_REPLY,
     GODLIST,
+    GOD_REPLY,
     INIT,
     MOVE,
     BUILD,
