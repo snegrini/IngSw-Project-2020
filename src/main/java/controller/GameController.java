@@ -3,8 +3,8 @@ package controller;
 import model.Game;
 import model.God;
 import model.player.Player;
+import model.player.Worker;
 import network.message.*;
-import observer.ViewObserver;
 import view.VirtualView;
 
 import java.util.Collections;
@@ -12,35 +12,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GameController { // implements ViewObserver {
+public class GameController {
 
     private Game game;
     private Map<String, VirtualView> virtualViews;
 
     private GameState gameState;
-    private List<God> godList;
+    private List<God> selectedGodList;
+    private List<God> activeGodList;
     private TurnController turnController;
 
     public GameController() {
         this.game = Game.getInstance();
         this.virtualViews = Collections.synchronizedMap(new HashMap<>());
-        this.turnController = new TurnController(Game.getInstance());
+        this.turnController = new TurnController(game);
     }
-
-   /*@Override
-    public void onUpdateServerInfo(Map<String, String> serverInfo) {
-
-    }
-
-    @Override
-    public void onUpdateNickname(String nickname) {
-
-    }
-
-    @Override
-    public void onUpdatePlayersNumber(int chosenPlayersNumber) {
-
-    }*/
 
 
     public TurnController getTurnController() {
@@ -54,7 +40,10 @@ public class GameController { // implements ViewObserver {
                 case LOGIN_REQUEST:
                     return loginRequests(receivedMessage);
                 case PLAYERNUMBER_REPLY:
-                    setNumTotalPlayers((PlayerNumberReply) receivedMessage); // TODO check input and create reply class.
+                    return setChosenMaxPlayers((PlayerNumberReply) receivedMessage);
+                default:
+                    // TODO show exception
+                    break;
             }
         }
 
@@ -62,22 +51,28 @@ public class GameController { // implements ViewObserver {
 
             switch (receivedMessage.getMessageType()){
                 case GODLIST:
-                    godListHandler((GodList) receivedMessage); // TODO check input and create reply class.
+                    return godListHandler((GodList) receivedMessage);
                 case INIT:
-                    //assegna il colore al player e le posizioni ai worker.
+                    return init((Init) receivedMessage);
+
+                default:
+                    // TODO show exception
+                    break;
             }
 
         }
 
 
         // check if sender is in listPlayer.
-        if (!Game.getInstance().isPlayerInList(receivedMessage.getNickname())) {
+        if (!game.isPlayerInList(receivedMessage.getNickname())) {
             return new GenericErrorMessage("Player is not in game.");
         }
 
+
+
         // check if sender is the active player.
-        if (turnController.getPhaseController().getActivePlayer().getNickname().equals(receivedMessage.getNickname())) {
-            return new GenericErrorMessage("Not your turn");
+        if (turnController.getActivePlayer().getNickname().equals(receivedMessage.getNickname())) {
+            return new GenericErrorMessage("Not your turn.");
         }
 
         switch (receivedMessage.getMessageType()) {
@@ -87,44 +82,84 @@ public class GameController { // implements ViewObserver {
                 // TODO show exception
                 break;
         }
+
+
         // TODO
         return null;
     }
 
+    private Message init(Init receivedMessage) {
+        Player player = game.getPlayerByNickname(receivedMessage.getNickname());
+        if(receivedMessage.getPositionList().size()<=2)
+            for (int i = 0 ; i<receivedMessage.getPositionList().size(); i++)
+                player.addWorker(new Worker(receivedMessage.getColor(), receivedMessage.getPositionList().get(i)));
+
+    }
+
     /**
-     * If receivedMessage.getList.size > 1 create 3 god List
+     * If receivedMessage.getList.size == numPlayer then create the godList
      * if size = 1 then player.god = god.
      * @param receivedMessage
      *
      */
-    private void godListHandler(GodList receivedMessage) {
-        //se size > 1 => istanzio la lista dei 3 dei.
-        //se size = 1 solo => assegno il dio al giocatore e rispondo con Messaggio vuoto?
-        if (receivedMessage.getGodList().size() == 3)
-            godList = receivedMessage.getGodList(); // TODO check for possible mistake
-        else if (receivedMessage.getGodList().size() == 1)
-            Game.getInstance().getPlayerByNickname( receivedMessage.getNickname() ).setGod(receivedMessage.getGod());
+    private Message godListHandler(GodList receivedMessage) {
+
+        // if received contains a list
+        if (!receivedMessage.getGodList().isEmpty()) {
+            if (receivedMessage.getGodList().size() == game.getChosenPlayersNumber()) {
+                Collections.copy(selectedGodList, receivedMessage.getGodList());
+                Collections.copy(activeGodList, receivedMessage.getGodList());
+                return new GodListAck(true);
+            } else {
+                return new GodListAck(false);
+            }
+        } // else received contains only 1 god
+        else{
+            if (isGodInList(receivedMessage.getGod())) {
+                game.getPlayerByNickname(receivedMessage.getNickname()).setGod(receivedMessage.getGod());
+                selectedGodList.remove(receivedMessage.getGod());
+                return new GodListAck(true);
+            }
+            else {
+                return new GodListAck(false);
+            }
+        }
     }
 
-    private void setNumTotalPlayers(PlayerNumberReply receivedMessage) {
-        Game.getInstance().setChosenMaxPlayers(receivedMessage.getPlayerNumber());
+    private boolean isGodInList(God god) {
+        for (God g : selectedGodList) {
+            if (g.getName().equals(god.getName()))
+                return true;
+        }
+        return false;
+    }
+
+    private Message setChosenMaxPlayers(PlayerNumberReply receivedMessage) {
+        if(receivedMessage.getPlayerNumber()<4 && receivedMessage.getPlayerNumber()>1) {
+            game.setChosenMaxPlayers(receivedMessage.getPlayerNumber());
+            return new PlayerNumberAck(true);
+        }
+        else {
+            return new PlayerNumberAck(false);
+        }
+
     }
 
     private Message loginRequests(Message receivedMessage) {
 
         // if is 1st add it and request number players.
-        if (Game.getInstance().getNumCurrentPlayers() == 0) {
-            Game.getInstance().addPlayer(new Player(receivedMessage.getNickname()));
+        if (game.getNumCurrentPlayers() == 0) {
+            game.addPlayer(new Player(receivedMessage.getNickname()));
             return new PlayerNumberRequest();
         } // if not 1st and there is some available slot check nickname.
-        else if (!Game.getInstance().isPlayerInList(receivedMessage.getNickname())) {
-            Game.getInstance().addPlayer(new Player(receivedMessage.getNickname()));
+        else if (!(game.isPlayerInList(receivedMessage.getNickname())) && !(receivedMessage.getNickname() == "server")) {
+            game.addPlayer(new Player(receivedMessage.getNickname()));
             // if latest player is logged then change gameState from LOGIN to INIT.
-            if (Game.getInstance().getNumCurrentPlayers() == Game.getInstance().getChosenPlayersNumber())
+            if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber())
                 gameState = GameState.INIT;
             return new LoginReply(true, true);
         } else {
-            return new LoginReply(false, false);
+            return new LoginReply(true, false);
         }
 
     }

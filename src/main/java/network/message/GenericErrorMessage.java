@@ -19,7 +19,7 @@ public class GenericErrorMessage extends Message {
     @Override
     public String toString() {
         return "GenericErrorMessage{" +
-                "content=" + getMessageType() +
+                "messageType=" + getMessageType() +
                 "message='" + message + '\'' +
                 '}';
     }

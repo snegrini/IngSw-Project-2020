@@ -14,7 +14,7 @@ public class GodList extends Message {
     /**
      * Constructor for GodList request
      *
-     * @param godList typically 5 Gods
+     * @param godList 9 Gods
      */
     public GodList(List<God> godList) {
         super("server", MessageType.GODLIST);
@@ -22,10 +22,10 @@ public class GodList extends Message {
     }
 
     /**
-     * Constructor for GodList Reply after first player pick 3 Gods
+     * Constructor for GodList Reply after first player pick N Gods
      *
      * @param nickname of player
-     * @param godList  typically 3 Gods
+     * @param godList  typically size = #NumPlayer
      */
     public GodList(String nickname, List<God> godList) {
         super(nickname, MessageType.GODLIST);

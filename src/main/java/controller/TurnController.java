@@ -1,6 +1,7 @@
 package controller;
 
 import model.Game;
+import model.player.Player;
 
 public class TurnController {
 
@@ -11,7 +12,9 @@ public class TurnController {
         this.phaseController = new PhaseController(gameInstance.getPlayers());
     }
 
-    public PhaseController getPhaseController() {
-        return phaseController;
+    public Player getActivePlayer() {
+        return phaseController.getActivePlayer();
     }
+
+
 }
