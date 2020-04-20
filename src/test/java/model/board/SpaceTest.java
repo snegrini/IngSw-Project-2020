@@ -24,6 +24,7 @@ public class SpaceTest {
 
     @After
     public void tearDown() throws Exception {
+        space = null;
     }
 
     @Test
@@ -47,5 +48,48 @@ public class SpaceTest {
     public void isFree_setWorker_False() {
         space.setWorker(new Worker(Color.BLUE, new Position(0, 0)));
         assertFalse(space.isFree());
+    }
+
+    @Test
+    public void increaseLevel() {
+        assertEquals(0, space.getLevel());
+        assertTrue(space.increaseLevel(2));
+        assertEquals(2, space.getLevel());
+    }
+
+    @Test
+    public void increaseLevel_MaxLevelLimit() {
+        assertEquals(0, space.getLevel());
+        assertFalse(space.increaseLevel(Space.MAX_LEVEL + 1));
+        assertEquals(0, space.getLevel());
+    }
+
+    @Test
+    public void increaseLevel_NegativeInput() {
+        assertEquals(0, space.getLevel());
+        assertFalse(space.increaseLevel(-1));
+        assertEquals(0, space.getLevel());
+    }
+
+    @Test
+    public void decreaseLevel() {
+        assertTrue(space.increaseLevel(1));
+        assertEquals(1, space.getLevel());
+        assertTrue(space.decreaseLevel(1));
+        assertEquals(0, space.getLevel());
+    }
+
+    @Test
+    public void decreaseLevel_MinLevelLimit() {
+        assertEquals(0, space.getLevel());
+        assertFalse(space.decreaseLevel(1));
+        assertEquals(0, space.getLevel());
+    }
+
+    @Test
+    public void decreaseLevel_NegativeInput() {
+        assertEquals(0, space.getLevel());
+        assertFalse(space.decreaseLevel(-1));
+        assertEquals(0, space.getLevel());
     }
 }

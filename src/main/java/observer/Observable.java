@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class Observable { //<T> {
+public class Observable {
 
     private final List<Observer> observers = new ArrayList<>();
 
@@ -23,10 +23,4 @@ public class Observable { //<T> {
             observer.update(message);
         }
     }
-
-    /*protected void notifyObserver(Consumer<T> lambda) {
-        for (Observer observer : observers) {
-            observer.update(message);
-        }
-    }*/
 }

@@ -26,4 +26,13 @@ public class BoardTest {
         assertNotNull(board.getSpace(new Position(0, 0)));
         assertEquals(space, board.getSpace(new Position(0, 0)));
     }
+
+    @Test
+    public void getNextSpaceInLine() {
+        Position orig = new Position(2, 2);
+        Position dest = new Position(1, 1);
+        Space target = board.getNextSpaceInLine(orig, dest);
+
+        assertEquals(board.getSpace(0, 0), target);
+    }
 }

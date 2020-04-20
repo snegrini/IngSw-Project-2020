@@ -3,6 +3,7 @@ package model.effects;
 import model.Game;
 import model.board.Board;
 import model.enumerations.EffectType;
+import model.enumerations.XMLName;
 import model.player.Worker;
 
 import java.util.List;
@@ -38,6 +39,15 @@ public class MoveOverDecorator extends EffectDecorator {
         //          Otherwise it is necessary to check the backwards space
         //          (see Minotaur effect for more info).
         //       Otherwise effect is not applicable.
+
+        worker.getPosition();
+
+        if (Boolean.parseBoolean(requirements.get(XMLName.SWAP_SPACE))) {
+            return true;
+        } else if (Boolean.parseBoolean(requirements.get(XMLName.PUSH_BACK))) {
+
+            return true;
+        }
 
         return effect.require(worker);
     }

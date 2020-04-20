@@ -12,6 +12,7 @@ public enum MessageType {
 
     //utility:
     GAME_LOAD,
-    DISCONNECTION
+    DISCONNECTION,
+    GENERIC_ERROR_MESSAGE
 
 }

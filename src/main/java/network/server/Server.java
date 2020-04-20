@@ -41,6 +41,6 @@ public class Server {
     }
 
     public void onMessageReceived(Message message) {
-        // TODO gameController.doSomethingToHandleTheReceivedMessageFromTheView();
+        gameController.onMessageReceived(message);
     }
 }

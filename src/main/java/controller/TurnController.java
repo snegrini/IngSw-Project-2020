@@ -10,4 +10,8 @@ public class TurnController {
     TurnController(Game gameInstance) {
         this.phaseController = new PhaseController(gameInstance.getPlayers());
     }
+
+    public PhaseController getPhaseController() {
+        return phaseController;
+    }
 }
