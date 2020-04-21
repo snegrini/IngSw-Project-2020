@@ -15,6 +15,7 @@ public class SpaceTest {
 
     private Board board;
     private Space space;
+    private ReducedSpace reducedSpace;
 
     @Before
     public void setUp() throws Exception {
@@ -35,18 +36,22 @@ public class SpaceTest {
     @Test
     public void isFree_noDome_True() {
         space.setDome(false);
+        assertFalse(space.hasDome());
         assertTrue(space.isFree());
     }
 
     @Test
     public void isFree_setDome_False() {
         space.setDome(true);
+        assertTrue(space.hasDome());
         assertFalse(space.isFree());
     }
 
     @Test
     public void isFree_setWorker_False() {
-        space.setWorker(new Worker(Color.BLUE, new Position(0, 0)));
+        Worker worker = new Worker(Color.BLUE, new Position(0, 0));
+        space.setWorker(worker);
+        assertEquals(worker, space.getWorker());
         assertFalse(space.isFree());
     }
 
@@ -91,5 +96,27 @@ public class SpaceTest {
         assertEquals(0, space.getLevel());
         assertFalse(space.decreaseLevel(-1));
         assertEquals(0, space.getLevel());
+    }
+
+    @Test
+    public void getLevel_Space_ReducedSpace() {
+        reducedSpace = new ReducedSpace(space);
+        assertEquals(space.getLevel(), reducedSpace.getLevel());
+    }
+
+    @Test
+    public void getWorker_Space_ReducedSpace() {
+        Worker worker = new Worker(Color.BLUE, new Position(0, 0));
+        space.setWorker(worker);
+
+        reducedSpace = new ReducedSpace(space);
+        assertEquals(space.getWorker().getColor(), reducedSpace.getReducedWorker().getColor());
+        assertEquals(space.getWorker().getPosition(), reducedSpace.getReducedWorker().getPosition());
+    }
+
+    @Test
+    public void hasDome_Space_ReducedSpace() {
+        reducedSpace = new ReducedSpace(space);
+        assertEquals(space.hasDome(), reducedSpace.hasDome());
     }
 }

@@ -24,7 +24,6 @@ public class GodParserTest {
     @Test
     public void parseGods() {
         gods = GodParser.parseGods();
-        assertEquals("Apollo", gods.get(0).getName());
         assertTrue(gods.size() > 0);
     }
 }

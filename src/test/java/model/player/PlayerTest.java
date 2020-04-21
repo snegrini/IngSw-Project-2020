@@ -1,12 +1,16 @@
 package model.player;
 
+import model.God;
 import model.board.Position;
+import model.effects.SimpleEffect;
 import model.enumerations.Color;
+import model.enumerations.EffectType;
 import model.enumerations.PlayerState;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Objects;
 
 import static org.junit.Assert.*;
@@ -36,16 +40,19 @@ public class PlayerTest {
         Worker worker = new Worker(Color.BLUE, new Position(0, 0));
         player.addWorker(worker);
 
-        assertEquals(worker, player.getWorkerByPosition(new Position(0,0)));
+        assertEquals(worker, player.getWorkerByPosition(new Position(0, 0)));
     }
 
     @Test
-    public void getGod() {
+    public void godGetterAndSetter() {
+        God god = new God.Builder("Name Test")
+                .withCaption("Caption Test")
+                .withDescription("Description Test")
+                .withEffects(List.of(new SimpleEffect(EffectType.YOUR_BUILD)))
+                .build();
 
-    }
-
-    @Test
-    public void setGod() {
+        player.setGod(god);
+        assertEquals(god, player.getGod());
     }
 
     @Test
@@ -56,13 +63,13 @@ public class PlayerTest {
     @Test
     public void setState() {
         player.setState(PlayerState.BUILD);
-        assertEquals(PlayerState.BUILD,player.getState());
+        assertEquals(PlayerState.BUILD, player.getState());
     }
 
     @Test
     public void testEquals() {
         Player otherPlayer = new Player("sam");
-        assertTrue(player.equals(otherPlayer));
+        assertEquals(player, otherPlayer);
     }
 
     @Test

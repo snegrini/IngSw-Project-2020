@@ -1,10 +1,10 @@
 package controller;
 
-import model.God;
+import model.ReducedGod;
 import model.enumerations.Color;
 import network.client.Client;
 import network.client.SocketClient;
-import network.message.GodReply;
+import network.message.GodList;
 import network.message.LoginRequest;
 import network.message.Message;
 import network.message.PlayerNumberReply;
@@ -71,8 +71,8 @@ public class ClientController implements ViewObserver, Observer {
     }
 
     @Override
-    public void onUpdateGod(int godId) {
-        client.sendMessage(new GodReply(this.nickname, godId));
+    public void onUpdateGod(ReducedGod god) {
+        client.sendMessage(new GodList(this.nickname, god));
     }
 
     @Override

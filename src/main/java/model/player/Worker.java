@@ -4,10 +4,8 @@ import model.Game;
 import model.board.Board;
 import model.board.Position;
 import model.board.Space;
-import model.effects.Effect;
 import model.enumerations.Color;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,15 +14,18 @@ public class Worker {
     private final Color color;
     private Position position;
     private MoveHistory moveHistory;
-    //private List<Effect> effects;
 
     public Worker(Color color, Position position) {
         this.color = color;
         this.position = position;
         this.moveHistory = new MoveHistory(position, 0);
-        //this.effects = new ArrayList<>();
     }
 
+    /**
+     * Builds a single block over the {@code Space} at the given position.
+     *
+     * @param position the position of the {@code Space} where to build.
+     */
     public void build(Position position) {
         Game.getInstance().getBoard().getSpace(position).increaseLevel(1);
     }
@@ -40,31 +41,17 @@ public class Worker {
     }
 
     /**
-     * @return a List of adjacent positions to the worker's position
+     * Returns the adjacent positions where this worker can normally build.
+     * Non-free spaces will be ignored {@see model.Space#isFree}.
+     *
+     * @return a list of positions where this worker can build.
      */
     public List<Position> getPossibleBuilds() {
+        Board board = Game.getInstance().getBoard();
 
-        List<Position> positionList = new ArrayList<Position>();
-
-        //Check all adjacent positions clockwise
-        if (position.getColumn() - 1 >= 0 && position.getRow() - 1 >= 0)
-            positionList.add(new Position(position.getRow() - 1, position.getColumn() - 1));
-        if (position.getRow() - 1 >= 0)
-            positionList.add(new Position(position.getRow() - 1, position.getColumn()));
-        if (position.getColumn() + 1 < 5 && position.getRow() - 1 >= 0)
-            positionList.add(new Position(position.getRow() - 1, position.getColumn() + 1));
-        if (position.getColumn() + 1 < 5)
-            positionList.add(new Position(position.getRow(), position.getColumn() + 1));
-        if (position.getColumn() + 1 < 5 && position.getRow() + 1 < 5)
-            positionList.add(new Position(position.getRow() + 1, position.getColumn() + 1));
-        if (position.getRow() + 1 <= 5)
-            positionList.add(new Position(position.getRow() + 1, position.getColumn()));
-        if (position.getColumn() - 1 >= 0 && position.getRow() + 1 < 5)
-            positionList.add(new Position(position.getRow() + 1, position.getColumn() - 1));
-        if (position.getColumn() - 1 >= 0)
-            positionList.add(new Position(position.getRow(), position.getColumn() - 1));
-
-        return positionList;
+        return board.getNeighbours(position).stream()
+                .filter(pos -> board.getSpace(pos).isFree())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -105,21 +92,12 @@ public class Worker {
         this.position = position;
     }
 
+    /**
+     * Returns a copy of {@code MoveHistory} of this worker.
+     *
+     * @return a copy of {@code MoveHistory} of this worker.
+     */
     public MoveHistory getMoveHistory() {
-        return moveHistory;
+        return new MoveHistory(this.moveHistory);
     }
-
-    public void setMoveHistory(MoveHistory moveHistory) {
-        this.moveHistory = moveHistory;
-    }
-
-    /*public List<Effect> getEffects() {
-        return List.copyOf(effects);
-    }
-
-    public void addEffect(Effect effect) {
-        effects.add(effect);
-    }*/
-
-
 }

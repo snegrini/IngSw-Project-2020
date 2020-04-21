@@ -35,7 +35,6 @@ public enum XMLName {
 
     private final String text;
 
-
     XMLName(final String text) {
         this.text = text;
     }

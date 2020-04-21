@@ -13,6 +13,16 @@ public class Position {
         this.column = column;
     }
 
+    /**
+     * Copy constructor.
+     *
+     * @param position the {@code Position} object to be copied.
+     */
+    public Position(Position position) {
+        this.row = position.row;
+        this.column = position.column;
+    }
+
     public int getRow() {
         return row;
     }

@@ -53,11 +53,11 @@ public class GameController {
 
         if (gameState == GameState.INIT) {
 
-            switch (receivedMessage.getMessageType()){
+            switch (receivedMessage.getMessageType()) {
                 case GODLIST:
                     godListHandler((GodList) receivedMessage, virtualView);
                 case INIT:
-                    return init((Init) receivedMessage);
+                    //return init((Init) receivedMessage);
 
                 default:
                     // TODO show exception
@@ -69,14 +69,13 @@ public class GameController {
 
         // check if sender is in listPlayer.
         if (!game.isPlayerInList(receivedMessage.getNickname())) {
-            return new GenericErrorMessage("Player is not in game.");
+            //return new GenericErrorMessage("Player is not in game.");
         }
-
 
 
         // check if sender is the active player.
         if (turnController.getActivePlayer().getNickname().equals(receivedMessage.getNickname())) {
-            return new GenericErrorMessage("Not your turn.");
+            //return new GenericErrorMessage("Not your turn.");
         }
 
         switch (receivedMessage.getMessageType()) {
@@ -86,25 +85,23 @@ public class GameController {
                 // TODO show exception
                 break;
         }
-
-
-        // TODO
-        return null;
     }
 
-    private Message init(Init receivedMessage) {
+    private void init(Init receivedMessage) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
-        if(receivedMessage.getPositionList().size()<=2)
-            for (int i = 0 ; i<receivedMessage.getPositionList().size(); i++)
+        if (receivedMessage.getPositionList().size() <= 2) {
+            for (int i = 0; i < receivedMessage.getPositionList().size(); i++) {
                 player.addWorker(new Worker(receivedMessage.getColor(), receivedMessage.getPositionList().get(i)));
+            }
+        }
 
     }
 
     /**
      * If receivedMessage.getList.size == numPlayer then create the godList
      * if size = 1 then player.god = god.
-     * @param receivedMessage
      *
+     * @param receivedMessage
      */
     private void godListHandler(GodList receivedMessage, VirtualView virtualView) {
 
@@ -118,12 +115,11 @@ public class GameController {
                 virtualView.askGod(fullGodList);
             }
         } // else received contains only 1 god
-        else{
-            if (isInSelectedGodList(receivedMessage.getGod()))  {
+        else {
+            if (isInSelectedGodList(receivedMessage.getGod())) {
                 game.getPlayerByNickname(receivedMessage.getNickname()).setGod(receivedMessage.getGod());
                 selectedGodList.remove(receivedMessage.getGod());
-            }
-            else {
+            } else {
                 virtualView.askGod(selectedGodList);
             }
         }
@@ -138,11 +134,10 @@ public class GameController {
     }
 
     private void setChosenMaxPlayers(PlayerNumberReply receivedMessage, VirtualView virtualView) {
-        if(receivedMessage.getPlayerNumber()<4 && receivedMessage.getPlayerNumber()>1) {
+        if (receivedMessage.getPlayerNumber() < 4 && receivedMessage.getPlayerNumber() > 1) {
             game.setChosenMaxPlayers(receivedMessage.getPlayerNumber());
             // Don't send ack to client, number accepted.
-        }
-        else {
+        } else {
             virtualView.askPlayersNumber();
         }
     }
@@ -152,7 +147,7 @@ public class GameController {
         // if is 1st add it and request number players.
         if (game.getNumCurrentPlayers() == 0) {
             game.addPlayer(new Player(receivedMessage.getNickname()));
-                virtualView.askPlayersNumber();
+            virtualView.askPlayersNumber();
         } // if not 1st and there is some available slot check nickname.
         else if (!(game.isPlayerInList(receivedMessage.getNickname())) &&
                 !(receivedMessage.getNickname() == "server")) {
@@ -172,14 +167,6 @@ public class GameController {
     void endGame() {
         // TODO send message to all players, close connections
     }
-
-
-
-
-
-
-
-
 
 
     /**

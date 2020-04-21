@@ -13,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 
 /**
@@ -130,7 +131,6 @@ public class GodParser {
                 effect = decorateBuild(effect, requirements, parameters);
                 break;
         }
-
         return effect;
     }
 
