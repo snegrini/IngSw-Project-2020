@@ -13,6 +13,7 @@ import view.View;
 import observer.ViewObserver;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class ClientController implements ViewObserver, Observer {
@@ -72,7 +73,7 @@ public class ClientController implements ViewObserver, Observer {
 
     @Override
     public void onUpdateGod(ReducedGod god) {
-        client.sendMessage(new GodList(this.nickname, god));
+        client.sendMessage(new GodList(this.nickname, List.of(god)));
     }
 
     @Override

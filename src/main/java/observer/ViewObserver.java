@@ -1,6 +1,7 @@
 package observer;
 
 import model.God;
+import model.ReducedGod;
 import model.enumerations.Color;
 
 import java.util.Map;
@@ -15,7 +16,7 @@ public interface ViewObserver {
 
     void onUpdateWorkersColor(Color color);
 
-    void onUpdateGod(int godId);
+    void onUpdateGod(ReducedGod reducedGod);
 
     void onUpdateWorkerToMove(int chosenRow, int chosenColumn);
 

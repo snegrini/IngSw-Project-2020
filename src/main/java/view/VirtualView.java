@@ -1,6 +1,7 @@
 package view;
 
 import model.God;
+import model.ReducedGod;
 import model.board.Position;
 import model.enumerations.Color;
 import model.player.Worker;
@@ -54,7 +55,7 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public void askGod(List<God> gods) {
+    public void askGod(List<ReducedGod> gods) {
         clientHandler.sendMessage(new GodList("server", gods));
     }
 

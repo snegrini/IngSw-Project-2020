@@ -1,7 +1,7 @@
 package view.cli;
 
+import model.ReducedGod;
 import model.board.Position;
-import model.God;
 import model.board.Board;
 import model.board.Position;
 import model.enumerations.Color;
@@ -98,11 +98,12 @@ public class Cli extends View {
     }
 
     @Override
-    public void askGod(List<God> gods) {
+    public void askGod(List<ReducedGod> gods) {
+
         System.out.println("Select your own personal God!");
 
         for (int i = 0; i < gods.size(); i++) {
-            God god = gods.get(i);
+            ReducedGod god = gods.get(i);
             System.out.println("ID: " + (i + 1));
             System.out.println("Name: " + god.getName());
             System.out.println("Caption: " + god.getCaption());
@@ -117,8 +118,8 @@ public class Cli extends View {
             }
         } while (godId < 0 || godId > gods.size());
 
-        int finalGodId = godId;
-        notifyObserver((ViewObserver obs) -> obs.onUpdateGod(finalGodId));
+        ReducedGod finalGod = gods.get(godId);
+        notifyObserver((ViewObserver obs) -> obs.onUpdateGod(finalGod));
     }
 
 

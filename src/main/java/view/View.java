@@ -1,10 +1,8 @@
 package view;
 
-import model.God;
+import model.ReducedGod;
 import model.board.Position;
 import model.enumerations.Color;
-import model.player.Worker;
-import network.message.Message;
 import observer.ViewObserver;
 
 import java.util.ArrayList;
@@ -68,7 +66,7 @@ public abstract class View {
      *
      * @param gods the list of the available Gods.
      */
-    public abstract void askGod(List<God> gods);
+    public abstract void askGod(List<ReducedGod> gods);
 
     /**
      * Asks to the user to choose a new position where to build.
