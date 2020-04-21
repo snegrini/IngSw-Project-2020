@@ -1,6 +1,6 @@
 package view.cli;
 
-
+import model.board.Position;
 import model.God;
 import model.board.Board;
 import model.board.Position;
@@ -73,6 +73,7 @@ public class Cli extends View {
 
     }
 
+
     @Override
     public void askWorkersColor(List<Color> colorList) {
         String in;
@@ -96,7 +97,6 @@ public class Cli extends View {
         notifyObserver((ViewObserver obs) -> obs.onUpdateWorkersColor(color));
     }
 
-
     @Override
     public void askGod(List<God> gods) {
         System.out.println("Select your own personal God!");
@@ -112,30 +112,31 @@ public class Cli extends View {
         System.out.print("To select one God type in his ID: ");
         do {
             godId = Integer.parseInt(scanner.nextLine()) - 1;
-            if (godId < 0 && godId > gods.size()) {
+            if (godId < 0 || godId > gods.size()) {
                 System.out.println("You have not inserted a valid ID! Please try again.");
             }
-        } while (godId < 0 && godId > gods.size());
+        } while (godId < 0 || godId > gods.size());
 
         int finalGodId = godId;
         notifyObserver((ViewObserver obs) -> obs.onUpdateGod(finalGodId));
     }
 
+
     @Override
-    public void askWorkerToMove(List<Worker> workers) {
+    public void askWorkerToMove(List<Position> positions) {
         int chosenRow;
         int chosenColumn;
         System.out.println("Insert the position of the worker which you want to move:");
-        for (int i = 0; i < workers.size(); i++) {
-            System.out.println("Position of worker " + i + 1 + "is Row: " + workers.get(i).getPosition().getRow() + "Column: " +
-                    workers.get(i).getPosition().getColumn());
+        for (int i = 0; i < positions.size(); i++) {
+            System.out.println("Position of worker " + i + 1 + "is Row: " + positions.get(i).getRow() + "Column: " +
+                    positions.get(i).getColumn());
         }
         do {
-            chosenRow = scanner.nextInt();
-            chosenColumn = scanner.nextInt();
-            if (pstWorkerNotValid(chosenRow, chosenColumn, workers))
+            chosenRow = Integer.parseInt(scanner.nextLine());
+            chosenColumn = Integer.parseInt(scanner.nextLine());
+            if (position_isNotValid(chosenRow, chosenColumn, positions))
                 System.out.println("You have inserted an invalid position! Please try again!");
-        } while (pstWorkerNotValid(chosenRow, chosenColumn, workers));
+        } while (position_isNotValid(chosenRow, chosenColumn, positions));
 
         int finalChosenRow = chosenRow;
         int finalChosenColumn = chosenColumn;
@@ -144,25 +145,25 @@ public class Cli extends View {
     }
 
     @Override
-    public void askNewPosition(Worker worker) {
+    public void askNewPosition(List<Position> positions) {
         int chosenRow;
         int chosenColumn;
         System.out.println("Select the new position for your Worker!");
         System.out.println("Here there are your Worker's possible moves:");
-        if (worker.getPossibleMoves().isEmpty()) {
+        if (positions.isEmpty()) {
             System.out.println("Oh no! Unfortunately you can't move...");
         } else {
-            for (int i = 0; i < worker.getPossibleMoves().size(); i++) {
-                System.out.println("Position " + i + 1 + ":" + "Row: " + worker.getPossibleMoves().get(i).getRow() +
-                        "Column: " + worker.getPossibleMoves().get(i).getColumn());
+            for (int i = 0; i < positions.size(); i++) {
+                System.out.println("Position " + i + 1 + ":" + "Row: " + positions.get(i).getRow() +
+                        "Column: " + positions.get(i).getColumn());
             }
             System.out.println("Select the new position:");
             do {
-                chosenRow = scanner.nextInt();
-                chosenColumn = scanner.nextInt();
-                if (position_isNotValid1(chosenRow, chosenColumn, worker))
+                chosenRow = Integer.parseInt(scanner.nextLine());
+                chosenColumn = Integer.parseInt(scanner.nextLine());
+                if (position_isNotValid(chosenRow, chosenColumn, positions))
                     System.out.println("You have inserted an invalid position! Please try again!");
-            } while (position_isNotValid1(chosenRow, chosenColumn, worker));
+            } while (position_isNotValid(chosenRow, chosenColumn, positions));
             int finalChosenRow = chosenRow;
             int finalChosenColumn = chosenColumn;
             notifyObserver((ViewObserver obs) -> obs.onUpdateWorkerPosition(finalChosenRow, finalChosenColumn));
@@ -171,25 +172,25 @@ public class Cli extends View {
 
 
     @Override
-    public void askNewBuildingPosition(Worker worker) {
+    public void askNewBuildingPosition(List<Position> positions) {
         int chosenRow;
         int chosenColumn;
         System.out.println("Select in which position you want your Worker to build!");
         System.out.println("Your Worker can Build here:");
-        if (worker.getPossibleBuilds().isEmpty()) {
+        if (positions.isEmpty()) {
             System.out.println("Oh no! Unfortunately you can't build...");
         } else {
-            for (int i = 0; i < worker.getPossibleBuilds().size(); i++) {
-                System.out.println("Position " + i + 1 + ":" + "Row: " + worker.getPossibleBuilds().get(i).getRow() +
-                        "Column: " + worker.getPossibleBuilds().get(i).getColumn());
+            for (int i = 0; i < positions.size(); i++) {
+                System.out.println("Position " + i + 1 + ":" + "Row: " + positions.get(i).getRow() +
+                        "Column: " + positions.get(i).getColumn());
             }
             System.out.println("Select where to build:");
             do {
                 chosenRow = scanner.nextInt();
                 chosenColumn = scanner.nextInt();
-                if (position_isNotValid2(chosenRow, chosenColumn, worker))
+                if (position_isNotValid(chosenRow, chosenColumn, positions))
                     System.out.println("You have inserted an invalid position! Please try again!");
-            } while (position_isNotValid2(chosenRow, chosenColumn, worker));
+            } while (position_isNotValid(chosenRow, chosenColumn, positions));
             int finalChosenRow = chosenRow;
             int finalChosenColumn = chosenColumn;
             notifyObserver((ViewObserver obs) -> obs.onUpdateBuild(finalChosenRow, finalChosenColumn));
@@ -208,6 +209,7 @@ public class Cli extends View {
 
     @Override
     public String showBoard() {
+        initializeBoard();
         String strBoard = "";
         for (int i = 0; i < ROWS; i++) {
             strBoard += "\n+-----+-----+-----+-----+-----+\n";
@@ -224,22 +226,27 @@ public class Cli extends View {
 
     }
 
-    //method to check if a position to move is valid
-    boolean position_isNotValid1(int chosenRow, int chosenColumn, Worker worker) {
-        boolean is_NotValid = (worker.getPossibleMoves().get(0).getRow() != chosenRow) ||
-                (worker.getPossibleMoves().get(0).getColumn() != chosenColumn);
-
-        for (int i = 1; i < worker.getPossibleMoves().size(); i++) {
-            is_NotValid = (is_NotValid && ((worker.getPossibleMoves().get(i).getRow() != chosenRow) ||
-                    (worker.getPossibleMoves().get(i).getColumn() != chosenColumn)));
+    /**
+     * Returns a boolean which, if is true, it means that the position inserted is invalid, valid otherwise.
+     * This method is used in the "Ask" type methods to check if the position inserted by the user
+     * is correct.
+     *
+     * @param chosenRow    the Row chosen by the player.
+     * @param chosenColumn the Column chosen by the player.
+     * @param positions    the List of valid positions.
+     * @return a boolean which, if is true, it means that the position inserted is invalid, valid otherwise.
+     */
+    private boolean position_isNotValid(int chosenRow, int chosenColumn, List<Position> positions) {
+        for (Position position : positions) {
+            if (chosenRow == position.getRow() && chosenColumn == position.getColumn()) {
+                return false;
+            }
         }
-
-        return is_NotValid;
-
+        return true;
     }
 
     //method to check if a position to build is valid
-    boolean position_isNotValid2(int chosenRow, int chosenColumn, Worker worker) {
+    /*boolean position_isNotValid2(int chosenRow, int chosenColumn, Worker worker) {
         boolean is_NotValid = (worker.getPossibleBuilds().get(0).getRow() != chosenRow) ||
                 (worker.getPossibleBuilds().get(0).getColumn() != chosenColumn);
 
@@ -258,6 +265,6 @@ public class Cli extends View {
                 (workers.get(0).getPosition().getColumn() != chosenColumn)) &&
                 ((workers.get(1).getPosition().getRow() !=
                         chosenRow) || (workers.get(1).getPosition().getColumn() != chosenColumn));
-    }
+    }*/
 
 }

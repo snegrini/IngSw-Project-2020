@@ -1,6 +1,7 @@
 package view;
 
 import model.God;
+import model.board.Position;
 import model.enumerations.Color;
 import model.player.Worker;
 import network.message.GodList;
@@ -38,7 +39,7 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public void askWorkerToMove(List<Worker> workers) {
+    public void askWorkerToMove(List<Position> positions) {
 
     }
 
@@ -63,12 +64,12 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public void askNewBuildingPosition(Worker worker) {
+    public void askNewBuildingPosition(List<Position> positions) {
 
     }
 
     @Override
-    public void askNewPosition(Worker worker) {
+    public void askNewPosition(List<Position> positions) {
 
     }
 
