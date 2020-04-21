@@ -76,6 +76,9 @@ public class VirtualView extends View implements Observer {
         clientHandler.sendMessage(new LoginReply(nicknameAccepted, connectionSuccessful));
     }
 
+
+
+
     /**
      * Receives an update message from the model.
      * The message is sent over the network to the client.

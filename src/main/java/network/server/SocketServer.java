@@ -46,6 +46,7 @@ public class SocketServer implements Runnable {
     }
 
     public void onMessageReceived(Message message) {
+
         server.onMessageReceived(message);
     }
 

@@ -20,10 +20,12 @@ public class GameController {
     private GameState gameState;
     private List<God> selectedGodList;
     private List<God> activeGodList;
+    private List<God> fullGodList;
     private TurnController turnController;
 
     public GameController() {
         this.game = Game.getInstance();
+        // TODO parser god from file and insert into fullGodList
         this.virtualViews = Collections.synchronizedMap(new HashMap<>());
         this.turnController = new TurnController(game);
     }
@@ -33,14 +35,16 @@ public class GameController {
         return turnController;
     }
 
-    public Message onMessageReceived(Message receivedMessage) {
+    public void onMessageReceived(Message receivedMessage) {
+
+        VirtualView virtualView = virtualViews.get(receivedMessage.getNickname());
 
         if (gameState == GameState.LOGIN) {
             switch (receivedMessage.getMessageType()) {
                 case LOGIN_REQUEST:
-                    return loginRequests(receivedMessage);
+                    loginRequests((LoginRequest) receivedMessage, virtualView);
                 case PLAYERNUMBER_REPLY:
-                    return setChosenMaxPlayers((PlayerNumberReply) receivedMessage);
+                    setChosenMaxPlayers((PlayerNumberReply) receivedMessage, virtualView);
                 default:
                     // TODO show exception
                     break;
@@ -51,7 +55,7 @@ public class GameController {
 
             switch (receivedMessage.getMessageType()){
                 case GODLIST:
-                    return godListHandler((GodList) receivedMessage);
+                    godListHandler((GodList) receivedMessage, virtualView);
                 case INIT:
                     return init((Init) receivedMessage);
 
@@ -102,31 +106,30 @@ public class GameController {
      * @param receivedMessage
      *
      */
-    private Message godListHandler(GodList receivedMessage) {
+    private void godListHandler(GodList receivedMessage, VirtualView virtualView) {
 
         // if received contains a list
         if (!receivedMessage.getGodList().isEmpty()) {
             if (receivedMessage.getGodList().size() == game.getChosenPlayersNumber()) {
                 Collections.copy(selectedGodList, receivedMessage.getGodList());
                 Collections.copy(activeGodList, receivedMessage.getGodList());
-                return new GodListAck(true);
+
             } else {
-                return new GodListAck(false);
+                virtualView.askGod(fullGodList);
             }
         } // else received contains only 1 god
         else{
-            if (isGodInList(receivedMessage.getGod())) {
+            if (isInSelectedGodList(receivedMessage.getGod()))  {
                 game.getPlayerByNickname(receivedMessage.getNickname()).setGod(receivedMessage.getGod());
                 selectedGodList.remove(receivedMessage.getGod());
-                return new GodListAck(true);
             }
             else {
-                return new GodListAck(false);
+                virtualView.askGod(selectedGodList);
             }
         }
     }
 
-    private boolean isGodInList(God god) {
+    private boolean isInSelectedGodList(God god) {
         for (God g : selectedGodList) {
             if (g.getName().equals(god.getName()))
                 return true;
@@ -134,32 +137,33 @@ public class GameController {
         return false;
     }
 
-    private Message setChosenMaxPlayers(PlayerNumberReply receivedMessage) {
+    private void setChosenMaxPlayers(PlayerNumberReply receivedMessage, VirtualView virtualView) {
         if(receivedMessage.getPlayerNumber()<4 && receivedMessage.getPlayerNumber()>1) {
             game.setChosenMaxPlayers(receivedMessage.getPlayerNumber());
-            return new PlayerNumberAck(true);
+            // Don't send ack to client, number accepted.
         }
         else {
-            return new PlayerNumberAck(false);
+            virtualView.askPlayersNumber();
         }
-
     }
 
-    private Message loginRequests(Message receivedMessage) {
+    private void loginRequests(LoginRequest receivedMessage, VirtualView virtualView) {
 
         // if is 1st add it and request number players.
         if (game.getNumCurrentPlayers() == 0) {
             game.addPlayer(new Player(receivedMessage.getNickname()));
-            return new PlayerNumberRequest();
+                virtualView.askPlayersNumber();
         } // if not 1st and there is some available slot check nickname.
-        else if (!(game.isPlayerInList(receivedMessage.getNickname())) && !(receivedMessage.getNickname() == "server")) {
+        else if (!(game.isPlayerInList(receivedMessage.getNickname())) &&
+                !(receivedMessage.getNickname() == "server")) {
             game.addPlayer(new Player(receivedMessage.getNickname()));
             // if latest player is logged then change gameState from LOGIN to INIT.
-            if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber())
+            if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) {
                 gameState = GameState.INIT;
-            return new LoginReply(true, true);
+            }
+            virtualView.showLoginResult(true, true);
         } else {
-            return new LoginReply(true, false);
+            virtualView.showLoginResult(false, true);
         }
 
     }
