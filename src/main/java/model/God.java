@@ -1,6 +1,7 @@
 package model;
 
 import model.effects.Effect;
+import model.enumerations.EffectType;
 
 import java.util.List;
 
@@ -29,8 +30,18 @@ public class God {
         return description;
     }
 
-    public List<Effect> getEffects() {
-        return effects;
+    /**
+     * Returns the god {@code Effect} given the EffectType, {@code null} otherwise.
+     * Only the first occurrence is returned; a God should have only one Effect per EffectType.
+     *
+     * @param effectType the type of the effect to get.
+     * @return the {@code Effect} of the god if it is found, {@code null} otherwise.
+     */
+    public Effect getEffectByType(EffectType effectType) {
+        return effects.stream()
+                .filter(effect -> effectType.equals(effect.getEffectType()))
+                .findFirst()
+                .orElse(null);
     }
 
     public static class Builder {
