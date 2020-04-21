@@ -3,6 +3,7 @@ package view;
 import model.God;
 import model.enumerations.Color;
 import model.player.Worker;
+import network.message.GodList;
 import network.message.LoginReply;
 import network.message.Message;
 import network.message.PlayerNumberRequest;
@@ -53,7 +54,7 @@ public class VirtualView extends View implements Observer {
 
     @Override
     public void askGod(List<God> gods) {
-
+        clientHandler.sendMessage(new GodList("server", gods));
     }
 
     @Override
