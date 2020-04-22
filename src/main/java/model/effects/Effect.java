@@ -16,13 +16,16 @@ public abstract class Effect {
     private EffectType effectType;
 
     /**
-     *  Applies the effect.
+     * Applies the effect to the argument workers.
+     *
+     * @param targetWorkers the workers to whose apply the effect.
      */
     public abstract void apply(List<Worker> targetWorkers);
 
     /**
      * Checks the necessary conditions for the effect to be applied.
      *
+     * @param worker worker to whose check the effect requirements.
      * @return {@code true} if the conditions are satisfied, {@code false} otherwise.
      */
     public abstract boolean require(Worker worker);

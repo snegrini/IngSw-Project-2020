@@ -68,7 +68,8 @@ public class Game extends Observable {
     /**
      * Sets the max number of players chosen by the first player joining the game.
      *
-     * @param chosenMaxPlayers the max players number. Value can be 0 < x < {@code MAX_PLAYERS}.
+     * @param chosenMaxPlayers the max players number. Value can be {@code 0 < x < MAX_PLAYERS}.
+     * @return {@code true} if the argument value is {@code 0 < x < MAX_PLAYERS}, {@code false} otherwise.
      */
     public boolean setChosenMaxPlayers(int chosenMaxPlayers) {
         if (chosenMaxPlayers > 0 && chosenMaxPlayers < MAX_PLAYERS) {

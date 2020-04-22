@@ -6,7 +6,9 @@ model.effects
 model.enumerations
 model.player
 network.client
+network.message
 network.server
+observer
 parser
 view
 view.cli

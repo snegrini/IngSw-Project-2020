@@ -7,7 +7,7 @@ public class Build extends Message {
     private Position position;
 
     /**
-     * Constructor of message from Client -> Server for Build
+     * Constructor of message sent from Client to Server for the build command.
      *
      * @param nickname of player
      * @param position of new build
