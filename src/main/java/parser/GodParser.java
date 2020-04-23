@@ -23,7 +23,8 @@ public class GodParser {
 
     public static final String filePath = "xml/gods.xml";
 
-    private GodParser() { }
+    private GodParser() {
+    }
 
     /**
      * Parses the XML file into a list of {@link God} objects.
@@ -122,23 +123,44 @@ public class GodParser {
             parameters = toMap(parNodeList);
         }
 
-        // FIXME
-        switch (effect.getEffectType()) {
-            case YOUR_MOVE:
-                effect = decorateMove(effect, requirements, parameters);
-                break;
-            case YOUR_BUILD:
-                effect = decorateBuild(effect, requirements, parameters);
-                break;
+        return parseEffectDecorators(effect, requirements, parameters);
+    }
+
+    /**
+     * Decorates the effect argument.
+     *
+     * @param effect       the effect to decorate.
+     * @param requirements the map of settings to be satisfied in order to apply the effect.
+     * @param parameters   the map of settings applied by the effect.
+     * @return the decorated effect.
+     */
+    private static Effect parseEffectDecorators(Effect effect, Map<String, String> requirements,
+                                                Map<String, String> parameters) {
+
+        // A WIN_COND effect may not have parameters. Others decorations are skipped.
+        if (effect.getEffectType().equals(EffectType.WIN_COND)) {
+            return decorateWin(effect, requirements);
         }
+
+        if (parameters.containsKey(XMLName.BUILD.getText())) {
+            effect = decorateBuild(effect, requirements, parameters);
+        }
+
+        if (parameters.containsKey(XMLName.MOVE.getText())) {
+            effect = decorateMove(effect, requirements, parameters);
+        }
+
         return effect;
     }
 
     private static Effect decorateBuild(Effect effect, Map<String, String> requirements,
                                         Map<String, String> parameters) {
+        if (Boolean.parseBoolean(parameters.get(XMLName.BUILD.getText() + XMLName.AGAIN.getText()))) {
+            effect = new BuildAgainDecorator(effect, requirements, parameters);
+        }
 
-        if (parameters.containsKey(XMLName.BUILD.getText())) {
-            effect = new BuildDecorator(effect, requirements, parameters);
+        if (Boolean.parseBoolean(parameters.get(XMLName.BUILD.getText() + XMLName.AGAIN.getText()))) {
+            effect = new BuildDomeDecorator(effect, requirements, parameters);
         }
 
         return effect;
@@ -146,22 +168,19 @@ public class GodParser {
 
     private static Effect decorateMove(Effect effect, Map<String, String> requirements,
                                        Map<String, String> parameters) {
-        if (parameters.containsKey(XMLName.MOVE.getText() + XMLName.OVER.getText())) {
-            effect = new MoveOverDecorator(effect, requirements, parameters);
+        if (Boolean.parseBoolean(parameters.get(XMLName.MOVE.getText() + XMLName.AGAIN.getText()))) {
+            effect = new MoveAgainDecorator(effect, requirements, parameters);
         }
 
-        if (parameters.containsKey(XMLName.MOVE.getText() + XMLName.AGAIN.getText())) {
-            effect = new MoveAgainDecorator(effect, requirements, parameters);
+        if (Boolean.parseBoolean(parameters.get(XMLName.MOVE.getText() + XMLName.OVER.getText()))) {
+            effect = new MoveOverDecorator(effect, requirements, parameters);
         }
 
         return effect;
     }
 
-    private static Effect decorateWin(Effect effect, Map<String, String> requirements,
-                                      Map<String, String> parameters) {
-        effect = new WinDownDecorator(effect, requirements, parameters);
-
-        return effect;
+    private static Effect decorateWin(Effect effect, Map<String, String> requirements) {
+        return new WinDownDecorator(effect, requirements);
     }
 
     /**
@@ -172,7 +191,7 @@ public class GodParser {
      *
      * @param nodeList the NodeList to transform into a map.
      * @return Returns an immutable map containing all of the elements and attributes in the given nodeList.
-     *         Returns an immutable empty map if the nodeList is empty.
+     * Returns an immutable empty map if the nodeList is empty.
      */
     private static Map<String, String> toMap(NodeList nodeList) {
         Map<String, String> map = new HashMap<>();

@@ -14,6 +14,8 @@ import java.util.Map;
 public abstract class Effect {
 
     private EffectType effectType;
+    protected Map<String, String> requirements;
+    protected Map<String, String> parameters;
 
     /**
      * Applies the effect to the argument workers.

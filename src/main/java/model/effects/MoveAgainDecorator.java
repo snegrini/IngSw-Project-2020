@@ -1,15 +1,18 @@
 package model.effects;
 
 import model.enumerations.EffectType;
+import model.enumerations.TargetType;
 import model.player.Worker;
 
+import java.lang.annotation.Target;
 import java.util.List;
 import java.util.Map;
 
 public class MoveAgainDecorator extends EffectDecorator {
 
-    private Map<String, String> requirements;
-    private Map<String, String> parameters;
+    private Map<String, TargetType> targetTypeMap;
+    private boolean goBack;
+    private int quantity;
 
     public MoveAgainDecorator(Effect effect, Map<String, String> requirements,
                               Map<String, String> parameters) {
@@ -19,13 +22,13 @@ public class MoveAgainDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(List<Worker> targetWorkers) {
-        // TODO
+    public void apply(List<Worker> workers) {
+        effect.apply(workers);
     }
 
     @Override
     public boolean require(Worker worker) {
-        // TODO
+        //
         return effect.require(worker);
     }
 

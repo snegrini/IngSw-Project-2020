@@ -6,20 +6,19 @@ import model.player.Worker;
 import java.util.List;
 import java.util.Map;
 
-public class TurnDecorator extends EffectDecorator {
+public class BuildDomeDecorator extends EffectDecorator {
 
-    private Map<String, String> requirements;
-    private Map<String, String> parameters;
-
-    public TurnDecorator(Effect effect, Map<String, String> requirements,
-                          Map<String, String> parameters) {
+    public BuildDomeDecorator(Effect effect, Map<String, String> requirements,
+                              Map<String, String> parameters) {
         this.effect = effect;
+        this.requirements = requirements;
         this.parameters = parameters;
     }
 
     @Override
     public void apply(List<Worker> targetWorkers) {
         // TODO
+        effect.apply(targetWorkers);
     }
 
     @Override

@@ -11,9 +11,6 @@ import java.util.Map;
 
 public class MoveOverDecorator extends EffectDecorator {
 
-    private Map<String, String> requirements;
-    private Map<String, String> parameters;
-
     public MoveOverDecorator(Effect effect, Map<String, String> requirements,
                              Map<String, String> parameters) {
         this.effect = effect;

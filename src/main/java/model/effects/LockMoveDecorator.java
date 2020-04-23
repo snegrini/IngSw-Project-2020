@@ -9,9 +9,6 @@ import java.util.concurrent.locks.Lock;
 
 public class LockMoveDecorator extends EffectDecorator {
 
-    private Map<String, String> requirements;
-    private Map<String, String> parameters;
-
     public LockMoveDecorator(Effect effect, Map<String, String> requirements,
                              Map<String, String> parameters) {
         this.effect = effect;
