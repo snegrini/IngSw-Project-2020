@@ -24,7 +24,7 @@
             <effect type="YOUR_MOVE">
                 <parameters>
                     <target>YOUR_WORKER</target>
-                    <move again="true" quantity="1" back="false"/>
+                    <move again="true" quantity="1" goback="false"/>
                 </parameters>
             </effect>
         </effects>
@@ -81,10 +81,10 @@
         </description>
         <effects>
             <effect type="YOUR_BUILD">
-                <parameters>
+                <requirements>
                     <target>YOUR_WORKER</target>
                     <build/>
-                </parameters>
+                </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <build again="true" quantity="1" samespace="true" dome="false"/>

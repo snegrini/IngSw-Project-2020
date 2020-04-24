@@ -9,11 +9,9 @@ import java.util.Map;
 public class BuildAgainDecorator extends EffectDecorator {
 
 
-    public BuildAgainDecorator(Effect effect, Map<String, String> requirements,
-                               Map<String, String> parameters) {
+    public BuildAgainDecorator(Effect effect, Map<String, String> requirements) {
         this.effect = effect;
         this.requirements = requirements;
-        this.parameters = parameters;
     }
 
     @Override

@@ -3,6 +3,7 @@ package parser;
 import model.God;
 import model.effects.*;
 import model.enumerations.EffectType;
+import model.enumerations.MoveType;
 import model.enumerations.XMLName;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -14,6 +15,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
+
+import static model.enumerations.XMLName.*;
 
 
 /**
@@ -71,15 +74,15 @@ public class GodParser {
      * @return the built God object.
      */
     private static God buildGodObject(Element godElement) {
-        String name = godElement.getElementsByTagName(XMLName.NAME.getText()).item(0).getTextContent();
-        String caption = godElement.getElementsByTagName(XMLName.CAPTION.getText()).item(0).getTextContent();
-        String description = godElement.getElementsByTagName(XMLName.DESCRIPTION.getText())
+        String name = godElement.getElementsByTagName(NAME.getText()).item(0).getTextContent();
+        String caption = godElement.getElementsByTagName(CAPTION.getText()).item(0).getTextContent();
+        String description = godElement.getElementsByTagName(DESCRIPTION.getText())
                 .item(0).getTextContent();
 
         List<Effect> effects = new ArrayList<>();
 
         // Retrieve <effect> nodes
-        Node effectsNode = godElement.getElementsByTagName(XMLName.EFFECTS.getText()).item(0);
+        Node effectsNode = godElement.getElementsByTagName(EFFECTS.getText()).item(0);
         NodeList effectNodeList = effectsNode.getChildNodes();
 
         // Build effect list
@@ -104,11 +107,11 @@ public class GodParser {
      * @return the built Effect object.
      */
     private static Effect buildEffectObject(Element effectElement) {
-        String effectType = effectElement.getAttribute(XMLName.TYPE.getText());
+        String effectType = effectElement.getAttribute(TYPE.getText());
         Effect effect = new SimpleEffect(EffectType.valueOf(effectType));
 
-        NodeList reqNodeList = effectElement.getElementsByTagName(XMLName.REQUIREMENTS.getText());
-        NodeList parNodeList = effectElement.getElementsByTagName(XMLName.PARAMETERS.getText());
+        NodeList reqNodeList = effectElement.getElementsByTagName(REQUIREMENTS.getText());
+        NodeList parNodeList = effectElement.getElementsByTagName(PARAMETERS.getText());
 
         Map<String, String> requirements = Map.of();
         Map<String, String> parameters = Map.of();
@@ -142,11 +145,11 @@ public class GodParser {
             return decorateWin(effect, requirements);
         }
 
-        if (parameters.containsKey(XMLName.BUILD.getText())) {
+        if (parameters.containsKey(BUILD.getText())) {
             effect = decorateBuild(effect, requirements, parameters);
         }
 
-        if (parameters.containsKey(XMLName.MOVE.getText())) {
+        if (parameters.containsKey(MOVE.getText())) {
             effect = decorateMove(effect, requirements, parameters);
         }
 
@@ -155,12 +158,12 @@ public class GodParser {
 
     private static Effect decorateBuild(Effect effect, Map<String, String> requirements,
                                         Map<String, String> parameters) {
-        if (Boolean.parseBoolean(parameters.get(XMLName.BUILD.getText() + XMLName.AGAIN.getText()))) {
-            effect = new BuildAgainDecorator(effect, requirements, parameters);
+        if (Boolean.parseBoolean(parameters.get(BUILD.getText() + AGAIN.getText()))) {
+            effect = new BuildAgainDecorator(effect, requirements);
         }
 
-        if (Boolean.parseBoolean(parameters.get(XMLName.BUILD.getText() + XMLName.AGAIN.getText()))) {
-            effect = new BuildDomeDecorator(effect, requirements, parameters);
+        if (Boolean.parseBoolean(parameters.get(BUILD.getText() + AGAIN.getText()))) {
+            effect = new BuildDomeDecorator(effect, requirements);
         }
 
         return effect;
@@ -168,12 +171,21 @@ public class GodParser {
 
     private static Effect decorateMove(Effect effect, Map<String, String> requirements,
                                        Map<String, String> parameters) {
-        if (Boolean.parseBoolean(parameters.get(XMLName.MOVE.getText() + XMLName.AGAIN.getText()))) {
-            effect = new MoveAgainDecorator(effect, requirements, parameters);
+        if (Boolean.parseBoolean(parameters.get(MOVE.getText() + AGAIN.getText()))) {
+            int quantity = Integer.parseInt(parameters.get(MOVE.getText() + QUANTITY.getText()));
+            boolean goBack = Boolean.parseBoolean(parameters.get(MOVE.getText() + GO_BACK.getText()));
+            effect = new MoveAgainDecorator(effect, quantity, goBack);
         }
 
-        if (Boolean.parseBoolean(parameters.get(XMLName.MOVE.getText() + XMLName.OVER.getText()))) {
-            effect = new MoveOverDecorator(effect, requirements, parameters);
+        if (Boolean.parseBoolean(parameters.get(MOVE.getText() + OVER.getText()))) {
+            boolean pushBack = Boolean.parseBoolean(parameters.get(MOVE.getText() + PUSH_BACK.getText()));
+            boolean swapSpace = Boolean.parseBoolean(parameters.get(MOVE.getText() + SWAP_SPACE.getText()));
+            effect = new MoveOverDecorator(effect, requirements, pushBack, swapSpace);
+        }
+
+        if (Boolean.parseBoolean(parameters.get(MOVE.getText() + LOCK.getText()))) {
+            MoveType moveType = MoveType.valueOf(parameters.get(MOVE.getText()));
+            effect = new MoveLockDecorator(effect, requirements, moveType);
         }
 
         return effect;

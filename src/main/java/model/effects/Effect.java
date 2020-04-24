@@ -2,20 +2,23 @@ package model.effects;
 
 
 import model.enumerations.EffectType;
+import model.enumerations.TargetType;
+import model.enumerations.XMLName;
 import model.player.Player;
 import model.player.Worker;
+import observer.Observable;
 
+import java.lang.annotation.Target;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Abstract class used to implement the Decorator Pattern for the effects.
  */
-public abstract class Effect {
+public abstract class Effect extends Observable {
 
     private EffectType effectType;
-    protected Map<String, String> requirements;
-    protected Map<String, String> parameters;
+    private Map<XMLName, TargetType> targetTypeMap;
 
     /**
      * Applies the effect to the argument workers.
@@ -42,9 +45,17 @@ public abstract class Effect {
      *
      * @param effectType the type of the effect.
      */
-    public void setEffectType(EffectType effectType) {
+    protected void setEffectType(EffectType effectType) {
         if (null == this.effectType) {
             this.effectType = effectType;
         }
+    }
+
+    public TargetType getTargetType(XMLName xmlName) {
+        return targetTypeMap.get(xmlName);
+    }
+
+    public void addTargetType(XMLName xmlName, TargetType targetType) {
+        targetTypeMap.put(xmlName, targetType);
     }
 }

@@ -8,12 +8,10 @@ import java.util.Map;
 public abstract class EffectDecorator extends Effect {
 
     protected Effect effect;
-
     protected Map<String, String> requirements;
-    protected Map<String, String> parameters;
 
     @Override
-    public abstract void apply(List<Worker> targetWorkers);
+    public abstract void apply(List<Worker> workers);
 
     @Override
     public abstract boolean require(Worker worker);
