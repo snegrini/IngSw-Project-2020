@@ -10,7 +10,7 @@ public class Move extends Message {
     private Position position;
 
     /**
-     * Constructor of message from Client -> Server for Move
+     * Constructor of message from Client to Server for the move command.
      *
      * @param nickname of player
      * @param worker   player which is moving

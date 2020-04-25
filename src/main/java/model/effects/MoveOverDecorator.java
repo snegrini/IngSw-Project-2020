@@ -2,6 +2,8 @@ package model.effects;
 
 import model.Game;
 import model.board.Board;
+import model.board.Position;
+import model.board.Space;
 import model.enumerations.EffectType;
 import model.enumerations.XMLName;
 import model.player.Worker;
@@ -12,41 +14,43 @@ import java.util.Map;
 public class MoveOverDecorator extends EffectDecorator {
 
     private Map<String, String> requirements;
-    private Map<String, String> parameters;
+    private boolean pushBack;
+    private boolean swapSpace;
 
-    public MoveOverDecorator(Effect effect, Map<String, String> requirements,
-                             Map<String, String> parameters) {
+    public MoveOverDecorator(Effect effect, Map<String, String> requirements, boolean pushBack, boolean swapSpace) {
         this.effect = effect;
         this.requirements = requirements;
-        this.parameters = parameters;
-    }
-
-    public MoveOverDecorator(Effect effect, Map<String, String> parameters) {
-        this(effect, Map.of(), parameters);
+        this.pushBack = pushBack;
+        this.swapSpace = swapSpace;
     }
 
     @Override
-    public void apply(List<Worker> targetWorkers) {
-        // TODO
+    public void apply(List<Worker> workers) {
+        effect.apply(workers);
+
+
+        // TODO return list of possibleMoves or at least notify the controller in any way.
+
     }
 
     @Override
     public boolean require(Worker worker) {
-        // TODO: get the current worker. Check if in his range
-        //       there are enemies' workers.
-        //       If there are, then another condition needs to be checked:
-        //          If swapSpace == true, then the effect is applicable.
-        //          Otherwise it is necessary to check the backwards space
-        //          (see Minotaur effect for more info).
-        //       Otherwise effect is not applicable.
+        List<Position> possibleMoves = worker.getPossibleMoves();
 
-        worker.getPosition();
+        Board board = Game.getInstance().getBoard();
+        List<Position> adjOpponentPos = board.getNeighbourWorkers(worker.getPosition());
 
-        if (Boolean.parseBoolean(requirements.get(XMLName.SWAP_SPACE))) {
-            return true;
-        } else if (Boolean.parseBoolean(requirements.get(XMLName.PUSH_BACK))) {
+        if (pushBack) {
+            possibleMoves.addAll(adjOpponentPos);
+        }
 
-            return true;
+        if (swapSpace) {
+            for (Position oppPos : adjOpponentPos) {
+                Space space = board.getNextSpaceInLine(worker.getPosition(), oppPos);
+                if (space.isFree()) {
+                    possibleMoves.add(oppPos);
+                }
+            }
         }
 
         return effect.require(worker);

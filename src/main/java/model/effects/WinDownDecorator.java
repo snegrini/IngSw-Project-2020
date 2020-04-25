@@ -8,14 +8,9 @@ import java.util.Map;
 
 public class WinDownDecorator extends EffectDecorator {
 
-    private Map<String, String> requirements;
-    private Map<String, String> parameters;
-
-    public WinDownDecorator(Effect effect, Map<String, String> requirements,
-                            Map<String, String> parameters) {
+    public WinDownDecorator(Effect effect, Map<String, String> requirements) {
         this.effect = effect;
         this.requirements = requirements;
-        this.parameters = parameters;
     }
 
     @Override

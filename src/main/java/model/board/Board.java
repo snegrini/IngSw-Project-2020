@@ -2,10 +2,13 @@ package model.board;
 
 import model.board.Position;
 import model.board.Space;
+import model.enumerations.Color;
+import model.player.Worker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -88,5 +91,21 @@ public class Board {
             }
         }
         return neighbours;
+    }
+
+    /**
+     * Returns a list of positions that are adjacent to the position argument and are occupied by an opponent worker.
+     *
+     * @param position The position to look for the neighbours.
+     * @return The list of spaces adjacent to this space.
+     */
+    public List<Position> getNeighbourWorkers(Position position) {
+        Worker worker = getSpace(position).getWorker();
+        Color color = worker.getColor();
+
+        return getNeighbours(position).stream()
+                .filter(pos -> getSpace(pos).getWorker() != null)
+                .filter(pos -> !color.equals(getSpace(pos).getWorker().getColor()))
+                .collect(Collectors.toList());
     }
 }

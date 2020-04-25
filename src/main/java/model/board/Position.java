@@ -1,7 +1,5 @@
 package model.board;
 
-import model.player.Player;
-
 import java.util.Objects;
 
 public class Position {

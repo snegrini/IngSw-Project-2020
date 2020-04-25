@@ -42,7 +42,7 @@ public class Worker {
 
     /**
      * Returns the adjacent positions where this worker can normally build.
-     * Non-free spaces will be ignored {@see model.Space#isFree}.
+     * Non-free spaces will be ignored @see model.Space#isFree.
      *
      * @return a list of positions where this worker can build.
      */

@@ -24,7 +24,7 @@
             <effect type="YOUR_MOVE">
                 <parameters>
                     <target>YOUR_WORKER</target>
-                    <move again="1" back="false"/>
+                    <move again="true" quantity="1" goback="false"/>
                 </parameters>
             </effect>
         </effects>
@@ -69,7 +69,7 @@
             <effect type="YOUR_BUILD">
                 <parameters>
                     <target>YOUR_WORKER</target>
-                    <build again="1" samespace="false"/>
+                    <build again="true" quantity="1" samespace="false"/>
                 </parameters>
             </effect>
         </effects>
@@ -81,11 +81,13 @@
         </description>
         <effects>
             <effect type="YOUR_BUILD">
+                <requirements>
+                    <target>YOUR_WORKER</target>
+                    <build/>
+                </requirements>
                 <parameters>
-                    <parameters>
-                        <target>YOUR_WORKER</target>
-                        <build again="1" minblock="1" dome="false"/>
-                    </parameters>
+                    <target>YOUR_WORKER</target>
+                    <build again="true" quantity="1" samespace="true" dome="false"/>
                 </parameters>
             </effect>
         </effects>
@@ -135,7 +137,7 @@
                 </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
-                    <build again="1"/>
+                    <build again="true" quantity="1"/>
                 </parameters>
             </effect>
         </effects>
