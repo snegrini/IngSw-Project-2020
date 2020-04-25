@@ -3,6 +3,7 @@ package view;
 import model.God;
 import model.ReducedGod;
 import model.board.Position;
+import model.board.ReducedSpace;
 import model.enumerations.Color;
 import model.player.Worker;
 import network.message.GodList;
@@ -59,10 +60,10 @@ public class VirtualView extends View implements Observer {
         clientHandler.sendMessage(new GodList("server", gods));
     }
 
-    @Override
-    public String showBoard() {
-        return null;
-    }
+    //@Override
+    // public String showBoard() {
+    //     return null;
+    //}
 
     @Override
     public void askNewBuildingPosition(List<Position> positions) {
@@ -79,7 +80,10 @@ public class VirtualView extends View implements Observer {
         clientHandler.sendMessage(new LoginReply(nicknameAccepted, connectionSuccessful));
     }
 
-
+    @Override
+    public String showBoard(ReducedSpace[][] spaces) {
+        return null;
+    }
 
 
     /**

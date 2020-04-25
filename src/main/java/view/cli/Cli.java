@@ -2,8 +2,8 @@ package view.cli;
 
 import model.ReducedGod;
 import model.board.Position;
-import model.board.Board;
-import model.board.Position;
+import model.board.ReducedSpace;
+
 import model.enumerations.Color;
 import model.player.Worker;
 import network.message.Init;
@@ -14,11 +14,14 @@ import view.View;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static model.board.Board.MAX_COLUMNS;
+import static model.board.Board.MAX_ROWS;
+
 public class Cli extends View {
 
-    private static final int ROWS = 5;
-    private static final int COLUMNS = 5;
-    private String[][] board = new String[ROWS][COLUMNS];
+    //private static final int  = 5;
+    //private static final int COLUMNS = 5;
+    //private String[][] board = new String[ROWS][COLUMNS];
 
 
     private Scanner scanner;
@@ -187,8 +190,8 @@ public class Cli extends View {
             }
             System.out.println("Select where to build:");
             do {
-                chosenRow = scanner.nextInt();
-                chosenColumn = scanner.nextInt();
+                chosenRow = Integer.parseInt(scanner.nextLine());
+                chosenColumn = Integer.parseInt(scanner.nextLine());
                 if (position_isNotValid(chosenRow, chosenColumn, positions))
                     System.out.println("You have inserted an invalid position! Please try again!");
             } while (position_isNotValid(chosenRow, chosenColumn, positions));
@@ -200,42 +203,76 @@ public class Cli extends View {
     }
 
 
-    private void initializeBoard() {
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                board[i][j] = "       ";
-            }
-        }
-    }
-
     @Override
-    public String showBoard() {
-        initializeBoard();
+    public String showBoard(ReducedSpace[][] spaces) {
+        System.out.print(printUpperIndexes());
         String strBoard = "";
-        for (int i = 0; i < ROWS; i++) {
-            strBoard += "\n+-----+-----+-----+-----+-----+\n";
-            for (int j = 0; j < COLUMNS; j++) {
-                if (j == 0)
-                    strBoard += "|" + board[i][j] + "|";
-                else
-                    strBoard += board[i][j] + "|";
+        for (int i = 0; i < MAX_ROWS; i++) {
+            strBoard += ColorCli.YELLOW_BOLD + "\n   +-----+-----+-----+-----+-----+\n" + ColorCli.RESET;
+            for (int j = 0; j < MAX_COLUMNS; j++) {
+                if (j == 0) {
+                    if (spaces[i][j].hasDome()) {
+                        strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + "  |  " + Color.BLUE + "∩"
+                                + ColorCli.YELLOW_BOLD +
+                                "  |" + ColorCli.RESET;
+                    } else {
+                        if (spaces[i][j].getReducedWorker() != null) {
+                            strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + "  | " + ColorCli.RESET +
+                                    spaces[i][j].getLevel() +
+                                    spaces[i][j].getReducedWorker().getColor().getCode() + " x" + ColorCli.YELLOW_BOLD
+                                    + " |" + ColorCli.RESET;
+                        } else {
+                            strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + "  |  " + ColorCli.RESET
+                                    + spaces[i][j].getLevel()
+                                    + ColorCli.YELLOW_BOLD + "  |"
+                                    + ColorCli.RESET;
+                        }
+
+                    }
+                } else {
+                    if (spaces[i][j].hasDome()) {
+                        strBoard += "  " + Color.BLUE + "∩" + ColorCli.YELLOW_BOLD + "  |" + ColorCli.RESET;
+                    } else {
+                        if (spaces[i][j].getReducedWorker() != null) {
+                            strBoard += " " + spaces[i][j].getLevel() +
+                                    spaces[i][j].getReducedWorker().getColor().getCode() + " x" +
+                                    ColorCli.YELLOW_BOLD + " |"
+                                    + ColorCli.RESET;
+                        } else {
+                            strBoard += "  " + spaces[i][j].getLevel() + ColorCli.YELLOW_BOLD + "  |" + ColorCli.RESET;
+                        }
+                    }
+                }
+
             }
-            if (i == ROWS - 1)
-                strBoard += "\n+-----+-----+-----+-----+-----+\n";
+            if (i == MAX_ROWS - 1)
+                strBoard += ColorCli.YELLOW_BOLD + "\n   +-----+-----+-----+-----+-----+\n" + ColorCli.RESET;
         }
         return strBoard;
-
     }
 
     /**
-     * Returns a boolean which, if is true, it means that the position inserted is invalid, valid otherwise.
-     * This method is used in the "Ask" type methods to check if the position inserted by the user
-     * is correct.
+     * Returns a string with the columns' indexes.
      *
-     * @param chosenRow    the Row chosen by the player.
-     * @param chosenColumn the Column chosen by the player.
+     * @return a string with the columns' indexes.
+     */
+    private String printUpperIndexes() {
+        String strIndex = "   ";
+        for (int i = 0; i < 5; i++) {
+            strIndex += "   " + i + "  ";
+        }
+        return strIndex;
+    }
+
+    /**
+     * Returns {@code true} if the position inserted is not valid, {@code false} otherwise.
+     * This method is used in the "Ask" type methods to check if the position inserted by the user
+     * is correct. If it is incorrect input is asked again.
+     *
+     * @param chosenRow    the Row chosen by the user.
+     * @param chosenColumn the Column chosen by the user.
      * @param positions    the List of valid positions.
-     * @return a boolean which, if is true, it means that the position inserted is invalid, valid otherwise.
+     * @return {@code true} if the position inserted is not valid, {@code false} otherwise.
      */
     private boolean position_isNotValid(int chosenRow, int chosenColumn, List<Position> positions) {
         for (Position position : positions) {

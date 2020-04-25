@@ -2,6 +2,7 @@ package view;
 
 import model.ReducedGod;
 import model.board.Position;
+import model.board.ReducedSpace;
 import model.enumerations.Color;
 import observer.ViewObserver;
 
@@ -41,7 +42,7 @@ public abstract class View {
     public abstract void askServerInfo();
 
     /**
-     * Asks to the to choose a Nickname.
+     * Asks to the user to choose a Nickname.
      */
     public abstract void askNickname();
 
@@ -55,7 +56,7 @@ public abstract class View {
     public abstract void askPlayersNumber();
 
     /**
-     * Allows the user to choose the color of his workers.
+     * Allows the user to choose his workers' color.
      *
      * @param colors the list of the available colors.
      */
@@ -85,7 +86,7 @@ public abstract class View {
     /**
      * Shows to the user if the Login succeeded.
      *
-     * @param nicknameAccepted     the result of the verification of the Nickname.
+     * @param nicknameAccepted     indicates if the chosen nickname has been accepted.
      * @param connectionSuccessful indicates if the connection has been successful.
      */
     public abstract void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful);
@@ -95,5 +96,5 @@ public abstract class View {
      *
      * @return the Board
      */
-    public abstract String showBoard();
+    public abstract String showBoard(ReducedSpace[][] spaces);
 }
