@@ -1,15 +1,10 @@
 package view;
 
-import model.God;
 import model.ReducedGod;
 import model.board.Position;
 import model.board.ReducedSpace;
 import model.enumerations.Color;
-import model.player.Worker;
-import network.message.GodList;
-import network.message.LoginReply;
-import network.message.Message;
-import network.message.PlayerNumberRequest;
+import network.message.*;
 import network.server.ClientHandler;
 import observer.Observer;
 
@@ -27,8 +22,9 @@ public class VirtualView extends View implements Observer {
         this.clientHandler = clientHandler;
     }
 
+
     @Override
-    public void init() {
+    public void init(){
 
     }
 
@@ -52,12 +48,17 @@ public class VirtualView extends View implements Observer {
 
     @Override
     public void askWorkersColor(List<Color> colors) {
+        clientHandler.sendMessage(new ColorsMessage("server", colors));
+    }
 
+    @Override
+    public void askWorkersPositions(List<Position> positions) {
+        clientHandler.sendMessage(new WorkersPositionsMessage("server", positions));
     }
 
     @Override
     public void askGod(List<ReducedGod> gods) {
-        clientHandler.sendMessage(new GodList("server", gods));
+        clientHandler.sendMessage(new GodListMessage("server", gods));
     }
 
     //@Override

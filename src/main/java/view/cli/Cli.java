@@ -5,9 +5,6 @@ import model.board.Position;
 import model.board.ReducedSpace;
 
 import model.enumerations.Color;
-import model.player.Worker;
-import network.message.Init;
-import network.message.Message;
 import observer.ViewObserver;
 import view.View;
 
@@ -69,6 +66,11 @@ public class Cli extends View {
         } while (playerNumber != 2 && playerNumber != 3);
         int finalPlayerNumber = playerNumber;
         notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(finalPlayerNumber));
+    }
+
+    @Override
+    public void askWorkersPositions(List<Position> positions){
+
     }
 
     @Override

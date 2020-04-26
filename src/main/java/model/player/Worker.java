@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 
 public class Worker {
 
-    private final Color color;
+    private Color color;
     private Position position;
     private MoveHistory moveHistory;
     private Set<MoveType> lockedMovements;
 
-    public Worker(Color color, Position position) {
-        this.color = color;
+    public Worker(Position position) {
+
         this.position = position;
         this.moveHistory = new MoveHistory(position, 0);
         this.lockedMovements = new HashSet<>();
@@ -175,5 +175,9 @@ public class Worker {
 
     public void removeAllLockedMovements() {
         lockedMovements.clear();
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

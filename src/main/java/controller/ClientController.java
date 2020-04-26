@@ -4,7 +4,7 @@ import model.ReducedGod;
 import model.enumerations.Color;
 import network.client.Client;
 import network.client.SocketClient;
-import network.message.GodList;
+import network.message.GodListMessage;
 import network.message.LoginRequest;
 import network.message.Message;
 import network.message.PlayerNumberReply;
@@ -73,7 +73,7 @@ public class ClientController implements ViewObserver, Observer {
 
     @Override
     public void onUpdateGod(ReducedGod god) {
-        client.sendMessage(new GodList(this.nickname, List.of(god)));
+        client.sendMessage(new GodListMessage(this.nickname, List.of(god)));
     }
 
     @Override

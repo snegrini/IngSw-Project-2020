@@ -2,15 +2,15 @@ package controller;
 
 import model.Game;
 import model.God;
+import model.ReducedGod;
+import model.board.Position;
+import model.enumerations.Color;
 import model.player.Player;
 import model.player.Worker;
 import network.message.*;
 import view.VirtualView;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GameController {
 
@@ -18,14 +18,24 @@ public class GameController {
     private Map<String, VirtualView> virtualViews;
 
     private GameState gameState;
-    private List<God> selectedGodList;
-    private List<God> activeGodList;
-    private List<God> fullGodList;
+    private List<ReducedGod> selectedGodList;
+    private List<ReducedGod> activeGodList;
+    private List<ReducedGod> fullReducedGodList;
+
+    private List<God> godList;
+
+    private List<Color> availableColors;
     private TurnController turnController;
 
     public GameController() {
         this.game = Game.getInstance();
-        // TODO parser god from file and insert into fullGodList
+        // TODO parser god from file and insert into godList.
+        godList = new ArrayList<>();
+        // TODO create reduced gods and insert in fullReducedGodList.
+        fullReducedGodList = new ArrayList<>();
+
+        availableColors = getColorList();
+
         this.virtualViews = Collections.synchronizedMap(new HashMap<>());
         this.turnController = new TurnController(game);
     }
@@ -55,9 +65,11 @@ public class GameController {
 
             switch (receivedMessage.getMessageType()) {
                 case GODLIST:
-                    godListHandler((GodList) receivedMessage, virtualView);
-                case INIT:
-                    //return init((Init) receivedMessage);
+                    godListHandler((GodListMessage) receivedMessage, virtualView);
+                case INIT_WORKERSPOSITIONS:
+                    initWorkersPositions((WorkersPositionsMessage) receivedMessage, virtualView);
+                case INIT_COLORS:
+                    initColors((ColorsMessage) receivedMessage, virtualView);
 
                 default:
                     // TODO show exception
@@ -81,21 +93,73 @@ public class GameController {
         switch (receivedMessage.getMessageType()) {
             case MOVE:
                 break;
+            case BUILD:
+                break;
             default:
                 // TODO show exception
                 break;
         }
     }
 
-    private void init(Init receivedMessage) {
+
+    private void initWorkersPositions(WorkersPositionsMessage receivedMessage, VirtualView virtualView) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
-        if (receivedMessage.getPositionList().size() <= 2) {
-            for (int i = 0; i < receivedMessage.getPositionList().size(); i++) {
-                player.addWorker(new Worker(receivedMessage.getColor(), receivedMessage.getPositionList().get(i)));
+        if(arePositionsFree(receivedMessage.getPositionList())) {
+            for (Position p : receivedMessage.getPositionList()){
+                player.addWorker(new Worker(p));
             }
+            virtualView.askWorkersColor(availableColors);
+        } else {
+            virtualView.askWorkersPositions(game.getBoard().getFreePositions());
         }
 
     }
+
+    private boolean arePositionsFree(List<Position> positionList) {
+        boolean areFree = true;
+        for(Position p : positionList) {
+            if(!game.getBoard().getSpace(p).isFree()) {
+                areFree = false;
+            }
+        }
+        return areFree;
+    }
+
+
+    private void initColors(ColorsMessage receivedMessage, VirtualView virtualView) {
+        Player player = game.getPlayerByNickname(receivedMessage.getNickname());
+        if (receivedMessage.getColorList().size()!=1) {
+            if(isInAvailableColor(receivedMessage.getColorList().get(1))) {
+                for(Worker w : player.getWorkers()) {
+                    w.setColor(receivedMessage.getColorList().get(1));
+                    //End init phase
+                }
+            } else {
+                virtualView.askWorkersColor(availableColors);
+            }
+        } else {
+            virtualView.askWorkersColor(availableColors);
+        }
+    }
+
+    private boolean isInAvailableColor(Color color) {
+        for (Color c : availableColors) {
+            if (c.equals(color))
+                return true;
+        }
+        return false;
+    }
+
+    public List<Color> getColorList() {
+        List<Color> colorList = new ArrayList<>();
+        colorList.add(Color.BLUE);
+        colorList.add(Color.RED);
+        colorList.add(Color.GREEN);
+        return colorList;
+    }
+
+
+
 
     /**
      * If receivedMessage.getList.size == numPlayer then create the godList
@@ -103,30 +167,40 @@ public class GameController {
      *
      * @param receivedMessage
      */
-    private void godListHandler(GodList receivedMessage, VirtualView virtualView) {
+    private void godListHandler(GodListMessage receivedMessage, VirtualView virtualView) {
 
         // if received contains a list
-        if (!receivedMessage.getGodList().isEmpty()) {
+        if (receivedMessage.getGodList().size()>1) {
             if (receivedMessage.getGodList().size() == game.getChosenPlayersNumber()) {
                 Collections.copy(selectedGodList, receivedMessage.getGodList());
                 Collections.copy(activeGodList, receivedMessage.getGodList());
 
             } else {
-                virtualView.askGod(fullGodList);
+                virtualView.askGod(fullReducedGodList);
             }
-        } // else received contains only 1 god
+        } // else receivedMessage contains only 1 god
         else {
-            if (isInSelectedGodList(receivedMessage.getGod())) {
-                game.getPlayerByNickname(receivedMessage.getNickname()).setGod(receivedMessage.getGod());
-                selectedGodList.remove(receivedMessage.getGod());
+            if (isInSelectedGodList(receivedMessage.getGodList().get(1))) {
+                God god = getGodFromReducedGod(receivedMessage.getGodList().get(1));
+
+                game.getPlayerByNickname(receivedMessage.getNickname()).setGod(god);
+                selectedGodList.remove(receivedMessage.getGodList().get(1));
             } else {
                 virtualView.askGod(selectedGodList);
             }
         }
     }
 
-    private boolean isInSelectedGodList(God god) {
-        for (God g : selectedGodList) {
+    private God getGodFromReducedGod(ReducedGod reducedGod){
+        for(God g : godList) {
+            if (g.getName().equals(reducedGod.getName()))
+                return g;
+        }
+        return null;
+    }
+
+    private boolean isInSelectedGodList(ReducedGod god) {
+        for (ReducedGod g : selectedGodList) {
             if (g.getName().equals(god.getName()))
                 return true;
         }
@@ -150,7 +224,7 @@ public class GameController {
             virtualView.askPlayersNumber();
         } // if not 1st and there is some available slot check nickname.
         else if (!(game.isPlayerInList(receivedMessage.getNickname())) &&
-                !(receivedMessage.getNickname() == "server")) {
+                !(receivedMessage.getNickname().equals( "server" ))) {
             game.addPlayer(new Player(receivedMessage.getNickname()));
             // if latest player is logged then change gameState from LOGIN to INIT.
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) {

@@ -1,5 +1,8 @@
 package model.enumerations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Color {
     BLUE("BLUE", "\033[0;34m"), RED("RED", "\033[0;31m"), GREEN("GREEN", "\033[38;5;28m");
 
@@ -24,4 +27,6 @@ public enum Color {
     public String toString() {
         return code + text;
     }
+
+
 }

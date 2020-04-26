@@ -37,6 +37,20 @@ public class Board {
         }
     }
 
+    public List<Position> getFreePositions() {
+        List<Position> positionList = new ArrayList<>();
+        for (int i = 0; i<MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
+                if (spaces[i][j].isFree()) {
+                    Position position = new Position(i,j);
+                    positionList.add(position);
+                }
+            }
+        }
+        return positionList;
+    }
+
+
     /**
      * Returns the space at the given position.
      *

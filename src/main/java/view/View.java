@@ -31,9 +31,7 @@ public abstract class View {
         }
     }
 
-    /**
-     * Initialize the view, show welcome screen.
-     */
+
     public abstract void init();
 
     /**
@@ -52,6 +50,8 @@ public abstract class View {
      * @param positions the positions of the user's workers.
      */
     public abstract void askWorkerToMove(List<Position> positions);
+
+    public abstract void askWorkersPositions(List<Position> positions);
 
     public abstract void askPlayersNumber();
 
