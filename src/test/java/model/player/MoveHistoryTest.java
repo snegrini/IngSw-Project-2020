@@ -22,24 +22,6 @@ public class MoveHistoryTest {
     }
 
     @Test
-    public void hasMovedUp() {
-        Position movedUpPosition = new Position(3,3);
-        assertTrue(moveHistory.hasMovedUp(movedUpPosition, 3));
-    }
-
-    @Test
-    public void hasMovedDown() {
-        Position movedDownPosition = new Position(3,3);
-        assertTrue(moveHistory.hasMovedDown(movedDownPosition, 1));
-    }
-
-    @Test
-    public void hasMovedFlat() {
-        Position movedFlatPosition = new Position(3,3);
-        assertTrue(moveHistory.hasMovedFlat(movedFlatPosition, 2));
-    }
-
-    @Test
     public void getLastPosition() {
         Position lastPosition = new Position(2,3);
         assertEquals(lastPosition, moveHistory.getLastPosition());

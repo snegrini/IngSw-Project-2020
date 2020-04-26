@@ -13,6 +13,7 @@
                     <move over="true" swapspace="true"/>
                 </parameters>
             </effect>
+            ——
         </effects>
     </god>
     <god>
@@ -38,11 +39,11 @@
         <effects>
             <effect type="OPP_TURN">
                 <requirements>
-                    <target active="true">YOUR_WORKER</target>
+                    <target>YOUR_ACTIVE_WORKER</target>
                     <move>UP</move>
                 </requirements>
                 <parameters>
-                    <target all="true">OPP_WORKER</target>
+                    <target>ALL_OPP_WORKERS</target>
                     <move lock="true">UP</move>
                 </parameters>
             </effect>

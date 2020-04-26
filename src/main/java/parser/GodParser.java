@@ -4,6 +4,7 @@ import model.God;
 import model.effects.*;
 import model.enumerations.EffectType;
 import model.enumerations.MoveType;
+import model.enumerations.TargetType;
 import model.enumerations.XMLName;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -82,7 +83,7 @@ public class GodParser {
         List<Effect> effects = new ArrayList<>();
 
         // Retrieve <effect> nodes
-        Node effectsNode = godElement.getElementsByTagName(EFFECTS.getText()).item(0);
+        Node effectsNode = godElement.getElementsByTagName(EFFECTS.toString()).item(0);
         NodeList effectNodeList = effectsNode.getChildNodes();
 
         // Build effect list
@@ -120,10 +121,14 @@ public class GodParser {
         if (reqNodeList.getLength() > 0) {
             reqNodeList = reqNodeList.item(0).getChildNodes();
             requirements = toMap(reqNodeList);
+            TargetType reqTargetType = TargetType.valueOf(requirements.get(TARGET.getText()));
+            effect.addTargetType(REQUIREMENTS, reqTargetType);
         }
         if (parNodeList.getLength() > 0) {
             parNodeList = parNodeList.item(0).getChildNodes();
             parameters = toMap(parNodeList);
+            TargetType parTargetType = TargetType.valueOf(parameters.get(TARGET.getText()));
+            effect.addTargetType(PARAMETERS, parTargetType);
         }
 
         return parseEffectDecorators(effect, requirements, parameters);
@@ -139,7 +144,6 @@ public class GodParser {
      */
     private static Effect parseEffectDecorators(Effect effect, Map<String, String> requirements,
                                                 Map<String, String> parameters) {
-
         // A WIN_COND effect may not have parameters. Others decorations are skipped.
         if (effect.getEffectType().equals(EffectType.WIN_COND)) {
             return decorateWin(effect, requirements);

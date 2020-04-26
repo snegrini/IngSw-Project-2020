@@ -5,8 +5,11 @@ import model.board.Board;
 import model.board.Position;
 import model.board.Space;
 import model.enumerations.Color;
+import model.enumerations.MoveType;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Worker {
@@ -14,11 +17,13 @@ public class Worker {
     private final Color color;
     private Position position;
     private MoveHistory moveHistory;
+    private Set<MoveType> lockedMovements;
 
     public Worker(Color color, Position position) {
         this.color = color;
         this.position = position;
         this.moveHistory = new MoveHistory(position, 0);
+        this.lockedMovements = new HashSet<>();
     }
 
     /**
@@ -56,6 +61,7 @@ public class Worker {
 
     /**
      * Returns a {@code List} of adjacent and "level compatible" positions to the worker's position.
+     * Locked movements are also filtered.
      *
      * @return a {@code List} of adjacent and "level compatible" positions to the worker's position.
      */
@@ -66,7 +72,52 @@ public class Worker {
         return board.getNeighbours(position).stream()
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
+                .filter(pos -> !lockedMovements.contains(board.getMoveType(position, pos)))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns the level of the worker in his current position.
+     *
+     * @return the level of the worker in his current position.
+     */
+    public int getLevel() {
+        Board board = Game.getInstance().getBoard();
+        return board.getSpace(position).getLevel();
+    }
+
+    /**
+     * Returns {@code true} if the worker has moved up by one level, {@code false} otherwise.
+     * This methods compares the last saved position of the worker with the argument one.
+     *
+     * @return {@code true} if the worker has moved up by one level, {@code false} otherwise.
+     */
+    public boolean hasMovedUp() {
+        return !position.equals(moveHistory.getLastPosition()) &&
+                getLevel() == moveHistory.getLastLevel() + 1;
+    }
+
+    /**
+     * Returns {@code true} if the worker has moved down by one or more levels, {@code false} otherwise.
+     * This methods compares the last saved position of the worker with the argument one.
+     *
+     * @return {@code true} if the worker has moved down by one or more levels, {@code false} otherwise.
+     */
+    public boolean hasMovedDown() {
+        return !position.equals(moveHistory.getLastPosition()) &&
+                getLevel() < moveHistory.getLastLevel();
+    }
+
+    /**
+     * Returns {@code true} if the worker has moved flat, {@code false} otherwise.
+     * A move is considered to be "flat" if the level has not changed.
+     * This methods compares the last saved position of the worker with the argument one.
+     *
+     * @return {@code true} if the worker has moved flat, {@code false} otherwise.
+     */
+    public boolean hasMovedFlat() {
+        return !position.equals(moveHistory.getLastPosition()) &&
+                getLevel() == moveHistory.getLastLevel();
     }
 
     /**
@@ -99,5 +150,30 @@ public class Worker {
      */
     public MoveHistory getMoveHistory() {
         return new MoveHistory(this.moveHistory);
+    }
+
+    /**
+     * Checks if this worker has the argument moveType locked.
+     * This worker cannot perform a move in the direction of the argument moveType.
+     * Returns {@code true} if the MoveType argument is locked, {@code false} otherwise.
+     *
+     * @param moveType the MoveType to be checked.
+     * @return {@code true} if the MoveType argument is locked, {@code false} otherwise.
+     */
+    public boolean checkLockedMovement(MoveType moveType) {
+        return lockedMovements.stream()
+                .anyMatch(lm -> lm.equals(moveType));
+    }
+
+    public void addLockedMovement(MoveType moveType) {
+        lockedMovements.add(moveType);
+    }
+
+    public void removeLockedMovement(MoveType moveType) {
+        lockedMovements.remove(moveType);
+    }
+
+    public void removeAllLockedMovements() {
+        lockedMovements.clear();
     }
 }

@@ -3,6 +3,7 @@ package model.board;
 import model.board.Position;
 import model.board.Space;
 import model.enumerations.Color;
+import model.enumerations.MoveType;
 import model.player.Worker;
 
 import java.util.ArrayList;
@@ -107,5 +108,47 @@ public class Board {
                 .filter(pos -> getSpace(pos).getWorker() != null)
                 .filter(pos -> !color.equals(getSpace(pos).getWorker().getColor()))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns the MoveType needed to perform the move from the first position argument to
+     * the second position argument. Returns {@code null} if the arguments are not neighbours.
+     *
+     * @param orig the starting position.
+     * @param dest the destination position.
+     * @return the MoveType needed to perform the move from the first position argument to
+     * the second position argument. Returns {@code null} if the arguments are not neighbours.
+     */
+    public MoveType getMoveType(Position orig, Position dest) {
+        // Check if the arguments are neighbours.
+        if (!getNeighbours(orig).contains(dest)) {
+            return null;
+        }
+
+        int lvlOrig = getSpace(orig).getLevel();
+        int lvlDest = getSpace(dest).getLevel();
+
+        if (!orig.equals(dest)) {
+            if (lvlOrig < lvlDest) {
+                return MoveType.UP;
+            } else if (lvlOrig > lvlDest) {
+                return MoveType.DOWN;
+            } else {
+                return MoveType.FLAT;
+            }
+        } else {
+            return MoveType.NONE;
+        }
+    }
+
+    /**
+     * Resets all the spaces' levels in the board.
+     */
+    public void resetAllLevels() {
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
+                spaces[i][j].decreaseLevel(spaces[i][j].getLevel());
+            }
+        }
     }
 }

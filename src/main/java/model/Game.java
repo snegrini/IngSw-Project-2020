@@ -91,12 +91,14 @@ public class Game extends Observable {
         return players;
     }
 
-
+    /**
+     * Search a player by  in the curret
+     *
+     * @param nickname
+     * @return
+     */
     public boolean isPlayerInList(String nickname) {
-        for (Player p : players) {
-            if (p.getNickname().equals(nickname))
-                return true;
-        }
-        return false;
+        return players.stream()
+                .anyMatch(p -> nickname.equals(p.getNickname()));
     }
 }

@@ -30,46 +30,6 @@ public class MoveHistory {
         this.lastLevel = moveHistory.lastLevel;
     }
 
-    /**
-     * Returns {@code true} if the worker has moved up by one level, {@code false} otherwise.
-     * This methods compares the last saved position of the worker with the argument one.
-     *
-     * @param currentPosition the current position of the worker.
-     * @param currentLevel    the current level of the worker.
-     * @return {@code true} if the worker has moved up by one level, {@code false} otherwise.
-     */
-    public boolean hasMovedUp(Position currentPosition, int currentLevel) {
-        return !currentPosition.equals(lastPosition) &&
-                currentLevel == lastLevel + 1;
-    }
-
-    /**
-     * Returns {@code true} if the worker has moved down by one or more levels, {@code false} otherwise.
-     * This methods compares the last saved position of the worker with the argument one.
-     *
-     * @param currentPosition the current position of the worker.
-     * @param currentLevel    the current level of the worker.
-     * @return {@code true} if the worker has moved down by one or more levels, {@code false} otherwise.
-     */
-    public boolean hasMovedDown(Position currentPosition, int currentLevel) {
-        return !currentPosition.equals(lastPosition) &&
-                currentLevel < lastLevel;
-    }
-
-    /**
-     * Returns {@code true} if the worker has moved flat, {@code false} otherwise.
-     * A move is considered to be "flat" if the level has not changed.
-     * This methods compares the last saved position of the worker with the argument one.
-     *
-     * @param currentPosition the current position of the worker.
-     * @param currentLevel the current level of the worker.
-     * @return {@code true} if the worker has moved flat, {@code false} otherwise.
-     */
-    public boolean hasMovedFlat(Position currentPosition, int currentLevel) {
-        return !currentPosition.equals(lastPosition) &&
-                currentLevel == lastLevel;
-    }
-
     public Position getLastPosition() {
         return lastPosition;
     }

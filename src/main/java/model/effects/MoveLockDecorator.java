@@ -3,6 +3,7 @@ package model.effects;
 import model.enumerations.EffectType;
 import model.enumerations.MoveType;
 import model.player.Worker;
+import network.message.Move;
 
 import java.util.List;
 import java.util.Map;
@@ -19,19 +20,15 @@ public class MoveLockDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(List<Worker> targetWorkers) {
-
+    public void apply(List<Worker> workers) {
+        for (Worker w : workers) {
+            w.addLockedMovement(MoveType.UP);
+        }
     }
 
     @Override
     public boolean require(Worker worker) {
-        // TODO
-
-        return effect.require(worker);
+        return worker.hasMovedUp() && effect.require(worker);
     }
 
-    @Override
-    public EffectType getEffectType() {
-        return effect.getEffectType();
-    }
 }

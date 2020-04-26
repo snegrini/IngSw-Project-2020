@@ -47,7 +47,6 @@ public class Player extends Observable {
      * @param worker the worker to be added.
      */
     public void addWorker(Worker worker) {
-        // TODO check workers with unique id
         workers.add(worker);
     }
 

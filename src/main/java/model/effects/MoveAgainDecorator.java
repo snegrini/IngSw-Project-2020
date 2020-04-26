@@ -25,7 +25,6 @@ public class MoveAgainDecorator extends EffectDecorator {
     @Override
     public void apply(List<Worker> workers) {
         effect.apply(workers);
-
     }
 
     @Override
@@ -45,10 +44,5 @@ public class MoveAgainDecorator extends EffectDecorator {
         //notifyObserver();
 
         return effect.require(worker);
-    }
-
-    @Override
-    public EffectType getEffectType() {
-        return effect.getEffectType();
     }
 }

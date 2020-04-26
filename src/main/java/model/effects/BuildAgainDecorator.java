@@ -25,9 +25,4 @@ public class BuildAgainDecorator extends EffectDecorator {
         // TODO
         return effect.require(worker);
     }
-
-    @Override
-    public EffectType getEffectType() {
-        return effect.getEffectType();
-    }
 }

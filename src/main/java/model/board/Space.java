@@ -19,8 +19,6 @@ public class Space implements Comparable<Space> {
         this.dome = false;
     }
 
-    /*public boolean isBorderline() { }*/
-
     public boolean isFree() {
         return (worker == null) && !dome;
     }

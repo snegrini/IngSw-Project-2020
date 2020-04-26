@@ -24,8 +24,4 @@ public class WinDownDecorator extends EffectDecorator {
         return effect.require(worker);
     }
 
-    @Override
-    public EffectType getEffectType() {
-        return effect.getEffectType();
-    }
 }

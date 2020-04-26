@@ -9,6 +9,7 @@ import model.player.Worker;
 import observer.Observable;
 
 import java.lang.annotation.Target;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,10 @@ public abstract class Effect extends Observable {
 
     private EffectType effectType;
     private Map<XMLName, TargetType> targetTypeMap;
+
+    protected Effect() {
+        targetTypeMap = new HashMap<>();
+    }
 
     /**
      * Applies the effect to the argument workers.
