@@ -5,16 +5,15 @@ import model.player.Player;
 
 public class TurnController {
 
-    private Game gameInstance;
-    private PhaseController phaseController;
+    private Game game;
 
-    TurnController(Game gameInstance) {
-        this.phaseController = new PhaseController(gameInstance.getPlayers());
+    public TurnController() {
+        this.game = Game.getInstance();
     }
 
     public Player getActivePlayer() {
-        return phaseController.getActivePlayer();
+        // TODO
+        return null;
     }
-
 
 }

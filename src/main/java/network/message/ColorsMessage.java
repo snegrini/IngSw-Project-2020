@@ -6,8 +6,8 @@ import java.util.List;
 
 public class ColorsMessage extends Message {
 
+    private static final long serialVersionUID = -3704504226997118508L;
     private List<Color> colorList;
-
 
     public ColorsMessage(String nickname, List<Color> colorList) {
         super(nickname, MessageType.INIT_COLORS);

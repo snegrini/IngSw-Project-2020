@@ -5,6 +5,7 @@ import model.God;
 import model.ReducedGod;
 import model.board.Position;
 import model.enumerations.Color;
+import model.enumerations.GameState;
 import model.player.Player;
 import model.player.Worker;
 import network.message.*;
@@ -37,7 +38,7 @@ public class GameController {
         availableColors = getColorList();
 
         this.virtualViews = Collections.synchronizedMap(new HashMap<>());
-        this.turnController = new TurnController(game);
+        this.turnController = new TurnController();
         gameState = GameState.LOGIN; // Initialize Game State.
     }
 
@@ -83,7 +84,7 @@ public class GameController {
         } else if (gameState == GameState.IN_GAME) {
 
             // check if sender's nickname is in listPlayer.
-            if (!game.isPlayerInList(receivedMessage.getNickname())) {
+            if (!game.isNicknameTaken(receivedMessage.getNickname())) {
                 virtualView.showGenericErrorMessage("Player is not in game.");
             }
 
@@ -284,7 +285,7 @@ public class GameController {
             if (game.getNumCurrentPlayers() == 0) { // First player logged. Ask number of players.
                 game.addPlayer(new Player(nickname));
                 virtualView.askPlayersNumber();
-            } else if (!(game.isPlayerInList(nickname))) { // If not exist yet then add it
+            } else if (!(game.isNicknameTaken(nickname))) { // If not exist yet then add it
                 game.addPlayer(new Player(nickname));
                 virtualView.showLoginResult(true, true);
 

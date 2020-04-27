@@ -153,6 +153,12 @@ public class WorkerTest {
     }
 
     @Test
+    public void setColor() {
+        worker.setColor(Color.BLUE);
+        assertEquals(Color.BLUE, worker.getColor());
+    }
+
+    @Test
     public void getPosition_Worker_ReducedWorker() {
         assertEquals(worker.getPosition(), reducedWorker.getPosition());
     }

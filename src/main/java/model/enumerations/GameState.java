@@ -1,4 +1,4 @@
-package controller;
+package model.enumerations;
 
 public enum GameState {
     LOGIN,

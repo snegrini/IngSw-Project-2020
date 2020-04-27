@@ -6,29 +6,28 @@ import model.player.Worker;
 public class Move extends Message {
 
     private static final long serialVersionUID = 2871961810761631846L;
-    private Worker worker;
-    private Position position;
+    private Position orig;
+    private Position dest;
 
     /**
      * Constructor of message from Client to Server for the move command.
      *
      * @param nickname of player
-     * @param worker   player which is moving
-     * @param position destination position
+     * @param orig     starting position of the worker to move.
+     * @param dest     destination position
      */
-    public Move(String nickname, Worker worker, Position position) {
+    public Move(String nickname, Position orig, Position dest) {
         super(nickname, MessageType.MOVE);
-        this.worker = worker;
-        this.position = position;
+        this.orig = orig;
+        this.dest = dest;
     }
 
-
-    public Worker getWorker() {
-        return worker;
+    public Position getPositionOrig() {
+        return orig;
     }
 
-    public Position getPosition() {
-        return position;
+    public Position getPositionDest() {
+        return dest;
     }
 
     @Override
@@ -36,8 +35,8 @@ public class Move extends Message {
         return "Move{" +
                 "nickname=" + getNickname() +
                 ", messageType=" + getMessageType() +
-                ", worker=" + worker +
-                ", position=" + position +
+                ", orig=" + orig +
+                ", dest=" + dest +
                 '}';
     }
 }

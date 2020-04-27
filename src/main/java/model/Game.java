@@ -3,6 +3,7 @@ package model;
 import model.board.Board;
 import model.player.Player;
 import observer.Observable;
+import parser.GodParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +17,12 @@ public class Game extends Observable {
 
     private Board board;
     private List<Player> players;
+    private List<God> gods;
 
     private Game() {
         this.board = new Board();
         this.players = new ArrayList<>();
+        this.gods = GodParser.parseGods();
     }
 
     /**
@@ -72,7 +75,7 @@ public class Game extends Observable {
      * @return {@code true} if the argument value is {@code 0 < x < MAX_PLAYERS}, {@code false} otherwise.
      */
     public boolean setChosenMaxPlayers(int chosenMaxPlayers) {
-        if (chosenMaxPlayers > 0 && chosenMaxPlayers < MAX_PLAYERS) {
+        if (chosenMaxPlayers > 0 && chosenMaxPlayers <= MAX_PLAYERS) {
             this.chosenPlayersNumber = chosenMaxPlayers;
             return true;
         }
@@ -87,18 +90,21 @@ public class Game extends Observable {
         return board;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    /**
+     * Search a nickname in the current Game.
+     *
+     * @param nickname the nickname of the player.
+     * @return {@code true} if the nickname is found, {@code false} otherwise.
+     */
+    public boolean isNicknameTaken(String nickname) {
+        return players.stream()
+                .anyMatch(p -> nickname.equals(p.getNickname()));
     }
 
     /**
-     * Search a player by  in the curret
-     *
-     * @param nickname
-     * @return
+     * Resets the game instance. After this operations, all the game data is lost.
      */
-    public boolean isPlayerInList(String nickname) {
-        return players.stream()
-                .anyMatch(p -> nickname.equals(p.getNickname()));
+    public static void resetInstance() {
+        Game.instance = null;
     }
 }

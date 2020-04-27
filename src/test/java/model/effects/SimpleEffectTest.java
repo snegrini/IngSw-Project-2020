@@ -1,9 +1,12 @@
 package model.effects;
 
 import model.enumerations.EffectType;
+import model.player.Worker;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +24,11 @@ public class SimpleEffectTest {
     }
 
     @Test
-    public void apply() {
+    public void apply_doNothing() {
+        List<Worker> workers = List.of();
+        assertEquals(List.of(), workers);
+        simpleEffect.apply(List.of());
+        assertEquals(List.of(), workers);
     }
 
     @Test

@@ -5,8 +5,8 @@ import model.board.Position;
 import java.util.List;
 
 public class WorkersPositionsMessage extends Message {
-    // TODO serial
 
+    private static final long serialVersionUID = -8130354752188643457L;
     private List<Position> positionList;
 
     public WorkersPositionsMessage(String nickname, List<Position> positionList) {
