@@ -1,5 +1,6 @@
 package model.board;
 
+import model.Game;
 import model.board.Position;
 import model.board.Space;
 import model.enumerations.Color;
@@ -50,6 +51,21 @@ public class Board {
         return positionList;
     }
 
+    /**
+     *  Check if positionList refers only to free spaces
+     *
+     * @param positionList positionList from client
+     * @return true or false
+     */
+    public boolean arePositionsFree(List<Position> positionList) {
+        boolean areFree = true;
+        for (Position p : positionList) {
+            if (!this.getSpace(p).isFree()) {
+                areFree = false;
+            }
+        }
+        return areFree;
+    }
 
     /**
      * Returns the space at the given position.

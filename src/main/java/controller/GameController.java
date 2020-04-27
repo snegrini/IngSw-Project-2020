@@ -79,20 +79,22 @@ public class GameController {
         }
 
 
-        // check if sender is in listPlayer.
+        // check if sender's nickname is in listPlayer.
         if (!game.isPlayerInList(receivedMessage.getNickname())) {
             //return new GenericErrorMessage("Player is not in game.");
+            virtualView.sendMessage(new GenericErrorMessage("Player is not in game."));
         }
 
 
         // check if sender is the active player.
         if (turnController.getActivePlayer().getNickname().equals(receivedMessage.getNickname())) {
             //return new GenericErrorMessage("Not your turn.");
+            virtualView.sendMessage(new GenericErrorMessage("Not your turn."));
         }
 
         switch (receivedMessage.getMessageType()) {
             case MOVE:
-                break;
+                move((Move)receivedMessage, virtualView);
             case BUILD:
                 break;
             default:
@@ -102,10 +104,24 @@ public class GameController {
     }
 
 
+    private void move(Move receivedMessage, VirtualView virtualView) {
+        // TODO
+        // check if destination is free
+        // check for some lock from gods
+        // move player
+        // check win condition
+    }
+
+    /**
+     * If client provides 2 free positions then assign them to his workers
+     *
+     * @param receivedMessage message from client
+     * @param virtualView virtual view
+     */
     private void initWorkersPositions(WorkersPositionsMessage receivedMessage, VirtualView virtualView) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
-        if(arePositionsFree(receivedMessage.getPositionList())) {
-            for (Position p : receivedMessage.getPositionList()){
+        if (game.getBoard().arePositionsFree(receivedMessage.getPositionList())) {
+            for (Position p : receivedMessage.getPositionList()) {
                 player.addWorker(new Worker(p));
             }
             virtualView.askWorkersColor(availableColors);
@@ -115,24 +131,23 @@ public class GameController {
 
     }
 
-    private boolean arePositionsFree(List<Position> positionList) {
-        boolean areFree = true;
-        for(Position p : positionList) {
-            if(!game.getBoard().getSpace(p).isFree()) {
-                areFree = false;
-            }
-        }
-        return areFree;
-    }
 
 
+
+    /**
+     * If color picked by client is available (and not picked from another client)
+     * then assign color to workers of the current player.
+     *
+     * @param receivedMessage message from client
+     * @param virtualView virtual view
+     */
     private void initColors(ColorsMessage receivedMessage, VirtualView virtualView) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
-        if (receivedMessage.getColorList().size()!=1) {
-            if(isInAvailableColor(receivedMessage.getColorList().get(1))) {
-                for(Worker w : player.getWorkers()) {
+        if (receivedMessage.getColorList().size() == 1) {
+            if (isInAvailableColor(receivedMessage.getColorList().get(1))) {
+                for (Worker w : player.getWorkers()) {
                     w.setColor(receivedMessage.getColorList().get(1));
-                    //End init phase
+                    // TODO End init phase
                 }
             } else {
                 virtualView.askWorkersColor(availableColors);
@@ -142,6 +157,12 @@ public class GameController {
         }
     }
 
+    /**
+     * Check if color picked by client is available
+     *
+     * @param color color picked by client
+     * @return true or false
+     */
     private boolean isInAvailableColor(Color color) {
         for (Color c : availableColors) {
             if (c.equals(color))
@@ -150,6 +171,10 @@ public class GameController {
         return false;
     }
 
+
+    /**
+     * @return a list with all possible colors
+     */
     public List<Color> getColorList() {
         List<Color> colorList = new ArrayList<>();
         colorList.add(Color.BLUE);
@@ -159,18 +184,17 @@ public class GameController {
     }
 
 
-
-
     /**
-     * If receivedMessage.getList.size == numPlayer then create the godList
-     * if size = 1 then player.god = god.
+     * If receive a godList with multiple gods then create the list.
+     * If receive a single god in list then assign it to the current player.
      *
-     * @param receivedMessage
+     * @param receivedMessage message from client
+     * @param virtualView     virtual view
      */
     private void godListHandler(GodListMessage receivedMessage, VirtualView virtualView) {
 
         // if received contains a list
-        if (receivedMessage.getGodList().size()>1) {
+        if (receivedMessage.getGodList().size() > 1) {
             if (receivedMessage.getGodList().size() == game.getChosenPlayersNumber()) {
                 Collections.copy(selectedGodList, receivedMessage.getGodList());
                 Collections.copy(activeGodList, receivedMessage.getGodList());
@@ -191,14 +215,26 @@ public class GameController {
         }
     }
 
-    private God getGodFromReducedGod(ReducedGod reducedGod){
-        for(God g : godList) {
+    /**
+     * Convert ReducedGod to God in order to set it to a player.
+     *
+     * @param reducedGod god from client
+     * @return God
+     */
+    private God getGodFromReducedGod(ReducedGod reducedGod) {
+        for (God g : godList) {
             if (g.getName().equals(reducedGod.getName()))
                 return g;
         }
         return null;
     }
 
+    /**
+     * Check if parameter is in the selectedGodList
+     *
+     * @param god god picked by client
+     * @return true if correct else false
+     */
     private boolean isInSelectedGodList(ReducedGod god) {
         for (ReducedGod g : selectedGodList) {
             if (g.getName().equals(god.getName()))
@@ -207,6 +243,12 @@ public class GameController {
         return false;
     }
 
+    /**
+     * Set the number of players in game
+     *
+     * @param receivedMessage message from client
+     * @param virtualView     virtual view
+     */
     private void setChosenMaxPlayers(PlayerNumberReply receivedMessage, VirtualView virtualView) {
         if (receivedMessage.getPlayerNumber() < 4 && receivedMessage.getPlayerNumber() > 1) {
             game.setChosenMaxPlayers(receivedMessage.getPlayerNumber());
@@ -216,6 +258,14 @@ public class GameController {
         }
     }
 
+    /**
+     * if first client then ask number of players he wants.
+     * if not first client check his nickname, add player to the game
+     * eventually change game state
+     *
+     * @param receivedMessage message from client
+     * @param virtualView     virtual view
+     */
     private void loginRequests(LoginRequest receivedMessage, VirtualView virtualView) {
 
         // if is 1st add it and request number players.
@@ -224,7 +274,7 @@ public class GameController {
             virtualView.askPlayersNumber();
         } // if not 1st and there is some available slot check nickname.
         else if (!(game.isPlayerInList(receivedMessage.getNickname())) &&
-                !(receivedMessage.getNickname().equals( "server" ))) {
+                !(receivedMessage.getNickname().equals("server"))) {
             game.addPlayer(new Player(receivedMessage.getNickname()));
             // if latest player is logged then change gameState from LOGIN to INIT.
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) {
