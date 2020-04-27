@@ -208,10 +208,22 @@ public class GameController {
 
                 game.getPlayerByNickname(receivedMessage.getNickname()).setGod(god);
                 selectedGodList.remove(receivedMessage.getGodList().get(1));
+
+                if (selectedGodList.size() == 0) {
+                    askWorkersPositions(1); // Ask to first player his workers' positions
+                }
+
             } else {
                 virtualView.askGod(selectedGodList);
             }
         }
+    }
+
+    private void askWorkersPositions(int playerID) {
+        // Instatiate virtual view for the first player logged
+        VirtualView virtualView = virtualViews.get(game.getPlayers().get(playerID).getNickname());
+        // Send available positions to the first client.
+        virtualView.askWorkersPositions(game.getBoard().getFreePositions());
     }
 
     /**
@@ -266,32 +278,36 @@ public class GameController {
      * @param virtualView     virtual view
      */
     private void loginRequests(LoginRequest receivedMessage, VirtualView virtualView) {
+        String nickname = receivedMessage.getNickname();
 
-        // if is 1st add it and request number players.
-        if (game.getNumCurrentPlayers() == 0) {
-            game.addPlayer(new Player(receivedMessage.getNickname()));
-            virtualView.askPlayersNumber();
-        } // if not 1st and there is some available slot check nickname.
-        else if (!(game.isPlayerInList(receivedMessage.getNickname())) &&
-                !(receivedMessage.getNickname().equals("server"))) {
-            game.addPlayer(new Player(receivedMessage.getNickname()));
-            // if latest player is logged then change gameState from LOGIN to INIT.
-            if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) {
-                gameState = GameState.INIT;
-                sendGodsToFirstPlayer();
+        if (!nickname.equals("server")) {
+            if (game.getNumCurrentPlayers() == 0) { // First player logged. Ask number of players.
+                game.addPlayer(new Player(nickname));
+                virtualView.askPlayersNumber();
+            } else if (!(game.isPlayerInList(nickname))) { // If not exist yet then add it
+                game.addPlayer(new Player(nickname));
+                virtualView.showLoginResult(true, true);
+
+                if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
+                    gameState = GameState.INIT;
+                    askGods(1); // FIXME -> to random not to first
+                }
+            } else {
+                virtualView.showLoginResult(false, true);
             }
-            virtualView.showLoginResult(true, true);
+
+
         } else {
+            // NICKNAME CAN'T BE "server".
             virtualView.showLoginResult(false, true);
         }
-
     }
 
-    private void sendGodsToFirstPlayer() {
+    private void askGods(int playerID) {
         // Instatiate virtual view for the first player logged
-        VirtualView virtualView = virtualViews.get(game.getPlayers().get(1).getNickname());
-       // virtualView.askGod(fullReducedGodList);
-        virtualView.sendMessage(new GenericErrorMessage("listaDei"));
+        VirtualView virtualView = virtualViews.get(game.getPlayers().get(playerID).getNickname());
+        // virtualView.askGod(fullReducedGodList);
+        virtualView.showGenericErrorMessage("lista Dei"); // FIXME
     }
 
 
