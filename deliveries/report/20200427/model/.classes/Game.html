@@ -1,0 +1,198 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Game</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Game (model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Game</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90,9%
+  </span>
+  <span class="absValue">
+    (10/ 11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96,2%
+  </span>
+  <span class="absValue">
+    (25/ 26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import model.board.Board;
+<i>4</i>&nbsp;import model.player.Player;
+<i>5</i>&nbsp;import observer.Observable;
+<i>6</i>&nbsp;import parser.GodParser;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;public class Game extends Observable {
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    private static Game instance;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    public static final int MAX_PLAYERS = 3;
+<i>16</i>&nbsp;    private int chosenPlayersNumber;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    private Board board;
+<i>19</i>&nbsp;    private List&lt;Player&gt; players;
+<i>20</i>&nbsp;    private List&lt;God&gt; gods;
+<i>21</i>&nbsp;
+<b class="fc"><i>22</i>&nbsp;    private Game() {</b>
+<b class="fc"><i>23</i>&nbsp;        this.board = new Board();</b>
+<b class="fc"><i>24</i>&nbsp;        this.players = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>25</i>&nbsp;        this.gods = GodParser.parseGods();</b>
+<b class="fc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * @return the singleton instance.
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    public static Game getInstance() {
+<b class="fc"><i>32</i>&nbsp;        if (instance == null)</b>
+<b class="fc"><i>33</i>&nbsp;            instance = new Game();</b>
+<b class="fc"><i>34</i>&nbsp;        return instance;</b>
+<i>35</i>&nbsp;    }
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Returns a player given his {@code nickname}.
+<i>39</i>&nbsp;     * Only the first occurrence is returned because
+<i>40</i>&nbsp;     * the player nickname is considered to be unique.
+<i>41</i>&nbsp;     * If no player is found {@code null} is returned.
+<i>42</i>&nbsp;     *
+<i>43</i>&nbsp;     * @param nickname the nickname of the player to be found.
+<i>44</i>&nbsp;     * @return Returns the player given his {@code nickname}, {@code null} otherwise.
+<i>45</i>&nbsp;     */
+<i>46</i>&nbsp;    public Player getPlayerByNickname(String nickname) {
+<b class="fc"><i>47</i>&nbsp;        return players.stream()</b>
+<b class="fc"><i>48</i>&nbsp;                .filter(player -&gt; nickname.equals(player.getNickname()))</b>
+<b class="fc"><i>49</i>&nbsp;                .findFirst()</b>
+<b class="fc"><i>50</i>&nbsp;                .orElse(null);</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    /**
+<i>54</i>&nbsp;     * Adds a player to the game.
+<i>55</i>&nbsp;     *
+<i>56</i>&nbsp;     * @param player the player to add to the game.
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    public void addPlayer(Player player) {
+<b class="fc"><i>59</i>&nbsp;        players.add(player);</b>
+<b class="fc"><i>60</i>&nbsp;    }</b>
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * Number of current players added in the game.
+<i>64</i>&nbsp;     *
+<i>65</i>&nbsp;     * @return the number of players.
+<i>66</i>&nbsp;     */
+<i>67</i>&nbsp;    public int getNumCurrentPlayers() {
+<b class="fc"><i>68</i>&nbsp;        return players.size();</b>
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    /**
+<i>72</i>&nbsp;     * Sets the max number of players chosen by the first player joining the game.
+<i>73</i>&nbsp;     *
+<i>74</i>&nbsp;     * @param chosenMaxPlayers the max players number. Value can be {@code 0 &lt; x &lt; MAX_PLAYERS}.
+<i>75</i>&nbsp;     * @return {@code true} if the argument value is {@code 0 &lt; x &lt; MAX_PLAYERS}, {@code false} otherwise.
+<i>76</i>&nbsp;     */
+<i>77</i>&nbsp;    public boolean setChosenMaxPlayers(int chosenMaxPlayers) {
+<b class="fc"><i>78</i>&nbsp;        if (chosenMaxPlayers &gt; 0 &amp;&amp; chosenMaxPlayers &lt;= MAX_PLAYERS) {</b>
+<b class="fc"><i>79</i>&nbsp;            this.chosenPlayersNumber = chosenMaxPlayers;</b>
+<b class="fc"><i>80</i>&nbsp;            return true;</b>
+<i>81</i>&nbsp;        }
+<b class="fc"><i>82</i>&nbsp;        return false;</b>
+<i>83</i>&nbsp;    }
+<i>84</i>&nbsp;
+<i>85</i>&nbsp;    public int getChosenPlayersNumber() {
+<b class="fc"><i>86</i>&nbsp;        return chosenPlayersNumber;</b>
+<i>87</i>&nbsp;    }
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;    public Board getBoard() {
+<b class="fc"><i>90</i>&nbsp;        return board;</b>
+<i>91</i>&nbsp;    }
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    /**
+<i>94</i>&nbsp;     * Search a nickname in the current Game.
+<i>95</i>&nbsp;     *
+<i>96</i>&nbsp;     * @param nickname the nickname of the player.
+<i>97</i>&nbsp;     * @return {@code true} if the nickname is found, {@code false} otherwise.
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    public boolean isNicknameTaken(String nickname) {
+<b class="fc"><i>100</i>&nbsp;        return players.stream()</b>
+<b class="fc"><i>101</i>&nbsp;                .anyMatch(p -&gt; nickname.equals(p.getNickname()));</b>
+<i>102</i>&nbsp;    }
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    /**
+<i>105</i>&nbsp;     * Resets the game instance. After this operations, all the game data is lost.
+<i>106</i>&nbsp;     */
+<i>107</i>&nbsp;    public static void resetInstance() {
+<b class="fc"><i>108</i>&nbsp;        Game.instance = null;</b>
+<b class="fc"><i>109</i>&nbsp;    }</b>
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;    public List&lt;Player&gt; getPlayers() {
+<b class="nc"><i>112</i>&nbsp;        return players;</b>
+<i>113</i>&nbsp;    }
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-04-27 22:20</div>
+</div>
+</body>
+</html>

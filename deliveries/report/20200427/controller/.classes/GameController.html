@@ -1,0 +1,463 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GameController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GameController (controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 113)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">GameController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 114)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import model.Game;
+<i>4</i>&nbsp;import model.God;
+<i>5</i>&nbsp;import model.ReducedGod;
+<i>6</i>&nbsp;import model.board.Position;
+<i>7</i>&nbsp;import model.enumerations.Color;
+<i>8</i>&nbsp;import model.enumerations.GameState;
+<i>9</i>&nbsp;import model.player.Player;
+<i>10</i>&nbsp;import model.player.Worker;
+<i>11</i>&nbsp;import network.message.*;
+<i>12</i>&nbsp;import view.VirtualView;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import java.util.*;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;public class GameController {
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    private Game game;
+<i>19</i>&nbsp;    private Map&lt;String, VirtualView&gt; virtualViews;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    private GameState gameState;
+<i>22</i>&nbsp;    private List&lt;ReducedGod&gt; selectedGodList;
+<i>23</i>&nbsp;    private List&lt;ReducedGod&gt; activeGodList;
+<i>24</i>&nbsp;    private List&lt;ReducedGod&gt; fullReducedGodList;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    private List&lt;God&gt; godList;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    private List&lt;Color&gt; availableColors;
+<i>29</i>&nbsp;    private TurnController turnController;
+<i>30</i>&nbsp;
+<b class="nc"><i>31</i>&nbsp;    public GameController() {</b>
+<b class="nc"><i>32</i>&nbsp;        this.game = Game.getInstance();</b>
+<i>33</i>&nbsp;        // TODO parser god from file and insert into godList.
+<b class="nc"><i>34</i>&nbsp;        godList = new ArrayList&lt;&gt;();</b>
+<i>35</i>&nbsp;        // TODO create reduced gods and insert in fullReducedGodList.
+<b class="nc"><i>36</i>&nbsp;        fullReducedGodList = new ArrayList&lt;&gt;();</b>
+<i>37</i>&nbsp;
+<b class="nc"><i>38</i>&nbsp;        availableColors = getColorList();</b>
+<i>39</i>&nbsp;
+<b class="nc"><i>40</i>&nbsp;        this.virtualViews = Collections.synchronizedMap(new HashMap&lt;&gt;());</b>
+<b class="nc"><i>41</i>&nbsp;        this.turnController = new TurnController();</b>
+<b class="nc"><i>42</i>&nbsp;        gameState = GameState.LOGIN; // Initialize Game State.</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    public TurnController getTurnController() {
+<b class="nc"><i>47</i>&nbsp;        return turnController;</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    public void onMessageReceived(Message receivedMessage) {
+<i>51</i>&nbsp;
+<b class="nc"><i>52</i>&nbsp;        VirtualView virtualView = virtualViews.get(receivedMessage.getNickname());</b>
+<i>53</i>&nbsp;
+<b class="nc"><i>54</i>&nbsp;        if (gameState == GameState.LOGIN) {</b>
+<b class="nc"><i>55</i>&nbsp;            switch (receivedMessage.getMessageType()) {</b>
+<i>56</i>&nbsp;                case LOGIN_REQUEST:
+<b class="nc"><i>57</i>&nbsp;                    loginRequests((LoginRequest) receivedMessage, virtualView);</b>
+<b class="nc"><i>58</i>&nbsp;                    break;</b>
+<i>59</i>&nbsp;                case PLAYERNUMBER_REPLY:
+<b class="nc"><i>60</i>&nbsp;                    setChosenMaxPlayers((PlayerNumberReply) receivedMessage, virtualView);</b>
+<b class="nc"><i>61</i>&nbsp;                    break;</b>
+<i>62</i>&nbsp;                default:
+<i>63</i>&nbsp;                    // TODO show exception
+<b class="nc"><i>64</i>&nbsp;                    break;</b>
+<i>65</i>&nbsp;            }
+<b class="nc"><i>66</i>&nbsp;        } else if (gameState == GameState.INIT) {</b>
+<i>67</i>&nbsp;
+<b class="nc"><i>68</i>&nbsp;            switch (receivedMessage.getMessageType()) {</b>
+<i>69</i>&nbsp;                case GODLIST:
+<b class="nc"><i>70</i>&nbsp;                    godListHandler((GodListMessage) receivedMessage, virtualView);</b>
+<b class="nc"><i>71</i>&nbsp;                    break;</b>
+<i>72</i>&nbsp;                case INIT_WORKERSPOSITIONS:
+<b class="nc"><i>73</i>&nbsp;                    initWorkersPositions((WorkersPositionsMessage) receivedMessage, virtualView);</b>
+<b class="nc"><i>74</i>&nbsp;                    break;</b>
+<i>75</i>&nbsp;                case INIT_COLORS:
+<b class="nc"><i>76</i>&nbsp;                    initColors((ColorsMessage) receivedMessage, virtualView);</b>
+<b class="nc"><i>77</i>&nbsp;                    break;</b>
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;                default:
+<i>80</i>&nbsp;                    // TODO show exception
+<b class="nc"><i>81</i>&nbsp;                    break;</b>
+<i>82</i>&nbsp;            }
+<i>83</i>&nbsp;
+<b class="nc"><i>84</i>&nbsp;        } else if (gameState == GameState.IN_GAME) {</b>
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;            // check if sender&#39;s nickname is in listPlayer.
+<b class="nc"><i>87</i>&nbsp;            if (!game.isNicknameTaken(receivedMessage.getNickname())) {</b>
+<b class="nc"><i>88</i>&nbsp;                virtualView.showGenericErrorMessage(&quot;Player is not in game.&quot;);</b>
+<i>89</i>&nbsp;            }
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;            // check if sender is the active player.
+<b class="nc"><i>92</i>&nbsp;            if (turnController.getActivePlayer().getNickname().equals(receivedMessage.getNickname())) {</b>
+<i>93</i>&nbsp;                //return new GenericErrorMessage(&quot;Not your turn.&quot;);
+<b class="nc"><i>94</i>&nbsp;                virtualView.sendMessage(new GenericErrorMessage(&quot;Not your turn.&quot;));</b>
+<i>95</i>&nbsp;            }
+<i>96</i>&nbsp;
+<b class="nc"><i>97</i>&nbsp;            switch (receivedMessage.getMessageType()) {</b>
+<i>98</i>&nbsp;                case MOVE:
+<b class="nc"><i>99</i>&nbsp;                    move((Move) receivedMessage, virtualView);</b>
+<b class="nc"><i>100</i>&nbsp;                    break;</b>
+<i>101</i>&nbsp;                case BUILD:
+<b class="nc"><i>102</i>&nbsp;                    break;</b>
+<i>103</i>&nbsp;                default:
+<i>104</i>&nbsp;                    // TODO show exception
+<i>105</i>&nbsp;                    break;
+<i>106</i>&nbsp;            }
+<i>107</i>&nbsp;        }
+<i>108</i>&nbsp;    }
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;    private void move(Move receivedMessage, VirtualView virtualView) {
+<i>111</i>&nbsp;        // TODO
+<i>112</i>&nbsp;        // check if destination is free
+<i>113</i>&nbsp;        // check for some lock from gods
+<i>114</i>&nbsp;        // move player
+<i>115</i>&nbsp;        // check win condition
+<i>116</i>&nbsp;    }
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;    /**
+<i>119</i>&nbsp;     * If client provides 2 free positions then assign them to his workers
+<i>120</i>&nbsp;     *
+<i>121</i>&nbsp;     * @param receivedMessage message from client
+<i>122</i>&nbsp;     * @param virtualView     virtual view
+<i>123</i>&nbsp;     */
+<i>124</i>&nbsp;    private void initWorkersPositions(WorkersPositionsMessage receivedMessage, VirtualView virtualView) {
+<b class="nc"><i>125</i>&nbsp;        Player player = game.getPlayerByNickname(receivedMessage.getNickname());</b>
+<b class="nc"><i>126</i>&nbsp;        if (game.getBoard().arePositionsFree(receivedMessage.getPositionList())) {</b>
+<b class="nc"><i>127</i>&nbsp;            for (Position p : receivedMessage.getPositionList()) {</b>
+<b class="nc"><i>128</i>&nbsp;                player.addWorker(new Worker(p));</b>
+<b class="nc"><i>129</i>&nbsp;            }</b>
+<b class="nc"><i>130</i>&nbsp;            virtualView.askWorkersColor(availableColors);</b>
+<i>131</i>&nbsp;        } else {
+<b class="nc"><i>132</i>&nbsp;            virtualView.askWorkersPositions(game.getBoard().getFreePositions());</b>
+<i>133</i>&nbsp;        }
+<i>134</i>&nbsp;
+<i>135</i>&nbsp;    }
+<i>136</i>&nbsp;
+<i>137</i>&nbsp;    /**
+<i>138</i>&nbsp;     * If color picked by client is available (and not picked from another client)
+<i>139</i>&nbsp;     * then assign color to workers of the current player.
+<i>140</i>&nbsp;     *
+<i>141</i>&nbsp;     * @param receivedMessage message from client
+<i>142</i>&nbsp;     * @param virtualView     virtual view
+<i>143</i>&nbsp;     */
+<i>144</i>&nbsp;    private void initColors(ColorsMessage receivedMessage, VirtualView virtualView) {
+<b class="nc"><i>145</i>&nbsp;        Player player = game.getPlayerByNickname(receivedMessage.getNickname());</b>
+<b class="nc"><i>146</i>&nbsp;        if (receivedMessage.getColorList().size() == 1) {</b>
+<b class="nc"><i>147</i>&nbsp;            if (isInAvailableColor(receivedMessage.getColorList().get(1))) {</b>
+<b class="nc"><i>148</i>&nbsp;                for (Worker w : player.getWorkers()) {</b>
+<b class="nc"><i>149</i>&nbsp;                    w.setColor(receivedMessage.getColorList().get(1));</b>
+<i>150</i>&nbsp;                    // TODO End init phase
+<b class="nc"><i>151</i>&nbsp;                }</b>
+<i>152</i>&nbsp;            } else {
+<b class="nc"><i>153</i>&nbsp;                virtualView.askWorkersColor(availableColors);</b>
+<i>154</i>&nbsp;            }
+<i>155</i>&nbsp;        } else {
+<b class="nc"><i>156</i>&nbsp;            virtualView.askWorkersColor(availableColors);</b>
+<i>157</i>&nbsp;        }
+<i>158</i>&nbsp;    }
+<i>159</i>&nbsp;
+<i>160</i>&nbsp;    /**
+<i>161</i>&nbsp;     * Check if color picked by client is available
+<i>162</i>&nbsp;     *
+<i>163</i>&nbsp;     * @param color color picked by client
+<i>164</i>&nbsp;     * @return true or false
+<i>165</i>&nbsp;     */
+<i>166</i>&nbsp;    private boolean isInAvailableColor(Color color) {
+<b class="nc"><i>167</i>&nbsp;        for (Color c : availableColors) {</b>
+<b class="nc"><i>168</i>&nbsp;            if (c.equals(color))</b>
+<b class="nc"><i>169</i>&nbsp;                return true;</b>
+<b class="nc"><i>170</i>&nbsp;        }</b>
+<b class="nc"><i>171</i>&nbsp;        return false;</b>
+<i>172</i>&nbsp;    }
+<i>173</i>&nbsp;
+<i>174</i>&nbsp;
+<i>175</i>&nbsp;    /**
+<i>176</i>&nbsp;     * @return a list with all possible colors
+<i>177</i>&nbsp;     */
+<i>178</i>&nbsp;    public List&lt;Color&gt; getColorList() {
+<b class="nc"><i>179</i>&nbsp;        List&lt;Color&gt; colorList = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>180</i>&nbsp;        colorList.add(Color.BLUE);</b>
+<b class="nc"><i>181</i>&nbsp;        colorList.add(Color.RED);</b>
+<b class="nc"><i>182</i>&nbsp;        colorList.add(Color.GREEN);</b>
+<b class="nc"><i>183</i>&nbsp;        return colorList;</b>
+<i>184</i>&nbsp;    }
+<i>185</i>&nbsp;
+<i>186</i>&nbsp;
+<i>187</i>&nbsp;    /**
+<i>188</i>&nbsp;     * If receive a godList with multiple gods then create the list.
+<i>189</i>&nbsp;     * If receive a single god in list then assign it to the current player.
+<i>190</i>&nbsp;     *
+<i>191</i>&nbsp;     * @param receivedMessage message from client
+<i>192</i>&nbsp;     * @param virtualView     virtual view
+<i>193</i>&nbsp;     */
+<i>194</i>&nbsp;    private void godListHandler(GodListMessage receivedMessage, VirtualView virtualView) {
+<i>195</i>&nbsp;
+<i>196</i>&nbsp;        // if received contains a list
+<b class="nc"><i>197</i>&nbsp;        if (receivedMessage.getGodList().size() &gt; 1) {</b>
+<b class="nc"><i>198</i>&nbsp;            if (receivedMessage.getGodList().size() == game.getChosenPlayersNumber()) {</b>
+<b class="nc"><i>199</i>&nbsp;                Collections.copy(selectedGodList, receivedMessage.getGodList());</b>
+<b class="nc"><i>200</i>&nbsp;                Collections.copy(activeGodList, receivedMessage.getGodList());</b>
+<i>201</i>&nbsp;
+<i>202</i>&nbsp;            } else {
+<b class="nc"><i>203</i>&nbsp;                virtualView.askGod(fullReducedGodList);</b>
+<i>204</i>&nbsp;            }
+<i>205</i>&nbsp;        } // else receivedMessage contains only 1 god
+<i>206</i>&nbsp;        else {
+<b class="nc"><i>207</i>&nbsp;            if (isInSelectedGodList(receivedMessage.getGodList().get(1))) {</b>
+<b class="nc"><i>208</i>&nbsp;                God god = getGodFromReducedGod(receivedMessage.getGodList().get(1));</b>
+<i>209</i>&nbsp;
+<b class="nc"><i>210</i>&nbsp;                game.getPlayerByNickname(receivedMessage.getNickname()).setGod(god);</b>
+<b class="nc"><i>211</i>&nbsp;                selectedGodList.remove(receivedMessage.getGodList().get(1));</b>
+<i>212</i>&nbsp;
+<b class="nc"><i>213</i>&nbsp;                if (selectedGodList.size() == 0) {</b>
+<b class="nc"><i>214</i>&nbsp;                    askWorkersPositions(1); // Ask to first player his workers&#39; positions</b>
+<i>215</i>&nbsp;                }
+<i>216</i>&nbsp;
+<b class="nc"><i>217</i>&nbsp;            } else {</b>
+<b class="nc"><i>218</i>&nbsp;                virtualView.askGod(selectedGodList);</b>
+<i>219</i>&nbsp;            }
+<i>220</i>&nbsp;        }
+<i>221</i>&nbsp;    }
+<i>222</i>&nbsp;
+<i>223</i>&nbsp;    private void askWorkersPositions(int playerID) {
+<i>224</i>&nbsp;        // Instatiate virtual view for the first player logged
+<b class="nc"><i>225</i>&nbsp;        VirtualView virtualView = virtualViews.get(game.getPlayers().get(playerID).getNickname());</b>
+<i>226</i>&nbsp;        // Send available positions to the first client.
+<b class="nc"><i>227</i>&nbsp;        virtualView.askWorkersPositions(game.getBoard().getFreePositions());</b>
+<i>228</i>&nbsp;    }
+<i>229</i>&nbsp;
+<i>230</i>&nbsp;    /**
+<i>231</i>&nbsp;     * Convert ReducedGod to God in order to set it to a player.
+<i>232</i>&nbsp;     *
+<i>233</i>&nbsp;     * @param reducedGod god from client
+<i>234</i>&nbsp;     * @return God
+<i>235</i>&nbsp;     */
+<i>236</i>&nbsp;    private God getGodFromReducedGod(ReducedGod reducedGod) {
+<b class="nc"><i>237</i>&nbsp;        for (God g : godList) {</b>
+<b class="nc"><i>238</i>&nbsp;            if (g.getName().equals(reducedGod.getName()))</b>
+<b class="nc"><i>239</i>&nbsp;                return g;</b>
+<b class="nc"><i>240</i>&nbsp;        }</b>
+<b class="nc"><i>241</i>&nbsp;        return null;</b>
+<i>242</i>&nbsp;    }
+<i>243</i>&nbsp;
+<i>244</i>&nbsp;    /**
+<i>245</i>&nbsp;     * Check if parameter is in the selectedGodList
+<i>246</i>&nbsp;     *
+<i>247</i>&nbsp;     * @param god god picked by client
+<i>248</i>&nbsp;     * @return true if correct else false
+<i>249</i>&nbsp;     */
+<i>250</i>&nbsp;    private boolean isInSelectedGodList(ReducedGod god) {
+<b class="nc"><i>251</i>&nbsp;        for (ReducedGod g : selectedGodList) {</b>
+<b class="nc"><i>252</i>&nbsp;            if (g.getName().equals(god.getName()))</b>
+<b class="nc"><i>253</i>&nbsp;                return true;</b>
+<b class="nc"><i>254</i>&nbsp;        }</b>
+<b class="nc"><i>255</i>&nbsp;        return false;</b>
+<i>256</i>&nbsp;    }
+<i>257</i>&nbsp;
+<i>258</i>&nbsp;    /**
+<i>259</i>&nbsp;     * Set the number of players in game
+<i>260</i>&nbsp;     *
+<i>261</i>&nbsp;     * @param receivedMessage message from client
+<i>262</i>&nbsp;     * @param virtualView     virtual view
+<i>263</i>&nbsp;     */
+<i>264</i>&nbsp;    private void setChosenMaxPlayers(PlayerNumberReply receivedMessage, VirtualView virtualView) {
+<b class="nc"><i>265</i>&nbsp;        if (receivedMessage.getPlayerNumber() &lt; 4 &amp;&amp; receivedMessage.getPlayerNumber() &gt; 1) {</b>
+<b class="nc"><i>266</i>&nbsp;            game.setChosenMaxPlayers(receivedMessage.getPlayerNumber());</b>
+<i>267</i>&nbsp;            // Don&#39;t send ack to client, number accepted.
+<i>268</i>&nbsp;        } else {
+<b class="nc"><i>269</i>&nbsp;            virtualView.askPlayersNumber();</b>
+<i>270</i>&nbsp;        }
+<i>271</i>&nbsp;    }
+<i>272</i>&nbsp;
+<i>273</i>&nbsp;    /**
+<i>274</i>&nbsp;     * if first client then ask number of players he wants.
+<i>275</i>&nbsp;     * if not first client check his nickname, add player to the game
+<i>276</i>&nbsp;     * eventually change game state
+<i>277</i>&nbsp;     *
+<i>278</i>&nbsp;     * @param receivedMessage message from client
+<i>279</i>&nbsp;     * @param virtualView     virtual view
+<i>280</i>&nbsp;     */
+<i>281</i>&nbsp;    private void loginRequests(LoginRequest receivedMessage, VirtualView virtualView) {
+<b class="nc"><i>282</i>&nbsp;        String nickname = receivedMessage.getNickname();</b>
+<i>283</i>&nbsp;
+<b class="nc"><i>284</i>&nbsp;        if (!nickname.equals(&quot;server&quot;)) {</b>
+<b class="nc"><i>285</i>&nbsp;            if (game.getNumCurrentPlayers() == 0) { // First player logged. Ask number of players.</b>
+<b class="nc"><i>286</i>&nbsp;                game.addPlayer(new Player(nickname));</b>
+<b class="nc"><i>287</i>&nbsp;                virtualView.askPlayersNumber();</b>
+<b class="nc"><i>288</i>&nbsp;            } else if (!(game.isNicknameTaken(nickname))) { // If not exist yet then add it</b>
+<b class="nc"><i>289</i>&nbsp;                game.addPlayer(new Player(nickname));</b>
+<b class="nc"><i>290</i>&nbsp;                virtualView.showLoginResult(true, true);</b>
+<i>291</i>&nbsp;
+<b class="nc"><i>292</i>&nbsp;                if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged</b>
+<b class="nc"><i>293</i>&nbsp;                    gameState = GameState.INIT;</b>
+<b class="nc"><i>294</i>&nbsp;                    askGods(0); // FIXME -&gt; to random not to first</b>
+<i>295</i>&nbsp;                }
+<i>296</i>&nbsp;            } else {
+<b class="nc"><i>297</i>&nbsp;                virtualView.showLoginResult(false, true);</b>
+<i>298</i>&nbsp;            }
+<i>299</i>&nbsp;
+<i>300</i>&nbsp;
+<i>301</i>&nbsp;        } else {
+<i>302</i>&nbsp;            // NICKNAME CAN&#39;T BE &quot;server&quot;.
+<b class="nc"><i>303</i>&nbsp;            virtualView.showLoginResult(false, true);</b>
+<i>304</i>&nbsp;        }
+<i>305</i>&nbsp;    }
+<i>306</i>&nbsp;
+<i>307</i>&nbsp;    private void askGods(int playerID) {
+<i>308</i>&nbsp;        // Instatiate virtual view for the first player logged
+<b class="nc"><i>309</i>&nbsp;        VirtualView virtualView = virtualViews.get(game.getPlayers().get(playerID).getNickname());</b>
+<i>310</i>&nbsp;        // virtualView.askGod(fullReducedGodList);
+<b class="nc"><i>311</i>&nbsp;        virtualView.showGenericErrorMessage(&quot;lista Dei&quot;); // FIXME</b>
+<i>312</i>&nbsp;    }
+<i>313</i>&nbsp;
+<i>314</i>&nbsp;
+<i>315</i>&nbsp;    void endGame() {
+<i>316</i>&nbsp;        // TODO send message to all players, close connections
+<i>317</i>&nbsp;    }
+<i>318</i>&nbsp;
+<i>319</i>&nbsp;
+<i>320</i>&nbsp;    /**
+<i>321</i>&nbsp;     * Adds a Player VirtualView to the controller if the first player max_players is not exceeded.
+<i>322</i>&nbsp;     * Then adds a controller observer to the view.
+<i>323</i>&nbsp;     * dds the VirtualView to the game model observers.
+<i>324</i>&nbsp;     *
+<i>325</i>&nbsp;     * @param nickname    the player nickname to identify his associated VirtualView.
+<i>326</i>&nbsp;     * @param virtualView the virtualview to be added.
+<i>327</i>&nbsp;     */
+<i>328</i>&nbsp;    public void addVirtualView(String nickname, VirtualView virtualView) {
+<i>329</i>&nbsp;        // This is the first player connecting
+<b class="nc"><i>330</i>&nbsp;        if (virtualViews.size() == 0) {</b>
+<i>331</i>&nbsp;            // FIXME virtualView.addObserver(this);
+<b class="nc"><i>332</i>&nbsp;            virtualViews.put(nickname, virtualView);</b>
+<b class="nc"><i>333</i>&nbsp;            game.addObserver(virtualView);</b>
+<i>334</i>&nbsp;
+<b class="nc"><i>335</i>&nbsp;        } else if (virtualViews.size() &lt; game.getChosenPlayersNumber()) {</b>
+<i>336</i>&nbsp;            // FIXME virtualView.addObserver(this);
+<b class="nc"><i>337</i>&nbsp;            virtualViews.put(nickname, virtualView);</b>
+<b class="nc"><i>338</i>&nbsp;            game.addObserver(virtualView);</b>
+<b class="nc"><i>339</i>&nbsp;            virtualView.showLoginResult(true, true);</b>
+<i>340</i>&nbsp;        } else {
+<b class="nc"><i>341</i>&nbsp;            virtualView.showLoginResult(true, false);</b>
+<i>342</i>&nbsp;        }
+<i>343</i>&nbsp;    }
+<i>344</i>&nbsp;
+<i>345</i>&nbsp;    /**
+<i>346</i>&nbsp;     * Removes a VirtualView from the controller.
+<i>347</i>&nbsp;     *
+<i>348</i>&nbsp;     * @param nickname the nickname of the VirtualView associated.
+<i>349</i>&nbsp;     */
+<i>350</i>&nbsp;    public void removeVirtualView(String nickname) {
+<b class="nc"><i>351</i>&nbsp;        VirtualView vv = virtualViews.remove(nickname);</b>
+<b class="nc"><i>352</i>&nbsp;        game.removeObserver(vv);</b>
+<i>353</i>&nbsp;    }
+<i>354</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-04-27 22:20</div>
+</div>
+</body>
+</html>
