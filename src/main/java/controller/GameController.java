@@ -290,7 +290,7 @@ public class GameController {
 
                 if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
                     gameState = GameState.INIT;
-                    askGods(1); // FIXME -> to random not to first
+                    askGods(0); // FIXME -> to random not to first
                 }
             } else {
                 virtualView.showLoginResult(false, true);
@@ -330,7 +330,7 @@ public class GameController {
             // FIXME virtualView.addObserver(this);
             virtualViews.put(nickname, virtualView);
             game.addObserver(virtualView);
-            virtualView.askPlayersNumber();
+
         } else if (virtualViews.size() < game.getChosenPlayersNumber()) {
             // FIXME virtualView.addObserver(this);
             virtualViews.put(nickname, virtualView);

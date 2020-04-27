@@ -83,7 +83,7 @@ public class VirtualView extends View implements Observer {
 
     @Override
     public void showGenericErrorMessage(String error) {
-
+        clientHandler.sendMessage(new GenericErrorMessage(error));
     }
 
     @Override
