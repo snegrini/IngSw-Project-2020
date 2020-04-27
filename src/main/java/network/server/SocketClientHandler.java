@@ -73,6 +73,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
     public void sendMessage(Message message) {
         try {
             output.writeObject(message);
+            // FIXME
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());
             disconnect();

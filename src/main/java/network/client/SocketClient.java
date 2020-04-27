@@ -32,13 +32,17 @@ public class SocketClient extends Client {
 
     public void readMessage() {
         readExecutionQueue.execute(() -> {
-            Message message = null;
-            try {
-                message = (Message) inputStm.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+            while (true) { // FIXME
+                Message message = null;
+                try {
+                    message = (Message) inputStm.readObject();
+
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                notifyObserver(message);
+
             }
-            notifyObserver(message);
         });
     }
 
@@ -47,6 +51,7 @@ public class SocketClient extends Client {
         executionQueue.execute(() -> {
             try {
                 outputStm.writeObject(message);
+                // FIXME
             } catch (IOException e) {
                 Server.LOGGER.severe(e.getMessage());
             }

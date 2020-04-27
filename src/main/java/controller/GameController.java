@@ -38,6 +38,7 @@ public class GameController {
 
         this.virtualViews = Collections.synchronizedMap(new HashMap<>());
         this.turnController = new TurnController(game);
+        gameState = GameState.LOGIN; // Initialize Game State.
     }
 
 
@@ -53,56 +54,57 @@ public class GameController {
             switch (receivedMessage.getMessageType()) {
                 case LOGIN_REQUEST:
                     loginRequests((LoginRequest) receivedMessage, virtualView);
+                    break;
                 case PLAYERNUMBER_REPLY:
                     setChosenMaxPlayers((PlayerNumberReply) receivedMessage, virtualView);
+                    break;
                 default:
                     // TODO show exception
                     break;
             }
-        }
-
-        if (gameState == GameState.INIT) {
+        } else if (gameState == GameState.INIT) {
 
             switch (receivedMessage.getMessageType()) {
                 case GODLIST:
                     godListHandler((GodListMessage) receivedMessage, virtualView);
+                    break;
                 case INIT_WORKERSPOSITIONS:
                     initWorkersPositions((WorkersPositionsMessage) receivedMessage, virtualView);
+                    break;
                 case INIT_COLORS:
                     initColors((ColorsMessage) receivedMessage, virtualView);
+                    break;
 
                 default:
                     // TODO show exception
                     break;
             }
 
-        }
+        } else if (gameState == GameState.IN_GAME) {
 
+            // check if sender's nickname is in listPlayer.
+            if (!game.isPlayerInList(receivedMessage.getNickname())) {
+                virtualView.showGenericErrorMessage("Player is not in game.");
+            }
 
-        // check if sender's nickname is in listPlayer.
-        if (!game.isPlayerInList(receivedMessage.getNickname())) {
-            //return new GenericErrorMessage("Player is not in game.");
-            virtualView.sendMessage(new GenericErrorMessage("Player is not in game."));
-        }
+            // check if sender is the active player.
+            if (turnController.getActivePlayer().getNickname().equals(receivedMessage.getNickname())) {
+                //return new GenericErrorMessage("Not your turn.");
+                virtualView.sendMessage(new GenericErrorMessage("Not your turn."));
+            }
 
-
-        // check if sender is the active player.
-        if (turnController.getActivePlayer().getNickname().equals(receivedMessage.getNickname())) {
-            //return new GenericErrorMessage("Not your turn.");
-            virtualView.sendMessage(new GenericErrorMessage("Not your turn."));
-        }
-
-        switch (receivedMessage.getMessageType()) {
-            case MOVE:
-                move((Move)receivedMessage, virtualView);
-            case BUILD:
-                break;
-            default:
-                // TODO show exception
-                break;
+            switch (receivedMessage.getMessageType()) {
+                case MOVE:
+                    move((Move) receivedMessage, virtualView);
+                    break;
+                case BUILD:
+                    break;
+                default:
+                    // TODO show exception
+                    break;
+            }
         }
     }
-
 
     private void move(Move receivedMessage, VirtualView virtualView) {
         // TODO
@@ -116,7 +118,7 @@ public class GameController {
      * If client provides 2 free positions then assign them to his workers
      *
      * @param receivedMessage message from client
-     * @param virtualView virtual view
+     * @param virtualView     virtual view
      */
     private void initWorkersPositions(WorkersPositionsMessage receivedMessage, VirtualView virtualView) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
@@ -131,15 +133,12 @@ public class GameController {
 
     }
 
-
-
-
     /**
      * If color picked by client is available (and not picked from another client)
      * then assign color to workers of the current player.
      *
      * @param receivedMessage message from client
-     * @param virtualView virtual view
+     * @param virtualView     virtual view
      */
     private void initColors(ColorsMessage receivedMessage, VirtualView virtualView) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
@@ -279,12 +278,20 @@ public class GameController {
             // if latest player is logged then change gameState from LOGIN to INIT.
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) {
                 gameState = GameState.INIT;
+                sendGodsToFirstPlayer();
             }
             virtualView.showLoginResult(true, true);
         } else {
             virtualView.showLoginResult(false, true);
         }
 
+    }
+
+    private void sendGodsToFirstPlayer() {
+        // Instatiate virtual view for the first player logged
+        VirtualView virtualView = virtualViews.get(game.getPlayers().get(1).getNickname());
+       // virtualView.askGod(fullReducedGodList);
+        virtualView.sendMessage(new GenericErrorMessage("listaDei"));
     }
 
 

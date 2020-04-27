@@ -4,10 +4,7 @@ import model.ReducedGod;
 import model.enumerations.Color;
 import network.client.Client;
 import network.client.SocketClient;
-import network.message.GodListMessage;
-import network.message.LoginRequest;
-import network.message.Message;
-import network.message.PlayerNumberReply;
+import network.message.*;
 import observer.Observer;
 import view.View;
 import observer.ViewObserver;
@@ -37,6 +34,8 @@ public class ClientController implements ViewObserver, Observer {
             case PLAYERNUMBER_REQUEST:
                 view.askPlayersNumber();
                 break;
+            case GENERIC_ERROR_MESSAGE:
+                view.showGenericErrorMessage(message.toString()); // TODO check
             default: // Should never reach this condition
                 break;
         }

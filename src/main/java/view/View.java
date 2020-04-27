@@ -4,6 +4,7 @@ import model.ReducedGod;
 import model.board.Position;
 import model.board.ReducedSpace;
 import model.enumerations.Color;
+import network.message.GenericErrorMessage;
 import observer.ViewObserver;
 
 import java.util.ArrayList;
@@ -90,6 +91,8 @@ public abstract class View {
      * @param connectionSuccessful indicates if the connection has been successful.
      */
     public abstract void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful);
+
+    public abstract void showGenericErrorMessage(String error);
 
     /**
      * Shows the Board

@@ -82,6 +82,11 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
+    public void showGenericErrorMessage(String error) {
+
+    }
+
+    @Override
     public String showBoard(ReducedSpace[][] spaces) {
         return null;
     }

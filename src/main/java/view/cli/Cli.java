@@ -5,6 +5,7 @@ import model.board.Position;
 import model.board.ReducedSpace;
 
 import model.enumerations.Color;
+import network.message.GenericErrorMessage;
 import observer.ViewObserver;
 import view.View;
 
@@ -77,6 +78,7 @@ public class Cli extends View {
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
 
     }
+
 
 
     @Override
@@ -202,6 +204,12 @@ public class Cli extends View {
             notifyObserver((ViewObserver obs) -> obs.onUpdateBuild(finalChosenRow, finalChosenColumn));
         }
 
+    }
+
+
+    @Override
+    public void showGenericErrorMessage(String Error) {
+        System.out.println(Error);
     }
 
 
