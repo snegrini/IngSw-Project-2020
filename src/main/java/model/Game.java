@@ -107,4 +107,9 @@ public class Game extends Observable {
     public static void resetInstance() {
         Game.instance = null;
     }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
 }
