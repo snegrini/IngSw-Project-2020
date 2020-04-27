@@ -37,7 +37,7 @@ public class PlayerTest {
 
     @Test
     public void getWorkerByPosition() {
-        Worker worker = new Worker(Color.BLUE, new Position(0, 0));
+        Worker worker = new Worker(new Position(0, 0));
         player.addWorker(worker);
 
         assertEquals(worker, player.getWorkerByPosition(new Position(0, 0)));

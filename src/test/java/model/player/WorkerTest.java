@@ -23,7 +23,7 @@ public class WorkerTest {
 
     @Before
     public void setUp() throws Exception {
-        worker = new Worker(Color.BLUE, new Position(3, 4));
+        worker = new Worker(new Position(3, 4));
         reducedWorker = new ReducedWorker(worker);
     }
 

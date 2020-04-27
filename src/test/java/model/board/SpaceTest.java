@@ -49,7 +49,7 @@ public class SpaceTest {
 
     @Test
     public void isFree_setWorker_False() {
-        Worker worker = new Worker(Color.BLUE, new Position(0, 0));
+        Worker worker = new Worker(new Position(0, 0));
         space.setWorker(worker);
         assertEquals(worker, space.getWorker());
         assertFalse(space.isFree());
@@ -106,7 +106,7 @@ public class SpaceTest {
 
     @Test
     public void getWorker_Space_ReducedSpace() {
-        Worker worker = new Worker(Color.BLUE, new Position(0, 0));
+        Worker worker = new Worker(new Position(0, 0));
         space.setWorker(worker);
 
         reducedSpace = new ReducedSpace(space);
