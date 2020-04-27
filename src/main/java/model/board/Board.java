@@ -38,12 +38,17 @@ public class Board {
         }
     }
 
+    /**
+     * Returns the free positions on the board.
+     *
+     * @return the free positions on the board.
+     */
     public List<Position> getFreePositions() {
         List<Position> positionList = new ArrayList<>();
-        for (int i = 0; i<MAX_ROWS; i++) {
+        for (int i = 0; i < MAX_ROWS; i++) {
             for (int j = 0; j < MAX_COLUMNS; j++) {
                 if (spaces[i][j].isFree()) {
-                    Position position = new Position(i,j);
+                    Position position = new Position(i, j);
                     positionList.add(position);
                 }
             }
@@ -52,10 +57,10 @@ public class Board {
     }
 
     /**
-     *  Check if positionList refers only to free spaces
+     * Check if positionList refers only to free spaces.
      *
-     * @param positionList positionList from client
-     * @return true or false
+     * @param positionList positionList from client.
+     * @return {@code true} if ALL the positions in the argument list are free, {@code false} otherwise.
      */
     public boolean arePositionsFree(List<Position> positionList) {
         boolean areFree = true;
