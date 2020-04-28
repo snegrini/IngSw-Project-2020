@@ -1,7 +1,7 @@
 package network.message;
 
 public class GenericErrorMessage extends Message {
-    // TODO serialVersionUID
+    private static final long serialVersionUID = 934399396584368694L;
 
     private final String message;
 

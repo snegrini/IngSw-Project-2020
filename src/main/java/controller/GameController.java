@@ -178,10 +178,9 @@ public class GameController {
             }
             virtualView.askWorkersColor(availableColors);
         } else {
-            
+            virtualView.showBoard(game.getBoard().getReducedSpaceBoard());
             askWorkersPositions(turnController.getActivePlayer());
         }
-
     }
 
     /**
@@ -194,10 +193,16 @@ public class GameController {
     private void initColors(ColorsMessage receivedMessage, VirtualView virtualView) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
         if (receivedMessage.getColorList().size() == 1) {
-            if (isInAvailableColor(receivedMessage.getColorList().get(1))) {
+            if (isInAvailableColor(receivedMessage.getColorList().get(0))) {
                 for (Worker w : player.getWorkers()) {
-                    w.setColor(receivedMessage.getColorList().get(1));
-                    // TODO End init phase
+                    w.setColor(receivedMessage.getColorList().get(0));
+                }
+                availableColors.remove(receivedMessage.getColorList().get(0));
+                if (!(availableColors.size() == 3 - game.getChosenPlayersNumber())) {
+                    turnController.next();
+                    askWorkersPositions(turnController.getActivePlayer());
+                } else {
+                    startGame();
                 }
             } else {
                 virtualView.askWorkersColor(availableColors);
@@ -205,6 +210,10 @@ public class GameController {
         } else {
             virtualView.askWorkersColor(availableColors);
         }
+    }
+
+    public void startGame() {
+
     }
 
     /**
@@ -264,6 +273,7 @@ public class GameController {
                     askGodToNextPlayer();
                 } else {
                     // the last one who pick his god is the first one player of every round.
+                    virtualView.showBoard(game.getBoard().getReducedSpaceBoard());
                     askWorkersPositions(turnController.getActivePlayer());
                 }
 

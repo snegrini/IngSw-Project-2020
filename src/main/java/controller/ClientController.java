@@ -1,6 +1,7 @@
 package controller;
 
 import model.ReducedGod;
+import model.board.Board;
 import model.enumerations.Color;
 import network.client.Client;
 import network.client.SocketClient;
@@ -44,7 +45,12 @@ public class ClientController implements ViewObserver, Observer {
                 view.askWorkersPositions(workersPositionsMessage.getPositionList());
                 break;
             case INIT_COLORS:
-
+                ColorsMessage colorsMessage = (ColorsMessage) message;
+                view.askWorkersColor(colorsMessage.getColorList());
+                break;
+            case BOARD:
+                BoardMessage boardMessage = (BoardMessage) message;
+                view.showBoard(boardMessage.getBoard());
                 break;
             case GENERIC_ERROR_MESSAGE:
                 view.showGenericErrorMessage(message.toString()); // TODO check

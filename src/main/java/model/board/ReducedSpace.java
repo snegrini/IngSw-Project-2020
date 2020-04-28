@@ -3,7 +3,10 @@ package model.board;
 import model.player.ReducedWorker;
 import model.player.Worker;
 
-public class ReducedSpace {
+import java.io.Serializable;
+
+public class ReducedSpace implements Serializable {
+    private static final long serialVersionUID = 961249489188346446L;
     private final int level;
     private final boolean dome;
     private final ReducedWorker reducedWorker;

@@ -61,10 +61,6 @@ public class VirtualView extends View implements Observer {
         clientHandler.sendMessage(new GodListMessage("server", gods, request));
     }
 
-    //@Override
-    // public String showBoard() {
-    //     return null;
-    //}
 
     @Override
     public void askNewBuildingPosition(List<Position> positions) {

@@ -1,6 +1,7 @@
 package model.board;
 
 import model.Game;
+import model.ReducedGod;
 import model.board.Position;
 import model.board.Space;
 import model.enumerations.Color;
@@ -185,5 +186,20 @@ public class Board {
                 spaces[i][j].decreaseLevel(spaces[i][j].getLevel());
             }
         }
+    }
+
+    /**
+     * Returns a matrix of ReducedSpace wich is immutable object.
+     *
+     * @return a board of reduced spaces
+     */
+    public ReducedSpace[][] getReducedSpaceBoard() {
+        ReducedSpace reducedBoard[][] = new ReducedSpace[MAX_ROWS][MAX_COLUMNS];
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
+                reducedBoard[i][j] = new ReducedSpace(spaces[i][j]);
+            }
+        }
+        return reducedBoard;
     }
 }
