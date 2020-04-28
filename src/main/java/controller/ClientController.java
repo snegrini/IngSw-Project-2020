@@ -44,6 +44,7 @@ public class ClientController implements ViewObserver, Observer {
                 view.askWorkersPositions(workersPositionsMessage.getPositionList());
                 break;
             case INIT_COLORS:
+
                 break;
             case GENERIC_ERROR_MESSAGE:
                 view.showGenericErrorMessage(message.toString()); // TODO check

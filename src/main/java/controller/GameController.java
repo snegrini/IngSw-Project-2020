@@ -178,7 +178,8 @@ public class GameController {
             }
             virtualView.askWorkersColor(availableColors);
         } else {
-           askWorkersPositions(turnController.getActivePlayer());
+            
+            askWorkersPositions(turnController.getActivePlayer());
         }
 
     }
@@ -257,11 +258,8 @@ public class GameController {
         else {
             if (isInSelectedGodList(receivedMessage.getGodList().get(0))) {
                 God god = game.getGodByName(receivedMessage.getGodList().get(0).getName());
-
                 game.getPlayerByNickname(receivedMessage.getNickname()).setGod(god);
-
                 selectedGodList.remove(receivedMessage.getGodList().get(0));
-
                 if (!(selectedGodList.size() == 0)) {
                     askGodToNextPlayer();
                 } else {
