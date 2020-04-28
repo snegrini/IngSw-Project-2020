@@ -2,7 +2,7 @@ package network.message;
 
 import model.board.Position;
 
-public class Build extends Message {
+public class BuildMessage extends Message {
     private static final long serialVersionUID = -5330536550018687004L;
     private Position position;
 
@@ -12,7 +12,7 @@ public class Build extends Message {
      * @param nickname of player
      * @param position of new build
      */
-    public Build(String nickname, Position position) {
+    public BuildMessage(String nickname, Position position) {
         super(nickname, MessageType.BUILD);
         this.position = position;
     }

@@ -6,6 +6,7 @@ public enum MessageType {
     GODLIST,
     INIT_COLORS,
     INIT_WORKERSPOSITIONS,
+    POSITION_WORKER_TO_MOVE,
     MOVE,
     BUILD,
     WIN,

@@ -16,7 +16,7 @@ public enum Color {
     }
 
     public String getText() {
-        return code + text;
+        return text;
     }
 
     public String getCode() {

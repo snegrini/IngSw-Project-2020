@@ -1,13 +1,10 @@
 package model.effects;
 
-import model.enumerations.EffectType;
 import model.enumerations.MoveType;
 import model.player.Worker;
-import network.message.Move;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
 
 public class MoveLockDecorator extends EffectDecorator {
 

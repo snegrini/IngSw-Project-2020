@@ -3,7 +3,7 @@ package network.message;
 import model.board.Position;
 import model.player.Worker;
 
-public class Move extends Message {
+public class MoveMessage extends Message {
 
     private static final long serialVersionUID = 2871961810761631846L;
     private Position orig;
@@ -16,7 +16,7 @@ public class Move extends Message {
      * @param orig     starting position of the worker to move.
      * @param dest     destination position
      */
-    public Move(String nickname, Position orig, Position dest) {
+    public MoveMessage(String nickname, Position orig, Position dest) {
         super(nickname, MessageType.MOVE);
         this.orig = orig;
         this.dest = dest;

@@ -1,6 +1,7 @@
 package controller;
 
 import model.ReducedGod;
+import model.board.Position;
 import model.enumerations.Color;
 import network.client.Client;
 import network.client.SocketClient;
@@ -41,7 +42,7 @@ public class ClientController implements ViewObserver, Observer {
                 break;
             case INIT_WORKERSPOSITIONS:
                 WorkersPositionsMessage workersPositionsMessage = (WorkersPositionsMessage) message;
-                view.askWorkersPositions(workersPositionsMessage.getPositionList());
+                view.askInitWorkersPositions(workersPositionsMessage.getPositionList());
                 break;
             case INIT_COLORS:
 
@@ -81,7 +82,7 @@ public class ClientController implements ViewObserver, Observer {
 
     @Override
     public void onUpdateWorkersColor(Color color) {
-
+        client.sendMessage(new ColorsMessage(this.nickname, List.of(color)));
     }
 
     @Override
@@ -90,17 +91,22 @@ public class ClientController implements ViewObserver, Observer {
     }
 
     @Override
-    public void onUpdateWorkerToMove(int chosenRow, int chosenColumn) {
+    public void onUpdateWorkerToMove(Position position) {
 
     }
 
     @Override
-    public void onUpdateWorkerPosition(int chosenRow, int chosenColumn) {
+    public void onUpdateInitWorkerPosition(List<Position> positions) {
 
     }
 
     @Override
-    public void onUpdateBuild(int chosenRow, int chosenColumn) {
+    public void onUpdateWorkerPosition(Position dest, Position orig) {
+
+    }
+
+    @Override
+    public void onUpdateBuild(Position position) {
 
     }
 

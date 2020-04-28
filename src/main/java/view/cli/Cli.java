@@ -69,13 +69,36 @@ public class Cli extends View {
         notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(finalPlayerNumber));
     }
 
-    @Override
-    public void askWorkersPositions(List<Position> positions) {
 
+    @Override
+    public void askInitWorkersPositions(List<Position> positions) {
+        int chosenRow1, chosenColumn1;
+        int chosenRow2, chosenColumn2;
+        System.out.println("Select your workers' initial positions");
+        System.out.println("Position for Worker 1");
+        System.out.print("Row 1: ");
+        chosenRow1 = Integer.parseInt(scanner.nextLine());
+        System.out.print(" Column 1: ");
+        chosenColumn1 = Integer.parseInt(scanner.nextLine());
+        System.out.println();
+        System.out.println("Position for Worker 2");
+        System.out.print("Row 2: ");
+        chosenRow2 = Integer.parseInt(scanner.nextLine());
+        System.out.println(" Column 2: ");
+        chosenColumn2 = Integer.parseInt(scanner.nextLine());
+        Position position1 = new Position(chosenRow1, chosenColumn1);
+        Position position2 = new Position(chosenRow2, chosenColumn2);
+        List<Position> init_positions = new ArrayList<>();
+        init_positions.add(position1);
+        init_positions.add(position2);
+        notifyObserver((ViewObserver obs) -> obs.onUpdateInitWorkerPosition(init_positions));
     }
 
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
+        if (nicknameAccepted && connectionSuccessful) {
+            System.out.println("You are connected!");
+        }
 
     }
 
@@ -182,12 +205,13 @@ public class Cli extends View {
 
         int finalChosenRow = chosenRow;
         int finalChosenColumn = chosenColumn;
-        notifyObserver((ViewObserver obs) -> obs.onUpdateWorkerToMove(finalChosenRow, finalChosenColumn));
+        Position pst_worker = new Position(chosenRow, chosenColumn);
+        notifyObserver((ViewObserver obs) -> obs.onUpdateWorkerToMove(pst_worker));
 
     }
 
     @Override
-    public void askNewPosition(List<Position> positions) {
+    public void askNewPosition(List<Position> positions, Position orig) {
         int chosenRow;
         int chosenColumn;
         System.out.println("Select the new position for your Worker!");
@@ -206,9 +230,11 @@ public class Cli extends View {
                 if (position_isNotValid(chosenRow, chosenColumn, positions))
                     System.out.println("You have inserted an invalid position! Please try again!");
             } while (position_isNotValid(chosenRow, chosenColumn, positions));
+
             int finalChosenRow = chosenRow;
             int finalChosenColumn = chosenColumn;
-            notifyObserver((ViewObserver obs) -> obs.onUpdateWorkerPosition(finalChosenRow, finalChosenColumn));
+            Position dest = new Position(chosenRow, chosenColumn);
+            notifyObserver((ViewObserver obs) -> obs.onUpdateWorkerPosition(dest, orig));
         }
     }
 
@@ -235,7 +261,8 @@ public class Cli extends View {
             } while (position_isNotValid(chosenRow, chosenColumn, positions));
             int finalChosenRow = chosenRow;
             int finalChosenColumn = chosenColumn;
-            notifyObserver((ViewObserver obs) -> obs.onUpdateBuild(finalChosenRow, finalChosenColumn));
+            Position newBuild = new Position(chosenRow, chosenColumn);
+            notifyObserver((ViewObserver obs) -> obs.onUpdateBuild(newBuild));
         }
 
     }
@@ -248,7 +275,7 @@ public class Cli extends View {
 
 
     @Override
-    public String showBoard(ReducedSpace[][] spaces) {
+    public void showBoard(ReducedSpace[][] spaces) {
         System.out.print(printUpperIndexes());
         String strBoard = "";
         for (int i = 0; i < MAX_ROWS; i++) {
@@ -263,7 +290,7 @@ public class Cli extends View {
                         if (spaces[i][j].getReducedWorker() != null) {
                             strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + "  | " + ColorCli.RESET +
                                     spaces[i][j].getLevel() +
-                                    spaces[i][j].getReducedWorker().getColor().getCode() + " x" + ColorCli.YELLOW_BOLD
+                                    ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()) + " x" + ColorCli.YELLOW_BOLD
                                     + " |" + ColorCli.RESET;
                         } else {
                             strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + "  |  " + ColorCli.RESET
@@ -292,7 +319,7 @@ public class Cli extends View {
             if (i == MAX_ROWS - 1)
                 strBoard += ColorCli.YELLOW_BOLD + "\n   +-----+-----+-----+-----+-----+\n" + ColorCli.RESET;
         }
-        return strBoard;
+        System.out.println(strBoard);
     }
 
     /**
