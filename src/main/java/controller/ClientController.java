@@ -10,6 +10,7 @@ import view.View;
 import observer.ViewObserver;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +35,13 @@ public class ClientController implements ViewObserver, Observer {
             case PLAYERNUMBER_REQUEST:
                 view.askPlayersNumber();
                 break;
+            case GODLIST:
+                GodListMessage mex = (GodListMessage) message;
+                view.askGod(mex.getGodList(), mex.getRequest());
+                break;
             case GENERIC_ERROR_MESSAGE:
                 view.showGenericErrorMessage(message.toString()); // TODO check
+                break;
             default: // Should never reach this condition
                 break;
         }
@@ -71,8 +77,8 @@ public class ClientController implements ViewObserver, Observer {
     }
 
     @Override
-    public void onUpdateGod(ReducedGod god) {
-        client.sendMessage(new GodListMessage(this.nickname, List.of(god)));
+    public void onUpdateGod(List<ReducedGod> gods) {
+        client.sendMessage(new GodListMessage(this.nickname, gods, 0));
     }
 
     @Override

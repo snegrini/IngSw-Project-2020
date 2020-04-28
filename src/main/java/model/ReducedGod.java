@@ -1,6 +1,8 @@
 package model;
 
-public class ReducedGod {
+import java.io.Serializable;
+
+public class ReducedGod implements Serializable {
     private final String name;
     private final String caption;
     private final String description;

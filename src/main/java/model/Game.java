@@ -108,8 +108,39 @@ public class Game extends Observable {
         Game.instance = null;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    /**
+     * @return a list with all reduced gods.
+     */
+    public List<ReducedGod> getReduceGodList() {
+       List<ReducedGod> reducedGods = new ArrayList<>();
+        for(God god : gods ) {
+            reducedGods.add(new ReducedGod(god));
+        }
+        return reducedGods;
+    }
+
+    /**
+     * Used in game controller in order to assign to a player a not reduced God.
+     * @param godName name of a god provided by client (reducedGod)
+     * @return the corrispective God
+     */
+    public God getGodByName(String godName) {
+        return gods.stream()
+                .filter(god -> godName.equals(god.getName()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     *
+     * @return a list with all nicknames in the Game
+     */
+    public List<String> getPlayersNicknames() {
+        List<String> nicknames = new ArrayList<>();
+        for(Player p : players) {
+                nicknames.add(p.getNickname());
+        }
+        return nicknames;
     }
 
 }

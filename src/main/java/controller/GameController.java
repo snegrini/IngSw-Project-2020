@@ -21,24 +21,18 @@ public class GameController {
     private GameState gameState;
     private List<ReducedGod> selectedGodList;
     private List<ReducedGod> activeGodList;
-    private List<ReducedGod> fullReducedGodList;
 
-    private List<God> godList;
+    //  private List<God> godList;
 
     private List<Color> availableColors;
     private TurnController turnController;
 
     public GameController() {
         this.game = Game.getInstance();
-        // TODO parser god from file and insert into godList.
-        godList = new ArrayList<>();
-        // TODO create reduced gods and insert in fullReducedGodList.
-        fullReducedGodList = new ArrayList<>();
-
         availableColors = getColorList();
 
         this.virtualViews = Collections.synchronizedMap(new HashMap<>());
-        this.turnController = new TurnController();
+
         gameState = GameState.LOGIN; // Initialize Game State.
     }
 
@@ -51,69 +45,124 @@ public class GameController {
 
         VirtualView virtualView = virtualViews.get(receivedMessage.getNickname());
 
-        if (gameState == GameState.LOGIN) {
-            switch (receivedMessage.getMessageType()) {
-                case LOGIN_REQUEST:
-                    loginRequests((LoginRequest) receivedMessage, virtualView);
-                    break;
-                case PLAYERNUMBER_REPLY:
-                    setChosenMaxPlayers((PlayerNumberReply) receivedMessage, virtualView);
-                    break;
-                default:
-                    // TODO show exception
-                    break;
-            }
-        } else if (gameState == GameState.INIT) {
-
-            switch (receivedMessage.getMessageType()) {
-                case GODLIST:
-                    godListHandler((GodListMessage) receivedMessage, virtualView);
-                    break;
-                case INIT_WORKERSPOSITIONS:
-                    initWorkersPositions((WorkersPositionsMessage) receivedMessage, virtualView);
-                    break;
-                case INIT_COLORS:
-                    initColors((ColorsMessage) receivedMessage, virtualView);
-                    break;
-
-                default:
-                    // TODO show exception
-                    break;
-            }
-
-        } else if (gameState == GameState.IN_GAME) {
-
-            // check if sender's nickname is in listPlayer.
-            if (!game.isNicknameTaken(receivedMessage.getNickname())) {
-                virtualView.showGenericErrorMessage("Player is not in game.");
-            }
-
-            // check if sender is the active player.
-            if (turnController.getActivePlayer().getNickname().equals(receivedMessage.getNickname())) {
-                //return new GenericErrorMessage("Not your turn.");
-                virtualView.sendMessage(new GenericErrorMessage("Not your turn."));
-            }
-
-            switch (receivedMessage.getMessageType()) {
-                case MOVE:
-                    move((Move) receivedMessage, virtualView);
-                    break;
-                case BUILD:
-                    break;
-                default:
-                    // TODO show exception
-                    break;
-            }
+        switch (gameState) {
+            case LOGIN:
+                loginState(receivedMessage, virtualView);
+                break;
+            case INIT:
+                initState(receivedMessage, virtualView);
+                break;
+            case IN_GAME:
+                inGameState(receivedMessage, virtualView);
+                break;
+            default: // Should never reach this condition
+                break;
         }
     }
 
-    private void move(Move receivedMessage, VirtualView virtualView) {
-        // TODO
-        // check if destination is free
-        // check for some lock from gods
-        // move player
-        // check win condition
+
+    // 3 MAIN STATE METHODS:
+    private void loginState(Message receivedMessage, VirtualView virtualView) {
+        switch (receivedMessage.getMessageType()) {
+            case LOGIN_REQUEST:
+                loginRequests((LoginRequest) receivedMessage, virtualView);
+                break;
+            case PLAYERNUMBER_REPLY:
+                setChosenMaxPlayers((PlayerNumberReply) receivedMessage, virtualView);
+                break;
+            default:
+                // TODO show exception
+                break;
+        }
     }
+
+    private void initState(Message receivedMessage, VirtualView virtualView) {
+        switch (receivedMessage.getMessageType()) {
+            case GODLIST:
+                godListHandler((GodListMessage) receivedMessage, virtualView);
+                break;
+            case INIT_WORKERSPOSITIONS:
+                initWorkersPositions((WorkersPositionsMessage) receivedMessage, virtualView);
+                break;
+            case INIT_COLORS:
+                initColors((ColorsMessage) receivedMessage, virtualView);
+                break;
+
+            default:
+                // TODO show exception
+                break;
+        }
+    }
+
+    private void inGameState(Message receivedMessage, VirtualView virtualView) {
+        // check if sender's nickname is in listPlayer.
+        if (!game.isNicknameTaken(receivedMessage.getNickname())) {
+            virtualView.showGenericErrorMessage("Player is not in game.");
+        }
+
+        // check if sender is the active player.
+        if (turnController.getActivePlayer().equals(receivedMessage.getNickname())) {
+            //return new GenericErrorMessage("Not your turn.");
+            virtualView.sendMessage(new GenericErrorMessage("Not your turn."));
+        }
+
+        switch (receivedMessage.getMessageType()) {
+            case MOVE:
+                // move((Move) receivedMessage, virtualView);
+                break;
+            case BUILD:
+                break;
+            default:
+                // TODO show exception
+                break;
+        }
+    }
+
+
+    // UTILITY METHODS:
+
+    /**
+     * if first client then ask number of players he wants.
+     * if not first client check his nickname, add player to the game
+     * eventually change game state
+     *
+     * @param receivedMessage message from client
+     * @param virtualView     virtual view
+     */
+    private void loginRequests(LoginRequest receivedMessage, VirtualView virtualView) {
+        String nickname = receivedMessage.getNickname();
+
+        if (!nickname.equals("server")) {
+            if (game.getNumCurrentPlayers() == 0) { // First player logged. Ask number of players.
+                game.addPlayer(new Player(nickname));
+                virtualView.askPlayersNumber();
+            } else if (!(game.isNicknameTaken(nickname))) { // If not exist yet then add it
+                game.addPlayer(new Player(nickname));
+                virtualView.showLoginResult(true, true);
+
+                if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
+                    initGame();
+                }
+            } else {
+                virtualView.showLoginResult(false, true);
+            }
+        } else {
+            // NICKNAME CAN'T BE "server".
+            virtualView.showLoginResult(false, true);
+        }
+    }
+
+    /**
+     * Change gameStete into INIT. Initialize TurnController and asks a player to pick the gods
+     */
+    private void initGame() {
+        gameState = GameState.INIT;
+        turnController = new TurnController();
+
+        VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
+        virtualView.askGod(game.getReduceGodList(), game.getChosenPlayersNumber());
+    }
+
 
     /**
      * If client provides 2 free positions then assign them to his workers
@@ -129,7 +178,7 @@ public class GameController {
             }
             virtualView.askWorkersColor(availableColors);
         } else {
-            virtualView.askWorkersPositions(game.getBoard().getFreePositions());
+           askWorkersPositions(turnController.getActivePlayer());
         }
 
     }
@@ -196,56 +245,54 @@ public class GameController {
         // if received contains a list
         if (receivedMessage.getGodList().size() > 1) {
             if (receivedMessage.getGodList().size() == game.getChosenPlayersNumber()) {
+
                 Collections.copy(selectedGodList, receivedMessage.getGodList());
                 Collections.copy(activeGodList, receivedMessage.getGodList());
 
-            } else {
-                virtualView.askGod(fullReducedGodList);
+                askGodToNextPlayer();
+            } else { // if received contains less than #chosenPlayersNumber gods re-ask.
+                virtualView.askGod(game.getReduceGodList(), game.getChosenPlayersNumber());
             }
         } // else receivedMessage contains only 1 god
         else {
             if (isInSelectedGodList(receivedMessage.getGodList().get(1))) {
-                God god = getGodFromReducedGod(receivedMessage.getGodList().get(1));
+                God god = game.getGodByName(receivedMessage.getGodList().get(1).getName());
 
                 game.getPlayerByNickname(receivedMessage.getNickname()).setGod(god);
                 selectedGodList.remove(receivedMessage.getGodList().get(1));
 
-                if (selectedGodList.size() == 0) {
-                    askWorkersPositions(1); // Ask to first player his workers' positions
+                if (!(selectedGodList.size() == 0)) {
+                    askGodToNextPlayer();
+                } else {
+                    // the last one who pick his god is the first one player of every round.
+                    askWorkersPositions(turnController.getActivePlayer());
                 }
 
             } else {
-                virtualView.askGod(selectedGodList);
+                virtualView.askGod(selectedGodList, 1);
             }
         }
     }
 
-    private void askWorkersPositions(int playerID) {
-        // Instatiate virtual view for the first player logged
-        VirtualView virtualView = virtualViews.get(game.getPlayers().get(playerID).getNickname());
-        // Send available positions to the first client.
+    private void askGodToNextPlayer() {
+        // ask god to the next player
+        turnController.next();
+        VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
+        virtualView.askGod(selectedGodList, 1); // Only 1 god requested to client.
+    }
+
+    private void askWorkersPositions(String nickname) {
+
+        VirtualView virtualView = virtualViews.get(nickname);
+        // Send available positions to the client.
         virtualView.askWorkersPositions(game.getBoard().getFreePositions());
     }
 
     /**
-     * Convert ReducedGod to God in order to set it to a player.
-     *
-     * @param reducedGod god from client
-     * @return God
-     */
-    private God getGodFromReducedGod(ReducedGod reducedGod) {
-        for (God g : godList) {
-            if (g.getName().equals(reducedGod.getName()))
-                return g;
-        }
-        return null;
-    }
-
-    /**
-     * Check if parameter is in the selectedGodList
+     * Check if god is in the selectedGodList
      *
      * @param god god picked by client
-     * @return true if correct else false
+     * @return {@code true} if correct {@code false} otherwise
      */
     private boolean isInSelectedGodList(ReducedGod god) {
         for (ReducedGod g : selectedGodList) {
@@ -268,47 +315,6 @@ public class GameController {
         } else {
             virtualView.askPlayersNumber();
         }
-    }
-
-    /**
-     * if first client then ask number of players he wants.
-     * if not first client check his nickname, add player to the game
-     * eventually change game state
-     *
-     * @param receivedMessage message from client
-     * @param virtualView     virtual view
-     */
-    private void loginRequests(LoginRequest receivedMessage, VirtualView virtualView) {
-        String nickname = receivedMessage.getNickname();
-
-        if (!nickname.equals("server")) {
-            if (game.getNumCurrentPlayers() == 0) { // First player logged. Ask number of players.
-                game.addPlayer(new Player(nickname));
-                virtualView.askPlayersNumber();
-            } else if (!(game.isNicknameTaken(nickname))) { // If not exist yet then add it
-                game.addPlayer(new Player(nickname));
-                virtualView.showLoginResult(true, true);
-
-                if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
-                    gameState = GameState.INIT;
-                    askGods(0); // FIXME -> to random not to first
-                }
-            } else {
-                virtualView.showLoginResult(false, true);
-            }
-
-
-        } else {
-            // NICKNAME CAN'T BE "server".
-            virtualView.showLoginResult(false, true);
-        }
-    }
-
-    private void askGods(int playerID) {
-        // Instatiate virtual view for the first player logged
-        VirtualView virtualView = virtualViews.get(game.getPlayers().get(playerID).getNickname());
-        // virtualView.askGod(fullReducedGodList);
-        virtualView.showGenericErrorMessage("lista Dei"); // FIXME
     }
 
 

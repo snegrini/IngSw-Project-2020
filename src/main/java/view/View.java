@@ -68,7 +68,7 @@ public abstract class View {
      *
      * @param gods the list of the available Gods.
      */
-    public abstract void askGod(List<ReducedGod> gods);
+    public abstract void askGod(List<ReducedGod> gods, int request);
 
     /**
      * Asks to the user to choose a new position where to build.

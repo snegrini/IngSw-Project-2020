@@ -57,8 +57,8 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public void askGod(List<ReducedGod> gods) {
-        clientHandler.sendMessage(new GodListMessage("server", gods));
+    public void askGod(List<ReducedGod> gods, int request) {
+        clientHandler.sendMessage(new GodListMessage("server", gods, request));
     }
 
     //@Override

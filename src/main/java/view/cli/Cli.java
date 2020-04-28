@@ -70,7 +70,7 @@ public class Cli extends View {
     }
 
     @Override
-    public void askWorkersPositions(List<Position> positions){
+    public void askWorkersPositions(List<Position> positions) {
 
     }
 
@@ -78,7 +78,6 @@ public class Cli extends View {
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
 
     }
-
 
 
     @Override
@@ -105,10 +104,43 @@ public class Cli extends View {
     }
 
     @Override
-    public void askGod(List<ReducedGod> gods) {
+    public void askGod(List<ReducedGod> gods, int request) {
 
-        System.out.println("Select your own personal God!");
+        if (gods.size() == 9) {
 
+            System.out.println("Select " + request +" Gods!");
+            printGodList(gods);
+
+            System.out.println("Insert God IDs");
+            System.out.println("DEBUG: I picked first 3 gods for You.");
+            List<ReducedGod> reducedGodList = new ArrayList<>();
+            reducedGodList.add(gods.get(1));
+            reducedGodList.add(gods.get(2));
+            reducedGodList.add(gods.get(3));
+
+            notifyObserver((ViewObserver obs) -> obs.onUpdateGod(reducedGodList));
+
+        } else {
+
+            System.out.println("Select your own personal God!");
+
+            printGodList(gods);
+
+            int godId;
+            System.out.print("To select one God type in his ID: ");
+            do {
+                godId = Integer.parseInt(scanner.nextLine()) - 1;
+                if (godId < 0 || godId > gods.size()) {
+                    System.out.println("You have not inserted a valid ID! Please try again.");
+                }
+            } while (godId < 0 || godId > gods.size());
+
+            ReducedGod finalGod = gods.get(godId);
+            notifyObserver((ViewObserver obs) -> obs.onUpdateGod(List.of(finalGod)));
+        }
+    }
+
+    private void printGodList(List<ReducedGod> gods) {
         for (int i = 0; i < gods.size(); i++) {
             ReducedGod god = gods.get(i);
             System.out.println("ID: " + (i + 1));
@@ -116,17 +148,6 @@ public class Cli extends View {
             System.out.println("Caption: " + god.getCaption());
             System.out.println("Description: " + god.getDescription() + "\n");
         }
-        int godId;
-        System.out.print("To select one God type in his ID: ");
-        do {
-            godId = Integer.parseInt(scanner.nextLine()) - 1;
-            if (godId < 0 || godId > gods.size()) {
-                System.out.println("You have not inserted a valid ID! Please try again.");
-            }
-        } while (godId < 0 || godId > gods.size());
-
-        ReducedGod finalGod = gods.get(godId);
-        notifyObserver((ViewObserver obs) -> obs.onUpdateGod(finalGod));
     }
 
 
