@@ -43,7 +43,7 @@ public class ClientController implements ViewObserver, Observer {
                 break;
             case INIT_WORKERSPOSITIONS:
                 WorkersPositionsMessage workersPositionsMessage = (WorkersPositionsMessage) message;
-                view.askWorkersPositions(workersPositionsMessage.getPositionList());
+                view.askInitWorkersPositions(workersPositionsMessage.getPositionList());
                 break;
             case INIT_COLORS:
                 ColorsMessage colorsMessage = (ColorsMessage) message;

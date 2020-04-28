@@ -294,7 +294,7 @@ public class GameController {
 
         VirtualView virtualView = virtualViews.get(nickname);
         // Send available positions to the client.
-        virtualView.askWorkersPositions(game.getBoard().getFreePositions());
+        virtualView.askInitWorkersPositions(game.getBoard().getFreePositions());
     }
 
     /**
