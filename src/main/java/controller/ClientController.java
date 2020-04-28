@@ -34,6 +34,10 @@ public class ClientController implements ViewObserver, Observer {
     @Override
     public void update(Message message) {
         switch (message.getMessageType()) {
+            case LOGIN_REPLY:
+                LoginReply loginReply = (LoginReply) message;
+                view.showLoginResult(loginReply.isNicknameAccepted(), loginReply.isConnectionSuccessful());
+                break;
             case PLAYERNUMBER_REQUEST:
                 view.askPlayersNumber();
                 break;
@@ -103,7 +107,7 @@ public class ClientController implements ViewObserver, Observer {
 
     @Override
     public void onUpdateInitWorkerPosition(List<Position> positions) {
-
+        client.sendMessage(new WorkersPositionsMessage(this.nickname, positions));
     }
 
     @Override

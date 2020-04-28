@@ -135,6 +135,7 @@ public class GameController {
         if (!nickname.equals("server")) {
             if (game.getNumCurrentPlayers() == 0) { // First player logged. Ask number of players.
                 game.addPlayer(new Player(nickname));
+                virtualView.showLoginResult(true, true);
                 virtualView.askPlayersNumber();
             } else if (!(game.isNicknameTaken(nickname))) { // If not exist yet then add it
                 game.addPlayer(new Player(nickname));
@@ -351,7 +352,7 @@ public class GameController {
             // FIXME virtualView.addObserver(this);
             virtualViews.put(nickname, virtualView);
             game.addObserver(virtualView);
-            virtualView.showLoginResult(true, true);
+
         } else {
             virtualView.showLoginResult(true, false);
         }

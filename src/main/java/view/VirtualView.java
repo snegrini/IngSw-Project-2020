@@ -84,7 +84,7 @@ public class VirtualView extends View implements Observer {
 
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
-
+        clientHandler.sendMessage(new BoardMessage("server", MessageType.BOARD, spaces));
     }
 
 

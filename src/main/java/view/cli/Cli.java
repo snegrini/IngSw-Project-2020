@@ -40,11 +40,13 @@ public class Cli extends View {
     public void askServerInfo() {
         Map<String, String> serverInfo = new HashMap<>();
 
-        System.out.print("Enter the server address: ");
-        serverInfo.put("address", scanner.nextLine());
+        // System.out.print("Enter the server address: ");
+        //serverInfo.put("address", scanner.nextLine());
+        serverInfo.put("address", "localhost");
+        // System.out.print("Server port: ");
+        // serverInfo.put("port", scanner.nextLine());
+        serverInfo.put("port", "16847");
 
-        System.out.print("Server port: ");
-        serverInfo.put("port", scanner.nextLine());
 
         notifyObserver((ViewObserver obs) -> obs.onUpdateServerInfo(serverInfo));
     }
@@ -72,19 +74,26 @@ public class Cli extends View {
 
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
+
+        scanner = new Scanner(System.in);
+
         int chosenRow1, chosenColumn1;
         int chosenRow2, chosenColumn2;
         System.out.println("Select your workers' initial positions");
         System.out.println("Position for Worker 1");
-        System.out.print("Row 1: ");
+        System.out.print("Row: ");
+        // chosenRow1 = 1; // FIXME togli costanti
         chosenRow1 = Integer.parseInt(scanner.nextLine());
-        System.out.print(" Column 1: ");
+        System.out.print(" Column: ");
+        // chosenColumn1 = 2;
         chosenColumn1 = Integer.parseInt(scanner.nextLine());
         System.out.println();
         System.out.println("Position for Worker 2");
-        System.out.print("Row 2: ");
+        System.out.print("Row: ");
+        // chosenRow2 = 3;
         chosenRow2 = Integer.parseInt(scanner.nextLine());
-        System.out.println(" Column 2: ");
+        System.out.println(" Column: ");
+        // chosenColumn2 = 2;
         chosenColumn2 = Integer.parseInt(scanner.nextLine());
         Position position1 = new Position(chosenRow1, chosenColumn1);
         Position position2 = new Position(chosenRow2, chosenColumn2);
@@ -144,7 +153,7 @@ public class Cli extends View {
                 System.out.println("Select " + request + " Gods!");
                 printGodList(gods);
                 System.out.println("Insert God IDs");
-                System.out.println("DEBUG: I picked first 2 gods for You.");
+                System.out.println("DEBUG: I picked first 3 gods for You.");
                 List<ReducedGod> reducedGodList = new ArrayList<>();
                 reducedGodList.add(gods.get(0));
                 reducedGodList.add(gods.get(1));

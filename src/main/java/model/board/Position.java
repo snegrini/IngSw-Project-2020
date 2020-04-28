@@ -1,8 +1,10 @@
 package model.board;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Position {
+public class Position implements Serializable {
+    private static final long serialVersionUID = 6198190192800214046L;
     private int row;
     private int column;
 

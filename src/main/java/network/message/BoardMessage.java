@@ -8,7 +8,7 @@ public class BoardMessage extends Message {
     private static final long serialVersionUID = -8014575220371739730L;
     private ReducedSpace board[][];
 
-    BoardMessage(String nickname, MessageType messageType, ReducedSpace[][] board) {
+    public BoardMessage(String nickname, MessageType messageType, ReducedSpace[][] board) {
         super(nickname, messageType);
         this.board = board;
     }
