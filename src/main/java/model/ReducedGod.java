@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class ReducedGod implements Serializable {
     private final String name;
@@ -23,5 +24,19 @@ public class ReducedGod implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReducedGod that = (ReducedGod) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

@@ -103,43 +103,56 @@ public class Cli extends View {
         notifyObserver((ViewObserver obs) -> obs.onUpdateWorkersColor(color));
     }
 
+    /**
+     * If gods are > 1 and request > 1 then You're the "god like player" and You have to pick N gods
+     * If gods are > 1 and request == 1 then You've to pick only 1 god
+     * If gods are only 1 You don't have to pick any god.
+     *
+     * @param gods the list of the available Gods.
+     * @param request how many gods user have to pick
+     */
     @Override
     public void askGod(List<ReducedGod> gods, int request) {
 
-        if (gods.size() == 9) {
+        int godId = 0;
 
-            System.out.println("Select " + request +" Gods!");
+        if (gods.size() > 1) {
+            if (request > 1) {
+                System.out.println("Select " + request + " Gods!");
+                printGodList(gods);
+                System.out.println("Insert God IDs");
+                System.out.println("DEBUG: I picked first 2 gods for You.");
+                List<ReducedGod> reducedGodList = new ArrayList<>();
+                reducedGodList.add(gods.get(0));
+                reducedGodList.add(gods.get(1));
+                reducedGodList.add(gods.get(2));
+                notifyObserver((ViewObserver obs) -> obs.onUpdateGod(reducedGodList));
+            } else {
+                System.out.println("Select your own personal God!");
+                printGodList(gods);
+                System.out.print("To select one God type in his ID: ");
+                do {
+                    godId = Integer.parseInt(scanner.nextLine()) - 1;
+                    if (godId < 0 || godId > gods.size()) {
+                        System.out.println("You have not inserted a valid ID! Please try again.");
+                    }
+                } while (godId < 0 || godId > gods.size());
+
+                ReducedGod finalGod = gods.get(godId);
+                notifyObserver((ViewObserver obs) -> obs.onUpdateGod(List.of(finalGod)));
+            }
+        } else if (gods.size() == 1) {
+            System.out.println("You're the last player, your god is: ");
             printGodList(gods);
-
-            System.out.println("Insert God IDs");
-            System.out.println("DEBUG: I picked first 3 gods for You.");
-            List<ReducedGod> reducedGodList = new ArrayList<>();
-            reducedGodList.add(gods.get(1));
-            reducedGodList.add(gods.get(2));
-            reducedGodList.add(gods.get(3));
-
-            notifyObserver((ViewObserver obs) -> obs.onUpdateGod(reducedGodList));
-
-        } else {
-
-            System.out.println("Select your own personal God!");
-
-            printGodList(gods);
-
-            int godId;
-            System.out.print("To select one God type in his ID: ");
-            do {
-                godId = Integer.parseInt(scanner.nextLine()) - 1;
-                if (godId < 0 || godId > gods.size()) {
-                    System.out.println("You have not inserted a valid ID! Please try again.");
-                }
-            } while (godId < 0 || godId > gods.size());
-
-            ReducedGod finalGod = gods.get(godId);
+            ReducedGod finalGod = gods.get(0);
             notifyObserver((ViewObserver obs) -> obs.onUpdateGod(List.of(finalGod)));
         }
     }
 
+    /**
+     * Print a list of gods
+     * @param gods the list of gods You want to print
+     */
     private void printGodList(List<ReducedGod> gods) {
         for (int i = 0; i < gods.size(); i++) {
             ReducedGod god = gods.get(i);

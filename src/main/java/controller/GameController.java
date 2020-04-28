@@ -246,8 +246,8 @@ public class GameController {
         if (receivedMessage.getGodList().size() > 1) {
             if (receivedMessage.getGodList().size() == game.getChosenPlayersNumber()) {
 
-                Collections.copy(selectedGodList, receivedMessage.getGodList());
-                Collections.copy(activeGodList, receivedMessage.getGodList());
+                selectedGodList = new ArrayList<>(receivedMessage.getGodList());
+                activeGodList = new ArrayList<>(receivedMessage.getGodList());
 
                 askGodToNextPlayer();
             } else { // if received contains less than #chosenPlayersNumber gods re-ask.
@@ -255,11 +255,12 @@ public class GameController {
             }
         } // else receivedMessage contains only 1 god
         else {
-            if (isInSelectedGodList(receivedMessage.getGodList().get(1))) {
-                God god = game.getGodByName(receivedMessage.getGodList().get(1).getName());
+            if (isInSelectedGodList(receivedMessage.getGodList().get(0))) {
+                God god = game.getGodByName(receivedMessage.getGodList().get(0).getName());
 
                 game.getPlayerByNickname(receivedMessage.getNickname()).setGod(god);
-                selectedGodList.remove(receivedMessage.getGodList().get(1));
+
+                selectedGodList.remove(receivedMessage.getGodList().get(0));
 
                 if (!(selectedGodList.size() == 0)) {
                     askGodToNextPlayer();

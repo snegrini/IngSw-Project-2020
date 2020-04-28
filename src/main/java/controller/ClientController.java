@@ -36,8 +36,14 @@ public class ClientController implements ViewObserver, Observer {
                 view.askPlayersNumber();
                 break;
             case GODLIST:
-                GodListMessage mex = (GodListMessage) message;
-                view.askGod(mex.getGodList(), mex.getRequest());
+                GodListMessage godListMessage = (GodListMessage) message;
+                view.askGod(godListMessage.getGodList(), godListMessage.getRequest());
+                break;
+            case INIT_WORKERSPOSITIONS:
+                WorkersPositionsMessage workersPositionsMessage = (WorkersPositionsMessage) message;
+                view.askWorkersPositions(workersPositionsMessage.getPositionList());
+                break;
+            case INIT_COLORS:
                 break;
             case GENERIC_ERROR_MESSAGE:
                 view.showGenericErrorMessage(message.toString()); // TODO check
@@ -46,6 +52,7 @@ public class ClientController implements ViewObserver, Observer {
                 break;
         }
     }
+
 
     @Override
     public void onUpdateServerInfo(Map<String, String> serverInfo) {
