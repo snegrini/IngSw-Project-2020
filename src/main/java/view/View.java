@@ -52,7 +52,7 @@ public abstract class View {
      */
     public abstract void askWorkerToMove(List<Position> positions);
 
-    public abstract void askWorkersPositions(List<Position> positions);
+    public abstract void askInitWorkersPositions(List<Position> positions);
 
     public abstract void askPlayersNumber();
 
@@ -82,7 +82,7 @@ public abstract class View {
      *
      * @param positions the list of the available positions.
      */
-    public abstract void askNewPosition(List<Position> positions);
+    public abstract void askNewPosition(List<Position> positions, Position orig);
 
     /**
      * Shows to the user if the Login succeeded.
@@ -96,8 +96,6 @@ public abstract class View {
 
     /**
      * Shows the Board
-     *
-     * @return the Board
      */
-    public abstract String showBoard(ReducedSpace[][] spaces);
+    public abstract void showBoard(ReducedSpace[][] spaces);
 }

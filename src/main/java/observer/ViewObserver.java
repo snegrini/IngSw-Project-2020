@@ -2,6 +2,7 @@ package observer;
 
 import model.God;
 import model.ReducedGod;
+import model.board.Position;
 import model.enumerations.Color;
 
 import java.util.List;
@@ -19,10 +20,12 @@ public interface ViewObserver {
 
     void onUpdateGod(List<ReducedGod> reducedGods);
 
-    void onUpdateWorkerToMove(int chosenRow, int chosenColumn);
+    void onUpdateWorkerToMove(Position pst_worker);
 
-    void onUpdateWorkerPosition(int chosenRow, int chosenColumn);
+    void onUpdateWorkerPosition(Position dest, Position orig);
 
-    void onUpdateBuild(int chosenRow, int chosenColumn);
+    void onUpdateBuild(Position newBuild);
+
+    void onUpdateInitWorkerPosition(List<Position> positions);
 
 }

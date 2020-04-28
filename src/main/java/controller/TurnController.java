@@ -1,12 +1,10 @@
 package controller;
 
 import model.Game;
-import model.player.Player;
-import network.message.Move;
+import network.message.MoveMessage;
 import view.VirtualView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class TurnController {
@@ -43,7 +41,7 @@ public class TurnController {
     }
 
 
-    private void move(Move receivedMessage, VirtualView virtualView) {
+    private void move(MoveMessage receivedMessage, VirtualView virtualView) {
         // TODO
         // check if destination is free
         // check for some lock from gods

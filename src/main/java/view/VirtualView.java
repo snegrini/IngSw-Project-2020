@@ -52,7 +52,7 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public void askWorkersPositions(List<Position> positions) {
+    public void askInitWorkersPositions(List<Position> positions) {
         clientHandler.sendMessage(new WorkersPositionsMessage("server", positions));
     }
 
@@ -68,7 +68,7 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public void askNewPosition(List<Position> positions) {
+    public void askNewPosition(List<Position> positions, Position orig) {
 
     }
 
@@ -83,8 +83,8 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public String showBoard(ReducedSpace[][] spaces) {
-        return null;
+    public void showBoard(ReducedSpace[][] spaces) {
+
     }
 
 
