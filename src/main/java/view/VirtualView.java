@@ -47,7 +47,7 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public void askWorkersColor(List<Color> colors) {
+    public void askInitWorkerColor(List<Color> colors) {
         clientHandler.sendMessage(new ColorsMessage("server", colors));
     }
 

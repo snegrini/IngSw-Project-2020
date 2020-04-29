@@ -1,7 +1,6 @@
 package controller;
 
 import model.ReducedGod;
-import model.board.Board;
 import model.board.Position;
 import model.enumerations.Color;
 import network.client.Client;
@@ -12,7 +11,6 @@ import view.View;
 import observer.ViewObserver;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +49,7 @@ public class ClientController implements ViewObserver, Observer {
                 break;
             case INIT_COLORS:
                 ColorsMessage colorsMessage = (ColorsMessage) message;
-                view.askWorkersColor(colorsMessage.getColorList());
+                view.askInitWorkerColor(colorsMessage.getColorList());
                 break;
             case BOARD:
                 BoardMessage boardMessage = (BoardMessage) message;

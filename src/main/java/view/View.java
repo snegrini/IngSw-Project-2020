@@ -61,7 +61,7 @@ public abstract class View {
      *
      * @param colors the list of the available colors.
      */
-    public abstract void askWorkersColor(List<Color> colors);
+    public abstract void askInitWorkerColor(List<Color> colors);
 
     /**
      * Allows the user to choose his God.

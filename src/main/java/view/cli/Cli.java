@@ -62,13 +62,10 @@ public class Cli extends View {
     public void askPlayersNumber() {
         int playerNumber;
         System.out.print("How many players are going to play? (You can choose between 2 or 3 players): ");
-        do {
-            playerNumber = scanner.nextInt();
-            if (playerNumber != 2 && playerNumber != 3)
-                System.out.println("Remember! Only 2 or 3 players can play!");
-        } while (playerNumber != 2 && playerNumber != 3);
-        int finalPlayerNumber = playerNumber;
-        notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(finalPlayerNumber));
+
+        playerNumber = scanner.nextInt();
+
+        notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(playerNumber));
     }
 
 
@@ -82,18 +79,14 @@ public class Cli extends View {
         System.out.println("Select your workers' initial positions");
         System.out.println("Position for Worker 1");
         System.out.print("Row: ");
-        // chosenRow1 = 1; // FIXME togli costanti
         chosenRow1 = Integer.parseInt(scanner.nextLine());
-        System.out.print(" Column: ");
-        // chosenColumn1 = 2;
+        System.out.print("Column: ");
         chosenColumn1 = Integer.parseInt(scanner.nextLine());
         System.out.println();
         System.out.println("Position for Worker 2");
         System.out.print("Row: ");
-        // chosenRow2 = 3;
         chosenRow2 = Integer.parseInt(scanner.nextLine());
-        System.out.println(" Column: ");
-        // chosenColumn2 = 2;
+        System.out.println("Column: ");
         chosenColumn2 = Integer.parseInt(scanner.nextLine());
         Position position1 = new Position(chosenRow1, chosenColumn1);
         Position position2 = new Position(chosenRow2, chosenColumn2);
@@ -113,7 +106,7 @@ public class Cli extends View {
 
 
     @Override
-    public void askWorkersColor(List<Color> colorList) {
+    public void askInitWorkerColor(List<Color> colorList) {
         String in;
         System.out.println("Select your workers' color!");
 
@@ -140,7 +133,7 @@ public class Cli extends View {
      * If gods are > 1 and request == 1 then You've to pick only 1 god
      * If gods are only 1 You don't have to pick any god.
      *
-     * @param gods the list of the available Gods.
+     * @param gods    the list of the available Gods.
      * @param request how many gods user have to pick
      */
     @Override
@@ -183,6 +176,7 @@ public class Cli extends View {
 
     /**
      * Print a list of gods
+     *
      * @param gods the list of gods You want to print
      */
     private void printGodList(List<ReducedGod> gods) {
@@ -285,6 +279,9 @@ public class Cli extends View {
 
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
+
+        // TODO CLEAR TERMINAL
+
         System.out.print(printUpperIndexes());
         String strBoard = "";
         for (int i = 0; i < MAX_ROWS; i++) {
