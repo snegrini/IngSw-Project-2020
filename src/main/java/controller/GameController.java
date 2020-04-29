@@ -145,11 +145,11 @@ public class GameController {
     // UTILITY METHODS:
 
     /**
-     * if first client then ask number of players he wants,  add player to the game otherwise
-     * eventually change game state
+     * If It's the first Client then ask number of Players he wants, add Player to the Game otherwise
+     * eventually change Game State
      *
-     * @param receivedMessage message from client
-     * @param virtualView     virtual view
+     * @param receivedMessage Message from Client
+     * @param virtualView     Virtual View
      */
     private void loginHandler(LoginRequest receivedMessage, VirtualView virtualView) {
         String nickname = receivedMessage.getNickname();
@@ -206,6 +206,9 @@ public class GameController {
     }
 
 
+    /**
+     * Ask to pick a God to the next Player.
+     */
     private void askGodToNextPlayer() {
         // ask god to the next player
         turnController.next();
@@ -213,6 +216,11 @@ public class GameController {
         virtualView.askGod(availableGods, 1); // Only 1 god requested to client.
     }
 
+    /**
+     * Ask to pick the 2 Workers' Positions to a Player.
+     *
+     * @param nickname nickname of the current Player.
+     */
     private void askWorkersPositions(String nickname) {
         VirtualView virtualView = virtualViews.get(nickname);
         virtualView.showBoard(game.getBoard().getReducedSpaceBoard());
