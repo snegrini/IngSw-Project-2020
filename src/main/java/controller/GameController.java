@@ -92,7 +92,7 @@ public class GameController {
                 break;
             case INIT_WORKERSPOSITIONS:
                 if (inputController.check(receivedMessage)) {
-                    workerPositionsHandler((WorkersPositionsMessage) receivedMessage, virtualView);
+                    workerPositionsHandler((PositionMessage) receivedMessage, virtualView);
                 }
                 break;
             case INIT_COLORS:
@@ -225,7 +225,7 @@ public class GameController {
      * @param receivedMessage message from client
      * @param virtualView     virtual view
      */
-    private void workerPositionsHandler(WorkersPositionsMessage receivedMessage, VirtualView virtualView) {
+    private void workerPositionsHandler(PositionMessage receivedMessage, VirtualView virtualView) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
 
         for (Position p : receivedMessage.getPositionList()) {

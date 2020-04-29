@@ -15,8 +15,8 @@ public class PositionMessage extends Message {
      * Contains a list of positions.
      *
      * @param nickname     of Player.
-     * @param messageType  type of the message.
-     * @param positionList list of positions.
+     * @param messageType  type of the Message.
+     * @param positionList list of Positions.
      */
     public PositionMessage(String nickname, MessageType messageType, List<Position> positionList) {
         super(nickname, messageType);
@@ -26,7 +26,7 @@ public class PositionMessage extends Message {
 
     @Override
     public String toString() {
-        return "Move{" +
+        return "PositionMessage{" +
                 "nickname=" + getNickname() +
                 ", messageType=" + getMessageType() +
                 ", positionList=" + positionList +
