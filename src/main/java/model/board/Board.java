@@ -131,18 +131,20 @@ public class Board {
     }
 
     /**
-     * Returns a list of positions that are adjacent to the position argument and are occupied by an opponent worker.
+     * Returns a list of positions that are adjacent to the position argument and are occupied by a worker.
+     * If
      *
      * @param position The position to look for the neighbours.
+     * @param oppOnly  If set to {@code true} only opponent workers are checked.
      * @return The list of spaces adjacent to this space.
      */
-    public List<Position> getNeighbourWorkers(Position position) {
+    public List<Position> getNeighbourWorkers(Position position, boolean oppOnly) {
         Worker worker = getSpace(position).getWorker();
-        Color color = worker.getColor();
+        Color color = (worker != null) ? worker.getColor() : null;
 
         return getNeighbours(position).stream()
                 .filter(pos -> getSpace(pos).getWorker() != null)
-                .filter(pos -> !color.equals(getSpace(pos).getWorker().getColor()))
+                .filter(pos -> !oppOnly || !color.equals(getSpace(pos).getWorker().getColor()))
                 .collect(Collectors.toList());
     }
 

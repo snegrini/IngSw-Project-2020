@@ -24,6 +24,7 @@ public class WorkerTest {
     @Before
     public void setUp() throws Exception {
         worker = new Worker(new Position(3, 4));
+        worker.setColor(Color.BLUE);
         reducedWorker = new ReducedWorker(worker);
     }
 
@@ -31,7 +32,7 @@ public class WorkerTest {
     public void tearDown() throws Exception {
         worker = null;
         reducedWorker = null;
-        Game.getInstance().getBoard().resetAllLevels();
+        Game.getInstance().resetInstance();
     }
 
     @Test
@@ -69,7 +70,7 @@ public class WorkerTest {
     }
 
     @Test
-    public void getPossibleMoves_correctInput_correctOutput() {
+    public void getPossibleMoves_levelIncompatible() {
         Board board = Game.getInstance().getBoard();
         board.getSpace(new Position(3, 3)).increaseLevel(2);
 
@@ -79,6 +80,23 @@ public class WorkerTest {
         listPositionResult.add(new Position(4, 3));
         listPositionResult.add(new Position(4, 4));
         // (3,3) is not in the list of possible moves because of incompatible levels.
+
+        assertEquals(listPositionResult, worker.getPossibleMoves());
+    }
+
+    @Test
+    public void getPossibleMoves_spaceNotFree() {
+        Board board = Game.getInstance().getBoard();
+        Worker w2 = new Worker(new Position(4, 4));
+        w2.setColor(Color.BLUE);
+        board.getSpace(4, 4).setWorker(w2);
+
+        List<Position> listPositionResult = new ArrayList<>();
+        listPositionResult.add(new Position(2, 3));
+        listPositionResult.add(new Position(2, 4));
+        listPositionResult.add(new Position(3, 3));
+        listPositionResult.add(new Position(4, 3));
+        // (4,4) is not in the list of possible moves because it is not free.
 
         assertEquals(listPositionResult, worker.getPossibleMoves());
     }

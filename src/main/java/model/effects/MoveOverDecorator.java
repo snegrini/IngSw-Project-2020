@@ -38,7 +38,7 @@ public class MoveOverDecorator extends EffectDecorator {
         List<Position> possibleMoves = worker.getPossibleMoves();
 
         Board board = Game.getInstance().getBoard();
-        List<Position> adjOpponentPos = board.getNeighbourWorkers(worker.getPosition());
+        List<Position> adjOpponentPos = board.getNeighbourWorkers(worker.getPosition(), true);
 
         if (pushBack) {
             possibleMoves.addAll(adjOpponentPos);
