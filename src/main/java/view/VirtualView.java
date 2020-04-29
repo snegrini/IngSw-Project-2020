@@ -58,7 +58,7 @@ public class VirtualView extends View implements Observer {
 
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
-        clientHandler.sendMessage(new WorkersPositionsMessage("server", positions));
+        clientHandler.sendMessage(new PositionMessage("server", MessageType.INIT_WORKERSPOSITIONS, positions));
     }
 
     @Override

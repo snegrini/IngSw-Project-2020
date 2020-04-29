@@ -95,68 +95,6 @@ public class Cli extends View {
     }
 
 
-    @Override
-    public void askInitWorkersPositions(List<Position> positions) {
-
-        // TODO scanner flush
-        scanner = new Scanner(System.in);
-
-        int chosenRow1, chosenColumn1;
-        int chosenRow2, chosenColumn2;
-        System.out.println("Select your workers' initial positions");
-        System.out.println("Position for Worker 1");
-        System.out.print("Row: ");
-        chosenRow1 = Integer.parseInt(scanner.nextLine());
-        System.out.print("Column: ");
-        chosenColumn1 = Integer.parseInt(scanner.nextLine());
-        System.out.println();
-        System.out.println("Position for Worker 2");
-        System.out.print("Row: ");
-        chosenRow2 = Integer.parseInt(scanner.nextLine());
-        System.out.println("Column: ");
-        chosenColumn2 = Integer.parseInt(scanner.nextLine());
-        Position position1 = new Position(chosenRow1, chosenColumn1);
-        Position position2 = new Position(chosenRow2, chosenColumn2);
-        List<Position> init_positions = new ArrayList<>();
-        init_positions.add(position1);
-        init_positions.add(position2);
-        notifyObserver((ViewObserver obs) -> obs.onUpdateInitWorkerPosition(init_positions));
-    }
-
-    @Override
-    public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
-        if (nicknameAccepted && connectionSuccessful) {
-            System.out.println("You are connected!");
-        } else if (connectionSuccessful && !nicknameAccepted) {
-            askNickname();
-        }
-
-    }
-
-
-    @Override
-    public void askInitWorkerColor(List<Color> colorList) {
-        String in;
-        System.out.println("Select your workers' color!");
-
-        String colors = colorList.stream()
-                .map(color -> color.getText())
-                .collect(Collectors.joining(", "));
-
-        System.out.println("You can choose between: " + colors);
-
-        do {
-            in = scanner.nextLine();
-            if (!colors.contains(in.toUpperCase())) {
-                System.out.println("You have not inserted a valid color! Please try again!");
-            }
-
-        } while (!colors.contains(in.toUpperCase()));
-        Color color = Color.valueOf(in.toUpperCase());
-        //only one color is chosen by a player
-        notifyObserver((ViewObserver obs) -> obs.onUpdateWorkersColor(color));
-    }
-
     /**
      * If gods are > 1 and request > 1 then You're the "god like player" and You have to pick N gods
      * If gods are > 1 and request == 1 then You've to pick only 1 god
@@ -208,21 +146,70 @@ public class Cli extends View {
     }
 
     /**
-     * Print a list of gods
+     * Ask player to choose the initial position of his two workers.
      *
-     * @param gods the list of gods You want to print
+     * @param positions list of the initial positions of two workers.
      */
-    private void printGodList(List<ReducedGod> gods) {
-        for (int i = 0; i < gods.size(); i++) {
-            ReducedGod god = gods.get(i);
-            System.out.println("ID: " + (i + 1));
-            System.out.println("Name: " + god.getName());
-            System.out.println("Caption: " + god.getCaption());
-            System.out.println("Description: " + god.getDescription() + "\n");
-        }
+    @Override
+    public void askInitWorkersPositions(List<Position> positions) {
+
+        // TODO scanner flush
+        scanner = new Scanner(System.in);
+
+        int chosenRow1, chosenColumn1;
+        int chosenRow2, chosenColumn2;
+        System.out.println("Select your workers' initial positions");
+        System.out.println("Position for Worker 1");
+        System.out.print("Row: ");
+        chosenRow1 = Integer.parseInt(scanner.nextLine());
+        System.out.print("Column: ");
+        chosenColumn1 = Integer.parseInt(scanner.nextLine());
+        System.out.println();
+        System.out.println("Position for Worker 2");
+        System.out.print("Row: ");
+        chosenRow2 = Integer.parseInt(scanner.nextLine());
+        System.out.println("Column: ");
+        chosenColumn2 = Integer.parseInt(scanner.nextLine());
+        Position position1 = new Position(chosenRow1, chosenColumn1);
+        Position position2 = new Position(chosenRow2, chosenColumn2);
+        List<Position> init_positions = new ArrayList<>();
+        init_positions.add(position1);
+        init_positions.add(position2);
+        notifyObserver((ViewObserver obs) -> obs.onUpdateInitWorkerPosition(init_positions));
     }
 
+    /**
+     * Ask Player to pick his Color.
+     *
+     * @param colorList list of available Colors.
+     */
+    @Override
+    public void askInitWorkerColor(List<Color> colorList) {
+        String in;
+        System.out.println("Select your workers' color!");
 
+        String colors = colorList.stream()
+                .map(color -> color.getText())
+                .collect(Collectors.joining(", "));
+
+        System.out.println("You can choose between: " + colors);
+
+        do {
+            in = scanner.nextLine();
+            if (!colors.contains(in.toUpperCase())) {
+                System.out.println("You have not inserted a valid color! Please try again!");
+            }
+
+        } while (!colors.contains(in.toUpperCase()));
+        Color color = Color.valueOf(in.toUpperCase());
+        //only one color is chosen by a player
+        notifyObserver((ViewObserver obs) -> obs.onUpdateWorkersColor(color));
+    }
+
+    /**
+     * Ask Player to pick one of his Worker by Position.
+     * @param positionList list of workers Position.
+     */
     @Override
     public void askMovingWorker(List<Position> positionList) {
         int chosenRow;
@@ -234,7 +221,9 @@ public class Cli extends View {
                     positionList.get(i).getColumn());
         }
         do {
+            System.out.print("Row: ");
             chosenRow = Integer.parseInt(scanner.nextLine());
+            System.out.print("Column: ");
             chosenColumn = Integer.parseInt(scanner.nextLine());
             if (position_isNotValid(chosenRow, chosenColumn, positionList))
                 System.out.println("You have inserted an invalid position! Please try again!");
@@ -247,6 +236,11 @@ public class Cli extends View {
 
     }
 
+    /**
+     * Ask Player where to move his selected Worker.
+     *
+     * @param positionList possible Position to move on.
+     */
     @Override
     public void askMove(List<Position> positionList) {
         int chosenRow;
@@ -255,14 +249,17 @@ public class Cli extends View {
         System.out.println("Here there are your Worker's possible moves:");
         if (positionList.isEmpty()) {
             System.out.println("Oh no! Unfortunately you can't move...");
+            notifyObserver((ViewObserver obs) -> obs.onUpdateMove(null));
         } else {
             for (int i = 0; i < positionList.size(); i++) {
-                System.out.println("Position " + i + 1 + ":" + "Row: " + positionList.get(i).getRow() +
-                        "Column: " + positionList.get(i).getColumn());
+                System.out.println("Position " + (i + 1) + ":" + "Row: " + positionList.get(i).getRow() +
+                        " Column: " + positionList.get(i).getColumn());
             }
             System.out.println("Select the new position:");
             do {
+                System.out.print("Row: ");
                 chosenRow = Integer.parseInt(scanner.nextLine());
+                System.out.print("Column: ");
                 chosenColumn = Integer.parseInt(scanner.nextLine());
                 if (position_isNotValid(chosenRow, chosenColumn, positionList))
                     System.out.println("You have inserted an invalid position! Please try again!");
@@ -306,11 +303,30 @@ public class Cli extends View {
 
 
     @Override
+    public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
+        if (nicknameAccepted && connectionSuccessful) {
+            System.out.println("You are connected!");
+        } else if (connectionSuccessful && !nicknameAccepted) {
+            askNickname();
+        }
+
+    }
+
+    /**
+     * Show a Generic Message from Server
+     *
+     * @param genericMessage Generic Message from Server.
+     */
+    @Override
     public void showGenericMessage(String genericMessage) {
         System.out.println("Message From Server: " + genericMessage);
     }
 
-
+    /**
+     * Print the Board.
+     *
+     * @param spaces matrix of Reduced Space wich compose the Board.
+     */
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
 
@@ -360,6 +376,22 @@ public class Cli extends View {
                 strBoard += ColorCli.YELLOW_BOLD + "\n   +-----+-----+-----+-----+-----+\n" + ColorCli.RESET;
         }
         System.out.println(strBoard);
+    }
+
+
+    /**
+     * Print a list of gods
+     *
+     * @param gods the list of gods You want to print
+     */
+    private void printGodList(List<ReducedGod> gods) {
+        for (int i = 0; i < gods.size(); i++) {
+            ReducedGod god = gods.get(i);
+            System.out.println("ID: " + (i + 1));
+            System.out.println("Name: " + god.getName());
+            System.out.println("Caption: " + god.getCaption());
+            System.out.println("Description: " + god.getDescription() + "\n");
+        }
     }
 
     /**

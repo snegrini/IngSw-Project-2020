@@ -68,7 +68,7 @@ public class ClientController implements ViewObserver, Observer {
                 view.askPlayersNumber();
                 break;
             case INIT_WORKERSPOSITIONS:
-                WorkersPositionsMessage workersPositionsMessage = (WorkersPositionsMessage) message;
+                PositionMessage workersPositionsMessage = (PositionMessage) message;
                 view.askInitWorkersPositions(workersPositionsMessage.getPositionList());
                 break;
 
@@ -120,7 +120,7 @@ public class ClientController implements ViewObserver, Observer {
 
     @Override
     public void onUpdateInitWorkerPosition(List<Position> positions) {
-        client.sendMessage(new WorkersPositionsMessage(this.nickname, positions));
+        client.sendMessage(new PositionMessage(this.nickname, MessageType.INIT_WORKERSPOSITIONS, positions));
     }
 
     @Override

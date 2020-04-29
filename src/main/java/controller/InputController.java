@@ -62,11 +62,11 @@ public class InputController {
 
     private boolean workerPositionsCheck(Message message) {
 
-        if (((WorkersPositionsMessage) message).getPositionList().size() == 2) {
+        if (((PositionMessage) message).getPositionList().size() == 2) {
             // if both positions are not equals each other and are free return true.
-            if (!(((WorkersPositionsMessage) message).getPositionList().get(0)
-                    .equals(((WorkersPositionsMessage) message).getPositionList().get(1))) &&
-                    game.getBoard().arePositionsFree(((WorkersPositionsMessage) message).getPositionList())) {
+            if (!(((PositionMessage) message).getPositionList().get(0)
+                    .equals(((PositionMessage) message).getPositionList().get(1))) &&
+                    game.getBoard().arePositionsFree(((PositionMessage) message).getPositionList())) {
                 return true;
             } else {
                 VirtualView virtualView = virtualViews.get(message.getNickname());
@@ -98,7 +98,12 @@ public class InputController {
 
     private boolean moveCheck(Message message) {
         // TODO
-        return false;
+        if (!((PositionMessage) message).getPositionList().isEmpty()) {
+            return true;
+        } else {
+            // TODO Re-ask Move 'cause client provided a null destination.
+            return false;
+        }
     }
 
     private boolean loginRequestCheck(Message message) {
