@@ -108,11 +108,11 @@ public class BoardTest {
         board.getSpace(0, 0).setWorker(w1);
         board.getSpace(3, 4).setWorker(w2);
 
-        assertEquals(List.of(), board.getNeighbourWorkers(w1.getPosition()));
+        assertEquals(List.of(), board.getNeighbourWorkers(w1.getPosition(), false));
     }
 
     @Test
-    public void getNeighbourWorkers_OnePresent() {
+    public void getNeighbourWorkers_OneOpponentPresent() {
         Worker w1 = new Worker(new Position(0, 0));
         Worker w2 = new Worker(new Position(0, 1));
         w1.setColor(Color.BLUE);
@@ -124,6 +124,22 @@ public class BoardTest {
         List<Position> expectedPositions = new ArrayList<>();
         expectedPositions.add(new Position(0, 1));
 
-        assertEquals(expectedPositions, board.getNeighbourWorkers(w1.getPosition()));
+        assertEquals(expectedPositions, board.getNeighbourWorkers(w1.getPosition(), true));
+    }
+
+    @Test
+    public void getNeighbourWorkers_FriendlyWorker() {
+        Worker w1 = new Worker(new Position(0, 0));
+        Worker w2 = new Worker(new Position(0, 1));
+        w1.setColor(Color.BLUE);
+        w2.setColor(Color.BLUE);
+
+        board.getSpace(0, 0).setWorker(w1);
+        board.getSpace(0, 1).setWorker(w2);
+
+        List<Position> expectedPositions = new ArrayList<>();
+        expectedPositions.add(new Position(0, 1));
+
+        assertEquals(expectedPositions, board.getNeighbourWorkers(w1.getPosition(), false));
     }
 }

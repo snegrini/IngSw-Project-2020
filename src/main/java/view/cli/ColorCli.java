@@ -3,6 +3,7 @@ package view.cli;
 public enum ColorCli {
     //Color end string, color reset
     RESET("\033[0m"),
+    CLEAR("\033[H\033[2J"),
 
     // Regular Colors. Normal color, no bold, background color etc.
     BLACK("\033[0;30m"),    // BLACK

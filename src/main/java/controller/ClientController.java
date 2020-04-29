@@ -133,4 +133,16 @@ public class ClientController implements ViewObserver, Observer {
 
     }
 
+    public static boolean isValidIpAddress(String ip) {
+        String regex = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+        return ip.matches(regex);
+    }
+
+    public static boolean isValidPort(int port) {
+        return port >= 1 && port <= 65565;
+    }
+
 }

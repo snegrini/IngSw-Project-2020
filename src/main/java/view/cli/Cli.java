@@ -1,5 +1,6 @@
 package view.cli;
 
+import controller.ClientController;
 import model.ReducedGod;
 import model.board.Position;
 import model.board.ReducedSpace;
@@ -16,13 +17,7 @@ import static model.board.Board.MAX_ROWS;
 
 public class Cli extends View {
 
-    //private static final int  = 5;
-    //private static final int COLUMNS = 5;
-    //private String[][] board = new String[ROWS][COLUMNS];
-
-
     private Scanner scanner;
-
 
     public Cli() {
         scanner = new Scanner(System.in);
@@ -38,14 +33,46 @@ public class Cli extends View {
     @Override
     public void askServerInfo() {
         Map<String, String> serverInfo = new HashMap<>();
+        String defaultAddress = "localhost";
+        String defaultPort = "16847";
+        boolean validInput = false;
 
-        // System.out.print("Enter the server address: ");
-        //serverInfo.put("address", scanner.nextLine());
-        serverInfo.put("address", "localhost");
-        // System.out.print("Server port: ");
-        // serverInfo.put("port", scanner.nextLine());
-        serverInfo.put("port", "16847");
+        System.out.println("Please specify the following settings. The default value is shown between brackets.");
+        do {
+            System.out.print("Enter the server address (" + defaultAddress + "): ");
+            String address = scanner.nextLine();
 
+            if (address.equals("")) {
+                serverInfo.put("address", defaultAddress);
+                validInput = true;
+            } else if (ClientController.isValidIpAddress(address)) {
+                serverInfo.put("address", address);
+                validInput = true;
+            } else {
+                System.out.println("Invalid address!");
+                clearCli();
+                validInput = false;
+            }
+        } while (!validInput);
+
+        clearCli();
+        validInput = false;
+
+        do {
+            System.out.print("Enter the server port (" + defaultPort + "): ");
+            String port = scanner.nextLine();
+
+            if (port.equals("")) {
+                serverInfo.put("port", defaultPort);
+                validInput = true;
+            } else if (ClientController.isValidPort(Integer.parseInt(port))) {
+                serverInfo.put("port", port);
+                validInput = true;
+            } else {
+                System.out.println("Invalid port!");
+                validInput = false;
+            }
+        } while (!validInput);
 
         notifyObserver((ViewObserver obs) -> obs.onUpdateServerInfo(serverInfo));
     }
@@ -397,6 +424,11 @@ public class Cli extends View {
             }
         }
         return true;
+    }
+
+    public void clearCli() {
+        System.out.print(ColorCli.CLEAR);
+        System.out.flush();
     }
 
     //method to check if a position to build is valid

@@ -69,7 +69,10 @@ public class Worker {
         Board board = Game.getInstance().getBoard();
         Space currentSpace = board.getSpace(position);
 
-        return board.getNeighbours(position).stream()
+        List<Position> possibleMoves = board.getNeighbours(position);
+        possibleMoves.removeAll(board.getNeighbourWorkers(position, false));
+
+        return possibleMoves.stream()
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
                 .filter(pos -> !lockedMovements.contains(board.getMoveType(position, pos)))
