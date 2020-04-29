@@ -4,7 +4,6 @@ import model.ReducedGod;
 import model.board.Position;
 import model.board.ReducedSpace;
 import model.enumerations.Color;
-import network.message.GenericErrorMessage;
 import observer.ViewObserver;
 
 import java.util.ArrayList;
@@ -45,12 +44,9 @@ public abstract class View {
      */
     public abstract void askNickname();
 
-    /**
-     * Asks to the user which of his workers he wants to move.
-     *
-     * @param positions the positions of the user's workers.
-     */
-    public abstract void askWorkerToMove(List<Position> positions);
+    public abstract void askMovingWorker(List<Position> positionList);
+
+    public abstract void askMove(List<Position> positionList);
 
     public abstract void askInitWorkersPositions(List<Position> positions);
 
@@ -77,12 +73,6 @@ public abstract class View {
      */
     public abstract void askNewBuildingPosition(List<Position> positions);
 
-    /**
-     * Asks to the user to choose a new position where to move.
-     *
-     * @param positions the list of the available positions.
-     */
-    public abstract void askNewPosition(List<Position> positions, Position orig);
 
     /**
      * Shows to the user if the Login succeeded.
@@ -92,7 +82,7 @@ public abstract class View {
      */
     public abstract void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful);
 
-    public abstract void showGenericErrorMessage(String error);
+    public abstract void showGenericMessage(String genericMessage);
 
     /**
      * Shows the Board

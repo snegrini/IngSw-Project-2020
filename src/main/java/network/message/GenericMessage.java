@@ -1,13 +1,13 @@
 package network.message;
 
-public class GenericErrorMessage extends Message {
+public class GenericMessage extends Message {
     private static final long serialVersionUID = 934399396584368694L;
 
     private final String message;
 
 
-    public GenericErrorMessage(String message) {
-        super("server", MessageType.GENERIC_ERROR_MESSAGE);
+    public GenericMessage(String message) {
+        super("server", MessageType.GENERIC_MESSAGE);
         this.message = message;
     }
 

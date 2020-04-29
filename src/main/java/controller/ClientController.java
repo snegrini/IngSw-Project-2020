@@ -32,32 +32,47 @@ public class ClientController implements ViewObserver, Observer {
     @Override
     public void update(Message message) {
         switch (message.getMessageType()) {
-            case LOGIN_REPLY:
-                LoginReply loginReply = (LoginReply) message;
-                view.showLoginResult(loginReply.isNicknameAccepted(), loginReply.isConnectionSuccessful());
+            case BOARD:
+                BoardMessage boardMessage = (BoardMessage) message;
+                view.showBoard(boardMessage.getBoard());
                 break;
-            case PLAYERNUMBER_REQUEST:
-                view.askPlayersNumber();
-                break;
-            case GODLIST:
-                GodListMessage godListMessage = (GodListMessage) message;
-                view.askGod(godListMessage.getGodList(), godListMessage.getRequest());
-                break;
-            case INIT_WORKERSPOSITIONS:
-                WorkersPositionsMessage workersPositionsMessage = (WorkersPositionsMessage) message;
-                view.askInitWorkersPositions(workersPositionsMessage.getPositionList());
+            case BUILD:
                 break;
             case INIT_COLORS:
                 ColorsMessage colorsMessage = (ColorsMessage) message;
                 view.askInitWorkerColor(colorsMessage.getColorList());
                 break;
-            case BOARD:
-                BoardMessage boardMessage = (BoardMessage) message;
-                view.showBoard(boardMessage.getBoard());
+            case GENERIC_MESSAGE:
+                view.showGenericMessage(((GenericMessage) message).getMessage());
                 break;
-            case GENERIC_ERROR_MESSAGE:
-                view.showGenericErrorMessage(message.toString()); // TODO check
+            case GODLIST:
+                GodListMessage godListMessage = (GodListMessage) message;
+                view.askGod(godListMessage.getGodList(), godListMessage.getRequest());
                 break;
+            case LOGIN_REPLY:
+                LoginReply loginReply = (LoginReply) message;
+                view.showLoginResult(loginReply.isNicknameAccepted(), loginReply.isConnectionSuccessful());
+                break;
+            case LOGIN_REQUEST: // Should never be here.
+                break;
+            case MOVE:
+                view.askMove(((PositionMessage) message).getPositionList());
+                break;
+            case PICK_MOVING_WORKER:
+                PositionMessage positionMessage = (PositionMessage) message;
+                view.askMovingWorker(positionMessage.getPositionList());
+                break;
+            case PLAYERNUMBER_REPLY: // Should never be here.
+                break;
+            case PLAYERNUMBER_REQUEST:
+                view.askPlayersNumber();
+                break;
+            case INIT_WORKERSPOSITIONS:
+                WorkersPositionsMessage workersPositionsMessage = (WorkersPositionsMessage) message;
+                view.askInitWorkersPositions(workersPositionsMessage.getPositionList());
+                break;
+
+
             default: // Should never reach this condition
                 break;
         }
@@ -99,8 +114,8 @@ public class ClientController implements ViewObserver, Observer {
     }
 
     @Override
-    public void onUpdateWorkerToMove(Position position) {
-
+    public void onUpdatePickMovingWorker(Position position) {
+        client.sendMessage(new PositionMessage(this.nickname, MessageType.PICK_MOVING_WORKER, List.of(position)));
     }
 
     @Override
@@ -109,8 +124,8 @@ public class ClientController implements ViewObserver, Observer {
     }
 
     @Override
-    public void onUpdateWorkerPosition(Position dest, Position orig) {
-
+    public void onUpdateMove(Position destination) {
+        client.sendMessage(new PositionMessage(this.nickname, MessageType.MOVE, List.of(destination)));
     }
 
     @Override

@@ -108,20 +108,19 @@ public class GameController {
     }
 
     private void inGameState(Message receivedMessage, VirtualView virtualView) {
-        // check if sender's nickname is in listPlayer.
-        if (!game.isNicknameTaken(receivedMessage.getNickname())) {
-            virtualView.showGenericErrorMessage("Player is not in game.");
-        }
-
-        // check if sender is the active player.
-        if (turnController.getActivePlayer().equals(receivedMessage.getNickname())) {
-            //return new GenericErrorMessage("Not your turn.");
-            virtualView.sendMessage(new GenericErrorMessage("Not your turn."));
-        }
-
         switch (receivedMessage.getMessageType()) {
-            case MOVE:
-                // move((Move) receivedMessage, virtualView);
+            case PICK_MOVING_WORKER:
+                if (inputController.check(receivedMessage)) {
+                    virtualView.askMove(game.getPlayerByNickname(receivedMessage
+                            .getNickname()).getWorkerByPosition(((PositionMessage) receivedMessage)
+                            .getPositionList().get(0)).getPossibleMoves());
+                    turnController.setActiveWorker(game.getPlayerByNickname(receivedMessage
+                            .getNickname()).getWorkerByPosition((((PositionMessage) receivedMessage)
+                            .getPositionList().get(0))));
+                }
+                break;
+            case MOVE: // TODO input controller
+                moveHandler((PositionMessage) receivedMessage, virtualView);
                 break;
             case BUILD:
                 break;
@@ -129,6 +128,17 @@ public class GameController {
                 // TODO show exception
                 break;
         }
+    }
+
+    private void moveHandler(PositionMessage receivedMessage, VirtualView virtualView) {
+        Position destination = receivedMessage.getPositionList().get(0);
+        Player p = game.getPlayerByNickname(receivedMessage.getNickname());
+        game.getBoard().getSpace(turnController.getActiveWorker().getPosition()).setWorker(null);
+        turnController.getActiveWorker().move(destination);
+        game.getBoard().getSpace(destination).setWorker(turnController.getActiveWorker());
+        refreshClientsBoards();
+
+        // TODO build etc etc ma preferisco andare a dormire.
     }
 
 
@@ -246,13 +256,33 @@ public class GameController {
             turnController.next();
             askWorkersPositions(turnController.getActivePlayer());
         } else {
+            turnController.next();
             startGame();
         }
     }
 
-    public void startGame() {
+    private void startGame() {
 
-        // TODO notify all: game started.
+        gameState = GameState.IN_GAME;
+        notifyAll("Game Started!");
+        refreshClientsBoards();
+
+        pickMovingWorker();
+    }
+
+    private void pickMovingWorker() {
+        Player player = game.getPlayerByNickname(turnController.getActivePlayer());
+        List<Position> positionList = new ArrayList<>(player.getWorkersPositions());
+        VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
+        virtualView.askMovingWorker(positionList);
+    }
+
+    private void refreshClientsBoards() {
+        List<String> nicknames = new ArrayList<>(game.getPlayersNicknames());
+        for (String s : nicknames) {
+            VirtualView virtualView = virtualViews.get(s);
+            virtualView.showBoard(game.getBoard().getReducedSpaceBoard());
+        }
     }
 
 
@@ -296,6 +326,14 @@ public class GameController {
         game.removeObserver(vv);
     }
 
+
+    private void notifyAll(String messageToNotify) {
+        List<String> nicknames = new ArrayList<>(game.getPlayersNicknames());
+        for (String s : nicknames) {
+            VirtualView virtualView = virtualViews.get(s);
+            virtualView.showGenericMessage(messageToNotify);
+        }
+    }
 
     /**
      * @return a list with all possible colors

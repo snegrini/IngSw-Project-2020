@@ -20,9 +20,9 @@ public interface ViewObserver {
 
     void onUpdateGod(List<ReducedGod> reducedGods);
 
-    void onUpdateWorkerToMove(Position pst_worker);
+    void onUpdatePickMovingWorker(Position pst_worker);
 
-    void onUpdateWorkerPosition(Position dest, Position orig);
+    void onUpdateMove(Position destination);
 
     void onUpdateBuild(Position newBuild);
 

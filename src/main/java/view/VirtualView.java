@@ -37,8 +37,13 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public void askWorkerToMove(List<Position> positions) {
+    public void askMovingWorker(List<Position> positionList) {
+        clientHandler.sendMessage(new PositionMessage("server", MessageType.PICK_MOVING_WORKER, positionList));
+    }
 
+    @Override
+    public void askMove(List<Position> positionList) {
+        clientHandler.sendMessage(new PositionMessage("server", MessageType.MOVE, positionList));
     }
 
     @Override
@@ -68,18 +73,13 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
-    public void askNewPosition(List<Position> positions, Position orig) {
-
-    }
-
-    @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
         clientHandler.sendMessage(new LoginReply(nicknameAccepted, connectionSuccessful));
     }
 
     @Override
-    public void showGenericErrorMessage(String error) {
-        clientHandler.sendMessage(new GenericErrorMessage(error));
+    public void showGenericMessage(String genericMessage) {
+        clientHandler.sendMessage(new GenericMessage(genericMessage));
     }
 
     @Override

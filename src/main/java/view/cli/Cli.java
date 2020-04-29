@@ -5,7 +5,6 @@ import model.board.Position;
 import model.board.ReducedSpace;
 
 import model.enumerations.Color;
-import network.message.GenericErrorMessage;
 import observer.ViewObserver;
 import view.View;
 
@@ -72,6 +71,7 @@ public class Cli extends View {
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
 
+        // TODO scanner flush
         scanner = new Scanner(System.in);
 
         int chosenRow1, chosenColumn1;
@@ -100,6 +100,8 @@ public class Cli extends View {
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
         if (nicknameAccepted && connectionSuccessful) {
             System.out.println("You are connected!");
+        } else if (connectionSuccessful && !nicknameAccepted) {
+            askNickname();
         }
 
     }
@@ -146,11 +148,15 @@ public class Cli extends View {
                 System.out.println("Select " + request + " Gods!");
                 printGodList(gods);
                 System.out.println("Insert God IDs");
+
+                // TODO for cycle in order to pick N (=request) gods and put in reducedGodList.
+
                 System.out.println("DEBUG: I picked first 3 gods for You.");
                 List<ReducedGod> reducedGodList = new ArrayList<>();
                 reducedGodList.add(gods.get(0));
                 reducedGodList.add(gods.get(1));
                 reducedGodList.add(gods.get(2));
+
                 notifyObserver((ViewObserver obs) -> obs.onUpdateGod(reducedGodList));
             } else {
                 System.out.println("Select your own personal God!");
@@ -191,53 +197,54 @@ public class Cli extends View {
 
 
     @Override
-    public void askWorkerToMove(List<Position> positions) {
+    public void askMovingWorker(List<Position> positionList) {
         int chosenRow;
         int chosenColumn;
         System.out.println("Insert the position of the worker which you want to move:");
-        for (int i = 0; i < positions.size(); i++) {
-            System.out.println("Position of worker " + i + 1 + "is Row: " + positions.get(i).getRow() + "Column: " +
-                    positions.get(i).getColumn());
+        for (int i = 0; i < positionList.size(); i++) {
+            System.out.println("Position of worker " + (i + 1) + " is Row: " +
+                    positionList.get(i).getRow() + " Column: " +
+                    positionList.get(i).getColumn());
         }
         do {
             chosenRow = Integer.parseInt(scanner.nextLine());
             chosenColumn = Integer.parseInt(scanner.nextLine());
-            if (position_isNotValid(chosenRow, chosenColumn, positions))
+            if (position_isNotValid(chosenRow, chosenColumn, positionList))
                 System.out.println("You have inserted an invalid position! Please try again!");
-        } while (position_isNotValid(chosenRow, chosenColumn, positions));
+        } while (position_isNotValid(chosenRow, chosenColumn, positionList));
 
         int finalChosenRow = chosenRow;
         int finalChosenColumn = chosenColumn;
         Position pst_worker = new Position(chosenRow, chosenColumn);
-        notifyObserver((ViewObserver obs) -> obs.onUpdateWorkerToMove(pst_worker));
+        notifyObserver((ViewObserver obs) -> obs.onUpdatePickMovingWorker(pst_worker));
 
     }
 
     @Override
-    public void askNewPosition(List<Position> positions, Position orig) {
+    public void askMove(List<Position> positionList) {
         int chosenRow;
         int chosenColumn;
         System.out.println("Select the new position for your Worker!");
         System.out.println("Here there are your Worker's possible moves:");
-        if (positions.isEmpty()) {
+        if (positionList.isEmpty()) {
             System.out.println("Oh no! Unfortunately you can't move...");
         } else {
-            for (int i = 0; i < positions.size(); i++) {
-                System.out.println("Position " + i + 1 + ":" + "Row: " + positions.get(i).getRow() +
-                        "Column: " + positions.get(i).getColumn());
+            for (int i = 0; i < positionList.size(); i++) {
+                System.out.println("Position " + i + 1 + ":" + "Row: " + positionList.get(i).getRow() +
+                        "Column: " + positionList.get(i).getColumn());
             }
             System.out.println("Select the new position:");
             do {
                 chosenRow = Integer.parseInt(scanner.nextLine());
                 chosenColumn = Integer.parseInt(scanner.nextLine());
-                if (position_isNotValid(chosenRow, chosenColumn, positions))
+                if (position_isNotValid(chosenRow, chosenColumn, positionList))
                     System.out.println("You have inserted an invalid position! Please try again!");
-            } while (position_isNotValid(chosenRow, chosenColumn, positions));
+            } while (position_isNotValid(chosenRow, chosenColumn, positionList));
 
             int finalChosenRow = chosenRow;
             int finalChosenColumn = chosenColumn;
             Position dest = new Position(chosenRow, chosenColumn);
-            notifyObserver((ViewObserver obs) -> obs.onUpdateWorkerPosition(dest, orig));
+            notifyObserver((ViewObserver obs) -> obs.onUpdateMove(dest));
         }
     }
 
@@ -272,8 +279,8 @@ public class Cli extends View {
 
 
     @Override
-    public void showGenericErrorMessage(String Error) {
-        System.out.println(Error);
+    public void showGenericMessage(String genericMessage) {
+        System.out.println("Message From Server: " + genericMessage);
     }
 
 

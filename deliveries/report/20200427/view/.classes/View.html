@@ -73,22 +73,22 @@
 
 
 <div class="sourceCode"><i>1</i>&nbsp;package view;
-<i>2</i>&nbsp;
-<i>3</i>&nbsp;import model.ReducedGod;
-<i>4</i>&nbsp;import model.board.Position;
-<i>5</i>&nbsp;import model.board.ReducedSpace;
-<i>6</i>&nbsp;import model.enumerations.Color;
-<i>7</i>&nbsp;import network.message.GenericErrorMessage;
-<i>8</i>&nbsp;import observer.ViewObserver;
-<i>9</i>&nbsp;
-<i>10</i>&nbsp;import java.util.ArrayList;
-<i>11</i>&nbsp;import java.util.List;
-<i>12</i>&nbsp;import java.util.function.Consumer;
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;/**
-<i>15</i>&nbsp; * Defines a generic view to be implemented by each view type (e.g. CLI, GUI in JavaFX, ...).
-<i>16</i>&nbsp; */
-<b class="nc"><i>17</i>&nbsp;public abstract class View {</b>
+  <i>2</i>&nbsp;
+  <i>3</i>&nbsp;import model.ReducedGod;
+  <i>4</i>&nbsp;import model.board.Position;
+  <i>5</i>&nbsp;import model.board.ReducedSpace;
+  <i>6</i>&nbsp;import model.enumerations.Color;
+  <i>7</i>&nbsp;import network.message.GenericMessage;
+  <i>8</i>&nbsp;import observer.ViewObserver;
+  <i>9</i>&nbsp;
+  <i>10</i>&nbsp;import java.util.ArrayList;
+  <i>11</i>&nbsp;import java.util.List;
+  <i>12</i>&nbsp;import java.util.function.Consumer;
+  <i>13</i>&nbsp;
+  <i>14</i>&nbsp;/**
+  <i>15</i>&nbsp; * Defines a generic view to be implemented by each view type (e.g. CLI, GUI in JavaFX, ...).
+  <i>16</i>&nbsp; */
+  <b class="nc"><i>17</i>&nbsp;public abstract class View {</b>
 <i>18</i>&nbsp;
 <b class="nc"><i>19</i>&nbsp;    private final List&lt;ViewObserver&gt; observers = new ArrayList&lt;&gt;();</b>
 <i>20</i>&nbsp;

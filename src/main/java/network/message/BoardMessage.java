@@ -20,6 +20,8 @@ public class BoardMessage extends Message {
     @Override
     public String toString() {
         return "BoardMessage{" +
+                "nickname=" + getNickname() +
+                ", messageType=" + getMessageType() +
                 "board=" + Arrays.toString(board) +
                 '}';
     }

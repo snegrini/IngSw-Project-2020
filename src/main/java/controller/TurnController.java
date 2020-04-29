@@ -1,7 +1,8 @@
 package controller;
 
 import model.Game;
-import network.message.MoveMessage;
+import model.player.Worker;
+import network.message.PositionMessage;
 import view.VirtualView;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class TurnController {
     private Game game;
     private List<String> nicknameQueue;
     private String activePlayer;
+    private Worker activeWorker;
 
     public TurnController() {
         this.game = Game.getInstance();
@@ -34,19 +36,17 @@ public class TurnController {
         int currentActive = nicknameQueue.indexOf(activePlayer);
         if (currentActive + 1 < game.getNumCurrentPlayers()) {
             currentActive = currentActive + 1;
-        } else  {
+        } else {
             currentActive = 0;
         }
         activePlayer = nicknameQueue.get(currentActive);
     }
 
-
-    private void move(MoveMessage receivedMessage, VirtualView virtualView) {
-        // TODO
-        // check if destination is free
-        // check for some lock from gods
-        // move player
-        // check win condition
+    public void setActiveWorker(Worker worker) {
+        this.activeWorker = worker;
     }
 
+    public Worker getActiveWorker() {
+        return activeWorker;
+    }
 }

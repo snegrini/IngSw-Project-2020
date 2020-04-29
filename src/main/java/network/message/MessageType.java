@@ -7,6 +7,8 @@ public enum MessageType {
     BOARD,
     INIT_WORKERSPOSITIONS,
     INIT_COLORS,
+    PICK_MOVING_WORKER,
+    PICK_BUILDING_WORKER,
     MOVE,
     BUILD,
     WIN,
@@ -15,6 +17,6 @@ public enum MessageType {
     //utility:
     GAME_LOAD,
     DISCONNECTION,
-    GENERIC_ERROR_MESSAGE
+    GENERIC_MESSAGE
 
 }

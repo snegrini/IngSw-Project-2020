@@ -29,7 +29,7 @@ public class InputController {
                 return buildCheck(message);
             case INIT_COLORS:
                 return colorCheck(message);
-            case GENERIC_ERROR_MESSAGE: // server doesn't receive a GenericErrorMessage.
+            case GENERIC_MESSAGE: // server doesn't receive a GenericErrorMessage.
                 return false;
             case GODLIST:
                 return godListCheck(message);
@@ -39,6 +39,10 @@ public class InputController {
                 return loginRequestCheck(message);
             case MOVE:
                 return moveCheck(message);
+            case PICK_MOVING_WORKER:
+                return pickMovingCheck(message);
+            case PICK_BUILDING_WORKER:
+                return pickMovingCheck(message);
             case PLAYERNUMBER_REPLY:
                 return playerNumberReplyCheck(message);
             case PLAYERNUMBER_REQUEST: // server doesn't receive a GenericErrorMessage.
@@ -49,6 +53,11 @@ public class InputController {
                 return false;
         }
 
+    }
+
+    private boolean pickMovingCheck(Message message) {
+        // TODO
+        return true;
     }
 
     private boolean workerPositionsCheck(Message message) {
@@ -62,14 +71,14 @@ public class InputController {
             } else {
                 VirtualView virtualView = virtualViews.get(message.getNickname());
                 // Avoid to show board.
-                virtualView.showGenericErrorMessage("Positions are not free!");
+                virtualView.showGenericMessage("Positions are not free!");
                 virtualView.askInitWorkersPositions(game.getBoard().getFreePositions());
                 return false;
             }
         } else {
             VirtualView virtualView = virtualViews.get(message.getNickname());
             // Avoid to show board.
-            virtualView.showGenericErrorMessage("Positions must be 2!");
+            virtualView.showGenericMessage("Positions must be 2!");
             virtualView.askInitWorkersPositions(game.getBoard().getFreePositions());
             return false;
         }
@@ -98,11 +107,11 @@ public class InputController {
         String nickname = message.getNickname();
 
         if (nickname.equals("server") || nickname.equals("SERVER") || nickname.equals("Server")) {
-            virtualView.showGenericErrorMessage("Forbidden name.");
+            virtualView.showGenericMessage("Forbidden name.");
             virtualView.showLoginResult(false, true);
             return false;
         } else if (game.isNicknameTaken(nickname)) {
-            virtualView.showGenericErrorMessage("Nickname already taken");
+            virtualView.showGenericMessage("Nickname already taken");
             virtualView.showLoginResult(false, true);
             return false;
         } else {

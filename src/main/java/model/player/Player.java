@@ -79,7 +79,18 @@ public class Player extends Observable {
         return Objects.hash(nickname);
     }
 
+
     public List<Worker> getWorkers() {
         return workers;
     }
+
+    public List<Position> getWorkersPositions() {
+        List<Position> positionList = new ArrayList<>();
+        for (Worker w : workers) {
+            positionList.add(w.getPosition());
+        }
+        return positionList;
+    }
+
+
 }
