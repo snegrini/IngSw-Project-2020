@@ -24,7 +24,7 @@ public class VirtualView extends View implements Observer {
 
 
     @Override
-    public void init(){
+    public void init() {
 
     }
 
@@ -69,7 +69,7 @@ public class VirtualView extends View implements Observer {
 
     @Override
     public void askNewBuildingPosition(List<Position> positions) {
-
+        clientHandler.sendMessage(new PositionMessage("server", MessageType.BUILD, positions));
     }
 
     @Override

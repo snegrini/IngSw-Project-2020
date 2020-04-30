@@ -37,10 +37,10 @@ public class ClientController implements ViewObserver, Observer {
                 view.showBoard(boardMessage.getBoard());
                 break;
             case BUILD:
+                view.askNewBuildingPosition(((PositionMessage) message).getPositionList());
                 break;
             case INIT_COLORS:
-                ColorsMessage colorsMessage = (ColorsMessage) message;
-                view.askInitWorkerColor(colorsMessage.getColorList());
+                view.askInitWorkerColor(((ColorsMessage) message).getColorList());
                 break;
             case GENERIC_MESSAGE:
                 view.showGenericMessage(((GenericMessage) message).getMessage());
@@ -59,8 +59,7 @@ public class ClientController implements ViewObserver, Observer {
                 view.askMove(((PositionMessage) message).getPositionList());
                 break;
             case PICK_MOVING_WORKER:
-                PositionMessage positionMessage = (PositionMessage) message;
-                view.askMovingWorker(positionMessage.getPositionList());
+                view.askMovingWorker(((PositionMessage) message).getPositionList());
                 break;
             case PLAYERNUMBER_REPLY: // Should never be here.
                 break;
@@ -68,8 +67,7 @@ public class ClientController implements ViewObserver, Observer {
                 view.askPlayersNumber();
                 break;
             case INIT_WORKERSPOSITIONS:
-                PositionMessage workersPositionsMessage = (PositionMessage) message;
-                view.askInitWorkersPositions(workersPositionsMessage.getPositionList());
+                view.askInitWorkersPositions(((PositionMessage) message).getPositionList());
                 break;
 
 
@@ -130,7 +128,7 @@ public class ClientController implements ViewObserver, Observer {
 
     @Override
     public void onUpdateBuild(Position position) {
-
+        client.sendMessage(new PositionMessage(this.nickname, MessageType.BUILD, List.of(position)));
     }
 
     public static boolean isValidIpAddress(String ip) {

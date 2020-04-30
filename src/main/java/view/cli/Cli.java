@@ -153,8 +153,6 @@ public class Cli extends View {
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
 
-        // TODO scanner flush
-        scanner = new Scanner(System.in);
 
         int chosenRow1, chosenColumn1;
         int chosenRow2, chosenColumn2;
@@ -185,6 +183,10 @@ public class Cli extends View {
      */
     @Override
     public void askInitWorkerColor(List<Color> colorList) {
+
+        // TODO scanner flush
+        scanner = new Scanner(System.in);
+
         String in;
         System.out.println("Select your workers' color!");
 
@@ -252,7 +254,7 @@ public class Cli extends View {
             notifyObserver((ViewObserver obs) -> obs.onUpdateMove(null));
         } else {
             for (int i = 0; i < positionList.size(); i++) {
-                System.out.println("Position " + (i + 1) + ":" + "Row: " + positionList.get(i).getRow() +
+                System.out.println("Position " + (i + 1) + ": " + "Row: " + positionList.get(i).getRow() +
                         " Column: " + positionList.get(i).getColumn());
             }
             System.out.println("Select the new position:");
@@ -283,12 +285,14 @@ public class Cli extends View {
             System.out.println("Oh no! Unfortunately you can't build...");
         } else {
             for (int i = 0; i < positions.size(); i++) {
-                System.out.println("Position " + i + 1 + ":" + "Row: " + positions.get(i).getRow() +
-                        "Column: " + positions.get(i).getColumn());
+                System.out.println("Position " + (i + 1) + ": " + "Row: " + positions.get(i).getRow() +
+                        " Column: " + positions.get(i).getColumn());
             }
             System.out.println("Select where to build:");
             do {
+                System.out.print("Row: ");
                 chosenRow = Integer.parseInt(scanner.nextLine());
+                System.out.print("Column: ");
                 chosenColumn = Integer.parseInt(scanner.nextLine());
                 if (position_isNotValid(chosenRow, chosenColumn, positions))
                     System.out.println("You have inserted an invalid position! Please try again!");

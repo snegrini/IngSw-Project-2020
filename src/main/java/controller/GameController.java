@@ -87,7 +87,7 @@ public class GameController {
         switch (receivedMessage.getMessageType()) {
             case GODLIST:
                 if (inputController.check(receivedMessage)) {
-                    godListHandler((GodListMessage) receivedMessage);
+                    godListHandler((GodListMessage) receivedMessage, virtualView);
                 }
                 break;
             case INIT_WORKERSPOSITIONS:
@@ -122,7 +122,8 @@ public class GameController {
             case MOVE: // TODO input controller
                 moveHandler((PositionMessage) receivedMessage, virtualView);
                 break;
-            case BUILD:
+            case BUILD: // TODO input controller
+                buildHandler((PositionMessage) receivedMessage, virtualView);
                 break;
             default:
                 // TODO show exception
@@ -130,15 +131,40 @@ public class GameController {
         }
     }
 
+    private void buildHandler(PositionMessage receivedMessage, VirtualView virtualView) {
+        Position buildOnPosition = receivedMessage.getPositionList().get(0);
+        game.getBoard().getSpace(buildOnPosition).increaseLevel(1);
+        refreshClientsBoards();
+
+        turnController.next();
+        pickMovingWorker();
+    }
+
     private void moveHandler(PositionMessage receivedMessage, VirtualView virtualView) {
         Position destination = receivedMessage.getPositionList().get(0);
+
+        int origLevel = game.getBoard().getSpace(turnController.getActiveWorker().getPosition()).getLevel();
+        int destLevel = game.getBoard().getSpace(destination).getLevel();
+
         Player p = game.getPlayerByNickname(receivedMessage.getNickname());
         game.getBoard().getSpace(turnController.getActiveWorker().getPosition()).setWorker(null);
         turnController.getActiveWorker().move(destination);
         game.getBoard().getSpace(destination).setWorker(turnController.getActiveWorker());
-        refreshClientsBoards();
 
-        // TODO build etc etc ma preferisco andare a dormire.
+        refreshClientsBoards(); // FIXME add observer to model.
+
+
+        // Win condition:
+        if (origLevel == 2 && destLevel == 3) {
+            win();
+        } else {
+            virtualView.askNewBuildingPosition(p.getWorkerByPosition(destination).getPossibleBuilds());
+        }
+    }
+
+    private void win() {
+        notifyAll(turnController.getActivePlayer() + "Wins! Game Finished!");
+        // TODO what?
     }
 
 
@@ -185,7 +211,7 @@ public class GameController {
      *
      * @param receivedMessage message from client
      */
-    private void godListHandler(GodListMessage receivedMessage) {
+    private void godListHandler(GodListMessage receivedMessage, VirtualView virtualView) {
 
         // if received contains a list
         if (receivedMessage.getGodList().size() > 1) {
@@ -200,7 +226,8 @@ public class GameController {
                 askGodToNextPlayer();
             } else {
                 // the last one who pick his god is the first one player of every round.
-                askWorkersPositions(turnController.getActivePlayer());
+                virtualView.askInitWorkerColor(availableColors);
+                //askWorkersPositions(turnController.getActivePlayer());
             }
         }
     }
@@ -236,13 +263,20 @@ public class GameController {
     private void workerPositionsHandler(PositionMessage receivedMessage, VirtualView virtualView) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
 
-        for (Position p : receivedMessage.getPositionList()) {
-            Worker worker = new Worker(p);
-            player.addWorker(worker);
-            game.getBoard().getSpace(p).setWorker(worker);
-        }
-        virtualView.askInitWorkerColor(availableColors);
+        List<Worker> workers = player.getWorkers();
+        workers.get(0).initPosition(receivedMessage.getPositionList().get(0));
+        game.getBoard().getSpace(receivedMessage.getPositionList().get(0)).setWorker(workers.get(0));
+        workers.get(1).initPosition(receivedMessage.getPositionList().get(1));
+        game.getBoard().getSpace(receivedMessage.getPositionList().get(1)).setWorker(workers.get(1));
 
+        if (!(availableColors.size() == 3 - game.getChosenPlayersNumber())) {
+            turnController.next();
+            virtualView = virtualViews.get(turnController.getActivePlayer());
+            virtualView.askInitWorkerColor(availableColors);
+        } else {
+            turnController.next();
+            startGame();
+        }
     }
 
     /**
@@ -254,19 +288,12 @@ public class GameController {
     private void colorHandler(ColorsMessage receivedMessage) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
 
-        for (Worker w : player.getWorkers()) {
-            w.setColor(receivedMessage.getColorList().get(0));
-        }
+        player.addWorker(new Worker(receivedMessage.getColorList().get(0)));
+        player.addWorker(new Worker(receivedMessage.getColorList().get(0)));
 
         availableColors.remove(receivedMessage.getColorList().get(0));
+        askWorkersPositions(receivedMessage.getNickname());
 
-        if (!(availableColors.size() == 3 - game.getChosenPlayersNumber())) {
-            turnController.next();
-            askWorkersPositions(turnController.getActivePlayer());
-        } else {
-            turnController.next();
-            startGame();
-        }
     }
 
     private void startGame() {

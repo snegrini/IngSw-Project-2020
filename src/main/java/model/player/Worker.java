@@ -26,6 +26,18 @@ public class Worker {
         this.lockedMovements = new HashSet<>();
     }
 
+    public Worker(Color color) {
+
+        this.color = color;
+
+        this.lockedMovements = new HashSet<>();
+    }
+
+    public void initPosition(Position position) {
+        this.position = position;
+        this.moveHistory = new MoveHistory(position, 0);
+    }
+
     /**
      * Builds a single block over the {@code Space} at the given position.
      *
