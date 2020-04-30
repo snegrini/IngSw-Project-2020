@@ -79,8 +79,9 @@ public abstract class View {
      *
      * @param nicknameAccepted     indicates if the chosen nickname has been accepted.
      * @param connectionSuccessful indicates if the connection has been successful.
+     * @param nickname             the nickname of the player to be greeted.
      */
-    public abstract void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful);
+    public abstract void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname);
 
     public abstract void showGenericMessage(String genericMessage);
 

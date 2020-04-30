@@ -113,11 +113,11 @@ public class InputController {
 
         if (nickname.equals("server") || nickname.equals("SERVER") || nickname.equals("Server")) {
             virtualView.showGenericMessage("Forbidden name.");
-            virtualView.showLoginResult(false, true);
+            virtualView.showLoginResult(false, true, null);
             return false;
         } else if (game.isNicknameTaken(nickname)) {
             virtualView.showGenericMessage("Nickname already taken");
-            virtualView.showLoginResult(false, true);
+            virtualView.showLoginResult(false, true, null);
             return false;
         } else {
             return true;

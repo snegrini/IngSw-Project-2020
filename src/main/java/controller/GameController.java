@@ -182,11 +182,11 @@ public class GameController {
 
         if (game.getNumCurrentPlayers() == 0) { // First player logged. Ask number of players.
             game.addPlayer(new Player(nickname));
-            virtualView.showLoginResult(true, true);
+            virtualView.showLoginResult(true, true, null);
             virtualView.askPlayersNumber();
         } else {
             game.addPlayer(new Player(nickname));
-            virtualView.showLoginResult(true, true);
+            virtualView.showLoginResult(true, true, null);
 
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
                 initGame();
@@ -347,7 +347,7 @@ public class GameController {
             game.addObserver(virtualView);
 
         } else {
-            virtualView.showLoginResult(true, false);
+            virtualView.showLoginResult(true, false, null);
         }
     }
 

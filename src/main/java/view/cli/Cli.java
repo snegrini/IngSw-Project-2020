@@ -307,11 +307,17 @@ public class Cli extends View {
 
 
     @Override
-    public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
+    public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
+        clearCli();
         if (nicknameAccepted && connectionSuccessful) {
-            System.out.println("You are connected!");
+            System.out.println("Hi, " + nickname + "! You connected to the server.");
         } else if (connectionSuccessful && !nicknameAccepted) {
             askNickname();
+        } else {
+            System.out.println("Could not contact server.");
+            System.out.println("\nPress any key to exit.");
+            scanner.nextLine();
+            System.exit(1);
         }
 
     }

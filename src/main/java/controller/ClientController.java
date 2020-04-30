@@ -51,7 +51,7 @@ public class ClientController implements ViewObserver, Observer {
                 break;
             case LOGIN_REPLY:
                 LoginReply loginReply = (LoginReply) message;
-                view.showLoginResult(loginReply.isNicknameAccepted(), loginReply.isConnectionSuccessful());
+                view.showLoginResult(loginReply.isNicknameAccepted(), loginReply.isConnectionSuccessful(), this.nickname);
                 break;
             case LOGIN_REQUEST: // Should never be here.
                 break;
@@ -84,8 +84,7 @@ public class ClientController implements ViewObserver, Observer {
             client.addObserver(this);
             client.readMessage(); // Starts an asynchronous reading from the server.
         } catch (IOException e) {
-            // TODO show error in view and return the old view.
-            System.out.println("could not contact server");
+            view.showLoginResult(false, false, this.nickname);
         }
         view.askNickname();
     }
