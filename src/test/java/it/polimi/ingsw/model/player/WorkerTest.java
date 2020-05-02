@@ -119,10 +119,10 @@ public class WorkerTest {
     }
 
     @Test
-    public void positionGetterAndSetter() {
+    public void positionInitAndGetter() {
         Position position = new Position(4, 4);
         assertNotEquals(position, worker.getPosition());
-        worker.setPosition(position);
+        worker.initPosition(position);
         assertEquals(position, worker.getPosition());
     }
 

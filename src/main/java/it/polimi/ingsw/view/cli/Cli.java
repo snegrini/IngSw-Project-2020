@@ -155,28 +155,22 @@ public class Cli extends View {
      */
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
+        List<Position> initPositions = new ArrayList<>();
 
-
-        int chosenRow1, chosenColumn1;
-        int chosenRow2, chosenColumn2;
+        int chosenRow, chosenColumn;
         out.println("Select your workers' initial positions");
-        out.println("Position for Worker 1");
-        out.print("Row: ");
-        chosenRow1 = Integer.parseInt(scanner.nextLine());
-        out.print("Column: ");
-        chosenColumn1 = Integer.parseInt(scanner.nextLine());
-        out.println();
-        out.println("Position for Worker 2");
-        out.print("Row: ");
-        chosenRow2 = Integer.parseInt(scanner.nextLine());
-        out.println("Column: ");
-        chosenColumn2 = Integer.parseInt(scanner.nextLine());
-        Position position1 = new Position(chosenRow1, chosenColumn1);
-        Position position2 = new Position(chosenRow2, chosenColumn2);
-        List<Position> init_positions = new ArrayList<>();
-        init_positions.add(position1);
-        init_positions.add(position2);
-        notifyObserver((ViewObserver obs) -> obs.onUpdateInitWorkerPosition(init_positions));
+
+        for (int i = 0; i < 2; i++) {
+            out.println("Position for Worker " + i);
+            out.print("Row: ");
+            chosenRow = Integer.parseInt(scanner.nextLine()); // TODO check input is not a string and a number in [0, 4]
+            out.print("Column: ");
+            chosenColumn = Integer.parseInt(scanner.nextLine());
+            out.println();
+            initPositions.add(new Position(chosenRow, chosenColumn));
+        }
+
+        notifyObserver((ViewObserver obs) -> obs.onUpdateInitWorkerPosition(initPositions));
     }
 
     /**

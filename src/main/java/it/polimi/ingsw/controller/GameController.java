@@ -119,10 +119,10 @@ public class GameController {
                             .getPositionList().get(0))));
                 }
                 break;
-            case MOVE: // TODO input it.polimi.ingsw.controller
+            case MOVE: // TODO input controller
                 moveHandler((PositionMessage) receivedMessage, virtualView);
                 break;
-            case BUILD: // TODO input it.polimi.ingsw.controller
+            case BUILD: // TODO input controller
                 buildHandler((PositionMessage) receivedMessage, virtualView);
                 break;
             default:
@@ -133,8 +133,7 @@ public class GameController {
 
     private void buildHandler(PositionMessage receivedMessage, VirtualView virtualView) {
         Position buildOnPosition = receivedMessage.getPositionList().get(0);
-        game.getBoard().getSpace(buildOnPosition).increaseLevel(1);
-        refreshClientsBoards();
+        //game.buildBlock(buildOnPosition); // FIXME buildBlock() should call worker build(), not increaseLevel() of the Space.
 
         turnController.next();
         pickMovingWorker();
@@ -143,28 +142,24 @@ public class GameController {
     private void moveHandler(PositionMessage receivedMessage, VirtualView virtualView) {
         Position destination = receivedMessage.getPositionList().get(0);
 
-        int origLevel = game.getBoard().getSpace(turnController.getActiveWorker().getPosition()).getLevel();
-        int destLevel = game.getBoard().getSpace(destination).getLevel();
+        int origLevel = game.getSpaceLevel(turnController.getActiveWorker().getPosition());
+        int destLevel = game.getSpaceLevel(destination);
 
-        Player p = game.getPlayerByNickname(receivedMessage.getNickname());
-        game.getBoard().getSpace(turnController.getActiveWorker().getPosition()).setWorker(null);
-        turnController.getActiveWorker().move(destination);
-        game.getBoard().getSpace(destination).setWorker(turnController.getActiveWorker());
-
-        refreshClientsBoards(); // FIXME add it.polimi.ingsw.observer to it.polimi.ingsw.model.
+        game.moveWorker(turnController.getActiveWorker(), destination);
 
 
         // Win condition:
         if (origLevel == 2 && destLevel == 3) {
             win();
         } else {
+            Player p = game.getPlayerByNickname(receivedMessage.getNickname());
             virtualView.askNewBuildingPosition(p.getWorkerByPosition(destination).getPossibleBuilds());
         }
     }
 
     private void win() {
-        notifyAll(turnController.getActivePlayer() + "Wins! Game Finished!");
-        // TODO what?
+        notifyAllViews(turnController.getActivePlayer() + "Wins! Game Finished!");
+        // TODO end game, prepare server for a new game. Set server on listen for the first client.
     }
 
 
@@ -250,8 +245,8 @@ public class GameController {
      */
     private void askWorkersPositions(String nickname) {
         VirtualView virtualView = virtualViews.get(nickname);
-        virtualView.showBoard(game.getBoard().getReducedSpaceBoard());
-        virtualView.askInitWorkersPositions(game.getBoard().getFreePositions());
+        virtualView.showBoard(game.getReducedSpaceBoard());
+        virtualView.askInitWorkersPositions(game.getFreePositions());
     }
 
     /**
@@ -264,10 +259,9 @@ public class GameController {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
 
         List<Worker> workers = player.getWorkers();
-        workers.get(0).initPosition(receivedMessage.getPositionList().get(0));
-        game.getBoard().getSpace(receivedMessage.getPositionList().get(0)).setWorker(workers.get(0));
-        workers.get(1).initPosition(receivedMessage.getPositionList().get(1));
-        game.getBoard().getSpace(receivedMessage.getPositionList().get(1)).setWorker(workers.get(1));
+        List<Position> positions = receivedMessage.getPositionList();
+
+        game.initWorkersOnBoard(workers, positions);
 
         if (!(availableColors.size() == 3 - game.getChosenPlayersNumber())) {
             turnController.next();
@@ -297,10 +291,8 @@ public class GameController {
     }
 
     private void startGame() {
-
         gameState = GameState.IN_GAME;
-        notifyAll("Game Started!");
-        refreshClientsBoards();
+        notifyAllViews("Game Started!");
 
         pickMovingWorker();
     }
@@ -312,13 +304,14 @@ public class GameController {
         virtualView.askMovingWorker(positionList);
     }
 
-    private void refreshClientsBoards() {
+    // TODO delete me
+    /*private void refreshClientsBoards() {
         List<String> nicknames = new ArrayList<>(game.getPlayersNicknames());
         for (String s : nicknames) {
             VirtualView virtualView = virtualViews.get(s);
             virtualView.showBoard(game.getBoard().getReducedSpaceBoard());
         }
-    }
+    }*/
 
 
     void endGame() {
@@ -337,15 +330,12 @@ public class GameController {
     public void addVirtualView(String nickname, VirtualView virtualView) {
         // This is the first player connecting
         if (virtualViews.size() == 0) {
-            // FIXME virtualView.addObserver(this);
             virtualViews.put(nickname, virtualView);
             game.addObserver(virtualView);
 
         } else if (virtualViews.size() < game.getChosenPlayersNumber()) {
-            // FIXME virtualView.addObserver(this);
             virtualViews.put(nickname, virtualView);
             game.addObserver(virtualView);
-
         } else {
             virtualView.showLoginResult(true, false, null);
         }
@@ -362,11 +352,9 @@ public class GameController {
     }
 
 
-    private void notifyAll(String messageToNotify) {
-        List<String> nicknames = new ArrayList<>(game.getPlayersNicknames());
-        for (String s : nicknames) {
-            VirtualView virtualView = virtualViews.get(s);
-            virtualView.showGenericMessage(messageToNotify);
+    private void notifyAllViews(String messageToNotify) {
+        for (VirtualView vv : virtualViews.values()) {
+            vv.showGenericMessage(messageToNotify);
         }
     }
 

@@ -53,7 +53,7 @@ public class Worker {
      * @param position a valid position to move
      */
     public void move(Position position) {
-        updateMoveHistory(this.position, Game.getInstance().getBoard().getSpace(this.position).getLevel());
+        updateMoveHistory(this.position, Game.getInstance().getSpaceLevel(this.position));
         this.position = position; // Worker is now in the new position
     }
 
@@ -154,10 +154,6 @@ public class Worker {
 
     public Position getPosition() {
         return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
     }
 
     /**

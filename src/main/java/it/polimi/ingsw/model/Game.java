@@ -1,18 +1,30 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.Position;
+import it.polimi.ingsw.model.board.ReducedSpace;
+import it.polimi.ingsw.model.board.Space;
+import it.polimi.ingsw.model.enumerations.Color;
+import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Player;
+import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.BoardMessage;
+import it.polimi.ingsw.network.message.Message;
+import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.parser.GodParser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Game extends Observable {
 
     private static Game instance;
 
     public static final int MAX_PLAYERS = 3;
+    public static final String serverNickname = "server";
     private int chosenPlayersNumber;
 
     private Board board;
@@ -86,8 +98,18 @@ public class Game extends Observable {
         return chosenPlayersNumber;
     }
 
-    public Board getBoard() {
-        return board;
+    /**
+     * Returns a worker given the position argument.
+     *
+     * @param position the position of the worker.
+     * @return the worker found, {@code null} if not found.
+     */
+    public Worker getWorkerByPosition(Position position) {
+        return players.stream()
+                .map(player -> player.getWorkerByPosition(position))
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -112,8 +134,8 @@ public class Game extends Observable {
      * @return a list with all reduced gods.
      */
     public List<ReducedGod> getReduceGodList() {
-       List<ReducedGod> reducedGods = new ArrayList<>();
-        for(God god : gods ) {
+        List<ReducedGod> reducedGods = new ArrayList<>();
+        for (God god : gods) {
             reducedGods.add(new ReducedGod(god));
         }
         return reducedGods;
@@ -133,15 +155,65 @@ public class Game extends Observable {
     }
 
     /**
-     *
      * @return a list with all nicknames in the Game
      */
     public List<String> getPlayersNicknames() {
         List<String> nicknames = new ArrayList<>();
-        for(Player p : players) {
-                nicknames.add(p.getNickname());
+        for (Player p : players) {
+            nicknames.add(p.getNickname());
         }
         return nicknames;
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
+    public void initWorkersOnBoard(List<Worker> workers, List<Position> positions) {
+        board.initWorkers(workers, positions);
+        notifyObserver(new BoardMessage(Game.serverNickname, MessageType.BOARD, board.getReducedSpaceBoard()));
+    }
+
+    public void moveWorker(Worker worker, Position dest) {
+        board.moveWorker(worker, dest);
+        notifyObserver(new BoardMessage(Game.serverNickname, MessageType.BOARD, board.getReducedSpaceBoard()));
+    }
+
+    public void buildBlock(Worker worker, Position dest) {
+        board.buildBlock(worker, dest);
+        notifyObserver(new BoardMessage(Game.serverNickname, MessageType.BOARD, board.getReducedSpaceBoard()));
+    }
+
+    public ReducedSpace[][] getReducedSpaceBoard() {
+        return board.getReducedSpaceBoard();
+    }
+
+    public List<Position> getFreePositions() {
+        return board.getFreePositions();
+    }
+
+    public boolean arePositionsFree(List<Position> positionList) {
+        return board.arePositionsFree(positionList);
+    }
+
+    public Space getNextSpaceInLine(Position orig, Position dest) {
+        return board.getNextSpaceInLine(orig, dest);
+    }
+
+    public List<Position> getNeighbours(Position position) {
+        return board.getNeighbours(position);
+    }
+
+    public List<Position> getNeighbourWorkers(Position position, boolean oppOnly) {
+        return board.getNeighbourWorkers(position, oppOnly);
+    }
+
+    public MoveType getMoveTypeByLevel(Position orig, Position dest) {
+        return board.getMoveTypeByLevel(orig, dest);
+    }
+
+
+    public int getSpaceLevel(Position position) {
+        return board.getSpace(position).getLevel();
+    }
 }

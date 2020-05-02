@@ -36,6 +36,28 @@ public class Board {
     }
 
     /**
+     * Sets the workers on the board at the given position. This method should be called only on game start.
+     * The two lists argument must be of the same size.
+     *
+     * @param workers   a list of workers to be positioned.
+     * @param positions a list of positions.
+     * @return {@code true} if the initialization is done successfully, {@code false} otherwise (e.g. when the lists
+     * sizes are different).
+     */
+    public boolean initWorkers(List<Worker> workers, List<Position> positions) {
+        if (workers.size() != positions.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < workers.size(); i++) {
+            workers.get(i).initPosition(positions.get(i));
+            getSpace(positions.get(i)).setWorker(workers.get(i));
+        }
+        return true;
+    }
+
+
+    /**
      * Returns the free positions on the board.
      *
      * @return the free positions on the board.
@@ -128,7 +150,6 @@ public class Board {
 
     /**
      * Returns a list of positions that are adjacent to the position argument and are occupied by a worker.
-     * If
      *
      * @param position The position to look for the neighbours.
      * @param oppOnly  If set to {@code true} only opponent workers are checked.
@@ -220,5 +241,15 @@ public class Board {
             }
         }
         return reducedBoard;
+    }
+
+    public void moveWorker(Worker worker, Position dest) {
+        getSpace(worker.getPosition()).setWorker(null);
+        worker.move(dest);
+        getSpace(dest).setWorker(worker);
+    }
+
+    public void buildBlock(Worker worker, Position dest) {
+        worker.build(dest);
     }
 }

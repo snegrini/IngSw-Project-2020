@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.message;
 
+import it.polimi.ingsw.model.Game;
+
 public class GenericMessage extends Message {
     private static final long serialVersionUID = 934399396584368694L;
 
@@ -7,7 +9,7 @@ public class GenericMessage extends Message {
 
 
     public GenericMessage(String message) {
-        super("server", MessageType.GENERIC_MESSAGE);
+        super(Game.serverNickname, MessageType.GENERIC_MESSAGE);
         this.message = message;
     }
 

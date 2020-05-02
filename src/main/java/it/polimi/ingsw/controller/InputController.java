@@ -66,20 +66,20 @@ public class InputController {
             // if both positions are not equals each other and are free return true.
             if (!(((PositionMessage) message).getPositionList().get(0)
                     .equals(((PositionMessage) message).getPositionList().get(1))) &&
-                    game.getBoard().arePositionsFree(((PositionMessage) message).getPositionList())) {
+                    game.arePositionsFree(((PositionMessage) message).getPositionList())) {
                 return true;
             } else {
                 VirtualView virtualView = virtualViews.get(message.getNickname());
                 // Avoid to show board.
                 virtualView.showGenericMessage("Positions are not free!");
-                virtualView.askInitWorkersPositions(game.getBoard().getFreePositions());
+                virtualView.askInitWorkersPositions(game.getFreePositions());
                 return false;
             }
         } else {
             VirtualView virtualView = virtualViews.get(message.getNickname());
             // Avoid to show board.
             virtualView.showGenericMessage("Positions must be 2!");
-            virtualView.askInitWorkersPositions(game.getBoard().getFreePositions());
+            virtualView.askInitWorkersPositions(game.getFreePositions());
             return false;
         }
     }
@@ -111,7 +111,7 @@ public class InputController {
         VirtualView virtualView = virtualViews.get(message.getNickname());
         String nickname = message.getNickname();
 
-        if (nickname.equals("server") || nickname.equals("SERVER") || nickname.equals("Server")) {
+        if (nickname.toLowerCase().equals(Game.serverNickname)) {
             virtualView.showGenericMessage("Forbidden name.");
             virtualView.showLoginResult(false, true, null);
             return false;
