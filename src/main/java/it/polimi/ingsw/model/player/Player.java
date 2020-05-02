@@ -50,6 +50,18 @@ public class Player extends Observable {
         workers.add(worker);
     }
 
+    /**
+     * Sets the workers at the given positions. This method should be called only on game start.
+     * The positions list argument must be of the same size of the player workers.
+     *
+     * @param positions a list of positions.
+     */
+    public void initWorkers(List<Position> positions) {
+        for (int i = 0; i < workers.size(); i++) {
+            workers.get(i).initPosition(positions.get(i));
+        }
+    }
+
     public God getGod() {
         return god;
     }
@@ -77,11 +89,6 @@ public class Player extends Observable {
     @Override
     public int hashCode() {
         return Objects.hash(nickname);
-    }
-
-
-    public List<Worker> getWorkers() {
-        return workers;
     }
 
     public List<Position> getWorkersPositions() {

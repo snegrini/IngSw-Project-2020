@@ -105,11 +105,7 @@ public class Game extends Observable {
      * @return the worker found, {@code null} if not found.
      */
     public Worker getWorkerByPosition(Position position) {
-        return players.stream()
-                .map(player -> player.getWorkerByPosition(position))
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(null);
+        return board.getWorkerByPosition(position);
     }
 
     /**
@@ -169,8 +165,8 @@ public class Game extends Observable {
         return board;
     }
 
-    public void initWorkersOnBoard(List<Worker> workers, List<Position> positions) {
-        board.initWorkers(workers, positions);
+    public void initWorkersOnBoard(List<Worker> workers) {
+        board.initWorkers(workers);
         notifyObserver(new BoardMessage(Game.serverNickname, MessageType.BOARD, board.getReducedSpaceBoard()));
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.MoveHistory;
@@ -36,26 +37,25 @@ public class Board {
     }
 
     /**
-     * Sets the workers on the board at the given position. This method should be called only on game start.
-     * The two lists argument must be of the same size.
+     * Sets the workers on the board at the worker position. This method should be called only on game start.
      *
-     * @param workers   a list of workers to be positioned.
-     * @param positions a list of positions.
-     * @return {@code true} if the initialization is done successfully, {@code false} otherwise (e.g. when the lists
-     * sizes are different).
+     * @param workers a list of workers.
      */
-    public boolean initWorkers(List<Worker> workers, List<Position> positions) {
-        if (workers.size() != positions.size()) {
-            return false;
+    public void initWorkers(List<Worker> workers) {
+        for (Worker w : workers) {
+            getSpace(w.getPosition()).setWorker(w);
         }
-
-        for (int i = 0; i < workers.size(); i++) {
-            workers.get(i).initPosition(positions.get(i));
-            getSpace(positions.get(i)).setWorker(workers.get(i));
-        }
-        return true;
     }
 
+    /**
+     * Returns a worker given the position argument.
+     *
+     * @param position the position of the worker.
+     * @return the worker found, {@code null} otherwise.
+     */
+    public Worker getWorkerByPosition(Position position) {
+        return getSpace(position).getWorker();
+    }
 
     /**
      * Returns the free positions on the board.
@@ -199,31 +199,33 @@ public class Board {
     /**
      * Returns {@code true} if the worker is moving back into his last position
      *
-     * @param orig the starting position.
-     * @param dest the destination position.
+     * @param worker the worker to check the move.
+     * @param dest   the destination position.
      * @return the MoveType needed to perform the move from the first position argument to
      * the second position argument. Returns {@code null} if the arguments are not neighbours.
      * @see MoveHistory , {@code false} otherwise.
      */
-    public boolean isMovingBack(Position orig, Position dest) {
+    public boolean isMovingBack(Worker worker, Position dest) {
+        Position orig = worker.getPosition();
+
         // Check if the arguments are neighbours.
         if (!getNeighbours(orig).contains(dest) || orig.equals(dest)) {
             return false;
         }
 
-        Worker worker = getSpace(orig).getWorker();
         Position lastPosition = worker.getMoveHistory().getLastPosition();
 
         return dest.equals(lastPosition);
     }
 
     /**
-     * Resets all the spaces' levels in the board.
+     * Resets all the spaces' levels and domes in the board.
      */
     public void resetAllLevels() {
         for (int i = 0; i < MAX_ROWS; i++) {
             for (int j = 0; j < MAX_COLUMNS; j++) {
                 spaces[i][j].decreaseLevel(spaces[i][j].getLevel());
+                spaces[i][j].setDome(false);
             }
         }
     }
@@ -250,6 +252,7 @@ public class Board {
     }
 
     public void buildBlock(Worker worker, Position dest) {
-        worker.build(dest);
+        Space space = getSpace(dest);
+        worker.build(space);
     }
 }

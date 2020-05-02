@@ -41,7 +41,7 @@ public class WorkerTest {
         Space space = board.getSpace(position);
 
         assertEquals(0, space.getLevel());
-        worker.build(position);
+        worker.build(space);
         assertEquals(1, space.getLevel());
     }
 

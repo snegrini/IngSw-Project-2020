@@ -253,15 +253,20 @@ public class GameController {
      * Assign 2 positions to 2 workers of the player
      *
      * @param receivedMessage message from client
-     * @param virtualView     virtual it.polimi.ingsw.view
+     * @param virtualView     virtual view
      */
     private void workerPositionsHandler(PositionMessage receivedMessage, VirtualView virtualView) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
-
-        List<Worker> workers = player.getWorkers();
         List<Position> positions = receivedMessage.getPositionList();
 
-        game.initWorkersOnBoard(workers, positions);
+        player.initWorkers(positions);
+
+        List<Worker> workers = new ArrayList<>();
+        for (Position p : positions) {
+            workers.add(player.getWorkerByPosition(p));
+        }
+
+        game.initWorkersOnBoard(workers);
 
         if (!(availableColors.size() == 3 - game.getChosenPlayersNumber())) {
             turnController.next();

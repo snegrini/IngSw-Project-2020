@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.player.Worker;
 import org.junit.After;
@@ -24,6 +25,9 @@ public class BoardTest {
 
     @After
     public void tearDown() throws Exception {
+        board = null;
+        space = null;
+        Game.resetInstance();
     }
 
     @Test
@@ -39,6 +43,11 @@ public class BoardTest {
         Space target = board.getNextSpaceInLine(orig, dest);
 
         assertEquals(board.getSpace(0, 0), target);
+    }
+
+    @Test
+    public void initWorkers() {
+        board.initWorkers(List.of()); // TODO
     }
 
     @Test
@@ -141,5 +150,81 @@ public class BoardTest {
         expectedPositions.add(new Position(0, 1));
 
         assertEquals(expectedPositions, board.getNeighbourWorkers(w1.getPosition(), false));
+    }
+
+    @Test
+    public void isMovingBack_True() {
+        Position orig = new Position(0, 0);
+        Position dest = new Position(1, 0);
+        Worker w1 = new Worker(Color.BLUE);
+        w1.initPosition(orig);
+        w1.move(dest);
+
+        assertTrue(board.isMovingBack(w1, orig));
+    }
+
+    @Test
+    public void isMovingBack_False() {
+        Position orig = new Position(0, 0);
+        Position dest = new Position(1, 0);
+        Worker w1 = new Worker(Color.BLUE);
+        w1.initPosition(orig);
+        w1.move(dest);
+
+        assertFalse(board.isMovingBack(w1, new Position(1, 1)));
+    }
+
+    @Test
+    public void isMovingBack_NotNeighbours() {
+        Position orig = new Position(0, 0);
+        Position dest = new Position(4, 0);
+        Worker w1 = new Worker(Color.BLUE);
+        w1.initPosition(orig);
+        w1.move(dest);
+
+        assertFalse(board.isMovingBack(w1, orig));
+    }
+
+    @Test
+    public void moveWorker() {
+        Position orig = new Position(0, 0);
+        Position dest = new Position(1, 0);
+        Worker w1 = new Worker(orig);
+
+        board.moveWorker(w1, dest);
+
+        assertEquals(w1, board.getSpace(dest).getWorker());
+        assertNull(board.getSpace(orig).getWorker());
+    }
+
+    @Test
+    public void buildBlock() {
+        Position orig = new Position(0, 0);
+        Position buildPos = new Position(1, 0);
+        Worker w1 = new Worker(orig);
+
+        board.buildBlock(w1, buildPos);
+
+        assertEquals(1, board.getSpace(buildPos).getLevel());
+    }
+
+    @Test
+    public void resetAllLevels() {
+        Position p1 = new Position(0, 0);
+        Position p2 = new Position(3, 2);
+        board.getSpace(p1).increaseLevel(2);
+        board.getSpace(p1).setDome(true);
+        board.getSpace(p2).increaseLevel(1);
+
+        board.resetAllLevels();
+
+        ReducedSpace[][] reducedSpaces = board.getReducedSpaceBoard();
+
+        for (int i = 0; i < Board.MAX_ROWS; i++) {
+            for (int j = 0; j < Board.MAX_COLUMNS; j++) {
+                assertEquals(0, reducedSpaces[i][j].getLevel());
+                assertFalse(reducedSpaces[i][j].hasDome());
+            }
+        }
     }
 }

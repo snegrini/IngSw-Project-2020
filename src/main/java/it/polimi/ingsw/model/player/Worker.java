@@ -20,16 +20,13 @@ public class Worker {
     private Set<MoveType> lockedMovements;
 
     public Worker(Position position) {
-
         this.position = position;
         this.moveHistory = new MoveHistory(position, 0);
         this.lockedMovements = new HashSet<>();
     }
 
     public Worker(Color color) {
-
         this.color = color;
-
         this.lockedMovements = new HashSet<>();
     }
 
@@ -41,10 +38,10 @@ public class Worker {
     /**
      * Builds a single block over the {@code Space} at the given position.
      *
-     * @param position the position of the {@code Space} where to build.
+     * @param space the space to build onto.
      */
-    public void build(Position position) {
-        Game.getInstance().getBoard().getSpace(position).increaseLevel(1);
+    public void build(Space space) {
+        space.increaseLevel(1);
     }
 
     /**
