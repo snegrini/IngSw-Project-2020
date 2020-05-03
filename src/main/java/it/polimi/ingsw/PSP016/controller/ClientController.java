@@ -13,12 +13,16 @@ import it.polimi.ingsw.PSP016.observer.ViewObserver;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ClientController implements ViewObserver, Observer {
 
     private View view;
     private Client client;
     private String nickname;
+
 
     public ClientController(View view) {
         this.view = view;
@@ -69,6 +73,9 @@ public class ClientController implements ViewObserver, Observer {
             case INIT_WORKERSPOSITIONS:
                 view.askInitWorkersPositions(((PositionMessage) message).getPositionList());
                 break;
+            case ERROR:
+                view.showError(((ErrorMessage) message).getError());
+                break;
 
 
             default: // Should never reach this condition
@@ -76,13 +83,13 @@ public class ClientController implements ViewObserver, Observer {
         }
     }
 
-
     @Override
     public void onUpdateServerInfo(Map<String, String> serverInfo) {
         try {
             client = new SocketClient(serverInfo.get("address"), Integer.parseInt(serverInfo.get("port")));
             client.addObserver(this);
             client.readMessage(); // Starts an asynchronous reading from the server.
+            client.enablePinger(true);
         } catch (IOException e) {
             view.showLoginResult(false, false, this.nickname);
         }
