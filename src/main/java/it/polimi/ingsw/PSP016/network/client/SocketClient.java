@@ -1,6 +1,9 @@
 package it.polimi.ingsw.PSP016.network.client;
 
+import it.polimi.ingsw.PSP016.network.message.ErrorMessage;
+import it.polimi.ingsw.PSP016.network.message.GenericMessage;
 import it.polimi.ingsw.PSP016.network.message.Message;
+import it.polimi.ingsw.PSP016.network.message.PingMessage;
 import it.polimi.ingsw.PSP016.network.server.Server;
 
 import java.io.IOException;
@@ -9,6 +12,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class SocketClient extends Client {
 
@@ -16,52 +21,73 @@ public class SocketClient extends Client {
 
     private ObjectOutputStream outputStm;
     private ObjectInputStream inputStm;
-    private ExecutorService readExecutionQueue = Executors.newSingleThreadExecutor();
-    private ExecutorService executionQueue = Executors.newSingleThreadExecutor();
+    private ExecutorService readExecutionQueue;
+    private ExecutorService sendExecutionQueue;
+    private ScheduledExecutorService pinger;
 
 
     public SocketClient(String address, int port) throws IOException {
         this.socket = new Socket(address, port);
         this.outputStm = new ObjectOutputStream(socket.getOutputStream());
         this.inputStm = new ObjectInputStream(socket.getInputStream());
+        this.readExecutionQueue = Executors.newSingleThreadExecutor();
+        this.sendExecutionQueue = Executors.newSingleThreadExecutor();
+        this.pinger = Executors.newSingleThreadScheduledExecutor();
     }
 
     public void readMessage() {
         readExecutionQueue.execute(() -> {
-            while (true) { // FIXME
+
+            while (!readExecutionQueue.isShutdown()) {
                 Message message = null;
                 try {
                     message = (Message) inputStm.readObject();
-
                 } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
+                    message = new ErrorMessage(null, "connection lost with the server.");
+                    readExecutionQueue.shutdownNow();
                 }
                 notifyObserver(message);
-
             }
         });
     }
 
     @Override
     public void sendMessage(Message message) {
-        executionQueue.execute(() -> {
+        sendExecutionQueue.execute(() -> {
             try {
                 outputStm.writeObject(message);
-                // FIXME
             } catch (IOException e) {
-                Server.LOGGER.severe(e.getMessage());
+                notifyObserver(new ErrorMessage(null, "could not send message."));
+                disconnect();
             }
         });
+
     }
 
+    public void enablePinger(boolean enabled) {
+        if (enabled) {
+            pinger.scheduleAtFixedRate(() -> {
+                sendMessage(new PingMessage());
+            }, 0, 1000, TimeUnit.MILLISECONDS);
+        } else {
+            pinger.shutdownNow();
+        }
+    }
+
+    /**
+     * Disconnect the socket from the server.
+     */
     @Override
     public void disconnect() {
-        executionQueue.execute(() -> {
+        sendExecutionQueue.execute(() -> {
             try {
-                socket.close();
+                if (!socket.isClosed()) {
+                    socket.close();
+                }
             } catch (IOException e) {
+                notifyObserver(new ErrorMessage(null, "could not disconnect."));
             }
         });
-        executionQueue.shutdown();
+        sendExecutionQueue.shutdown();
     }
 }

@@ -84,6 +84,11 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
+    public void showError(String error) {
+        clientHandler.sendMessage(new ErrorMessage(Game.serverNickname, error));
+    }
+
+    @Override
     public void showBoard(ReducedSpace[][] spaces) {
         clientHandler.sendMessage(new BoardMessage(Game.serverNickname, MessageType.BOARD, spaces));
     }

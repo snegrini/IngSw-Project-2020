@@ -33,7 +33,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         try {
             handleClientConnection();
         } catch (IOException e) {
-            Server.LOGGER.severe("client " + client.getInetAddress() + " connection dropped");
+            Server.LOGGER.severe("Client " + client.getInetAddress() + " connection dropped.");
         }
     }
 
@@ -44,7 +44,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
             while (true) {
                 Message message = (Message) input.readObject();
 
-                if (message != null) {
+                if (message != null && message.getMessageType() != MessageType.PING) {
                     if (message.getMessageType() == MessageType.LOGIN_REQUEST) {
                         socketServer.addClient(message.getNickname(), this);
                     }
@@ -54,7 +54,6 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         } catch (ClassCastException | ClassNotFoundException e) {
             Server.LOGGER.severe("Invalid stream from client");
         }
-
         client.close();
     }
 
@@ -73,7 +72,6 @@ public class SocketClientHandler implements ClientHandler, Runnable {
     public void sendMessage(Message message) {
         try {
             output.writeObject(message);
-            // FIXME
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());
             disconnect();

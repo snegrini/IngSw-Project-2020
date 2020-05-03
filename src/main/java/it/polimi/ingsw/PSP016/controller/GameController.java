@@ -10,10 +10,11 @@ import it.polimi.ingsw.PSP016.model.enumerations.GameState;
 import it.polimi.ingsw.PSP016.model.player.Player;
 import it.polimi.ingsw.PSP016.model.player.Worker;
 import it.polimi.ingsw.PSP016.view.VirtualView;
+import it.polimi.ingsw.PSP016.observer.Observer;
 
 import java.util.*;
 
-public class GameController {
+public class GameController implements Observer {
 
     private Game game;
     private Map<String, VirtualView> virtualViews;
@@ -133,7 +134,7 @@ public class GameController {
 
     private void buildHandler(PositionMessage receivedMessage, VirtualView virtualView) {
         Position buildOnPosition = receivedMessage.getPositionList().get(0);
-        //game.buildBlock(buildOnPosition); // FIXME buildBlock() should call worker build(), not increaseLevel() of the Space.
+        game.buildBlock(turnController.getActiveWorker(), buildOnPosition);
 
         turnController.next();
         pickMovingWorker();
@@ -214,6 +215,7 @@ public class GameController {
             askGodToNextPlayer();
         } else { // else receivedMessage contains only 1 god
             God god = game.getGodByName(receivedMessage.getGodList().get(0).getName());
+            god.addObserverToAllEffects(this);
             game.getPlayerByNickname(receivedMessage.getNickname()).setGod(god);
             availableGods.remove(receivedMessage.getGodList().get(0));
 
@@ -380,5 +382,15 @@ public class GameController {
 
     public List<Color> getAvailableColors() {
         return availableColors;
+    }
+
+    /**
+     * Receives an update message from the effect model.
+     *
+     * @param message the update message.
+     */
+    @Override
+    public void update(Message message) {
+
     }
 }

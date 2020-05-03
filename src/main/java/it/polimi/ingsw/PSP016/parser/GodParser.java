@@ -5,6 +5,7 @@ import it.polimi.ingsw.PSP016.model.God;
 import it.polimi.ingsw.PSP016.model.enumerations.EffectType;
 import it.polimi.ingsw.PSP016.model.enumerations.MoveType;
 import it.polimi.ingsw.PSP016.model.enumerations.TargetType;
+import it.polimi.ingsw.PSP016.network.server.Server;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -48,8 +49,8 @@ public class GodParser {
             dbf.setValidating(false);
             doc = db.parse(file);
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            // TODO throw exception, stop execution. ??
-            e.printStackTrace();
+            Server.LOGGER.severe("failed to read gods.xml file.");
+            System.exit(1);
         }
 
         Element root = doc.getDocumentElement();
