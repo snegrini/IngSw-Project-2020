@@ -89,10 +89,11 @@ public class Cli extends View {
     public void askPlayersNumber() {
         int playerNumber;
         out.print("How many players are going to play? (You can choose between 2 or 3 players): ");
-
-        playerNumber = scanner.nextInt();
-
-        notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(playerNumber));
+        do {
+            playerNumber = Integer.parseInt(scanner.nextLine());
+        } while (playerNumber != 2 && playerNumber != 3);
+        int finalPlayerNumber = playerNumber;
+        notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(finalPlayerNumber));
     }
 
 
@@ -109,19 +110,42 @@ public class Cli extends View {
 
         int godId = 0;
 
+
         if (gods.size() > 1) {
             if (request > 1) {
                 out.println("Select " + request + " Gods!");
                 printGodList(gods);
-                out.println("Insert God IDs");
-
+                out.println("Insert Gods' IDs");
+                int[] chosenIndexes = new int[3];
+                for (int i = 0; i < 3; i++) {
+                    chosenIndexes[i] = -1;
+                }
                 // TODO for cycle in order to pick N (=request) gods and put in reducedGodList.
+                List<ReducedGod> reducedGodList = new ArrayList<>();
+                for (int i = 0; i < request; i++) {
+                    while (true) {
+                        try {
+                            do {
+                                godId = Integer.parseInt(scanner.nextLine()) - 1;
+                                if ((godId < 0 || godId > gods.size()) || (god_already_chosen(godId, chosenIndexes))) {
+                                    out.println("You have not inserted a valid ID! Please try again.");
+                                }
+                            } while ((godId < 0 || godId > gods.size()) || (god_already_chosen(godId, chosenIndexes)));
+                            chosenIndexes[i] = godId;
+                            reducedGodList.add(gods.get(godId));
+                            break;
+                        } catch (NumberFormatException e) {
+                            out.println("You have not inserted an integer number! Please try again!");
+                        }
+                    }
+                }
 
-                out.println("DEBUG: I picked first 3 gods for You.");
+
+                /*out.println("DEBUG: I picked first 3 gods for You.");
                 List<ReducedGod> reducedGodList = new ArrayList<>();
                 reducedGodList.add(gods.get(0));
                 reducedGodList.add(gods.get(1));
-                reducedGodList.add(gods.get(2));
+                reducedGodList.add(gods.get(2));*/
 
                 notifyObserver((ViewObserver obs) -> obs.onUpdateGod(reducedGodList));
             } else {
@@ -146,6 +170,7 @@ public class Cli extends View {
         }
     }
 
+
     /**
      * Ask player to choose the initial position of his two workers.
      *
@@ -156,20 +181,35 @@ public class Cli extends View {
         List<Position> initPositions = new ArrayList<>();
 
         int chosenRow, chosenColumn;
+
         out.println("Select your workers' initial positions");
 
         for (int i = 0; i < 2; i++) {
-            out.println("Position for Worker " + i);
-            out.print("Row: ");
-            chosenRow = Integer.parseInt(scanner.nextLine()); // TODO check input is not a string and a number in [0, 4]
-            out.print("Column: ");
-            chosenColumn = Integer.parseInt(scanner.nextLine());
-            out.println();
-            initPositions.add(new Position(chosenRow, chosenColumn));
+            while (true) {
+                try {
+                    do {
+                        out.println("Position for Worker " + i);
+                        out.print("Row: ");
+                        chosenRow = Integer.parseInt(scanner.nextLine());
+                        out.print("Column: ");
+                        chosenColumn = Integer.parseInt(scanner.nextLine());
+                        out.println();
+                        if ((chosenRow < 0 || chosenRow > 4) || (chosenColumn < 0 || chosenColumn > 4)) {
+                            out.println("You have inserted an invalid position! Please try Again!");
+                        }
+                    } while ((chosenRow < 0 || chosenRow > 4) || (chosenColumn < 0 || chosenColumn > 4));
+                    initPositions.add(new Position(chosenRow, chosenColumn));
+                    break;
+                } catch (NumberFormatException e) {
+                    out.println("You have not inserted an integer number! Please try again!");
+                    out.println();
+                }
+            }
         }
 
         notifyObserver((ViewObserver obs) -> obs.onUpdateInitWorkerPosition(initPositions));
     }
+
 
     /**
      * Ask Player to pick his Color.
@@ -205,6 +245,7 @@ public class Cli extends View {
 
     /**
      * Ask Player to pick one of his Worker by Position.
+     *
      * @param positionList list of workers Position.
      */
     @Override
@@ -217,20 +258,25 @@ public class Cli extends View {
                     positionList.get(i).getRow() + " Column: " +
                     positionList.get(i).getColumn());
         }
-        do {
-            out.print("Row: ");
-            chosenRow = Integer.parseInt(scanner.nextLine());
-            out.print("Column: ");
-            chosenColumn = Integer.parseInt(scanner.nextLine());
-            if (position_isNotValid(chosenRow, chosenColumn, positionList))
-                out.println("You have inserted an invalid position! Please try again!");
-        } while (position_isNotValid(chosenRow, chosenColumn, positionList));
-
-        int finalChosenRow = chosenRow;
-        int finalChosenColumn = chosenColumn;
-        Position pst_worker = new Position(chosenRow, chosenColumn);
-        notifyObserver((ViewObserver obs) -> obs.onUpdatePickMovingWorker(pst_worker));
-
+        while (true) {
+            try {
+                do {
+                    out.print("Row: ");
+                    chosenRow = Integer.parseInt(scanner.nextLine());
+                    out.print("Column: ");
+                    chosenColumn = Integer.parseInt(scanner.nextLine());
+                    if (position_isNotValid(chosenRow, chosenColumn, positionList))
+                        out.println("You have inserted an invalid position! Please try again!");
+                } while (position_isNotValid(chosenRow, chosenColumn, positionList));
+                int finalChosenRow = chosenRow;
+                int finalChosenColumn = chosenColumn;
+                Position pst_worker = new Position(chosenRow, chosenColumn);
+                notifyObserver((ViewObserver obs) -> obs.onUpdatePickMovingWorker(pst_worker));
+                break;
+            } catch (NumberFormatException e) {
+                out.println("You have not inserted an integer number! Please try again!");
+            }
+        }
     }
 
     /**
@@ -253,19 +299,25 @@ public class Cli extends View {
                         " Column: " + positionList.get(i).getColumn());
             }
             out.println("Select the new position:");
-            do {
-                out.print("Row: ");
-                chosenRow = Integer.parseInt(scanner.nextLine());
-                out.print("Column: ");
-                chosenColumn = Integer.parseInt(scanner.nextLine());
-                if (position_isNotValid(chosenRow, chosenColumn, positionList))
-                    out.println("You have inserted an invalid position! Please try again!");
-            } while (position_isNotValid(chosenRow, chosenColumn, positionList));
-
-            int finalChosenRow = chosenRow;
-            int finalChosenColumn = chosenColumn;
-            Position dest = new Position(chosenRow, chosenColumn);
-            notifyObserver((ViewObserver obs) -> obs.onUpdateMove(dest));
+            while (true) {
+                try {
+                    do {
+                        out.print("Row: ");
+                        chosenRow = Integer.parseInt(scanner.nextLine());
+                        out.print("Column: ");
+                        chosenColumn = Integer.parseInt(scanner.nextLine());
+                        if (position_isNotValid(chosenRow, chosenColumn, positionList))
+                            out.println("You have inserted an invalid position! Please try again!");
+                    } while (position_isNotValid(chosenRow, chosenColumn, positionList));
+                    int finalChosenRow = chosenRow;
+                    int finalChosenColumn = chosenColumn;
+                    Position dest = new Position(chosenRow, chosenColumn);
+                    notifyObserver((ViewObserver obs) -> obs.onUpdateMove(dest));
+                    break;
+                } catch (NumberFormatException e) {
+                    out.println("You have not inserted an integer number! Please try again!");
+                }
+            }
         }
     }
 
@@ -284,18 +336,25 @@ public class Cli extends View {
                         " Column: " + positions.get(i).getColumn());
             }
             out.println("Select where to build:");
-            do {
-                out.print("Row: ");
-                chosenRow = Integer.parseInt(scanner.nextLine());
-                out.print("Column: ");
-                chosenColumn = Integer.parseInt(scanner.nextLine());
-                if (position_isNotValid(chosenRow, chosenColumn, positions))
-                    out.println("You have inserted an invalid position! Please try again!");
-            } while (position_isNotValid(chosenRow, chosenColumn, positions));
-            int finalChosenRow = chosenRow;
-            int finalChosenColumn = chosenColumn;
-            Position newBuild = new Position(chosenRow, chosenColumn);
-            notifyObserver((ViewObserver obs) -> obs.onUpdateBuild(newBuild));
+            while (true) {
+                try {
+                    do {
+                        out.print("Row: ");
+                        chosenRow = Integer.parseInt(scanner.nextLine());
+                        out.print("Column: ");
+                        chosenColumn = Integer.parseInt(scanner.nextLine());
+                        if (position_isNotValid(chosenRow, chosenColumn, positions))
+                            out.println("You have inserted an invalid position! Please try again!");
+                    } while (position_isNotValid(chosenRow, chosenColumn, positions));
+                    int finalChosenRow = chosenRow;
+                    int finalChosenColumn = chosenColumn;
+                    Position newBuild = new Position(chosenRow, chosenColumn);
+                    notifyObserver((ViewObserver obs) -> obs.onUpdateBuild(newBuild));
+                    break;
+                } catch (NumberFormatException e) {
+                    out.println("You have not inserted an integer number! Please try again!");
+                }
+            }
         }
 
     }
@@ -330,7 +389,7 @@ public class Cli extends View {
     /**
      * Print the Board.
      *
-     * @param spaces matrix of Reduced Space wich compose the Board.
+     * @param spaces matrix of Reduced Space which compose the Board.
      */
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
@@ -367,7 +426,7 @@ public class Cli extends View {
                     } else {
                         if (spaces[i][j].getReducedWorker() != null) {
                             strBoard += " " + spaces[i][j].getLevel() +
-                                    spaces[i][j].getReducedWorker().getColor().getCode() + " x" +
+                                    ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()) + " x" +
                                     ColorCli.YELLOW_BOLD + " |"
                                     + ColorCli.RESET;
                         } else {
@@ -430,6 +489,23 @@ public class Cli extends View {
         }
         return true;
     }
+
+    /**
+     * Returns {@code true} if the god has already been chosen, {@code false} otherwise.
+     *
+     * @param godId         the Id of the chosen god.
+     * @param chosenIndexes the Indexes of the already chosen gods.
+     * @return Returns {@code true} if the god has already been chosen, {@code false} otherwise.
+     */
+    private boolean god_already_chosen(int godId, int[] chosenIndexes) {
+        for (int i = 0; i < 3; i++) {
+            if (godId == chosenIndexes[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void clearCli() {
         out.print(ColorCli.CLEAR);
