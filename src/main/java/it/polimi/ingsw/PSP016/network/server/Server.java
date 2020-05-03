@@ -4,6 +4,7 @@ import it.polimi.ingsw.PSP016.controller.GameController;
 import it.polimi.ingsw.PSP016.network.message.Message;
 import it.polimi.ingsw.PSP016.view.VirtualView;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 
@@ -39,4 +40,6 @@ public class Server {
     public void onMessageReceived(Message message) {
         gameController.onMessageReceived(message);
     }
+
+
 }

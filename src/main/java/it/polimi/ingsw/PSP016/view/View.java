@@ -84,6 +84,8 @@ public abstract class View {
 
     public abstract void showGenericMessage(String genericMessage);
 
+    public abstract void showError(String error);
+
     /**
      * Shows the Board
      */

@@ -16,7 +16,7 @@ public class ClientApp {
             }
         }
 
-        View view = null;
+        View view;
 
         if (cliParam) {
             view = new Cli();

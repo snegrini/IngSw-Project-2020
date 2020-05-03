@@ -377,7 +377,7 @@ public class Cli extends View {
     }
 
     /**
-     * Show a Generic Message from Server
+     * Shows a Generic Message from Server
      *
      * @param genericMessage Generic Message from Server.
      */
@@ -385,6 +385,18 @@ public class Cli extends View {
     public void showGenericMessage(String genericMessage) {
         out.println("Message From Server: " + genericMessage);
     }
+
+    /**
+     * Shows an error message.
+     *
+     * @param error the error to be shown.
+     */
+    @Override
+    public void showError(String error) {
+        out.println("ERROR: " + error);
+        System.exit(1);
+    }
+
 
     /**
      * Print the Board.

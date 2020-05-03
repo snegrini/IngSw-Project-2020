@@ -27,6 +27,7 @@ public class SocketServer implements Runnable {
         while(true) {
             try {
                 Socket client = serverSocket.accept();
+                client.setSoTimeout(10000);
 
                 SocketClientHandler clientHandler = new SocketClientHandler(this, client);
                 Thread thread = new Thread(clientHandler, "ss_handler" + client.getInetAddress());

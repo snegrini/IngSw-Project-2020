@@ -1,7 +1,9 @@
 package it.polimi.ingsw.PSP016.model;
 
+import it.polimi.ingsw.PSP016.controller.GameController;
 import it.polimi.ingsw.PSP016.model.effects.Effect;
 import it.polimi.ingsw.PSP016.model.enumerations.EffectType;
+import it.polimi.ingsw.PSP016.observer.Observer;
 
 import java.util.List;
 
@@ -42,6 +44,12 @@ public class God {
                 .filter(effect -> effectType.equals(effect.getEffectType()))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void addObserverToAllEffects(Observer obs) {
+        for (Effect effect : effects) {
+            effect.addObserver(obs);
+        }
     }
 
     public static class Builder {

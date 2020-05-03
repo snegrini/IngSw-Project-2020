@@ -72,6 +72,11 @@ public class Gui extends View {
     }
 
     @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
     public void showBoard(ReducedSpace[][] spaces) {
 
     }
