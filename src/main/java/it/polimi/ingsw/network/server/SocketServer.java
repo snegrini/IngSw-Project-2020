@@ -24,7 +24,7 @@ public class SocketServer implements Runnable {
             System.out.println("Server didn't start");
         }
 
-        while(true) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 Socket client = serverSocket.accept();
                 client.setSoTimeout(10000);
@@ -34,6 +34,7 @@ public class SocketServer implements Runnable {
                 thread.start();
             } catch (IOException e) {
                 Server.LOGGER.severe("Connection dropped");
+                // TODO end everything.
             }
         }
     }

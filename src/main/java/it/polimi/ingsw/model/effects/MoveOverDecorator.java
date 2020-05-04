@@ -11,7 +11,6 @@ import java.util.Map;
 
 public class MoveOverDecorator extends EffectDecorator {
 
-    private Map<String, String> requirements;
     private boolean pushBack;
     private boolean swapSpace;
 

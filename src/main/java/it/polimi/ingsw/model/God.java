@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.observer.Observer;
 
 import java.util.List;
+import java.util.Objects;
 
 public class God {
     private String name;
@@ -49,6 +50,19 @@ public class God {
         for (Effect effect : effects) {
             effect.addObserver(obs);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        God god = (God) o;
+        return name.equals(god.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
     public static class Builder {

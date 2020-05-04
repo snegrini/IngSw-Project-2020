@@ -93,7 +93,7 @@ public class GameController implements Observer {
                 break;
             case INIT_WORKERSPOSITIONS:
                 if (inputController.check(receivedMessage)) {
-                    workerPositionsHandler((PositionMessage) receivedMessage, virtualView);
+                    workerPositionsHandler((PositionMessage) receivedMessage);
                 }
                 break;
             case INIT_COLORS:
@@ -255,9 +255,8 @@ public class GameController implements Observer {
      * Assign 2 positions to 2 workers of the player
      *
      * @param receivedMessage message from client
-     * @param virtualView     virtual view
      */
-    private void workerPositionsHandler(PositionMessage receivedMessage, VirtualView virtualView) {
+    private void workerPositionsHandler(PositionMessage receivedMessage) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
         List<Position> positions = receivedMessage.getPositionList();
 
@@ -270,9 +269,9 @@ public class GameController implements Observer {
 
         game.initWorkersOnBoard(workers);
 
-        if (!(availableColors.size() == 3 - game.getChosenPlayersNumber())) {
+        if (availableColors.size() != Game.MAX_PLAYERS - game.getChosenPlayersNumber()) {
             turnController.next();
-            virtualView = virtualViews.get(turnController.getActivePlayer());
+            VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
             virtualView.askInitWorkerColor(availableColors);
         } else {
             turnController.next();
@@ -327,9 +326,9 @@ public class GameController implements Observer {
 
 
     /**
-     * Adds a Player VirtualView to the it.polimi.ingsw.controller if the first player max_players is not exceeded.
-     * Then adds a it.polimi.ingsw.controller it.polimi.ingsw.observer to the it.polimi.ingsw.view.
-     * dds the VirtualView to the game it.polimi.ingsw.model observers.
+     * Adds a Player VirtualView to the controller if the first player max_players is not exceeded.
+     * Then adds a controller observer to the view.
+     * Adds the VirtualView to the game model observers.
      *
      * @param nickname    the player nickname to identify his associated VirtualView.
      * @param virtualView the virtualview to be added.
@@ -339,17 +338,16 @@ public class GameController implements Observer {
         if (virtualViews.size() == 0) {
             virtualViews.put(nickname, virtualView);
             game.addObserver(virtualView);
-
         } else if (virtualViews.size() < game.getChosenPlayersNumber()) {
             virtualViews.put(nickname, virtualView);
             game.addObserver(virtualView);
         } else {
-            virtualView.showLoginResult(true, false, null);
+            virtualView.showLoginResult(true, false, Game.serverNickname);
         }
     }
 
     /**
-     * Removes a VirtualView from the it.polimi.ingsw.controller.
+     * Removes a VirtualView from the controller.
      *
      * @param nickname the nickname of the VirtualView associated.
      */

@@ -38,10 +38,10 @@ public class SocketClientHandler implements ClientHandler, Runnable {
     }
 
     private void handleClientConnection() throws IOException {
-        Server.LOGGER.info("Connected to " + client.getInetAddress());
+        Server.LOGGER.info("Client connected from " + client.getInetAddress());
 
         try {
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 Message message = (Message) input.readObject();
 
                 if (message != null && message.getMessageType() != MessageType.PING) {

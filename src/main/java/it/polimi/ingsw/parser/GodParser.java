@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.effects.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -25,7 +26,7 @@ import static it.polimi.ingsw.model.enumerations.XMLName.*;
  */
 public class GodParser {
 
-    public static final String filePath = "xml/gods.xml";
+    public static final String FILE_PATH = "xml/gods.xml";
 
     private GodParser() {
     }
@@ -38,9 +39,11 @@ public class GodParser {
     public static List<God> parseGods() {
         List<God> gods = new ArrayList<>();
 
-        File file = new File(GodParser.class.getClassLoader().getResource(filePath).getFile());
+        File file = new File(GodParser.class.getClassLoader().getResource(FILE_PATH).getFile());
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
         DocumentBuilder db = null;
         Document doc = null;
 

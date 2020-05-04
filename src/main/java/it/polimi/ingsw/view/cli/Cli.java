@@ -88,10 +88,9 @@ public class Cli extends View {
     @Override
     public void askPlayersNumber() {
         int playerNumber;
-        out.print("How many players are going to play? (You can choose between 2 or 3 players): ");
-        do {
-            playerNumber = Integer.parseInt(scanner.nextLine());
-        } while (playerNumber != 2 && playerNumber != 3);
+        String question = "How many players are going to play? (You can choose between 2 or 3 players): ";
+        playerNumber = numberInput(2, 3, question);
+
         int finalPlayerNumber = playerNumber;
         notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(finalPlayerNumber));
     }
@@ -115,12 +114,13 @@ public class Cli extends View {
             if (request > 1) {
                 out.println("Select " + request + " Gods!");
                 printGodList(gods);
+
                 out.println("Insert Gods' IDs");
                 int[] chosenIndexes = new int[3];
                 for (int i = 0; i < 3; i++) {
                     chosenIndexes[i] = -1;
                 }
-                // TODO for cycle in order to pick N (=request) gods and put in reducedGodList.
+
                 List<ReducedGod> reducedGodList = new ArrayList<>();
                 for (int i = 0; i < request; i++) {
                     while (true) {
@@ -140,24 +140,11 @@ public class Cli extends View {
                     }
                 }
 
-
-                /*out.println("DEBUG: I picked first 3 gods for You.");
-                List<ReducedGod> reducedGodList = new ArrayList<>();
-                reducedGodList.add(gods.get(0));
-                reducedGodList.add(gods.get(1));
-                reducedGodList.add(gods.get(2));*/
-
                 notifyObserver((ViewObserver obs) -> obs.onUpdateGod(reducedGodList));
             } else {
                 out.println("Select your own personal God!");
                 printGodList(gods);
-                out.print("To select one God type in his ID: ");
-                do {
-                    godId = Integer.parseInt(scanner.nextLine()) - 1;
-                    if (godId < 0 || godId > gods.size()) {
-                        out.println("You have not inserted a valid ID! Please try again.");
-                    }
-                } while (godId < 0 || godId > gods.size());
+                godId = numberInput(1, gods.size(), "To select one God type in his ID: ") - 1;
 
                 ReducedGod finalGod = gods.get(godId);
                 notifyObserver((ViewObserver obs) -> obs.onUpdateGod(List.of(finalGod)));
@@ -168,6 +155,25 @@ public class Cli extends View {
             ReducedGod finalGod = gods.get(0);
             notifyObserver((ViewObserver obs) -> obs.onUpdateGod(List.of(finalGod)));
         }
+    }
+
+    private int numberInput(int minValue, int maxValue, String question) {
+        int number = minValue - 1;
+
+        do {
+            try {
+                out.print(question);
+                number = Integer.parseInt(scanner.nextLine());
+
+                if (number < minValue || number > maxValue) {
+                    out.println("Invalid number! Please try again!\n");
+                }
+            } catch (NumberFormatException e) {
+                out.println("Invalid input! Please try again!\n");
+            }
+        } while (number < minValue || number > maxValue);
+
+        return number;
     }
 
 
@@ -185,26 +191,11 @@ public class Cli extends View {
         out.println("Select your workers' initial positions");
 
         for (int i = 0; i < 2; i++) {
-            while (true) {
-                try {
-                    do {
-                        out.println("Position for Worker " + i);
-                        out.print("Row: ");
-                        chosenRow = Integer.parseInt(scanner.nextLine());
-                        out.print("Column: ");
-                        chosenColumn = Integer.parseInt(scanner.nextLine());
-                        out.println();
-                        if ((chosenRow < 0 || chosenRow > 4) || (chosenColumn < 0 || chosenColumn > 4)) {
-                            out.println("You have inserted an invalid position! Please try Again!");
-                        }
-                    } while ((chosenRow < 0 || chosenRow > 4) || (chosenColumn < 0 || chosenColumn > 4));
-                    initPositions.add(new Position(chosenRow, chosenColumn));
-                    break;
-                } catch (NumberFormatException e) {
-                    out.println("You have not inserted an integer number! Please try again!");
-                    out.println();
-                }
-            }
+            out.println("Position for Worker " + (i + 1));
+            chosenRow = numberInput(0, positions.get(positions.size() - 1).getRow(), "Row: ");
+            chosenColumn = numberInput(0, positions.get(positions.size() - 1).getColumn(), "Column: ");
+
+            initPositions.add(new Position(chosenRow, chosenColumn));
         }
 
         notifyObserver((ViewObserver obs) -> obs.onUpdateInitWorkerPosition(initPositions));

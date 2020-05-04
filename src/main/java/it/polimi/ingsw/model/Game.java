@@ -123,6 +123,8 @@ public class Game extends Observable {
     }
 
     /**
+     * Returns a list of reduced gods.
+     *
      * @return a list with all reduced gods.
      */
     public List<ReducedGod> getReduceGodList() {
@@ -134,10 +136,10 @@ public class Game extends Observable {
     }
 
     /**
-     * Used in game it.polimi.ingsw.controller in order to assign to a player a not reduced God.
+     * Return the god given his name.
      *
-     * @param godName name of a god provided by client (reducedGod)
-     * @return the corrispective God
+     * @param godName the name of the god.
+     * @return the corresponding God object, {@code null} if it is not found.
      */
     public God getGodByName(String godName) {
         return gods.stream()
@@ -147,6 +149,8 @@ public class Game extends Observable {
     }
 
     /**
+     * Returns a list of player nicknames that are already in-game.
+     *
      * @return a list with all nicknames in the Game
      */
     public List<String> getPlayersNicknames() {
