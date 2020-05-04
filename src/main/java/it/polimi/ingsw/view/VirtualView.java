@@ -26,25 +26,29 @@ public class VirtualView extends View implements Observer {
 
     @Override
     public void init() {
-
+        // KEEP EMPTY
+        // This method should never be called by the GameController.
     }
 
     @Override
     public void askServerInfo() {
+        // KEEP EMPTY
+        // This method should never be called by the GameController.
     }
 
     @Override
     public void askNickname() {
+        // TODO use to re-ask a nickname if it is not unique.
     }
 
     @Override
     public void askMovingWorker(List<Position> positionList) {
-        clientHandler.sendMessage(new PositionMessage(Game.serverNickname, MessageType.PICK_MOVING_WORKER, positionList));
+        clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.PICK_MOVING_WORKER, positionList));
     }
 
     @Override
     public void askMove(List<Position> positionList) {
-        clientHandler.sendMessage(new PositionMessage(Game.serverNickname, MessageType.MOVE, positionList));
+        clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.MOVE, positionList));
     }
 
     @Override
@@ -54,23 +58,23 @@ public class VirtualView extends View implements Observer {
 
     @Override
     public void askInitWorkerColor(List<Color> colors) {
-        clientHandler.sendMessage(new ColorsMessage(Game.serverNickname, colors));
+        clientHandler.sendMessage(new ColorsMessage(Game.SERVER_NICKNAME, colors));
     }
 
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
-        clientHandler.sendMessage(new PositionMessage(Game.serverNickname, MessageType.INIT_WORKERSPOSITIONS, positions));
+        clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.INIT_WORKERSPOSITIONS, positions));
     }
 
     @Override
     public void askGod(List<ReducedGod> gods, int request) {
-        clientHandler.sendMessage(new GodListMessage(Game.serverNickname, gods, request));
+        clientHandler.sendMessage(new GodListMessage(Game.SERVER_NICKNAME, gods, request));
     }
 
 
     @Override
     public void askNewBuildingPosition(List<Position> positions) {
-        clientHandler.sendMessage(new PositionMessage(Game.serverNickname, MessageType.BUILD, positions));
+        clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.BUILD, positions));
     }
 
     @Override
@@ -85,12 +89,12 @@ public class VirtualView extends View implements Observer {
 
     @Override
     public void showError(String error) {
-        clientHandler.sendMessage(new ErrorMessage(Game.serverNickname, error));
+        clientHandler.sendMessage(new ErrorMessage(Game.SERVER_NICKNAME, error));
     }
 
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
-        clientHandler.sendMessage(new BoardMessage(Game.serverNickname, MessageType.BOARD, spaces));
+        clientHandler.sendMessage(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, spaces));
     }
 
 

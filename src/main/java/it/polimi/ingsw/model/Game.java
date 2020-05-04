@@ -20,12 +20,13 @@ public class Game extends Observable {
     private static Game instance;
 
     public static final int MAX_PLAYERS = 3;
-    public static final String serverNickname = "server";
-    private int chosenPlayersNumber;
+    public static final String SERVER_NICKNAME = "server";
+
 
     private Board board;
     private List<Player> players;
     private List<God> gods;
+    private int chosenPlayersNumber;
 
     private Game() {
         this.board = new Board();
@@ -167,17 +168,17 @@ public class Game extends Observable {
 
     public void initWorkersOnBoard(List<Worker> workers) {
         board.initWorkers(workers);
-        notifyObserver(new BoardMessage(Game.serverNickname, MessageType.BOARD, board.getReducedSpaceBoard()));
+        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, board.getReducedSpaceBoard()));
     }
 
     public void moveWorker(Worker worker, Position dest) {
         board.moveWorker(worker, dest);
-        notifyObserver(new BoardMessage(Game.serverNickname, MessageType.BOARD, board.getReducedSpaceBoard()));
+        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, board.getReducedSpaceBoard()));
     }
 
     public void buildBlock(Worker worker, Position dest) {
         board.buildBlock(worker, dest);
-        notifyObserver(new BoardMessage(Game.serverNickname, MessageType.BOARD, board.getReducedSpaceBoard()));
+        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, board.getReducedSpaceBoard()));
     }
 
     public ReducedSpace[][] getReducedSpaceBoard() {

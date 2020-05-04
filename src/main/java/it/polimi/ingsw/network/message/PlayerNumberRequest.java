@@ -7,7 +7,7 @@ public class PlayerNumberRequest extends Message {
     private static final long serialVersionUID = -2155556142315548857L;
 
     public PlayerNumberRequest() {
-        super(Game.serverNickname, MessageType.PLAYERNUMBER_REQUEST);
+        super(Game.SERVER_NICKNAME, MessageType.PLAYERNUMBER_REQUEST);
     }
 }
 

@@ -219,7 +219,7 @@ public class GameController implements Observer {
             game.getPlayerByNickname(receivedMessage.getNickname()).setGod(god);
             availableGods.remove(receivedMessage.getGodList().get(0));
 
-            if (!(availableGods.size() == 0)) {
+            if (!availableGods.isEmpty()) {
                 askGodToNextPlayer();
             } else {
                 // the last one who pick his god is the first one player of every round.
@@ -342,7 +342,7 @@ public class GameController implements Observer {
             virtualViews.put(nickname, virtualView);
             game.addObserver(virtualView);
         } else {
-            virtualView.showLoginResult(true, false, Game.serverNickname);
+            virtualView.showLoginResult(true, false, Game.SERVER_NICKNAME);
         }
     }
 

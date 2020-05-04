@@ -111,7 +111,7 @@ public class InputController {
         VirtualView virtualView = virtualViews.get(message.getNickname());
         String nickname = message.getNickname();
 
-        if (nickname.toLowerCase().equals(Game.serverNickname)) {
+        if (nickname.toLowerCase().equals(Game.SERVER_NICKNAME)) {
             virtualView.showGenericMessage("Forbidden name.");
             virtualView.showLoginResult(false, true, null);
             return false;

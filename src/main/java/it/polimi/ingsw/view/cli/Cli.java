@@ -259,10 +259,8 @@ public class Cli extends View {
                     if (position_isNotValid(chosenRow, chosenColumn, positionList))
                         out.println("You have inserted an invalid position! Please try again!");
                 } while (position_isNotValid(chosenRow, chosenColumn, positionList));
-                int finalChosenRow = chosenRow;
-                int finalChosenColumn = chosenColumn;
-                Position pst_worker = new Position(chosenRow, chosenColumn);
-                notifyObserver((ViewObserver obs) -> obs.onUpdatePickMovingWorker(pst_worker));
+                Position pos = new Position(chosenRow, chosenColumn);
+                notifyObserver((ViewObserver obs) -> obs.onUpdatePickMovingWorker(pos));
                 break;
             } catch (NumberFormatException e) {
                 out.println("You have not inserted an integer number! Please try again!");
@@ -300,8 +298,6 @@ public class Cli extends View {
                         if (position_isNotValid(chosenRow, chosenColumn, positionList))
                             out.println("You have inserted an invalid position! Please try again!");
                     } while (position_isNotValid(chosenRow, chosenColumn, positionList));
-                    int finalChosenRow = chosenRow;
-                    int finalChosenColumn = chosenColumn;
                     Position dest = new Position(chosenRow, chosenColumn);
                     notifyObserver((ViewObserver obs) -> obs.onUpdateMove(dest));
                     break;
@@ -396,8 +392,7 @@ public class Cli extends View {
      */
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
-
-        // TODO CLEAR TERMINAL
+        clearCli();
 
         out.print(printUpperIndexes());
         String strBoard = "";

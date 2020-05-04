@@ -38,16 +38,17 @@ public class GodParser {
      */
     public static List<God> parseGods() {
         List<God> gods = new ArrayList<>();
-
-        File file = new File(GodParser.class.getClassLoader().getResource(FILE_PATH).getFile());
-
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
         DocumentBuilder db = null;
         Document doc = null;
 
+        File file = new File(GodParser.class.getClassLoader().getResource(FILE_PATH).getFile());
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
         try {
+            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
             db = dbf.newDocumentBuilder();
             dbf.setValidating(false);
             doc = db.parse(file);

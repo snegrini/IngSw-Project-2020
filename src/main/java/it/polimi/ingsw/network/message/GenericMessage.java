@@ -9,7 +9,7 @@ public class GenericMessage extends Message {
 
 
     public GenericMessage(String message) {
-        super(Game.serverNickname, MessageType.GENERIC_MESSAGE);
+        super(Game.SERVER_NICKNAME, MessageType.GENERIC_MESSAGE);
         this.message = message;
     }
 
