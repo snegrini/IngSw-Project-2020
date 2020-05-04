@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.model.enumerations.XMLName;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.EffectApplyMessage;
+import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.observer.Observable;
 
 import java.util.HashMap;
@@ -25,9 +27,17 @@ public abstract class Effect extends Observable {
     /**
      * Applies the effect to the argument worker.
      *
-     * @param worker the workers to whose apply the effect.
+     * @param message the message that contains all the settings
+     *                needed to apply the effect.
      */
-    public abstract void apply(Worker worker);
+    public abstract void apply(EffectApplyMessage message);
+
+    /**
+     * Prepare the argument worker in order to apply the effect.
+     *
+     * @param worker the worker to prepare.
+     */
+    public abstract void prepare(Worker worker);
 
     /**
      * Checks the necessary conditions for the effect to be applied.

@@ -17,16 +17,12 @@ public class Worker {
     private Color color;
     private Position position;
     private MoveHistory moveHistory;
-    private int moveTokens;
-    private int buildTokens;
     private Set<MoveType> lockedMovements;
 
     public Worker(Position position) {
         this.position = position;
         this.moveHistory = new MoveHistory(position, 0);
         this.lockedMovements = new HashSet<>();
-        this.moveTokens = 1;
-        this.buildTokens = 1;
     }
 
     public Worker(Color color) {
@@ -195,19 +191,4 @@ public class Worker {
         this.color = color;
     }
 
-    public int getMoveTokens() {
-        return moveTokens;
-    }
-
-    public void setMoveTokens(int moveTokens) {
-        this.moveTokens = moveTokens;
-    }
-
-    public int getBuildTokens() {
-        return buildTokens;
-    }
-
-    public void setBuildTokens(int buildTokens) {
-        this.buildTokens = buildTokens;
-    }
 }

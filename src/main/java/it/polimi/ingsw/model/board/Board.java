@@ -173,14 +173,13 @@ public class Board {
      * @param orig the starting position.
      * @param dest the destination position.
      * @return the MoveType needed to perform the move from the first position argument to
-     * the second position argument. Returns {@code null} if the arguments are not neighbours.
+     * the second position argument. Returns {@code null} if the arguments are not neighbours or if
+     * the origin position is the same as the destination.
      */
     public MoveType getMoveTypeByLevel(Position orig, Position dest) {
         // Check if the arguments are neighbours.
-        if (!getNeighbours(orig).contains(dest)) {
+        if (!getNeighbours(orig).contains(dest) || orig.equals(dest)) {
             return null;
-        } else if (orig.equals(dest)) {
-            return MoveType.NONE;
         }
 
         int lvlOrig = getSpace(orig).getLevel();

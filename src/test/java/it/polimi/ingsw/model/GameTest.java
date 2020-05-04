@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.board.Space;
+import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.GameState;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Player;
@@ -162,34 +163,72 @@ public class GameTest {
 
     @Test
     public void getReducedSpaceBoard() {
+        ReducedSpace[][] s1 = instance.getReducedSpaceBoard();
+
+        for (int i = 0; i < Board.MAX_ROWS; i++) {
+            for (int j = 0; j < Board.MAX_COLUMNS; j++) {
+                assertNotNull(s1[i][j]);
+            }
+        }
     }
 
     @Test
     public void getFreePositions() {
-
+        List<Position> expected = new ArrayList<>();
+        for (int i = 0; i < Board.MAX_ROWS; i++) {
+            for (int j = 0; j < Board.MAX_COLUMNS; j++) {
+                expected.add(new Position(i, j));
+            }
+        }
+        assertEquals(expected, instance.getFreePositions());
     }
 
     @Test
     public void arePositionsFree() {
-
+        List<Position> positionList = List.of(new Position(0, 0), new Position(0, 1));
+        assertTrue(instance.arePositionsFree(positionList));
     }
 
     @Test
     public void getNextSpaceInLine() {
+        Position orig = new Position(2, 2);
+        Position dest = new Position(1, 1);
+        Space target = instance.getNextSpaceInLine(orig, dest);
 
+        assertEquals(instance.getBoard().getSpace(0, 0), target);
     }
 
     @Test
     public void getNeighbours() {
+        List<Position> expectedPositions = new ArrayList<>();
+        expectedPositions.add(new Position(3, 3));
+        expectedPositions.add(new Position(3, 4));
+        expectedPositions.add(new Position(4, 3));
 
+        assertEquals(expectedPositions, instance.getNeighbours(new Position(4, 4)));
     }
 
     @Test
     public void getNeighbourWorkers() {
+        Worker w1 = new Worker(new Position(0, 0));
+        Worker w2 = new Worker(new Position(3, 4));
+        w1.setColor(Color.BLUE);
+        w2.setColor(Color.RED);
+
+        instance.getBoard().getSpace(0, 0).setWorker(w1);
+        instance.getBoard().getSpace(3, 4).setWorker(w2);
+
+        assertEquals(List.of(), instance.getNeighbourWorkers(w1.getPosition(), false));
+
     }
 
     @Test
-    public void getMoveTypeByLevel() {
+    public void getMoveTypeByLevel_LevelUp() {
+        Position p1 = new Position(0, 0);
+        Position p2 = new Position(0, 1);
+        instance.getBoard().getSpace(p2).increaseLevel(1);
+
+        assertEquals(MoveType.UP, instance.getMoveTypeByLevel(p1, p2));
     }
 
 

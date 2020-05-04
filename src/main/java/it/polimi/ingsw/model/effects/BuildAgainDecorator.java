@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.EffectApplyMessage;
+import it.polimi.ingsw.network.message.Message;
 
 import java.util.Map;
 
@@ -12,8 +14,13 @@ public class BuildAgainDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(Worker worker) {
-        effect.apply(worker);
+    public void apply(EffectApplyMessage message) {
+        effect.apply(message);
+    }
+
+    @Override
+    public void prepare(Worker worker) {
+        effect.prepare(worker);
     }
 
     @Override

@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.EffectApplyMessage;
+import it.polimi.ingsw.network.message.Message;
 
 import java.util.List;
 import java.util.Map;
@@ -22,12 +24,16 @@ public class MoveOverDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(Worker worker) {
-        effect.apply(worker);
+    public void apply(EffectApplyMessage message) {
+        effect.apply(message);
 
         // TODO return list of possibleMoves or at least notify the it.polimi.ingsw.controller in any way.
     }
 
+    @Override
+    public void prepare(Worker worker) {
+        effect.prepare(worker);
+    }
 
     @Override
     public boolean require(Worker worker) {

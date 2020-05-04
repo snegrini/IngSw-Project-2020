@@ -1,8 +1,12 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.EffectApplyMessage;
+import it.polimi.ingsw.network.message.Message;
 
+import java.util.List;
 import java.util.Map;
 
 public class MoveLockDecorator extends EffectDecorator {
@@ -16,12 +20,17 @@ public class MoveLockDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(Worker activeWorker) {
-        // TODO retrieve enemy workers from the game
-        /*Game.getInstance().getBoard().
-        for (Worker w : workers) {
+    public void apply(EffectApplyMessage message) {
+        /*List<Worker> enemyWorkers = Game.getInstance().getEnemyWorkers(message.getWorker());
+        for (Worker w : enemyWorkers) {
             w.addLockedMovement(moveType);
-        }*/
+        }
+        effect.apply(message);*/
+    }
+
+    @Override
+    public void prepare(Worker worker) {
+        effect.prepare(worker);
     }
 
     @Override

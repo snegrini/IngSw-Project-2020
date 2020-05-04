@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.EffectApplyMessage;
+import it.polimi.ingsw.network.message.Message;
 
 import java.util.Map;
 
@@ -12,8 +14,13 @@ public class WinDownDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(Worker worker) {
+    public void apply(EffectApplyMessage message) {
         // TODO
+    }
+
+    @Override
+    public void prepare(Worker worker) {
+        effect.prepare(worker);
     }
 
     @Override

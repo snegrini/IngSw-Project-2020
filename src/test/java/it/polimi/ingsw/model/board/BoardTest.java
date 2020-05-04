@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.enumerations.Color;
+import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Worker;
 import org.junit.After;
 import org.junit.Assert;
@@ -227,5 +228,45 @@ public class BoardTest {
                 assertFalse(reducedSpaces[i][j].hasDome());
             }
         }
+    }
+
+    @Test
+    public void getMoveTypeByLevel_PositionsNotNeighbours() {
+        Position p1 = new Position(0, 0);
+        Position p2 = new Position(3, 2);
+        assertNull(board.getMoveTypeByLevel(p1, p2));
+    }
+
+
+    @Test
+    public void getMoveTypeByLevel_PositionNotChanged() {
+        Position p1 = new Position(0, 0);
+        assertNull(board.getMoveTypeByLevel(p1, p1));
+    }
+
+    @Test
+    public void getMoveTypeByLevel_LevelUp() {
+        Position p1 = new Position(0, 0);
+        Position p2 = new Position(0, 1);
+        board.getSpace(p2).increaseLevel(1);
+
+        assertEquals(MoveType.UP, board.getMoveTypeByLevel(p1, p2));
+    }
+
+    @Test
+    public void getMoveTypeByLevel_LevelDown() {
+        Position p1 = new Position(0, 0);
+        Position p2 = new Position(0, 1);
+        board.getSpace(p1).increaseLevel(1);
+
+        assertEquals(MoveType.DOWN, board.getMoveTypeByLevel(p1, p2));
+    }
+
+    @Test
+    public void getMoveTypeByLevel_SameLevel() {
+        Position p1 = new Position(0, 0);
+        Position p2 = new Position(0, 1);
+
+        assertEquals(MoveType.FLAT, board.getMoveTypeByLevel(p1, p2));
     }
 }

@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.EffectApplyMessage;
+import it.polimi.ingsw.network.message.Message;
 
 public class MoveAgainDecorator extends EffectDecorator {
 
@@ -15,8 +17,13 @@ public class MoveAgainDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(Worker worker) {
-        effect.apply(worker);
+    public void apply(EffectApplyMessage message) {
+        effect.apply(message);
+    }
+
+    @Override
+    public void prepare(Worker worker) {
+        effect.prepare(worker);
 
         if (!goBack) {
             worker.addLockedMovement(MoveType.BACK);

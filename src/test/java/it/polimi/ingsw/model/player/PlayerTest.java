@@ -3,12 +3,14 @@ package it.polimi.ingsw.model.player;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.effects.SimpleEffect;
+import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.model.enumerations.PlayerState;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,6 +65,16 @@ public class PlayerTest {
     public void setState() {
         player.setState(PlayerState.BUILD);
         assertEquals(PlayerState.BUILD, player.getState());
+    }
+
+    @Test
+    public void initWorkers_getWorkersPositions() {
+        player.addWorker(new Worker(Color.BLUE));
+        player.addWorker(new Worker(Color.BLUE));
+
+        List<Position> positionList = List.of(new Position(0, 0), new Position(2, 4));
+        player.initWorkers(positionList);
+        assertEquals(positionList, player.getWorkersPositions());
     }
 
     @Test

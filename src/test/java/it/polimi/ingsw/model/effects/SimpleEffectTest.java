@@ -3,6 +3,8 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.EffectApplyMessage;
+import it.polimi.ingsw.network.message.Message;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +26,7 @@ public class SimpleEffectTest {
 
     @Test
     public void apply_doNothing() {
-        Worker worker = new Worker(Color.BLUE);
-        simpleEffect.apply(worker);
+        simpleEffect.apply(new EffectApplyMessage(null, null));
     }
 
     @Test
