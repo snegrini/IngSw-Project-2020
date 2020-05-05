@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.EffectApplyMessage;
-import it.polimi.ingsw.network.message.Message;
 
 public class SimpleEffect extends Effect {
 
@@ -13,7 +12,7 @@ public class SimpleEffect extends Effect {
 
 
     @Override
-    public void apply(EffectApplyMessage message) {
+    public void apply(Worker activeWorker, Position position) {
         // DO NOTHING.
     }
 
@@ -26,4 +25,10 @@ public class SimpleEffect extends Effect {
     public boolean require(Worker worker) {
         return true;
     }
+
+    @Override
+    public void clear(Worker worker) {
+        // DO NOTHING.
+    }
+
 }

@@ -231,5 +231,27 @@ public class GameTest {
         assertEquals(MoveType.UP, instance.getMoveTypeByLevel(p1, p2));
     }
 
+    @Test
+    public void getEnemyWorkers() {
+        Player p1 = new Player("mario");
+        Player p2 = new Player("luigi");
 
+        Worker w1 = new Worker(Color.RED);
+        Worker w2 = new Worker(Color.RED);
+        p1.addWorker(w1);
+        p1.addWorker(w2);
+        p1.initWorkers(List.of(new Position(3, 3), new Position(3, 1)));
+
+        Worker w3 = new Worker(Color.BLUE);
+        Worker w4 = new Worker(Color.BLUE);
+        p2.addWorker(w3);
+        p2.addWorker(w4);
+        p2.initWorkers(List.of(new Position(0, 0), new Position(1, 1)));
+
+        instance.getBoard().initWorkers(List.of(w1, w2, w3, w4));
+
+        instance.addPlayer(p1);
+        instance.addPlayer(p2);
+        assertEquals(List.of(w3, w4), instance.getEnemyWorkers(w1));
+    }
 }

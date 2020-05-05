@@ -1,15 +1,15 @@
 package it.polimi.ingsw.model.effects;
 
 
+import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.model.enumerations.XMLName;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.EffectApplyMessage;
-import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.observer.Observable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,12 +25,12 @@ public abstract class Effect extends Observable {
     }
 
     /**
-     * Applies the effect to the argument worker.
+     * Applies the effect to the argument worker using the position argument.
      *
-     * @param message the message that contains all the settings
-     *                needed to apply the effect.
+     * @param activeWorker the active worker.
+     * @param position     the Position to apply the effect.
      */
-    public abstract void apply(EffectApplyMessage message);
+    public abstract void apply(Worker activeWorker, Position position);
 
     /**
      * Prepare the argument worker in order to apply the effect.
@@ -46,6 +46,13 @@ public abstract class Effect extends Observable {
      * @return {@code true} if the conditions are satisfied, {@code false} otherwise.
      */
     public abstract boolean require(Worker worker);
+
+    /**
+     * Clear the effect buffs or debuffs applied during the apply() method.
+     *
+     * @param worker the current worker.
+     */
+    public abstract void clear(Worker worker);
 
     public EffectType getEffectType() {
         return effectType;

@@ -14,6 +14,7 @@ import it.polimi.ingsw.observer.Observable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Game extends Observable {
 
@@ -209,8 +210,25 @@ public class Game extends Observable {
         return board.getMoveTypeByLevel(orig, dest);
     }
 
-
     public int getSpaceLevel(Position position) {
         return board.getSpace(position).getLevel();
+    }
+
+    /**
+     * Returns the enemy workers given a worker.
+     *
+     * @param worker the target worker.
+     * @return a List of Worker that are enemies of the argument.
+     */
+    public List<Worker> getEnemyWorkers(Worker worker) {
+        List<Worker> allWorkers = new ArrayList<>();
+        for (Player player : players) {
+            for (Position position : player.getWorkersPositions()) {
+                allWorkers.add(board.getWorkerByPosition(position));
+            }
+        }
+        return allWorkers.stream()
+                .filter(w -> !w.getColor().equals(worker.getColor()))
+                .collect(Collectors.toList());
     }
 }

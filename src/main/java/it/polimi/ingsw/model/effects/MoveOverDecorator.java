@@ -5,8 +5,6 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.EffectApplyMessage;
-import it.polimi.ingsw.network.message.Message;
 
 import java.util.List;
 import java.util.Map;
@@ -24,29 +22,44 @@ public class MoveOverDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(EffectApplyMessage message) {
-        effect.apply(message);
+    public void apply(Worker activeWorker, Position position) {
+        effect.apply(activeWorker, position);
 
-        // TODO return list of possibleMoves or at least notify the it.polimi.ingsw.controller in any way.
+        Board board = Game.getInstance().getBoard();
+        Position activeWorkerPosition = activeWorker.getPosition();
+
+        if (swapSpace) {
+            Worker enemyWorker = board.getSpace(position).getWorker();
+            board.getSpace(position).setWorker(enemyWorker);
+            if (enemyWorker != null) {
+                enemyWorker.move(activeWorkerPosition);
+            }
+            activeWorker.move(position);
+        }
+        if (pushBack) {
+            Worker enemyWorker = board.getSpace(position).getWorker();
+            board.getSpace(position).setWorker(enemyWorker);
+            if (enemyWorker != null) {
+                enemyWorker.move(activeWorkerPosition);
+            }
+            activeWorker.move(position);
+        }
     }
 
     @Override
     public void prepare(Worker worker) {
         effect.prepare(worker);
-    }
 
-    @Override
-    public boolean require(Worker worker) {
         List<Position> possibleMoves = worker.getPossibleMoves();
 
         Board board = Game.getInstance().getBoard();
         List<Position> adjOpponentPos = board.getNeighbourWorkers(worker.getPosition(), true);
 
-        if (pushBack) {
+        if (swapSpace) {
             possibleMoves.addAll(adjOpponentPos);
         }
 
-        if (swapSpace) {
+        if (pushBack) {
             for (Position oppPos : adjOpponentPos) {
                 Space space = board.getNextSpaceInLine(worker.getPosition(), oppPos);
                 if (space.isFree()) {
@@ -54,7 +67,16 @@ public class MoveOverDecorator extends EffectDecorator {
                 }
             }
         }
+        // TODO notifyObserver(); with a message
+    }
 
+    @Override
+    public boolean require(Worker worker) {
         return effect.require(worker);
+    }
+
+    @Override
+    public void clear(Worker worker) {
+        effect.clear(worker);
     }
 }

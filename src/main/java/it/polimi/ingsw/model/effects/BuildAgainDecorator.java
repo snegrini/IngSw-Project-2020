@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.EffectApplyMessage;
-import it.polimi.ingsw.network.message.Message;
 
 import java.util.Map;
 
@@ -14,8 +13,8 @@ public class BuildAgainDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(EffectApplyMessage message) {
-        effect.apply(message);
+    public void apply(Worker activeWorker, Position position) {
+        effect.apply(activeWorker, position);
     }
 
     @Override
@@ -24,8 +23,15 @@ public class BuildAgainDecorator extends EffectDecorator {
     }
 
     @Override
+    public void clear(Worker worker) {
+        effect.clear(worker);
+    }
+
+    @Override
     public boolean require(Worker worker) {
         // TODO
         return effect.require(worker);
     }
+
+
 }

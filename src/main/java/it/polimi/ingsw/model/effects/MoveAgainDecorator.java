@@ -1,9 +1,13 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.EffectApplyMessage;
-import it.polimi.ingsw.network.message.Message;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MoveAgainDecorator extends EffectDecorator {
 
@@ -17,8 +21,8 @@ public class MoveAgainDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(EffectApplyMessage message) {
-        effect.apply(message);
+    public void apply(Worker activeWorker, Position position) {
+        effect.apply(activeWorker, position);
     }
 
     @Override
@@ -26,12 +30,19 @@ public class MoveAgainDecorator extends EffectDecorator {
         effect.prepare(worker);
 
         if (!goBack) {
-            worker.addLockedMovement(MoveType.BACK);
+            List<Position> possibleMoves = worker.getPossibleMoves();
+            possibleMoves.removeIf(pos -> pos.equals(worker.getMoveHistory().getLastPosition()));
         }
+        // TODO notifyObserver()
     }
 
     @Override
     public boolean require(Worker worker) {
         return effect.require(worker);
+    }
+
+    @Override
+    public void clear(Worker worker) {
+        effect.clear(worker);
     }
 }

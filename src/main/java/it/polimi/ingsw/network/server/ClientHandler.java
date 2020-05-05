@@ -3,12 +3,14 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.network.message.Message;
 
 /**
- * EInterface to handle clients. very type of connection must implement this interface.
+ * Interface to handle clients. Every type of connection must implement this interface.
  */
 public interface ClientHandler {
 
     /**
-     * @return the connection status
+     * Returns the connection status.
+     *
+     * @return {@code true} if the client is still connected and reachable, {@code false} otherwise.
      */
     boolean isConnected();
 

@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.EffectApplyMessage;
-import it.polimi.ingsw.network.message.Message;
 
 import java.util.Map;
 
@@ -14,7 +13,7 @@ public class WinDownDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(EffectApplyMessage message) {
+    public void apply(Worker activeWorker, Position position) {
         // TODO
     }
 
@@ -29,4 +28,8 @@ public class WinDownDecorator extends EffectDecorator {
         return effect.require(worker);
     }
 
+    @Override
+    public void clear(Worker worker) {
+        effect.clear(worker);
+    }
 }

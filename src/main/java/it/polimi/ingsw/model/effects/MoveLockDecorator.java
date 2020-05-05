@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.EffectApplyMessage;
-import it.polimi.ingsw.network.message.Message;
 
 import java.util.List;
 import java.util.Map;
@@ -20,12 +19,14 @@ public class MoveLockDecorator extends EffectDecorator {
     }
 
     @Override
-    public void apply(EffectApplyMessage message) {
-        /*List<Worker> enemyWorkers = Game.getInstance().getEnemyWorkers(message.getWorker());
+    public void apply(Worker activeWorker, Position position) {
+        effect.apply(activeWorker, position);
+        enabled = 2;
+
+        List<Worker> enemyWorkers = Game.getInstance().getEnemyWorkers(activeWorker);
         for (Worker w : enemyWorkers) {
             w.addLockedMovement(moveType);
         }
-        effect.apply(message);*/
     }
 
     @Override
@@ -41,4 +42,18 @@ public class MoveLockDecorator extends EffectDecorator {
         return false;
     }
 
+    @Override
+    public void clear(Worker worker) {
+        effect.clear(worker);
+
+        if (enabled == 2) {
+            enabled--;
+        } else if (enabled == 1) {
+            List<Worker> enemyWorkers = Game.getInstance().getEnemyWorkers(worker);
+            for (Worker w : enemyWorkers) {
+                w.removeLockedMovement(moveType);
+            }
+            enabled--;
+        }
+    }
 }

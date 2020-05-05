@@ -356,7 +356,7 @@ public class Cli extends View {
             askNickname();
         } else {
             out.println("Could not contact server.");
-            out.println("\nPress any key to exit.");
+            out.println("\nPress ENTER to exit.");
             scanner.nextLine();
             System.exit(1);
         }
@@ -370,7 +370,7 @@ public class Cli extends View {
      */
     @Override
     public void showGenericMessage(String genericMessage) {
-        out.println("Message From Server: " + genericMessage);
+        out.println("\nMessage From Server: " + genericMessage);
     }
 
     /**
