@@ -953,7 +953,7 @@
 											"top": 564,
 											"width": 270.64501953125,
 											"height": 13,
-											"text": "-moveHistory: MoveHistory",
+											"text": "-history: MoveHistory",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11517,7 +11517,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFw/VALqkX6RvM="
 							},
-							"name": "moveHistory",
+							"name": "history",
 							"visibility": "private",
 							"type": "MoveHistory"
 						},

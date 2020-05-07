@@ -87,7 +87,7 @@
                 </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
-                    <build again="true" quantity="1" samespace="true" dome="false"/>
+                    <build again="true" quantity="1" forcesamespace="true" dome="false"/>
                 </parameters>
             </effect>
         </effects>

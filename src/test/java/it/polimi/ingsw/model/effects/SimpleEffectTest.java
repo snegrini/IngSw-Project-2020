@@ -18,6 +18,7 @@ public class SimpleEffectTest {
 
     @After
     public void tearDown() throws Exception {
+        simpleEffect = null;
     }
 
     @Test

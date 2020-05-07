@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.MoveType;
-import it.polimi.ingsw.model.player.MoveHistory;
+import it.polimi.ingsw.model.player.History;
 import it.polimi.ingsw.model.player.Worker;
 
 import java.util.ArrayList;
@@ -201,7 +201,7 @@ public class Board {
      * @param dest   the destination position.
      * @return the MoveType needed to perform the move from the first position argument to
      * the second position argument. Returns {@code null} if the arguments are not neighbours.
-     * @see MoveHistory , {@code false} otherwise.
+     * @see History , {@code false} otherwise.
      */
     public boolean isMovingBack(Worker worker, Position dest) {
         Position orig = worker.getPosition();
@@ -211,7 +211,7 @@ public class Board {
             return false;
         }
 
-        Position lastPosition = worker.getMoveHistory().getLastPosition();
+        Position lastPosition = worker.getHistory().getMovePosition();
 
         return dest.equals(lastPosition);
     }
@@ -251,6 +251,7 @@ public class Board {
 
     public void buildBlock(Worker worker, Position dest) {
         Space space = getSpace(dest);
-        worker.build(space);
+        worker.build(space, dest);
+
     }
 }

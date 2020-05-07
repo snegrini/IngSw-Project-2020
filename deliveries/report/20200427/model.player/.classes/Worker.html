@@ -81,26 +81,26 @@
 <i>7</i>&nbsp;import model.enumerations.Color;
 <i>8</i>&nbsp;import model.enumerations.MoveType;
 <i>9</i>&nbsp;
-<i>10</i>&nbsp;import java.util.HashSet;
-<i>11</i>&nbsp;import java.util.List;
-<i>12</i>&nbsp;import java.util.Set;
-<i>13</i>&nbsp;import java.util.stream.Collectors;
-<i>14</i>&nbsp;
-<i>15</i>&nbsp;public class Worker {
-<i>16</i>&nbsp;
-<i>17</i>&nbsp;    private Color color;
-<i>18</i>&nbsp;    private Position position;
-<i>19</i>&nbsp;    private MoveHistory moveHistory;
-<i>20</i>&nbsp;    private Set&lt;MoveType&gt; lockedMovements;
-<i>21</i>&nbsp;
-<b class="fc"><i>22</i>&nbsp;    public Worker(Position position) {</b>
-<i>23</i>&nbsp;
-<b class="fc"><i>24</i>&nbsp;        this.position = position;</b>
-<b class="fc"><i>25</i>&nbsp;        this.moveHistory = new MoveHistory(position, 0);</b>
-<b class="fc"><i>26</i>&nbsp;        this.lockedMovements = new HashSet&lt;&gt;();</b>
-<b class="fc"><i>27</i>&nbsp;    }</b>
-<i>28</i>&nbsp;
-<i>29</i>&nbsp;    /**
+    <i>10</i>&nbsp;import java.util.HashSet;
+    <i>11</i>&nbsp;import java.util.List;
+    <i>12</i>&nbsp;import java.util.Set;
+    <i>13</i>&nbsp;import java.util.stream.Collectors;
+    <i>14</i>&nbsp;
+    <i>15</i>&nbsp;public class Worker {
+    <i>16</i>&nbsp;
+    <i>17</i>&nbsp; private Color color;
+    <i>18</i>&nbsp; private Position position;
+    <i>19</i>&nbsp; private MoveHistory history;
+    <i>20</i>&nbsp; private Set&lt;MoveType&gt; lockedMovements;
+    <i>21</i>&nbsp;
+    <b class="fc"><i>22</i>&nbsp; public Worker(Position position) {</b>
+    <i>23</i>&nbsp;
+    <b class="fc"><i>24</i>&nbsp; this.position = position;</b>
+    <b class="fc"><i>25</i>&nbsp; this.history = new MoveHistory(position, 0);</b>
+    <b class="fc"><i>26</i>&nbsp; this.lockedMovements = new HashSet&lt;&gt;();</b>
+    <b class="fc"><i>27</i>&nbsp; }</b>
+    <i>28</i>&nbsp;
+    <i>29</i>&nbsp; /**
 <i>30</i>&nbsp;     * Builds a single block over the {@code Space} at the given position.
 <i>31</i>&nbsp;     *
 <i>32</i>&nbsp;     * @param position the position of the {@code Space} where to build.
@@ -157,62 +157,62 @@
 <i>83</i>&nbsp;     */
 <i>84</i>&nbsp;    public int getLevel() {
 <b class="fc"><i>85</i>&nbsp;        Board board = Game.getInstance().getBoard();</b>
-<b class="fc"><i>86</i>&nbsp;        return board.getSpace(position).getLevel();</b>
-<i>87</i>&nbsp;    }
-<i>88</i>&nbsp;
-<i>89</i>&nbsp;    /**
-<i>90</i>&nbsp;     * Returns {@code true} if the worker has moved up by one level, {@code false} otherwise.
-<i>91</i>&nbsp;     * This methods compares the last saved position of the worker with the argument one.
-<i>92</i>&nbsp;     *
-<i>93</i>&nbsp;     * @return {@code true} if the worker has moved up by one level, {@code false} otherwise.
-<i>94</i>&nbsp;     */
-<i>95</i>&nbsp;    public boolean hasMovedUp() {
-<b class="fc"><i>96</i>&nbsp;        return !position.equals(moveHistory.getLastPosition()) &amp;&amp;</b>
-<b class="fc"><i>97</i>&nbsp;                getLevel() == moveHistory.getLastLevel() + 1;</b>
-<i>98</i>&nbsp;    }
-<i>99</i>&nbsp;
-<i>100</i>&nbsp;    /**
-<i>101</i>&nbsp;     * Returns {@code true} if the worker has moved down by one or more levels, {@code false} otherwise.
-<i>102</i>&nbsp;     * This methods compares the last saved position of the worker with the argument one.
-<i>103</i>&nbsp;     *
-<i>104</i>&nbsp;     * @return {@code true} if the worker has moved down by one or more levels, {@code false} otherwise.
-<i>105</i>&nbsp;     */
-<i>106</i>&nbsp;    public boolean hasMovedDown() {
-<b class="fc"><i>107</i>&nbsp;        return !position.equals(moveHistory.getLastPosition()) &amp;&amp;</b>
-<b class="fc"><i>108</i>&nbsp;                getLevel() &lt; moveHistory.getLastLevel();</b>
-<i>109</i>&nbsp;    }
-<i>110</i>&nbsp;
-<i>111</i>&nbsp;    /**
-<i>112</i>&nbsp;     * Returns {@code true} if the worker has moved flat, {@code false} otherwise.
-<i>113</i>&nbsp;     * A move is considered to be &quot;flat&quot; if the level has not changed.
-<i>114</i>&nbsp;     * This methods compares the last saved position of the worker with the argument one.
-<i>115</i>&nbsp;     *
-<i>116</i>&nbsp;     * @return {@code true} if the worker has moved flat, {@code false} otherwise.
-<i>117</i>&nbsp;     */
-<i>118</i>&nbsp;    public boolean hasMovedFlat() {
-<b class="fc"><i>119</i>&nbsp;        return !position.equals(moveHistory.getLastPosition()) &amp;&amp;</b>
-<b class="fc"><i>120</i>&nbsp;                getLevel() == moveHistory.getLastLevel();</b>
-<i>121</i>&nbsp;    }
-<i>122</i>&nbsp;
-<i>123</i>&nbsp;    /**
-<i>124</i>&nbsp;     * Update the worker move history.
-<i>125</i>&nbsp;     *
-<i>126</i>&nbsp;     * @param position worker&#39;s position in the previous turn
-<i>127</i>&nbsp;     * @param level    worker&#39;s level in the previous turn
-<i>128</i>&nbsp;     */
-<i>129</i>&nbsp;    private void updateMoveHistory(Position position, int level) {
-<b class="fc"><i>130</i>&nbsp;        moveHistory.setLastPosition(position);</b>
-<b class="fc"><i>131</i>&nbsp;        moveHistory.setLastLevel(level);</b>
-<b class="fc"><i>132</i>&nbsp;    }</b>
-<i>133</i>&nbsp;
-<i>134</i>&nbsp;    public Color getColor() {
-<b class="fc"><i>135</i>&nbsp;        return color;</b>
-<i>136</i>&nbsp;    }
-<i>137</i>&nbsp;
-<i>138</i>&nbsp;    public Position getPosition() {
-<b class="fc"><i>139</i>&nbsp;        return position;</b>
-<i>140</i>&nbsp;    }
-<i>141</i>&nbsp;
+    <b class="fc"><i>86</i>&nbsp; return board.getSpace(position).getLevel();</b>
+    <i>87</i>&nbsp; }
+    <i>88</i>&nbsp;
+    <i>89</i>&nbsp; /**
+    <i>90</i>&nbsp; * Returns {@code true} if the worker has moved up by one level, {@code false} otherwise.
+    <i>91</i>&nbsp; * This methods compares the last saved position of the worker with the argument one.
+    <i>92</i>&nbsp; *
+    <i>93</i>&nbsp; * @return {@code true} if the worker has moved up by one level, {@code false} otherwise.
+    <i>94</i>&nbsp; */
+    <i>95</i>&nbsp; public boolean hasMovedUp() {
+    <b class="fc"><i>96</i>&nbsp; return !position.equals(history.getLastPosition()) &amp;&amp;</b>
+    <b class="fc"><i>97</i>&nbsp; getLevel() == history.getLastLevel() + 1;</b>
+    <i>98</i>&nbsp; }
+    <i>99</i>&nbsp;
+    <i>100</i>&nbsp; /**
+    <i>101</i>&nbsp; * Returns {@code true} if the worker has moved down by one or more levels, {@code false} otherwise.
+    <i>102</i>&nbsp; * This methods compares the last saved position of the worker with the argument one.
+    <i>103</i>&nbsp; *
+    <i>104</i>&nbsp; * @return {@code true} if the worker has moved down by one or more levels, {@code false} otherwise.
+    <i>105</i>&nbsp; */
+    <i>106</i>&nbsp; public boolean hasMovedDown() {
+    <b class="fc"><i>107</i>&nbsp; return !position.equals(history.getLastPosition()) &amp;&amp;</b>
+    <b class="fc"><i>108</i>&nbsp; getLevel() &lt; history.getLastLevel();</b>
+    <i>109</i>&nbsp; }
+    <i>110</i>&nbsp;
+    <i>111</i>&nbsp; /**
+    <i>112</i>&nbsp; * Returns {@code true} if the worker has moved flat, {@code false} otherwise.
+    <i>113</i>&nbsp; * A move is considered to be &quot;flat&quot; if the level has not changed.
+    <i>114</i>&nbsp; * This methods compares the last saved position of the worker with the argument one.
+    <i>115</i>&nbsp; *
+    <i>116</i>&nbsp; * @return {@code true} if the worker has moved flat, {@code false} otherwise.
+    <i>117</i>&nbsp; */
+    <i>118</i>&nbsp; public boolean hasMovedFlat() {
+    <b class="fc"><i>119</i>&nbsp; return !position.equals(history.getLastPosition()) &amp;&amp;</b>
+    <b class="fc"><i>120</i>&nbsp; getLevel() == history.getLastLevel();</b>
+    <i>121</i>&nbsp; }
+    <i>122</i>&nbsp;
+    <i>123</i>&nbsp; /**
+    <i>124</i>&nbsp; * Update the worker move history.
+    <i>125</i>&nbsp; *
+    <i>126</i>&nbsp; * @param position worker&#39;s position in the previous turn
+    <i>127</i>&nbsp; * @param level worker&#39;s level in the previous turn
+    <i>128</i>&nbsp; */
+    <i>129</i>&nbsp; private void updateMoveHistory(Position position, int level) {
+    <b class="fc"><i>130</i>&nbsp; history.setLastPosition(position);</b>
+    <b class="fc"><i>131</i>&nbsp; history.setLastLevel(level);</b>
+    <b class="fc"><i>132</i>&nbsp; }</b>
+    <i>133</i>&nbsp;
+    <i>134</i>&nbsp; public Color getColor() {
+    <b class="fc"><i>135</i>&nbsp; return color;</b>
+    <i>136</i>&nbsp; }
+    <i>137</i>&nbsp;
+    <i>138</i>&nbsp; public Position getPosition() {
+    <b class="fc"><i>139</i>&nbsp; return position;</b>
+    <i>140</i>&nbsp; }
+    <i>141</i>&nbsp;
 <i>142</i>&nbsp;    public void setPosition(Position position) {
 <b class="fc"><i>143</i>&nbsp;        this.position = position;</b>
 <b class="fc"><i>144</i>&nbsp;    }</b>
@@ -223,7 +223,7 @@
 <i>149</i>&nbsp;     * @return a copy of {@code MoveHistory} of this worker.
 <i>150</i>&nbsp;     */
 <i>151</i>&nbsp;    public MoveHistory getMoveHistory() {
-<b class="fc"><i>152</i>&nbsp;        return new MoveHistory(this.moveHistory);</b>
+    <b class="fc"><i>152</i>&nbsp; return new MoveHistory(this.history);</b>
 <i>153</i>&nbsp;    }
 <i>154</i>&nbsp;
 <i>155</i>&nbsp;    /**

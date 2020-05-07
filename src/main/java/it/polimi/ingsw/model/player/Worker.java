@@ -16,12 +16,12 @@ public class Worker {
 
     private Color color;
     private Position position;
-    private MoveHistory moveHistory;
+    private History history;
     private Set<MoveType> lockedMovements;
 
     public Worker(Position position) {
         this.position = position;
-        this.moveHistory = new MoveHistory(position, 0);
+        this.history = new History();
         this.lockedMovements = new HashSet<>();
     }
 
@@ -32,16 +32,18 @@ public class Worker {
 
     public void initPosition(Position position) {
         this.position = position;
-        this.moveHistory = new MoveHistory(position, 0);
+        this.history = new History();
     }
 
     /**
      * Builds a single block over the {@code Space} at the given position.
      *
-     * @param space the space to build onto.
+     * @param position the space to build onto.
+     * @param position the space position to build onto.
      */
-    public void build(Space space) {
+    public void build(Space space, Position position) {
         space.increaseLevel(1);
+        updateBuildHistory(position, space.getLevel());
     }
 
     /**
@@ -107,8 +109,8 @@ public class Worker {
      * @return {@code true} if the worker has moved up by one level, {@code false} otherwise.
      */
     public boolean hasMovedUp() {
-        return !position.equals(moveHistory.getLastPosition()) &&
-                getLevel() == moveHistory.getLastLevel() + 1;
+        return !position.equals(history.getMovePosition()) &&
+                getLevel() == history.getMoveLevel() + 1;
     }
 
     /**
@@ -118,8 +120,8 @@ public class Worker {
      * @return {@code true} if the worker has moved down by one or more levels, {@code false} otherwise.
      */
     public boolean hasMovedDown() {
-        return !position.equals(moveHistory.getLastPosition()) &&
-                getLevel() < moveHistory.getLastLevel();
+        return !position.equals(history.getMovePosition()) &&
+                getLevel() < history.getMoveLevel();
     }
 
     /**
@@ -130,8 +132,8 @@ public class Worker {
      * @return {@code true} if the worker has moved flat, {@code false} otherwise.
      */
     public boolean hasMovedFlat() {
-        return !position.equals(moveHistory.getLastPosition()) &&
-                getLevel() == moveHistory.getLastLevel();
+        return !position.equals(history.getMovePosition()) &&
+                getLevel() == history.getMoveLevel();
     }
 
     /**
@@ -141,8 +143,19 @@ public class Worker {
      * @param level    worker's level in the previous turn
      */
     private void updateMoveHistory(Position position, int level) {
-        moveHistory.setLastPosition(position);
-        moveHistory.setLastLevel(level);
+        history.setMovePosition(position);
+        history.setMoveLevel(level);
+    }
+
+    /**
+     * Update the worker build history.
+     *
+     * @param position worker's build position in the previous turn
+     * @param level    worker's build level in the previous turn
+     */
+    private void updateBuildHistory(Position position, int level) {
+        history.setBuildPosition(position);
+        history.setBuildLevel(level);
     }
 
     public Color getColor() {
@@ -154,12 +167,12 @@ public class Worker {
     }
 
     /**
-     * Returns a copy of {@code MoveHistory} of this worker.
+     * Returns a copy of {@code History} of this worker.
      *
-     * @return a copy of {@code MoveHistory} of this worker.
+     * @return a copy of {@code History} of this worker.
      */
-    public MoveHistory getMoveHistory() {
-        return new MoveHistory(this.moveHistory);
+    public History getHistory() {
+        return new History(this.history);
     }
 
     /**

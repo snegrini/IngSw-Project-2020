@@ -87,31 +87,31 @@
 <i>13</i>&nbsp;public class MoveHistory {
 <i>14</i>&nbsp;
 <i>15</i>&nbsp;    private Position lastPosition;
-<i>16</i>&nbsp;    private int lastLevel;
-<i>17</i>&nbsp;
-<b class="fc"><i>18</i>&nbsp;    public MoveHistory(Position lastPosition, int lastLevel) {</b>
-<b class="fc"><i>19</i>&nbsp;        this.lastPosition = lastPosition;</b>
-<b class="fc"><i>20</i>&nbsp;        this.lastLevel = lastLevel;</b>
-<b class="fc"><i>21</i>&nbsp;    }</b>
-<i>22</i>&nbsp;
-<i>23</i>&nbsp;    /**
-<i>24</i>&nbsp;     * Copy constructor.
-<i>25</i>&nbsp;     *
-<i>26</i>&nbsp;     * @param moveHistory the {@code MoveHistory} object to be copied.
-<i>27</i>&nbsp;     */
-<b class="fc"><i>28</i>&nbsp;    public MoveHistory(MoveHistory moveHistory) {</b>
-<b class="fc"><i>29</i>&nbsp;        this.lastPosition = new Position(moveHistory.lastPosition);</b>
-<b class="fc"><i>30</i>&nbsp;        this.lastLevel = moveHistory.lastLevel;</b>
-<b class="fc"><i>31</i>&nbsp;    }</b>
-<i>32</i>&nbsp;
-<i>33</i>&nbsp;    public Position getLastPosition() {
-<b class="fc"><i>34</i>&nbsp;        return lastPosition;</b>
-<i>35</i>&nbsp;    }
-<i>36</i>&nbsp;
-<i>37</i>&nbsp;    public void setLastPosition(Position lastPosition) {
-<b class="fc"><i>38</i>&nbsp;        this.lastPosition = lastPosition;</b>
-<b class="fc"><i>39</i>&nbsp;    }</b>
-<i>40</i>&nbsp;
+<i>16</i>&nbsp; private int lastLevel;
+    <i>17</i>&nbsp;
+    <b class="fc"><i>18</i>&nbsp; public MoveHistory(Position lastPosition, int lastLevel) {</b>
+    <b class="fc"><i>19</i>&nbsp; this.lastPosition = lastPosition;</b>
+    <b class="fc"><i>20</i>&nbsp; this.lastLevel = lastLevel;</b>
+    <b class="fc"><i>21</i>&nbsp; }</b>
+    <i>22</i>&nbsp;
+    <i>23</i>&nbsp; /**
+    <i>24</i>&nbsp; * Copy constructor.
+    <i>25</i>&nbsp; *
+    <i>26</i>&nbsp; * @param history the {@code MoveHistory} object to be copied.
+    <i>27</i>&nbsp; */
+    <b class="fc"><i>28</i>&nbsp; public MoveHistory(MoveHistory history) {</b>
+    <b class="fc"><i>29</i>&nbsp; this.lastPosition = new Position(history.lastPosition);</b>
+    <b class="fc"><i>30</i>&nbsp; this.lastLevel = history.lastLevel;</b>
+    <b class="fc"><i>31</i>&nbsp; }</b>
+    <i>32</i>&nbsp;
+    <i>33</i>&nbsp; public Position getLastPosition() {
+    <b class="fc"><i>34</i>&nbsp; return lastPosition;</b>
+    <i>35</i>&nbsp; }
+    <i>36</i>&nbsp;
+    <i>37</i>&nbsp; public void setLastPosition(Position lastPosition) {
+    <b class="fc"><i>38</i>&nbsp; this.lastPosition = lastPosition;</b>
+    <b class="fc"><i>39</i>&nbsp; }</b>
+    <i>40</i>&nbsp;
 <i>41</i>&nbsp;    public int getLastLevel() {
 <b class="fc"><i>42</i>&nbsp;        return lastLevel;</b>
 <i>43</i>&nbsp;    }

@@ -78,26 +78,26 @@
 <i>4</i>&nbsp;import model.board.Board;
 <i>5</i>&nbsp;import model.board.Position;
 <i>6</i>&nbsp;import model.effects.Effect;
-<i>7</i>&nbsp;import model.enumerations.Color;
-<i>8</i>&nbsp;
-<i>9</i>&nbsp;import java.util.ArrayList;
-<i>10</i>&nbsp;import java.util.List;
-<i>11</i>&nbsp;
-<i>12</i>&nbsp;public class Worker {
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;    private static Color color;
-<i>15</i>&nbsp;    private Position position;
-<i>16</i>&nbsp;    private MoveHistory moveHistory;
-<i>17</i>&nbsp;    private List&lt;Effect&gt; effects;
-<i>18</i>&nbsp;
-<b class="fc"><i>19</i>&nbsp;    public Worker(Position position, List&lt;Effect&gt; effects) {</b>
-<b class="fc"><i>20</i>&nbsp;        this.position = position;</b>
-<b class="fc"><i>21</i>&nbsp;        this.moveHistory = new MoveHistory(position, 0);</b>
-<b class="fc"><i>22</i>&nbsp;        this.effects = effects;</b>
-<b class="fc"><i>23</i>&nbsp;    }</b>
-<i>24</i>&nbsp;
-<i>25</i>&nbsp;    public void build(Position p) {
-<i>26</i>&nbsp;        // Calls controller.
+  <i>7</i>&nbsp;import model.enumerations.Color;
+  <i>8</i>&nbsp;
+  <i>9</i>&nbsp;import java.util.ArrayList;
+  <i>10</i>&nbsp;import java.util.List;
+  <i>11</i>&nbsp;
+  <i>12</i>&nbsp;public class Worker {
+  <i>13</i>&nbsp;
+  <i>14</i>&nbsp; private static Color color;
+  <i>15</i>&nbsp; private Position position;
+  <i>16</i>&nbsp; private MoveHistory history;
+  <i>17</i>&nbsp; private List&lt;Effect&gt; effects;
+  <i>18</i>&nbsp;
+  <b class="fc"><i>19</i>&nbsp; public Worker(Position position, List&lt;Effect&gt; effects) {</b>
+  <b class="fc"><i>20</i>&nbsp; this.position = position;</b>
+  <b class="fc"><i>21</i>&nbsp; this.history = new MoveHistory(position, 0);</b>
+  <b class="fc"><i>22</i>&nbsp; this.effects = effects;</b>
+  <b class="fc"><i>23</i>&nbsp; }</b>
+  <i>24</i>&nbsp;
+  <i>25</i>&nbsp; public void build(Position p) {
+  <i>26</i>&nbsp; // Calls controller.
 <b class="nc"><i>27</i>&nbsp;    }</b>
 <i>28</i>&nbsp;
 <i>29</i>&nbsp;    /**
@@ -214,52 +214,52 @@
 <b class="nc"><i>140</i>&nbsp;                positionList.add(rotatingPosition);</b>
 <i>141</i>&nbsp;        }
 <i>142</i>&nbsp;
-<b class="nc"><i>143</i>&nbsp;        return positionList;</b>
-<i>144</i>&nbsp;    }
-<i>145</i>&nbsp;
-<i>146</i>&nbsp;    /**
-<i>147</i>&nbsp;     * Update the worker move history.
-<i>148</i>&nbsp;     *
-<i>149</i>&nbsp;     * @param position worker&#39;s position in the previous turn
-<i>150</i>&nbsp;     * @param level worker&#39;s level in the previous turn
-<i>151</i>&nbsp;     */
-<i>152</i>&nbsp;    private void updateMoveHistory(Position position, int level){
-<b class="fc"><i>153</i>&nbsp;        moveHistory.setLastPosition(position);</b>
-<b class="fc"><i>154</i>&nbsp;        moveHistory.setLastLevel(level);</b>
-<b class="fc"><i>155</i>&nbsp;    }</b>
-<i>156</i>&nbsp;
-<i>157</i>&nbsp;    public static Color getColor() {
-<b class="nc"><i>158</i>&nbsp;        return color;</b>
-<i>159</i>&nbsp;    }
-<i>160</i>&nbsp;
-<i>161</i>&nbsp;    public static void setColor(Color color) {
-<b class="nc"><i>162</i>&nbsp;        Worker.color = color;</b>
-<b class="nc"><i>163</i>&nbsp;    }</b>
-<i>164</i>&nbsp;
+  <b class="nc"><i>143</i>&nbsp; return positionList;</b>
+  <i>144</i>&nbsp; }
+  <i>145</i>&nbsp;
+  <i>146</i>&nbsp; /**
+  <i>147</i>&nbsp; * Update the worker move history.
+  <i>148</i>&nbsp; *
+  <i>149</i>&nbsp; * @param position worker&#39;s position in the previous turn
+  <i>150</i>&nbsp; * @param level worker&#39;s level in the previous turn
+  <i>151</i>&nbsp; */
+  <i>152</i>&nbsp; private void updateMoveHistory(Position position, int level){
+  <b class="fc"><i>153</i>&nbsp; history.setLastPosition(position);</b>
+  <b class="fc"><i>154</i>&nbsp; history.setLastLevel(level);</b>
+  <b class="fc"><i>155</i>&nbsp; }</b>
+  <i>156</i>&nbsp;
+  <i>157</i>&nbsp; public static Color getColor() {
+  <b class="nc"><i>158</i>&nbsp; return color;</b>
+  <i>159</i>&nbsp; }
+  <i>160</i>&nbsp;
+  <i>161</i>&nbsp; public static void setColor(Color color) {
+  <b class="nc"><i>162</i>&nbsp; Worker.color = color;</b>
+  <b class="nc"><i>163</i>&nbsp; }</b>
+  <i>164</i>&nbsp;
 <i>165</i>&nbsp;    public Position getPosition() {
 <b class="fc"><i>166</i>&nbsp;        return position;</b>
-<i>167</i>&nbsp;    }
-<i>168</i>&nbsp;
-<i>169</i>&nbsp;    public void setPosition(Position position) {
-<b class="nc"><i>170</i>&nbsp;        this.position = position;</b>
-<b class="nc"><i>171</i>&nbsp;    }</b>
-<i>172</i>&nbsp;
-<i>173</i>&nbsp;    public MoveHistory getMoveHistory() {
-<b class="nc"><i>174</i>&nbsp;        return moveHistory;</b>
-<i>175</i>&nbsp;    }
-<i>176</i>&nbsp;
-<i>177</i>&nbsp;    public void setMoveHistory(MoveHistory moveHistory) {
-<b class="nc"><i>178</i>&nbsp;        this.moveHistory = moveHistory;</b>
-<b class="nc"><i>179</i>&nbsp;    }</b>
-<i>180</i>&nbsp;
-<i>181</i>&nbsp;    public List&lt;Effect&gt; getEffects() {
-<b class="nc"><i>182</i>&nbsp;        return effects;</b>
-<i>183</i>&nbsp;    }
-<i>184</i>&nbsp;
-<i>185</i>&nbsp;    public void setEffects(List&lt;Effect&gt; effects) {
-<b class="nc"><i>186</i>&nbsp;        this.effects = effects;</b>
-<b class="nc"><i>187</i>&nbsp;    }</b>
-<i>188</i>&nbsp;}
+  <i>167</i>&nbsp; }
+  <i>168</i>&nbsp;
+  <i>169</i>&nbsp; public void setPosition(Position position) {
+  <b class="nc"><i>170</i>&nbsp; this.position = position;</b>
+  <b class="nc"><i>171</i>&nbsp; }</b>
+  <i>172</i>&nbsp;
+  <i>173</i>&nbsp; public MoveHistory getMoveHistory() {
+  <b class="nc"><i>174</i>&nbsp; return history;</b>
+  <i>175</i>&nbsp; }
+  <i>176</i>&nbsp;
+  <i>177</i>&nbsp; public void setMoveHistory(MoveHistory history) {
+  <b class="nc"><i>178</i>&nbsp; this.history = history;</b>
+  <b class="nc"><i>179</i>&nbsp; }</b>
+  <i>180</i>&nbsp;
+  <i>181</i>&nbsp; public List&lt;Effect&gt; getEffects() {
+  <b class="nc"><i>182</i>&nbsp; return effects;</b>
+  <i>183</i>&nbsp; }
+  <i>184</i>&nbsp;
+  <i>185</i>&nbsp; public void setEffects(List&lt;Effect&gt; effects) {
+  <b class="nc"><i>186</i>&nbsp; this.effects = effects;</b>
+  <b class="nc"><i>187</i>&nbsp; }</b>
+  <i>188</i>&nbsp;}
 </div>
 </div>
 

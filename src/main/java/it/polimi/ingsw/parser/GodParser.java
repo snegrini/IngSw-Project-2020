@@ -167,7 +167,12 @@ public class GodParser {
     private static Effect decorateBuild(Effect effect, Map<String, String> requirements,
                                         Map<String, String> parameters) {
         if (Boolean.parseBoolean(parameters.get(BUILD.getText() + AGAIN.getText()))) {
-            effect = new BuildAgainDecorator(effect, requirements);
+            int quantity = Integer.parseInt(parameters.get(BUILD.getText() + QUANTITY.getText()));
+            boolean sameSpace = Boolean.parseBoolean(parameters.get(BUILD.getText() + SAME_SPACE.getText()));
+            boolean dome = Boolean.parseBoolean(parameters.get(BUILD.getText() + DOME.getText()));
+            boolean forceSameSpace = Boolean.parseBoolean(parameters.get(BUILD.getText() + FORCE_SAME_SPACE.getText()));
+
+            effect = new BuildAgainDecorator(effect, requirements, quantity, sameSpace, dome, forceSameSpace);
         }
 
         if (Boolean.parseBoolean(parameters.get(BUILD.getText() + AGAIN.getText()))) {

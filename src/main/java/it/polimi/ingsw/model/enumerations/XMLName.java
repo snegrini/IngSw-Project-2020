@@ -32,7 +32,9 @@ public enum XMLName {
     ALL("all"),
     MIN_BLOCK("minblock"),
     PUSH_BACK("pushback"),
-    SAME_SPACE("samespace");
+    SAME_SPACE("samespace"),
+    FORCE_SAME_SPACE("forcesamespace");
+
 
     private final String text;
 
