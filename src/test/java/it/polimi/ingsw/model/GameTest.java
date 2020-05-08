@@ -99,7 +99,7 @@ public class GameTest {
     @Test
     public void testGameState() {
         GameState gameState = GameState.LOGIN;
-        assertEquals(gameState, GameState.LOGIN);
+        assertEquals(GameState.LOGIN, gameState);
     }
 
     @Test

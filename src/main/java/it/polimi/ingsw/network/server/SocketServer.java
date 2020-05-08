@@ -21,7 +21,7 @@ public class SocketServer implements Runnable {
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            System.out.println("Server didn't start");
+            Server.LOGGER.severe("Server didn't start");
         }
 
         while (!Thread.currentThread().isInterrupted()) {

@@ -11,8 +11,6 @@ import java.util.Objects;
 
 public class Player extends Observable {
 
-    private static final int MAX_WORKERS = 2;
-
     private final String nickname;
     private List<Worker> workers;
     private God god;

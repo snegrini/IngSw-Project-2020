@@ -13,22 +13,23 @@ public class SimpleEffect extends Effect {
 
     @Override
     public void apply(Worker activeWorker, Position position) {
-        // DO NOTHING.
+        // Do nothing.
     }
 
     @Override
     public void prepare(Worker worker) {
-        // DO NOTHING.
+        // Do nothing.
     }
 
     @Override
     public boolean require(Worker worker) {
+        // Always satisfied.
         return true;
     }
 
     @Override
     public void clear(Worker worker) {
-        // DO NOTHING.
+        // Do nothing.
     }
 
 }

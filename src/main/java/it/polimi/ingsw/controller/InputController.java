@@ -1,10 +1,10 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.ReducedGod;
-import it.polimi.ingsw.view.VirtualView;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.network.message.*;
+import it.polimi.ingsw.view.VirtualView;
 
 import java.util.Map;
 
@@ -111,7 +111,7 @@ public class InputController {
         VirtualView virtualView = virtualViews.get(message.getNickname());
         String nickname = message.getNickname();
 
-        if (nickname.toLowerCase().equals(Game.SERVER_NICKNAME)) {
+        if (nickname.equalsIgnoreCase(Game.SERVER_NICKNAME)) {
             virtualView.showGenericMessage("Forbidden name.");
             virtualView.showLoginResult(false, true, null);
             return false;

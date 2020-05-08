@@ -38,7 +38,6 @@ public class BuildDomeDecorator extends EffectDecorator {
 
     @Override
     public boolean require(Worker worker) {
-        Board board = Game.getInstance().getBoard();
         possibleBuilds = worker.getPossibleBuilds();
 
         // Note: spaces that have already a dome are automatically discarded by the getPossibleBuilds() method.

@@ -18,7 +18,6 @@ public class JavaFXGui extends Application {
         this.primaryStage = stage;
         this.primaryStage.setTitle("Santorini Board Game");
         initRootLayout();
-        //this.primaryStage.show();
     }
 
     /**
@@ -28,8 +27,9 @@ public class JavaFXGui extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("menu_scene.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/menu_scene.fxml"));
             GridPane rootLayout = (GridPane) loader.load();
+            MenuSceneController controller = (MenuSceneController) loader.getController();
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);

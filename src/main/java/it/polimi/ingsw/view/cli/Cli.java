@@ -56,7 +56,6 @@ public class Cli extends View {
         } while (!validInput);
 
         clearCli();
-        validInput = false;
 
         do {
             out.print("Enter the server port (" + defaultPort + "): ");
@@ -90,8 +89,7 @@ public class Cli extends View {
         String question = "How many players are going to play? (You can choose between 2 or 3 players): ";
         playerNumber = numberInput(2, 3, question);
 
-        int finalPlayerNumber = playerNumber;
-        notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(finalPlayerNumber));
+        notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(playerNumber));
     }
 
 
@@ -332,8 +330,7 @@ public class Cli extends View {
                         if (position_isNotValid(chosenRow, chosenColumn, positions))
                             out.println("You have inserted an invalid position! Please try again!");
                     } while (position_isNotValid(chosenRow, chosenColumn, positions));
-                    int finalChosenRow = chosenRow;
-                    int finalChosenColumn = chosenColumn;
+
                     Position newBuild = new Position(chosenRow, chosenColumn);
                     notifyObserver((ViewObserver obs) -> obs.onUpdateBuild(newBuild));
                     break;
@@ -351,7 +348,7 @@ public class Cli extends View {
         clearCli();
         if (nicknameAccepted && connectionSuccessful) {
             out.println("Hi, " + nickname + "! You connected to the server.");
-        } else if (connectionSuccessful && !nicknameAccepted) {
+        } else if (connectionSuccessful) {
             askNickname();
         } else {
             out.println("Could not contact server.");

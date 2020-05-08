@@ -27,8 +27,6 @@ public class Game extends Observable {
     private List<Player> players;
     private List<God> gods;
     private int chosenPlayersNumber;
-    private Worker worker;
-    private TargetType targetType;
 
     private Game() {
         this.board = new Board();
