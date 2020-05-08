@@ -7,7 +7,7 @@ import java.util.List;
 public class PositionMessage extends Message {
 
     private static final long serialVersionUID = 5786732391244362819L;
-    private List<Position> positionList;
+    private final List<Position> positionList;
 
 
     /**

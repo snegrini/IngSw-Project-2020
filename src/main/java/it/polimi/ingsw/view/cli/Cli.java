@@ -6,9 +6,8 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
-import it.polimi.ingsw.view.View;
-
 import it.polimi.ingsw.observer.ViewObserver;
+import it.polimi.ingsw.view.View;
 
 import java.io.PrintStream;
 import java.util.*;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 public class Cli extends View {
 
     private Scanner scanner;
-    private PrintStream out;
+    private final PrintStream out;
 
     public Cli() {
         scanner = new Scanner(System.in);

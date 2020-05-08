@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class WinMoveDecorator extends EffectDecorator {
 
-    private MoveType moveType;
-    private int levels;
+    private final MoveType moveType;
+    private final int levels;
 
     public WinMoveDecorator(Effect effect, Map<String, String> requirements,
                             MoveType moveType, int levels) {

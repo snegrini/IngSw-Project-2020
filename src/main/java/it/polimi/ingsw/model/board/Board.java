@@ -21,7 +21,7 @@ public class Board extends Observable {
     public static final int MAX_ROWS = 5;
     public static final int MAX_COLUMNS = 5;
 
-    private Space[][] spaces;
+    private final Space[][] spaces;
 
     public Board() {
         this.spaces = new Space[MAX_ROWS][MAX_COLUMNS];

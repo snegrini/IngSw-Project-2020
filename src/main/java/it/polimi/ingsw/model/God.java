@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class God {
-    private String name;
-    private String caption;
-    private String description;
-    private List<Effect> effects;
+    private final String name;
+    private final String caption;
+    private final String description;
+    private final List<Effect> effects;
 
     private God(Builder builder) {
         this.name = builder.name;
@@ -66,7 +66,7 @@ public class God {
     }
 
     public static class Builder {
-        private String name;
+        private final String name;
         private String caption;
         private String description;
         private List<Effect> effects;

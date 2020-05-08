@@ -6,15 +6,16 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.player.Worker;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class BuildAgainDecorator extends EffectDecorator {
 
-    private int quantity;
-    private boolean sameSpace;
-    private boolean dome;
-    private boolean forceSameSpace;
+    private final int quantity;
+    private final boolean sameSpace;
+    private final boolean dome;
+    private final boolean forceSameSpace;
 
     private List<Position> possibleBuilds;
 
@@ -26,14 +27,18 @@ public class BuildAgainDecorator extends EffectDecorator {
         this.sameSpace = sameSpace;
         this.dome = dome;
         this.forceSameSpace = forceSameSpace;
+        this.possibleBuilds = new ArrayList<>();
     }
 
     @Override
     public void apply(Worker activeWorker, Position position) {
         effect.apply(activeWorker, position);
 
-        Board board = Game.getInstance().getBoard();
-        board.buildBlock(activeWorker, position);
+        if (possibleBuilds.contains(position)) {
+            Board board = Game.getInstance().getBoard();
+            board.buildBlock(activeWorker, position);
+        }
+        // TODO notify wrong position selected.
     }
 
     @Override

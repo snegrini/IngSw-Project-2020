@@ -6,13 +6,14 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.player.Worker;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class MoveOverDecorator extends EffectDecorator {
 
-    private boolean pushBack;
-    private boolean swapSpace;
+    private final boolean pushBack;
+    private final boolean swapSpace;
 
     private List<Position> possibleMoves;
 
@@ -21,6 +22,7 @@ public class MoveOverDecorator extends EffectDecorator {
         this.requirements = requirements;
         this.pushBack = pushBack;
         this.swapSpace = swapSpace;
+        this.possibleMoves = new ArrayList<>();
     }
 
     @Override

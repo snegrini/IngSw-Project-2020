@@ -3,12 +3,13 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.player.Worker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MoveAgainDecorator extends EffectDecorator {
 
-    private int quantity;
-    private boolean goBack;
+    private final int quantity;
+    private final boolean goBack;
 
     private List<Position> possibleMoves;
 
@@ -16,6 +17,7 @@ public class MoveAgainDecorator extends EffectDecorator {
         this.effect = effect;
         this.quantity = quantity;
         this.goBack = goBack;
+        this.possibleMoves = new ArrayList<>();
     }
 
     @Override

@@ -15,8 +15,8 @@ import java.util.Map;
  */
 public class History {
 
-    private Map<String, Position> lastPositions;
-    private Map<String, Integer> lastLevels;
+    private final Map<String, Position> lastPositions;
+    private final Map<String, Integer> lastLevels;
 
     private static final String MOVE = "MOVE";
     private static final String BUILD = "BUILD";

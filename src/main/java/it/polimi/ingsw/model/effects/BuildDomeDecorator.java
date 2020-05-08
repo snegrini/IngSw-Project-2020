@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.player.Worker;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ public class BuildDomeDecorator extends EffectDecorator {
     public BuildDomeDecorator(Effect effect, Map<String, String> requirements) {
         this.effect = effect;
         this.requirements = requirements;
+        this.possibleBuilds = new ArrayList<>();
     }
 
     @Override

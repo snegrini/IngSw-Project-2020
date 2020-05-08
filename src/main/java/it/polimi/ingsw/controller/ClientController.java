@@ -1,14 +1,14 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.ReducedGod;
-import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
-import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.network.message.*;
+import it.polimi.ingsw.observer.Observer;
+import it.polimi.ingsw.observer.ViewObserver;
+import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ClientController implements ViewObserver, Observer {
 
-    private View view;
+    private final View view;
     private Client client;
     private String nickname;
 
