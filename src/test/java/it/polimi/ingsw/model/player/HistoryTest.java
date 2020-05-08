@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class HistoryTest {
 
@@ -39,12 +39,5 @@ public class HistoryTest {
         history.setBuildPosition(lastPosition);
         assertEquals(lastPosition, history.getBuildPosition());
     }
-
-    @Test
-    public void setAndGetBuildLevel() {
-        history.setBuildLevel(3);
-        assertEquals(3, history.getBuildLevel());
-    }
-
 
 }

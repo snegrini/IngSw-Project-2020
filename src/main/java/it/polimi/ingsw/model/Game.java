@@ -7,10 +7,8 @@ import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.BoardMessage;
-import it.polimi.ingsw.network.message.MessageType;
-import it.polimi.ingsw.parser.GodParser;
 import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.parser.GodParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,20 +165,19 @@ public class Game extends Observable {
         return board;
     }
 
+
     public void initWorkersOnBoard(List<Worker> workers) {
         board.initWorkers(workers);
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, board.getReducedSpaceBoard()));
     }
 
     public void moveWorker(Worker worker, Position dest) {
         board.moveWorker(worker, dest);
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, board.getReducedSpaceBoard()));
     }
 
     public void buildBlock(Worker worker, Position dest) {
         board.buildBlock(worker, dest);
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, board.getReducedSpaceBoard()));
     }
+
 
     public ReducedSpace[][] getReducedSpaceBoard() {
         return board.getReducedSpaceBoard();

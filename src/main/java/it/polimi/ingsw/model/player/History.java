@@ -59,13 +59,4 @@ public class History {
     public void setBuildPosition(Position lastPosition) {
         this.lastPositions.put(BUILD, lastPosition);
     }
-
-    public int getBuildLevel() {
-        return lastLevels.get(BUILD);
-    }
-
-    public void setBuildLevel(int lastLevel) {
-        this.lastLevels.put(BUILD, lastLevel);
-    }
-
 }

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.player.Worker;
@@ -13,6 +13,8 @@ public class MoveOverDecorator extends EffectDecorator {
 
     private boolean pushBack;
     private boolean swapSpace;
+
+    private List<Position> possibleMoves;
 
     public MoveOverDecorator(Effect effect, Map<String, String> requirements, boolean pushBack, boolean swapSpace) {
         this.effect = effect;
@@ -36,6 +38,7 @@ public class MoveOverDecorator extends EffectDecorator {
             }
             activeWorker.move(position);
         }
+
         if (pushBack) {
             Worker enemyWorker = board.getSpace(position).getWorker();
             board.getSpace(position).setWorker(enemyWorker);
@@ -50,7 +53,14 @@ public class MoveOverDecorator extends EffectDecorator {
     public void prepare(Worker worker) {
         effect.prepare(worker);
 
-        List<Position> possibleMoves = worker.getPossibleMoves();
+        // The possibleMoves list has already been prepared by the require method.
+
+        // TODO notifyObserver()
+    }
+
+    @Override
+    public boolean require(Worker worker) {
+        possibleMoves = worker.getPossibleMoves();
 
         Board board = Game.getInstance().getBoard();
         List<Position> adjOpponentPos = board.getNeighbourWorkers(worker.getPosition(), true);
@@ -67,12 +77,8 @@ public class MoveOverDecorator extends EffectDecorator {
                 }
             }
         }
-        // TODO notifyObserver(); with a message
-    }
 
-    @Override
-    public boolean require(Worker worker) {
-        return effect.require(worker);
+        return !possibleMoves.isEmpty() && effect.require(worker);
     }
 
     @Override

@@ -10,6 +10,8 @@ public class MoveAgainDecorator extends EffectDecorator {
     private int quantity;
     private boolean goBack;
 
+    private List<Position> possibleMoves;
+
     public MoveAgainDecorator(Effect effect, int quantity, boolean goBack) {
         this.effect = effect;
         this.quantity = quantity;
@@ -19,22 +21,34 @@ public class MoveAgainDecorator extends EffectDecorator {
     @Override
     public void apply(Worker activeWorker, Position position) {
         effect.apply(activeWorker, position);
+        activeWorker.move(position);
     }
 
     @Override
     public void prepare(Worker worker) {
         effect.prepare(worker);
 
-        if (!goBack) {
-            List<Position> possibleMoves = worker.getPossibleMoves();
-            possibleMoves.removeIf(pos -> pos.equals(worker.getHistory().getMovePosition()));
-        }
+        // The possibleMoves list has already been prepared by the require method.
+
         // TODO notifyObserver()
     }
 
+    /**
+     * Checks the necessary conditions for the effect to be applied.
+     * The possible moves of the worker are evaluated and compared with the requirements.
+     *
+     * @param worker The active worker of the player that is currently playing.
+     * @return {@code true} if the effect requirements are satisfied, {@code false} otherwise.
+     */
     @Override
     public boolean require(Worker worker) {
-        return effect.require(worker);
+        possibleMoves = worker.getPossibleMoves();
+
+        if (!goBack) {
+            possibleMoves.removeIf(position -> position.equals(worker.getHistory().getMovePosition()));
+        }
+
+        return !possibleMoves.isEmpty() && effect.require(worker);
     }
 
     @Override

@@ -31,6 +31,9 @@ public class BuildAgainDecorator extends EffectDecorator {
     @Override
     public void apply(Worker activeWorker, Position position) {
         effect.apply(activeWorker, position);
+
+        Board board = Game.getInstance().getBoard();
+        board.buildBlock(activeWorker, position);
     }
 
     @Override
@@ -40,11 +43,6 @@ public class BuildAgainDecorator extends EffectDecorator {
         // The possibleBuilds list has already been prepared by the require method.
 
         // TODO notifyObserver()
-    }
-
-    @Override
-    public void clear(Worker worker) {
-        effect.clear(worker);
     }
 
     @Override
@@ -74,5 +72,8 @@ public class BuildAgainDecorator extends EffectDecorator {
         return !possibleBuilds.isEmpty() && effect.require(worker);
     }
 
-
+    @Override
+    public void clear(Worker worker) {
+        effect.clear(worker);
+    }
 }

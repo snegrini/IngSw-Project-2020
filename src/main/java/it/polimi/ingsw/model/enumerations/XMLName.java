@@ -28,6 +28,7 @@ public enum XMLName {
     QUANTITY("quantity"),
     LOCK("lock"),
     DOME("dome"),
+    FORCE_DOME("forcedome"),
     FREE("free"),
     ALL("all"),
     MIN_BLOCK("minblock"),

@@ -8,9 +8,9 @@ import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.GameState;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.view.VirtualView;
-import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.network.message.*;
+import it.polimi.ingsw.observer.Observer;
+import it.polimi.ingsw.view.VirtualView;
 
 import java.util.*;
 
@@ -338,9 +338,11 @@ public class GameController implements Observer {
         if (virtualViews.size() == 0) {
             virtualViews.put(nickname, virtualView);
             game.addObserver(virtualView);
+            game.getBoard().addObserver(virtualView);
         } else if (virtualViews.size() < game.getChosenPlayersNumber()) {
             virtualViews.put(nickname, virtualView);
             game.addObserver(virtualView);
+            game.getBoard().addObserver(virtualView);
         } else {
             virtualView.showLoginResult(true, false, Game.SERVER_NICKNAME);
         }

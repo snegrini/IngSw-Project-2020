@@ -1,11 +1,16 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.player.Worker;
 
+import java.util.List;
 import java.util.Map;
 
 public class BuildDomeDecorator extends EffectDecorator {
+
+    private List<Position> possibleBuilds;
 
     public BuildDomeDecorator(Effect effect, Map<String, String> requirements) {
         this.effect = effect;
@@ -15,22 +20,31 @@ public class BuildDomeDecorator extends EffectDecorator {
     @Override
     public void apply(Worker activeWorker, Position position) {
         effect.apply(activeWorker, position);
+
+        Board board = Game.getInstance().getBoard();
+        board.buildDomeForced(activeWorker, position);
     }
 
     @Override
     public void prepare(Worker worker) {
         effect.prepare(worker);
+
+        // The possibleBuilds list has already been prepared by the require method.
+
+        // TODO notifyObserver()
     }
 
     @Override
     public boolean require(Worker worker) {
-        // TODO
-        return effect.require(worker);
+        Board board = Game.getInstance().getBoard();
+        possibleBuilds = worker.getPossibleBuilds();
+
+        // Note: spaces that have already a dome are automatically discarded by the getPossibleBuilds() method.
+        return !possibleBuilds.isEmpty() && effect.require(worker);
     }
 
     @Override
     public void clear(Worker worker) {
         effect.clear(worker);
     }
-
 }

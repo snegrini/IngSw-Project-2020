@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
-import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import org.junit.After;
@@ -32,17 +31,6 @@ public class WorkerTest {
         worker = null;
         reducedWorker = null;
         Game.getInstance().resetInstance();
-    }
-
-    @Test
-    public void build() {
-        Position position = new Position(0, 0);
-        Board board = Game.getInstance().getBoard();
-        Space space = board.getSpace(position);
-
-        assertEquals(0, space.getLevel());
-        worker.build(space, position);
-        assertEquals(1, space.getLevel());
     }
 
     @Test
@@ -125,6 +113,15 @@ public class WorkerTest {
         worker.initPosition(position);
         assertEquals(position, worker.getPosition());
     }
+
+    @Test
+    public void updateBuildHistory() {
+        Position position = new Position(0, 0);
+
+        worker.updateBuildHistory(position);
+        assertEquals(position, worker.getHistory().getBuildPosition());
+    }
+
 
     @Test
     public void hasMovedUp() {

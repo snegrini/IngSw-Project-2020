@@ -1,11 +1,11 @@
 package it.polimi.ingsw.model.player;
 
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.enumerations.Color;
+import it.polimi.ingsw.model.enumerations.MoveType;
 
 import java.util.HashSet;
 import java.util.List;
@@ -33,17 +33,6 @@ public class Worker {
     public void initPosition(Position position) {
         this.position = position;
         this.history = new History();
-    }
-
-    /**
-     * Builds a single block over the {@code Space} at the given position.
-     *
-     * @param position the space to build onto.
-     * @param position the space position to build onto.
-     */
-    public void build(Space space, Position position) {
-        space.increaseLevel(1);
-        updateBuildHistory(position, space.getLevel());
     }
 
     /**
@@ -148,14 +137,13 @@ public class Worker {
     }
 
     /**
-     * Update the worker build history.
+     * Updates the worker build history. Call this method only to update the worker history.
+     * The block must be built with board methods.
      *
      * @param position worker's build position in the previous turn
-     * @param level    worker's build level in the previous turn
      */
-    private void updateBuildHistory(Position position, int level) {
+    public void updateBuildHistory(Position position) {
         history.setBuildPosition(position);
-        history.setBuildLevel(level);
     }
 
     public Color getColor() {

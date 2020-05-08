@@ -1,9 +1,13 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.History;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.BoardMessage;
+import it.polimi.ingsw.network.message.MessageType;
+import it.polimi.ingsw.observer.Observable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +16,7 @@ import java.util.stream.Collectors;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class Board {
+public class Board extends Observable {
 
     public static final int MAX_ROWS = 5;
     public static final int MAX_COLUMNS = 5;
@@ -44,6 +48,7 @@ public class Board {
         for (Worker w : workers) {
             getSpace(w.getPosition()).setWorker(w);
         }
+        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
     }
 
     /**
@@ -247,11 +252,37 @@ public class Board {
         getSpace(worker.getPosition()).setWorker(null);
         worker.move(dest);
         getSpace(dest).setWorker(worker);
+        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
     }
 
+    /**
+     * Builds a single block over the {@code Space} at the given position.
+     *
+     * @param worker the worker who builds.
+     * @param dest   the space position to build onto.
+     */
     public void buildBlock(Worker worker, Position dest) {
         Space space = getSpace(dest);
-        worker.build(space, dest);
+        if (space.getLevel() == 3) {
+            space.setDome(true);
+        } else {
+            space.increaseLevel(1);
+        }
+        worker.updateBuildHistory(dest);
+        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
+    }
 
+    /**
+     * Builds a dome over the {@code Space} at the given position.
+     * Level checks are bypassed.
+     *
+     * @param worker the worker who builds.
+     * @param dest   the space position to build onto.
+     */
+    public void buildDomeForced(Worker worker, Position dest) {
+        Space space = getSpace(dest);
+        space.setDome(true);
+        worker.updateBuildHistory(dest);
+        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
     }
 }
