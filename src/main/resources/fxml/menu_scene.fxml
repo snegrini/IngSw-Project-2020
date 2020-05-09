@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-          prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="MenuSceneController">
+<GridPane id="gridPane" fx:id="gridPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.MenuSceneController">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="170.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="578.0" minWidth="10.0" prefWidth="128.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="479.0" minWidth="10.0" prefWidth="136.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="479.0" minWidth="10.0" prefWidth="113.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="479.0" minWidth="10.0" prefWidth="138.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="479.0" minWidth="10.0" prefWidth="129.0"/>
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -16,7 +20,31 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
     </rowConstraints>
     <children>
-        <Button id="playBtn" mnemonicParsing="false" prefHeight="83.0" prefWidth="92.0" text="Button"
-                GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Button id="playBtn" fx:id="playBtn" focusTraversable="false" mnemonicParsing="false" prefHeight="83.0"
+                prefWidth="92.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <graphic>
+                <ImageView fitHeight="95.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/button-play-normal.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <ImageView fitHeight="182.0" fitWidth="483.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+            <image>
+                <Image url="@../images/santorini-logo.png"/>
+            </image>
+        </ImageView>
+        <Button id="quitBtn" fx:id="quitBtn" focusTraversable="false" layoutX="149.0" layoutY="259.0"
+                mnemonicParsing="false" prefHeight="83.0" prefWidth="92.0" GridPane.columnIndex="4"
+                GridPane.rowIndex="1">
+            <graphic>
+                <ImageView fitHeight="90.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/exit.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
     </children>
 </GridPane>

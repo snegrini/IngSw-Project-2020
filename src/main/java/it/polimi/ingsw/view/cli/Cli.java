@@ -21,16 +21,14 @@ public class Cli extends View {
     public Cli() {
         scanner = new Scanner(System.in);
         out = System.out;
+        init();
     }
 
-
-    @Override
-    public void init() {
+    private void init() {
         out.println("Welcome to SANTORINI board game!");
         askServerInfo();
     }
 
-    @Override
     public void askServerInfo() {
         Map<String, String> serverInfo = new HashMap<>();
         String defaultAddress = "localhost";

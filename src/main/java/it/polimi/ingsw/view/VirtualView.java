@@ -1,9 +1,9 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
+import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.network.server.ClientHandler;
@@ -23,18 +23,6 @@ public class VirtualView extends View implements Observer {
         this.clientHandler = clientHandler;
     }
 
-
-    @Override
-    public void init() {
-        // KEEP EMPTY
-        // This method should never be called by the GameController.
-    }
-
-    @Override
-    public void askServerInfo() {
-        // KEEP EMPTY
-        // This method should never be called by the GameController.
-    }
 
     @Override
     public void askNickname() {

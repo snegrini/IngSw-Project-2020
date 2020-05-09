@@ -73,8 +73,6 @@ public class ClientController implements ViewObserver, Observer {
             case ERROR:
                 view.showError(((ErrorMessage) message).getError());
                 break;
-
-
             default: // Should never reach this condition
                 break;
         }

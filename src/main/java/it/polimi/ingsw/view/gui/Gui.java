@@ -5,21 +5,13 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.view.View;
-import javafx.application.Application;
+import javafx.scene.Scene;
 
 import java.util.List;
 
 public class Gui extends View {
 
-    @Override
-    public void init() {
-        Application.launch(JavaFXGui.class);
-    }
-
-    @Override
-    public void askServerInfo() {
-
-    }
+    private Scene scene;
 
     @Override
     public void askNickname() {
@@ -43,7 +35,7 @@ public class Gui extends View {
 
     @Override
     public void askPlayersNumber() {
-
+        SceneController.changeRootPane(this, scene, "board_scene.fxml");
     }
 
     @Override
@@ -79,5 +71,9 @@ public class Gui extends View {
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
 
+    }
+
+    public void setMainScene(Scene scene) {
+        this.scene = scene;
     }
 }
