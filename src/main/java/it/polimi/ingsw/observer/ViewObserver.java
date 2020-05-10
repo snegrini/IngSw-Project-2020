@@ -27,4 +27,5 @@ public interface ViewObserver {
 
     void onUpdateInitWorkerPosition(List<Position> positions);
 
+    void onUpdateEnableEffect(Boolean response);
 }

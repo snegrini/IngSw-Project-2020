@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.model.player.Worker;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ public class TurnController {
     private List<String> nicknameQueue;
     private String activePlayer;
     private Worker activeWorker;
+
+    private EffectType phaseType;
 
     public TurnController() {
         this.game = Game.getInstance();
@@ -31,6 +34,7 @@ public class TurnController {
      *  Set next active player.
      */
     public void next() {
+
         int currentActive = nicknameQueue.indexOf(activePlayer);
         if (currentActive + 1 < game.getNumCurrentPlayers()) {
             currentActive = currentActive + 1;
@@ -38,6 +42,7 @@ public class TurnController {
             currentActive = 0;
         }
         activePlayer = nicknameQueue.get(currentActive);
+        phaseType = EffectType.YOUR_MOVE;
     }
 
     public void setActiveWorker(Worker worker) {
@@ -46,5 +51,14 @@ public class TurnController {
 
     public Worker getActiveWorker() {
         return activeWorker;
+    }
+
+
+    public void setPhaseType(EffectType turnPhaseType) {
+        this.phaseType = turnPhaseType;
+    }
+
+    public EffectType getPhaseType() {
+        return phaseType;
     }
 }

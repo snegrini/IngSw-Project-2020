@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.Color;
+import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.model.enumerations.GameState;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
@@ -91,14 +92,14 @@ public class GameController implements Observer {
                     godListHandler((GodListMessage) receivedMessage, virtualView);
                 }
                 break;
-            case INIT_WORKERSPOSITIONS:
-                if (inputController.check(receivedMessage)) {
-                    workerPositionsHandler((PositionMessage) receivedMessage);
-                }
-                break;
             case INIT_COLORS:
                 if (inputController.check(receivedMessage)) {
                     colorHandler((ColorsMessage) receivedMessage);
+                }
+                break;
+            case INIT_WORKERSPOSITIONS:
+                if (inputController.check(receivedMessage)) {
+                    workerPositionsHandler((PositionMessage) receivedMessage);
                 }
                 break;
 
@@ -112,12 +113,7 @@ public class GameController implements Observer {
         switch (receivedMessage.getMessageType()) {
             case PICK_MOVING_WORKER:
                 if (inputController.check(receivedMessage)) {
-                    virtualView.askMove(game.getPlayerByNickname(receivedMessage
-                            .getNickname()).getWorkerByPosition(((PositionMessage) receivedMessage)
-                            .getPositionList().get(0)).getPossibleMoves());
-                    turnController.setActiveWorker(game.getPlayerByNickname(receivedMessage
-                            .getNickname()).getWorkerByPosition((((PositionMessage) receivedMessage)
-                            .getPositionList().get(0))));
+                    pickWorkerHandler(receivedMessage, virtualView);
                 }
                 break;
             case MOVE: // TODO input controller
@@ -126,18 +122,99 @@ public class GameController implements Observer {
             case BUILD: // TODO input controller
                 buildHandler((PositionMessage) receivedMessage, virtualView);
                 break;
+            case ENABLE_EFFECT:
+                prepareEffect((PrepareEffectMessage) receivedMessage);
+                break;
+            case APPLY_EFFECT: // TODO apply effect
+                break;
             default:
                 // TODO show exception
                 break;
         }
     }
 
+
+    private void pickWorkerHandler(Message receivedMessage, VirtualView virtualView) {
+
+        turnController.setActiveWorker(game.getPlayerByNickname(receivedMessage
+                .getNickname()).getWorkerByPosition((((PositionMessage) receivedMessage)
+                .getPositionList().get(0))));
+
+        movePhase();
+    }
+
+    private void movePhase() {
+
+
+        VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
+        turnController.setPhaseType(EffectType.YOUR_MOVE);
+
+        // EFFECT REQUIRE YOUR MOVE
+
+        if (checkEffectPhase(turnController.getPhaseType())) {
+            if (requireEffect()) {
+                virtualView.askEnableEffect();
+            } else {
+                virtualView.askMove(turnController.getActiveWorker().getPossibleMoves());
+            }
+        } else {
+            virtualView.askMove(turnController.getActiveWorker().getPossibleMoves());
+        }
+    }
+
+
+    private boolean requireEffect() {
+        return game.getPlayerByNickname(turnController.getActivePlayer()).getGod()
+                .getEffectByType(turnController.getPhaseType())
+                .require(turnController.getActiveWorker());
+    }
+
+    private void prepareEffect(PrepareEffectMessage receivedMessage) {
+        if (receivedMessage.isEnableEffect()) {
+            Player player = game.getPlayerByNickname(turnController.getActivePlayer());
+            player.getGod().getEffectByType(turnController.getPhaseType())
+                    .prepare(turnController.getActiveWorker());
+
+        } else {
+            switch (turnController.getPhaseType()) {
+                case YOUR_MOVE:
+                    movePhase();
+                    break;
+                case YOUR_MOVE_AFTER:
+                    buildPhase();
+                    break;
+                case YOUR_BUILD:
+                    buildPhase();
+                    break;
+                case YOUR_BUILD_AFTER:
+                    newTurn();
+                    break;
+            }
+        }
+    }
+
+
     private void buildHandler(PositionMessage receivedMessage, VirtualView virtualView) {
         Position buildOnPosition = receivedMessage.getPositionList().get(0);
         game.buildBlock(turnController.getActiveWorker(), buildOnPosition);
 
-        turnController.next();
-        pickMovingWorker();
+        // CHECK EFFECT YOUR_BUILD_AFTER
+        turnController.setPhaseType(EffectType.YOUR_BUILD_AFTER);
+        if (checkEffectPhase(turnController.getPhaseType())) {
+            if (requireEffect()) {
+                virtualView.askEnableEffect();
+            } else {
+                // prossimo turno.
+                turnController.next();
+                newTurn();
+            }
+        } else {
+            // prossimo turno.
+            turnController.next();
+            newTurn();
+        }
+
+
     }
 
     private void moveHandler(PositionMessage receivedMessage, VirtualView virtualView) {
@@ -148,13 +225,43 @@ public class GameController implements Observer {
 
         game.moveWorker(turnController.getActiveWorker(), destination);
 
-
         // Win condition:
         if (origLevel == 2 && destLevel == 3) {
             win();
         } else {
-            Player p = game.getPlayerByNickname(receivedMessage.getNickname());
-            virtualView.askNewBuildingPosition(p.getWorkerByPosition(destination).getPossibleBuilds());
+
+            turnController.setPhaseType(EffectType.YOUR_MOVE_AFTER);
+            if (checkEffectPhase(turnController.getPhaseType())) {
+                if (requireEffect()) {
+                    virtualView.askEnableEffect();
+                } else {
+                    buildPhase();
+                }
+            } else {
+                buildPhase();
+            }
+
+        }
+    }
+
+    private boolean checkEffectPhase(EffectType effectType) {
+        return (game.getPlayerByNickname(turnController.getActivePlayer()).getGod().getEffectByType(effectType) != null);
+    }
+
+    private void buildPhase() {
+
+        VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
+        turnController.setPhaseType(EffectType.YOUR_BUILD);
+
+        // CHECK EFFECT YOUR_BUILD
+        if (checkEffectPhase(turnController.getPhaseType())) {
+            if (requireEffect()) {
+                virtualView.askEnableEffect();
+            } else {
+                virtualView.askNewBuildingPosition(turnController.getActiveWorker().getPossibleBuilds());
+            }
+        } else {
+            virtualView.askNewBuildingPosition(turnController.getActiveWorker().getPossibleBuilds());
         }
     }
 
@@ -300,24 +407,23 @@ public class GameController implements Observer {
         gameState = GameState.IN_GAME;
         notifyAllViews("Game Started!");
 
-        pickMovingWorker();
+        newTurn();
     }
 
-    private void pickMovingWorker() {
+    private void newTurn() {
+
+        turnController.setPhaseType(EffectType.YOUR_MOVE);
+
+        pickWorker();
+    }
+
+    private void pickWorker() {
+
         Player player = game.getPlayerByNickname(turnController.getActivePlayer());
         List<Position> positionList = new ArrayList<>(player.getWorkersPositions());
         VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
         virtualView.askMovingWorker(positionList);
     }
-
-    // TODO delete me
-    /*private void refreshClientsBoards() {
-        List<String> nicknames = new ArrayList<>(game.getPlayersNicknames());
-        for (String s : nicknames) {
-            VirtualView virtualView = virtualViews.get(s);
-            virtualView.showBoard(game.getBoard().getReducedSpaceBoard());
-        }
-    }*/
 
 
     void endGame() {

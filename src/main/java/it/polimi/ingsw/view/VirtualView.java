@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.Color;
+import it.polimi.ingsw.model.enumerations.GameState;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.observer.Observer;
@@ -44,6 +45,10 @@ public class VirtualView extends View implements Observer {
     @Override
     public void askMovingWorker(List<Position> positionList) {
         clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.PICK_MOVING_WORKER, positionList));
+    }
+
+    public void askEnableEffect() {
+        clientHandler.sendMessage(new PrepareEffectMessage(Game.SERVER_NICKNAME, true));
     }
 
     @Override

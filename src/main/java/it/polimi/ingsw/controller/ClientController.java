@@ -73,6 +73,8 @@ public class ClientController implements ViewObserver, Observer {
             case ERROR:
                 view.showError(((ErrorMessage) message).getError());
                 break;
+            case ENABLE_EFFECT:
+                view.askEnableEffect();
 
 
             default: // Should never reach this condition
@@ -132,6 +134,11 @@ public class ClientController implements ViewObserver, Observer {
     @Override
     public void onUpdateBuild(Position position) {
         client.sendMessage(new PositionMessage(this.nickname, MessageType.BUILD, List.of(position)));
+    }
+
+    @Override
+    public void onUpdateEnableEffect(Boolean response) {
+        client.sendMessage(new PrepareEffectMessage(this.nickname, response));
     }
 
     public static boolean isValidIpAddress(String ip) {

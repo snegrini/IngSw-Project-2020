@@ -10,7 +10,9 @@ public enum MessageType {
     PICK_MOVING_WORKER,
     PICK_BUILDING_WORKER,
     MOVE,
+    MOVE_FX,
     BUILD,
+    BUILD_FX,
     WIN,
     LOSE,
 
@@ -19,6 +21,8 @@ public enum MessageType {
     DISCONNECTION,
     GENERIC_MESSAGE,
     PING,
-    ERROR
+    ERROR,
+    ENABLE_EFFECT,
+    APPLY_EFFECT
 
 }

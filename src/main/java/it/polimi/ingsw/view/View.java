@@ -90,4 +90,6 @@ public abstract class View {
      * Shows the Board
      */
     public abstract void showBoard(ReducedSpace[][] spaces);
+
+    public abstract void askEnableEffect();
 }

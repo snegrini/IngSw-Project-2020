@@ -67,7 +67,7 @@ public class MoveOverDecorator extends EffectDecorator {
                 }
             }
         }
-        // TODO notifyObserver(); with a message
+        // TODO notifyObserver(); with a message with MessageType:
     }
 
     @Override

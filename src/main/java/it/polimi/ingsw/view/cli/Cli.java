@@ -347,6 +347,18 @@ public class Cli extends View {
     }
 
 
+    public void askEnableEffect() {
+        System.out.println("Enable effect?");
+        String response = scanner.nextLine(); // TODO chec input
+        if (response.equals("y")) {
+            notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(true));
+        } else {
+            notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(false));
+        }
+
+
+    }
+
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
         clearCli();
