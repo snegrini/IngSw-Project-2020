@@ -19,6 +19,7 @@ public class WinMoveDecorator extends EffectDecorator {
         this.requirements = requirements;
         this.moveType = moveType;
         this.levels = levels;
+        setEffectType(effect.getEffectType());
     }
 
     @Override

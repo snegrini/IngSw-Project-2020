@@ -21,6 +21,7 @@ public class MoveAgainDecorator extends EffectDecorator {
         this.quantity = quantity;
         this.goBack = goBack;
         this.possibleMoves = new ArrayList<>();
+        setEffectType(effect.getEffectType());
     }
 
     @Override

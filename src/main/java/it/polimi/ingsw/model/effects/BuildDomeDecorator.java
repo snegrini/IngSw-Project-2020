@@ -19,6 +19,7 @@ public class BuildDomeDecorator extends EffectDecorator {
         this.effect = effect;
         this.requirements = requirements;
         this.possibleBuilds = new ArrayList<>();
+        setEffectType(effect.getEffectType());
     }
 
     @Override

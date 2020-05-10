@@ -34,6 +34,11 @@ public class BuildAgainDecoratorTest {
     }
 
     @Test
+    public void getEffectType() {
+        assertEquals(EffectType.YOUR_BUILD, effect1.getEffectType());
+    }
+
+    @Test
     public void applyEffect1_BuildNotPossible() {
         Board board = Game.getInstance().getBoard();
         Worker worker = new Worker(new Position(0, 0));
