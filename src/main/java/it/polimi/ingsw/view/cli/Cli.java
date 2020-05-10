@@ -21,10 +21,9 @@ public class Cli extends View {
     public Cli() {
         scanner = new Scanner(System.in);
         out = System.out;
-        init();
     }
 
-    private void init() {
+    public void init() {
         out.println("Welcome to SANTORINI board game!");
         askServerInfo();
     }

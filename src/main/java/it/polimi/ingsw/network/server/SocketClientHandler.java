@@ -34,6 +34,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
             handleClientConnection();
         } catch (IOException e) {
             Server.LOGGER.severe("Client " + client.getInetAddress() + " connection dropped.");
+            disconnect();
         }
     }
 

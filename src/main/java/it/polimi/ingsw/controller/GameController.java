@@ -23,7 +23,6 @@ public class GameController implements Observer {
     private List<ReducedGod> availableGods;
     private List<Color> availableColors;
 
-
     private List<ReducedGod> activeGodList; // TODO in Game create getActiveGodList (wich take only gods assigned to players)
 
 
