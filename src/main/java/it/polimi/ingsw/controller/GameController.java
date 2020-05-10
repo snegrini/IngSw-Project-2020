@@ -497,6 +497,17 @@ public class GameController implements Observer {
      */
     @Override
     public void update(Message message) {
+        VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
+        switch (message.getMessageType()) {
+            case MOVE_FX:
+                virtualView.askMoveFx(((PositionMessage) message).getPositionList());
+                break;
+            case BUILD_FX:
+                virtualView.askBuildFx(((PositionMessage) message).getPositionList());
+                break;
+            case WIN_FX:
+                break;
+        }
 
     }
 

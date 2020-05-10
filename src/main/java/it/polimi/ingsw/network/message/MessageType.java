@@ -14,6 +14,7 @@ public enum MessageType {
     BUILD,
     BUILD_FX,
     WIN,
+    WIN_FX,
     LOSE,
 
     //utility:

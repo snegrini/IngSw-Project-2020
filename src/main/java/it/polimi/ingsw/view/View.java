@@ -65,6 +65,9 @@ public abstract class View {
      */
     public abstract void askNewBuildingPosition(List<Position> positions);
 
+    public abstract void askMoveFx(List<Position> positions);
+
+    public abstract void askBuildFx(List<Position> positions);
 
     /**
      * Shows to the user if the Login succeeded.

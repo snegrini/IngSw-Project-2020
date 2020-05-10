@@ -74,6 +74,16 @@ public class VirtualView extends View implements Observer {
     }
 
     @Override
+    public void askMoveFx(List<Position> positions) {
+        clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.MOVE_FX, positions));
+    }
+
+    @Override
+    public void askBuildFx(List<Position> positions) {
+        clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.BUILD_FX, positions));
+    }
+
+    @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
         clientHandler.sendMessage(new LoginReply(nicknameAccepted, connectionSuccessful));
     }
