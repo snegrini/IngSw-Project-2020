@@ -64,9 +64,20 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         return true;
     }
 
+    /**
+     * Disconnect the socket.
+     */
     @Override
     public void disconnect() {
-        // TODO
+        try {
+            if (!client.isClosed()) {
+                client.close();
+            }
+        } catch (IOException e) {
+            Server.LOGGER.severe(e.getMessage());
+        }
+        Thread.currentThread().interrupt();
+        socketServer.onDisconnect(this);
     }
 
     @Override

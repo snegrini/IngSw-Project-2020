@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.enumerations.GameState;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.*;
+import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -391,5 +392,25 @@ public class GameController implements Observer {
     @Override
     public void update(Message message) {
 
+    }
+
+    /**
+     * Handles the disconnection of a client.
+     *
+     * @param clientHandler the client disconnecting.
+     */
+    public void onDisconnect(ClientHandler clientHandler) {
+        String nickname = virtualViews.entrySet()
+                .stream()
+                .filter(vv -> clientHandler.equals(vv.getValue().getClientHandler()))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null);
+
+        if (nickname != null) {
+            virtualViews.remove(nickname);
+            notifyAllViews(nickname + " disconnected from the server. GAME ENDED.");
+            // TODO end the game.
+        }
     }
 }

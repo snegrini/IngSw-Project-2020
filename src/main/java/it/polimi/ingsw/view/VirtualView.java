@@ -23,6 +23,9 @@ public class VirtualView extends View implements Observer {
         this.clientHandler = clientHandler;
     }
 
+    public ClientHandler getClientHandler() {
+        return clientHandler;
+    }
 
     @Override
     public void askNickname() {

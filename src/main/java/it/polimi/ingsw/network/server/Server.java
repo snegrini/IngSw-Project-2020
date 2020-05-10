@@ -40,5 +40,7 @@ public class Server {
         gameController.onMessageReceived(message);
     }
 
-
+    public void onDisconnect(ClientHandler clientHandler) {
+        gameController.onDisconnect(clientHandler);
+    }
 }
