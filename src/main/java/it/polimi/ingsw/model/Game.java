@@ -277,7 +277,7 @@ public class Game extends Observable {
 
         switch (targetType) {
             case ALL_YOUR_WORKERS:
-                workerList = this.getAllyWorkers(worker);
+                workerList = getAllyWorkers(worker);
                 break;
             case ALL_OPP_WORKERS:
                 workerList = getEnemyWorkers(worker);

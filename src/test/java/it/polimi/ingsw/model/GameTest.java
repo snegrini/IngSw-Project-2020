@@ -43,9 +43,9 @@ public class GameTest {
         p2.addWorker(w4);
         p2.initWorkers(List.of(new Position(0, 0), new Position(1, 1)));
 
-        instance.initWorkersOnBoard(List.of(w1, w2, w3, w4));
-        instance.addPlayer(p1);
-        instance.addPlayer(p2);
+        this.instance.initWorkersOnBoard(List.of(w1, w2, w3, w4));
+        this.instance.addPlayer(p1);
+        this.instance.addPlayer(p2);
     }
 
     @After

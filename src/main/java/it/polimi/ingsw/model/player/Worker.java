@@ -75,6 +75,7 @@ public class Worker {
         return possibleMoves.stream()
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
+                .filter(pos -> board.getSpace(pos).isFree())
                 .filter(pos -> !lockedMovements.contains(board.getMoveTypeByLevel(position, pos)))
                 // FIXME
                 //  .filter(pos -> !lockedMovements.contains(board.isMovingBack(position, pos)))

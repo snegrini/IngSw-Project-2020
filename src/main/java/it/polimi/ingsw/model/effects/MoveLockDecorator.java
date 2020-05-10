@@ -34,6 +34,7 @@ public class MoveLockDecorator extends EffectDecorator {
     @Override
     public void prepare(Worker worker) {
         effect.prepare(worker);
+        apply(worker, null);
     }
 
     @Override
