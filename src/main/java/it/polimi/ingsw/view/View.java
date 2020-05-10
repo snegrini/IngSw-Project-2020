@@ -63,7 +63,7 @@ public abstract class View {
      *
      * @param positions the list of the available positions.
      */
-    public abstract void askNewBuildingPosition(List<Position> positions);
+    public abstract void askBuild(List<Position> positions);
 
     public abstract void askMoveFx(List<Position> positions);
 

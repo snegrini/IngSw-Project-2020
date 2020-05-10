@@ -69,7 +69,7 @@ public class VirtualView extends View implements Observer {
 
 
     @Override
-    public void askNewBuildingPosition(List<Position> positions) {
+    public void askBuild(List<Position> positions) {
         clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.BUILD, positions));
     }
 

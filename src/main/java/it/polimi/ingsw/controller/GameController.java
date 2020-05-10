@@ -125,10 +125,46 @@ public class GameController implements Observer {
             case ENABLE_EFFECT:
                 prepareEffect((PrepareEffectMessage) receivedMessage);
                 break;
-            case APPLY_EFFECT: // TODO apply effect
+            case APPLY_EFFECT:
+                game.getPlayerByNickname(turnController.getActivePlayer())
+                        .getGod().getEffectByType(turnController.getPhaseType())
+                        .apply(turnController.getActiveWorker(), ((PositionMessage) receivedMessage)
+                                .getPositionList().get(0));
+                nextPhase();
                 break;
             default:
                 // TODO show exception
+                break;
+        }
+    }
+
+
+    private void prepareEffect(PrepareEffectMessage receivedMessage) {
+        if (receivedMessage.isEnableEffect()) {
+            Player player = game.getPlayerByNickname(turnController.getActivePlayer());
+            player.getGod().getEffectByType(turnController.getPhaseType())
+                    .prepare(turnController.getActiveWorker());
+
+        } else {
+            resumePhase();
+        }
+    }
+
+    private void resumePhase() {
+
+        switch (turnController.getPhaseType()) {
+            case YOUR_MOVE:
+                movePhase(true);
+                break;
+            case YOUR_MOVE_AFTER:
+                buildPhase(true);
+                break;
+            case YOUR_BUILD:
+                buildPhase(true);
+                break;
+            case YOUR_BUILD_AFTER:
+                turnController.next();
+                newTurn();
                 break;
         }
     }
@@ -140,81 +176,7 @@ public class GameController implements Observer {
                 .getNickname()).getWorkerByPosition((((PositionMessage) receivedMessage)
                 .getPositionList().get(0))));
 
-        movePhase();
-    }
-
-    private void movePhase() {
-
-
-        VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
-        turnController.setPhaseType(EffectType.YOUR_MOVE);
-
-        // EFFECT REQUIRE YOUR MOVE
-
-        if (checkEffectPhase(turnController.getPhaseType())) {
-            if (requireEffect()) {
-                virtualView.askEnableEffect();
-            } else {
-                virtualView.askMove(turnController.getActiveWorker().getPossibleMoves());
-            }
-        } else {
-            virtualView.askMove(turnController.getActiveWorker().getPossibleMoves());
-        }
-    }
-
-
-    private boolean requireEffect() {
-        return game.getPlayerByNickname(turnController.getActivePlayer()).getGod()
-                .getEffectByType(turnController.getPhaseType())
-                .require(turnController.getActiveWorker());
-    }
-
-    private void prepareEffect(PrepareEffectMessage receivedMessage) {
-        if (receivedMessage.isEnableEffect()) {
-            Player player = game.getPlayerByNickname(turnController.getActivePlayer());
-            player.getGod().getEffectByType(turnController.getPhaseType())
-                    .prepare(turnController.getActiveWorker());
-
-        } else {
-            switch (turnController.getPhaseType()) {
-                case YOUR_MOVE:
-                    movePhase();
-                    break;
-                case YOUR_MOVE_AFTER:
-                    buildPhase();
-                    break;
-                case YOUR_BUILD:
-                    buildPhase();
-                    break;
-                case YOUR_BUILD_AFTER:
-                    newTurn();
-                    break;
-            }
-        }
-    }
-
-
-    private void buildHandler(PositionMessage receivedMessage, VirtualView virtualView) {
-        Position buildOnPosition = receivedMessage.getPositionList().get(0);
-        game.buildBlock(turnController.getActiveWorker(), buildOnPosition);
-
-        // CHECK EFFECT YOUR_BUILD_AFTER
-        turnController.setPhaseType(EffectType.YOUR_BUILD_AFTER);
-        if (checkEffectPhase(turnController.getPhaseType())) {
-            if (requireEffect()) {
-                virtualView.askEnableEffect();
-            } else {
-                // prossimo turno.
-                turnController.next();
-                newTurn();
-            }
-        } else {
-            // prossimo turno.
-            turnController.next();
-            newTurn();
-        }
-
-
+        movePhase(false);
     }
 
     private void moveHandler(PositionMessage receivedMessage, VirtualView virtualView) {
@@ -244,24 +206,118 @@ public class GameController implements Observer {
         }
     }
 
+    private void buildHandler(PositionMessage receivedMessage, VirtualView virtualView) {
+        Position buildOnPosition = receivedMessage.getPositionList().get(0);
+        game.buildBlock(turnController.getActiveWorker(), buildOnPosition);
+
+        // CHECK EFFECT YOUR_BUILD_AFTER
+        turnController.setPhaseType(EffectType.YOUR_BUILD_AFTER);
+        if (checkEffectPhase(turnController.getPhaseType())) {
+            if (requireEffect()) {
+                virtualView.askEnableEffect();
+            } else {
+                // prossimo turno.
+                turnController.next();
+                newTurn();
+            }
+        } else {
+            // prossimo turno.
+            turnController.next();
+            newTurn();
+        }
+
+
+    }
+
     private boolean checkEffectPhase(EffectType effectType) {
         return (game.getPlayerByNickname(turnController.getActivePlayer()).getGod().getEffectByType(effectType) != null);
     }
 
+    private boolean requireEffect() {
+        return game.getPlayerByNickname(turnController.getActivePlayer()).getGod()
+                .getEffectByType(turnController.getPhaseType())
+                .require(turnController.getActiveWorker());
+    }
+
+
+    private void startGame() {
+        gameState = GameState.IN_GAME;
+        notifyAllViews("Game Started!");
+
+        newTurn();
+    }
+
+    private void newTurn() {
+
+        turnController.setPhaseType(EffectType.YOUR_MOVE);
+
+        pickWorker();
+    }
+
+    private void pickWorker() {
+
+        Player player = game.getPlayerByNickname(turnController.getActivePlayer());
+        List<Position> positionList = new ArrayList<>(player.getWorkersPositions());
+        VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
+        virtualView.askMovingWorker(positionList);
+    }
+
+    private void movePhase(Boolean skipEffect) {
+
+
+        VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
+        turnController.setPhaseType(EffectType.YOUR_MOVE);
+
+        // EFFECT REQUIRE YOUR MOVE
+
+        if (checkEffectPhase(turnController.getPhaseType()) && !skipEffect) {
+            if (requireEffect()) {
+                virtualView.askEnableEffect();
+            } else {
+                virtualView.askMove(turnController.getActiveWorker().getPossibleMoves());
+            }
+        } else {
+            virtualView.askMove(turnController.getActiveWorker().getPossibleMoves());
+        }
+    }
+
     private void buildPhase() {
+        buildPhase(false);
+    }
+
+    private void buildPhase(Boolean skipEffect) {
 
         VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
         turnController.setPhaseType(EffectType.YOUR_BUILD);
 
         // CHECK EFFECT YOUR_BUILD
-        if (checkEffectPhase(turnController.getPhaseType())) {
+        if (checkEffectPhase(turnController.getPhaseType()) && !skipEffect) {
             if (requireEffect()) {
                 virtualView.askEnableEffect();
             } else {
-                virtualView.askNewBuildingPosition(turnController.getActiveWorker().getPossibleBuilds());
+                virtualView.askBuild(turnController.getActiveWorker().getPossibleBuilds());
             }
         } else {
-            virtualView.askNewBuildingPosition(turnController.getActiveWorker().getPossibleBuilds());
+            virtualView.askBuild(turnController.getActiveWorker().getPossibleBuilds());
+        }
+    }
+
+    private void nextPhase() {
+        switch (turnController.getPhaseType()) {
+            case YOUR_MOVE:
+                buildPhase();
+                break;
+            case YOUR_MOVE_AFTER:
+                buildPhase();
+                break;
+            case YOUR_BUILD:
+                turnController.next();
+                newTurn();
+                break;
+            case YOUR_BUILD_AFTER:
+                turnController.next();
+                newTurn();
+                break;
         }
     }
 
@@ -270,8 +326,11 @@ public class GameController implements Observer {
         // TODO end game, prepare server for a new game. Set server on listen for the first client.
     }
 
+    void endGame() {
+        // TODO send message to all players, close connections
+    }
 
-    // UTILITY METHODS:
+    // INIT METHODS:
 
     /**
      * If It's the first Client then ask number of Players he wants, add Player to the Game otherwise
@@ -403,32 +462,8 @@ public class GameController implements Observer {
 
     }
 
-    private void startGame() {
-        gameState = GameState.IN_GAME;
-        notifyAllViews("Game Started!");
-
-        newTurn();
-    }
-
-    private void newTurn() {
-
-        turnController.setPhaseType(EffectType.YOUR_MOVE);
-
-        pickWorker();
-    }
-
-    private void pickWorker() {
-
-        Player player = game.getPlayerByNickname(turnController.getActivePlayer());
-        List<Position> positionList = new ArrayList<>(player.getWorkersPositions());
-        VirtualView virtualView = virtualViews.get(turnController.getActivePlayer());
-        virtualView.askMovingWorker(positionList);
-    }
 
 
-    void endGame() {
-        // TODO send message to all players, close connections
-    }
 
 
     /**

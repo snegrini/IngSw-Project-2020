@@ -21,7 +21,7 @@
         <description>Your Move: Your Worker may move one additional time, but not back to its initial space.
         </description>
         <effects>
-            <effect type="YOUR_MOVE">
+            <effect type="YOUR_MOVE_AFTER">
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <move again="true" quantity="1" goback="false"/>
@@ -36,7 +36,7 @@
             this turn.
         </description>
         <effects>
-            <effect type="OPP_TURN">
+            <effect type="YOUR_MOVE_AFTER">
                 <requirements>
                     <target>YOUR_ACTIVE_WORKER</target>
                     <move>UP</move>
@@ -66,7 +66,7 @@
         <caption>Goddess of the Harvest</caption>
         <description>Your Build: Your Worker may build one additional time, but not on the same space.</description>
         <effects>
-            <effect type="YOUR_BUILD">
+            <effect type="YOUR_BUILD_AFTER">
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <build again="true" quantity="1" samespace="false"/>
@@ -80,7 +80,7 @@
         <description>Your Build: Your Worker may build one additional block (not dome) on top of your first block.
         </description>
         <effects>
-            <effect type="YOUR_BUILD">
+            <effect type="YOUR_BUILD_AFTER">
                 <requirements>
                     <target>YOUR_WORKER</target>
                     <build/>
@@ -112,7 +112,7 @@
         <caption>God of the Wild</caption>
         <description>Win Condition: You also win if your Worker moves down two or more levels.</description>
         <effects>
-            <effect type="WIN_COND">
+            <effect type="YOUR_MOVE_AFTER">
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <move lvl="2">DOWN</move>
@@ -126,7 +126,7 @@
         <description>Your Turn: If your Worker does not move up, it may build both before and after moving.
         </description>
         <effects>
-            <effect type="YOUR_TURN">
+            <effect type="YOUR_MOVE">
                 <requirements>
                     <target>YOUR_WORKER</target>
                     <move lock="true">UP</move>

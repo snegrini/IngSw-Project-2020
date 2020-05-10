@@ -38,7 +38,7 @@ public class ClientController implements ViewObserver, Observer {
                 view.showBoard(boardMessage.getBoard());
                 break;
             case BUILD:
-                view.askNewBuildingPosition(((PositionMessage) message).getPositionList());
+                view.askBuild(((PositionMessage) message).getPositionList());
                 break;
             case INIT_COLORS:
                 view.askInitWorkerColor(((ColorsMessage) message).getColorList());
@@ -76,7 +76,12 @@ public class ClientController implements ViewObserver, Observer {
             case ENABLE_EFFECT:
                 view.askEnableEffect();
                 break;
-
+            case MOVE_FX:
+                view.askMoveFx(((PositionMessage) message).getPositionList());
+                break;
+            case BUILD_FX:
+                view.askBuildFx(((PositionMessage) message).getPositionList());
+                break;
 
             default: // Should never reach this condition
                 break;
@@ -140,6 +145,11 @@ public class ClientController implements ViewObserver, Observer {
     @Override
     public void onUpdateEnableEffect(Boolean response) {
         client.sendMessage(new PrepareEffectMessage(this.nickname, response));
+    }
+
+    @Override
+    public void onUpdateApplyEffect(Position dest) {
+        client.sendMessage(new PositionMessage(this.nickname, MessageType.APPLY_EFFECT, List.of(dest)));
     }
 
     public static boolean isValidIpAddress(String ip) {

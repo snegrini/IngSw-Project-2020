@@ -37,11 +37,10 @@ public class MoveOverDecorator extends EffectDecorator {
 
         if (swapSpace) {
             Worker enemyWorker = board.getSpace(position).getWorker();
-            board.getSpace(position).setWorker(enemyWorker);
             if (enemyWorker != null) {
-                enemyWorker.move(activeWorkerPosition);
+                board.moveWorker(enemyWorker, activeWorkerPosition);
             }
-            activeWorker.move(position);
+            board.moveWorker(activeWorker, position);
         }
 
         if (pushBack) {
@@ -60,7 +59,7 @@ public class MoveOverDecorator extends EffectDecorator {
 
         // The possibleMoves list has already been prepared by the require method.
 
-        notifyObserver(new PositionMessage(Game.SERVER_NICKNAME, MessageType.BUILD_FX, possibleMoves));
+        notifyObserver(new PositionMessage(Game.SERVER_NICKNAME, MessageType.MOVE_FX, possibleMoves));
     }
 
     @Override

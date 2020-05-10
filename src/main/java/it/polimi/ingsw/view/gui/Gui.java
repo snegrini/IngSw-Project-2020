@@ -49,7 +49,17 @@ public class Gui extends View {
     }
 
     @Override
-    public void askNewBuildingPosition(List<Position> positions) {
+    public void askBuild(List<Position> positions) {
+
+    }
+
+    @Override
+    public void askMoveFx(List<Position> positions) {
+
+    }
+
+    @Override
+    public void askBuildFx(List<Position> positions) {
 
     }
 
@@ -70,6 +80,11 @@ public class Gui extends View {
 
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
+
+    }
+
+    @Override
+    public void askEnableEffect() {
 
     }
 

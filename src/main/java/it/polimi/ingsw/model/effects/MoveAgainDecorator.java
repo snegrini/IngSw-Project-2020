@@ -27,7 +27,7 @@ public class MoveAgainDecorator extends EffectDecorator {
     @Override
     public void apply(Worker activeWorker, Position position) {
         effect.apply(activeWorker, position);
-        activeWorker.move(position);
+        Game.getInstance().moveWorker(activeWorker, position);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MoveAgainDecorator extends EffectDecorator {
 
         // The possibleMoves list has already been prepared by the require method.
 
-        notifyObserver(new PositionMessage(Game.SERVER_NICKNAME, MessageType.BUILD_FX, possibleMoves));
+        notifyObserver(new PositionMessage(Game.SERVER_NICKNAME, MessageType.MOVE_FX, possibleMoves));
     }
 
     /**

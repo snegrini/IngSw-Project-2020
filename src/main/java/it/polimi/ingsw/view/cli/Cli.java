@@ -304,7 +304,7 @@ public class Cli extends View {
 
 
     @Override
-    public void askNewBuildingPosition(List<Position> positions) {
+    public void askBuild(List<Position> positions) {
         int chosenRow;
         int chosenColumn;
         out.println("Select in which position you want your Worker to build!");
@@ -339,7 +339,78 @@ public class Cli extends View {
 
     }
 
+    @Override
+    public void askMoveFx(List<Position> positionList) {
+        int chosenRow;
+        int chosenColumn;
+        out.println("Select the new position for your Worker!");
+        out.println("Here there are your Worker's possible moves:");
+        if (positionList.isEmpty()) {
+            out.println("Oh no! Unfortunately you can't move...");
+            notifyObserver((ViewObserver obs) -> obs.onUpdateMove(null));
+        } else {
+            for (int i = 0; i < positionList.size(); i++) {
+                out.println("Position " + (i + 1) + ": " + "Row: " + positionList.get(i).getRow() +
+                        " Column: " + positionList.get(i).getColumn());
+            }
+            out.println("Select the new position:");
+            while (true) {
+                try {
+                    do {
+                        out.print("Row: ");
+                        chosenRow = Integer.parseInt(scanner.nextLine());
+                        out.print("Column: ");
+                        chosenColumn = Integer.parseInt(scanner.nextLine());
+                        if (position_isNotValid(chosenRow, chosenColumn, positionList))
+                            out.println("You have inserted an invalid position! Please try again!");
+                    } while (position_isNotValid(chosenRow, chosenColumn, positionList));
+                    Position dest = new Position(chosenRow, chosenColumn);
+                    notifyObserver((ViewObserver obs) -> obs.onUpdateApplyEffect(dest));
+                    break;
+                } catch (NumberFormatException e) {
+                    out.println("You have not inserted an integer number! Please try again!");
+                }
+            }
+        }
+    }
 
+    @Override
+    public void askBuildFx(List<Position> positions) {
+        int chosenRow;
+        int chosenColumn;
+        out.println("Select in which position you want your Worker to build!");
+        out.println("Your Worker can Build here:");
+        if (positions.isEmpty()) {
+            out.println("Oh no! Unfortunately you can't build...");
+        } else {
+            for (int i = 0; i < positions.size(); i++) {
+                out.println("Position " + (i + 1) + ": " + "Row: " + positions.get(i).getRow() +
+                        " Column: " + positions.get(i).getColumn());
+            }
+            out.println("Select where to build:");
+            while (true) {
+                try {
+                    do {
+                        out.print("Row: ");
+                        chosenRow = Integer.parseInt(scanner.nextLine());
+                        out.print("Column: ");
+                        chosenColumn = Integer.parseInt(scanner.nextLine());
+                        if (position_isNotValid(chosenRow, chosenColumn, positions))
+                            out.println("You have inserted an invalid position! Please try again!");
+                    } while (position_isNotValid(chosenRow, chosenColumn, positions));
+
+                    Position newBuild = new Position(chosenRow, chosenColumn);
+                    notifyObserver((ViewObserver obs) -> obs.onUpdateApplyEffect(newBuild));
+                    break;
+                } catch (NumberFormatException e) {
+                    out.println("You have not inserted an integer number! Please try again!");
+                }
+            }
+        }
+
+    }
+
+    @Override
     public void askEnableEffect() {
         System.out.println("Enable effect?");
         String response = scanner.nextLine(); // TODO chec input
@@ -348,8 +419,6 @@ public class Cli extends View {
         } else {
             notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(false));
         }
-
-
     }
 
     @Override
