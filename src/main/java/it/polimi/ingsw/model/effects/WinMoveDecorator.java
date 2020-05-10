@@ -1,8 +1,10 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.WinMessage;
 
 import java.util.Map;
 
@@ -25,8 +27,8 @@ public class WinMoveDecorator extends EffectDecorator {
             int currentLvl = activeWorker.getLevel();
             int lastLvl = activeWorker.getHistory().getMoveLevel();
             if (currentLvl < lastLvl - levels) {
-                // TODO notifyObservers()
-                //      The player of the active workers has won the game.
+                notifyObserver(new WinMessage(Game.SERVER_NICKNAME));
+                //     TODO The player of the active workers has won the game.
                 //      Game is finished.
             }
 

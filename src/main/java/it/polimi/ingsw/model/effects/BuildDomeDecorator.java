@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.MessageType;
+import it.polimi.ingsw.network.message.PositionMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class BuildDomeDecorator extends EffectDecorator {
 
         // The possibleBuilds list has already been prepared by the require method.
 
-        // TODO notifyObserver()
+        notifyObserver(new PositionMessage(Game.SERVER_NICKNAME, MessageType.BUILD_FX, possibleBuilds));
     }
 
     @Override
