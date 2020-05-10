@@ -88,12 +88,12 @@
         <i>16</i>&nbsp;
         <i>17</i>&nbsp; private Color color;
         <i>18</i>&nbsp; private Position position;
-        <i>19</i>&nbsp; private MoveHistory moveHistory;
+        <i>19</i>&nbsp; private MoveHistory history;
         <i>20</i>&nbsp; private Set&lt;MoveType&gt; lockedMovements;
         <i>21</i>&nbsp;
         <b class="fc"><i>22</i>&nbsp; public Worker(Position position) {</b>
         <b class="fc"><i>23</i>&nbsp; this.position = position;</b>
-        <b class="fc"><i>24</i>&nbsp; this.moveHistory = new MoveHistory(position, 0);</b>
+        <b class="fc"><i>24</i>&nbsp; this.history = new MoveHistory(position, 0);</b>
         <b class="fc"><i>25</i>&nbsp; this.lockedMovements = new HashSet&lt;&gt;();</b>
         <b class="fc"><i>26</i>&nbsp; }</b>
         <i>27</i>&nbsp;
@@ -104,7 +104,7 @@
         <i>32</i>&nbsp;
         <i>33</i>&nbsp; public void initPosition(Position position) {
         <b class="fc"><i>34</i>&nbsp; this.position = position;</b>
-        <b class="fc"><i>35</i>&nbsp; this.moveHistory = new MoveHistory(position, 0);</b>
+        <b class="fc"><i>35</i>&nbsp; this.history = new MoveHistory(position, 0);</b>
         <b class="fc"><i>36</i>&nbsp; }</b>
         <i>37</i>&nbsp;
         <i>38</i>&nbsp; /**
@@ -183,8 +183,8 @@
         <i>107</i>&nbsp; * @return {@code true} if the worker has moved up by one level, {@code false} otherwise.
         <i>108</i>&nbsp; */
         <i>109</i>&nbsp; public boolean hasMovedUp() {
-        <b class="fc"><i>110</i>&nbsp; return !position.equals(moveHistory.getLastPosition()) &amp;&amp;</b>
-        <b class="fc"><i>111</i>&nbsp; getLevel() == moveHistory.getLastLevel() + 1;</b>
+        <b class="fc"><i>110</i>&nbsp; return !position.equals(history.getLastPosition()) &amp;&amp;</b>
+        <b class="fc"><i>111</i>&nbsp; getLevel() == history.getLastLevel() + 1;</b>
         <i>112</i>&nbsp; }
         <i>113</i>&nbsp;
         <i>114</i>&nbsp; /**
@@ -196,8 +196,8 @@
         otherwise.
         <i>119</i>&nbsp; */
         <i>120</i>&nbsp; public boolean hasMovedDown() {
-        <b class="fc"><i>121</i>&nbsp; return !position.equals(moveHistory.getLastPosition()) &amp;&amp;</b>
-        <b class="fc"><i>122</i>&nbsp; getLevel() &lt; moveHistory.getLastLevel();</b>
+        <b class="fc"><i>121</i>&nbsp; return !position.equals(history.getLastPosition()) &amp;&amp;</b>
+        <b class="fc"><i>122</i>&nbsp; getLevel() &lt; history.getLastLevel();</b>
         <i>123</i>&nbsp; }
         <i>124</i>&nbsp;
         <i>125</i>&nbsp; /**
@@ -208,8 +208,8 @@
         <i>130</i>&nbsp; * @return {@code true} if the worker has moved flat, {@code false} otherwise.
         <i>131</i>&nbsp; */
         <i>132</i>&nbsp; public boolean hasMovedFlat() {
-        <b class="fc"><i>133</i>&nbsp; return !position.equals(moveHistory.getLastPosition()) &amp;&amp;</b>
-        <b class="fc"><i>134</i>&nbsp; getLevel() == moveHistory.getLastLevel();</b>
+        <b class="fc"><i>133</i>&nbsp; return !position.equals(history.getLastPosition()) &amp;&amp;</b>
+        <b class="fc"><i>134</i>&nbsp; getLevel() == history.getLastLevel();</b>
         <i>135</i>&nbsp; }
         <i>136</i>&nbsp;
         <i>137</i>&nbsp; /**
@@ -219,8 +219,8 @@
         <i>141</i>&nbsp; * @param level worker&#39;s level in the previous turn
         <i>142</i>&nbsp; */
         <i>143</i>&nbsp; private void updateMoveHistory(Position position, int level) {
-        <b class="fc"><i>144</i>&nbsp; moveHistory.setLastPosition(position);</b>
-        <b class="fc"><i>145</i>&nbsp; moveHistory.setLastLevel(level);</b>
+        <b class="fc"><i>144</i>&nbsp; history.setLastPosition(position);</b>
+        <b class="fc"><i>145</i>&nbsp; history.setLastLevel(level);</b>
         <b class="fc"><i>146</i>&nbsp; }</b>
         <i>147</i>&nbsp;
         <i>148</i>&nbsp; public Color getColor() {
@@ -237,7 +237,7 @@
         <i>159</i>&nbsp; * @return a copy of {@code MoveHistory} of this worker.
         <i>160</i>&nbsp; */
         <i>161</i>&nbsp; public MoveHistory getMoveHistory() {
-        <b class="fc"><i>162</i>&nbsp; return new MoveHistory(this.moveHistory);</b>
+        <b class="fc"><i>162</i>&nbsp; return new MoveHistory(this.history);</b>
         <i>163</i>&nbsp; }
         <i>164</i>&nbsp;
         <i>165</i>&nbsp; /**

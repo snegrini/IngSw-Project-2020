@@ -3,8 +3,8 @@ package it.polimi.ingsw.network.message;
 public class LoginReply extends Message {
 
     private static final long serialVersionUID = -1423312065079102467L;
-    private boolean nicknameAccepted;
-    private boolean connectionSuccessful;
+    private final boolean nicknameAccepted;
+    private final boolean connectionSuccessful;
 
     public LoginReply(boolean nicknameAccepted, boolean connectionSuccessful) {
         super("", MessageType.LOGIN_REPLY);

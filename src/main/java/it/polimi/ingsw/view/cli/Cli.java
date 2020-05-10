@@ -6,9 +6,8 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
-import it.polimi.ingsw.view.View;
-
 import it.polimi.ingsw.observer.ViewObserver;
+import it.polimi.ingsw.view.View;
 
 import java.io.PrintStream;
 import java.util.*;
@@ -17,21 +16,18 @@ import java.util.stream.Collectors;
 public class Cli extends View {
 
     private Scanner scanner;
-    private PrintStream out;
+    private final PrintStream out;
 
     public Cli() {
         scanner = new Scanner(System.in);
         out = System.out;
     }
 
-
-    @Override
     public void init() {
         out.println("Welcome to SANTORINI board game!");
         askServerInfo();
     }
 
-    @Override
     public void askServerInfo() {
         Map<String, String> serverInfo = new HashMap<>();
         String defaultAddress = "localhost";
@@ -57,7 +53,6 @@ public class Cli extends View {
         } while (!validInput);
 
         clearCli();
-        validInput = false;
 
         do {
             out.print("Enter the server port (" + defaultPort + "): ");
@@ -91,8 +86,7 @@ public class Cli extends View {
         String question = "How many players are going to play? (You can choose between 2 or 3 players): ";
         playerNumber = numberInput(2, 3, question);
 
-        int finalPlayerNumber = playerNumber;
-        notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(finalPlayerNumber));
+        notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(playerNumber));
     }
 
 
@@ -333,8 +327,7 @@ public class Cli extends View {
                         if (position_isNotValid(chosenRow, chosenColumn, positions))
                             out.println("You have inserted an invalid position! Please try again!");
                     } while (position_isNotValid(chosenRow, chosenColumn, positions));
-                    int finalChosenRow = chosenRow;
-                    int finalChosenColumn = chosenColumn;
+
                     Position newBuild = new Position(chosenRow, chosenColumn);
                     notifyObserver((ViewObserver obs) -> obs.onUpdateBuild(newBuild));
                     break;
@@ -364,7 +357,7 @@ public class Cli extends View {
         clearCli();
         if (nicknameAccepted && connectionSuccessful) {
             out.println("Hi, " + nickname + "! You connected to the server.");
-        } else if (connectionSuccessful && !nicknameAccepted) {
+        } else if (connectionSuccessful) {
             askNickname();
         } else {
             out.println("Could not contact server.");

@@ -7,11 +7,9 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class GodParserTest {
-
-    private List<God> gods;
 
     @Before
     public void setUp() throws Exception {
@@ -23,7 +21,7 @@ public class GodParserTest {
 
     @Test
     public void parseGods() {
-        gods = GodParser.parseGods();
+        List<God> gods = GodParser.parseGods();
         assertTrue(gods.size() > 0);
     }
 }

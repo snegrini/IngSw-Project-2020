@@ -7,10 +7,9 @@ import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.GameState;
 import it.polimi.ingsw.model.enumerations.MoveType;
+import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.BoardMessage;
-import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.parser.GodParser;
 import org.junit.After;
 import org.junit.Before;
@@ -28,6 +27,25 @@ public class GameTest {
     @Before
     public void setUp() throws Exception {
         this.instance = Game.getInstance();
+
+        Player p1 = new Player("mario");
+        Player p2 = new Player("anna");
+
+        Worker w1 = new Worker(Color.RED);
+        Worker w2 = new Worker(Color.RED);
+        p1.addWorker(w1);
+        p1.addWorker(w2);
+        p1.initWorkers(List.of(new Position(3, 3), new Position(3, 1)));
+
+        Worker w3 = new Worker(Color.BLUE);
+        Worker w4 = new Worker(Color.BLUE);
+        p2.addWorker(w3);
+        p2.addWorker(w4);
+        p2.initWorkers(List.of(new Position(0, 0), new Position(1, 1)));
+
+        instance.initWorkersOnBoard(List.of(w1, w2, w3, w4));
+        instance.addPlayer(p1);
+        instance.addPlayer(p2);
     }
 
     @After
@@ -42,22 +60,19 @@ public class GameTest {
 
     @Test
     public void getPlayerByNickname_NicknameFound() {
-        Player player = new Player("anna");
-        instance.addPlayer(player);
-        assertEquals(player, instance.getPlayerByNickname("anna"));
+        assertNotNull(instance.getPlayerByNickname("anna"));
     }
 
     @Test
     public void getPlayerByNickname_NicknameNotFound() {
-        assertNull(instance.getPlayerByNickname("mario"));
+        assertNull(instance.getPlayerByNickname("antonio"));
     }
 
     @Test
     public void addPlayer() {
-        instance.addPlayer(new Player("sam"));
-        instance.addPlayer(new Player("andre"));
+        instance.addPlayer(new Player("samuele"));
 
-        assertEquals(2, instance.getNumCurrentPlayers());
+        assertEquals(3, instance.getNumCurrentPlayers());
     }
 
     @Test
@@ -73,19 +88,18 @@ public class GameTest {
 
     @Test
     public void isNicknameTaken_True() {
-        instance.addPlayer(new Player("sam"));
-        assertTrue(instance.isNicknameTaken("sam"));
+        assertTrue(instance.isNicknameTaken("mario"));
     }
 
     @Test
     public void isNicknameTaken_False() {
-        assertFalse(instance.isNicknameTaken("anto"));
+        assertFalse(instance.isNicknameTaken("antonio"));
     }
 
     @Test
     public void testGameState() {
         GameState gameState = GameState.LOGIN;
-        assertEquals(gameState, GameState.LOGIN);
+        assertEquals(GameState.LOGIN, gameState);
     }
 
     @Test
@@ -114,30 +128,12 @@ public class GameTest {
 
     @Test
     public void getPlayersNicknames() {
-        Player player1 = new Player("anna");
-        Player player2 = new Player("luigi");
-        instance.addPlayer(player1);
-        instance.addPlayer(player2);
-
-        assertEquals(List.of("anna", "luigi"), instance.getPlayersNicknames());
+        assertEquals(List.of("mario", "anna"), instance.getPlayersNicknames());
     }
 
     @Test
     public void getBoard() {
         assertNotNull(instance.getBoard());
-    }
-
-    @Test
-    public void initWorkersOnBoard() {
-        Position p1 = new Position(0, 3);
-        Position p2 = new Position(1, 3);
-        Worker w1 = new Worker(p1);
-        Worker w2 = new Worker(p2);
-        List<Worker> workerList = List.of(w1, w2);
-
-        instance.initWorkersOnBoard(workerList);
-        assertEquals(w1, instance.getWorkerByPosition(p1));
-        assertEquals(w2, instance.getWorkerByPosition(p2));
     }
 
     @Test
@@ -174,18 +170,18 @@ public class GameTest {
 
     @Test
     public void getFreePositions() {
-        List<Position> expected = new ArrayList<>();
-        for (int i = 0; i < Board.MAX_ROWS; i++) {
-            for (int j = 0; j < Board.MAX_COLUMNS; j++) {
-                expected.add(new Position(i, j));
-            }
-        }
-        assertEquals(expected, instance.getFreePositions());
+        List<Position> unexpected = new ArrayList<>();
+        unexpected.add(new Position(3, 3));
+        unexpected.add(new Position(3, 1));
+        unexpected.add(new Position(0, 0));
+        unexpected.add(new Position(1, 1));
+
+        assertNotEquals(unexpected, instance.getFreePositions());
     }
 
     @Test
     public void arePositionsFree() {
-        List<Position> positionList = List.of(new Position(0, 0), new Position(0, 1));
+        List<Position> positionList = List.of(new Position(2, 0), new Position(0, 1));
         assertTrue(instance.arePositionsFree(positionList));
     }
 
@@ -210,16 +206,10 @@ public class GameTest {
 
     @Test
     public void getNeighbourWorkers() {
-        Worker w1 = new Worker(new Position(0, 0));
-        Worker w2 = new Worker(new Position(3, 4));
-        w1.setColor(Color.BLUE);
-        w2.setColor(Color.RED);
+        Worker w1 = instance.getWorkerByPosition(new Position(0, 0));
+        Position p2 = new Position(1, 1);
 
-        instance.getBoard().getSpace(0, 0).setWorker(w1);
-        instance.getBoard().getSpace(3, 4).setWorker(w2);
-
-        assertEquals(List.of(), instance.getNeighbourWorkers(w1.getPosition(), false));
-
+        assertEquals(List.of(p2), instance.getNeighbourWorkers(w1.getPosition(), false));
     }
 
     @Test
@@ -233,25 +223,58 @@ public class GameTest {
 
     @Test
     public void getEnemyWorkers() {
-        Player p1 = new Player("mario");
-        Player p2 = new Player("luigi");
+        Worker w1 = instance.getWorkerByPosition(new Position(3, 3));
+        Worker w3 = instance.getWorkerByPosition(new Position(0, 0));
+        Worker w4 = instance.getWorkerByPosition(new Position(1, 1));
 
-        Worker w1 = new Worker(Color.RED);
-        Worker w2 = new Worker(Color.RED);
-        p1.addWorker(w1);
-        p1.addWorker(w2);
-        p1.initWorkers(List.of(new Position(3, 3), new Position(3, 1)));
-
-        Worker w3 = new Worker(Color.BLUE);
-        Worker w4 = new Worker(Color.BLUE);
-        p2.addWorker(w3);
-        p2.addWorker(w4);
-        p2.initWorkers(List.of(new Position(0, 0), new Position(1, 1)));
-
-        instance.getBoard().initWorkers(List.of(w1, w2, w3, w4));
-
-        instance.addPlayer(p1);
-        instance.addPlayer(p2);
         assertEquals(List.of(w3, w4), instance.getEnemyWorkers(w1));
+    }
+
+    @Test
+    public void getAllyWorkers() {
+        Worker w1 = instance.getWorkerByPosition(new Position(3, 3));
+        Worker w2 = instance.getWorkerByPosition(new Position(3, 1));
+
+        assertEquals(List.of(w1, w2), instance.getAllyWorkers(w1));
+    }
+
+    @Test
+    public void getOtherWorker_Found() {
+        Worker w1 = instance.getWorkerByPosition(new Position(3, 3));
+        Worker w2 = instance.getWorkerByPosition(new Position(3, 1));
+
+        assertEquals(w2, instance.getOtherWorker(w1));
+    }
+
+    @Test
+    public void getWorkersByTargetType_AllYourWorkers() {
+        Worker w1 = instance.getWorkerByPosition(new Position(3, 3));
+        Worker w2 = instance.getWorkerByPosition(new Position(3, 1));
+
+        assertEquals(List.of(w1, w2), instance.getWorkersByTargetType(w1, TargetType.ALL_YOUR_WORKERS));
+    }
+
+    @Test
+    public void getWorkersByTargetType_AllOppWorkers() {
+        Worker w1 = instance.getWorkerByPosition(new Position(3, 3));
+        Worker w3 = instance.getWorkerByPosition(new Position(0, 0));
+        Worker w4 = instance.getWorkerByPosition(new Position(1, 1));
+
+        assertEquals(List.of(w3, w4), instance.getWorkersByTargetType(w1, TargetType.ALL_OPP_WORKERS));
+    }
+
+    @Test
+    public void getWorkersByTargetType_YourActiveWorker() {
+        Worker w1 = instance.getWorkerByPosition(new Position(3, 3));
+
+        assertEquals(List.of(w1), instance.getWorkersByTargetType(w1, TargetType.YOUR_ACTIVE_WORKER));
+    }
+
+    @Test
+    public void getWorkersByTargetType_YourWorker() {
+        Worker w1 = instance.getWorkerByPosition(new Position(3, 3));
+        Worker w2 = instance.getWorkerByPosition(new Position(3, 1));
+
+        assertEquals(List.of(w2), instance.getWorkersByTargetType(w1, TargetType.YOUR_WORKER));
     }
 }

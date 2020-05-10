@@ -1,8 +1,8 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.ReducedGod;
-import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.board.Position;
+import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.observer.ViewObserver;
 
@@ -25,18 +25,11 @@ public abstract class View {
         observers.remove(obs);
     }
 
-    protected void notifyObserver(Consumer<ViewObserver> lambda) {
+    public void notifyObserver(Consumer<ViewObserver> lambda) {
         for (ViewObserver observer : observers) {
             lambda.accept(observer);
         }
     }
-
-    public abstract void init();
-
-    /**
-     * Asks to the user to which server he wants to connect.
-     */
-    public abstract void askServerInfo();
 
     /**
      * Asks to the user to choose a Nickname.

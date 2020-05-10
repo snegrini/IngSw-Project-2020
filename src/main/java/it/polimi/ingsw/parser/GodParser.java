@@ -1,11 +1,11 @@
 package it.polimi.ingsw.parser;
 
 import it.polimi.ingsw.model.God;
+import it.polimi.ingsw.model.effects.*;
 import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.network.server.Server;
-import it.polimi.ingsw.model.effects.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -16,7 +16,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
 
 import static it.polimi.ingsw.model.enumerations.XMLName.*;
 
@@ -148,9 +147,8 @@ public class GodParser {
      */
     private static Effect parseEffectDecorators(Effect effect, Map<String, String> requirements,
                                                 Map<String, String> parameters) {
-        // A WIN_COND effect may not have parameters. Others decorations are skipped.
         if (effect.getEffectType().equals(EffectType.WIN_COND)) {
-            return decorateWin(effect, requirements);
+            return decorateWin(effect, requirements, parameters);
         }
 
         if (parameters.containsKey(BUILD.getText())) {
@@ -167,10 +165,15 @@ public class GodParser {
     private static Effect decorateBuild(Effect effect, Map<String, String> requirements,
                                         Map<String, String> parameters) {
         if (Boolean.parseBoolean(parameters.get(BUILD.getText() + AGAIN.getText()))) {
-            effect = new BuildAgainDecorator(effect, requirements);
+            int quantity = Integer.parseInt(parameters.get(BUILD.getText() + QUANTITY.getText()));
+            boolean sameSpace = Boolean.parseBoolean(parameters.get(BUILD.getText() + SAME_SPACE.getText()));
+            boolean dome = Boolean.parseBoolean(parameters.get(BUILD.getText() + DOME.getText()));
+            boolean forceSameSpace = Boolean.parseBoolean(parameters.get(BUILD.getText() + FORCE_SAME_SPACE.getText()));
+
+            effect = new BuildAgainDecorator(effect, requirements, quantity, sameSpace, dome, forceSameSpace);
         }
 
-        if (Boolean.parseBoolean(parameters.get(BUILD.getText() + AGAIN.getText()))) {
+        if (Boolean.parseBoolean(parameters.get(BUILD.getText() + FORCE_DOME.getText()))) {
             effect = new BuildDomeDecorator(effect, requirements);
         }
 
@@ -199,8 +202,11 @@ public class GodParser {
         return effect;
     }
 
-    private static Effect decorateWin(Effect effect, Map<String, String> requirements) {
-        return new WinDownDecorator(effect, requirements);
+    private static Effect decorateWin(Effect effect, Map<String, String> requirements,
+                                      Map<String, String> parameters) {
+        MoveType moveType = MoveType.valueOf(parameters.get(MOVE.getText()));
+        int levels = Integer.parseInt(parameters.get(MOVE.getText() + LEVEL.getText()));
+        return new WinMoveDecorator(effect, requirements, moveType, levels);
     }
 
     /**

@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.observer.Observable;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

@@ -1,9 +1,9 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.controller.ClientController;
-import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.Cli;
-import it.polimi.ingsw.view.gui.Gui;
+import it.polimi.ingsw.view.gui.JavaFXGui;
+import javafx.application.Application;
 
 public class ClientApp {
     public static void main(String[] args) {
@@ -16,16 +16,15 @@ public class ClientApp {
             }
         }
 
-        View view;
-
         if (cliParam) {
-            view = new Cli();
+            Cli view = new Cli();
+            ClientController clientcontroller = new ClientController(view);
+            view.addObserver(clientcontroller);
+            view.init();
         } else {
-            view = new Gui();
+            Application.launch(JavaFXGui.class);
         }
 
-        ClientController clientcontroller = new ClientController(view);
-        view.addObserver(clientcontroller);
-        view.init();
+
     }
 }

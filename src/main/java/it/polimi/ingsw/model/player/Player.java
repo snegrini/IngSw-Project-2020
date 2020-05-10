@@ -11,8 +11,6 @@ import java.util.Objects;
 
 public class Player extends Observable {
 
-    private static final int MAX_WORKERS = 2;
-
     private final String nickname;
     private List<Worker> workers;
     private God god;
@@ -78,6 +76,14 @@ public class Player extends Observable {
         this.state = state;
     }
 
+    public List<Position> getWorkersPositions() {
+        List<Position> positionList = new ArrayList<>();
+        for (Worker w : workers) {
+            positionList.add(w.getPosition());
+        }
+        return positionList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,14 +96,4 @@ public class Player extends Observable {
     public int hashCode() {
         return Objects.hash(nickname);
     }
-
-    public List<Position> getWorkersPositions() {
-        List<Position> positionList = new ArrayList<>();
-        for (Worker w : workers) {
-            positionList.add(w.getPosition());
-        }
-        return positionList;
-    }
-
-
 }

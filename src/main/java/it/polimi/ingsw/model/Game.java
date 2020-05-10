@@ -5,12 +5,11 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.enumerations.MoveType;
+import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.BoardMessage;
-import it.polimi.ingsw.network.message.MessageType;
-import it.polimi.ingsw.parser.GodParser;
 import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.parser.GodParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,20 +166,19 @@ public class Game extends Observable {
         return board;
     }
 
+
     public void initWorkersOnBoard(List<Worker> workers) {
         board.initWorkers(workers);
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, board.getReducedSpaceBoard()));
     }
 
     public void moveWorker(Worker worker, Position dest) {
         board.moveWorker(worker, dest);
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, board.getReducedSpaceBoard()));
     }
 
     public void buildBlock(Worker worker, Position dest) {
         board.buildBlock(worker, dest);
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, board.getReducedSpaceBoard()));
     }
+
 
     public ReducedSpace[][] getReducedSpaceBoard() {
         return board.getReducedSpaceBoard();
@@ -230,5 +228,70 @@ public class Game extends Observable {
         return allWorkers.stream()
                 .filter(w -> !w.getColor().equals(worker.getColor()))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns the ally workers given a worker.
+     *
+     * @param worker the target worker.
+     * @return a List of Worker that are ally of the argument worker.
+     */
+    public List<Worker> getAllyWorkers(Worker worker) {
+        List<Worker> allWorkers = new ArrayList<>();
+
+        for (Player player : players) {
+            for (Position position : player.getWorkersPositions()) {
+                Worker tmpWorker = board.getWorkerByPosition(position);
+
+                if (tmpWorker.getColor().equals(worker.getColor())) {
+                    allWorkers.add(tmpWorker);
+                }
+            }
+        }
+
+        return allWorkers;
+    }
+
+
+    /**
+     * Returns the other player worker given a worker.
+     *
+     * @param worker a player worker.
+     * @return the other player worker, {@code null} if none is found.
+     */
+    public Worker getOtherWorker(Worker worker) {
+        for (Player player : players) {
+            for (Position position : player.getWorkersPositions()) {
+                Worker tmpWorker = board.getWorkerByPosition(position);
+
+                if (!tmpWorker.equals(worker) && tmpWorker.getColor().equals(worker.getColor())) {
+                    return tmpWorker;
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<Worker> getWorkersByTargetType(Worker worker, TargetType targetType) {
+        List<Worker> workerList;
+
+        switch (targetType) {
+            case ALL_YOUR_WORKERS:
+                workerList = this.getAllyWorkers(worker);
+                break;
+            case ALL_OPP_WORKERS:
+                workerList = getEnemyWorkers(worker);
+                break;
+            case YOUR_ACTIVE_WORKER:
+                workerList = List.of(worker);
+                break;
+            case YOUR_WORKER:
+                workerList = List.of(getOtherWorker(worker));
+                break;
+            default: // should never reach this condition.
+                workerList = List.of();
+                break;
+        }
+        return workerList;
     }
 }

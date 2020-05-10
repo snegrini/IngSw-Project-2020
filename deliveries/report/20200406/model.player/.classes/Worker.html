@@ -80,26 +80,26 @@
 <i>6</i>&nbsp;import model.effects.Effect;
 <i>7</i>&nbsp;import model.enumerations.Color;
 <i>8</i>&nbsp;
-<i>9</i>&nbsp;import java.util.ArrayList;
-<i>10</i>&nbsp;import java.util.List;
-<i>11</i>&nbsp;
-<i>12</i>&nbsp;import static java.lang.StrictMath.abs;
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;public class Worker {
-<i>15</i>&nbsp;
-<i>16</i>&nbsp;    private final Color color;
-<i>17</i>&nbsp;    private Position position;
-<i>18</i>&nbsp;    private MoveHistory moveHistory;
-<i>19</i>&nbsp;    //private List&lt;Effect&gt; effects;
-<i>20</i>&nbsp;
-<b class="fc"><i>21</i>&nbsp;    public Worker(Color color, Position position) {</b>
-<b class="fc"><i>22</i>&nbsp;        this.color = color;</b>
-<b class="fc"><i>23</i>&nbsp;        this.position = position;</b>
-<b class="fc"><i>24</i>&nbsp;        this.moveHistory = new MoveHistory(position, 0);</b>
-<i>25</i>&nbsp;        //this.effects = new ArrayList&lt;&gt;();
-<i>26</i>&nbsp;        //this.effects = new ArrayList&lt;&gt;();
-<b class="fc"><i>27</i>&nbsp;    }</b>
-<i>28</i>&nbsp;
+    <i>9</i>&nbsp;import java.util.ArrayList;
+    <i>10</i>&nbsp;import java.util.List;
+    <i>11</i>&nbsp;
+    <i>12</i>&nbsp;import static java.lang.StrictMath.abs;
+    <i>13</i>&nbsp;
+    <i>14</i>&nbsp;public class Worker {
+    <i>15</i>&nbsp;
+    <i>16</i>&nbsp; private final Color color;
+    <i>17</i>&nbsp; private Position position;
+    <i>18</i>&nbsp; private MoveHistory history;
+    <i>19</i>&nbsp; //private List&lt;Effect&gt; effects;
+    <i>20</i>&nbsp;
+    <b class="fc"><i>21</i>&nbsp; public Worker(Color color, Position position) {</b>
+    <b class="fc"><i>22</i>&nbsp; this.color = color;</b>
+    <b class="fc"><i>23</i>&nbsp; this.position = position;</b>
+    <b class="fc"><i>24</i>&nbsp; this.history = new MoveHistory(position, 0);</b>
+    <i>25</i>&nbsp; //this.effects = new ArrayList&lt;&gt;();
+    <i>26</i>&nbsp; //this.effects = new ArrayList&lt;&gt;();
+    <b class="fc"><i>27</i>&nbsp; }</b>
+    <i>28</i>&nbsp;
 <i>29</i>&nbsp;    public void build(Position position) {
 <b class="nc"><i>30</i>&nbsp;        Game.getInstance().getBoard().getSpace(position).increaseLevel(1);</b>
 <b class="nc"><i>31</i>&nbsp;    }</b>
@@ -245,48 +245,48 @@
 <i>171</i>&nbsp;        }
 <i>172</i>&nbsp;        */
 <i>173</i>&nbsp;
-<b class="fc"><i>174</i>&nbsp;        return positionList;</b>
-<i>175</i>&nbsp;    }
-<i>176</i>&nbsp;
-<i>177</i>&nbsp;    /**
-<i>178</i>&nbsp;     * Update the worker move history.
-<i>179</i>&nbsp;     *
-<i>180</i>&nbsp;     * @param position worker&#39;s position in the previous turn
-<i>181</i>&nbsp;     * @param level worker&#39;s level in the previous turn
-<i>182</i>&nbsp;     */
-<i>183</i>&nbsp;    private void updateMoveHistory(Position position, int level){
-<b class="fc"><i>184</i>&nbsp;        moveHistory.setLastPosition(position);</b>
-<b class="fc"><i>185</i>&nbsp;        moveHistory.setLastLevel(level);</b>
-<b class="fc"><i>186</i>&nbsp;    }</b>
-<i>187</i>&nbsp;
-<i>188</i>&nbsp;    public Color getColor() {
-<b class="nc"><i>189</i>&nbsp;        return color;</b>
-<i>190</i>&nbsp;    }
-<i>191</i>&nbsp;
-<i>192</i>&nbsp;    public Position getPosition() {
-<b class="fc"><i>193</i>&nbsp;        return position;</b>
-<i>194</i>&nbsp;    }
-<i>195</i>&nbsp;
-<i>196</i>&nbsp;    public void setPosition(Position position) {
-<b class="nc"><i>197</i>&nbsp;        this.position = position;</b>
-<b class="nc"><i>198</i>&nbsp;    }</b>
-<i>199</i>&nbsp;
-<i>200</i>&nbsp;    public MoveHistory getMoveHistory() {
-<b class="nc"><i>201</i>&nbsp;        return moveHistory;</b>
-<i>202</i>&nbsp;    }
-<i>203</i>&nbsp;
-<i>204</i>&nbsp;    public void setMoveHistory(MoveHistory moveHistory) {
-<b class="nc"><i>205</i>&nbsp;        this.moveHistory = moveHistory;</b>
-<b class="nc"><i>206</i>&nbsp;    }</b>
-<i>207</i>&nbsp;
-<i>208</i>&nbsp;    /*public List&lt;Effect&gt; getEffects() {
-<i>209</i>&nbsp;        return List.copyOf(effects);
-<i>210</i>&nbsp;    }
-<i>211</i>&nbsp;
-<i>212</i>&nbsp;    public void addEffect(Effect effect) {
-<i>213</i>&nbsp;        effects.add(effect);
-<i>214</i>&nbsp;    }*/
-<i>215</i>&nbsp;
+    <b class="fc"><i>174</i>&nbsp; return positionList;</b>
+    <i>175</i>&nbsp; }
+    <i>176</i>&nbsp;
+    <i>177</i>&nbsp; /**
+    <i>178</i>&nbsp; * Update the worker move history.
+    <i>179</i>&nbsp; *
+    <i>180</i>&nbsp; * @param position worker&#39;s position in the previous turn
+    <i>181</i>&nbsp; * @param level worker&#39;s level in the previous turn
+    <i>182</i>&nbsp; */
+    <i>183</i>&nbsp; private void updateMoveHistory(Position position, int level){
+    <b class="fc"><i>184</i>&nbsp; history.setLastPosition(position);</b>
+    <b class="fc"><i>185</i>&nbsp; history.setLastLevel(level);</b>
+    <b class="fc"><i>186</i>&nbsp; }</b>
+    <i>187</i>&nbsp;
+    <i>188</i>&nbsp; public Color getColor() {
+    <b class="nc"><i>189</i>&nbsp; return color;</b>
+    <i>190</i>&nbsp; }
+    <i>191</i>&nbsp;
+    <i>192</i>&nbsp; public Position getPosition() {
+    <b class="fc"><i>193</i>&nbsp; return position;</b>
+    <i>194</i>&nbsp; }
+    <i>195</i>&nbsp;
+    <i>196</i>&nbsp; public void setPosition(Position position) {
+    <b class="nc"><i>197</i>&nbsp; this.position = position;</b>
+    <b class="nc"><i>198</i>&nbsp; }</b>
+    <i>199</i>&nbsp;
+    <i>200</i>&nbsp; public MoveHistory getMoveHistory() {
+    <b class="nc"><i>201</i>&nbsp; return history;</b>
+    <i>202</i>&nbsp; }
+    <i>203</i>&nbsp;
+    <i>204</i>&nbsp; public void setMoveHistory(MoveHistory history) {
+    <b class="nc"><i>205</i>&nbsp; this.history = history;</b>
+    <b class="nc"><i>206</i>&nbsp; }</b>
+    <i>207</i>&nbsp;
+    <i>208</i>&nbsp; /*public List&lt;Effect&gt; getEffects() {
+    <i>209</i>&nbsp; return List.copyOf(effects);
+    <i>210</i>&nbsp; }
+    <i>211</i>&nbsp;
+    <i>212</i>&nbsp; public void addEffect(Effect effect) {
+    <i>213</i>&nbsp; effects.add(effect);
+    <i>214</i>&nbsp; }*/
+    <i>215</i>&nbsp;
 <i>216</i>&nbsp;
 <i>217</i>&nbsp;}
 </div>

@@ -200,14 +200,16 @@ public class BoardTest {
     }
 
     @Test
-    public void buildBlock() {
+    public void buildBlock_workerBuildHistory() {
         Position orig = new Position(0, 0);
         Position buildPos = new Position(1, 0);
         Worker w1 = new Worker(orig);
 
         board.buildBlock(w1, buildPos);
+        w1.updateBuildHistory(buildPos);
 
         assertEquals(1, board.getSpace(buildPos).getLevel());
+        assertEquals(buildPos, w1.getHistory().getBuildPosition());
     }
 
     @Test

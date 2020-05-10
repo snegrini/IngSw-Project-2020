@@ -56,7 +56,7 @@
             <effect type="YOUR_BUILD">
                 <parameters>
                     <target>YOUR_WORKER</target>
-                    <build dome="true"/>
+                    <build forcedome="true"/>
                 </parameters>
             </effect>
         </effects>
@@ -87,7 +87,7 @@
                 </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
-                    <build again="true" quantity="1" samespace="true" dome="false"/>
+                    <build again="true" quantity="1" forcesamespace="true" dome="false"/>
                 </parameters>
             </effect>
         </effects>
@@ -100,10 +100,6 @@
         </description>
         <effects>
             <effect type="YOUR_MOVE">
-                <requirements>
-                    <target>OPP_WORKER</target>
-                    <space free="true">BACK</space>
-                </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <move over="true" pushback="true"/>
@@ -117,10 +113,10 @@
         <description>Win Condition: You also win if your Worker moves down two or more levels.</description>
         <effects>
             <effect type="WIN_COND">
-                <requirements>
+                <parameters>
                     <target>YOUR_WORKER</target>
                     <move lvl="2">DOWN</move>
-                </requirements>
+                </parameters>
             </effect>
         </effects>
     </god>

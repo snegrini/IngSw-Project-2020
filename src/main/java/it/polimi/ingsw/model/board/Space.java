@@ -7,8 +7,8 @@ public class Space implements Comparable<Space> {
     private boolean dome;
     private Worker worker;
 
-    public final static int MIN_LEVEL = 0;
-    public final static int MAX_LEVEL = 3;
+    public static final int MIN_LEVEL = 0;
+    public static final int MAX_LEVEL = 3;
 
     public Space() {
         this.level = 0;

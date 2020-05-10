@@ -75,6 +75,7 @@ public class ClientController implements ViewObserver, Observer {
                 break;
             case ENABLE_EFFECT:
                 view.askEnableEffect();
+                break;
 
 
             default: // Should never reach this condition

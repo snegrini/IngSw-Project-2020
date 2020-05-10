@@ -7,8 +7,8 @@ import java.util.List;
 public class GodListMessage extends Message {
 
     private static final long serialVersionUID = -1116045089001448271L;
-    private List<ReducedGod> godList;
-    private int request;
+    private final List<ReducedGod> godList;
+    private final int request;
 
     /**
      * Default constructor.

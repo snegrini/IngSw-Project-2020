@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.board.Position;
 
 public class BuildMessage extends Message {
     private static final long serialVersionUID = -5330536550018687004L;
-    private Position position;
+    private final Position position;
 
     /**
      * Constructor of message sent from Client to Server for the build command.

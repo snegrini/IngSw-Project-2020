@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class BoardMessage extends Message {
     private static final long serialVersionUID = -8014575220371739730L;
-    private ReducedSpace board[][];
+    private final ReducedSpace[][] board;
 
     public BoardMessage(String nickname, MessageType messageType, ReducedSpace[][] board) {
         super(nickname, messageType);
