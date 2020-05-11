@@ -289,6 +289,7 @@ public class Board extends Observable {
 
         worker2.move(worker1.getPosition());
         space2.setWorker(worker1);
+        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
     }
 
 
