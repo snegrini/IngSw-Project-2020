@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: View</title>
+    <style type="text/css">
+    @import "../../.css/coverage.css";
+
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.view</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: View (it.polimi.ingsw.view)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">View</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 4)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 7)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.model.ReducedGod;
+        <i>4</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+        <i>5</i>&nbsp;import it.polimi.ingsw.model.board.ReducedSpace;
+        <i>6</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
+        <i>7</i>&nbsp;import it.polimi.ingsw.observer.ViewObserver;
+        <i>8</i>&nbsp;
+        <i>9</i>&nbsp;import java.util.ArrayList;
+        <i>10</i>&nbsp;import java.util.List;
+        <i>11</i>&nbsp;import java.util.function.Consumer;
+        <i>12</i>&nbsp;
+        <i>13</i>&nbsp;/**
+        <i>14</i>&nbsp; * Defines a generic view to be implemented by each it.polimi.ingsw.view type (e.g. CLI, GUI in
+        JavaFX, ...).
+        <i>15</i>&nbsp; */
+        <b class="nc"><i>16</i>&nbsp;public abstract class View {</b>
+        <i>17</i>&nbsp;
+        <b class="nc"><i>18</i>&nbsp; private final List&lt;ViewObserver&gt; observers = new ArrayList&lt;&gt;();</b>
+        <i>19</i>&nbsp;
+        <i>20</i>&nbsp; public void addObserver(ViewObserver obs) {
+        <b class="nc"><i>21</i>&nbsp; observers.add(obs);</b>
+        <i>22</i>&nbsp; }
+        <i>23</i>&nbsp;
+        <i>24</i>&nbsp; public void removeObserver(ViewObserver obs) {
+        <b class="nc"><i>25</i>&nbsp; observers.remove(obs);</b>
+        <i>26</i>&nbsp; }
+        <i>27</i>&nbsp;
+        <i>28</i>&nbsp; public void notifyObserver(Consumer&lt;ViewObserver&gt; lambda) {
+        <b class="nc"><i>29</i>&nbsp; for (ViewObserver observer : observers) {</b>
+        <b class="nc"><i>30</i>&nbsp; lambda.accept(observer);</b>
+        <b class="nc"><i>31</i>&nbsp; }</b>
+        <i>32</i>&nbsp; }
+        <i>33</i>&nbsp;
+        <i>34</i>&nbsp; /**
+        <i>35</i>&nbsp; * Asks to the user to choose a Nickname.
+        <i>36</i>&nbsp; */
+        <i>37</i>&nbsp; public abstract void askNickname();
+        <i>38</i>&nbsp;
+        <i>39</i>&nbsp; public abstract void askMovingWorker(List&lt;Position&gt; positionList);
+        <i>40</i>&nbsp;
+        <i>41</i>&nbsp; public abstract void askMove(List&lt;Position&gt; positionList);
+        <i>42</i>&nbsp;
+        <i>43</i>&nbsp; public abstract void askInitWorkersPositions(List&lt;Position&gt; positions);
+        <i>44</i>&nbsp;
+        <i>45</i>&nbsp; public abstract void askPlayersNumber();
+        <i>46</i>&nbsp;
+        <i>47</i>&nbsp; /**
+        <i>48</i>&nbsp; * Allows the user to choose his workers&#39; color.
+        <i>49</i>&nbsp; *
+        <i>50</i>&nbsp; * @param colors the list of the available colors.
+        <i>51</i>&nbsp; */
+        <i>52</i>&nbsp; public abstract void askInitWorkerColor(List&lt;Color&gt; colors);
+        <i>53</i>&nbsp;
+        <i>54</i>&nbsp; /**
+        <i>55</i>&nbsp; * Allows the user to choose his God.
+        <i>56</i>&nbsp; *
+        <i>57</i>&nbsp; * @param gods the list of the available Gods.
+        <i>58</i>&nbsp; */
+        <i>59</i>&nbsp; public abstract void askGod(List&lt;ReducedGod&gt; gods, int request);
+        <i>60</i>&nbsp;
+        <i>61</i>&nbsp; /**
+        <i>62</i>&nbsp; * Asks to the user to choose a new position where to build.
+        <i>63</i>&nbsp; *
+        <i>64</i>&nbsp; * @param positions the list of the available positions.
+        <i>65</i>&nbsp; */
+        <i>66</i>&nbsp; public abstract void askBuild(List&lt;Position&gt; positions);
+        <i>67</i>&nbsp;
+        <i>68</i>&nbsp; public abstract void askMoveFx(List&lt;Position&gt; positions);
+        <i>69</i>&nbsp;
+        <i>70</i>&nbsp; public abstract void askBuildFx(List&lt;Position&gt; positions);
+        <i>71</i>&nbsp;
+        <i>72</i>&nbsp; /**
+        <i>73</i>&nbsp; * Shows to the user if the Login succeeded.
+        <i>74</i>&nbsp; *
+        <i>75</i>&nbsp; * @param nicknameAccepted indicates if the chosen nickname has been accepted.
+        <i>76</i>&nbsp; * @param connectionSuccessful indicates if the connection has been successful.
+        <i>77</i>&nbsp; * @param nickname the nickname of the player to be greeted.
+        <i>78</i>&nbsp; */
+        <i>79</i>&nbsp; public abstract void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful,
+        String nickname);
+        <i>80</i>&nbsp;
+        <i>81</i>&nbsp; public abstract void showGenericMessage(String genericMessage);
+        <i>82</i>&nbsp;
+        <i>83</i>&nbsp; public abstract void showError(String error);
+        <i>84</i>&nbsp;
+        <i>85</i>&nbsp; /**
+        <i>86</i>&nbsp; * Shows the Board
+        <i>87</i>&nbsp; */
+        <i>88</i>&nbsp; public abstract void showBoard(ReducedSpace[][] spaces);
+        <i>89</i>&nbsp;
+        <i>90</i>&nbsp; public abstract void askEnableEffect();
+        <i>91</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-05-11 22:22</div>
+</div>
+</body>
+</html>
