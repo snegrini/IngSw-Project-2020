@@ -2,7 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Position;
-import it.polimi.ingsw.model.enumerations.EffectType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.view.VirtualView;
@@ -19,7 +19,7 @@ public class TurnController {
     private Worker activeWorker;
 
     Map<String, VirtualView> virtualViewMap;
-    private EffectType phaseType;
+    private PhaseType phaseType;
 
     public TurnController(Map<String, VirtualView> virtualViewMap) {
         this.game = Game.getInstance();
@@ -48,7 +48,7 @@ public class TurnController {
             currentActive = 0;
         }
         activePlayer = nicknameQueue.get(currentActive);
-        phaseType = EffectType.YOUR_MOVE;
+        phaseType = PhaseType.YOUR_MOVE;
     }
 
     /**
@@ -72,7 +72,7 @@ public class TurnController {
      *
      * @param turnPhaseType Phase Type.
      */
-    public void setPhaseType(EffectType turnPhaseType) {
+    public void setPhaseType(PhaseType turnPhaseType) {
         this.phaseType = turnPhaseType;
     }
 
@@ -80,7 +80,7 @@ public class TurnController {
     /**
      * @return the current Phase Type.
      */
-    public EffectType getPhaseType() {
+    public PhaseType getPhaseType() {
         return phaseType;
     }
 
@@ -89,7 +89,7 @@ public class TurnController {
      * Initialize a new Turn.
      */
     public void newTurn() {
-        setPhaseType(EffectType.YOUR_MOVE);
+        setPhaseType(PhaseType.YOUR_MOVE);
         pickWorker();
     }
 
@@ -113,7 +113,7 @@ public class TurnController {
 
 
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
-        setPhaseType(EffectType.YOUR_MOVE);
+        setPhaseType(PhaseType.YOUR_MOVE);
 
         // EFFECT REQUIRE YOUR MOVE
 
@@ -142,7 +142,7 @@ public class TurnController {
     private void buildPhase(boolean skipEffect) {
 
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
-        setPhaseType(EffectType.YOUR_BUILD);
+        setPhaseType(PhaseType.YOUR_BUILD);
 
         // CHECK EFFECT YOUR_BUILD
         if (checkEffectPhase(getPhaseType()) && !skipEffect) {
@@ -172,11 +172,8 @@ public class TurnController {
                 next();
                 newTurn();
                 break;
-            case YOUR_TURN: // TODO valutare se rimuovere queste ENUM.
-            case MOVE_AGAIN:
-            case BUILD_AGAIN:
-            case OPP_TURN:
-            case WIN_COND:
+            default: // should never reach this condition.
+                // TODO
                 break;
         }
     }
@@ -187,7 +184,7 @@ public class TurnController {
      * @param currentPhaseType current Phase Type
      * @return {@code true} if Effect is applicable, {@code false} otherwise.
      */
-    public boolean checkEffectPhase(EffectType currentPhaseType) {
+    public boolean checkEffectPhase(PhaseType currentPhaseType) {
         return (game.getPlayerByNickname(getActivePlayer()).getGod().getEffectByType(currentPhaseType) != null);
     }
 
@@ -217,11 +214,8 @@ public class TurnController {
                 next();
                 newTurn();
                 break;
-            case YOUR_TURN: // TODO valutare se rimuovere queste ENUM.
-            case MOVE_AGAIN:
-            case BUILD_AGAIN:
-            case OPP_TURN:
-            case WIN_COND:
+            default: // Should never reach this condition.
+                // TODO
                 break;
         }
     }

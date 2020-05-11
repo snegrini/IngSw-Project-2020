@@ -7,7 +7,7 @@
             space yours just vacated.
         </description>
         <effects>
-            <effect type="YOUR_MOVE">
+            <effect phase="YOUR_MOVE">
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <move over="true" swapspace="true"/>
@@ -21,7 +21,7 @@
         <description>Your Move: Your Worker may move one additional time, but not back to its initial space.
         </description>
         <effects>
-            <effect type="YOUR_MOVE_AFTER">
+            <effect phase="YOUR_MOVE_AFTER">
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <move again="true" quantity="1" goback="false"/>
@@ -36,7 +36,7 @@
             this turn.
         </description>
         <effects>
-            <effect type="YOUR_MOVE_AFTER">
+            <effect phase="YOUR_MOVE_AFTER">
                 <requirements>
                     <target>YOUR_ACTIVE_WORKER</target>
                     <move>UP</move>
@@ -53,7 +53,7 @@
         <caption>Titan Shouldering the Heavens</caption>
         <description>Your Build: Your Worker may build a dome at any level.</description>
         <effects>
-            <effect type="YOUR_BUILD">
+            <effect phase="YOUR_BUILD">
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <build forcedome="true"/>
@@ -66,7 +66,7 @@
         <caption>Goddess of the Harvest</caption>
         <description>Your Build: Your Worker may build one additional time, but not on the same space.</description>
         <effects>
-            <effect type="YOUR_BUILD_AFTER">
+            <effect phase="YOUR_BUILD_AFTER">
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <build again="true" quantity="1" samespace="false"/>
@@ -80,7 +80,7 @@
         <description>Your Build: Your Worker may build one additional block (not dome) on top of your first block.
         </description>
         <effects>
-            <effect type="YOUR_BUILD_AFTER">
+            <effect phase="YOUR_BUILD_AFTER">
                 <requirements>
                     <target>YOUR_WORKER</target>
                     <build/>
@@ -99,7 +99,7 @@
             one space straight backwards to an unoccupied space at any level.
         </description>
         <effects>
-            <effect type="YOUR_MOVE">
+            <effect phase="YOUR_MOVE">
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <move over="true" pushback="true"/>
@@ -112,10 +112,10 @@
         <caption>God of the Wild</caption>
         <description>Win Condition: You also win if your Worker moves down two or more levels.</description>
         <effects>
-            <effect type="YOUR_MOVE_AFTER">
+            <effect phase="YOUR_MOVE_AFTER">
                 <parameters>
                     <target>YOUR_WORKER</target>
-                    <move lvl="2">DOWN</move>
+                    <move win="true" lvl="2">DOWN</move>
                 </parameters>
             </effect>
         </effects>
@@ -126,7 +126,7 @@
         <description>Your Turn: If your Worker does not move up, it may build both before and after moving.
         </description>
         <effects>
-            <effect type="YOUR_MOVE">
+            <effect phase="YOUR_MOVE">
                 <requirements>
                     <target>YOUR_WORKER</target>
                     <move lock="true">UP</move>

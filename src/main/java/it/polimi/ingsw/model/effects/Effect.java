@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.effects;
 
 
 import it.polimi.ingsw.model.board.Position;
-import it.polimi.ingsw.model.enumerations.EffectType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.model.enumerations.XMLName;
 import it.polimi.ingsw.model.player.Worker;
@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public abstract class Effect extends Observable {
 
-    private EffectType effectType;
+    private PhaseType phaseType;
     private Map<XMLName, TargetType> targetTypeMap;
 
     protected Effect() {
@@ -53,19 +53,19 @@ public abstract class Effect extends Observable {
      */
     public abstract void clear(Worker worker);
 
-    public EffectType getEffectType() {
-        return effectType;
+    public PhaseType getPhaseType() {
+        return phaseType;
     }
 
     /**
      * Sets the effect type only if it hasn't already been set.
-     * The attribute {@code effectType} may not be modified again from decorators.
+     * The attribute {@code phaseType} may not be modified again from decorators.
      *
-     * @param effectType the type of the effect.
+     * @param phaseType the type of the effect.
      */
-    protected void setEffectType(EffectType effectType) {
-        if (null == this.effectType) {
-            this.effectType = effectType;
+    protected void setPhaseType(PhaseType phaseType) {
+        if (null == this.phaseType) {
+            this.phaseType = phaseType;
         }
     }
 

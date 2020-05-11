@@ -73,35 +73,35 @@
 
 
 <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.effects;
-<i>2</i>&nbsp;
-<i>3</i>&nbsp;
-<i>4</i>&nbsp;import it.polimi.ingsw.model.enumerations.EffectType;
-<i>5</i>&nbsp;import it.polimi.ingsw.model.enumerations.TargetType;
-<i>6</i>&nbsp;import it.polimi.ingsw.model.enumerations.XMLName;
-<i>7</i>&nbsp;import it.polimi.ingsw.model.player.Worker;
-<i>8</i>&nbsp;import it.polimi.ingsw.network.message.EffectApplyMessage;
-<i>9</i>&nbsp;import it.polimi.ingsw.network.message.Message;
-<i>10</i>&nbsp;import it.polimi.ingsw.observer.Observable;
-<i>11</i>&nbsp;
-<i>12</i>&nbsp;import java.util.HashMap;
-<i>13</i>&nbsp;import java.util.Map;
-<i>14</i>&nbsp;
-<i>15</i>&nbsp;/**
-<i>16</i>&nbsp; * Abstract class used to implement the Decorator Pattern for the effects.
-<i>17</i>&nbsp; */
-<i>18</i>&nbsp;public abstract class Effect extends Observable {
-<i>19</i>&nbsp;
-<i>20</i>&nbsp;    private EffectType effectType;
-<i>21</i>&nbsp;    private Map&lt;XMLName, TargetType&gt; targetTypeMap;
-<i>22</i>&nbsp;
-<b class="fc"><i>23</i>&nbsp;    protected Effect() {</b>
-<b class="fc"><i>24</i>&nbsp;        targetTypeMap = new HashMap&lt;&gt;();</b>
-<b class="fc"><i>25</i>&nbsp;    }</b>
-<i>26</i>&nbsp;
-<i>27</i>&nbsp;    /**
-<i>28</i>&nbsp;     * Applies the effect to the argument worker.
-<i>29</i>&nbsp;     *
-<i>30</i>&nbsp;     * @param message the message that contains all the settings
+    <i>2</i>&nbsp;
+    <i>3</i>&nbsp;
+    <i>4</i>&nbsp;import it.polimi.ingsw.model.enumerations.PhaseType;
+    <i>5</i>&nbsp;import it.polimi.ingsw.model.enumerations.TargetType;
+    <i>6</i>&nbsp;import it.polimi.ingsw.model.enumerations.XMLName;
+    <i>7</i>&nbsp;import it.polimi.ingsw.model.player.Worker;
+    <i>8</i>&nbsp;import it.polimi.ingsw.network.message.EffectApplyMessage;
+    <i>9</i>&nbsp;import it.polimi.ingsw.network.message.Message;
+    <i>10</i>&nbsp;import it.polimi.ingsw.observer.Observable;
+    <i>11</i>&nbsp;
+    <i>12</i>&nbsp;import java.util.HashMap;
+    <i>13</i>&nbsp;import java.util.Map;
+    <i>14</i>&nbsp;
+    <i>15</i>&nbsp;/**
+    <i>16</i>&nbsp; * Abstract class used to implement the Decorator Pattern for the effects.
+    <i>17</i>&nbsp; */
+    <i>18</i>&nbsp;public abstract class Effect extends Observable {
+    <i>19</i>&nbsp;
+    <i>20</i>&nbsp; private EffectType phaseType;
+    <i>21</i>&nbsp; private Map&lt;XMLName, TargetType&gt; targetTypeMap;
+    <i>22</i>&nbsp;
+    <b class="fc"><i>23</i>&nbsp; protected Effect() {</b>
+    <b class="fc"><i>24</i>&nbsp; targetTypeMap = new HashMap&lt;&gt;();</b>
+    <b class="fc"><i>25</i>&nbsp; }</b>
+    <i>26</i>&nbsp;
+    <i>27</i>&nbsp; /**
+    <i>28</i>&nbsp; * Applies the effect to the argument worker.
+    <i>29</i>&nbsp; *
+    <i>30</i>&nbsp; * @param message the message that contains all the settings
 <i>31</i>&nbsp;     *                needed to apply the effect.
 <i>32</i>&nbsp;     */
 <i>33</i>&nbsp;    public abstract void apply(EffectApplyMessage message);
@@ -117,33 +117,33 @@
 <i>43</i>&nbsp;     * Checks the necessary conditions for the effect to be applied.
 <i>44</i>&nbsp;     *
 <i>45</i>&nbsp;     * @param worker worker to whose check the effect requirements.
-<i>46</i>&nbsp;     * @return {@code true} if the conditions are satisfied, {@code false} otherwise.
-<i>47</i>&nbsp;     */
-<i>48</i>&nbsp;    public abstract boolean require(Worker worker);
-<i>49</i>&nbsp;
-<i>50</i>&nbsp;    public EffectType getEffectType() {
-<b class="fc"><i>51</i>&nbsp;        return effectType;</b>
-<i>52</i>&nbsp;    }
-<i>53</i>&nbsp;
-<i>54</i>&nbsp;    /**
-<i>55</i>&nbsp;     * Sets the effect type only if it hasn&#39;t already been set.
-<i>56</i>&nbsp;     * The attribute {@code effectType} may not be modified again from decorators.
-<i>57</i>&nbsp;     *
-<i>58</i>&nbsp;     * @param effectType the type of the effect.
-<i>59</i>&nbsp;     */
-<i>60</i>&nbsp;    protected void setEffectType(EffectType effectType) {
-<b class="fc"><i>61</i>&nbsp;        if (null == this.effectType) {</b>
-<b class="fc"><i>62</i>&nbsp;            this.effectType = effectType;</b>
-<i>63</i>&nbsp;        }
-<b class="fc"><i>64</i>&nbsp;    }</b>
-<i>65</i>&nbsp;
-<i>66</i>&nbsp;    public TargetType getTargetType(XMLName xmlName) {
-<b class="nc"><i>67</i>&nbsp;        return targetTypeMap.get(xmlName);</b>
-<i>68</i>&nbsp;    }
-<i>69</i>&nbsp;
-<i>70</i>&nbsp;    public void addTargetType(XMLName xmlName, TargetType targetType) {
-<b class="fc"><i>71</i>&nbsp;        targetTypeMap.put(xmlName, targetType);</b>
-<b class="fc"><i>72</i>&nbsp;    }</b>
+    <i>46</i>&nbsp; * @return {@code true} if the conditions are satisfied, {@code false} otherwise.
+    <i>47</i>&nbsp; */
+    <i>48</i>&nbsp; public abstract boolean require(Worker worker);
+    <i>49</i>&nbsp;
+    <i>50</i>&nbsp; public EffectType getEffectType() {
+    <b class="fc"><i>51</i>&nbsp; return phaseType;</b>
+    <i>52</i>&nbsp; }
+    <i>53</i>&nbsp;
+    <i>54</i>&nbsp; /**
+    <i>55</i>&nbsp; * Sets the effect type only if it hasn&#39;t already been set.
+    <i>56</i>&nbsp; * The attribute {@code phaseType} may not be modified again from decorators.
+    <i>57</i>&nbsp; *
+    <i>58</i>&nbsp; * @param phaseType the type of the effect.
+    <i>59</i>&nbsp; */
+    <i>60</i>&nbsp; protected void setEffectType(EffectType phaseType) {
+    <b class="fc"><i>61</i>&nbsp; if (null == this.phaseType) {</b>
+    <b class="fc"><i>62</i>&nbsp; this.phaseType = phaseType;</b>
+    <i>63</i>&nbsp; }
+    <b class="fc"><i>64</i>&nbsp; }</b>
+    <i>65</i>&nbsp;
+    <i>66</i>&nbsp; public TargetType getTargetType(XMLName xmlName) {
+    <b class="nc"><i>67</i>&nbsp; return targetTypeMap.get(xmlName);</b>
+    <i>68</i>&nbsp; }
+    <i>69</i>&nbsp;
+    <i>70</i>&nbsp; public void addTargetType(XMLName xmlName, TargetType targetType) {
+    <b class="fc"><i>71</i>&nbsp; targetTypeMap.put(xmlName, targetType);</b>
+    <b class="fc"><i>72</i>&nbsp; }</b>
 <i>73</i>&nbsp;}
 </div>
 </div>

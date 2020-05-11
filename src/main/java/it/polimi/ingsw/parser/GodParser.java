@@ -2,8 +2,8 @@ package it.polimi.ingsw.parser;
 
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.effects.*;
-import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.model.enumerations.MoveType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.network.server.Server;
 import org.w3c.dom.*;
@@ -111,8 +111,8 @@ public class GodParser {
      * @return the built Effect object.
      */
     private static Effect buildEffectObject(Element effectElement) {
-        String effectType = effectElement.getAttribute(TYPE.getText());
-        Effect effect = new SimpleEffect(EffectType.valueOf(effectType));
+        String effectType = effectElement.getAttribute(PHASE.getText());
+        Effect effect = new SimpleEffect(PhaseType.valueOf(effectType));
 
         NodeList reqNodeList = effectElement.getElementsByTagName(REQUIREMENTS.getText());
         NodeList parNodeList = effectElement.getElementsByTagName(PARAMETERS.getText());
@@ -147,10 +147,6 @@ public class GodParser {
      */
     private static Effect parseEffectDecorators(Effect effect, Map<String, String> requirements,
                                                 Map<String, String> parameters) {
-        if (effect.getEffectType().equals(EffectType.WIN_COND)) {
-            return decorateWin(effect, requirements, parameters);
-        }
-
         if (parameters.containsKey(BUILD.getText())) {
             effect = decorateBuild(effect, requirements, parameters);
         }
@@ -199,14 +195,13 @@ public class GodParser {
             effect = new MoveLockDecorator(effect, requirements, moveType);
         }
 
-        return effect;
-    }
+        if (Boolean.parseBoolean(parameters.get(MOVE.getText() + WIN.getText()))) {
+            MoveType moveType = MoveType.valueOf(parameters.get(MOVE.getText()));
+            int levels = Integer.parseInt(parameters.get(MOVE.getText() + LEVEL.getText()));
+            effect = new MoveWinDecorator(effect, requirements, moveType, levels);
+        }
 
-    private static Effect decorateWin(Effect effect, Map<String, String> requirements,
-                                      Map<String, String> parameters) {
-        MoveType moveType = MoveType.valueOf(parameters.get(MOVE.getText()));
-        int levels = Integer.parseInt(parameters.get(MOVE.getText() + LEVEL.getText()));
-        return new WinMoveDecorator(effect, requirements, moveType, levels);
+        return effect;
     }
 
     /**

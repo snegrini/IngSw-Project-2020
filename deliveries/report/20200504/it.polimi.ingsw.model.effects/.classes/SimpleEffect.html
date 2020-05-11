@@ -73,26 +73,26 @@
 
 
 <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.effects;
-<i>2</i>&nbsp;
-<i>3</i>&nbsp;import it.polimi.ingsw.model.enumerations.EffectType;
-<i>4</i>&nbsp;import it.polimi.ingsw.model.player.Worker;
-<i>5</i>&nbsp;import it.polimi.ingsw.network.message.EffectApplyMessage;
-<i>6</i>&nbsp;import it.polimi.ingsw.network.message.Message;
-<i>7</i>&nbsp;
-<i>8</i>&nbsp;public class SimpleEffect extends Effect {
-<i>9</i>&nbsp;
-<b class="fc"><i>10</i>&nbsp;    public SimpleEffect(EffectType effectType) {</b>
-<b class="fc"><i>11</i>&nbsp;        super.setEffectType(effectType);</b>
-<b class="fc"><i>12</i>&nbsp;    }</b>
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;
-<i>15</i>&nbsp;    @Override
-<i>16</i>&nbsp;    public void apply(EffectApplyMessage message) {
-<i>17</i>&nbsp;        // DO NOTHING.
-<b class="fc"><i>18</i>&nbsp;    }</b>
-<i>19</i>&nbsp;
-<i>20</i>&nbsp;    @Override
-<i>21</i>&nbsp;    public void prepare(Worker worker) {
+    <i>2</i>&nbsp;
+    <i>3</i>&nbsp;import it.polimi.ingsw.model.enumerations.PhaseType;
+    <i>4</i>&nbsp;import it.polimi.ingsw.model.player.Worker;
+    <i>5</i>&nbsp;import it.polimi.ingsw.network.message.EffectApplyMessage;
+    <i>6</i>&nbsp;import it.polimi.ingsw.network.message.Message;
+    <i>7</i>&nbsp;
+    <i>8</i>&nbsp;public class SimpleEffect extends Effect {
+    <i>9</i>&nbsp;
+    <b class="fc"><i>10</i>&nbsp; public SimpleEffect(EffectType phaseType) {</b>
+    <b class="fc"><i>11</i>&nbsp; super.setEffectType(phaseType);</b>
+    <b class="fc"><i>12</i>&nbsp; }</b>
+    <i>13</i>&nbsp;
+    <i>14</i>&nbsp;
+    <i>15</i>&nbsp; @Override
+    <i>16</i>&nbsp; public void apply(EffectApplyMessage message) {
+    <i>17</i>&nbsp; // DO NOTHING.
+    <b class="fc"><i>18</i>&nbsp; }</b>
+    <i>19</i>&nbsp;
+    <i>20</i>&nbsp; @Override
+    <i>21</i>&nbsp; public void prepare(Worker worker) {
 <i>22</i>&nbsp;        // DO NOTHING.
 <b class="nc"><i>23</i>&nbsp;    }</b>
 <i>24</i>&nbsp;

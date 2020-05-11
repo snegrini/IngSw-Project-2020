@@ -22,7 +22,7 @@ public class MoveLockDecoratorTest {
 
     @Before
     public void setUp() throws Exception {
-        effect = new MoveLockDecorator(new SimpleEffect(EffectType.YOUR_MOVE_AFTER), Map.of(), MoveType.UP);
+        effect = new MoveLockDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), Map.of(), MoveType.UP);
         effect.addTargetType(XMLName.PARAMETERS, TargetType.ALL_OPP_WORKERS);
     }
 

@@ -162,7 +162,7 @@ extends java.lang.Object</pre>
     <th class="colSecond" scope="row"><code><span class="memberNameLink"><a
             href="#getEffectByType(model.enumerations.EffectType)">getEffectByType</a></span>&#8203;(<a
             href="enumerations/EffectType.html"
-            title="enum in model.enumerations">EffectType</a>&nbsp;effectType)</code></th>
+            title="enum in model.enumerations">EffectType</a>&nbsp;phaseType)</code></th>
     <td class="colLast">
         <div class="block">Returns the god <code>Effect</code> given the EffectType, <code>null</code> otherwise.</div>
     </td>
@@ -219,13 +219,13 @@ extends java.lang.Object</pre>
                 href="effects/Effect.html" title="class in model.effects">Effect</a></span>&nbsp;<span
                 class="memberName">getEffectByType</span>&#8203;(<span class="arguments"><a
                 href="enumerations/EffectType.html"
-                title="enum in model.enumerations">EffectType</a>&nbsp;effectType)</span></div>
+                title="enum in model.enumerations">EffectType</a>&nbsp;phaseType)</span></div>
         <div class="block">Returns the god <code>Effect</code> given the EffectType, <code>null</code> otherwise.
             Only the first occurrence is returned; a God should have only one Effect per EffectType.
         </div>
         <dl>
             <dt><span class="paramLabel">Parameters:</span></dt>
-            <dd><code>effectType</code> - the type of the effect to get.</dd>
+            <dd><code>phaseType</code> - the type of the effect to get.</dd>
             <dt><span class="returnLabel">Returns:</span></dt>
             <dd>the <code>Effect</code> of the god if it is found, <code>null</code> otherwise.</dd>
         </dl>

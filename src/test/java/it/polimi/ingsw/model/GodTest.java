@@ -2,14 +2,12 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.effects.SimpleEffect;
-import it.polimi.ingsw.model.enumerations.EffectType;
-import it.polimi.ingsw.network.message.Message;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.observer.Observer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -22,7 +20,7 @@ public class GodTest {
 
     @Before
     public void setUp() throws Exception {
-        effect = new SimpleEffect(EffectType.YOUR_BUILD);
+        effect = new SimpleEffect(PhaseType.YOUR_BUILD);
 
         god = new God.Builder("Name Test")
                 .withCaption("Caption Test")
@@ -39,12 +37,12 @@ public class GodTest {
 
     @Test
     public void getEffectByType_EffectFound_NotNull() {
-        assertEquals(effect, god.getEffectByType(EffectType.YOUR_BUILD));
+        assertEquals(effect, god.getEffectByType(PhaseType.YOUR_BUILD));
     }
 
     @Test
     public void getEffectByType_EffectNotFound_Null() {
-        assertNull(god.getEffectByType(EffectType.YOUR_MOVE));
+        assertNull(god.getEffectByType(PhaseType.YOUR_MOVE));
     }
 
     @Test
@@ -59,7 +57,7 @@ public class GodTest {
         Observer obs = message -> {
         };
         god.addObserverToAllEffects(obs);
-        Effect effect = god.getEffectByType(EffectType.YOUR_BUILD);
+        Effect effect = god.getEffectByType(PhaseType.YOUR_BUILD);
     }
 
     @Test

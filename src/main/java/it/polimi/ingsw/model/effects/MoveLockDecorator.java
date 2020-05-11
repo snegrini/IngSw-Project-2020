@@ -17,7 +17,7 @@ public class MoveLockDecorator extends EffectDecorator {
         this.effect = effect;
         this.requirements = requirements;
         this.moveType = moveType;
-        setEffectType(effect.getEffectType());
+        setPhaseType(effect.getPhaseType());
     }
 
     @Override

@@ -99,19 +99,19 @@
 
 
 <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model;
-<i>2</i>&nbsp;
-<i>3</i>&nbsp;import it.polimi.ingsw.model.effects.Effect;
-<i>4</i>&nbsp;import it.polimi.ingsw.model.enumerations.EffectType;
-<i>5</i>&nbsp;import it.polimi.ingsw.observer.Observer;
-<i>6</i>&nbsp;
-<i>7</i>&nbsp;import java.util.List;
-<i>8</i>&nbsp;import java.util.Objects;
-<i>9</i>&nbsp;
-<i>10</i>&nbsp;public class God {
-<i>11</i>&nbsp;    private String name;
-<i>12</i>&nbsp;    private String caption;
-<i>13</i>&nbsp;    private String description;
-<i>14</i>&nbsp;    private List&lt;Effect&gt; effects;
+    <i>2</i>&nbsp;
+    <i>3</i>&nbsp;import it.polimi.ingsw.model.effects.Effect;
+    <i>4</i>&nbsp;import it.polimi.ingsw.model.enumerations.PhaseType;
+    <i>5</i>&nbsp;import it.polimi.ingsw.observer.Observer;
+    <i>6</i>&nbsp;
+    <i>7</i>&nbsp;import java.util.List;
+    <i>8</i>&nbsp;import java.util.Objects;
+    <i>9</i>&nbsp;
+    <i>10</i>&nbsp;public class God {
+    <i>11</i>&nbsp; private String name;
+    <i>12</i>&nbsp; private String caption;
+    <i>13</i>&nbsp; private String description;
+    <i>14</i>&nbsp; private List&lt;Effect&gt; effects;
 <i>15</i>&nbsp;
 <b class="fc"><i>16</i>&nbsp;    private God(Builder builder) {</b>
 <b class="fc"><i>17</i>&nbsp;        this.name = builder.name;</b>
@@ -126,30 +126,30 @@
 <i>26</i>&nbsp;
 <i>27</i>&nbsp;    public String getCaption() {
 <b class="fc"><i>28</i>&nbsp;        return caption;</b>
-<i>29</i>&nbsp;    }
-<i>30</i>&nbsp;
-<i>31</i>&nbsp;    public String getDescription() {
-<b class="fc"><i>32</i>&nbsp;        return description;</b>
-<i>33</i>&nbsp;    }
-<i>34</i>&nbsp;
-<i>35</i>&nbsp;    /**
-<i>36</i>&nbsp;     * Returns the god {@code Effect} given the EffectType, {@code null} otherwise.
-<i>37</i>&nbsp;     * Only the first occurrence is returned; a God should have only one Effect per EffectType.
-<i>38</i>&nbsp;     *
-<i>39</i>&nbsp;     * @param effectType the type of the effect to get.
-<i>40</i>&nbsp;     * @return the {@code Effect} of the god if it is found, {@code null} otherwise.
-<i>41</i>&nbsp;     */
-<i>42</i>&nbsp;    public Effect getEffectByType(EffectType effectType) {
-<b class="fc"><i>43</i>&nbsp;        return effects.stream()</b>
-<b class="fc"><i>44</i>&nbsp;                .filter(effect -&gt; effectType.equals(effect.getEffectType()))</b>
-<b class="fc"><i>45</i>&nbsp;                .findFirst()</b>
-<b class="fc"><i>46</i>&nbsp;                .orElse(null);</b>
-<i>47</i>&nbsp;    }
-<i>48</i>&nbsp;
-<i>49</i>&nbsp;    public void addObserverToAllEffects(Observer obs) {
-<b class="fc"><i>50</i>&nbsp;        for (Effect effect : effects) {</b>
-<b class="fc"><i>51</i>&nbsp;            effect.addObserver(obs);</b>
-<b class="fc"><i>52</i>&nbsp;        }</b>
+    <i>29</i>&nbsp; }
+    <i>30</i>&nbsp;
+    <i>31</i>&nbsp; public String getDescription() {
+    <b class="fc"><i>32</i>&nbsp; return description;</b>
+    <i>33</i>&nbsp; }
+    <i>34</i>&nbsp;
+    <i>35</i>&nbsp; /**
+    <i>36</i>&nbsp; * Returns the god {@code Effect} given the EffectType, {@code null} otherwise.
+    <i>37</i>&nbsp; * Only the first occurrence is returned; a God should have only one Effect per EffectType.
+    <i>38</i>&nbsp; *
+    <i>39</i>&nbsp; * @param phaseType the type of the effect to get.
+    <i>40</i>&nbsp; * @return the {@code Effect} of the god if it is found, {@code null} otherwise.
+    <i>41</i>&nbsp; */
+    <i>42</i>&nbsp; public Effect getEffectByType(EffectType phaseType) {
+    <b class="fc"><i>43</i>&nbsp; return effects.stream()</b>
+    <b class="fc"><i>44</i>&nbsp; .filter(effect -&gt; phaseType.equals(effect.getEffectType()))</b>
+    <b class="fc"><i>45</i>&nbsp; .findFirst()</b>
+    <b class="fc"><i>46</i>&nbsp; .orElse(null);</b>
+    <i>47</i>&nbsp; }
+    <i>48</i>&nbsp;
+    <i>49</i>&nbsp; public void addObserverToAllEffects(Observer obs) {
+    <b class="fc"><i>50</i>&nbsp; for (Effect effect : effects) {</b>
+    <b class="fc"><i>51</i>&nbsp; effect.addObserver(obs);</b>
+    <b class="fc"><i>52</i>&nbsp; }</b>
 <b class="fc"><i>53</i>&nbsp;    }</b>
 <i>54</i>&nbsp;
 <i>55</i>&nbsp;    @Override

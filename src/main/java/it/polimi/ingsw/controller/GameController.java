@@ -6,8 +6,8 @@ import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.enumerations.Color;
-import it.polimi.ingsw.model.enumerations.EffectType;
 import it.polimi.ingsw.model.enumerations.GameState;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.*;
@@ -220,7 +220,7 @@ public class GameController implements Observer {
         } else {
 
             // CHECK EFFECT YOUR_MOVE_AFTER
-            turnController.setPhaseType(EffectType.YOUR_MOVE_AFTER);
+            turnController.setPhaseType(PhaseType.YOUR_MOVE_AFTER);
             if (turnController.checkEffectPhase(turnController.getPhaseType()) && turnController.requireEffect()) {
                 virtualView.askEnableEffect();
             } else {
@@ -241,7 +241,7 @@ public class GameController implements Observer {
         game.buildBlock(turnController.getActiveWorker(), buildOnPosition);
 
         // CHECK EFFECT YOUR_BUILD_AFTER
-        turnController.setPhaseType(EffectType.YOUR_BUILD_AFTER);
+        turnController.setPhaseType(PhaseType.YOUR_BUILD_AFTER);
         if (turnController.checkEffectPhase(turnController.getPhaseType()) && turnController.requireEffect()) {
             virtualView.askEnableEffect();
         } else {

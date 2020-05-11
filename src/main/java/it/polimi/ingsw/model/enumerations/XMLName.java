@@ -9,7 +9,7 @@ public enum XMLName {
     DESCRIPTION("description"),
     EFFECTS("effects"),
     EFFECT("effect"),
-    TYPE("type"),
+    PHASE("phase"),
     REQUIREMENTS("requirements"),
     PARAMETERS("parameters"),
     TARGET("target"),
@@ -34,7 +34,8 @@ public enum XMLName {
     MIN_BLOCK("minblock"),
     PUSH_BACK("pushback"),
     SAME_SPACE("samespace"),
-    FORCE_SAME_SPACE("forcesamespace");
+    FORCE_SAME_SPACE("forcesamespace"),
+    WIN("win");
 
 
     private final String text;

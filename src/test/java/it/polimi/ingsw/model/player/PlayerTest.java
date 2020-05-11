@@ -4,17 +4,16 @@ import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.effects.SimpleEffect;
 import it.polimi.ingsw.model.enumerations.Color;
-import it.polimi.ingsw.model.enumerations.EffectType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.enumerations.PlayerState;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PlayerTest {
 
@@ -49,7 +48,7 @@ public class PlayerTest {
         God god = new God.Builder("Name Test")
                 .withCaption("Caption Test")
                 .withDescription("Description Test")
-                .withEffects(List.of(new SimpleEffect(EffectType.YOUR_BUILD)))
+                .withEffects(List.of(new SimpleEffect(PhaseType.YOUR_BUILD)))
                 .build();
 
         player.setGod(god);

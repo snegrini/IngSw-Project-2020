@@ -30,7 +30,7 @@ public class BuildAgainDecorator extends EffectDecorator {
         this.dome = dome;
         this.forceSameSpace = forceSameSpace;
         this.possibleBuilds = new ArrayList<>();
-        setEffectType(effect.getEffectType());
+        setPhaseType(effect.getPhaseType());
     }
 
     @Override

@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.enumerations.Color;
-import it.polimi.ingsw.model.enumerations.EffectType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import org.junit.After;
@@ -26,9 +26,9 @@ public class MoveOverDecoratorTest {
 
     @Before
     public void setUp() throws Exception {
-        effectSwapSpace = new MoveOverDecorator(new SimpleEffect(EffectType.YOUR_MOVE), Map.of(),
+        effectSwapSpace = new MoveOverDecorator(new SimpleEffect(PhaseType.YOUR_MOVE), Map.of(),
                 false, true);
-        effectPushBack = new MoveOverDecorator(new SimpleEffect(EffectType.YOUR_MOVE), Map.of(),
+        effectPushBack = new MoveOverDecorator(new SimpleEffect(PhaseType.YOUR_MOVE), Map.of(),
                 true, false);
 
         this.game = Game.getInstance();

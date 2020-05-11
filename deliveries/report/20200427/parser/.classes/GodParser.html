@@ -172,28 +172,29 @@
 <b class="fc"><i>98</i>&nbsp;                .withCaption(caption)</b>
 <b class="fc"><i>99</i>&nbsp;                .withDescription(description)</b>
 <b class="fc"><i>100</i>&nbsp;                .withEffects(effects)</b>
-<b class="fc"><i>101</i>&nbsp;                .build();</b>
-<i>102</i>&nbsp;    }
-<i>103</i>&nbsp;
-<i>104</i>&nbsp;    /**
-<i>105</i>&nbsp;     * Builds and returns a effect object by parsing the given effect Element.
-<i>106</i>&nbsp;     *
-<i>107</i>&nbsp;     * @param effectElement the Element of the XML god node.
-<i>108</i>&nbsp;     * @return the built Effect object.
-<i>109</i>&nbsp;     */
-<i>110</i>&nbsp;    private static Effect buildEffectObject(Element effectElement) {
-<b class="fc"><i>111</i>&nbsp;        String effectType = effectElement.getAttribute(TYPE.getText());</b>
-<b class="fc"><i>112</i>&nbsp;        Effect effect = new SimpleEffect(EffectType.valueOf(effectType));</b>
-<i>113</i>&nbsp;
-<b class="fc"><i>114</i>&nbsp;        NodeList reqNodeList = effectElement.getElementsByTagName(REQUIREMENTS.getText());</b>
-<b class="fc"><i>115</i>&nbsp;        NodeList parNodeList = effectElement.getElementsByTagName(PARAMETERS.getText());</b>
-<i>116</i>&nbsp;
-<b class="fc"><i>117</i>&nbsp;        Map&lt;String, String&gt; requirements = Map.of();</b>
-<b class="fc"><i>118</i>&nbsp;        Map&lt;String, String&gt; parameters = Map.of();</b>
-<i>119</i>&nbsp;
-<i>120</i>&nbsp;        // Retrieve only the child nodes of the first element found
-<b class="fc"><i>121</i>&nbsp;        if (reqNodeList.getLength() &gt; 0) {</b>
-<b class="fc"><i>122</i>&nbsp;            reqNodeList = reqNodeList.item(0).getChildNodes();</b>
+<b class="fc"><i>101</i>&nbsp; .build();</b>
+    <i>102</i>&nbsp; }
+    <i>103</i>&nbsp;
+    <i>104</i>&nbsp; /**
+    <i>105</i>&nbsp; * Builds and returns a effect object by parsing the given effect Element.
+    <i>106</i>&nbsp; *
+    <i>107</i>&nbsp; * @param effectElement the Element of the XML god node.
+    <i>108</i>&nbsp; * @return the built Effect object.
+    <i>109</i>&nbsp; */
+    <i>110</i>&nbsp; private static Effect buildEffectObject(Element effectElement) {
+    <b class="fc"><i>111</i>&nbsp; String phaseType = effectElement.getAttribute(TYPE.getText());</b>
+    <b class="fc"><i>112</i>&nbsp; Effect effect = new SimpleEffect(EffectType.valueOf(phaseType));</b>
+    <i>113</i>&nbsp;
+    <b class="fc"><i>114</i>&nbsp; NodeList reqNodeList =
+        effectElement.getElementsByTagName(REQUIREMENTS.getText());</b>
+    <b class="fc"><i>115</i>&nbsp; NodeList parNodeList = effectElement.getElementsByTagName(PARAMETERS.getText());</b>
+    <i>116</i>&nbsp;
+    <b class="fc"><i>117</i>&nbsp; Map&lt;String, String&gt; requirements = Map.of();</b>
+    <b class="fc"><i>118</i>&nbsp; Map&lt;String, String&gt; parameters = Map.of();</b>
+    <i>119</i>&nbsp;
+    <i>120</i>&nbsp; // Retrieve only the child nodes of the first element found
+    <b class="fc"><i>121</i>&nbsp; if (reqNodeList.getLength() &gt; 0) {</b>
+    <b class="fc"><i>122</i>&nbsp; reqNodeList = reqNodeList.item(0).getChildNodes();</b>
 <b class="fc"><i>123</i>&nbsp;            requirements = toMap(reqNodeList);</b>
 <b class="fc"><i>124</i>&nbsp;            TargetType reqTargetType = TargetType.valueOf(requirements.get(TARGET.getText()));</b>
 <b class="fc"><i>125</i>&nbsp;            effect.addTargetType(REQUIREMENTS, reqTargetType);</b>

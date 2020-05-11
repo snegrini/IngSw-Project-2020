@@ -73,31 +73,31 @@
 
 
 <div class="sourceCode"><i>1</i>&nbsp;package model.effects;
-<i>2</i>&nbsp;
-<i>3</i>&nbsp;
-<i>4</i>&nbsp;import model.enumerations.EffectType;
-<i>5</i>&nbsp;
-<i>6</i>&nbsp;/**
-<i>7</i>&nbsp; * Abstract class used to implement the Decorator Pattern for the effects.
-<i>8</i>&nbsp; */
-<b class="fc"><i>9</i>&nbsp;public abstract class Effect {</b>
-<i>10</i>&nbsp;
-<i>11</i>&nbsp;    protected EffectType effectType;
-<i>12</i>&nbsp;
-<i>13</i>&nbsp;    /**
-<i>14</i>&nbsp;     *  Applies the effect.
-<i>15</i>&nbsp;     */
-<i>16</i>&nbsp;    public abstract void apply();
-<i>17</i>&nbsp;
-<i>18</i>&nbsp;    /**
-<i>19</i>&nbsp;     * Checks the necessary conditions for the effect to be applied.
-<i>20</i>&nbsp;     *
-<i>21</i>&nbsp;     * @return {@code true} if the conditions are satisfied, {@code false} otherwise.
+    <i>2</i>&nbsp;
+    <i>3</i>&nbsp;
+    <i>4</i>&nbsp;import model.enumerations.EffectType;
+    <i>5</i>&nbsp;
+    <i>6</i>&nbsp;/**
+    <i>7</i>&nbsp; * Abstract class used to implement the Decorator Pattern for the effects.
+    <i>8</i>&nbsp; */
+    <b class="fc"><i>9</i>&nbsp;public abstract class Effect {</b>
+    <i>10</i>&nbsp;
+    <i>11</i>&nbsp; protected EffectType phaseType;
+    <i>12</i>&nbsp;
+    <i>13</i>&nbsp; /**
+    <i>14</i>&nbsp; * Applies the effect.
+    <i>15</i>&nbsp; */
+    <i>16</i>&nbsp; public abstract void apply();
+    <i>17</i>&nbsp;
+    <i>18</i>&nbsp; /**
+    <i>19</i>&nbsp; * Checks the necessary conditions for the effect to be applied.
+    <i>20</i>&nbsp; *
+    <i>21</i>&nbsp; * @return {@code true} if the conditions are satisfied, {@code false} otherwise.
 <i>22</i>&nbsp;     */
 <i>23</i>&nbsp;    public abstract boolean require();
 <i>24</i>&nbsp;
 <i>25</i>&nbsp;    public EffectType getEffectType() {
-<b class="fc"><i>26</i>&nbsp;        return effectType;</b>
+    <b class="fc"><i>26</i>&nbsp; return phaseType;</b>
 <i>27</i>&nbsp;    }
 <i>28</i>&nbsp;}
 </div>

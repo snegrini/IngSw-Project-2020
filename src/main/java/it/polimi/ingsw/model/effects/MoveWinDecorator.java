@@ -8,18 +8,18 @@ import it.polimi.ingsw.network.message.WinMessage;
 
 import java.util.Map;
 
-public class WinMoveDecorator extends EffectDecorator {
+public class MoveWinDecorator extends EffectDecorator {
 
     private final MoveType moveType;
     private final int levels;
 
-    public WinMoveDecorator(Effect effect, Map<String, String> requirements,
+    public MoveWinDecorator(Effect effect, Map<String, String> requirements,
                             MoveType moveType, int levels) {
         this.effect = effect;
         this.requirements = requirements;
         this.moveType = moveType;
         this.levels = levels;
-        setEffectType(effect.getEffectType());
+        setPhaseType(effect.getPhaseType());
     }
 
     @Override

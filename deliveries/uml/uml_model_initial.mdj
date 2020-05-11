@@ -4260,7 +4260,7 @@
 											"top": 1010,
 											"width": 135.74462890625,
 											"height": 13,
-											"text": "#effectType: EffectType",
+											"text": "#phaseType: EffectType",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4278,7 +4278,7 @@
 											"top": 1010,
 											"width": 135.74462890625,
 											"height": 13,
-											"text": "-effectType: EffectType",
+											"text": "-phaseType: EffectType",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4544,7 +4544,7 @@
 											"top": 984,
 											"width": 137.388671875,
 											"height": 13,
-											"text": "-effectType: EffectType",
+											"text": "-phaseType: EffectType",
 											"horizontalAlignment": 0
 										}
 									],
@@ -9374,7 +9374,7 @@
 											"top": 795,
 											"width": 165.84521484375,
 											"height": 13,
-											"text": "#effectType: EffectType",
+											"text": "#phaseType: EffectType",
 											"horizontalAlignment": 0
 										},
 										{
@@ -13131,7 +13131,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxBtAXpLTL3PQ="
 							},
-							"name": "effectType",
+							"name": "phaseType",
 							"visibility": "protected",
 							"type": {
 								"$ref": "AAAAAAFxAy2u4QjgNfY="
@@ -13143,7 +13143,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxBtAXpLTL3PQ="
 							},
-							"name": "effectType",
+							"name": "phaseType",
 							"visibility": "private",
 							"type": {
 								"$ref": "AAAAAAFxAy2u4QjgNfY="
@@ -13324,7 +13324,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxBtBwI7h+0r4="
 							},
-							"name": "effectType",
+							"name": "phaseType",
 							"visibility": "private",
 							"type": {
 								"$ref": "AAAAAAFxAy2u4QjgNfY="
@@ -13800,7 +13800,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxCSyOpf8Sauw="
 							},
-							"name": "effectType",
+							"name": "phaseType",
 							"visibility": "private",
 							"type": {
 								"$ref": "AAAAAAFxAy2u4QjgNfY="
@@ -13890,7 +13890,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxPwj45TU3ZR8="
 							},
-							"name": "effectType",
+							"name": "phaseType",
 							"visibility": "protected",
 							"type": {
 								"$ref": "AAAAAAFxAy2u4QjgNfY="

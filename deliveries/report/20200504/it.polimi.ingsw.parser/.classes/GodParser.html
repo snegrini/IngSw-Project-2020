@@ -73,19 +73,19 @@
 
 
 <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.parser;
-<i>2</i>&nbsp;
-<i>3</i>&nbsp;import it.polimi.ingsw.model.God;
-<i>4</i>&nbsp;import it.polimi.ingsw.model.enumerations.EffectType;
-<i>5</i>&nbsp;import it.polimi.ingsw.model.enumerations.MoveType;
-<i>6</i>&nbsp;import it.polimi.ingsw.model.enumerations.TargetType;
-<i>7</i>&nbsp;import it.polimi.ingsw.network.server.Server;
-<i>8</i>&nbsp;import it.polimi.ingsw.model.effects.*;
-<i>9</i>&nbsp;import org.w3c.dom.*;
-<i>10</i>&nbsp;import org.xml.sax.SAXException;
-<i>11</i>&nbsp;
-<i>12</i>&nbsp;import javax.xml.XMLConstants;
-<i>13</i>&nbsp;import javax.xml.parsers.DocumentBuilder;
-<i>14</i>&nbsp;import javax.xml.parsers.DocumentBuilderFactory;
+    <i>2</i>&nbsp;
+    <i>3</i>&nbsp;import it.polimi.ingsw.model.God;
+    <i>4</i>&nbsp;import it.polimi.ingsw.model.enumerations.PhaseType;
+    <i>5</i>&nbsp;import it.polimi.ingsw.model.enumerations.MoveType;
+    <i>6</i>&nbsp;import it.polimi.ingsw.model.enumerations.TargetType;
+    <i>7</i>&nbsp;import it.polimi.ingsw.network.server.Server;
+    <i>8</i>&nbsp;import it.polimi.ingsw.model.effects.*;
+    <i>9</i>&nbsp;import org.w3c.dom.*;
+    <i>10</i>&nbsp;import org.xml.sax.SAXException;
+    <i>11</i>&nbsp;
+    <i>12</i>&nbsp;import javax.xml.XMLConstants;
+    <i>13</i>&nbsp;import javax.xml.parsers.DocumentBuilder;
+    <i>14</i>&nbsp;import javax.xml.parsers.DocumentBuilderFactory;
 <i>15</i>&nbsp;import javax.xml.parsers.ParserConfigurationException;
 <i>16</i>&nbsp;import java.io.File;
 <i>17</i>&nbsp;import java.io.IOException;
@@ -176,28 +176,29 @@
 <b class="fc"><i>102</i>&nbsp;                .withCaption(caption)</b>
 <b class="fc"><i>103</i>&nbsp;                .withDescription(description)</b>
 <b class="fc"><i>104</i>&nbsp;                .withEffects(effects)</b>
-<b class="fc"><i>105</i>&nbsp;                .build();</b>
-<i>106</i>&nbsp;    }
-<i>107</i>&nbsp;
-<i>108</i>&nbsp;    /**
-<i>109</i>&nbsp;     * Builds and returns a effect object by parsing the given effect Element.
-<i>110</i>&nbsp;     *
-<i>111</i>&nbsp;     * @param effectElement the Element of the XML god node.
-<i>112</i>&nbsp;     * @return the built Effect object.
-<i>113</i>&nbsp;     */
-<i>114</i>&nbsp;    private static Effect buildEffectObject(Element effectElement) {
-<b class="fc"><i>115</i>&nbsp;        String effectType = effectElement.getAttribute(TYPE.getText());</b>
-<b class="fc"><i>116</i>&nbsp;        Effect effect = new SimpleEffect(EffectType.valueOf(effectType));</b>
-<i>117</i>&nbsp;
-<b class="fc"><i>118</i>&nbsp;        NodeList reqNodeList = effectElement.getElementsByTagName(REQUIREMENTS.getText());</b>
-<b class="fc"><i>119</i>&nbsp;        NodeList parNodeList = effectElement.getElementsByTagName(PARAMETERS.getText());</b>
-<i>120</i>&nbsp;
-<b class="fc"><i>121</i>&nbsp;        Map&lt;String, String&gt; requirements = Map.of();</b>
-<b class="fc"><i>122</i>&nbsp;        Map&lt;String, String&gt; parameters = Map.of();</b>
-<i>123</i>&nbsp;
-<i>124</i>&nbsp;        // Retrieve only the child nodes of the first element found
-<b class="fc"><i>125</i>&nbsp;        if (reqNodeList.getLength() &gt; 0) {</b>
-<b class="fc"><i>126</i>&nbsp;            reqNodeList = reqNodeList.item(0).getChildNodes();</b>
+    <b class="fc"><i>105</i>&nbsp; .build();</b>
+    <i>106</i>&nbsp; }
+    <i>107</i>&nbsp;
+    <i>108</i>&nbsp; /**
+    <i>109</i>&nbsp; * Builds and returns a effect object by parsing the given effect Element.
+    <i>110</i>&nbsp; *
+    <i>111</i>&nbsp; * @param effectElement the Element of the XML god node.
+    <i>112</i>&nbsp; * @return the built Effect object.
+    <i>113</i>&nbsp; */
+    <i>114</i>&nbsp; private static Effect buildEffectObject(Element effectElement) {
+    <b class="fc"><i>115</i>&nbsp; String phaseType = effectElement.getAttribute(TYPE.getText());</b>
+    <b class="fc"><i>116</i>&nbsp; Effect effect = new SimpleEffect(EffectType.valueOf(phaseType));</b>
+    <i>117</i>&nbsp;
+    <b class="fc"><i>118</i>&nbsp; NodeList reqNodeList =
+        effectElement.getElementsByTagName(REQUIREMENTS.getText());</b>
+    <b class="fc"><i>119</i>&nbsp; NodeList parNodeList = effectElement.getElementsByTagName(PARAMETERS.getText());</b>
+    <i>120</i>&nbsp;
+    <b class="fc"><i>121</i>&nbsp; Map&lt;String, String&gt; requirements = Map.of();</b>
+    <b class="fc"><i>122</i>&nbsp; Map&lt;String, String&gt; parameters = Map.of();</b>
+    <i>123</i>&nbsp;
+    <i>124</i>&nbsp; // Retrieve only the child nodes of the first element found
+    <b class="fc"><i>125</i>&nbsp; if (reqNodeList.getLength() &gt; 0) {</b>
+    <b class="fc"><i>126</i>&nbsp; reqNodeList = reqNodeList.item(0).getChildNodes();</b>
 <b class="fc"><i>127</i>&nbsp;            requirements = toMap(reqNodeList);</b>
 <b class="fc"><i>128</i>&nbsp;            TargetType reqTargetType = TargetType.valueOf(requirements.get(TARGET.getText()));</b>
 <b class="fc"><i>129</i>&nbsp;            effect.addTargetType(REQUIREMENTS, reqTargetType);</b>

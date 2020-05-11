@@ -124,30 +124,30 @@
 <i>24</i>&nbsp;
 <i>25</i>&nbsp;    public String getCaption() {
 <b class="fc"><i>26</i>&nbsp;        return caption;</b>
-<i>27</i>&nbsp;    }
-<i>28</i>&nbsp;
-<i>29</i>&nbsp;    public String getDescription() {
-<b class="fc"><i>30</i>&nbsp;        return description;</b>
-<i>31</i>&nbsp;    }
-<i>32</i>&nbsp;
-<i>33</i>&nbsp;    /**
-<i>34</i>&nbsp;     * Returns the god {@code Effect} given the EffectType, {@code null} otherwise.
-<i>35</i>&nbsp;     * Only the first occurrence is returned; a God should have only one Effect per EffectType.
-<i>36</i>&nbsp;     *
-<i>37</i>&nbsp;     * @param effectType the type of the effect to get.
-<i>38</i>&nbsp;     * @return the {@code Effect} of the god if it is found, {@code null} otherwise.
-<i>39</i>&nbsp;     */
-<i>40</i>&nbsp;    public Effect getEffectByType(EffectType effectType) {
-<b class="fc"><i>41</i>&nbsp;        return effects.stream()</b>
-<b class="fc"><i>42</i>&nbsp;                .filter(effect -&gt; effectType.equals(effect.getEffectType()))</b>
-<b class="fc"><i>43</i>&nbsp;                .findFirst()</b>
-<b class="fc"><i>44</i>&nbsp;                .orElse(null);</b>
-<i>45</i>&nbsp;    }
-<i>46</i>&nbsp;
-<i>47</i>&nbsp;    public static class Builder {
-<i>48</i>&nbsp;        private String name;
-<i>49</i>&nbsp;        private String caption;
-<i>50</i>&nbsp;        private String description;
+<i>27</i>&nbsp; }
+    <i>28</i>&nbsp;
+    <i>29</i>&nbsp; public String getDescription() {
+    <b class="fc"><i>30</i>&nbsp; return description;</b>
+    <i>31</i>&nbsp; }
+    <i>32</i>&nbsp;
+    <i>33</i>&nbsp; /**
+    <i>34</i>&nbsp; * Returns the god {@code Effect} given the EffectType, {@code null} otherwise.
+    <i>35</i>&nbsp; * Only the first occurrence is returned; a God should have only one Effect per EffectType.
+    <i>36</i>&nbsp; *
+    <i>37</i>&nbsp; * @param phaseType the type of the effect to get.
+    <i>38</i>&nbsp; * @return the {@code Effect} of the god if it is found, {@code null} otherwise.
+    <i>39</i>&nbsp; */
+    <i>40</i>&nbsp; public Effect getEffectByType(EffectType phaseType) {
+    <b class="fc"><i>41</i>&nbsp; return effects.stream()</b>
+    <b class="fc"><i>42</i>&nbsp; .filter(effect -&gt; phaseType.equals(effect.getEffectType()))</b>
+    <b class="fc"><i>43</i>&nbsp; .findFirst()</b>
+    <b class="fc"><i>44</i>&nbsp; .orElse(null);</b>
+    <i>45</i>&nbsp; }
+    <i>46</i>&nbsp;
+    <i>47</i>&nbsp; public static class Builder {
+    <i>48</i>&nbsp; private String name;
+    <i>49</i>&nbsp; private String caption;
+    <i>50</i>&nbsp; private String description;
 <i>51</i>&nbsp;        private List&lt;Effect&gt; effects;
 <i>52</i>&nbsp;
 <b class="fc"><i>53</i>&nbsp;        public Builder(String name) {</b>

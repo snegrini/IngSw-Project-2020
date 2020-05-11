@@ -73,23 +73,23 @@
 
 
 <div class="sourceCode"><i>1</i>&nbsp;package model.effects;
-<i>2</i>&nbsp;
-<i>3</i>&nbsp;import model.enumerations.EffectType;
-<i>4</i>&nbsp;
-<i>5</i>&nbsp;public class SimpleEffect extends Effect {
-<i>6</i>&nbsp;
-<b class="fc"><i>7</i>&nbsp;    public SimpleEffect(EffectType effectType) {</b>
-<b class="fc"><i>8</i>&nbsp;        this.effectType = effectType;</b>
-<b class="fc"><i>9</i>&nbsp;    }</b>
-<i>10</i>&nbsp;
-<i>11</i>&nbsp;    @Override
-<i>12</i>&nbsp;    public void apply() {
-<i>13</i>&nbsp;        // DO NOTHING.
-<b class="nc"><i>14</i>&nbsp;    }</b>
-<i>15</i>&nbsp;
-<i>16</i>&nbsp;    @Override
-<i>17</i>&nbsp;    public boolean require() {
-<b class="fc"><i>18</i>&nbsp;        return true;</b>
+    <i>2</i>&nbsp;
+    <i>3</i>&nbsp;import model.enumerations.EffectType;
+    <i>4</i>&nbsp;
+    <i>5</i>&nbsp;public class SimpleEffect extends Effect {
+    <i>6</i>&nbsp;
+    <b class="fc"><i>7</i>&nbsp; public SimpleEffect(EffectType phaseType) {</b>
+    <b class="fc"><i>8</i>&nbsp; this.phaseType = phaseType;</b>
+    <b class="fc"><i>9</i>&nbsp; }</b>
+    <i>10</i>&nbsp;
+    <i>11</i>&nbsp; @Override
+    <i>12</i>&nbsp; public void apply() {
+    <i>13</i>&nbsp; // DO NOTHING.
+    <b class="nc"><i>14</i>&nbsp; }</b>
+    <i>15</i>&nbsp;
+    <i>16</i>&nbsp; @Override
+    <i>17</i>&nbsp; public boolean require() {
+    <b class="fc"><i>18</i>&nbsp; return true;</b>
 <i>19</i>&nbsp;    }
 <i>20</i>&nbsp;}
 </div>

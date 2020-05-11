@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
-import it.polimi.ingsw.model.enumerations.EffectType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Worker;
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +19,7 @@ public class BuildDomeDecoratorTest {
 
     @Before
     public void setUp() throws Exception {
-        effect = new BuildDomeDecorator(new SimpleEffect(EffectType.YOUR_BUILD), Map.of());
+        effect = new BuildDomeDecorator(new SimpleEffect(PhaseType.YOUR_BUILD), Map.of());
     }
 
     @After

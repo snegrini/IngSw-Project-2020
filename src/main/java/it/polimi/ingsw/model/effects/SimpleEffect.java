@@ -1,13 +1,13 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.board.Position;
-import it.polimi.ingsw.model.enumerations.EffectType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Worker;
 
 public class SimpleEffect extends Effect {
 
-    public SimpleEffect(EffectType effectType) {
-        super.setEffectType(effectType);
+    public SimpleEffect(PhaseType phaseType) {
+        super.setPhaseType(phaseType);
     }
 
 

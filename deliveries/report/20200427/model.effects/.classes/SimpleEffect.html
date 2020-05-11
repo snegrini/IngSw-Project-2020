@@ -73,26 +73,26 @@
 
 
 <div class="sourceCode"><i>1</i>&nbsp;package model.effects;
-<i>2</i>&nbsp;
-<i>3</i>&nbsp;import model.enumerations.EffectType;
-<i>4</i>&nbsp;import model.player.Worker;
-<i>5</i>&nbsp;
-<i>6</i>&nbsp;import java.util.List;
-<i>7</i>&nbsp;
-<i>8</i>&nbsp;public class SimpleEffect extends Effect {
-<i>9</i>&nbsp;
-<b class="fc"><i>10</i>&nbsp;    public SimpleEffect(EffectType effectType) {</b>
-<b class="fc"><i>11</i>&nbsp;        super.setEffectType(effectType);</b>
-<b class="fc"><i>12</i>&nbsp;    }</b>
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;    @Override
-<i>15</i>&nbsp;    public void apply(List&lt;Worker&gt; targetWorkers) {
-<i>16</i>&nbsp;        // DO NOTHING.
-<b class="fc"><i>17</i>&nbsp;    }</b>
-<i>18</i>&nbsp;
-<i>19</i>&nbsp;    @Override
-<i>20</i>&nbsp;    public boolean require(Worker worker) {
-<b class="fc"><i>21</i>&nbsp;        return true;</b>
+    <i>2</i>&nbsp;
+    <i>3</i>&nbsp;import model.enumerations.EffectType;
+    <i>4</i>&nbsp;import model.player.Worker;
+    <i>5</i>&nbsp;
+    <i>6</i>&nbsp;import java.util.List;
+    <i>7</i>&nbsp;
+    <i>8</i>&nbsp;public class SimpleEffect extends Effect {
+    <i>9</i>&nbsp;
+    <b class="fc"><i>10</i>&nbsp; public SimpleEffect(EffectType phaseType) {</b>
+    <b class="fc"><i>11</i>&nbsp; super.setEffectType(phaseType);</b>
+    <b class="fc"><i>12</i>&nbsp; }</b>
+    <i>13</i>&nbsp;
+    <i>14</i>&nbsp; @Override
+    <i>15</i>&nbsp; public void apply(List&lt;Worker&gt; targetWorkers) {
+    <i>16</i>&nbsp; // DO NOTHING.
+    <b class="fc"><i>17</i>&nbsp; }</b>
+    <i>18</i>&nbsp;
+    <i>19</i>&nbsp; @Override
+    <i>20</i>&nbsp; public boolean require(Worker worker) {
+    <b class="fc"><i>21</i>&nbsp; return true;</b>
 <i>22</i>&nbsp;    }
 <i>23</i>&nbsp;}
 </div>

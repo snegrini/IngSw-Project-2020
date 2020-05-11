@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
-import it.polimi.ingsw.model.enumerations.EffectType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Worker;
 import org.junit.After;
 import org.junit.Before;
@@ -20,9 +20,9 @@ public class BuildAgainDecoratorTest {
 
     @Before
     public void setUp() throws Exception {
-        effect1 = new BuildAgainDecorator(new SimpleEffect(EffectType.YOUR_BUILD), Map.of(), 1,
+        effect1 = new BuildAgainDecorator(new SimpleEffect(PhaseType.YOUR_BUILD), Map.of(), 1,
                 false, false, false);
-        effect2 = new BuildAgainDecorator(new SimpleEffect(EffectType.YOUR_BUILD), Map.of(), 1,
+        effect2 = new BuildAgainDecorator(new SimpleEffect(PhaseType.YOUR_BUILD), Map.of(), 1,
                 false, false, true);
     }
 
@@ -35,7 +35,7 @@ public class BuildAgainDecoratorTest {
 
     @Test
     public void getEffectType() {
-        assertEquals(EffectType.YOUR_BUILD, effect1.getEffectType());
+        assertEquals(PhaseType.YOUR_BUILD, effect1.getPhaseType());
     }
 
     @Test

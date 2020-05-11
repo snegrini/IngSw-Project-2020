@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.Effect;
-import it.polimi.ingsw.model.enumerations.EffectType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.observer.Observer;
 
 import java.util.List;
@@ -33,15 +33,15 @@ public class God {
     }
 
     /**
-     * Returns the god {@code Effect} given the EffectType, {@code null} otherwise.
-     * Only the first occurrence is returned; a God should have only one Effect per EffectType.
+     * Returns the god {@code Effect} given the PhaseType, {@code null} otherwise.
+     * Only the first occurrence is returned; a God should have only one Effect per PhaseType.
      *
-     * @param effectType the type of the effect to get.
+     * @param phaseType the type of the effect to get.
      * @return the {@code Effect} of the god if it is found, {@code null} otherwise.
      */
-    public Effect getEffectByType(EffectType effectType) {
+    public Effect getEffectByType(PhaseType phaseType) {
         return effects.stream()
-                .filter(effect -> effectType.equals(effect.getEffectType()))
+                .filter(effect -> phaseType.equals(effect.getPhaseType()))
                 .findFirst()
                 .orElse(null);
     }

@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
-import it.polimi.ingsw.model.enumerations.EffectType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Worker;
 import org.junit.After;
 import org.junit.Before;
@@ -18,9 +18,9 @@ public class MoveAgainDecoratorTest {
 
     @Before
     public void setUp() throws Exception {
-        effectCanGoBack = new MoveAgainDecorator(new SimpleEffect(EffectType.YOUR_MOVE_AFTER),
+        effectCanGoBack = new MoveAgainDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER),
                 1, true);
-        effectNoGoBack = new MoveAgainDecorator(new SimpleEffect(EffectType.YOUR_MOVE_AFTER),
+        effectNoGoBack = new MoveAgainDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER),
                 1, false);
     }
 

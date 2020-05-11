@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.enumerations.EffectType;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.enumerations.TargetType;
 import org.junit.After;
 import org.junit.Before;
@@ -16,7 +16,7 @@ public class SimpleEffectTest {
 
     @Before
     public void setUp() throws Exception {
-        simpleEffect = new SimpleEffect(EffectType.YOUR_MOVE);
+        simpleEffect = new SimpleEffect(PhaseType.YOUR_MOVE);
     }
 
     @After
@@ -41,7 +41,7 @@ public class SimpleEffectTest {
 
     @Test
     public void getSimpleEffect() {
-        assertEquals(EffectType.YOUR_MOVE, simpleEffect.getEffectType());
+        assertEquals(PhaseType.YOUR_MOVE, simpleEffect.getPhaseType());
     }
 
     @Test

@@ -77,31 +77,31 @@
 <i>3</i>&nbsp;
 <i>4</i>&nbsp;import model.enumerations.EffectType;
 <i>5</i>&nbsp;import model.player.Player;
-<i>6</i>&nbsp;import model.player.Worker;
-<i>7</i>&nbsp;
-<i>8</i>&nbsp;import java.util.List;
-<i>9</i>&nbsp;
-<i>10</i>&nbsp;/**
-<i>11</i>&nbsp; * Abstract class used to implement the Decorator Pattern for the effects.
-<i>12</i>&nbsp; */
-<b class="fc"><i>13</i>&nbsp;public abstract class Effect {</b>
-<i>14</i>&nbsp;
-<i>15</i>&nbsp;    protected EffectType effectType;
-<i>16</i>&nbsp;
-<i>17</i>&nbsp;    /**
-<i>18</i>&nbsp;     *  Applies the effect.
-<i>19</i>&nbsp;     */
-<i>20</i>&nbsp;    public abstract void apply(List&lt;Worker&gt; targetWorkers);
-<i>21</i>&nbsp;
-<i>22</i>&nbsp;    /**
-<i>23</i>&nbsp;     * Checks the necessary conditions for the effect to be applied.
-<i>24</i>&nbsp;     *
-<i>25</i>&nbsp;     * @return {@code true} if the conditions are satisfied, {@code false} otherwise.
+    <i>6</i>&nbsp;import model.player.Worker;
+    <i>7</i>&nbsp;
+    <i>8</i>&nbsp;import java.util.List;
+    <i>9</i>&nbsp;
+    <i>10</i>&nbsp;/**
+    <i>11</i>&nbsp; * Abstract class used to implement the Decorator Pattern for the effects.
+    <i>12</i>&nbsp; */
+    <b class="fc"><i>13</i>&nbsp;public abstract class Effect {</b>
+    <i>14</i>&nbsp;
+    <i>15</i>&nbsp; protected EffectType phaseType;
+    <i>16</i>&nbsp;
+    <i>17</i>&nbsp; /**
+    <i>18</i>&nbsp; * Applies the effect.
+    <i>19</i>&nbsp; */
+    <i>20</i>&nbsp; public abstract void apply(List&lt;Worker&gt; targetWorkers);
+    <i>21</i>&nbsp;
+    <i>22</i>&nbsp; /**
+    <i>23</i>&nbsp; * Checks the necessary conditions for the effect to be applied.
+    <i>24</i>&nbsp; *
+    <i>25</i>&nbsp; * @return {@code true} if the conditions are satisfied, {@code false} otherwise.
 <i>26</i>&nbsp;     */
 <i>27</i>&nbsp;    public abstract boolean require(Worker worker);
 <i>28</i>&nbsp;
 <i>29</i>&nbsp;    public EffectType getEffectType() {
-<b class="fc"><i>30</i>&nbsp;        return effectType;</b>
+    <b class="fc"><i>30</i>&nbsp; return phaseType;</b>
 <i>31</i>&nbsp;    }
 <i>32</i>&nbsp;}
 </div>
