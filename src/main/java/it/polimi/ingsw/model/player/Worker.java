@@ -78,7 +78,7 @@ public class Worker {
                 .filter(pos -> board.getSpace(pos).isFree())
                 .filter(pos -> !lockedMovements.contains(board.getMoveTypeByLevel(position, pos)))
                 // FIXME
-                //  .filter(pos -> !lockedMovements.contains(board.isMovingBack(position, pos)))
+                // .filter(pos -> !lockedMovements.contains(board.isMovingBack(position, pos)))
                 .collect(Collectors.toList());
     }
 
@@ -177,14 +177,30 @@ public class Worker {
                 .anyMatch(lm -> lm.equals(moveType));
     }
 
+    /**
+     * Adds a locked movement to the worker.
+     * The worker will no more be able to move in that way.
+     *
+     * @param moveType the movement type to be locked.
+     */
     public void addLockedMovement(MoveType moveType) {
         lockedMovements.add(moveType);
     }
 
+    /**
+     * Removes a locked movement applied to the worker.
+     * The worker will be able again to move in that way.
+     *
+     * @param moveType the movement type to be unlocked.
+     */
     public void removeLockedMovement(MoveType moveType) {
         lockedMovements.remove(moveType);
     }
 
+    /**
+     * Removes all locked movements applied to the worker.
+     * The worker will be able again to move in every way normally possible.
+     */
     public void removeAllLockedMovements() {
         lockedMovements.clear();
     }

@@ -15,14 +15,34 @@ public class Space implements Comparable<Space> {
         this.dome = false;
     }
 
+    /**
+     * Checks if the current space is occupied by a worker or if it has a dome.
+     *
+     * @return {@code true} if the current space is not occupied by a worker and it has not a dome,
+     * {@code false} otherwise.
+     */
     public boolean isFree() {
         return (worker == null) && !dome;
     }
 
+    /**
+     * Returns the current level of the space.
+     *
+     * @return the current level of the space.
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Increases the level of the space by the specified argument.
+     * Returns {@code true} if the argument is greater than 0 and not exceeds {@code MAX_LEVEL}
+     * and the increase is performed, {@code false} otherwise.
+     *
+     * @param value the number of levels.
+     * @return {@code true} if the argument is greater than 0 and not exceeds {@code MAX_LEVEL}
+     * and the increase is performed, {@code false} otherwise.
+     */
     public boolean increaseLevel(int value) {
         if (value < 0 || level + value > MAX_LEVEL) {
             return false;
@@ -31,6 +51,15 @@ public class Space implements Comparable<Space> {
         return true;
     }
 
+    /**
+     * Decreases the level of the space by the specified argument.
+     * Returns {@code true} if the argument is greater than 0 and not exceeds {@code MAX_LEVEL}
+     * and the increase is performed, {@code false} otherwise.
+     *
+     * @param value the number of levels.
+     * @return {@code true} if the argument is greater than 0 and not exceeds {@code MAX_LEVEL}
+     * and the decrease is performed, {@code false} otherwise.
+     */
     public boolean decreaseLevel(int value) {
         if (value < 0 || level - value < MIN_LEVEL) {
             return false;

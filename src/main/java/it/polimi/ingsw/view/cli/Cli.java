@@ -91,9 +91,9 @@ public class Cli extends View {
 
 
     /**
-     * If gods are > 1 and request > 1 then You're the "god like player" and You have to pick N gods
-     * If gods are > 1 and request == 1 then You've to pick only 1 god
-     * If gods are only 1 You don't have to pick any god.
+     * If gods are {@literal >} 1 and request {@literal >} 1 then you are the "god like player" and you have to pick N gods
+     * If gods are {@literal >}  1 and request == 1 then You've to pick only 1 god
+     * If gods are only 1, you don't have to pick any god.
      *
      * @param gods    the list of the available Gods.
      * @param request how many gods user have to pick
