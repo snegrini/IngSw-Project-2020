@@ -109,7 +109,7 @@ public class TurnController {
      *
      * @param skipEffect Skip Effect if Effect is already been checked.
      */
-    public void movePhase(Boolean skipEffect) {
+    public void movePhase(boolean skipEffect) {
 
 
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
@@ -139,7 +139,7 @@ public class TurnController {
     /**
      * Ask to Active Player where to Build.
      */
-    private void buildPhase(Boolean skipEffect) {
+    private void buildPhase(boolean skipEffect) {
 
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
         setPhaseType(EffectType.YOUR_BUILD);

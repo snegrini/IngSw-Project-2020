@@ -27,7 +27,7 @@ public class JavaFXGui extends Application {
         try {
             rootLayout = loader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            SceneController.LOGGER.severe(e.getMessage());
         }
         MenuSceneController controller = loader.getController();
         controller.setView(view);

@@ -218,6 +218,20 @@ public class BoardTest {
 
         assertEquals(1, board.getSpace(buildPos).getLevel());
         assertEquals(buildPos, w1.getHistory().getBuildPosition());
+
+        // Stack blocks to build a dome
+        board.buildBlock(w1, buildPos);
+        w1.updateBuildHistory(buildPos);
+        board.buildBlock(w1, buildPos);
+        w1.updateBuildHistory(buildPos);
+
+        assertFalse(board.getSpace(buildPos).hasDome());
+
+        // Build a dome
+        board.buildBlock(w1, buildPos);
+        w1.updateBuildHistory(buildPos);
+
+        assertTrue(board.getSpace(buildPos).hasDome());
     }
 
     @Test
