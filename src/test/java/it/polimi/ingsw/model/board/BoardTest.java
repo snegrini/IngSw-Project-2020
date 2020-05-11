@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Worker;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,6 +44,15 @@ public class BoardTest {
         Space target = board.getNextSpaceInLine(orig, dest);
 
         assertEquals(board.getSpace(0, 0), target);
+    }
+
+    @Test
+    public void getNextPositionInLine() {
+        Position orig = new Position(2, 2);
+        Position dest = new Position(1, 1);
+        Position target = board.getNextPositionInLine(orig, dest);
+
+        assertEquals(new Position(0, 0), target);
     }
 
     @Test
@@ -195,7 +203,7 @@ public class BoardTest {
 
         board.moveWorker(w1, dest);
 
-        Assert.assertEquals(w1, board.getSpace(dest).getWorker());
+        assertEquals(w1, board.getSpace(dest).getWorker());
         assertNull(board.getSpace(orig).getWorker());
     }
 
@@ -271,4 +279,18 @@ public class BoardTest {
 
         assertEquals(MoveType.FLAT, board.getMoveTypeByLevel(p1, p2));
     }
+
+    @Test
+    public void swapWorkers() {
+        Position p1 = new Position(0, 0);
+        Position p2 = new Position(1, 0);
+        Worker w1 = new Worker(p1);
+        Worker w2 = new Worker(p2);
+
+        board.swapWorkers(w1, w2);
+
+        assertEquals(w1, board.getSpace(p2).getWorker());
+        assertEquals(w2, board.getSpace(p1).getWorker());
+    }
+
 }

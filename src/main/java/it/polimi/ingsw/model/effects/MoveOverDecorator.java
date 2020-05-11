@@ -33,23 +33,26 @@ public class MoveOverDecorator extends EffectDecorator {
         effect.apply(activeWorker, position);
 
         Board board = Game.getInstance().getBoard();
-        Position activeWorkerPosition = activeWorker.getPosition();
 
         if (swapSpace) {
             Worker enemyWorker = board.getSpace(position).getWorker();
             if (enemyWorker != null) {
-                board.moveWorker(enemyWorker, activeWorkerPosition);
+                board.swapWorkers(activeWorker, enemyWorker);
+            } else {
+                board.moveWorker(activeWorker, position);
             }
-            board.moveWorker(activeWorker, position);
         }
 
         if (pushBack) {
             Worker enemyWorker = board.getSpace(position).getWorker();
-            board.getSpace(position).setWorker(enemyWorker);
+
             if (enemyWorker != null) {
-                enemyWorker.move(activeWorkerPosition);
+                Position nextPos = board.getNextPositionInLine(activeWorker.getPosition(), position);
+                Space nextSpace = board.getSpace(nextPos);
+                enemyWorker.move(nextPos);
+                nextSpace.setWorker(enemyWorker);
             }
-            activeWorker.move(position);
+            board.moveWorker(activeWorker, position);
         }
     }
 

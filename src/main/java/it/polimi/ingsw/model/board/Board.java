@@ -124,10 +124,21 @@ public class Board extends Observable {
      * @return the next Space on the line passing between {@code orig} and {@code dest}.
      */
     public Space getNextSpaceInLine(Position orig, Position dest) {
+        return getSpace(getNextPositionInLine(orig, dest));
+    }
+
+    /**
+     * Return the next position on the line passing between {@code orig} and {@code dest}.
+     *
+     * @param orig the starting position.
+     * @param dest the destination position.
+     * @return the next position on the line passing between {@code orig} and {@code dest}.
+     */
+    public Position getNextPositionInLine(Position orig, Position dest) {
         int tempRow = orig.getRow() - dest.getRow();
         int tempCol = orig.getColumn() - dest.getColumn();
 
-        return spaces[dest.getRow() - tempRow][dest.getColumn() - tempCol];
+        return new Position(dest.getRow() - tempRow, dest.getColumn() - tempCol);
     }
 
     /**
@@ -248,12 +259,38 @@ public class Board extends Observable {
         return reducedBoard;
     }
 
+    /**
+     * Moves a worker to the given {@code Position}.
+     * Finally, a notification to the views is sent.
+     *
+     * @param worker the worker to be moved.
+     * @param dest   the destination of the move.
+     */
     public void moveWorker(Worker worker, Position dest) {
         getSpace(worker.getPosition()).setWorker(null);
         worker.move(dest);
         getSpace(dest).setWorker(worker);
         notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
     }
+
+    /**
+     * Swaps the position of two workers in the board.
+     * Finally, a notification to the views is sent.
+     *
+     * @param worker1 the first worker.
+     * @param worker2 the second worker.
+     */
+    public void swapWorkers(Worker worker1, Worker worker2) {
+        Space space1 = getSpace(worker1.getPosition());
+        Space space2 = getSpace(worker2.getPosition());
+
+        worker1.move(worker2.getPosition());
+        space1.setWorker(worker2);
+
+        worker2.move(worker1.getPosition());
+        space2.setWorker(worker1);
+    }
+
 
     /**
      * Builds a single block over the {@code Space} at the given position.
