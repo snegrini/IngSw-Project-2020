@@ -22,7 +22,8 @@ public class MoveLockDecoratorTest {
 
     @Before
     public void setUp() throws Exception {
-        effect = new MoveLockDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), Map.of(), MoveType.UP);
+        Map<String, String> reqs = Map.of(XMLName.USERCONFIRM.getText(), "false", XMLName.MOVE.getText(), "UP");
+        effect = new MoveLockDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), reqs, MoveType.UP);
         effect.addTargetType(XMLName.PARAMETERS, TargetType.ALL_OPP_WORKERS);
     }
 
@@ -62,7 +63,9 @@ public class MoveLockDecoratorTest {
 
         board.moveWorker(w1, movePosition);
         assertTrue(effect.require(w1));
+        assertFalse(effect.isUserConfirmNeeded());
         effect.prepare(w1);
+        effect.apply(w1, null);
 
         assertFalse(w1.checkLockedMovement(MoveType.UP));
         assertFalse(w2.checkLockedMovement(MoveType.UP));

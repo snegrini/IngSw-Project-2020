@@ -76,4 +76,6 @@ public abstract class Effect extends Observable {
     public void addTargetType(XMLName xmlName, TargetType targetType) {
         targetTypeMap.put(xmlName, targetType);
     }
+
+    public abstract boolean isUserConfirmNeeded();
 }

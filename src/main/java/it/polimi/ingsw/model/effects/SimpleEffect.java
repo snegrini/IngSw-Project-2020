@@ -32,4 +32,8 @@ public class SimpleEffect extends Effect {
         // Do nothing.
     }
 
+    @Override
+    public boolean isUserConfirmNeeded() {
+        return false;
+    }
 }

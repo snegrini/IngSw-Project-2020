@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.board.Position;
+import it.polimi.ingsw.model.enumerations.XMLName;
 import it.polimi.ingsw.model.player.Worker;
 
 import java.util.Map;
@@ -23,4 +24,8 @@ public abstract class EffectDecorator extends Effect {
     @Override
     public abstract void clear(Worker worker);
 
+    @Override
+    public boolean isUserConfirmNeeded() {
+        return Boolean.parseBoolean(requirements.getOrDefault(XMLName.USERCONFIRM.getText(), "true"));
+    }
 }

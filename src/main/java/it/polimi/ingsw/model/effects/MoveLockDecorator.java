@@ -11,12 +11,12 @@ import java.util.Map;
 
 public class MoveLockDecorator extends EffectDecorator {
 
-    private final MoveType moveType;
+    private final MoveType lockMoveType;
 
-    public MoveLockDecorator(Effect effect, Map<String, String> requirements, MoveType moveType) {
+    public MoveLockDecorator(Effect effect, Map<String, String> requirements, MoveType lockMoveType) {
         this.effect = effect;
         this.requirements = requirements;
-        this.moveType = moveType;
+        this.lockMoveType = lockMoveType;
         setPhaseType(effect.getPhaseType());
     }
 
@@ -27,19 +27,19 @@ public class MoveLockDecorator extends EffectDecorator {
 
         List<Worker> targetWorkers = Game.getInstance().getWorkersByTargetType(activeWorker, getTargetType(XMLName.PARAMETERS));
         for (Worker w : targetWorkers) {
-            w.addLockedMovement(moveType);
+            w.addLockedMovement(lockMoveType);
         }
     }
 
     @Override
     public void prepare(Worker worker) {
         effect.prepare(worker);
-        apply(worker, null);
     }
 
     @Override
     public boolean require(Worker worker) {
-        if (moveType.equals(MoveType.UP)) {
+        MoveType moveTypeRequired = MoveType.valueOf(requirements.get(XMLName.MOVE.getText()));
+        if (moveTypeRequired.equals(MoveType.UP)) {
             return worker.hasMovedUp() && effect.require(worker);
         }
         return false;
@@ -54,7 +54,7 @@ public class MoveLockDecorator extends EffectDecorator {
         } else if (enabled == 1) {
             List<Worker> enemyWorkers = Game.getInstance().getEnemyWorkers(worker);
             for (Worker w : enemyWorkers) {
-                w.removeLockedMovement(moveType);
+                w.removeLockedMovement(lockMoveType);
             }
             enabled--;
         }

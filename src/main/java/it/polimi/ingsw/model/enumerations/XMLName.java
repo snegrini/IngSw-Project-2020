@@ -16,6 +16,7 @@ public enum XMLName {
     BUILD("build"),
     MOVE("move"),
     SPACE("space"),
+    USERCONFIRM("userconfirm"),
 
     // Attributes
     ID("id"),

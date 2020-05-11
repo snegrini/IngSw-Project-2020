@@ -8,6 +8,9 @@
         </description>
         <effects>
             <effect phase="YOUR_MOVE">
+                <requirements>
+                    <userconfirm>true</userconfirm>
+                </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <move over="true" swapspace="true"/>
@@ -22,8 +25,11 @@
         </description>
         <effects>
             <effect phase="YOUR_MOVE_AFTER">
+                <requirements>
+                    <userconfirm>true</userconfirm>
+                </requirements>
                 <parameters>
-                    <target>YOUR_WORKER</target>
+                    <target>YOUR_ACTIVE_WORKER</target>
                     <move again="true" quantity="1" goback="false"/>
                 </parameters>
             </effect>
@@ -38,7 +44,7 @@
         <effects>
             <effect phase="YOUR_MOVE_AFTER">
                 <requirements>
-                    <target>YOUR_ACTIVE_WORKER</target>
+                    <userconfirm>false</userconfirm>
                     <move>UP</move>
                 </requirements>
                 <parameters>
@@ -54,6 +60,9 @@
         <description>Your Build: Your Worker may build a dome at any level.</description>
         <effects>
             <effect phase="YOUR_BUILD">
+                <requirements>
+                    <userconfirm>true</userconfirm>
+                </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <build forcedome="true"/>
@@ -67,8 +76,11 @@
         <description>Your Build: Your Worker may build one additional time, but not on the same space.</description>
         <effects>
             <effect phase="YOUR_BUILD_AFTER">
+                <requirements>
+                    <userconfirm>true</userconfirm>
+                </requirements>
                 <parameters>
-                    <target>YOUR_WORKER</target>
+                    <target>YOUR_ACTIVE_WORKER</target>
                     <build again="true" quantity="1" samespace="false"/>
                 </parameters>
             </effect>
@@ -82,11 +94,10 @@
         <effects>
             <effect phase="YOUR_BUILD_AFTER">
                 <requirements>
-                    <target>YOUR_WORKER</target>
-                    <build/>
+                    <userconfirm>true</userconfirm>
                 </requirements>
                 <parameters>
-                    <target>YOUR_WORKER</target>
+                    <target>YOUR_ACTIVE_WORKER</target>
                     <build again="true" quantity="1" forcesamespace="true" dome="false"/>
                 </parameters>
             </effect>
@@ -100,6 +111,9 @@
         </description>
         <effects>
             <effect phase="YOUR_MOVE">
+                <requirements>
+                    <userconfirm>true</userconfirm>
+                </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <move over="true" pushback="true"/>
@@ -113,6 +127,9 @@
         <description>Win Condition: You also win if your Worker moves down two or more levels.</description>
         <effects>
             <effect phase="YOUR_MOVE_AFTER">
+                <requirements>
+                    <userconfirm>false</userconfirm>
+                </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
                     <move win="true" lvl="2">DOWN</move>
@@ -128,8 +145,7 @@
         <effects>
             <effect phase="YOUR_MOVE">
                 <requirements>
-                    <target>YOUR_WORKER</target>
-                    <move lock="true">UP</move>
+                    <userconfirm>true</userconfirm>
                 </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
