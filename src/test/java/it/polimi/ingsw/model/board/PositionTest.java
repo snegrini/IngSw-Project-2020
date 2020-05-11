@@ -46,13 +46,20 @@ public class PositionTest {
 
     @Test
     public void equals_DifferentPosition_False() {
-        Position testPosition = new Position( 2,1);
+        Position testPosition = new Position(2, 1);
         assertFalse(position.equals(testPosition));
     }
 
     @Test
+    public void testCopyConstructor() {
+        Position testPosition = new Position(position);
+        assertEquals(position, testPosition);
+        assertNotSame(position, testPosition);
+    }
+
+    @Test
     public void equals_SamePosition_True() {
-        Position testPosition = new Position( 3,4);
+        Position testPosition = new Position(3, 4);
         assertTrue(position.equals(testPosition));
     }
 

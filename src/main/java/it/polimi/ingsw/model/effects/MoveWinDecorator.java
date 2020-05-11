@@ -33,7 +33,6 @@ public class MoveWinDecorator extends EffectDecorator {
                 //     TODO The player of the active workers has won the game.
                 //      Game is finished.
             }
-
         }
     }
 
