@@ -221,8 +221,18 @@ public class GameController implements Observer {
 
             // CHECK EFFECT YOUR_MOVE_AFTER
             turnController.setPhaseType(PhaseType.YOUR_MOVE_AFTER);
+
+
+            Player player = game.getPlayerByNickname(turnController.getActivePlayer());
             if (turnController.checkEffectPhase(turnController.getPhaseType()) && turnController.requireEffect()) {
-                virtualView.askEnableEffect();
+                Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());
+                if (effect.isUserConfirmNeeded()) {
+                    virtualView.askEnableEffect();
+                } else {
+                    effect.apply(turnController.getActiveWorker(), null);
+                    effect.clear(turnController.getActiveWorker());
+                    turnController.nextPhase();
+                }
             } else {
                 turnController.nextPhase();
             }
@@ -242,8 +252,18 @@ public class GameController implements Observer {
 
         // CHECK EFFECT YOUR_BUILD_AFTER
         turnController.setPhaseType(PhaseType.YOUR_BUILD_AFTER);
+
+
+        Player player = game.getPlayerByNickname(turnController.getActivePlayer());
         if (turnController.checkEffectPhase(turnController.getPhaseType()) && turnController.requireEffect()) {
-            virtualView.askEnableEffect();
+            Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());
+            if (effect.isUserConfirmNeeded()) {
+                virtualView.askEnableEffect();
+            } else {
+                effect.apply(turnController.getActiveWorker(), null);
+                effect.clear(turnController.getActiveWorker());
+                turnController.nextPhase();
+            }
         } else {
             turnController.nextPhase();
         }

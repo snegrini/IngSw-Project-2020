@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Position;
+import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
@@ -117,12 +118,19 @@ public class TurnController {
 
         // EFFECT REQUIRE YOUR MOVE
 
-        if (checkEffectPhase(getPhaseType()) && !skipEffect) {
-            if (requireEffect()) {
+        Player player = game.getPlayerByNickname(activePlayer);
+
+        if (checkEffectPhase(getPhaseType()) && !skipEffect && requireEffect()) {
+
+            Effect effect = player.getGod().getEffectByType(getPhaseType());
+            if (effect.isUserConfirmNeeded()) {
                 virtualView.askEnableEffect();
             } else {
-                virtualView.askMove(getActiveWorker().getPossibleMoves());
+                effect.apply(activeWorker, null);
+                effect.clear(getActiveWorker());
+                nextPhase();
             }
+
         } else {
             virtualView.askMove(getActiveWorker().getPossibleMoves());
         }
@@ -145,11 +153,17 @@ public class TurnController {
         setPhaseType(PhaseType.YOUR_BUILD);
 
         // CHECK EFFECT YOUR_BUILD
-        if (checkEffectPhase(getPhaseType()) && !skipEffect) {
-            if (requireEffect()) {
+
+        Player player = game.getPlayerByNickname(activePlayer);
+
+        if (checkEffectPhase(getPhaseType()) && !skipEffect && requireEffect()) {
+            Effect effect = player.getGod().getEffectByType(getPhaseType());
+            if (effect.isUserConfirmNeeded()) {
                 virtualView.askEnableEffect();
             } else {
-                virtualView.askBuild(getActiveWorker().getPossibleBuilds());
+                effect.apply(activeWorker, null);
+                effect.clear(getActiveWorker());
+                nextPhase();
             }
         } else {
             virtualView.askBuild(getActiveWorker().getPossibleBuilds());

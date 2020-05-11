@@ -20,6 +20,7 @@ public class MoveWinDecorator extends EffectDecorator {
         this.moveType = moveType;
         this.levels = levels;
         setPhaseType(effect.getPhaseType());
+        setTargetTypeMap(effect.getTargetTypeMap());
     }
 
     @Override

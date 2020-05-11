@@ -22,6 +22,7 @@ public class MoveAgainDecorator extends EffectDecorator {
         this.goBack = goBack;
         this.possibleMoves = new ArrayList<>();
         setPhaseType(effect.getPhaseType());
+        setTargetTypeMap(effect.getTargetTypeMap());
     }
 
     @Override

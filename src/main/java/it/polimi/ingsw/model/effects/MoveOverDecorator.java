@@ -26,6 +26,7 @@ public class MoveOverDecorator extends EffectDecorator {
         this.swapSpace = swapSpace;
         this.possibleMoves = new ArrayList<>();
         setPhaseType(effect.getPhaseType());
+        setTargetTypeMap(effect.getTargetTypeMap());
     }
 
     @Override

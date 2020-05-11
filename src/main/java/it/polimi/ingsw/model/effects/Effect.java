@@ -77,5 +77,13 @@ public abstract class Effect extends Observable {
         targetTypeMap.put(xmlName, targetType);
     }
 
+    protected Map<XMLName, TargetType> getTargetTypeMap() {
+        return targetTypeMap;
+    }
+
+    protected void setTargetTypeMap(Map<XMLName, TargetType> targetTypeMap) {
+        this.targetTypeMap = targetTypeMap;
+    }
+
     public abstract boolean isUserConfirmNeeded();
 }

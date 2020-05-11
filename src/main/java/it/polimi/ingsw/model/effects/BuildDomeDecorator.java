@@ -20,6 +20,7 @@ public class BuildDomeDecorator extends EffectDecorator {
         this.requirements = requirements;
         this.possibleBuilds = new ArrayList<>();
         setPhaseType(effect.getPhaseType());
+        setTargetTypeMap(effect.getTargetTypeMap());
     }
 
     @Override

@@ -31,6 +31,7 @@ public class BuildAgainDecorator extends EffectDecorator {
         this.forceSameSpace = forceSameSpace;
         this.possibleBuilds = new ArrayList<>();
         setPhaseType(effect.getPhaseType());
+        setTargetTypeMap(effect.getTargetTypeMap());
     }
 
     @Override
