@@ -36,7 +36,7 @@ public class Cli extends View {
 
         out.println("Please specify the following settings. The default value is shown between brackets.");
         do {
-            out.print("Enter the server address (" + defaultAddress + "): ");
+            out.print("Enter the server address [" + defaultAddress + "]: ");
             String address = scanner.nextLine();
 
             if (address.equals("")) {
@@ -55,7 +55,7 @@ public class Cli extends View {
         clearCli();
 
         do {
-            out.print("Enter the server port (" + defaultPort + "): ");
+            out.print("Enter the server port [" + defaultPort + "]: ");
             String port = scanner.nextLine();
 
             if (port.equals("")) {
@@ -100,41 +100,23 @@ public class Cli extends View {
      */
     @Override
     public void askGod(List<ReducedGod> gods, int request) {
+        clearCli();
 
-        int godId = 0;
-
+        int godId;
 
         if (gods.size() > 1) {
             if (request > 1) {
-                out.println("Select " + request + " Gods!");
+                List<ReducedGod> chosenGods = new ArrayList<>();
+                out.println("Select " + request + " Gods from the list.");
                 printGodList(gods);
 
-                out.println("Insert Gods' IDs");
-                int[] chosenIndexes = new int[3];
-                for (int i = 0; i < 3; i++) {
-                    chosenIndexes[i] = -1;
-                }
-
-                List<ReducedGod> reducedGodList = new ArrayList<>();
+                out.println("Please, enter one ID per line and confirm with ENTER.");
                 for (int i = 0; i < request; i++) {
-                    while (true) {
-                        try {
-                            do {
-                                godId = Integer.parseInt(scanner.nextLine()) - 1;
-                                if ((godId < 0 || godId > gods.size()) || (god_already_chosen(godId, chosenIndexes))) {
-                                    out.println("You have not inserted a valid ID! Please try again.");
-                                }
-                            } while ((godId < 0 || godId > gods.size()) || (god_already_chosen(godId, chosenIndexes)));
-                            chosenIndexes[i] = godId;
-                            reducedGodList.add(gods.get(godId));
-                            break;
-                        } catch (NumberFormatException e) {
-                            out.println("You have not inserted an integer number! Please try again!");
-                        }
-                    }
+                    godId = numberInput(1, gods.size(), (i + 1) + "° god ID: ") - 1;
+                    chosenGods.add(gods.get(godId));
                 }
 
-                notifyObserver((ViewObserver obs) -> obs.onUpdateGod(reducedGodList));
+                notifyObserver((ViewObserver obs) -> obs.onUpdateGod(chosenGods));
             } else {
                 out.println("Select your own personal God!");
                 printGodList(gods);
@@ -148,6 +130,8 @@ public class Cli extends View {
             printGodList(gods);
             ReducedGod finalGod = gods.get(0);
             notifyObserver((ViewObserver obs) -> obs.onUpdateGod(List.of(finalGod)));
+        } else {
+            showErrorAndExit("no gods found in the request.");
         }
     }
 
@@ -224,7 +208,7 @@ public class Cli extends View {
 
         } while (!colors.contains(in.toUpperCase()));
         Color color = Color.valueOf(in.toUpperCase());
-        //only one color is chosen by a player
+        // only one color is chosen by a player
         notifyObserver((ViewObserver obs) -> obs.onUpdateWorkersColor(color));
     }
 
@@ -237,12 +221,14 @@ public class Cli extends View {
     public void askMovingWorker(List<Position> positionList) {
         int chosenRow;
         int chosenColumn;
-        out.println("Insert the position of the worker which you want to move:");
+        out.println("Your workers are in the following positions:");
         for (int i = 0; i < positionList.size(); i++) {
-            out.println("Position of worker " + (i + 1) + " is Row: " +
-                    positionList.get(i).getRow() + " Column: " +
+            out.println((i + 1) + "° worker is on Row: " +
+                    positionList.get(i).getRow() + ", Column: " +
                     positionList.get(i).getColumn());
         }
+
+        out.println("Insert the position of the worker which you want to move:");
         while (true) {
             try {
                 do {
@@ -412,8 +398,8 @@ public class Cli extends View {
 
     @Override
     public void askEnableEffect() {
-        out.println("Enable effect?");
-        String response = scanner.nextLine(); // TODO chec input
+        out.println("Do you want to enable your god effect? [y/N]: ");
+        String response = scanner.nextLine(); // TODO check input
         if (response.equals("y")) {
             notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(true));
         } else {
@@ -453,7 +439,7 @@ public class Cli extends View {
      * @param error the error to be shown.
      */
     @Override
-    public void showError(String error) {
+    public void showErrorAndExit(String error) {
         out.println("ERROR: " + error);
         System.exit(1);
     }
@@ -583,27 +569,4 @@ public class Cli extends View {
         out.print(ColorCli.CLEAR);
         out.flush();
     }
-
-    //method to check if a position to build is valid
-    /*boolean position_isNotValid2(int chosenRow, int chosenColumn, Worker worker) {
-        boolean is_NotValid = (worker.getPossibleBuilds().get(0).getRow() != chosenRow) ||
-                (worker.getPossibleBuilds().get(0).getColumn() != chosenColumn);
-
-        for (int i = 1; i < worker.getPossibleBuilds().size(); i++) {
-            is_NotValid = (is_NotValid && ((worker.getPossibleBuilds().get(i).getRow() != chosenRow) ||
-                    (worker.getPossibleBuilds().get(i).getColumn() != chosenColumn)));
-        }
-
-        return is_NotValid;
-
-    }
-
-    //checks if the position inserted for a worker is correct
-    boolean pstWorkerNotValid(int chosenRow, int chosenColumn, List<Worker> workers) {
-        return ((workers.get(0).getPosition().getRow() != chosenRow) ||
-                (workers.get(0).getPosition().getColumn() != chosenColumn)) &&
-                ((workers.get(1).getPosition().getRow() !=
-                        chosenRow) || (workers.get(1).getPosition().getColumn() != chosenColumn));
-    }*/
-
 }

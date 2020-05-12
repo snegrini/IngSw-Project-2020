@@ -103,7 +103,7 @@ public abstract class View {
      *
      * @param error the error message to be shown.
      */
-    public abstract void showError(String error);
+    public abstract void showErrorAndExit(String error);
 
     /**
      * Shows the board on the screen.

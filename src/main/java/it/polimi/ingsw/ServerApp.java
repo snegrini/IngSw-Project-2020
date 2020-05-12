@@ -23,7 +23,7 @@ public class ServerApp {
         thread.start();
 
         int finalServerPort = serverPort;
-        Server.LOGGER.info(() -> "Socket server started on port" + finalServerPort + ".");
+        Server.LOGGER.info(() -> "Socket server started on port " + finalServerPort + ".");
     }
 
 }

@@ -71,7 +71,7 @@ public class ClientController implements ViewObserver, Observer {
                 view.askInitWorkersPositions(((PositionMessage) message).getPositionList());
                 break;
             case ERROR:
-                view.showError(((ErrorMessage) message).getError());
+                view.showErrorAndExit(((ErrorMessage) message).getError());
                 break;
             case ENABLE_EFFECT:
                 view.askEnableEffect();

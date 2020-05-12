@@ -8,6 +8,7 @@ import it.polimi.ingsw.network.message.PositionMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MoveAgainDecorator extends EffectDecorator {
 
@@ -16,8 +17,9 @@ public class MoveAgainDecorator extends EffectDecorator {
 
     private List<Position> possibleMoves;
 
-    public MoveAgainDecorator(Effect effect, int quantity, boolean goBack) {
+    public MoveAgainDecorator(Effect effect, Map<String, String> requirements, int quantity, boolean goBack) {
         this.effect = effect;
+        this.requirements = requirements;
         this.quantity = quantity;
         this.goBack = goBack;
         this.possibleMoves = new ArrayList<>();
