@@ -266,6 +266,7 @@ public class GameController implements Observer {
     private void win() {
         gameControllerNotify(turnController.getActivePlayer() + " wins! Game Finished!");
         // TODO end game, prepare server for a new game. Set server on listen for the first client.
+        // Game.resetInstance();
     }
 
     void endGame() {
@@ -520,6 +521,7 @@ public class GameController implements Observer {
                 virtualView.askBuildFx(((PositionMessage) message).getPositionList());
                 break;
             case WIN_FX:
+                win();
                 break;
         }
 
