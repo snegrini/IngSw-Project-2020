@@ -102,9 +102,13 @@ public class TurnController {
     private void pickWorker() {
 
         Player player = game.getPlayerByNickname(getActivePlayer());
-        List<Position> positionList = new ArrayList<>(player.getWorkersPositions());
+        List<Position> positionList = new ArrayList<>(player.getValidWorkersPositions());
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
-        virtualView.askMovingWorker(positionList);
+        if (positionList.isEmpty()) {
+            // TODO LOSE
+        } else {
+            virtualView.askMovingWorker(positionList);
+        }
     }
 
     /**

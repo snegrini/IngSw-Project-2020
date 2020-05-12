@@ -76,12 +76,12 @@ public class GameController implements Observer {
     private void loginState(Message receivedMessage, VirtualView virtualView) {
         switch (receivedMessage.getMessageType()) {
             case LOGIN_REQUEST:
-                if (inputController.check(receivedMessage)) {
+                if (inputController.verifyReceivedData(receivedMessage)) {
                     loginHandler((LoginRequest) receivedMessage, virtualView);
                 }
                 break;
             case PLAYERNUMBER_REPLY:
-                if (inputController.check(receivedMessage)) {
+                if (inputController.verifyReceivedData(receivedMessage)) {
                     game.setChosenMaxPlayers(((PlayerNumberReply) receivedMessage).getPlayerNumber());
                     gameControllerNotify("Waiting for other Players . . .");
                 }
@@ -101,17 +101,17 @@ public class GameController implements Observer {
     private void initState(Message receivedMessage, VirtualView virtualView) {
         switch (receivedMessage.getMessageType()) {
             case GODLIST:
-                if (inputController.check(receivedMessage)) {
+                if (inputController.verifyReceivedData(receivedMessage)) {
                     godListHandler((GodListMessage) receivedMessage, virtualView);
                 }
                 break;
             case INIT_COLORS:
-                if (inputController.check(receivedMessage)) {
+                if (inputController.verifyReceivedData(receivedMessage)) {
                     colorHandler((ColorsMessage) receivedMessage);
                 }
                 break;
             case INIT_WORKERSPOSITIONS:
-                if (inputController.check(receivedMessage)) {
+                if (inputController.verifyReceivedData(receivedMessage)) {
                     workerPositionsHandler((PositionMessage) receivedMessage);
                 }
                 break;
@@ -131,15 +131,19 @@ public class GameController implements Observer {
     private void inGameState(Message receivedMessage, VirtualView virtualView) {
         switch (receivedMessage.getMessageType()) {
             case PICK_MOVING_WORKER:
-                if (inputController.check(receivedMessage)) {
+                if (inputController.verifyReceivedData(receivedMessage)) {
                     pickWorkerHandler(receivedMessage);
                 }
                 break;
-            case MOVE: // TODO input controller
-                moveHandler((PositionMessage) receivedMessage, virtualView);
+            case MOVE:
+                if (inputController.verifyReceivedData(receivedMessage)) {
+                    moveHandler((PositionMessage) receivedMessage, virtualView);
+                }
                 break;
-            case BUILD: // TODO input controller
-                buildHandler((PositionMessage) receivedMessage, virtualView);
+            case BUILD:
+                if (inputController.verifyReceivedData(receivedMessage)) {
+                    buildHandler((PositionMessage) receivedMessage, virtualView);
+                }
                 break;
             case ENABLE_EFFECT:
                 prepareEffect((PrepareEffectMessage) receivedMessage);
@@ -323,7 +327,7 @@ public class GameController implements Observer {
     private void initGame() {
         gameState = GameState.INIT;
         turnController = new TurnController(virtualViewMap);
-
+        inputController.setTurnController(turnController);
         gameControllerNotify("All Players are connected. " + turnController.getActivePlayer()
                 + " is choosing " + game.getChosenPlayersNumber() + " Gods . . .");
 

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.PlayerState;
 import it.polimi.ingsw.observer.Observable;
+import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Player extends Observable {
      *
      * @param position the position where the worker should be returned.
      * @return Returns the worker given his position.
-     *         {@code null} is returned if no worker is found.
+     * {@code null} is returned if no worker is found.
      */
     public Worker getWorkerByPosition(Position position) {
         return workers.stream()
@@ -80,6 +81,29 @@ public class Player extends Observable {
         List<Position> positionList = new ArrayList<>();
         for (Worker w : workers) {
             positionList.add(w.getPosition());
+        }
+        return positionList;
+    }
+
+    public List<Position> getValidWorkersPositions() {
+        List<Position> positionList = getWorkersPositions();
+
+        for (Position p : positionList) {
+            List<Position> possibleMoves = getWorkerByPosition(p).getPossibleMoves();
+            if (possibleMoves.isEmpty()) {
+                positionList.remove(p);
+            } else {
+                for (Position pos : possibleMoves) {
+                    Worker tempWorker = new Worker(pos);
+                    if (tempWorker.getPossibleBuilds().isEmpty()) {
+                        possibleMoves.remove(pos);
+                    }
+                }
+                if (possibleMoves.isEmpty()) {
+                    positionList.remove(p);
+                }
+
+            }
         }
         return positionList;
     }
