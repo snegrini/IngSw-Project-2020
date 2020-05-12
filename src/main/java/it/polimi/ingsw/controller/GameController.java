@@ -83,6 +83,7 @@ public class GameController implements Observer {
             case PLAYERNUMBER_REPLY:
                 if (inputController.check(receivedMessage)) {
                     game.setChosenMaxPlayers(((PlayerNumberReply) receivedMessage).getPlayerNumber());
+                    gameControllerNotify("Waiting for other Players . . .");
                 }
                 break;
             default:
@@ -308,7 +309,7 @@ public class GameController implements Observer {
         } else {
             game.addPlayer(new Player(nickname));
             virtualView.showLoginResult(true, true, null);
-            gameControllerNotify("Waiting for players: " + game.getNumCurrentPlayers() + "/" + game.getChosenPlayersNumber());
+            gameControllerNotify("Waiting for other players to join: " + game.getNumCurrentPlayers() + "/" + game.getChosenPlayersNumber());
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
                 initGame();
             }
@@ -321,6 +322,9 @@ public class GameController implements Observer {
     private void initGame() {
         gameState = GameState.INIT;
         turnController = new TurnController(virtualViewMap);
+
+        gameControllerNotify("All Players are connected. " + turnController.getActivePlayer()
+                + " is choosing " + game.getChosenPlayersNumber() + " Gods . . .");
 
         VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());
         virtualView.askGod(game.getReduceGodList(), game.getChosenPlayersNumber());
@@ -337,7 +341,11 @@ public class GameController implements Observer {
         // if received contains a list
         if (receivedMessage.getGodList().size() > 1) {
             availableGods = new ArrayList<>(receivedMessage.getGodList());
+            gameControllerNotify("All Gods received from " + turnController.getActivePlayer()
+                    + ". Waiting for other players to pick . . .");
+
             askGodToNextPlayer();
+
         } else { // else receivedMessage contains only 1 god
             God god = game.getGodByName(receivedMessage.getGodList().get(0).getName());
             god.addObserverToAllEffects(this);
@@ -345,9 +353,14 @@ public class GameController implements Observer {
             availableGods.remove(receivedMessage.getGodList().get(0));
 
             if (!availableGods.isEmpty()) {
+                gameControllerNotify("God received from " + turnController.getActivePlayer()
+                        + ". Waiting for other players to pick . . .");
                 askGodToNextPlayer();
             } else {
                 // the last one who pick his god is the first one player of every round.
+
+                gameControllerNotify("Initializing " + turnController.getActivePlayer()
+                        + ". . .");
                 virtualView.askInitWorkerColor(availableColors);
                 //askWorkersPositions(turnController.getActivePlayer());
             }
