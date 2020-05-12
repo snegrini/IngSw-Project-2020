@@ -32,8 +32,8 @@ public class LoginSceneController implements ViewGuiController {
 
     @FXML
     public void initialize() {
-        connectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onConnectButtonClick(event));
-        backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onBackButtonClick(event));
+        connectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onConnectBtnClick(event));
+        backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onBackBtnClick(event));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class LoginSceneController implements ViewGuiController {
         this.view = view;
     }
 
-    private void onConnectButtonClick(Event event) {
+    private void onConnectBtnClick(Event event) {
         String address = serverAddressField.getText();
         String port = serverPortField.getText();
         // TODO check input
@@ -59,7 +59,7 @@ public class LoginSceneController implements ViewGuiController {
         //      Can I set the player numbers from the login scene?
     }
 
-    private void onBackButtonClick(Event event) {
+    private void onBackBtnClick(Event event) {
         SceneController.changeRootPane(view, event, "menu_scene.fxml");
     }
 }

@@ -399,12 +399,8 @@ public class Cli extends View {
     @Override
     public void askEnableEffect() {
         out.println("Do you want to enable your god effect? [y/N]: ");
-        String response = scanner.nextLine(); // TODO check input
-        if (response.equals("y")) {
-            notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(true));
-        } else {
-            notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(false));
-        }
+        String response = scanner.nextLine();
+        notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(response.equalsIgnoreCase("y")));
     }
 
     @Override
@@ -420,7 +416,6 @@ public class Cli extends View {
             scanner.nextLine();
             System.exit(1);
         }
-
     }
 
     /**

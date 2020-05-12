@@ -20,7 +20,7 @@ public class MenuSceneController implements ViewGuiController {
 
     @FXML
     public void initialize() {
-        playBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onPlayButtonClick(event));
+        playBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onPlayBtnClick(event));
         quitBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> System.exit(0));
     }
 
@@ -29,7 +29,7 @@ public class MenuSceneController implements ViewGuiController {
         this.view = view;
     }
 
-    private void onPlayButtonClick(Event event) {
+    private void onPlayBtnClick(Event event) {
         SceneController.changeRootPane(view, event, "login_scene.fxml");
     }
 

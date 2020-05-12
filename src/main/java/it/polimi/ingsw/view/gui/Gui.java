@@ -65,7 +65,13 @@ public class Gui extends View {
 
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
-
+        if (nicknameAccepted && connectionSuccessful) {
+            // TODO
+        } else if (connectionSuccessful) {
+            // TODO
+        } else {
+            SceneController.showAlert("ERROR", "Could not contact server.");
+        }
     }
 
     @Override

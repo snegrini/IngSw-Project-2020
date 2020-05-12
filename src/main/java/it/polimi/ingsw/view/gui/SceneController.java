@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.gui.scene.AlertSceneController;
 import it.polimi.ingsw.view.gui.scene.ViewGuiController;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +29,24 @@ public class SceneController {
             LOGGER.severe(e.getMessage());
         }
         return controller;
+    }
+
+    public static void showAlert(String title, String message) {
+        FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/alert_scene.fxml"));
+
+        Parent parent;
+        try {
+            parent = loader.load();
+        } catch (IOException e) {
+            LOGGER.severe(e.getMessage());
+            return;
+        }
+        AlertSceneController alertSceneController = loader.getController();
+        Scene alertScene = new Scene(parent);
+        alertSceneController.setScene(alertScene);
+        alertSceneController.setAlertTitle(title);
+        alertSceneController.setAlertMessage(message);
+        alertSceneController.displayAlert();
     }
 
     public static ViewGuiController changeRootPane(View view, Event event, String fxml) {
