@@ -2,10 +2,12 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ReducedGod;
+import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.view.VirtualView;
 
+import java.util.List;
 import java.util.Map;
 
 public class InputController {
@@ -13,6 +15,7 @@ public class InputController {
     private Game game;
     private Map<String, VirtualView> virtualViews;
     private GameController gameController;
+    private TurnController turnController;
 
     public InputController(Map<String, VirtualView> virtualViews, GameController gameController) {
         this.game = Game.getInstance();
@@ -20,20 +23,20 @@ public class InputController {
         this.gameController = gameController;
     }
 
-    public boolean check(Message message) {
+    public boolean verifyReceivedData(Message message) {
 
         switch (message.getMessageType()) {
-            case BOARD: // server doesn't never receive a BoardMessage.
+            case BOARD: // server doesn't never receive a BOARD.
                 return false;
             case BUILD:
                 return buildCheck(message);
             case INIT_COLORS:
                 return colorCheck(message);
-            case GENERIC_MESSAGE: // server doesn't receive a GenericErrorMessage.
+            case GENERIC_MESSAGE: // server doesn't receive a GENERIC_MESSAGE.
                 return false;
             case GODLIST:
                 return godListCheck(message);
-            case LOGIN_REPLY: // server doesn't receive a GenericErrorMessage.
+            case LOGIN_REPLY: // server doesn't receive a LOGIN_REPLY.
                 return false;
             case LOGIN_REQUEST:
                 return loginRequestCheck(message);
@@ -97,19 +100,24 @@ public class InputController {
     }
 
     private boolean moveCheck(Message message) {
-        // TODO
-        if (!((PositionMessage) message).getPositionList().isEmpty()) {
+        VirtualView virtualView = virtualViews.get(message.getNickname());
+        PositionMessage positionMessage = ((PositionMessage) message);
+        Position choosenDest = positionMessage.getPositionList().get(0);
+        List<Position> possibleMovePositions = turnController.getActiveWorker().getPossibleMoves();
+
+        if (!positionMessage.getPositionList().isEmpty() && possibleMovePositions.contains(choosenDest)) {
             return true;
         } else {
-            // TODO Re-ask Move 'cause client provided a null destination.
+            virtualView.showGenericMessage("You didn't provided a valid Destination. Retry.");
+            virtualView.askMove(turnController.getActiveWorker().getPossibleMoves());
             return false;
         }
     }
 
     private boolean loginRequestCheck(Message message) {
 
-        VirtualView virtualView = virtualViews.get(message.getNickname());
         String nickname = message.getNickname();
+        VirtualView virtualView = virtualViews.get(nickname);
 
         if (nickname.equalsIgnoreCase(Game.SERVER_NICKNAME)) {
             virtualView.showGenericMessage("Forbidden name.");
@@ -164,8 +172,19 @@ public class InputController {
     }
 
     private boolean buildCheck(Message message) {
-        // TODO
-        return false;
+
+        VirtualView virtualView = virtualViews.get(message.getNickname());
+        PositionMessage positionMessage = ((PositionMessage) message);
+        Position choosenBuild = positionMessage.getPositionList().get(0);
+        List<Position> possibleBuildPositions = turnController.getActiveWorker().getPossibleBuilds();
+
+        if (!positionMessage.getPositionList().isEmpty() && possibleBuildPositions.contains(choosenBuild)) {
+            return true;
+        } else {
+            virtualView.showGenericMessage("You didn't provided a valid Position. Retry.");
+            virtualView.askBuild(turnController.getActiveWorker().getPossibleBuilds());
+            return false;
+        }
     }
 
     /**
@@ -194,6 +213,10 @@ public class InputController {
                 return true;
         }
         return false;
+    }
+
+    public void setTurnController(TurnController turnController) {
+        this.turnController = turnController;
     }
 
 }
