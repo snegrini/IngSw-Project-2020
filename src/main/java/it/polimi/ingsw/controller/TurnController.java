@@ -90,6 +90,8 @@ public class TurnController {
      * Initialize a new Turn.
      */
     public void newTurn() {
+
+        turnControllerNotify("Turn of " + activePlayer);
         setPhaseType(PhaseType.YOUR_MOVE);
         pickWorker();
     }
@@ -119,7 +121,6 @@ public class TurnController {
         // EFFECT REQUIRE YOUR MOVE
 
         Player player = game.getPlayerByNickname(activePlayer);
-
         if (checkEffectPhase(getPhaseType()) && !skipEffect && requireEffect()) {
 
             Effect effect = player.getGod().getEffectByType(getPhaseType());
@@ -128,7 +129,7 @@ public class TurnController {
             } else {
                 effect.apply(activeWorker, null);
                 effect.clear(getActiveWorker());
-                nextPhase();
+                virtualView.askMove(getActiveWorker().getPossibleMoves());
             }
 
         } else {
@@ -163,7 +164,7 @@ public class TurnController {
             } else {
                 effect.apply(activeWorker, null);
                 effect.clear(getActiveWorker());
-                nextPhase();
+                virtualView.askBuild(getActiveWorker().getPossibleBuilds());
             }
         } else {
             virtualView.askBuild(getActiveWorker().getPossibleBuilds());
@@ -231,6 +232,18 @@ public class TurnController {
             default: // Should never reach this condition.
                 // TODO
                 break;
+        }
+    }
+
+
+    /**
+     * Sends a Message which contains Turn Information to every Players in Game.
+     *
+     * @param messageToNotify Message to send.
+     */
+    private void turnControllerNotify(String messageToNotify) {
+        for (VirtualView vv : virtualViewMap.values()) {
+            vv.showGenericMessage(messageToNotify);
         }
     }
 

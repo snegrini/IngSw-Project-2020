@@ -223,17 +223,7 @@ public class GameController implements Observer {
             turnController.setPhaseType(PhaseType.YOUR_MOVE_AFTER);
 
 
-            Player player = game.getPlayerByNickname(turnController.getActivePlayer());
-            if (turnController.checkEffectPhase(turnController.getPhaseType()) && turnController.requireEffect()) {
-                Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());
-                if (effect.isUserConfirmNeeded()) {
-                    virtualView.askEnableEffect();
-                } else {
-                    effect.apply(turnController.getActiveWorker(), null);
-                    effect.clear(turnController.getActiveWorker());
-                    turnController.nextPhase();
-                }
-            } else {
+            if (!launchEffect()) {
                 turnController.nextPhase();
             }
 
@@ -254,17 +244,7 @@ public class GameController implements Observer {
         turnController.setPhaseType(PhaseType.YOUR_BUILD_AFTER);
 
 
-        Player player = game.getPlayerByNickname(turnController.getActivePlayer());
-        if (turnController.checkEffectPhase(turnController.getPhaseType()) && turnController.requireEffect()) {
-            Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());
-            if (effect.isUserConfirmNeeded()) {
-                virtualView.askEnableEffect();
-            } else {
-                effect.apply(turnController.getActiveWorker(), null);
-                effect.clear(turnController.getActiveWorker());
-                turnController.nextPhase();
-            }
-        } else {
+        if (!launchEffect()) {
             turnController.nextPhase();
         }
 
@@ -277,13 +257,13 @@ public class GameController implements Observer {
      */
     private void startGame() {
         gameState = GameState.IN_GAME;
-        notifyAllViews("Game Started!");
+        gameControllerNotify("Game Started!");
 
         turnController.newTurn();
     }
 
     private void win() {
-        notifyAllViews(turnController.getActivePlayer() + "Wins! Game Finished!");
+        gameControllerNotify(turnController.getActivePlayer() + " wins! Game Finished!");
         // TODO end game, prepare server for a new game. Set server on listen for the first client.
     }
 
@@ -292,6 +272,24 @@ public class GameController implements Observer {
     }
 
     // INIT METHODS:
+
+    private Boolean launchEffect() {
+        Player player = game.getPlayerByNickname(turnController.getActivePlayer());
+        if (turnController.checkEffectPhase(turnController.getPhaseType()) && turnController.requireEffect()) {
+            Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());
+            if (effect.isUserConfirmNeeded()) {
+                VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());
+                virtualView.askEnableEffect();
+            } else {
+                effect.apply(turnController.getActiveWorker(), null);
+                effect.clear(turnController.getActiveWorker());
+                turnController.nextPhase();
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * If It's the first Client then ask number of Players he wants, add Player to the Game otherwise
@@ -310,7 +308,7 @@ public class GameController implements Observer {
         } else {
             game.addPlayer(new Player(nickname));
             virtualView.showLoginResult(true, true, null);
-
+            gameControllerNotify("Waiting for players: " + game.getNumCurrentPlayers() + "/" + game.getChosenPlayersNumber());
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
                 initGame();
             }
@@ -458,11 +456,11 @@ public class GameController implements Observer {
     }
 
     /**
-     * Sends a Message to every Players in Game.
+     * Sends a Message which contains Game Information to every Players in Game.
      *
      * @param messageToNotify Message to send.
      */
-    private void notifyAllViews(String messageToNotify) {
+    private void gameControllerNotify(String messageToNotify) {
         for (VirtualView vv : virtualViewMap.values()) {
             vv.showGenericMessage(messageToNotify);
         }
@@ -529,7 +527,7 @@ public class GameController implements Observer {
 
         if (nickname != null) {
             virtualViewMap.remove(nickname);
-            notifyAllViews(nickname + " disconnected from the server. GAME ENDED.");
+            gameControllerNotify(nickname + " disconnected from the server. GAME ENDED.");
             // TODO end the game.
         }
     }
