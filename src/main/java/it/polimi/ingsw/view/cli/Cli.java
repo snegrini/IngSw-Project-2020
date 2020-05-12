@@ -412,7 +412,7 @@ public class Cli extends View {
 
     @Override
     public void askEnableEffect() {
-        System.out.println("Enable effect?");
+        out.println("Enable effect?");
         String response = scanner.nextLine(); // TODO chec input
         if (response.equals("y")) {
             notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(true));
@@ -444,7 +444,7 @@ public class Cli extends View {
      */
     @Override
     public void showGenericMessage(String genericMessage) {
-        out.println("\nMessage From Server: " + genericMessage);
+        out.println(genericMessage);
     }
 
     /**

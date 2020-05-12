@@ -29,9 +29,9 @@ public class MoveWinDecorator extends EffectDecorator {
             int currentLvl = activeWorker.getLevel();
             int lastLvl = activeWorker.getHistory().getMoveLevel();
             if (currentLvl < lastLvl - levels) {
-                notifyObserver(new WinMessage(Game.SERVER_NICKNAME));
-                //     TODO The player of the active workers has won the game.
-                //      Game is finished.
+                // The player of the active workers has won the game.
+                // Game is finished.
+                notifyObserver(new WinMessage());
             }
         }
     }
