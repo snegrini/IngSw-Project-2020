@@ -39,6 +39,8 @@ public class MoveLockDecorator extends EffectDecorator {
 
     @Override
     public boolean require(Worker worker) {
+        this.clear(worker); // Clear previous applied effect.
+
         MoveType moveTypeRequired = MoveType.valueOf(requirements.get(XMLName.MOVE.getText()));
         if (moveTypeRequired.equals(MoveType.UP)) {
             return worker.hasMovedUp() && effect.require(worker);

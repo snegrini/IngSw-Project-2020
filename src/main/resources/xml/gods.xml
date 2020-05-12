@@ -106,8 +106,8 @@
     <god>
         <name>Minotaur</name>
         <caption>Bull-headed Monster</caption>
-        <description>Your Move: Your Worker may move into an opponent Worker's space, if their Worker can be forced
-            one space straight backwards to an unoccupied space at any level.
+        <description>Your Move: Your Worker may move into an opponent Worker's space, if their Worker can be forced one
+            space straight backwards to an unoccupied space at any level.
         </description>
         <effects>
             <effect phase="YOUR_MOVE">

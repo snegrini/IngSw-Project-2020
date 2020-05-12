@@ -181,7 +181,7 @@ public class GodParser {
         if (Boolean.parseBoolean(parameters.get(MOVE.getText() + AGAIN.getText()))) {
             int quantity = Integer.parseInt(parameters.get(MOVE.getText() + QUANTITY.getText()));
             boolean goBack = Boolean.parseBoolean(parameters.get(MOVE.getText() + GO_BACK.getText()));
-            effect = new MoveAgainDecorator(effect, quantity, goBack);
+            effect = new MoveAgainDecorator(effect, requirements, quantity, goBack);
         }
 
         if (Boolean.parseBoolean(parameters.get(MOVE.getText() + OVER.getText()))) {

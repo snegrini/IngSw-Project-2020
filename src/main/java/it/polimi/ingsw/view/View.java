@@ -54,7 +54,8 @@ public abstract class View {
     /**
      * Allows the user to choose his God.
      *
-     * @param gods the list of the available Gods.
+     * @param gods    the list of the available Gods.
+     * @param request the number of gods to be selected by the user.
      */
     public abstract void askGod(List<ReducedGod> gods, int request);
 
@@ -65,8 +66,20 @@ public abstract class View {
      */
     public abstract void askBuild(List<Position> positions);
 
+    /**
+     * Asks to the user to choose a new position where to move the worker.
+     * This method is called only when a effect is applied.
+     *
+     * @param positions the list of the available positions.
+     */
     public abstract void askMoveFx(List<Position> positions);
 
+    /**
+     * Asks to the user to choose a new position where to build.
+     * This method is called only when a effect is applied.
+     *
+     * @param positions the list of the available positions.
+     */
     public abstract void askBuildFx(List<Position> positions);
 
     /**
@@ -78,14 +91,29 @@ public abstract class View {
      */
     public abstract void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname);
 
+    /**
+     * Shows a generic message.
+     *
+     * @param genericMessage the generic message to be shown.
+     */
     public abstract void showGenericMessage(String genericMessage);
 
-    public abstract void showError(String error);
+    /**
+     * Shows an error message.
+     *
+     * @param error the error message to be shown.
+     */
+    public abstract void showErrorAndExit(String error);
 
     /**
-     * Shows the Board
+     * Shows the board on the screen.
+     *
+     * @param spaces the board to be shown.
      */
     public abstract void showBoard(ReducedSpace[][] spaces);
 
+    /**
+     * Asks the user if he wants to enable the effect.
+     */
     public abstract void askEnableEffect();
 }

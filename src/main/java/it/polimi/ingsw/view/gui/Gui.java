@@ -74,7 +74,7 @@ public class Gui extends View {
     }
 
     @Override
-    public void showError(String error) {
+    public void showErrorAndExit(String error) {
 
     }
 

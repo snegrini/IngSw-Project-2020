@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 public class MoveAgainDecoratorTest {
@@ -18,9 +20,9 @@ public class MoveAgainDecoratorTest {
 
     @Before
     public void setUp() throws Exception {
-        effectCanGoBack = new MoveAgainDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER),
+        effectCanGoBack = new MoveAgainDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), Map.of(),
                 1, true);
-        effectNoGoBack = new MoveAgainDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER),
+        effectNoGoBack = new MoveAgainDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), Map.of(),
                 1, false);
     }
 
