@@ -48,8 +48,9 @@ public class SocketClientHandler implements ClientHandler, Runnable {
                 if (message != null && message.getMessageType() != MessageType.PING) {
                     if (message.getMessageType() == MessageType.LOGIN_REQUEST) {
                         socketServer.addClient(message.getNickname(), this);
+                    } else {
+                        socketServer.onMessageReceived(message);
                     }
-                    socketServer.onMessageReceived(message);
                 }
             }
         } catch (ClassCastException | ClassNotFoundException e) {

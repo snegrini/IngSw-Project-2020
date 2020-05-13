@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.network.message.*;
+import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.List;
@@ -38,8 +39,6 @@ public class InputController {
                 return godListCheck(message);
             case LOGIN_REPLY: // server doesn't receive a LOGIN_REPLY.
                 return false;
-            case LOGIN_REQUEST:
-                return loginRequestCheck(message);
             case MOVE:
                 return moveCheck(message);
             case PICK_MOVING_WORKER:
@@ -56,6 +55,19 @@ public class InputController {
                 return false;
         }
 
+    }
+
+    public boolean checkLoginNickname(String nickname, View view) {
+        if (nickname.equalsIgnoreCase(Game.SERVER_NICKNAME)) {
+            view.showGenericMessage("Forbidden name.");
+            view.showLoginResult(false, true, null);
+            return false;
+        } else if (game.isNicknameTaken(nickname)) {
+            view.showGenericMessage("Nickname already taken.");
+            view.showLoginResult(false, true, null);
+            return false;
+        }
+        return true;
     }
 
     private boolean pickMovingCheck(Message message) {
@@ -111,24 +123,6 @@ public class InputController {
             virtualView.showGenericMessage("You didn't provided a valid Destination. Retry.");
             virtualView.askMove(turnController.getActiveWorker().getPossibleMoves());
             return false;
-        }
-    }
-
-    private boolean loginRequestCheck(Message message) {
-
-        String nickname = message.getNickname();
-        VirtualView virtualView = virtualViews.get(nickname);
-
-        if (nickname.equalsIgnoreCase(Game.SERVER_NICKNAME)) {
-            virtualView.showGenericMessage("Forbidden name.");
-            virtualView.showLoginResult(false, true, null);
-            return false;
-        } else if (game.isNicknameTaken(nickname)) {
-            virtualView.showGenericMessage("Nickname already taken");
-            virtualView.showLoginResult(false, true, null);
-            return false;
-        } else {
-            return true;
         }
     }
 

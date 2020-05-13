@@ -11,8 +11,8 @@ import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.*;
-import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.observer.Observer;
+import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.*;
@@ -31,13 +31,13 @@ public class GameController implements Observer {
 
     public GameController() {
         this.game = Game.getInstance();
-        availableColors = getColorList();
+        this.availableColors = getColorList();
 
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
 
-        inputController = new InputController(virtualViewMap, this);
+        this.inputController = new InputController(virtualViewMap, this);
 
-        gameState = GameState.LOGIN; // Initialize Game State.
+        this.gameState = GameState.LOGIN; // Initialize Game State.
     }
 
     /**
@@ -75,15 +75,10 @@ public class GameController implements Observer {
      */
     private void loginState(Message receivedMessage, VirtualView virtualView) {
         switch (receivedMessage.getMessageType()) {
-            case LOGIN_REQUEST:
-                if (inputController.verifyReceivedData(receivedMessage)) {
-                    loginHandler((LoginRequest) receivedMessage, virtualView);
-                }
-                break;
             case PLAYERNUMBER_REPLY:
                 if (inputController.verifyReceivedData(receivedMessage)) {
                     game.setChosenMaxPlayers(((PlayerNumberReply) receivedMessage).getPlayerNumber());
-                    gameControllerNotify("Waiting for other Players . . .");
+                    broadcastGenericMessage("Waiting for other Players . . .");
                 }
                 break;
             default:
@@ -262,13 +257,13 @@ public class GameController implements Observer {
      */
     private void startGame() {
         gameState = GameState.IN_GAME;
-        gameControllerNotify("Game Started!");
+        broadcastGenericMessage("Game Started!");
 
         turnController.newTurn();
     }
 
     private void win() {
-        gameControllerNotify(turnController.getActivePlayer() + " wins! Game Finished!");
+        broadcastGenericMessage(turnController.getActivePlayer() + " wins! Game Finished!");
         // TODO end game, prepare server for a new game. Set server on listen for the first client.
         // Game.resetInstance();
     }
@@ -298,37 +293,43 @@ public class GameController implements Observer {
     }
 
     /**
-     * If It's the first Client then ask number of Players he wants, add Player to the Game otherwise
-     * eventually change Game State
+     * Handles the login of a player. If the player is new, his VirtualView is saved, otherwise it's discarded
+     * and the player is notified.
+     * If it's the first Player then ask number of Players he wants, add Player to the Game otherwise change the GameState.
      *
-     * @param receivedMessage Message from Client
-     * @param virtualView     Virtual View
+     * @param nickname    the nickname of the player.
+     * @param virtualView the virtualview of the player.
      */
-    private void loginHandler(LoginRequest receivedMessage, VirtualView virtualView) {
-        String nickname = receivedMessage.getNickname();
+    public void loginHandler(String nickname, VirtualView virtualView) {
 
-        if (game.getNumCurrentPlayers() == 0) { // First player logged. Ask number of players.
+        if (virtualViewMap.isEmpty()) { // First player logged. Ask number of players.
+            addVirtualView(nickname, virtualView);
             game.addPlayer(new Player(nickname));
-            virtualView.showLoginResult(true, true, null);
+            virtualView.showLoginResult(true, true, Game.SERVER_NICKNAME);
+
             virtualView.askPlayersNumber();
-        } else {
+        } else if (virtualViewMap.size() < game.getChosenPlayersNumber()) {
+            addVirtualView(nickname, virtualView);
             game.addPlayer(new Player(nickname));
-            virtualView.showLoginResult(true, true, null);
-            gameControllerNotify("Waiting for other players to join: " + game.getNumCurrentPlayers() + "/" + game.getChosenPlayersNumber());
+            virtualView.showLoginResult(true, true, Game.SERVER_NICKNAME);
+
+            broadcastGenericMessage("Waiting for other players to join: " + game.getNumCurrentPlayers() + "/" + game.getChosenPlayersNumber());
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
                 initGame();
             }
+        } else {
+            virtualView.showLoginResult(true, false, Game.SERVER_NICKNAME);
         }
     }
 
     /**
-     * Change gameStete into INIT. Initialize TurnController and asks a player to pick the gods
+     * Change gameState into INIT. Initialize TurnController and asks a player to pick the gods
      */
     private void initGame() {
         gameState = GameState.INIT;
         turnController = new TurnController(virtualViewMap);
         inputController.setTurnController(turnController);
-        gameControllerNotify("All Players are connected. " + turnController.getActivePlayer()
+        broadcastGenericMessage("All Players are connected. " + turnController.getActivePlayer()
                 + " is choosing " + game.getChosenPlayersNumber() + " Gods . . .");
 
         VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());
@@ -346,7 +347,7 @@ public class GameController implements Observer {
         // if received contains a list
         if (receivedMessage.getGodList().size() > 1) {
             availableGods = new ArrayList<>(receivedMessage.getGodList());
-            gameControllerNotify("All Gods received from " + turnController.getActivePlayer()
+            broadcastGenericMessage("All Gods received from " + turnController.getActivePlayer()
                     + ". Waiting for other players to pick . . .");
 
             askGodToNextPlayer();
@@ -358,13 +359,13 @@ public class GameController implements Observer {
             availableGods.remove(receivedMessage.getGodList().get(0));
 
             if (!availableGods.isEmpty()) {
-                gameControllerNotify("God received from " + turnController.getActivePlayer()
+                broadcastGenericMessage("God received from " + turnController.getActivePlayer()
                         + ". Waiting for other players to pick . . .");
                 askGodToNextPlayer();
             } else {
                 // the last one who pick his god is the first one player of every round.
 
-                gameControllerNotify("Initializing " + turnController.getActivePlayer()
+                broadcastGenericMessage("Initializing " + turnController.getActivePlayer()
                         + ". . .");
                 virtualView.askInitWorkerColor(availableColors);
                 //askWorkersPositions(turnController.getActivePlayer());
@@ -443,24 +444,15 @@ public class GameController implements Observer {
     /**
      * Adds a Player VirtualView to the controller if the first player max_players is not exceeded.
      * Then adds a controller observer to the view.
-     * Adds the VirtualView to the game model observers.
+     * Adds the VirtualView to the game and board model observers.
      *
      * @param nickname    the player nickname to identify his associated VirtualView.
-     * @param virtualView the virtualview to be added.
+     * @param virtualView the VirtualView to be added.
      */
     public void addVirtualView(String nickname, VirtualView virtualView) {
-        // This is the first player connecting
-        if (virtualViewMap.size() == 0) {
-            virtualViewMap.put(nickname, virtualView);
-            game.addObserver(virtualView);
-            game.getBoard().addObserver(virtualView);
-        } else if (virtualViewMap.size() < game.getChosenPlayersNumber()) {
-            virtualViewMap.put(nickname, virtualView);
-            game.addObserver(virtualView);
-            game.getBoard().addObserver(virtualView);
-        } else {
-            virtualView.showLoginResult(true, false, Game.SERVER_NICKNAME);
-        }
+        virtualViewMap.put(nickname, virtualView);
+        game.addObserver(virtualView);
+        game.getBoard().addObserver(virtualView);
     }
 
     /**
@@ -471,6 +463,7 @@ public class GameController implements Observer {
     public void removeVirtualView(String nickname) {
         VirtualView vv = virtualViewMap.remove(nickname);
         game.removeObserver(vv);
+        game.getBoard().removeObserver(vv);
     }
 
     /**
@@ -478,7 +471,7 @@ public class GameController implements Observer {
      *
      * @param messageToNotify Message to send.
      */
-    private void gameControllerNotify(String messageToNotify) {
+    public void broadcastGenericMessage(String messageToNotify) {
         for (VirtualView vv : virtualViewMap.values()) {
             vv.showGenericMessage(messageToNotify);
         }
@@ -532,22 +525,13 @@ public class GameController implements Observer {
     }
 
     /**
-     * Handles the disconnection of a client.
+     * Verifies the nickname through the InputController.
      *
-     * @param clientHandler the client disconnecting.
+     * @param nickname the nickname to be checked.
+     * @param view     the view of the player who is logging in.
      */
-    public void onDisconnect(ClientHandler clientHandler) {
-        String nickname = virtualViewMap.entrySet()
-                .stream()
-                .filter(vv -> clientHandler.equals(vv.getValue().getClientHandler()))
-                .map(Map.Entry::getKey)
-                .findFirst()
-                .orElse(null);
-
-        if (nickname != null) {
-            virtualViewMap.remove(nickname);
-            gameControllerNotify(nickname + " disconnected from the server. GAME ENDED.");
-            // TODO end the game.
-        }
+    public boolean checkLoginNickname(String nickname, View view) {
+        return inputController.checkLoginNickname(nickname, view);
     }
+
 }

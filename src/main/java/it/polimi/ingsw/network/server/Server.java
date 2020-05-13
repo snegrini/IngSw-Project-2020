@@ -4,6 +4,8 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.view.VirtualView;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 
@@ -11,10 +13,13 @@ public class Server {
 
     private GameController gameController;
 
+    private Map<String, ClientHandler> clientHandlerMap;
+
     public static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
     public Server(GameController gameController) {
         this.gameController = gameController;
+        this.clientHandlerMap = new HashMap<>();
     }
 
     /**
@@ -24,7 +29,11 @@ public class Server {
      * @param clientHandler the ClientHandler associated with the client.
      */
     public void addClient(String nickname, ClientHandler clientHandler) {
-        gameController.addVirtualView(nickname, new VirtualView(clientHandler));
+        VirtualView vv = new VirtualView(clientHandler);
+        if (gameController.checkLoginNickname(nickname, vv)) {
+            clientHandlerMap.put(nickname, clientHandler);
+            gameController.loginHandler(nickname, vv);
+        }
     }
 
     /**
@@ -40,7 +49,23 @@ public class Server {
         gameController.onMessageReceived(message);
     }
 
+    /**
+     * Handles the disconnection of a client.
+     *
+     * @param clientHandler the client disconnecting.
+     */
     public void onDisconnect(ClientHandler clientHandler) {
-        gameController.onDisconnect(clientHandler);
+        String nickname = clientHandlerMap.entrySet()
+                .stream()
+                .filter(ch -> ch.equals(clientHandler))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null);
+
+        if (nickname != null) {
+            gameController.removeVirtualView(nickname);
+            clientHandlerMap.remove(nickname);
+            gameController.broadcastGenericMessage(nickname + " disconnected from the server. GAME ENDED.");
+        }
     }
 }
