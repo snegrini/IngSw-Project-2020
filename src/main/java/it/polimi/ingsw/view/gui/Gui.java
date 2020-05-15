@@ -15,7 +15,7 @@ public class Gui extends View {
 
     @Override
     public void askNickname() {
-
+        SceneController.changeRootPane(this, scene, "login_scene.fxml");
     }
 
     @Override
@@ -66,11 +66,13 @@ public class Gui extends View {
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
         if (nicknameAccepted && connectionSuccessful) {
-            // TODO
+            SceneController.changeRootPane(this, scene, "menu_scene.fxml");
         } else if (connectionSuccessful) {
-            // TODO
+            SceneController.showAlert("ERROR", "Nickname already taken.");
+            SceneController.changeRootPane(this, scene, "login_scene.fxml");
         } else {
             SceneController.showAlert("ERROR", "Could not contact server.");
+            SceneController.changeRootPane(this, scene, "menu_scene.fxml");
         }
     }
 

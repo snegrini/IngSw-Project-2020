@@ -31,6 +31,11 @@ public class SceneController {
         return controller;
     }
 
+    public static ViewGuiController changeRootPane(View view, Event event, String fxml) {
+        Scene scene = ((Node) event.getSource()).getScene();
+        return changeRootPane(view, scene, fxml);
+    }
+
     public static void showAlert(String title, String message) {
         FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/alert_scene.fxml"));
 
@@ -49,10 +54,6 @@ public class SceneController {
         alertSceneController.displayAlert();
     }
 
-    public static ViewGuiController changeRootPane(View view, Event event, String fxml) {
-        Scene scene = ((Node) event.getSource()).getScene();
-        return changeRootPane(view, scene, fxml);
-    }
 
 
 }

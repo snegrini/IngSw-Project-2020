@@ -30,7 +30,7 @@ public class MenuSceneController implements ViewGuiController {
     }
 
     private void onPlayBtnClick(Event event) {
-        SceneController.changeRootPane(view, event, "login_scene.fxml");
+        SceneController.changeRootPane(view, event, "connect_scene.fxml");
     }
 
 }

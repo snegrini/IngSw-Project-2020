@@ -69,6 +69,16 @@ public class Game extends Observable {
     }
 
     /**
+     * Removes a player from the game.
+     *
+     * @param nickname the nickname of the player to remove from the game.
+     * @return {@code true} if the player is removed, {@code false} otherwise.
+     */
+    public boolean removePlayerByNickname(String nickname) {
+        return players.remove(getPlayerByNickname(nickname));
+    }
+
+    /**
      * Number of current players added in the game.
      *
      * @return the number of players.

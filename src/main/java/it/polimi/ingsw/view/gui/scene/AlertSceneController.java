@@ -47,7 +47,8 @@ public class AlertSceneController implements ViewGuiController {
     }
 
     public void displayAlert() {
-        stage.show();
+        //stage.show();
+        stage.showAndWait();
     }
 
     public void setScene(Scene scene) {

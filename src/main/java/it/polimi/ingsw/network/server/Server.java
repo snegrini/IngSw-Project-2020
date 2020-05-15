@@ -42,6 +42,7 @@ public class Server {
      * @param nickname the VirtualView to be removed.
      */
     public void removeClient(String nickname) {
+        clientHandlerMap.remove(nickname);
         gameController.removeVirtualView(nickname);
     }
 
@@ -55,17 +56,26 @@ public class Server {
      * @param clientHandler the client disconnecting.
      */
     public void onDisconnect(ClientHandler clientHandler) {
-        String nickname = clientHandlerMap.entrySet()
+        String nickname = getNicknameFromClientHandler(clientHandler);
+
+        if (nickname != null) {
+            removeClient(nickname);
+            gameController.broadcastGenericMessage(nickname + " disconnected from the server. GAME ENDED.");
+        }
+    }
+
+    /**
+     * Returns the corresponding nickname of a ClientHandler.
+     *
+     * @param clientHandler the client handler.
+     * @return the corresponding nickname of a ClientHandler.
+     */
+    private String getNicknameFromClientHandler(ClientHandler clientHandler) {
+        return clientHandlerMap.entrySet()
                 .stream()
-                .filter(ch -> ch.equals(clientHandler))
+                .filter(entry -> clientHandler.equals(entry.getValue()))
                 .map(Map.Entry::getKey)
                 .findFirst()
                 .orElse(null);
-
-        if (nickname != null) {
-            gameController.removeVirtualView(nickname);
-            clientHandlerMap.remove(nickname);
-            gameController.broadcastGenericMessage(nickname + " disconnected from the server. GAME ENDED.");
-        }
     }
 }

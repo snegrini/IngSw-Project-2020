@@ -1,0 +1,4 @@
+.rootPane {
+    -fx-background-image: url("../images/menu_background.png");
+    -fx-background-size: cover;
+}

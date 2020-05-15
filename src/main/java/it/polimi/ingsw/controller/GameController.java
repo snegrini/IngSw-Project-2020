@@ -462,6 +462,7 @@ public class GameController implements Observer {
      */
     public void removeVirtualView(String nickname) {
         VirtualView vv = virtualViewMap.remove(nickname);
+        game.removePlayerByNickname(nickname);
         game.removeObserver(vv);
         game.getBoard().removeObserver(vv);
     }

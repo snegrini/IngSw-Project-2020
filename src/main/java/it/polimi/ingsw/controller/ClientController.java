@@ -95,10 +95,10 @@ public class ClientController implements ViewObserver, Observer {
             client.addObserver(this);
             client.readMessage(); // Starts an asynchronous reading from the server.
             client.enablePinger(true);
+            view.askNickname();
         } catch (IOException e) {
             view.showLoginResult(false, false, this.nickname);
         }
-        view.askNickname();
     }
 
     @Override
