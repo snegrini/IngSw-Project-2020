@@ -30,6 +30,7 @@ public class MenuSceneController implements ViewGuiController {
     }
 
     private void onPlayBtnClick(Event event) {
+        // TODO disconnect
         SceneController.changeRootPane(view, event, "connect_scene.fxml");
     }
 

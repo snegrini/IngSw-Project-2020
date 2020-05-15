@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
@@ -18,11 +20,7 @@
               spacing="10.0" BorderPane.alignment="CENTER">
             <children>
                 <Label text="Choose your nickname:"/>
-                <TextField fx:id="nicknameField" alignment="CENTER" prefHeight="10.0" prefWidth="186.0"/>
-                <Separator prefHeight="0.0" prefWidth="275.0"/>
-                <Label text="Player number:"/>
-                <RadioButton mnemonicParsing="false" text="RadioButton"/>
-                <RadioButton mnemonicParsing="false" text="RadioButton"/>
+                <TextField fx:id="nicknameField" alignment="CENTER" prefHeight="10.0" prefWidth="186.0" text="mario"/>
             </children>
         </VBox>
    </center>

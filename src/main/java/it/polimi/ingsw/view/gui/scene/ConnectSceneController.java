@@ -46,6 +46,7 @@ public class ConnectSceneController implements ViewGuiController {
         String address = serverAddressField.getText();
         String port = serverPortField.getText();
 
+        // TODO input check
         ClientController.isValidIpAddress(address);
         ClientController.isValidPort(Integer.parseInt(port));
 

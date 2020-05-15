@@ -24,7 +24,5 @@ public class ClientApp {
         } else {
             Application.launch(JavaFXGui.class);
         }
-
-
     }
 }

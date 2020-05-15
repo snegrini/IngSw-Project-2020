@@ -16,6 +16,14 @@ public class SceneController {
 
     public static final Logger LOGGER = Logger.getLogger(SceneController.class.getName());
 
+    /**
+     * Changes the root panel of the scene argument.
+     *
+     * @param view  the view to be set into the FXMLLoader controller.
+     * @param scene the scene whose change the root panel.
+     * @param fxml  the new scene fxml name. It must include the extension ".fxml" (i.e. next_scene.fxml).
+     * @return the controller of the new scene loaded by the FXMLLoader.
+     */
     public static ViewGuiController changeRootPane(View view, Scene scene, String fxml) {
         ViewGuiController controller = null;
         try {
@@ -31,11 +39,46 @@ public class SceneController {
         return controller;
     }
 
+    /**
+     * Changes the root panel of the scene argument.
+     * Offers the possibility to set a custom controller to the FXMLLoader.
+     *
+     * @param controller the custom controller that will be set into the FXMLLoader.
+     * @param scene      the scene whose change the panel.
+     * @param fxml       the new scene fxml name. It must include the extension ".fxml" (i.e. next_scene.fxml).
+     */
+    public static void changeRootPane(ViewGuiController controller, Scene scene, String fxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxml));
+
+            // Setting the controller BEFORE the load() method.
+            loader.setController(controller);
+            Parent root = loader.load();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            LOGGER.severe(e.getMessage());
+        }
+    }
+
+    /**
+     * Changes the root panel of the scene argument.
+     *
+     * @param view  the view to be set into the FXMLLoader controller.
+     * @param event the event which is happened into the scene.
+     * @param fxml  the new scene fxml name. It must include the extension ".fxml" (i.e. next_scene.fxml).
+     * @return the controller of the new scene loaded by the FXMLLoader.
+     */
     public static ViewGuiController changeRootPane(View view, Event event, String fxml) {
         Scene scene = ((Node) event.getSource()).getScene();
         return changeRootPane(view, scene, fxml);
     }
 
+    /**
+     * Shows a custom message in a popup.
+     *
+     * @param title   the title of the popup.
+     * @param message the message of the popup.
+     */
     public static void showAlert(String title, String message) {
         FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/alert_scene.fxml"));
 

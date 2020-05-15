@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.gui.scene.PlayersNumberSceneController;
 import javafx.scene.Scene;
 
 import java.util.List;
@@ -35,7 +36,10 @@ public class Gui extends View {
 
     @Override
     public void askPlayersNumber() {
-        SceneController.changeRootPane(this, scene, "board_scene.fxml");
+        //SceneController.changeRootPane(this, scene, "players_number_scene.fxml");
+        PlayersNumberSceneController pnsc = new PlayersNumberSceneController();
+        pnsc.setPlayersRange(2, 3);
+        SceneController.changeRootPane(pnsc, scene, "players_number_scene.fxml");
     }
 
     @Override
@@ -66,7 +70,7 @@ public class Gui extends View {
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
         if (nicknameAccepted && connectionSuccessful) {
-            SceneController.changeRootPane(this, scene, "menu_scene.fxml");
+            // TODO show welcome screen and lobby
         } else if (connectionSuccessful) {
             SceneController.showAlert("ERROR", "Nickname already taken.");
             SceneController.changeRootPane(this, scene, "login_scene.fxml");

@@ -42,6 +42,7 @@ public class LoginSceneController implements ViewGuiController {
     }
 
     private void onBackBtnClick(Event event) {
+        // TODO disconnect from server
         SceneController.changeRootPane(view, event, "connect_scene.fxml");
     }
 }

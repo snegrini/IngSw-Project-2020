@@ -22,10 +22,10 @@
             <Separator prefHeight="0.0" prefWidth="275.0"/>
             <Label text="Server address:"/>
             <TextField fx:id="serverAddressField" alignment="CENTER" prefHeight="10.0" prefWidth="186.0"
-                       promptText="127.0.0.1"/>
+                       promptText="127.0.0.1" text="127.0.0.1"/>
             <Label text="Server port:"/>
-            <TextField fx:id="serverPortField" alignment="CENTER" prefHeight="10.0" prefWidth="186.0"
-                       promptText="16847"/>
+            <TextField fx:id="serverPortField" alignment="CENTER" prefHeight="10.0" prefWidth="186.0" promptText="16847"
+                       text="16847"/>
          </children>
       </VBox>
    </center>
