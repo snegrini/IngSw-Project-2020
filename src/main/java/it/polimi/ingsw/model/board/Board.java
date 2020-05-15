@@ -37,6 +37,7 @@ public class Board extends Observable {
                 spaces[i][j] = new Space();
             }
         }
+        
     }
 
     /**
@@ -124,7 +125,12 @@ public class Board extends Observable {
      * @return the next Space on the line passing between {@code orig} and {@code dest}.
      */
     public Space getNextSpaceInLine(Position orig, Position dest) {
-        return getSpace(getNextPositionInLine(orig, dest));
+        Position position = getNextPositionInLine(orig, dest);
+        if (position != null) {
+            return getSpace(position);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -138,7 +144,13 @@ public class Board extends Observable {
         int tempRow = orig.getRow() - dest.getRow();
         int tempCol = orig.getColumn() - dest.getColumn();
 
-        return new Position(dest.getRow() - tempRow, dest.getColumn() - tempCol);
+        int newRow = dest.getRow() - tempRow;
+        int newCol = dest.getColumn() - tempCol;
+        if (newRow >= 0 && newCol >= 0) {
+            return new Position(newRow, newCol);
+        } else {
+            return null;
+        }
     }
 
     /**

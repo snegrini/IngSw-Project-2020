@@ -80,7 +80,7 @@ public class MoveOverDecorator extends EffectDecorator {
         if (pushBack) {
             for (Position oppPos : adjOpponentPos) {
                 Space space = board.getNextSpaceInLine(worker.getPosition(), oppPos);
-                if (space.isFree()) {
+                if (space != null && space.isFree()) {
                     possibleMoves.add(oppPos);
                 }
             }

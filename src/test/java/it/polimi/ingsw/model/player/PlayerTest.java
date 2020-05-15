@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.player;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.effects.SimpleEffect;
@@ -53,6 +54,11 @@ public class PlayerTest {
 
         player.setGod(god);
         assertEquals(god, player.getGod());
+    }
+
+    @Test
+    public void getValidWorkersPositions() {
+        // TODO get Valid Workers Positions Test ?
     }
 
     @Test

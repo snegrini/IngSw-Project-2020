@@ -106,6 +106,9 @@ public class TurnController {
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
         if (positionList.isEmpty()) {
             // TODO LOSE
+            turnControllerNotify(activePlayer + " LOOSE.");
+            next();
+            newTurn();
         } else {
             virtualView.askMovingWorker(positionList);
         }
