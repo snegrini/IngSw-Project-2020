@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.ClientController;
 import it.polimi.ingsw.view.gui.scene.MenuSceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.GridPane;
@@ -23,7 +24,7 @@ public class JavaFXGui extends Application {
         // Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/menu_scene.fxml"));
-        GridPane rootLayout = null;
+        Parent rootLayout = null;
         try {
             rootLayout = loader.load();
         } catch (IOException e) {

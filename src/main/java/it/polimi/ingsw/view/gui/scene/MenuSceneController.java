@@ -6,13 +6,13 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
 
 public class MenuSceneController implements ViewGuiController {
     private View view;
 
     @FXML
-    private GridPane gridPane;
+    private AnchorPane rootPane;
     @FXML
     private Button playBtn;
     @FXML
