@@ -1,5 +1,12 @@
 .rootPane {
-    -fx-background-image: url("../images/Santorini1.jpg");
+    -fx-background-image: url("../images/menu.png");
     -fx-background-size: stretch;
 }
 
+.playBtn {
+    -fx-background-image: url("../images/playbutton2.png");
+}
+
+.quitBtn {
+    -fx-background-image: url("../images/Exitbutton2.png");
+}

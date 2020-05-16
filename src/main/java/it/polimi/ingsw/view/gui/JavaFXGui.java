@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.ClientController;
 import it.polimi.ingsw.view.gui.scene.MenuSceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
