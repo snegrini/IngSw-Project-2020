@@ -12,8 +12,8 @@
    <children>
       <Button fx:id="playBtn" layoutX="241.0" layoutY="344.0" mnemonicParsing="false" prefHeight="68.0"
               prefWidth="351.0" styleClass="playBtn" stylesheets="@../css/menu_scene.css"/>
-      <Button layoutX="706.0" layoutY="344.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="351.0"
-              styleClass="quitBtn" stylesheets="@../css/menu_scene.css"/>
+      <Button fx:id="quitBtn" layoutX="706.0" layoutY="344.0" mnemonicParsing="false" prefHeight="68.0"
+              prefWidth="351.0" styleClass="quitBtn" stylesheets="@../css/menu_scene.css"/>
       <ImageView fitHeight="173.0" fitWidth="458.0" layoutX="424.0" layoutY="127.0" pickOnBounds="true"
                  preserveRatio="true" AnchorPane.leftAnchor="424.0" AnchorPane.rightAnchor="453.0">
          <image>

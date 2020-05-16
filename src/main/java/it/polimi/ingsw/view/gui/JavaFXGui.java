@@ -38,7 +38,7 @@ public class JavaFXGui extends Application {
         Scene scene = new Scene(rootLayout);
         stage.setScene(scene);
         stage.setMaximized(true);
-        //stage.setFullScreen(true);
+        stage.setFullScreen(true);
         stage.setFullScreenExitHint("");
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setTitle("Santorini Board Game");
