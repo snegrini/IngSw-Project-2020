@@ -37,7 +37,7 @@ public class Board extends Observable {
                 spaces[i][j] = new Space();
             }
         }
-        
+
     }
 
     /**
@@ -122,7 +122,9 @@ public class Board extends Observable {
      *
      * @param orig the starting position.
      * @param dest the destination position.
-     * @return the next Space on the line passing between {@code orig} and {@code dest}.
+     * @return the next Space on the line passing between {@code orig} and {@code dest},
+     * {@code null} if the next Space on the line is invalid.
+     * @see #getNextPositionInLine(Position, Position).
      */
     public Space getNextSpaceInLine(Position orig, Position dest) {
         Position position = getNextPositionInLine(orig, dest);
@@ -141,16 +143,32 @@ public class Board extends Observable {
      * @return the next position on the line passing between {@code orig} and {@code dest}.
      */
     public Position getNextPositionInLine(Position orig, Position dest) {
-        int tempRow = orig.getRow() - dest.getRow();
-        int tempCol = orig.getColumn() - dest.getColumn();
+        int newRow = (2 * dest.getRow()) - orig.getRow();
+        int newCol = (2 * dest.getColumn()) - orig.getColumn();
 
-        int newRow = dest.getRow() - tempRow;
-        int newCol = dest.getColumn() - tempCol;
-        if (newRow >= 0 && newCol >= 0) {
-            return new Position(newRow, newCol);
-        } else {
-            return null;
-        }
+        return isPositionOnBoard(newRow, newCol) ? new Position(newRow, newCol) : null;
+    }
+
+    /**
+     * Checks if the given position is on the board.
+     *
+     * @param position the position to be checked.
+     * @return {@code true} if the position is on the board, {@code false} otherwise.
+     * @see #isPositionOnBoard(int, int).
+     */
+    public boolean isPositionOnBoard(Position position) {
+        return isPositionOnBoard(position.getRow(), position.getColumn());
+    }
+
+    /**
+     * Checks if the given position is on the board.
+     *
+     * @param row the row the position to be checked.
+     * @param col the column of the position to be checked.
+     * @return {@code true} if the position is on the board, {@code false} otherwise.
+     */
+    public boolean isPositionOnBoard(int row, int col) {
+        return row >= 0 && col >= 0 && row < MAX_ROWS && col < MAX_COLUMNS;
     }
 
     /**

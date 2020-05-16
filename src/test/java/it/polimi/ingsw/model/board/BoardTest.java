@@ -38,12 +38,20 @@ public class BoardTest {
     }
 
     @Test
-    public void getNextSpaceInLine() {
+    public void getNextSpaceInLine_ValidSpace() {
         Position orig = new Position(2, 2);
         Position dest = new Position(1, 1);
         Space target = board.getNextSpaceInLine(orig, dest);
 
         assertEquals(board.getSpace(0, 0), target);
+    }
+
+    @Test
+    public void getNextSpaceInLine_InvalidSpace() {
+        Position orig = new Position(1, 1);
+        Position dest = new Position(0, 0);
+        Space target = board.getNextSpaceInLine(orig, dest);
+        assertNull(target);
     }
 
     @Test
@@ -105,6 +113,16 @@ public class BoardTest {
         positions.add(new Position(4, 3));
 
         assertFalse(board.arePositionsFree(positions));
+    }
+
+    @Test
+    public void isPositionOnBoard_OnBoard() {
+        assertTrue(board.isPositionOnBoard(new Position(0, 1)));
+    }
+
+    @Test
+    public void isPositionOnBoard_NotOnBoard() {
+        assertFalse(board.isPositionOnBoard(new Position(6, 7)));
     }
 
     @Test
