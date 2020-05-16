@@ -36,8 +36,8 @@ public class Gui extends View {
 
     @Override
     public void askPlayersNumber() {
-        //SceneController.changeRootPane(this, scene, "players_number_scene.fxml");
         PlayersNumberSceneController pnsc = new PlayersNumberSceneController();
+        pnsc.setView(this);
         pnsc.setPlayersRange(2, 3);
         SceneController.changeRootPane(pnsc, scene, "players_number_scene.fxml");
     }

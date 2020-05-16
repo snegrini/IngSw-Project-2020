@@ -2,6 +2,8 @@ package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -40,12 +42,14 @@ public class PlayersNumberSceneController implements ViewGuiController {
         mainMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onMainMenuBtnClick(event));
     }
 
-    private void onConfirmBtnClick(MouseEvent event) {
-        toggleGroup.getSelectedToggle().getProperties();
-        SceneController.LOGGER.info("PIPPO");
+    private void onConfirmBtnClick(Event event) {
+        RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
+        int playersNumber = Character.getNumericValue(selectedRadioButton.getText().charAt(0));
+
+        Platform.runLater(() -> view.notifyObserver(obs -> obs.onUpdatePlayersNumber(playersNumber)));
     }
 
-    private void onMainMenuBtnClick(MouseEvent event) {
+    private void onMainMenuBtnClick(Event event) {
         // TODO disconnect
         SceneController.changeRootPane(view, event, "menu_scene.fxml");
     }
