@@ -1,4 +1,17 @@
 .rootPane {
-    -fx-background-image: url("../images/board.png");
+    -fx-background-image: url("../images/board_bg.png");
     -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.boardPane {
+    -fx-background-image: url("../images/board.png");
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.glassPane:hover {
+    -fx-background-color: blue;
 }

@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.LobbyMessage;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.parser.GodParser;
 
@@ -61,11 +62,15 @@ public class Game extends Observable {
 
     /**
      * Adds a player to the game.
+     * Notify all the views if the playersNumber is already set.
      *
      * @param player the player to add to the game.
      */
     public void addPlayer(Player player) {
         players.add(player);
+        if (chosenPlayersNumber != 0) {
+            notifyObserver(new LobbyMessage(getPlayersNicknames(), this.chosenPlayersNumber));
+        }
     }
 
     /**
@@ -96,6 +101,7 @@ public class Game extends Observable {
     public boolean setChosenMaxPlayers(int chosenMaxPlayers) {
         if (chosenMaxPlayers > 0 && chosenMaxPlayers <= MAX_PLAYERS) {
             this.chosenPlayersNumber = chosenMaxPlayers;
+            notifyObserver(new LobbyMessage(getPlayersNicknames(), this.chosenPlayersNumber));
             return true;
         }
         return false;

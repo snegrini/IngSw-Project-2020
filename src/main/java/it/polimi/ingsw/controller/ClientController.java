@@ -83,7 +83,8 @@ public class ClientController implements ViewObserver, Observer {
                 view.askBuildFx(((PositionMessage) message).getPositionList());
                 break;
             case LOBBY:
-                view.showLobby(((LobbyMessage) message).getNicknameList(), ((LobbyMessage) message).getNumPlayers());
+                LobbyMessage lobbyMessage = (LobbyMessage) message;
+                view.showLobby(lobbyMessage.getNicknameList(), lobbyMessage.getMaxPlayers());
 
             default: // Should never reach this condition
                 break;

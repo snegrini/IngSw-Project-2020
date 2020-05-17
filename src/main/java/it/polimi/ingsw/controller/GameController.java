@@ -305,15 +305,16 @@ public class GameController implements Observer {
         if (virtualViewMap.isEmpty()) { // First player logged. Ask number of players.
             addVirtualView(nickname, virtualView);
             game.addPlayer(new Player(nickname));
+
+            // TODO maybe removable --
             virtualView.showLoginResult(true, true, Game.SERVER_NICKNAME);
+            // --
 
             virtualView.askPlayersNumber();
         } else if (virtualViewMap.size() < game.getChosenPlayersNumber()) {
             addVirtualView(nickname, virtualView);
             game.addPlayer(new Player(nickname));
             virtualView.showLoginResult(true, true, Game.SERVER_NICKNAME);
-
-            virtualView.showLobby(turnController.getNicknameQueue(), game.getChosenPlayersNumber());
 
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
                 initGame();

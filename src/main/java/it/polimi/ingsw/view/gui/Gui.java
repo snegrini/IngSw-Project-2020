@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.gui.scene.BoardSceneController;
+import it.polimi.ingsw.view.gui.scene.LobbySceneController;
 import it.polimi.ingsw.view.gui.scene.PlayersNumberSceneController;
 import javafx.scene.Scene;
 
@@ -92,12 +94,20 @@ public class Gui extends View {
 
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
+        BoardSceneController bsc = new BoardSceneController();
+        bsc.setView(this);
 
+        SceneController.changeRootPane(bsc, scene, "board_scene.fxml");
     }
 
     @Override
-    public void showLobby(List<String> nicknameList, int numPlayers) {
+    public void showLobby(List<String> nicknameList, int maxPlayers) {
+        LobbySceneController lsc = new LobbySceneController();
+        lsc.setView(this);
+        lsc.setNicknames(nicknameList);
+        lsc.setMaxPlayers(maxPlayers);
 
+        SceneController.changeRootPane(lsc, scene, "lobby_scene.fxml");
     }
 
     @Override
