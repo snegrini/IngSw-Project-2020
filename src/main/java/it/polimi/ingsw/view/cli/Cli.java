@@ -435,8 +435,7 @@ public class Cli extends View {
      */
     @Override
     public void showErrorAndExit(String error) {
-        out.println("ERROR: " + error);
-        System.exit(1);
+
     }
 
 
@@ -493,6 +492,16 @@ public class Cli extends View {
                 strBoard += ColorCli.YELLOW_BOLD + "\n   +-----+-----+-----+-----+-----+\n" + ColorCli.RESET;
         }
         out.println(strBoard);
+    }
+
+    @Override
+    public void showLobby(List<String> nicknameList, int numPlayers) {
+        out.println("LOBBY:");
+        for (String nick : nicknameList) {
+            out.println(nick + "\n");
+        }
+        out.println("Waiting for other players to join: " + nicknameList.size() + " / " + numPlayers);
+
     }
 
 

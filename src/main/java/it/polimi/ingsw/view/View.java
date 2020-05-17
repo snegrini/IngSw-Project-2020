@@ -112,6 +112,8 @@ public abstract class View {
      */
     public abstract void showBoard(ReducedSpace[][] spaces);
 
+    public abstract void showLobby(List<String> nicknameList, int numPlayers);
+
     /**
      * Asks the user if he wants to enable the effect.
      */

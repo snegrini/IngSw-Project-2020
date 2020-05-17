@@ -96,6 +96,11 @@ public class Gui extends View {
     }
 
     @Override
+    public void showLobby(List<String> nicknameList, int numPlayers) {
+
+    }
+
+    @Override
     public void askEnableEffect() {
 
     }

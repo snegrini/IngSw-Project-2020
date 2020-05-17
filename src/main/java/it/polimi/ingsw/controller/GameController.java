@@ -313,7 +313,8 @@ public class GameController implements Observer {
             game.addPlayer(new Player(nickname));
             virtualView.showLoginResult(true, true, Game.SERVER_NICKNAME);
 
-            broadcastGenericMessage("Waiting for other players to join: " + game.getNumCurrentPlayers() + "/" + game.getChosenPlayersNumber());
+            virtualView.showLobby(turnController.getNicknameQueue(), game.getChosenPlayersNumber());
+
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
                 initGame();
             }
@@ -321,6 +322,7 @@ public class GameController implements Observer {
             virtualView.showLoginResult(true, false, Game.SERVER_NICKNAME);
         }
     }
+
 
     /**
      * Change gameState into INIT. Initialize TurnController and asks a player to pick the gods

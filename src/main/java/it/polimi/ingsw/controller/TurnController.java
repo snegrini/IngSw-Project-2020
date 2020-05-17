@@ -254,4 +254,7 @@ public class TurnController {
         }
     }
 
+    public List<String> getNicknameQueue() {
+        return nicknameQueue;
+    }
 }

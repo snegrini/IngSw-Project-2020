@@ -102,6 +102,11 @@ public class VirtualView extends View implements Observer {
         clientHandler.sendMessage(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, spaces));
     }
 
+    @Override
+    public void showLobby(List<String> nicknameList, int numPlayers) {
+        clientHandler.sendMessage(new LobbyMessage(nicknameList, numPlayers));
+    }
+
 
     /**
      * Receives an update message from the model.

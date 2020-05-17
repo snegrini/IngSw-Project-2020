@@ -82,6 +82,8 @@ public class ClientController implements ViewObserver, Observer {
             case BUILD_FX:
                 view.askBuildFx(((PositionMessage) message).getPositionList());
                 break;
+            case LOBBY:
+                view.showLobby(((LobbyMessage) message).getNicknameList(), ((LobbyMessage) message).getNumPlayers());
 
             default: // Should never reach this condition
                 break;
