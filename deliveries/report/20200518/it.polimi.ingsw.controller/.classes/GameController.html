@@ -1,0 +1,660 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GameController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GameController (it.polimi.ingsw.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 29)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 166)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">GameController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 30)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 168)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.Game;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.God;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.ReducedGod;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+<i>7</i>&nbsp;import it.polimi.ingsw.model.effects.Effect;
+<i>8</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
+<i>9</i>&nbsp;import it.polimi.ingsw.model.enumerations.GameState;
+<i>10</i>&nbsp;import it.polimi.ingsw.model.enumerations.PhaseType;
+<i>11</i>&nbsp;import it.polimi.ingsw.model.player.Player;
+<i>12</i>&nbsp;import it.polimi.ingsw.model.player.Worker;
+<i>13</i>&nbsp;import it.polimi.ingsw.network.message.*;
+<i>14</i>&nbsp;import it.polimi.ingsw.observer.Observer;
+<i>15</i>&nbsp;import it.polimi.ingsw.view.View;
+<i>16</i>&nbsp;import it.polimi.ingsw.view.VirtualView;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;import java.util.*;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;public class GameController implements Observer {
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    private Game game;
+<i>23</i>&nbsp;    private Map&lt;String, VirtualView&gt; virtualViewMap;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    private GameState gameState;
+<i>26</i>&nbsp;    private List&lt;ReducedGod&gt; availableGods;
+<i>27</i>&nbsp;    private List&lt;Color&gt; availableColors;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    private TurnController turnController;
+<i>30</i>&nbsp;    private InputController inputController;
+<i>31</i>&nbsp;
+<b class="nc"><i>32</i>&nbsp;    public GameController() {</b>
+<b class="nc"><i>33</i>&nbsp;        this.game = Game.getInstance();</b>
+<b class="nc"><i>34</i>&nbsp;        this.availableColors = getColorList();</b>
+<i>35</i>&nbsp;
+<b class="nc"><i>36</i>&nbsp;        this.virtualViewMap = Collections.synchronizedMap(new HashMap&lt;&gt;());</b>
+<i>37</i>&nbsp;
+<b class="nc"><i>38</i>&nbsp;        this.inputController = new InputController(virtualViewMap, this);</b>
+<i>39</i>&nbsp;
+<b class="nc"><i>40</i>&nbsp;        this.gameState = GameState.LOGIN; // Initialize Game State.</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * Switch on Game State.
+<i>45</i>&nbsp;     *
+<i>46</i>&nbsp;     * @param receivedMessage Message from Active Player.
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    public void onMessageReceived(Message receivedMessage) {
+<i>49</i>&nbsp;
+<b class="nc"><i>50</i>&nbsp;        VirtualView virtualView = virtualViewMap.get(receivedMessage.getNickname());</b>
+<i>51</i>&nbsp;
+<b class="nc"><i>52</i>&nbsp;        switch (gameState) {</b>
+<i>53</i>&nbsp;            case LOGIN:
+<b class="nc"><i>54</i>&nbsp;                loginState(receivedMessage);</b>
+<b class="nc"><i>55</i>&nbsp;                break;</b>
+<i>56</i>&nbsp;            case INIT:
+<b class="nc"><i>57</i>&nbsp;                initState(receivedMessage, virtualView);</b>
+<b class="nc"><i>58</i>&nbsp;                break;</b>
+<i>59</i>&nbsp;            case IN_GAME:
+<b class="nc"><i>60</i>&nbsp;                inGameState(receivedMessage, virtualView);</b>
+<b class="nc"><i>61</i>&nbsp;                break;</b>
+<i>62</i>&nbsp;            default: // Should never reach this condition
+<i>63</i>&nbsp;                break;
+<i>64</i>&nbsp;        }
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;    // 3 MAIN STATE METHODS:
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    /**
+<i>71</i>&nbsp;     * Switch on Login Messages&#39; Types.
+<i>72</i>&nbsp;     *
+<i>73</i>&nbsp;     * @param receivedMessage Message from Active Player.
+<i>74</i>&nbsp;     */
+<i>75</i>&nbsp;    private void loginState(Message receivedMessage) {
+<b class="nc"><i>76</i>&nbsp;        switch (receivedMessage.getMessageType()) {</b>
+<i>77</i>&nbsp;            case PLAYERNUMBER_REPLY:
+<b class="nc"><i>78</i>&nbsp;                if (inputController.verifyReceivedData(receivedMessage)) {</b>
+<b class="nc"><i>79</i>&nbsp;                    game.setChosenMaxPlayers(((PlayerNumberReply) receivedMessage).getPlayerNumber());</b>
+<b class="nc"><i>80</i>&nbsp;                    broadcastGenericMessage(&quot;Waiting for other Players . . .&quot;);</b>
+<i>81</i>&nbsp;                }
+<i>82</i>&nbsp;                break;
+<i>83</i>&nbsp;            default:
+<i>84</i>&nbsp;                // TODO show exception
+<i>85</i>&nbsp;                break;
+<i>86</i>&nbsp;        }
+<i>87</i>&nbsp;    }
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;    /**
+<i>90</i>&nbsp;     * Switch on initialization&#39;s Messages&#39; Types.
+<i>91</i>&nbsp;     *
+<i>92</i>&nbsp;     * @param receivedMessage Message from Active Player.
+<i>93</i>&nbsp;     * @param virtualView     Virtual View the Active PLayer.
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    private void initState(Message receivedMessage, VirtualView virtualView) {
+<b class="nc"><i>96</i>&nbsp;        switch (receivedMessage.getMessageType()) {</b>
+<i>97</i>&nbsp;            case GODLIST:
+<b class="nc"><i>98</i>&nbsp;                if (inputController.verifyReceivedData(receivedMessage)) {</b>
+<b class="nc"><i>99</i>&nbsp;                    godListHandler((GodListMessage) receivedMessage, virtualView);</b>
+<i>100</i>&nbsp;                }
+<i>101</i>&nbsp;                break;
+<i>102</i>&nbsp;            case INIT_COLORS:
+<b class="nc"><i>103</i>&nbsp;                if (inputController.verifyReceivedData(receivedMessage)) {</b>
+<b class="nc"><i>104</i>&nbsp;                    colorHandler((ColorsMessage) receivedMessage);</b>
+<i>105</i>&nbsp;                }
+<i>106</i>&nbsp;                break;
+<i>107</i>&nbsp;            case INIT_WORKERSPOSITIONS:
+<b class="nc"><i>108</i>&nbsp;                if (inputController.verifyReceivedData(receivedMessage)) {</b>
+<b class="nc"><i>109</i>&nbsp;                    workerPositionsHandler((PositionMessage) receivedMessage);</b>
+<i>110</i>&nbsp;                }
+<i>111</i>&nbsp;                break;
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;            default:
+<i>114</i>&nbsp;                // TODO show exception
+<i>115</i>&nbsp;                break;
+<i>116</i>&nbsp;        }
+<i>117</i>&nbsp;    }
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;    /**
+<i>120</i>&nbsp;     * Switch on Game Messages&#39; Types.
+<i>121</i>&nbsp;     *
+<i>122</i>&nbsp;     * @param receivedMessage Message from Active Player.
+<i>123</i>&nbsp;     * @param virtualView     Virtual View the Active PLayer.
+<i>124</i>&nbsp;     */
+<i>125</i>&nbsp;    private void inGameState(Message receivedMessage, VirtualView virtualView) {
+<b class="nc"><i>126</i>&nbsp;        switch (receivedMessage.getMessageType()) {</b>
+<i>127</i>&nbsp;            case PICK_MOVING_WORKER:
+<b class="nc"><i>128</i>&nbsp;                if (inputController.verifyReceivedData(receivedMessage)) {</b>
+<b class="nc"><i>129</i>&nbsp;                    pickWorkerHandler(receivedMessage);</b>
+<i>130</i>&nbsp;                }
+<i>131</i>&nbsp;                break;
+<i>132</i>&nbsp;            case MOVE:
+<b class="nc"><i>133</i>&nbsp;                if (inputController.verifyReceivedData(receivedMessage)) {</b>
+<b class="nc"><i>134</i>&nbsp;                    moveHandler((PositionMessage) receivedMessage);</b>
+<i>135</i>&nbsp;                }
+<i>136</i>&nbsp;                break;
+<i>137</i>&nbsp;            case BUILD:
+<b class="nc"><i>138</i>&nbsp;                if (inputController.verifyReceivedData(receivedMessage)) {</b>
+<b class="nc"><i>139</i>&nbsp;                    buildHandler((PositionMessage) receivedMessage);</b>
+<i>140</i>&nbsp;                }
+<i>141</i>&nbsp;                break;
+<i>142</i>&nbsp;            case ENABLE_EFFECT:
+<b class="nc"><i>143</i>&nbsp;                prepareEffect((PrepareEffectMessage) receivedMessage);</b>
+<b class="nc"><i>144</i>&nbsp;                break;</b>
+<i>145</i>&nbsp;            case APPLY_EFFECT:
+<b class="nc"><i>146</i>&nbsp;                applyEffect((PositionMessage) receivedMessage);</b>
+<b class="nc"><i>147</i>&nbsp;                break;</b>
+<i>148</i>&nbsp;            default:
+<i>149</i>&nbsp;                // TODO show exception
+<i>150</i>&nbsp;                break;
+<i>151</i>&nbsp;        }
+<i>152</i>&nbsp;    }
+<i>153</i>&nbsp;
+<i>154</i>&nbsp;
+<i>155</i>&nbsp;    /**
+<i>156</i>&nbsp;     * Apply Player&#39;s God&#39;s Effect then clear.
+<i>157</i>&nbsp;     *
+<i>158</i>&nbsp;     * @param receivedMessage Message from Active Player.
+<i>159</i>&nbsp;     */
+<i>160</i>&nbsp;    private void applyEffect(PositionMessage receivedMessage) {
+<i>161</i>&nbsp;
+<b class="nc"><i>162</i>&nbsp;        Player player = game.getPlayerByNickname(turnController.getActivePlayer());</b>
+<b class="nc"><i>163</i>&nbsp;        Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());</b>
+<b class="nc"><i>164</i>&nbsp;        Position positionApply = receivedMessage.getPositionList().get(0);</b>
+<b class="nc"><i>165</i>&nbsp;        effect.apply(turnController.getActiveWorker(), positionApply);</b>
+<b class="nc"><i>166</i>&nbsp;        effect.clear(turnController.getActiveWorker());</b>
+<i>167</i>&nbsp;
+<b class="nc"><i>168</i>&nbsp;        turnController.nextPhase();</b>
+<i>169</i>&nbsp;    }
+<i>170</i>&nbsp;
+<i>171</i>&nbsp;    /**
+<i>172</i>&nbsp;     * If Player want to active his Effect then prepare It.
+<i>173</i>&nbsp;     *
+<i>174</i>&nbsp;     * @param receivedMessage Message from Active Player.
+<i>175</i>&nbsp;     */
+<i>176</i>&nbsp;    private void prepareEffect(PrepareEffectMessage receivedMessage) {
+<b class="nc"><i>177</i>&nbsp;        if (receivedMessage.isEnableEffect()) {</b>
+<b class="nc"><i>178</i>&nbsp;            Player player = game.getPlayerByNickname(turnController.getActivePlayer());</b>
+<b class="nc"><i>179</i>&nbsp;            Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());</b>
+<b class="nc"><i>180</i>&nbsp;            effect.prepare(turnController.getActiveWorker());</b>
+<i>181</i>&nbsp;
+<b class="nc"><i>182</i>&nbsp;        } else {</b>
+<b class="nc"><i>183</i>&nbsp;            turnController.resumePhase();</b>
+<i>184</i>&nbsp;        }
+<i>185</i>&nbsp;    }
+<i>186</i>&nbsp;
+<i>187</i>&nbsp;
+<i>188</i>&nbsp;    /**
+<i>189</i>&nbsp;     * Set Active Worker and calls the Move Phase.
+<i>190</i>&nbsp;     *
+<i>191</i>&nbsp;     * @param receivedMessage Message from Active Player.
+<i>192</i>&nbsp;     */
+<i>193</i>&nbsp;    private void pickWorkerHandler(Message receivedMessage) {
+<i>194</i>&nbsp;
+<b class="nc"><i>195</i>&nbsp;        Player player = game.getPlayerByNickname(receivedMessage.getNickname());</b>
+<b class="nc"><i>196</i>&nbsp;        Worker activeWorker = player.getWorkerByPosition(((PositionMessage) receivedMessage).getPositionList().get(0));</b>
+<b class="nc"><i>197</i>&nbsp;        turnController.setActiveWorker(activeWorker);</b>
+<i>198</i>&nbsp;
+<b class="nc"><i>199</i>&nbsp;        turnController.movePhase(false);</b>
+<i>200</i>&nbsp;    }
+<i>201</i>&nbsp;
+<i>202</i>&nbsp;    /**
+<i>203</i>&nbsp;     * Calls Move method in order to Move on the selected Space.
+<i>204</i>&nbsp;     *
+<i>205</i>&nbsp;     * @param receivedMessage Message from Active Player.
+<i>206</i>&nbsp;     */
+<i>207</i>&nbsp;    private void moveHandler(PositionMessage receivedMessage) {
+<b class="nc"><i>208</i>&nbsp;        Position destination = receivedMessage.getPositionList().get(0);</b>
+<i>209</i>&nbsp;
+<b class="nc"><i>210</i>&nbsp;        int origLevel = game.getSpaceLevel(turnController.getActiveWorker().getPosition());</b>
+<b class="nc"><i>211</i>&nbsp;        int destLevel = game.getSpaceLevel(destination);</b>
+<i>212</i>&nbsp;
+<b class="nc"><i>213</i>&nbsp;        game.moveWorker(turnController.getActiveWorker(), destination);</b>
+<i>214</i>&nbsp;
+<i>215</i>&nbsp;        // Win condition:
+<b class="nc"><i>216</i>&nbsp;        if (origLevel == 2 &amp;&amp; destLevel == 3) {</b>
+<b class="nc"><i>217</i>&nbsp;            win();</b>
+<i>218</i>&nbsp;        } else {
+<i>219</i>&nbsp;
+<i>220</i>&nbsp;            // CHECK EFFECT YOUR_MOVE_AFTER
+<b class="nc"><i>221</i>&nbsp;            turnController.setPhaseType(PhaseType.YOUR_MOVE_AFTER);</b>
+<i>222</i>&nbsp;
+<i>223</i>&nbsp;
+<b class="nc"><i>224</i>&nbsp;            if (!launchEffect()) {</b>
+<b class="nc"><i>225</i>&nbsp;                turnController.nextPhase();</b>
+<i>226</i>&nbsp;            }
+<i>227</i>&nbsp;
+<i>228</i>&nbsp;        }
+<i>229</i>&nbsp;    }
+<i>230</i>&nbsp;
+<i>231</i>&nbsp;    /**
+<i>232</i>&nbsp;     * Calls Build method in order to Build on the selected Space.
+<i>233</i>&nbsp;     *
+<i>234</i>&nbsp;     * @param receivedMessage Message from Active Player.
+<i>235</i>&nbsp;     */
+<i>236</i>&nbsp;    private void buildHandler(PositionMessage receivedMessage) {
+<b class="nc"><i>237</i>&nbsp;        Position buildOnPosition = receivedMessage.getPositionList().get(0);</b>
+<b class="nc"><i>238</i>&nbsp;        game.buildBlock(turnController.getActiveWorker(), buildOnPosition);</b>
+<i>239</i>&nbsp;
+<i>240</i>&nbsp;        // CHECK EFFECT YOUR_BUILD_AFTER
+<b class="nc"><i>241</i>&nbsp;        turnController.setPhaseType(PhaseType.YOUR_BUILD_AFTER);</b>
+<i>242</i>&nbsp;
+<i>243</i>&nbsp;
+<b class="nc"><i>244</i>&nbsp;        if (!launchEffect()) {</b>
+<b class="nc"><i>245</i>&nbsp;            turnController.nextPhase();</b>
+<i>246</i>&nbsp;        }
+<i>247</i>&nbsp;
+<i>248</i>&nbsp;
+<i>249</i>&nbsp;    }
+<i>250</i>&nbsp;
+<i>251</i>&nbsp;
+<i>252</i>&nbsp;    /**
+<i>253</i>&nbsp;     * Initialize the game after all Clients are connected and all Gods, Workers and Colors are setted up.
+<i>254</i>&nbsp;     */
+<i>255</i>&nbsp;    private void startGame() {
+<b class="nc"><i>256</i>&nbsp;        gameState = GameState.IN_GAME;</b>
+<b class="nc"><i>257</i>&nbsp;        broadcastGenericMessage(&quot;Game Started!&quot;);</b>
+<i>258</i>&nbsp;
+<b class="nc"><i>259</i>&nbsp;        turnController.newTurn();</b>
+<i>260</i>&nbsp;    }
+<i>261</i>&nbsp;
+<i>262</i>&nbsp;    private void win() {
+<b class="nc"><i>263</i>&nbsp;        broadcastGenericMessage(turnController.getActivePlayer() + &quot; wins! Game Finished!&quot;);</b>
+<i>264</i>&nbsp;        // TODO end game, prepare server for a new game. Set server on listen for the first client.
+<i>265</i>&nbsp;        // Game.resetInstance();
+<i>266</i>&nbsp;    }
+<i>267</i>&nbsp;
+<i>268</i>&nbsp;    void endGame() {
+<i>269</i>&nbsp;        // TODO send message to all players, close connections
+<i>270</i>&nbsp;    }
+<i>271</i>&nbsp;
+<i>272</i>&nbsp;    // INIT METHODS:
+<i>273</i>&nbsp;
+<i>274</i>&nbsp;    private Boolean launchEffect() {
+<b class="nc"><i>275</i>&nbsp;        Player player = game.getPlayerByNickname(turnController.getActivePlayer());</b>
+<b class="nc"><i>276</i>&nbsp;        if (turnController.checkEffectPhase(turnController.getPhaseType()) &amp;&amp; turnController.requireEffect()) {</b>
+<b class="nc"><i>277</i>&nbsp;            Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());</b>
+<b class="nc"><i>278</i>&nbsp;            if (effect.isUserConfirmNeeded()) {</b>
+<b class="nc"><i>279</i>&nbsp;                VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());</b>
+<b class="nc"><i>280</i>&nbsp;                virtualView.askEnableEffect();</b>
+<b class="nc"><i>281</i>&nbsp;            } else {</b>
+<b class="nc"><i>282</i>&nbsp;                effect.apply(turnController.getActiveWorker(), null);</b>
+<b class="nc"><i>283</i>&nbsp;                effect.clear(turnController.getActiveWorker());</b>
+<b class="nc"><i>284</i>&nbsp;                turnController.nextPhase();</b>
+<i>285</i>&nbsp;            }
+<b class="nc"><i>286</i>&nbsp;            return true;</b>
+<i>287</i>&nbsp;        } else {
+<b class="nc"><i>288</i>&nbsp;            return false;</b>
+<i>289</i>&nbsp;        }
+<i>290</i>&nbsp;    }
+<i>291</i>&nbsp;
+<i>292</i>&nbsp;    /**
+<i>293</i>&nbsp;     * Handles the login of a player. If the player is new, his VirtualView is saved, otherwise it&#39;s discarded
+<i>294</i>&nbsp;     * and the player is notified.
+<i>295</i>&nbsp;     * If it&#39;s the first Player then ask number of Players he wants, add Player to the Game otherwise change the GameState.
+<i>296</i>&nbsp;     *
+<i>297</i>&nbsp;     * @param nickname    the nickname of the player.
+<i>298</i>&nbsp;     * @param virtualView the virtualview of the player.
+<i>299</i>&nbsp;     */
+<i>300</i>&nbsp;    public void loginHandler(String nickname, VirtualView virtualView) {
+<i>301</i>&nbsp;
+<b class="nc"><i>302</i>&nbsp;        if (virtualViewMap.isEmpty()) { // First player logged. Ask number of players.</b>
+<b class="nc"><i>303</i>&nbsp;            addVirtualView(nickname, virtualView);</b>
+<b class="nc"><i>304</i>&nbsp;            game.addPlayer(new Player(nickname));</b>
+<i>305</i>&nbsp;
+<i>306</i>&nbsp;            // TODO maybe removable --
+<b class="nc"><i>307</i>&nbsp;            virtualView.showLoginResult(true, true, Game.SERVER_NICKNAME);</b>
+<i>308</i>&nbsp;            // --
+<i>309</i>&nbsp;
+<b class="nc"><i>310</i>&nbsp;            virtualView.askPlayersNumber();</b>
+<b class="nc"><i>311</i>&nbsp;        } else if (virtualViewMap.size() &lt; game.getChosenPlayersNumber()) {</b>
+<b class="nc"><i>312</i>&nbsp;            addVirtualView(nickname, virtualView);</b>
+<b class="nc"><i>313</i>&nbsp;            game.addPlayer(new Player(nickname));</b>
+<b class="nc"><i>314</i>&nbsp;            virtualView.showLoginResult(true, true, Game.SERVER_NICKNAME);</b>
+<i>315</i>&nbsp;
+<b class="nc"><i>316</i>&nbsp;            if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged</b>
+<b class="nc"><i>317</i>&nbsp;                initGame();</b>
+<i>318</i>&nbsp;            }
+<i>319</i>&nbsp;        } else {
+<b class="nc"><i>320</i>&nbsp;            virtualView.showLoginResult(true, false, Game.SERVER_NICKNAME);</b>
+<i>321</i>&nbsp;        }
+<i>322</i>&nbsp;    }
+<i>323</i>&nbsp;
+<i>324</i>&nbsp;
+<i>325</i>&nbsp;    /**
+<i>326</i>&nbsp;     * Change gameState into INIT. Initialize TurnController and asks a player to pick the gods
+<i>327</i>&nbsp;     */
+<i>328</i>&nbsp;    private void initGame() {
+<b class="nc"><i>329</i>&nbsp;        gameState = GameState.INIT;</b>
+<b class="nc"><i>330</i>&nbsp;        turnController = new TurnController(virtualViewMap);</b>
+<b class="nc"><i>331</i>&nbsp;        inputController.setTurnController(turnController);</b>
+<b class="nc"><i>332</i>&nbsp;        broadcastGenericMessage(&quot;All Players are connected. &quot; + turnController.getActivePlayer()</b>
+<b class="nc"><i>333</i>&nbsp;                + &quot; is choosing &quot; + game.getChosenPlayersNumber() + &quot; Gods . . .&quot;);</b>
+<i>334</i>&nbsp;
+<b class="nc"><i>335</i>&nbsp;        VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());</b>
+<b class="nc"><i>336</i>&nbsp;        virtualView.askGod(game.getReduceGodList(), game.getChosenPlayersNumber());</b>
+<i>337</i>&nbsp;    }
+<i>338</i>&nbsp;
+<i>339</i>&nbsp;    /**
+<i>340</i>&nbsp;     * If receive a godList with multiple gods then create the list.
+<i>341</i>&nbsp;     * If receive a single god in list then assign it to the current player.
+<i>342</i>&nbsp;     *
+<i>343</i>&nbsp;     * @param receivedMessage message from client
+<i>344</i>&nbsp;     */
+<i>345</i>&nbsp;    private void godListHandler(GodListMessage receivedMessage, VirtualView virtualView) {
+<i>346</i>&nbsp;
+<i>347</i>&nbsp;        // if received contains a list
+<b class="nc"><i>348</i>&nbsp;        if (receivedMessage.getGodList().size() &gt; 1) {</b>
+<b class="nc"><i>349</i>&nbsp;            availableGods = new ArrayList&lt;&gt;(receivedMessage.getGodList());</b>
+<b class="nc"><i>350</i>&nbsp;            broadcastGenericMessage(&quot;All Gods received from &quot; + turnController.getActivePlayer()</b>
+<i>351</i>&nbsp;                    + &quot;. Waiting for other players to pick . . .&quot;);
+<i>352</i>&nbsp;
+<b class="nc"><i>353</i>&nbsp;            askGodToNextPlayer();</b>
+<i>354</i>&nbsp;
+<i>355</i>&nbsp;        } else { // else receivedMessage contains only 1 god
+<b class="nc"><i>356</i>&nbsp;            God god = game.getGodByName(receivedMessage.getGodList().get(0).getName());</b>
+<b class="nc"><i>357</i>&nbsp;            god.addObserverToAllEffects(this);</b>
+<b class="nc"><i>358</i>&nbsp;            game.getPlayerByNickname(receivedMessage.getNickname()).setGod(god);</b>
+<b class="nc"><i>359</i>&nbsp;            availableGods.remove(receivedMessage.getGodList().get(0));</b>
+<i>360</i>&nbsp;
+<b class="nc"><i>361</i>&nbsp;            if (!availableGods.isEmpty()) {</b>
+<b class="nc"><i>362</i>&nbsp;                broadcastGenericMessage(&quot;God received from &quot; + turnController.getActivePlayer()</b>
+<i>363</i>&nbsp;                        + &quot;. Waiting for other players to pick . . .&quot;);
+<b class="nc"><i>364</i>&nbsp;                askGodToNextPlayer();</b>
+<i>365</i>&nbsp;            } else {
+<i>366</i>&nbsp;                // the last one who pick his god is the first one player of every round.
+<i>367</i>&nbsp;
+<b class="nc"><i>368</i>&nbsp;                broadcastGenericMessage(&quot;Initializing &quot; + turnController.getActivePlayer()</b>
+<i>369</i>&nbsp;                        + &quot;. . .&quot;);
+<b class="nc"><i>370</i>&nbsp;                virtualView.askInitWorkerColor(availableColors);</b>
+<i>371</i>&nbsp;                //askWorkersPositions(turnController.getActivePlayer());
+<i>372</i>&nbsp;            }
+<i>373</i>&nbsp;        }
+<i>374</i>&nbsp;    }
+<i>375</i>&nbsp;
+<i>376</i>&nbsp;
+<i>377</i>&nbsp;    /**
+<i>378</i>&nbsp;     * Ask to pick a God to the next Player.
+<i>379</i>&nbsp;     */
+<i>380</i>&nbsp;    private void askGodToNextPlayer() {
+<i>381</i>&nbsp;        // ask god to the next player
+<b class="nc"><i>382</i>&nbsp;        turnController.next();</b>
+<b class="nc"><i>383</i>&nbsp;        VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());</b>
+<b class="nc"><i>384</i>&nbsp;        virtualView.askGod(availableGods, 1); // Only 1 god requested to client.</b>
+<i>385</i>&nbsp;    }
+<i>386</i>&nbsp;
+<i>387</i>&nbsp;    /**
+<i>388</i>&nbsp;     * Ask to pick the 2 Workers&#39; Positions to a Player.
+<i>389</i>&nbsp;     *
+<i>390</i>&nbsp;     * @param nickname nickname of the current Player.
+<i>391</i>&nbsp;     */
+<i>392</i>&nbsp;    private void askWorkersPositions(String nickname) {
+<b class="nc"><i>393</i>&nbsp;        VirtualView virtualView = virtualViewMap.get(nickname);</b>
+<b class="nc"><i>394</i>&nbsp;        virtualView.showBoard(game.getReducedSpaceBoard());</b>
+<b class="nc"><i>395</i>&nbsp;        virtualView.askInitWorkersPositions(game.getFreePositions());</b>
+<i>396</i>&nbsp;    }
+<i>397</i>&nbsp;
+<i>398</i>&nbsp;    /**
+<i>399</i>&nbsp;     * Assign 2 positions to 2 workers of the player
+<i>400</i>&nbsp;     *
+<i>401</i>&nbsp;     * @param receivedMessage message from client
+<i>402</i>&nbsp;     */
+<i>403</i>&nbsp;    private void workerPositionsHandler(PositionMessage receivedMessage) {
+<b class="nc"><i>404</i>&nbsp;        Player player = game.getPlayerByNickname(receivedMessage.getNickname());</b>
+<b class="nc"><i>405</i>&nbsp;        List&lt;Position&gt; positions = receivedMessage.getPositionList();</b>
+<i>406</i>&nbsp;
+<b class="nc"><i>407</i>&nbsp;        player.initWorkers(positions);</b>
+<i>408</i>&nbsp;
+<b class="nc"><i>409</i>&nbsp;        List&lt;Worker&gt; workers = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>410</i>&nbsp;        for (Position p : positions) {</b>
+<b class="nc"><i>411</i>&nbsp;            workers.add(player.getWorkerByPosition(p));</b>
+<b class="nc"><i>412</i>&nbsp;        }</b>
+<i>413</i>&nbsp;
+<b class="nc"><i>414</i>&nbsp;        game.initWorkersOnBoard(workers);</b>
+<i>415</i>&nbsp;
+<b class="nc"><i>416</i>&nbsp;        if (availableColors.size() != Game.MAX_PLAYERS - game.getChosenPlayersNumber()) {</b>
+<b class="nc"><i>417</i>&nbsp;            turnController.next();</b>
+<b class="nc"><i>418</i>&nbsp;            VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());</b>
+<b class="nc"><i>419</i>&nbsp;            virtualView.askInitWorkerColor(availableColors);</b>
+<b class="nc"><i>420</i>&nbsp;        } else {</b>
+<b class="nc"><i>421</i>&nbsp;            turnController.next();</b>
+<b class="nc"><i>422</i>&nbsp;            startGame();</b>
+<i>423</i>&nbsp;        }
+<i>424</i>&nbsp;    }
+<i>425</i>&nbsp;
+<i>426</i>&nbsp;    /**
+<i>427</i>&nbsp;     * If color picked by client is available (and not picked from another client)
+<i>428</i>&nbsp;     * then assign color to workers of the current player.
+<i>429</i>&nbsp;     *
+<i>430</i>&nbsp;     * @param receivedMessage message from client
+<i>431</i>&nbsp;     */
+<i>432</i>&nbsp;    private void colorHandler(ColorsMessage receivedMessage) {
+<b class="nc"><i>433</i>&nbsp;        Player player = game.getPlayerByNickname(receivedMessage.getNickname());</b>
+<i>434</i>&nbsp;
+<b class="nc"><i>435</i>&nbsp;        player.addWorker(new Worker(receivedMessage.getColorList().get(0)));</b>
+<b class="nc"><i>436</i>&nbsp;        player.addWorker(new Worker(receivedMessage.getColorList().get(0)));</b>
+<i>437</i>&nbsp;
+<b class="nc"><i>438</i>&nbsp;        availableColors.remove(receivedMessage.getColorList().get(0));</b>
+<b class="nc"><i>439</i>&nbsp;        askWorkersPositions(receivedMessage.getNickname());</b>
+<i>440</i>&nbsp;
+<i>441</i>&nbsp;    }
+<i>442</i>&nbsp;
+<i>443</i>&nbsp;
+<i>444</i>&nbsp;    /**
+<i>445</i>&nbsp;     * Adds a Player VirtualView to the controller if the first player max_players is not exceeded.
+<i>446</i>&nbsp;     * Then adds a controller observer to the view.
+<i>447</i>&nbsp;     * Adds the VirtualView to the game and board model observers.
+<i>448</i>&nbsp;     *
+<i>449</i>&nbsp;     * @param nickname    the player nickname to identify his associated VirtualView.
+<i>450</i>&nbsp;     * @param virtualView the VirtualView to be added.
+<i>451</i>&nbsp;     */
+<i>452</i>&nbsp;    public void addVirtualView(String nickname, VirtualView virtualView) {
+<b class="nc"><i>453</i>&nbsp;        virtualViewMap.put(nickname, virtualView);</b>
+<b class="nc"><i>454</i>&nbsp;        game.addObserver(virtualView);</b>
+<b class="nc"><i>455</i>&nbsp;        game.getBoard().addObserver(virtualView);</b>
+<i>456</i>&nbsp;    }
+<i>457</i>&nbsp;
+<i>458</i>&nbsp;
+<i>459</i>&nbsp;    /**
+<i>460</i>&nbsp;     * @return Virtual View Map
+<i>461</i>&nbsp;     */
+<i>462</i>&nbsp;    public Map&lt;String, VirtualView&gt; getVirtualViewMap() {
+<b class="nc"><i>463</i>&nbsp;        return virtualViewMap;</b>
+<i>464</i>&nbsp;    }
+<i>465</i>&nbsp;
+<i>466</i>&nbsp;
+<i>467</i>&nbsp;    /**
+<i>468</i>&nbsp;     * Removes a VirtualView from the controller.
+<i>469</i>&nbsp;     *
+<i>470</i>&nbsp;     * @param nickname the nickname of the VirtualView associated.
+<i>471</i>&nbsp;     */
+<i>472</i>&nbsp;    public void removeVirtualView(String nickname) {
+<b class="nc"><i>473</i>&nbsp;        VirtualView vv = virtualViewMap.remove(nickname);</b>
+<b class="nc"><i>474</i>&nbsp;        game.removePlayerByNickname(nickname);</b>
+<b class="nc"><i>475</i>&nbsp;        game.removeObserver(vv);</b>
+<b class="nc"><i>476</i>&nbsp;        game.getBoard().removeObserver(vv);</b>
+<i>477</i>&nbsp;    }
+<i>478</i>&nbsp;
+<i>479</i>&nbsp;    /**
+<i>480</i>&nbsp;     * Sends a Message which contains Game Information to every Players in Game.
+<i>481</i>&nbsp;     *
+<i>482</i>&nbsp;     * @param messageToNotify Message to send.
+<i>483</i>&nbsp;     */
+<i>484</i>&nbsp;    public void broadcastGenericMessage(String messageToNotify) {
+<b class="nc"><i>485</i>&nbsp;        for (VirtualView vv : virtualViewMap.values()) {</b>
+<b class="nc"><i>486</i>&nbsp;            vv.showGenericMessage(messageToNotify);</b>
+<b class="nc"><i>487</i>&nbsp;        }</b>
+<i>488</i>&nbsp;    }
+<i>489</i>&nbsp;
+<i>490</i>&nbsp;
+<i>491</i>&nbsp;    /**
+<i>492</i>&nbsp;     * @return a list with all possible colors
+<i>493</i>&nbsp;     */
+<i>494</i>&nbsp;    public List&lt;Color&gt; getColorList() {
+<b class="nc"><i>495</i>&nbsp;        List&lt;Color&gt; colorList = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>496</i>&nbsp;        colorList.add(Color.BLUE);</b>
+<b class="nc"><i>497</i>&nbsp;        colorList.add(Color.RED);</b>
+<b class="nc"><i>498</i>&nbsp;        colorList.add(Color.GREEN);</b>
+<b class="nc"><i>499</i>&nbsp;        return colorList;</b>
+<i>500</i>&nbsp;    }
+<i>501</i>&nbsp;
+<i>502</i>&nbsp;    // TODO test?
+<i>503</i>&nbsp;
+<i>504</i>&nbsp;    /**
+<i>505</i>&nbsp;     * @return a List of available Gods.
+<i>506</i>&nbsp;     */
+<i>507</i>&nbsp;    public List&lt;ReducedGod&gt; getAvailableGods() {
+<b class="nc"><i>508</i>&nbsp;        return availableGods;</b>
+<i>509</i>&nbsp;    }
+<i>510</i>&nbsp;
+<i>511</i>&nbsp;
+<i>512</i>&nbsp;    /**
+<i>513</i>&nbsp;     * @return a List of available Colors.
+<i>514</i>&nbsp;     */
+<i>515</i>&nbsp;    public List&lt;Color&gt; getAvailableColors() {
+<b class="nc"><i>516</i>&nbsp;        return availableColors;</b>
+<i>517</i>&nbsp;    }
+<i>518</i>&nbsp;
+<i>519</i>&nbsp;    /**
+<i>520</i>&nbsp;     * Receives an update message from the effect model.
+<i>521</i>&nbsp;     *
+<i>522</i>&nbsp;     * @param message the update message.
+<i>523</i>&nbsp;     */
+<i>524</i>&nbsp;    @Override
+<i>525</i>&nbsp;    public void update(Message message) {
+<b class="nc"><i>526</i>&nbsp;        VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());</b>
+<b class="nc"><i>527</i>&nbsp;        switch (message.getMessageType()) {</b>
+<i>528</i>&nbsp;            case MOVE_FX:
+<b class="nc"><i>529</i>&nbsp;                virtualView.askMoveFx(((PositionMessage) message).getPositionList());</b>
+<b class="nc"><i>530</i>&nbsp;                break;</b>
+<i>531</i>&nbsp;            case BUILD_FX:
+<b class="nc"><i>532</i>&nbsp;                virtualView.askBuildFx(((PositionMessage) message).getPositionList());</b>
+<b class="nc"><i>533</i>&nbsp;                break;</b>
+<i>534</i>&nbsp;            case WIN_FX:
+<b class="nc"><i>535</i>&nbsp;                win();</b>
+<i>536</i>&nbsp;                break;
+<i>537</i>&nbsp;        }
+<i>538</i>&nbsp;
+<i>539</i>&nbsp;    }
+<i>540</i>&nbsp;
+<i>541</i>&nbsp;    /**
+<i>542</i>&nbsp;     * Verifies the nickname through the InputController.
+<i>543</i>&nbsp;     *
+<i>544</i>&nbsp;     * @param nickname the nickname to be checked.
+<i>545</i>&nbsp;     * @param view     the view of the player who is logging in.
+<i>546</i>&nbsp;     */
+<i>547</i>&nbsp;    public boolean checkLoginNickname(String nickname, View view) {
+<b class="nc"><i>548</i>&nbsp;        return inputController.checkLoginNickname(nickname, view);</b>
+<i>549</i>&nbsp;    }
+<i>550</i>&nbsp;
+<i>551</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-18 21:43</div>
+</div>
+</body>
+</html>
