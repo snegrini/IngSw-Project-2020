@@ -41,6 +41,19 @@ public class SceneController {
 
     /**
      * Changes the root panel of the scene argument.
+     *
+     * @param view  the view to be set into the FXMLLoader controller.
+     * @param event the event which is happened into the scene.
+     * @param fxml  the new scene fxml name. It must include the extension ".fxml" (i.e. next_scene.fxml).
+     * @return the controller of the new scene loaded by the FXMLLoader.
+     */
+    public static ViewGuiController changeRootPane(View view, Event event, String fxml) {
+        Scene scene = ((Node) event.getSource()).getScene();
+        return changeRootPane(view, scene, fxml);
+    }
+
+    /**
+     * Changes the root panel of the scene argument.
      * Offers the possibility to set a custom controller to the FXMLLoader.
      *
      * @param controller the custom controller that will be set into the FXMLLoader.
@@ -62,15 +75,15 @@ public class SceneController {
 
     /**
      * Changes the root panel of the scene argument.
+     * Offers the possibility to set a custom controller to the FXMLLoader.
      *
-     * @param view  the view to be set into the FXMLLoader controller.
-     * @param event the event which is happened into the scene.
-     * @param fxml  the new scene fxml name. It must include the extension ".fxml" (i.e. next_scene.fxml).
-     * @return the controller of the new scene loaded by the FXMLLoader.
+     * @param controller the custom controller that will be set into the FXMLLoader.
+     * @param event      the event which is happened into the scene.
+     * @param fxml       the new scene fxml name. It must include the extension ".fxml" (i.e. next_scene.fxml).
      */
-    public static ViewGuiController changeRootPane(View view, Event event, String fxml) {
+    public static void changeRootPane(ViewGuiController controller, Event event, String fxml) {
         Scene scene = ((Node) event.getSource()).getScene();
-        return changeRootPane(view, scene, fxml);
+        changeRootPane(controller, scene, fxml);
     }
 
     /**

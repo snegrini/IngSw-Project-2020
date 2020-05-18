@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" styleClass="rootPane" stylesheets="@../css/connect_scene.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="mainMenuBtn" cancelButton="true" mnemonicParsing="false" text="Back to Menu"/>
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="145.0" prefWidth="275.0"
+            spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="LOBBY"/>
+            <Separator prefHeight="0.0" prefWidth="275.0"/>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="1.0" layoutY="11.0" text="Players connected:"/>
+                  <Label fx:id="playersLbl" layoutX="110.0" layoutY="11.0" text="player1, player2"/>
+                  <Label layoutY="36.0" text="Waiting for other players to join:"/>
+                  <Label fx:id="numbersLbl" layoutX="185.0" layoutY="36.0" text="0/0"/>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
