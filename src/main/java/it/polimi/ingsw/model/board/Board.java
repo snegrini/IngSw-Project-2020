@@ -124,7 +124,7 @@ public class Board extends Observable {
      * @param dest the destination position.
      * @return the next Space on the line passing between {@code orig} and {@code dest},
      * {@code null} if the next Space on the line is invalid.
-     * @see #getNextPositionInLine(Position, Position).
+     * {@link #getNextPositionInLine(Position, Position)}.
      */
     public Space getNextSpaceInLine(Position orig, Position dest) {
         Position position = getNextPositionInLine(orig, dest);
@@ -154,7 +154,7 @@ public class Board extends Observable {
      *
      * @param position the position to be checked.
      * @return {@code true} if the position is on the board, {@code false} otherwise.
-     * @see #isPositionOnBoard(int, int).
+     * {@link #isPositionOnBoard(int, int)}.
      */
     public boolean isPositionOnBoard(Position position) {
         return isPositionOnBoard(position.getRow(), position.getColumn());

@@ -543,6 +543,7 @@ public class GameController implements Observer {
      *
      * @param nickname the nickname to be checked.
      * @param view     the view of the player who is logging in.
+     * @return see {@link #checkLoginNickname(String, View)}
      */
     public boolean checkLoginNickname(String nickname, View view) {
         return inputController.checkLoginNickname(nickname, view);
