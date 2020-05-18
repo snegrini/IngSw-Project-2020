@@ -18,11 +18,11 @@ public class ConnectSceneController implements ViewGuiController {
     private View view;
 
     @FXML
-    private Parent mainPane;
-    @FXML
-    private TextField nicknameField;
+    private Parent rootPane;
+
     @FXML
     private TextField serverAddressField;
+
     @FXML
     private TextField serverPortField;
 
