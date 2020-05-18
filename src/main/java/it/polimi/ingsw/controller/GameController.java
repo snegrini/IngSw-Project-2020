@@ -51,7 +51,7 @@ public class GameController implements Observer {
 
         switch (gameState) {
             case LOGIN:
-                loginState(receivedMessage, virtualView);
+                loginState(receivedMessage);
                 break;
             case INIT:
                 initState(receivedMessage, virtualView);
@@ -71,9 +71,8 @@ public class GameController implements Observer {
      * Switch on Login Messages' Types.
      *
      * @param receivedMessage Message from Active Player.
-     * @param virtualView     Virtual View the Active PLayer.
      */
-    private void loginState(Message receivedMessage, VirtualView virtualView) {
+    private void loginState(Message receivedMessage) {
         switch (receivedMessage.getMessageType()) {
             case PLAYERNUMBER_REPLY:
                 if (inputController.verifyReceivedData(receivedMessage)) {
@@ -132,12 +131,12 @@ public class GameController implements Observer {
                 break;
             case MOVE:
                 if (inputController.verifyReceivedData(receivedMessage)) {
-                    moveHandler((PositionMessage) receivedMessage, virtualView);
+                    moveHandler((PositionMessage) receivedMessage);
                 }
                 break;
             case BUILD:
                 if (inputController.verifyReceivedData(receivedMessage)) {
-                    buildHandler((PositionMessage) receivedMessage, virtualView);
+                    buildHandler((PositionMessage) receivedMessage);
                 }
                 break;
             case ENABLE_EFFECT:
@@ -204,9 +203,8 @@ public class GameController implements Observer {
      * Calls Move method in order to Move on the selected Space.
      *
      * @param receivedMessage Message from Active Player.
-     * @param virtualView     Virtual View of Active Player.
      */
-    private void moveHandler(PositionMessage receivedMessage, VirtualView virtualView) {
+    private void moveHandler(PositionMessage receivedMessage) {
         Position destination = receivedMessage.getPositionList().get(0);
 
         int origLevel = game.getSpaceLevel(turnController.getActiveWorker().getPosition());
@@ -234,9 +232,8 @@ public class GameController implements Observer {
      * Calls Build method in order to Build on the selected Space.
      *
      * @param receivedMessage Message from Active Player.
-     * @param virtualView     Virtual View of Active Player.
      */
-    private void buildHandler(PositionMessage receivedMessage, VirtualView virtualView) {
+    private void buildHandler(PositionMessage receivedMessage) {
         Position buildOnPosition = receivedMessage.getPositionList().get(0);
         game.buildBlock(turnController.getActiveWorker(), buildOnPosition);
 
@@ -457,6 +454,15 @@ public class GameController implements Observer {
         game.getBoard().addObserver(virtualView);
     }
 
+
+    /**
+     * @return Virtual View Map
+     */
+    public Map<String, VirtualView> getVirtualViewMap() {
+        return virtualViewMap;
+    }
+
+
     /**
      * Removes a VirtualView from the controller.
      *
@@ -480,6 +486,7 @@ public class GameController implements Observer {
         }
     }
 
+
     /**
      * @return a list with all possible colors
      */
@@ -491,12 +498,15 @@ public class GameController implements Observer {
         return colorList;
     }
 
+    // TODO test?
+
     /**
      * @return a List of available Gods.
      */
     public List<ReducedGod> getAvailableGods() {
         return availableGods;
     }
+
 
     /**
      * @return a List of available Colors.

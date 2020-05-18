@@ -154,6 +154,7 @@ public class ClientController implements ViewObserver, Observer {
         client.sendMessage(new PositionMessage(this.nickname, MessageType.APPLY_EFFECT, List.of(dest)));
     }
 
+
     public static boolean isValidIpAddress(String ip) {
         String regex = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
                 "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
@@ -162,8 +163,9 @@ public class ClientController implements ViewObserver, Observer {
         return ip.matches(regex);
     }
 
+
     public static boolean isValidPort(int port) {
-        return port >= 1 && port <= 65565;
+        return port >= 1 && port <= 65535;
     }
 
 }
