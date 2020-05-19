@@ -2,7 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.enumerations.Color;
-import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.view.VirtualView;
@@ -10,10 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -30,11 +26,6 @@ public class GameControllerTest {
 
         game = Game.getInstance();
         clientHandler = new ClientHandler() {
-            @Override
-            public boolean isConnected() {
-                return false;
-            }
-
             @Override
             public void disconnect() {
 

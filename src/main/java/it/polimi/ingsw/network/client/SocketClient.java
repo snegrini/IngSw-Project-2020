@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.network.message.ErrorMessage;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.message.PingMessage;
+import it.polimi.ingsw.view.gui.SceneController;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -40,6 +41,7 @@ public class SocketClient extends Client {
                 Message message = null;
                 try {
                     message = (Message) inputStm.readObject();
+                    SceneController.LOGGER.info("RECEIVED: " + message.getMessageType());
                 } catch (IOException | ClassNotFoundException e) {
                     message = new ErrorMessage(null, "connection lost with the server.");
                     readExecutionQueue.shutdownNow();
@@ -51,15 +53,20 @@ public class SocketClient extends Client {
 
     @Override
     public void sendMessage(Message message) {
-        sendExecutionQueue.execute(() -> {
+        /*sendExecutionQueue.execute(() -> {
             try {
                 outputStm.writeObject(message);
             } catch (IOException e) {
                 notifyObserver(new ErrorMessage(null, "could not send message."));
                 disconnect();
             }
-        });
-
+        });*/
+        try {
+            outputStm.writeObject(message);
+        } catch (IOException e) {
+            notifyObserver(new ErrorMessage(null, "could not send message."));
+            disconnect();
+        }
     }
 
     public void enablePinger(boolean enabled) {

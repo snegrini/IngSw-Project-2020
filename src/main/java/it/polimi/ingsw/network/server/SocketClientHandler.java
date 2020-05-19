@@ -8,10 +8,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-
 public class SocketClientHandler implements ClientHandler, Runnable {
     private Socket client;
     private SocketServer socketServer;
+
+    private final Object inputLock;
+    private final Object outputLock;
 
     private ObjectOutputStream output;
     private ObjectInputStream input;
@@ -19,6 +21,9 @@ public class SocketClientHandler implements ClientHandler, Runnable {
     public SocketClientHandler(SocketServer socketServer, Socket client) {
         this.socketServer = socketServer;
         this.client = client;
+
+        this.inputLock = new Object();
+        this.outputLock = new Object();
 
         try {
             this.output = new ObjectOutputStream(client.getOutputStream());
@@ -43,14 +48,15 @@ public class SocketClientHandler implements ClientHandler, Runnable {
 
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                Message message = (Message) input.readObject();
-
-                if (message != null && message.getMessageType() != MessageType.PING) {
-                    if (message.getMessageType() == MessageType.LOGIN_REQUEST) {
-                        socketServer.addClient(message.getNickname(), this);
-                    } else {
-                        Server.LOGGER.info("Received from " + message.getNickname() + " " + message.getMessageType() + " message.");
-                        socketServer.onMessageReceived(message);
+                synchronized (inputLock) {
+                    Message message = (Message) input.readObject();
+                    if (message != null && message.getMessageType() != MessageType.PING) {
+                        if (message.getMessageType() == MessageType.LOGIN_REQUEST) {
+                            socketServer.addClient(message.getNickname(), this);
+                        } else {
+                            Server.LOGGER.info("Received from " + message.getNickname() + " " + message.getMessageType() + " message.");
+                            socketServer.onMessageReceived(message);
+                        }
                     }
                 }
             }
@@ -58,12 +64,6 @@ public class SocketClientHandler implements ClientHandler, Runnable {
             Server.LOGGER.severe("Invalid stream from client");
         }
         client.close();
-    }
-
-    @Override
-    public boolean isConnected() {
-        // TODO
-        return true;
     }
 
     /**
@@ -85,7 +85,9 @@ public class SocketClientHandler implements ClientHandler, Runnable {
     @Override
     public void sendMessage(Message message) {
         try {
-            output.writeObject(message);
+            synchronized (outputLock) {
+                output.writeObject(message);
+            }
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());
             disconnect();
