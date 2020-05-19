@@ -49,6 +49,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
                     if (message.getMessageType() == MessageType.LOGIN_REQUEST) {
                         socketServer.addClient(message.getNickname(), this);
                     } else {
+                        Server.LOGGER.info("Received from " + message.getNickname() + " " + message.getMessageType() + " message.");
                         socketServer.onMessageReceived(message);
                     }
                 }

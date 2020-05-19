@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.scene.BoardSceneController;
+import it.polimi.ingsw.view.gui.scene.GodsSceneController;
 import it.polimi.ingsw.view.gui.scene.LobbySceneController;
 import it.polimi.ingsw.view.gui.scene.PlayersNumberSceneController;
 import javafx.scene.Scene;
@@ -51,7 +52,11 @@ public class Gui extends View {
 
     @Override
     public void askGod(List<ReducedGod> gods, int request) {
-
+        GodsSceneController gsc = new GodsSceneController();
+        gsc.setView(this);
+        gsc.setGods(gods);
+        gsc.setNumberRequest(request);
+        SceneController.changeRootPane(gsc, scene, "gods_scene.fxml");
     }
 
     @Override
