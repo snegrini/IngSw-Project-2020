@@ -1,47 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" styleClass="rootPane" stylesheets="@../css/connect_scene.css"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import java.net.URL?>
+<StackPane prefHeight="622.0" prefWidth="931.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
+           xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5" StackPane.alignment="CENTER">
          <children>
-            <Button fx:id="mainMenuBtn" cancelButton="true" mnemonicParsing="false" text="Back to Menu"/>
-         </children>
-      </HBox>
-   </bottom>
-   <center>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="283.0" prefWidth="475.0"
-            spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="PICK THE GODS"/>
-            <Separator prefHeight="0.0" prefWidth="275.0"/>
-            <AnchorPane prefHeight="259.0" prefWidth="475.0">
+            <AnchorPane layoutX="162.0" layoutY="110.0" prefHeight="313.0" prefWidth="356.0">
                <children>
-                  <ImageView fx:id="focusGodImg" fitHeight="173.0" fitWidth="129.0" layoutX="96.0" layoutY="26.0"
+                  <Label layoutX="144.0" layoutY="5.0" text="PICK THE GODS"/>
+                  <Separator layoutX="55.0" layoutY="33.0" prefHeight="0.0" prefWidth="275.0"/>
+                  <ImageView fx:id="focusGodImg" fitHeight="173.0" fitWidth="129.0" layoutX="96.0" layoutY="60.0"
                              pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../../../Downloads/RisorseGrafiche-Santorini/godCards/29.png"/>
                      </image>
                   </ImageView>
-                  <Button fx:id="selectGodBtn" layoutX="96.0" layoutY="205.0" mnemonicParsing="false" text="Select"/>
-                  <Button fx:id="nextGodBtn" layoutX="212.0" layoutY="89.0" mnemonicParsing="false" prefHeight="48.0"
+                  <Button fx:id="selectGodBtn" layoutX="96.0" layoutY="239.0" mnemonicParsing="false" text="Select"/>
+                  <Button fx:id="nextGodBtn" layoutX="212.0" layoutY="123.0" mnemonicParsing="false" prefHeight="48.0"
                           prefWidth="52.0" text="Next"/>
-                  <Button fx:id="prevGodBtn" layoutX="31.0" layoutY="88.0" mnemonicParsing="false" prefHeight="48.0"
+                  <Button fx:id="prevGodBtn" layoutX="31.0" layoutY="122.0" mnemonicParsing="false" prefHeight="48.0"
                           prefWidth="52.0" text="Prev"/>
-                  <ListView fx:id="selectedGodsListView" layoutX="322.0" layoutY="64.0" prefHeight="99.0"
+                  <ListView fx:id="selectedGodsListView" layoutX="322.0" layoutY="98.0" prefHeight="99.0"
                             prefWidth="90.0"/>
-                  <Label layoutX="322.0" layoutY="39.0" text="Selected Gods:"/>
-                  <Button fx:id="confirmBtn" layoutX="322.0" layoutY="192.0" mnemonicParsing="false" text="Confirm"/>
-                  <Button fx:id="deselectGodBtn" layoutX="147.0" layoutY="205.0" mnemonicParsing="false"
+                  <Label layoutX="322.0" layoutY="73.0" text="Selected Gods:"/>
+                  <Button fx:id="confirmBtn" layoutX="322.0" layoutY="226.0" mnemonicParsing="false" text="Confirm"/>
+                  <Button fx:id="deselectGodBtn" layoutX="147.0" layoutY="239.0" mnemonicParsing="false"
                           text="Deselect"/>
                </children>
             </AnchorPane>
          </children>
-      </VBox>
-   </center>
-</BorderPane>
+      </Group>
+   </children>
+   <stylesheets>
+      <URL value="@../css/connect_scene.css"/>
+      <URL value="@../css/global.css"/>
+   </stylesheets>
+</StackPane>

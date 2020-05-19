@@ -8,8 +8,22 @@
     -fx-text-fill: #451616;
 }
 
+.customButton {
+    -fx-font-family: 'LillyBelle';
+    -fx-text-fill: #451616;
+    -fx-background-image: url("../images/g26341.png");
+    -fx-background-size: auto;
+    -fx-background-repeat: no-repeat;
+}
+
 .menuBanner {
     -fx-background-image: url("../images/ps_backing_stone.png");
     -fx-background-size: contain;
     -fx-background-repeat: no-repeat;
+}
+
+.menuBackground {
+    -fx-background-image: url("../images/menu_bg.png");
+    -fx-background-size: stretch;
+    -fx-position: relative;
 }
