@@ -27,3 +27,15 @@
     -fx-background-size: stretch;
     -fx-position: relative;
 }
+
+.blueGlow:hover {
+    -fx-effect: dropshadow(gaussian, #3333ff, 20, 0.3, 0, 0);
+}
+
+.greenGlow:hover {
+    -fx-effect: dropshadow(gaussian, #00cc00, 20, 0.3, 0, 0);
+}
+
+.redGlow:hover {
+    -fx-effect: dropshadow(gaussian, #ff3333, 20, 0.3, 0, 0);
+}

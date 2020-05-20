@@ -1,29 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <StackPane prefHeight="622.0" prefWidth="931.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5" StackPane.alignment="CENTER">
-         <children>
-            <AnchorPane layoutX="162.0" layoutY="110.0" prefHeight="313.0" prefWidth="356.0">
-               <children>
-                  <Label layoutX="144.0" layoutY="5.0" text="CHOOSE A COLOR"/>
-                  <Separator layoutX="55.0" layoutY="33.0" prefHeight="0.0" prefWidth="275.0"/>
-                  <Button fx:id="confirmBtn" layoutX="322.0" layoutY="226.0" mnemonicParsing="false" text="Confirm"/>
-               </children>
+    <children>
+        <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5" StackPane.alignment="CENTER">
+            <children>
+                <AnchorPane layoutX="214.0" layoutY="147.0" prefHeight="346.0" prefWidth="398.0">
+                    <children>
+                        <Label layoutX="144.0" layoutY="5.0" text="CHOOSE A COLOR"/>
+                        <Separator layoutX="55.0" layoutY="33.0" prefHeight="0.0" prefWidth="275.0"/>
+                        <Button fx:id="mainMenuBtn" layoutX="134.0" layoutY="265.0" mnemonicParsing="false"
+                                styleClass="customButton" text="Back To Menu"/>
+                        <HBox alignment="CENTER" layoutX="5.0" layoutY="68.0" prefHeight="123.0" prefWidth="388.0"
+                              spacing="5.0">
+                            <children>
+                                <ImageView fx:id="blueWorker" fitHeight="109.0" fitWidth="109.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="blueGlow">
+                                    <image>
+                                        <Image url="@../images/workers/worker_cicled_blue.png"/>
+                                    </image>
+                                    <HBox.margin>
+                                        <Insets/>
+                                    </HBox.margin>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </ImageView>
+                                <ImageView fx:id="greenWorker" fitHeight="109.0" fitWidth="109.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="greenGlow">
+                                    <image>
+                                        <Image url="@../images/workers/worker_cicled_green.png"/>
+                                    </image>
+                                    <HBox.margin>
+                                        <Insets/>
+                                    </HBox.margin>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </ImageView>
+                                <ImageView fx:id="redWorker" fitHeight="109.0" fitWidth="109.0" pickOnBounds="true"
+                                           preserveRatio="true" styleClass="redGlow">
+                                    <image>
+                                        <Image url="@../images/workers/worker_cicled_red.png"/>
+                                    </image>
+                                    <HBox.margin>
+                                        <Insets/>
+                                    </HBox.margin>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </ImageView>
+                            </children>
+                        </HBox>
+                    </children>
             </AnchorPane>
          </children>
       </Group>
    </children>
-   <stylesheets>
-      <URL value="@../css/connect_scene.css"/>
-      <URL value="@../css/global.css"/>
-   </stylesheets>
+    <stylesheets>
+        <URL value="@../css/color_scene.css"/>
+        <URL value="@../css/global.css"/>
+    </stylesheets>
 </StackPane>

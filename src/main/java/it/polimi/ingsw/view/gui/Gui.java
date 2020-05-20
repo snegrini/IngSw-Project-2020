@@ -5,10 +5,7 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.gui.scene.BoardSceneController;
-import it.polimi.ingsw.view.gui.scene.GodsSceneController;
-import it.polimi.ingsw.view.gui.scene.LobbySceneController;
-import it.polimi.ingsw.view.gui.scene.PlayersNumberSceneController;
+import it.polimi.ingsw.view.gui.scene.*;
 import javafx.scene.Scene;
 
 import java.util.List;
@@ -47,7 +44,10 @@ public class Gui extends View {
 
     @Override
     public void askInitWorkerColor(List<Color> colors) {
-
+        ColorSceneController csc = new ColorSceneController();
+        csc.setView(this);
+        csc.setAvailableColors(colors);
+        SceneController.changeRootPane(csc, scene, "color_scene.fxml");
     }
 
     @Override
