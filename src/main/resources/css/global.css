@@ -39,3 +39,5 @@
 .redGlow:hover {
     -fx-effect: dropshadow(gaussian, #ff3333, 20, 0.3, 0, 0);
 }
+
+
