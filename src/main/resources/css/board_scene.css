@@ -12,6 +12,14 @@
     -fx-background-position: center;
 }
 
+.spacePane {
+    -fx-background-color: mediumblue;
+}
+
+.glassPane {
+    -fx-background-color: #a5f1f6;
+}
+
 .glassPane:hover {
-    -fx-background-color: blue;
+    -fx-effect: dropshadow(gaussian, #a5f1f6, 20, 0.3, 0, 0);
 }
