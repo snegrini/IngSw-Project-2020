@@ -1,10 +1,14 @@
 package it.polimi.ingsw.view.gui.scene;
 
+import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.view.View;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+
+import java.util.List;
 
 public class BoardSceneController implements ViewGuiController {
 
@@ -25,6 +29,13 @@ public class BoardSceneController implements ViewGuiController {
 
         System.out.print("Row: " + row);
         System.out.println(", Col: " + col);
+    }
+
+    public void enableSpaces(List<Position> positionList) {
+        ObservableList<Node> spaceList = boardGrid.getChildren();
+        for (Node space : spaceList) {
+            boardGrid.getRowIndex(space);
+        }
     }
 
     @Override
