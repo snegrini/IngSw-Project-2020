@@ -1,7 +1,7 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.board.Position;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.observer.ViewObservable;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,9 +12,7 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardSceneController implements ViewGuiController {
-
-    private View view;
+public class BoardSceneController extends ViewObservable implements GenericSceneController {
 
     private int availablePositionClicks;
     private List<Position> clickedPositionList;
@@ -40,12 +38,16 @@ public class BoardSceneController implements ViewGuiController {
         System.out.print("Row: " + row);
         System.out.println(", Col: " + col);
 
+
         if (row != null && col != null) {
             // Notify views only when all the required positions have been selected.
-            if (availablePositionClicks - 1 == 0) {
-                availablePositionClicks = -1; // disable
-                Platform.runLater(() -> view.notifyObserver(obs -> obs.onUpdateInitWorkerPosition(clickedPositionList)));
-            } else {
+            if (availablePositionClicks == 1) { // Last click done.
+                availablePositionClicks = 0;
+                clickedPositionList.add(new Position(row, col));
+                clickedNode.setDisable(true);
+                clickedNode.getStyleClass().add("worker");
+                Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateInitWorkerPosition(clickedPositionList)));
+            } else if (availablePositionClicks > 1) {
                 clickedPositionList.add(new Position(row, col));
                 availablePositionClicks--;
             }
@@ -64,10 +66,5 @@ public class BoardSceneController implements ViewGuiController {
                 space.setDisable(false);
             }
         }
-    }
-
-    @Override
-    public void setView(View view) {
-        this.view = view;
     }
 }

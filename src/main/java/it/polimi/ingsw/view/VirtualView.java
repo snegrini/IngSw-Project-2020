@@ -16,7 +16,7 @@ import java.util.List;
  * The controller calls methods from this class as if it was a normal view.
  * Instead, a network protocol is used to communicate with the real view on the client side.
  */
-public class VirtualView extends View implements Observer {
+public class VirtualView implements View, Observer {
     private final ClientHandler clientHandler;
 
     public VirtualView(ClientHandler clientHandler) {

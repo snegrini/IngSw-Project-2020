@@ -1,6 +1,6 @@
 package it.polimi.ingsw.view.gui.scene;
 
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -10,8 +10,8 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.List;
 
-public class LobbySceneController implements ViewGuiController {
-    private View view;
+public class LobbySceneController extends ViewObservable implements GenericSceneController {
+
     private List<String> nicknames;
     private int maxPlayers;
 
@@ -32,12 +32,7 @@ public class LobbySceneController implements ViewGuiController {
 
     private void onMainMenuBtnClick(Event event) {
         // TODO disconnect
-        SceneController.changeRootPane(view, event, "menu_scene.fxml");
-    }
-
-    @Override
-    public void setView(View view) {
-        this.view = view;
+        SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 
     public void setNicknames(List<String> nicknames) {

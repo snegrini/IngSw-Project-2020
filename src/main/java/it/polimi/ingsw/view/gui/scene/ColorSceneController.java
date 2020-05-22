@@ -1,7 +1,7 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.enumerations.Color;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -13,8 +13,7 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColorSceneController implements ViewGuiController {
-    private View view;
+public class ColorSceneController extends ViewObservable implements GenericSceneController {
 
     private List<Color> availableColors;
 
@@ -45,16 +44,11 @@ public class ColorSceneController implements ViewGuiController {
     }
 
     private void onWorkerClick(Color color) {
-        Platform.runLater(() -> view.notifyObserver(obs -> obs.onUpdateWorkersColor(color)));
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateWorkersColor(color)));
     }
 
     private void onBackBtnClick(Event event) {
-        SceneController.changeRootPane(view, event, "menu_scene.fxml");
-    }
-
-    @Override
-    public void setView(View view) {
-        this.view = view;
+        SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 
     public void setAvailableColors(List<Color> availableColors) {

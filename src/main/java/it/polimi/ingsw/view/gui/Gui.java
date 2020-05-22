@@ -4,20 +4,17 @@ import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
+import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.scene.*;
-import javafx.scene.Scene;
 
 import java.util.List;
 
-public class Gui extends View {
-
-    private Scene scene;
-    private ViewGuiController viewGuiController;
+public class Gui extends ViewObservable implements View {
 
     @Override
     public void askNickname() {
-        viewGuiController = SceneController.changeRootPane(this, scene, "login_scene.fxml");
+        SceneController.changeRootPane(observers, "login_scene.fxml");
     }
 
     @Override
@@ -32,7 +29,8 @@ public class Gui extends View {
 
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
-        BoardSceneController bsc = (BoardSceneController) viewGuiController;
+        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        bsc.addAllObservers(observers);
         bsc.setEnabledSpaces(positions);
         bsc.setAvailablePositionClicks(2);
     }
@@ -40,29 +38,26 @@ public class Gui extends View {
     @Override
     public void askPlayersNumber() {
         PlayersNumberSceneController pnsc = new PlayersNumberSceneController();
-        pnsc.setView(this);
+        pnsc.addAllObservers(observers);
         pnsc.setPlayersRange(2, 3);
-        viewGuiController = pnsc;
-        SceneController.changeRootPane(pnsc, scene, "players_number_scene.fxml");
+        SceneController.changeRootPane(pnsc, "players_number_scene.fxml");
     }
 
     @Override
     public void askInitWorkerColor(List<Color> colors) {
         ColorSceneController csc = new ColorSceneController();
-        csc.setView(this);
+        csc.addAllObservers(observers);
         csc.setAvailableColors(colors);
-        viewGuiController = csc;
-        SceneController.changeRootPane(csc, scene, "color_scene.fxml");
+        SceneController.changeRootPane(csc, "color_scene.fxml");
     }
 
     @Override
     public void askGod(List<ReducedGod> gods, int request) {
         GodsSceneController gsc = new GodsSceneController();
-        gsc.setView(this);
+        gsc.addAllObservers(observers);
         gsc.setGods(gods);
         gsc.setNumberRequest(request);
-        viewGuiController = gsc;
-        SceneController.changeRootPane(gsc, scene, "gods_scene.fxml");
+        SceneController.changeRootPane(gsc, "gods_scene.fxml");
     }
 
     @Override
@@ -86,10 +81,10 @@ public class Gui extends View {
             // TODO show welcome screen and lobby
         } else if (connectionSuccessful) {
             SceneController.showAlert("ERROR", "Nickname already taken.");
-            viewGuiController = SceneController.changeRootPane(this, scene, "login_scene.fxml");
+            SceneController.changeRootPane(observers, "login_scene.fxml");
         } else {
             SceneController.showAlert("ERROR", "Could not contact server.");
-            viewGuiController = SceneController.changeRootPane(this, scene, "menu_scene.fxml");
+            SceneController.changeRootPane(observers, "menu_scene.fxml");
         }
     }
 
@@ -106,29 +101,22 @@ public class Gui extends View {
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
         BoardSceneController bsc = new BoardSceneController();
-        bsc.setView(this);
 
-        viewGuiController = bsc;
-        SceneController.changeRootPane(bsc, scene, "board_scene.fxml");
+        SceneController.changeRootPane(bsc, "board_scene.fxml");
     }
 
     @Override
     public void showLobby(List<String> nicknameList, int maxPlayers) {
         LobbySceneController lsc = new LobbySceneController();
-        lsc.setView(this);
+        lsc.addAllObservers(observers);
         lsc.setNicknames(nicknameList);
         lsc.setMaxPlayers(maxPlayers);
 
-        viewGuiController = lsc;
-        SceneController.changeRootPane(lsc, scene, "lobby_scene.fxml");
+        SceneController.changeRootPane(lsc, "lobby_scene.fxml");
     }
 
     @Override
     public void askEnableEffect() {
 
-    }
-
-    public void setMainScene(Scene scene) {
-        this.scene = scene;
     }
 }

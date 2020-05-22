@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view.gui.scene;
 
-import it.polimi.ingsw.view.View;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,8 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class AlertSceneController implements ViewGuiController {
-    private View view;
+public class AlertSceneController implements GenericSceneController {
 
     private Stage stage;
 
@@ -53,10 +51,5 @@ public class AlertSceneController implements ViewGuiController {
 
     public void setScene(Scene scene) {
         stage.setScene(scene);
-    }
-
-    @Override
-    public void setView(View view) {
-        this.view = view;
     }
 }

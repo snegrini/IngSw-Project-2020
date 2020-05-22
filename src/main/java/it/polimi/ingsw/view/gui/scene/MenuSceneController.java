@@ -1,6 +1,6 @@
 package it.polimi.ingsw.view.gui.scene;
 
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -8,8 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class MenuSceneController implements ViewGuiController {
-    private View view;
+public class MenuSceneController extends ViewObservable implements GenericSceneController {
 
     @FXML
     private AnchorPane rootPane;
@@ -24,17 +23,12 @@ public class MenuSceneController implements ViewGuiController {
         quitBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> System.exit(0));
     }
 
-    @Override
-    public void setView(View view) {
-        this.view = view;
-    }
-
     private void onPlayBtnClick(Event event) {
-        SceneController.changeRootPane(view, event, "connect_scene.fxml");
+        SceneController.changeRootPane(observers, event, "connect_scene.fxml");
 
         /*List<Position> spacesToBeEnabled = List.of(new Position(0, 1), new Position(1, 0), new Position(1, 1));
         BoardSceneController bsc = new BoardSceneController();
-        bsc.setView(view);
+        bsc.addAllObservers(observers);
         SceneController.changeRootPane(bsc, event, "board_scene.fxml");
         bsc.setEnabledSpaces(spacesToBeEnabled);*/
     }

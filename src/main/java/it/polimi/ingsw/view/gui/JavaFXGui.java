@@ -30,7 +30,7 @@ public class JavaFXGui extends Application {
             SceneController.LOGGER.severe(e.getMessage());
         }
         MenuSceneController controller = loader.getController();
-        controller.setView(view);
+        controller.addObserver(clientController);
 
         // Show the scene containing the root layout.
         Scene scene = new Scene(rootLayout);
@@ -44,7 +44,5 @@ public class JavaFXGui extends Application {
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setTitle("Santorini Board Game");
         stage.show();
-        view.setMainScene(scene);
     }
-
 }

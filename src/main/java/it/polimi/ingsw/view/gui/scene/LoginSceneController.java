@@ -1,6 +1,6 @@
 package it.polimi.ingsw.view.gui.scene;
 
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -10,9 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class LoginSceneController implements ViewGuiController {
-
-    private View view;
+public class LoginSceneController extends ViewObservable implements GenericSceneController {
 
     @FXML
     private Parent mainPane;
@@ -30,19 +28,14 @@ public class LoginSceneController implements ViewGuiController {
         backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onBackBtnClick(event));
     }
 
-    @Override
-    public void setView(View view) {
-        this.view = view;
-    }
-
     private void onJoinBtnClick(Event event) {
         String nickname = nicknameField.getText();
 
-        Platform.runLater(() -> view.notifyObserver(obs -> obs.onUpdateNickname(nickname)));
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateNickname(nickname)));
     }
 
     private void onBackBtnClick(Event event) {
         // TODO disconnect from server
-        SceneController.changeRootPane(view, event, "connect_scene.fxml");
+        SceneController.changeRootPane(observers, event, "connect_scene.fxml");
     }
 }

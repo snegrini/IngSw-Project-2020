@@ -17,6 +17,26 @@
     -fx-opacity: inherit;
 }
 
+.spacePane.lvlOne {
+    -fx-background-color: lightblue;
+}
+
+.spacePane.lvlOne.lvlTwo {
+    -fx-background-color: mediumblue;
+}
+
+.spacePane.lvlOne.lvlTwo.lvlThree {
+    -fx-background-color: blue;
+}
+
+.dome {
+    -fx-background-color: darkblue;
+}
+
+.worker {
+
+}
+
 .glassPane {
     -fx-background-color: #a5f1f6;
     -fx-opacity: 0.7;

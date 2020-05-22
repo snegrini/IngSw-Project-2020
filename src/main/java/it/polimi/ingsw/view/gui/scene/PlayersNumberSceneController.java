@@ -1,6 +1,6 @@
 package it.polimi.ingsw.view.gui.scene;
 
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -10,8 +10,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
-public class PlayersNumberSceneController implements ViewGuiController {
-    private View view;
+public class PlayersNumberSceneController extends ViewObservable implements GenericSceneController {
 
     @FXML
     private Button confirmBtn;
@@ -46,17 +45,12 @@ public class PlayersNumberSceneController implements ViewGuiController {
         RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
         int playersNumber = Character.getNumericValue(selectedRadioButton.getText().charAt(0));
 
-        Platform.runLater(() -> view.notifyObserver(obs -> obs.onUpdatePlayersNumber(playersNumber)));
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePlayersNumber(playersNumber)));
     }
 
     private void onMainMenuBtnClick(Event event) {
         // TODO disconnect
-        SceneController.changeRootPane(view, event, "menu_scene.fxml");
-    }
-
-    @Override
-    public void setView(View view) {
-        this.view = view;
+        SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 
     /**

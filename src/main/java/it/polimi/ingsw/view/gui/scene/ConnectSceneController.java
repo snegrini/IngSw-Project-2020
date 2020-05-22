@@ -1,7 +1,7 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.controller.ClientController;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -13,9 +13,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.Map;
 
-public class ConnectSceneController implements ViewGuiController {
-
-    private View view;
+public class ConnectSceneController extends ViewObservable implements GenericSceneController {
 
     @FXML
     private Parent rootPane;
@@ -37,11 +35,6 @@ public class ConnectSceneController implements ViewGuiController {
         backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onBackBtnClick(event));
     }
 
-    @Override
-    public void setView(View view) {
-        this.view = view;
-    }
-
     private void onConnectBtnClick(Event event) {
         String address = serverAddressField.getText();
         String port = serverPortField.getText();
@@ -51,10 +44,10 @@ public class ConnectSceneController implements ViewGuiController {
         ClientController.isValidPort(Integer.parseInt(port));
 
         Map<String, String> serverInfo = Map.of("address", address, "port", port);
-        Platform.runLater(() -> view.notifyObserver(obs -> obs.onUpdateServerInfo(serverInfo)));
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateServerInfo(serverInfo)));
     }
 
     private void onBackBtnClick(Event event) {
-        SceneController.changeRootPane(view, event, "menu_scene.fxml");
+        SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 }

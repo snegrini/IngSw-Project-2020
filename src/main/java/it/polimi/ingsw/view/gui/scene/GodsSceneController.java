@@ -1,7 +1,7 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.ReducedGod;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.observer.ViewObservable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GodsSceneController implements ViewGuiController {
-
-    private View view;
+public class GodsSceneController extends ViewObservable implements GenericSceneController {
 
     private List<ReducedGod> gods;
     private int numberRequest;
@@ -128,7 +126,7 @@ public class GodsSceneController implements ViewGuiController {
 
     private void onConfirmBtnClick(Event event) {
         // TODO check number of selected gods
-        Platform.runLater(() -> view.notifyObserver(obs -> obs.onUpdateGod(selectedGods)));
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateGod(selectedGods)));
     }
 
     /**
@@ -162,11 +160,6 @@ public class GodsSceneController implements ViewGuiController {
                 .collect(Collectors.toList());
 
         selectedGodsListView.setItems(FXCollections.observableArrayList(godNameList));
-    }
-
-    @Override
-    public void setView(View view) {
-        this.view = view;
     }
 
     public void setGods(List<ReducedGod> gods) {
