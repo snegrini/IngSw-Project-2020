@@ -30,13 +30,14 @@ public class GameController implements Observer {
     private InputController inputController;
 
     public GameController() {
+        initGameController();
+    }
+
+    public void initGameController() {
         this.game = Game.getInstance();
         this.availableColors = getColorList();
-
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
-
         this.inputController = new InputController(virtualViewMap, this);
-
         this.gameState = GameState.LOGIN; // Initialize Game State.
     }
 
@@ -165,7 +166,13 @@ public class GameController implements Observer {
         effect.apply(turnController.getActiveWorker(), positionApply);
         effect.clear(turnController.getActiveWorker());
 
-        turnController.nextPhase();
+        // TODO FIX hardcode Prometheus
+        if (player.getGod().getName().equals("Prometheus")) {
+            turnController.resumePhase();
+        } else {
+            turnController.nextPhase();
+        }
+
     }
 
     /**
@@ -261,8 +268,12 @@ public class GameController implements Observer {
 
     private void win() {
         broadcastGenericMessage(turnController.getActivePlayer() + " wins! Game Finished!");
+
+        disconnectAllClients();
+
         // TODO end game, prepare server for a new game. Set server on listen for the first client.
-        // Game.resetInstance();
+        Game.resetInstance();
+        initGameController();
     }
 
     void endGame() {
@@ -440,6 +451,36 @@ public class GameController implements Observer {
 
     }
 
+    // TODO test?
+
+    /**
+     * @return a List of available Gods.
+     */
+    public List<ReducedGod> getAvailableGods() {
+        return availableGods;
+    }
+
+    // TODO test?
+
+    /**
+     * @return a List of available Colors.
+     */
+    public List<Color> getAvailableColors() {
+        return availableColors;
+    }
+
+    /**
+     * @return a list with all possible colors
+     */
+    public List<Color> getColorList() {
+        List<Color> colorList = new ArrayList<>();
+        colorList.add(Color.BLUE);
+        colorList.add(Color.RED);
+        colorList.add(Color.GREEN);
+        return colorList;
+    }
+
+    //********** VIRTUAL VIEWS METHODS **************//
 
     /**
      * Adds a Player VirtualView to the controller if the first player max_players is not exceeded.
@@ -487,34 +528,13 @@ public class GameController implements Observer {
         }
     }
 
+    private void disconnectAllClients() {
+        int mapSize = virtualViewMap.size();
+        for (int i = 0; i < mapSize - 1; i++)
+            virtualViewMap.get(turnController.getNicknameQueue().get(i)).getClientHandler().disconnect();
 
-    /**
-     * @return a list with all possible colors
-     */
-    public List<Color> getColorList() {
-        List<Color> colorList = new ArrayList<>();
-        colorList.add(Color.BLUE);
-        colorList.add(Color.RED);
-        colorList.add(Color.GREEN);
-        return colorList;
     }
 
-    // TODO test?
-
-    /**
-     * @return a List of available Gods.
-     */
-    public List<ReducedGod> getAvailableGods() {
-        return availableGods;
-    }
-
-
-    /**
-     * @return a List of available Colors.
-     */
-    public List<Color> getAvailableColors() {
-        return availableColors;
-    }
 
     /**
      * Receives an update message from the effect model.
@@ -548,5 +568,4 @@ public class GameController implements Observer {
     public boolean checkLoginNickname(String nickname, View view) {
         return inputController.checkLoginNickname(nickname, view);
     }
-
 }
