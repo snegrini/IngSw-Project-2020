@@ -33,7 +33,8 @@ public class Gui extends View {
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
         BoardSceneController bsc = (BoardSceneController) viewGuiController;
-        bsc.enableSpaces(positions);
+        bsc.setEnabledSpaces(positions);
+        bsc.setAvailablePositionClicks(2);
     }
 
     @Override

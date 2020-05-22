@@ -13,13 +13,19 @@
 }
 
 .spacePane {
-    -fx-background-color: mediumblue;
+    /*-fx-background-color: mediumblue;*/
+    -fx-opacity: inherit;
 }
 
 .glassPane {
     -fx-background-color: #a5f1f6;
+    -fx-opacity: 0.7;
 }
 
 .glassPane:hover {
-    -fx-effect: dropshadow(gaussian, #a5f1f6, 20, 0.3, 0, 0);
+    -fx-effect: dropshadow(gaussian, #a5f1f6, 50, 0.8, 0, 0);
+}
+
+.glassPane:disabled {
+    -fx-opacity: 1;
 }

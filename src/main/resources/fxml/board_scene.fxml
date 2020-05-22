@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
 <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
            minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane"
            stylesheets="@../css/board_scene.css" xmlns="http://javafx.com/javafx/11.0.1"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.BoardSceneController">
+           xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="boardPane">
             <children>
@@ -33,117 +28,377 @@
                         <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="81.0"/>
                     </rowConstraints>
                     <children>
-                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="spacePane"
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
                                    GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                    GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <children>
-                                <StackPane disable="true" opacity="0.7" prefHeight="100.0" prefWidth="100.0"
-                                           styleClass="glassPane" visible="false">
-                                    <cursor>
-                                        <Cursor fx:constant="HAND"/>
-                                    </cursor>
-                                </StackPane>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane"/>
                             </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
                         </StackPane>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="1"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <children>
-                                <StackPane opacity="0.7" pickOnBounds="false" prefHeight="100.0" prefWidth="100.0"
-                                           styleClass="glassPane">
-                                    <cursor>
-                                        <Cursor fx:constant="HAND"/>
-                                    </cursor>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
                                 </StackPane>
                             </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
                         </StackPane>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="2"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="3"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="4"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="0"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <children>
-                                <StackPane disable="true" opacity="0.7" prefHeight="100.0" prefWidth="100.0"
-                                           styleClass="glassPane">
-                                    <cursor>
-                                        <Cursor fx:constant="HAND"/>
-                                    </cursor>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
                                 </StackPane>
                             </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
                         </StackPane>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="1"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <children>
-                                <StackPane disable="true" opacity="0.7" prefHeight="100.0" prefWidth="100.0"
-                                           styleClass="glassPane">
-                                    <cursor>
-                                        <Cursor fx:constant="HAND"/>
-                                    </cursor>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
                                 </StackPane>
                             </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
                         </StackPane>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="2"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="3"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="4"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="0"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="1"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="2"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="3"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="4"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="0"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="1"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="2"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="3"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="4"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="0"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="1"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="2"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="3"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
-                        <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" GridPane.columnIndex="4"
-                                   GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4"
-                                   GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" layoutX="10.0" layoutY="10.0" mouseTransparent="true"
+                                           prefHeight="100.0" prefWidth="100.0" styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
+                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane"
+                                   GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                   GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <children>
+                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0"
+                                           styleClass="spacePane">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </StackPane>
+                            </children>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </StackPane>
                     </children>
                     <padding>
                         <Insets left="15.0"/>
