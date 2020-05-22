@@ -12,6 +12,20 @@
     -fx-background-position: center;
 }
 
+.spacePane {
+    /*-fx-background-color: mediumblue;*/
+    -fx-opacity: inherit;
+}
+
+.glassPane {
+    -fx-background-color: #a5f1f6;
+    -fx-opacity: 0.7;
+}
+
 .glassPane:hover {
-    -fx-background-color: blue;
+    -fx-effect: dropshadow(gaussian, #a5f1f6, 50, 0.8, 0, 0);
+}
+
+.glassPane:disabled {
+    -fx-opacity: 1;
 }

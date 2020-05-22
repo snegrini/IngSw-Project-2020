@@ -5,10 +5,7 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.gui.scene.BoardSceneController;
-import it.polimi.ingsw.view.gui.scene.GodsSceneController;
-import it.polimi.ingsw.view.gui.scene.LobbySceneController;
-import it.polimi.ingsw.view.gui.scene.PlayersNumberSceneController;
+import it.polimi.ingsw.view.gui.scene.*;
 import javafx.scene.Scene;
 
 import java.util.List;
@@ -16,10 +13,11 @@ import java.util.List;
 public class Gui extends View {
 
     private Scene scene;
+    private ViewGuiController viewGuiController;
 
     @Override
     public void askNickname() {
-        SceneController.changeRootPane(this, scene, "login_scene.fxml");
+        viewGuiController = SceneController.changeRootPane(this, scene, "login_scene.fxml");
     }
 
     @Override
@@ -34,7 +32,9 @@ public class Gui extends View {
 
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
-
+        BoardSceneController bsc = (BoardSceneController) viewGuiController;
+        bsc.setEnabledSpaces(positions);
+        bsc.setAvailablePositionClicks(2);
     }
 
     @Override
@@ -42,12 +42,17 @@ public class Gui extends View {
         PlayersNumberSceneController pnsc = new PlayersNumberSceneController();
         pnsc.setView(this);
         pnsc.setPlayersRange(2, 3);
+        viewGuiController = pnsc;
         SceneController.changeRootPane(pnsc, scene, "players_number_scene.fxml");
     }
 
     @Override
     public void askInitWorkerColor(List<Color> colors) {
-
+        ColorSceneController csc = new ColorSceneController();
+        csc.setView(this);
+        csc.setAvailableColors(colors);
+        viewGuiController = csc;
+        SceneController.changeRootPane(csc, scene, "color_scene.fxml");
     }
 
     @Override
@@ -56,6 +61,7 @@ public class Gui extends View {
         gsc.setView(this);
         gsc.setGods(gods);
         gsc.setNumberRequest(request);
+        viewGuiController = gsc;
         SceneController.changeRootPane(gsc, scene, "gods_scene.fxml");
     }
 
@@ -80,10 +86,10 @@ public class Gui extends View {
             // TODO show welcome screen and lobby
         } else if (connectionSuccessful) {
             SceneController.showAlert("ERROR", "Nickname already taken.");
-            SceneController.changeRootPane(this, scene, "login_scene.fxml");
+            viewGuiController = SceneController.changeRootPane(this, scene, "login_scene.fxml");
         } else {
             SceneController.showAlert("ERROR", "Could not contact server.");
-            SceneController.changeRootPane(this, scene, "menu_scene.fxml");
+            viewGuiController = SceneController.changeRootPane(this, scene, "menu_scene.fxml");
         }
     }
 
@@ -102,6 +108,7 @@ public class Gui extends View {
         BoardSceneController bsc = new BoardSceneController();
         bsc.setView(this);
 
+        viewGuiController = bsc;
         SceneController.changeRootPane(bsc, scene, "board_scene.fxml");
     }
 
@@ -112,6 +119,7 @@ public class Gui extends View {
         lsc.setNicknames(nicknameList);
         lsc.setMaxPlayers(maxPlayers);
 
+        viewGuiController = lsc;
         SceneController.changeRootPane(lsc, scene, "lobby_scene.fxml");
     }
 

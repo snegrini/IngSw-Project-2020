@@ -4,14 +4,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="it.polimi.ingsw.view.gui.scene.LoginSceneController">
     <bottom>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="joinBtn" defaultButton="true" mnemonicParsing="false" text="Join"/>
-                <Button fx:id="backBtn" cancelButton="true" mnemonicParsing="false" text="Back"/>
+                <Button fx:id="joinBtn" defaultButton="true" mnemonicParsing="false" styleClass="customButton"
+                        text="Join"/>
+                <Button fx:id="backBtn" cancelButton="true" mnemonicParsing="false" styleClass="customButton"
+                        text="Back"/>
             </children>
         </HBox>
     </bottom>
@@ -23,5 +26,9 @@
                 <TextField fx:id="nicknameField" alignment="CENTER" prefHeight="10.0" prefWidth="186.0" text="mario"/>
             </children>
         </VBox>
-   </center>
+    </center>
+    <stylesheets>
+        <URL value="@../css/global.css"/>
+        <URL value="@../css/login_scene.css"/>
+    </stylesheets>
 </BorderPane>
