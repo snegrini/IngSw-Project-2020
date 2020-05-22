@@ -37,7 +37,12 @@ public class Board extends Observable {
                 spaces[i][j] = new Space();
             }
         }
+        //debugWinConditions();
+    }
 
+    private void debugWinConditions() {
+        spaces[0][0].increaseLevel(2);
+        spaces[0][1].increaseLevel(3);
     }
 
     /**

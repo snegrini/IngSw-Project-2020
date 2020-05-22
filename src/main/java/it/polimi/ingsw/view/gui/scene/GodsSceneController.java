@@ -137,17 +137,18 @@ public class GodsSceneController implements ViewGuiController {
     private void checkSelectButtonsStatus() {
 
 
-        if (selectedGods.size() != numberRequest && selectGodBtn.isDisable())
+        if (selectedGods.size() != numberRequest && selectGodBtn.isDisable()) {
             selectGodBtn.setDisable(false);
-
+        }
         if (selectedGods.contains(gods.get(godIndex))) {
             selectGodBtn.setDisable(true);
             deselectGodBtn.setDisable(false);
         } else {
-            if (selectedGods.size() == numberRequest)
+            if (selectedGods.size() == numberRequest) {
                 selectGodBtn.setDisable(true);
-            else
+            } else {
                 selectGodBtn.setDisable(false);
+            }
             deselectGodBtn.setDisable(true);
         }
 
