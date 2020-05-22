@@ -90,6 +90,7 @@ public class GodsSceneController implements ViewGuiController {
     }
 
     private void onPrevGodBtnClick(Event event) {
+
         if (godIndex > 0) {
             godIndex--;
             nextGodBtn.setDisable(false);
@@ -101,6 +102,7 @@ public class GodsSceneController implements ViewGuiController {
     }
 
     private void onNextGodBtnClick(Event event) {
+
         if (godIndex < gods.size() - 1) {
             godIndex++;
             prevGodBtn.setDisable(false);
@@ -133,14 +135,22 @@ public class GodsSceneController implements ViewGuiController {
      * Checks and inverts the current status of the selected and unselected buttons.
      */
     private void checkSelectButtonsStatus() {
-        // TODO fix if selectedGods.size() == numberRequest --> disable select, enable deselect
+
+
+        if (selectedGods.size() != numberRequest && selectGodBtn.isDisable())
+            selectGodBtn.setDisable(false);
+
         if (selectedGods.contains(gods.get(godIndex))) {
             selectGodBtn.setDisable(true);
             deselectGodBtn.setDisable(false);
         } else {
-            selectGodBtn.setDisable(false);
+            if (selectedGods.size() == numberRequest)
+                selectGodBtn.setDisable(true);
+            else
+                selectGodBtn.setDisable(false);
             deselectGodBtn.setDisable(true);
         }
+
     }
 
     /**
