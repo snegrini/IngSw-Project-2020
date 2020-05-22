@@ -98,9 +98,24 @@ public class Gui extends ViewObservable implements View {
 
     }
 
+    /**
+     * Show the board. A new root pane will be set if no board is already on scene, otherwise only the values will be
+     * updated without changing the current root pane.
+     *
+     * @param spaces the board to be shown.
+     */
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
-        BoardSceneController bsc = new BoardSceneController();
+        BoardSceneController bsc;
+
+        try {
+            bsc = (BoardSceneController) SceneController.getActiveController();
+        } catch (ClassCastException e) {
+            bsc = new BoardSceneController();
+            bsc.addAllObservers(observers);
+        }
+
+        // TODO set values to be updated
 
         SceneController.changeRootPane(bsc, "board_scene.fxml");
     }
