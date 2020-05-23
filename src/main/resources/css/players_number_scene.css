@@ -1,10 +1,4 @@
-.nicknameBanner {
-    -fx-background-image: url("../images/cl_bg.png");
-    -fx-background-size: contain;
-    -fx-background-repeat: no-repeat;
-}
-
-.buttonLogin {
+.button {
     -fx-font-family: 'LillyBelle';
     -fx-text-fill: #451616;
     -fx-background-image: url("../images/btnlgin.png");

@@ -1,31 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <bottom>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="confirmBtn" defaultButton="true" mnemonicParsing="false" text="Confirm"/>
-                <Button fx:id="mainMenuBtn" cancelButton="true" mnemonicParsing="false" text="Back To Menu"/>
-            </children>
-        </HBox>
-    </bottom>
-    <center>
-        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="145.0" prefWidth="275.0"
-              spacing="10.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label text="Label"/>
-                <Separator prefHeight="0.0" prefWidth="275.0"/>
-                <Label text="Choose the player number for the match:"/>
-                <RadioButton fx:id="radioBtn1" mnemonicParsing="false" selected="true" text="RadioButton">
-                    <toggleGroup>
-                        <ToggleGroup fx:id="toggleGroup"/>
-                    </toggleGroup>
-                </RadioButton>
-                <RadioButton fx:id="radioBtn2" mnemonicParsing="false" text="RadioButton" toggleGroup="$toggleGroup"/>
-            </children>
-        </VBox>
-    </center>
-</BorderPane>
+<?import java.net.URL?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0"
+           prefWidth="890.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
+           xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Group>
+         <children>
+            <AnchorPane prefHeight="269.0" prefWidth="625.0">
+               <children>
+                  <ImageView fitHeight="504.0" fitWidth="498.0" layoutX="64.0" layoutY="7.0">
+                     <image>
+                        <Image url="@../images/clp_bg2.png"/>
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="100.0" fitWidth="403.0" layoutX="110.0" layoutY="87.0" pickOnBounds="true"
+                             preserveRatio="true">
+                     <image>
+                        <Image url="@../images/blocco.png"/>
+                     </image>
+                  </ImageView>
+                  <RadioButton fx:id="radioBtn1" layoutX="265.0" layoutY="175.0" mnemonicParsing="false"
+                               prefHeight="55.0" prefWidth="169.0" styleClass="customText" text="2 Players">
+                     <font>
+                        <Font size="16.0"/>
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="radioBtn2" layoutX="264.0" layoutY="226.0" mnemonicParsing="false"
+                               styleClass="customText" text="3 Players">
+                     <font>
+                        <Font size="16.0"/>
+                     </font>
+                  </RadioButton>
+                  <Text fill="#451616" layoutX="194.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                        styleClass="customText" text="Choose the number of players" wrappingWidth="233.16278076171875">
+                     <font>
+                        <Font size="17.0"/>
+                     </font>
+                  </Text>
+                  <Button fx:id="mainMenuBtn" layoutX="200.0" layoutY="362.0" mnemonicParsing="false" prefHeight="47.0"
+                          prefWidth="233.0" text="Back To Menu">
+                     <font>
+                        <Font size="14.0"/>
+                     </font>
+                  </Button>
+                  <Button fx:id="confirmBtn" layoutX="200.0" layoutY="287.0" mnemonicParsing="false" prefHeight="47.0"
+                          prefWidth="233.0" text="Confirm">
+                     <font>
+                        <Font size="14.0"/>
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </Group>
+   </children>
+   <stylesheets>
+      <URL value="@../css/global.css"/>
+      <URL value="@../css/players_number_scene.css"/>
+   </stylesheets>
+</StackPane>
