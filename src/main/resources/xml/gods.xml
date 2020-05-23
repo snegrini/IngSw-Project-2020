@@ -149,7 +149,8 @@
                 </requirements>
                 <parameters>
                     <target>YOUR_WORKER</target>
-                    <build again="true" quantity="1"/>
+                    <build again="true" quantity="1" samespace="true" dome="true"/>
+                    <move lock="true">UP</move>
                 </parameters>
             </effect>
         </effects>

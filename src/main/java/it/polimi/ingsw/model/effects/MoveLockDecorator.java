@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.MoveType;
+import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.model.enumerations.XMLName;
 import it.polimi.ingsw.model.player.Worker;
 
@@ -24,7 +25,12 @@ public class MoveLockDecorator extends EffectDecorator {
     @Override
     public void apply(Worker activeWorker, Position position) {
         effect.apply(activeWorker, position);
-        enabled = 2;
+
+        if (getTargetType(XMLName.PARAMETERS) == TargetType.ALL_OPP_WORKERS) {
+            enabled = 2;
+        } else {
+            enabled = 1;
+        }
 
         List<Worker> targetWorkers = Game.getInstance().getWorkersByTargetType(activeWorker, getTargetType(XMLName.PARAMETERS));
         for (Worker w : targetWorkers) {

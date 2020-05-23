@@ -25,5 +25,4 @@ public enum Color {
         return code + text;
     }
 
-
 }

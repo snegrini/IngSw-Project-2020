@@ -147,12 +147,13 @@ public class GodParser {
      */
     private static Effect parseEffectDecorators(Effect effect, Map<String, String> requirements,
                                                 Map<String, String> parameters) {
-        if (parameters.containsKey(BUILD.getText())) {
-            effect = decorateBuild(effect, requirements, parameters);
-        }
 
         if (parameters.containsKey(MOVE.getText())) {
             effect = decorateMove(effect, requirements, parameters);
+        }
+
+        if (parameters.containsKey(BUILD.getText())) {
+            effect = decorateBuild(effect, requirements, parameters);
         }
 
         return effect;
