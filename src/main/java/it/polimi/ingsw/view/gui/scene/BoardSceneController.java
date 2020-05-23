@@ -39,13 +39,11 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         Integer row = GridPane.getRowIndex(clickedNode);
         Integer col = GridPane.getColumnIndex(clickedNode);
 
-        System.out.print("Row: " + row);
-        System.out.println(", Col: " + col);
-
         if (row != null && col != null) {
             if (availablePositionClicks >= 1) {
                 clickedPositionList.add(new Position(row, col));
                 clickedNode.setDisable(true);
+                clickedNode.getStyleClass().add("glassPaneSelected");
                 // TODO add worker to the board, but how can I retrieve the color?
                 //  maybe I can put a generic worker of color grey.
                 availablePositionClicks--;
@@ -53,11 +51,20 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 if (availablePositionClicks == 0) { // Last click done.
                     // Disable all the spaces.
                     disableAllSpaces();
+                    // Remove CSS class from spaces
+                    removeCssClassFromSpaces("glassPaneSelected");
 
                     // Notify views only when all the required positions have been selected.
                     Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateInitWorkerPosition(clickedPositionList)));
                 }
             }
+        }
+    }
+
+    private void removeCssClassFromSpaces(String cssClass) {
+        ObservableList<Node> spaceList = boardGrid.getChildren();
+        for (Node space : spaceList) {
+            space.getStyleClass().remove(cssClass);
         }
     }
 
