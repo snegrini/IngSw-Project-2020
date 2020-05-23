@@ -18,7 +18,7 @@
 }
 
 .spacePane.lvlOne {
-    -fx-background-color: lightblue;
+    -fx-background-color: green;
 }
 
 .spacePane.lvlOne.lvlTwo {
@@ -29,12 +29,26 @@
     -fx-background-color: blue;
 }
 
-.dome {
+.spacePane.dome {
     -fx-background-color: darkblue;
 }
 
-.worker {
+.spacePane.workerBlue {
+    -fx-background-image: url("../images/workers/worker_cicled_blue.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
 
+.spacePane.workerGreen {
+    -fx-background-image: url("../images/workers/worker_cicled_green.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+
+.spacePane.workerRed {
+    -fx-background-image: url("../images/workers/worker_cicled_red.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
 }
 
 .glassPane {
@@ -47,5 +61,6 @@
 }
 
 .glassPane:disabled {
+    -fx-background-color: none;
     -fx-opacity: 1;
 }

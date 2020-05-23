@@ -42,4 +42,9 @@ public class LobbySceneController extends ViewObservable implements GenericScene
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
+
+    public void updateValues() {
+        playersLbl.setText(String.join(", ", this.nicknames));
+        numbersLbl.setText(this.nicknames.size() + "/" + this.maxPlayers);
+    }
 }

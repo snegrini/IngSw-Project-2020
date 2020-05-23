@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.scene.*;
+import javafx.application.Platform;
 
 import java.util.List;
 
@@ -31,8 +32,8 @@ public class Gui extends ViewObservable implements View {
     public void askInitWorkersPositions(List<Position> positions) {
         BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
         bsc.addAllObservers(observers);
-        bsc.setEnabledSpaces(positions);
         bsc.setAvailablePositionClicks(2);
+        Platform.runLater(() -> bsc.setEnabledSpaces(positions));
     }
 
     @Override
@@ -40,7 +41,7 @@ public class Gui extends ViewObservable implements View {
         PlayersNumberSceneController pnsc = new PlayersNumberSceneController();
         pnsc.addAllObservers(observers);
         pnsc.setPlayersRange(2, 3);
-        SceneController.changeRootPane(pnsc, "players_number_scene.fxml");
+        Platform.runLater(() -> SceneController.changeRootPane(pnsc, "players_number_scene.fxml"));
     }
 
     @Override
@@ -48,7 +49,7 @@ public class Gui extends ViewObservable implements View {
         ColorSceneController csc = new ColorSceneController();
         csc.addAllObservers(observers);
         csc.setAvailableColors(colors);
-        SceneController.changeRootPane(csc, "color_scene.fxml");
+        Platform.runLater(() -> SceneController.changeRootPane(csc, "color_scene.fxml"));
     }
 
     @Override
@@ -57,7 +58,7 @@ public class Gui extends ViewObservable implements View {
         gsc.addAllObservers(observers);
         gsc.setGods(gods);
         gsc.setNumberRequest(request);
-        SceneController.changeRootPane(gsc, "gods_scene.fxml");
+        Platform.runLater(() -> SceneController.changeRootPane(gsc, "gods_scene.fxml"));
     }
 
     @Override
@@ -81,10 +82,10 @@ public class Gui extends ViewObservable implements View {
             // TODO show welcome screen and lobby
         } else if (connectionSuccessful) {
             SceneController.showAlert("ERROR", "Nickname already taken.");
-            SceneController.changeRootPane(observers, "login_scene.fxml");
+            Platform.runLater(() -> SceneController.changeRootPane(observers, "login_scene.fxml"));
         } else {
             SceneController.showAlert("ERROR", "Could not contact server.");
-            SceneController.changeRootPane(observers, "menu_scene.fxml");
+            Platform.runLater(() -> SceneController.changeRootPane(observers, "menu_scene.fxml"));
         }
     }
 
@@ -113,21 +114,31 @@ public class Gui extends ViewObservable implements View {
         } catch (ClassCastException e) {
             bsc = new BoardSceneController();
             bsc.addAllObservers(observers);
+            BoardSceneController finalBsc1 = bsc;
+            Platform.runLater(() -> SceneController.changeRootPane(finalBsc1, "board_scene.fxml"));
         }
 
-        // TODO set values to be updated
-
-        SceneController.changeRootPane(bsc, "board_scene.fxml");
+        BoardSceneController finalBsc = bsc;
+        Platform.runLater(() -> finalBsc.updateSpaces(spaces));
     }
 
     @Override
     public void showLobby(List<String> nicknameList, int maxPlayers) {
-        LobbySceneController lsc = new LobbySceneController();
-        lsc.addAllObservers(observers);
-        lsc.setNicknames(nicknameList);
-        lsc.setMaxPlayers(maxPlayers);
+        LobbySceneController lsc;
 
-        SceneController.changeRootPane(lsc, "lobby_scene.fxml");
+        try {
+            lsc = (LobbySceneController) SceneController.getActiveController();
+            lsc.setNicknames(nicknameList);
+            lsc.setMaxPlayers(maxPlayers);
+            Platform.runLater(lsc::updateValues);
+        } catch (ClassCastException e) {
+            lsc = new LobbySceneController();
+            lsc.addAllObservers(observers);
+            lsc.setNicknames(nicknameList);
+            lsc.setMaxPlayers(maxPlayers);
+            LobbySceneController finalLsc = lsc;
+            Platform.runLater(() -> SceneController.changeRootPane(finalLsc, "lobby_scene.fxml"));
+        }
     }
 
     @Override
