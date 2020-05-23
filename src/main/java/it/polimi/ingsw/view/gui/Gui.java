@@ -31,7 +31,6 @@ public class Gui extends ViewObservable implements View {
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
         BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
-        bsc.addAllObservers(observers);
         bsc.setAvailablePositionClicks(2);
         Platform.runLater(() -> bsc.setEnabledSpaces(positions));
     }
@@ -114,8 +113,8 @@ public class Gui extends ViewObservable implements View {
         } catch (ClassCastException e) {
             bsc = new BoardSceneController();
             bsc.addAllObservers(observers);
-            BoardSceneController finalBsc1 = bsc;
-            Platform.runLater(() -> SceneController.changeRootPane(finalBsc1, "board_scene.fxml"));
+            BoardSceneController finalBsc = bsc;
+            Platform.runLater(() -> SceneController.changeRootPane(finalBsc, "board_scene.fxml"));
         }
 
         BoardSceneController finalBsc = bsc;
