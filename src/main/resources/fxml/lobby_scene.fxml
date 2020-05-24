@@ -8,7 +8,7 @@
     <bottom>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="mainMenuBtn" cancelButton="true" mnemonicParsing="false" text="Back to Menu"/>
+                <Button fx:id="backToMenuBtn" cancelButton="true" mnemonicParsing="false" text="Back to Menu"/>
             </children>
         </HBox>
     </bottom>

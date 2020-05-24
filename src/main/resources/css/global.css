@@ -10,7 +10,9 @@
 
 .bigButton {
     -fx-font-family: 'LillyBelle';
+    -fx-font-size: 18;
     -fx-text-fill: #451616;
+    -fx-alignment: top-center;
     -fx-background-image: url("../images/buttons/big_button.png");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
@@ -18,6 +20,8 @@
 
 .bigButton:hover {
     -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-font-size: 16;
+    -fx-alignment: center;
     -fx-cursor: hand;
 }
 
@@ -27,7 +31,9 @@
 
 .smallButton {
     -fx-font-family: 'LillyBelle';
+    -fx-font-size: 16;
     -fx-text-fill: #451616;
+    -fx-alignment: top-center;
     -fx-background-image: url("../images/buttons/small_button.png");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
@@ -36,6 +42,8 @@
 
 .smallButton:hover {
     -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-font-size: 14;
+    -fx-alignment: center;
     -fx-cursor: hand;
 }
 
@@ -43,9 +51,23 @@
     -fx-focus-color: transparent;
 }
 
+.radioButton {
+    -fx-font-size: 16;
+}
+
+.radioButton:selected {
+    -fx-font-size: 16;
+}
+
 .menuBanner {
-    -fx-background-image: url("../images/ps_backing_stone.png");
+    -fx-background-image: url("../images/banners/menu_banner.png");
     -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+}
+
+.menuBannerAlt {
+    -fx-background-image: url("../images/banners/menu_banner_alt.png");
+    -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
 }
 
@@ -54,6 +76,7 @@
     -fx-background-size: stretch;
     -fx-position: relative;
 }
+
 
 .blueGlow:hover {
     -fx-effect: dropshadow(gaussian, #3333ff, 20, 0.3, 0, 0);

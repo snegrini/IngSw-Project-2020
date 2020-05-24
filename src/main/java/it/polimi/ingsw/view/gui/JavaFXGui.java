@@ -28,6 +28,7 @@ public class JavaFXGui extends Application {
             rootLayout = loader.load();
         } catch (IOException e) {
             SceneController.LOGGER.severe(e.getMessage());
+            System.exit(1);
         }
         MenuSceneController controller = loader.getController();
         controller.addObserver(clientController);
@@ -37,7 +38,7 @@ public class JavaFXGui extends Application {
         stage.setScene(scene);
         stage.setWidth(1300d);
         stage.setHeight(760d);
-        stage.setResizable(false);
+        //stage.setResizable(false);
         //stage.setMaximized(true);
         //stage.setFullScreen(true);
         stage.setFullScreenExitHint("");

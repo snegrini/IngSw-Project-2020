@@ -20,17 +20,17 @@ public class LobbySceneController extends ViewObservable implements GenericScene
     @FXML
     private Label numbersLbl;
     @FXML
-    private Button mainMenuBtn;
+    private Button backToMenuBtn;
 
     @FXML
     public void initialize() {
         playersLbl.setText(String.join(", ", nicknames));
         numbersLbl.setText(nicknames.size() + "/" + maxPlayers);
 
-        mainMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onMainMenuBtnClick(event));
+        backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);
     }
 
-    private void onMainMenuBtnClick(Event event) {
+    private void onBackToMenuBtnClick(Event event) {
         // TODO disconnect
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }

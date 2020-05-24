@@ -15,7 +15,7 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
     @FXML
     private Button confirmBtn;
     @FXML
-    private Button mainMenuBtn;
+    private Button backToMenuBtn;
 
     @FXML
     private RadioButton radioBtn1;
@@ -37,8 +37,8 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
         radioBtn1.setText(minPlayers + " players");
         radioBtn2.setText(maxPlayers + " players");
 
-        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onConfirmBtnClick(event));
-        mainMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onMainMenuBtnClick(event));
+        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConfirmBtnClick);
+        backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);
     }
 
     private void onConfirmBtnClick(Event event) {
@@ -48,7 +48,7 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePlayersNumber(playersNumber)));
     }
 
-    private void onMainMenuBtnClick(Event event) {
+    private void onBackToMenuBtnClick(Event event) {
         // TODO disconnect
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }

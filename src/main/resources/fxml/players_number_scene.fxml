@@ -7,28 +7,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.*?>
+<?import java.lang.String?>
 <?import java.net.URL?>
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0"
-           prefWidth="890.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0"
+           prefWidth="1300.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Group>
+      <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5">
          <children>
-            <AnchorPane prefHeight="269.0" prefWidth="625.0">
+            <AnchorPane layoutX="57.0" layoutY="62.0" prefHeight="452.0" prefWidth="453.0" styleClass="menuBannerAlt">
                <children>
-                  <ImageView fitHeight="504.0" fitWidth="498.0" layoutX="64.0" layoutY="7.0">
-                     <image>
-                        <Image url="@../images/clp_bg2.png"/>
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="100.0" fitWidth="403.0" layoutX="110.0" layoutY="87.0" pickOnBounds="true"
-                             preserveRatio="true">
-                     <image>
-                        <Image url="@../images/blocco.png"/>
-                     </image>
-                  </ImageView>
-                  <RadioButton fx:id="radioBtn1" layoutX="265.0" layoutY="175.0" mnemonicParsing="false"
-                               prefHeight="55.0" prefWidth="169.0" selected="true" styleClass="customText"
+                  <RadioButton fx:id="radioBtn1" layoutX="174.0" layoutY="155.0" mnemonicParsing="false" selected="true"
                                text="2 Players">
                      <font>
                         <Font size="16.0"/>
@@ -36,31 +25,45 @@
                      <toggleGroup>
                         <ToggleGroup fx:id="toggleGroup"/>
                      </toggleGroup>
+                     <styleClass>
+                        <String fx:value="customText"/>
+                        <String fx:value="radioButton"/>
+                     </styleClass>
                   </RadioButton>
-                  <RadioButton fx:id="radioBtn2" layoutX="264.0" layoutY="226.0" mnemonicParsing="false"
-                               styleClass="customText" text="3 Players" toggleGroup="$toggleGroup">
+                  <RadioButton fx:id="radioBtn2" layoutX="176.0" layoutY="193.0" mnemonicParsing="false"
+                               text="3 Players" toggleGroup="$toggleGroup">
                      <font>
                         <Font size="16.0"/>
                      </font>
+                     <styleClass>
+                        <String fx:value="customText"/>
+                        <String fx:value="radioButton"/>
+                     </styleClass>
                   </RadioButton>
-                  <Text fill="#451616" layoutX="194.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                        styleClass="customText" text="Choose the number of players" wrappingWidth="233.16278076171875">
-                     <font>
-                        <Font size="17.0"/>
-                     </font>
-                  </Text>
-                  <Button fx:id="mainMenuBtn" layoutX="200.0" layoutY="362.0" mnemonicParsing="false" prefHeight="47.0"
-                          prefWidth="233.0" styleClass="smallButton" text="Back To Menu">
+                  <Button fx:id="backToMenuBtn" layoutX="110.0" layoutY="320.0" mnemonicParsing="false"
+                          prefHeight="52.0" prefWidth="233.0" styleClass="smallButton" text="Back To Menu">
                      <font>
                         <Font size="14.0"/>
                      </font>
                   </Button>
-                  <Button fx:id="confirmBtn" layoutX="200.0" layoutY="287.0" mnemonicParsing="false" prefHeight="47.0"
+                  <Button fx:id="confirmBtn" layoutX="110.0" layoutY="240.0" mnemonicParsing="false" prefHeight="52.0"
                           prefWidth="233.0" styleClass="smallButton" text="Confirm">
                      <font>
                         <Font size="14.0"/>
                      </font>
                   </Button>
+                  <ImageView fitHeight="58.0" fitWidth="333.0" layoutX="56.0" layoutY="69.0" pickOnBounds="true"
+                             preserveRatio="true">
+                     <image>
+                        <Image url="@../images/blocco.png"/>
+                     </image>
+                  </ImageView>
+                  <Text fill="#451616" layoutX="109.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                        styleClass="customText" text="Choose the number of players" wrappingWidth="233.16278076171875">
+                     <font>
+                        <Font size="17.0"/>
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
          </children>

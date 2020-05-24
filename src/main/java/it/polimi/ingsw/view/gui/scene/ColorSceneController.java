@@ -24,7 +24,7 @@ public class ColorSceneController extends ViewObservable implements GenericScene
     @FXML
     private ImageView redWorker;
     @FXML
-    private Button mainMenuBtn;
+    private Button backToMenuBtn;
 
     public ColorSceneController() {
         this.availableColors = new ArrayList<>();
@@ -40,14 +40,15 @@ public class ColorSceneController extends ViewObservable implements GenericScene
         greenWorker.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onWorkerClick(Color.GREEN));
         redWorker.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onWorkerClick(Color.RED));
 
-        mainMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onBackBtnClick(event));
+        backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);
     }
 
     private void onWorkerClick(Color color) {
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateWorkersColor(color)));
     }
 
-    private void onBackBtnClick(Event event) {
+    private void onBackToMenuBtnClick(Event event) {
+        // TODO disconnect
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 
