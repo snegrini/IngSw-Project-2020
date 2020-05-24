@@ -42,7 +42,7 @@
                      </font>
                   </Text>
                   <TextField fx:id="nicknameField" alignment="CENTER" layoutX="84.0" layoutY="167.0" prefHeight="51.0"
-                             prefWidth="285.0" promptText="Mario Rossi" styleClass="customText">
+                             prefWidth="285.0" promptText="Anonymous Wombat" styleClass="customText">
                      <font>
                         <Font size="16.0"/>
                      </font>

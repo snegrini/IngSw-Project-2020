@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.player.ReducedWorker;
+import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.ViewObservable;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     private int availablePositionClicks;
     private List<Position> clickedPositionList;
+    private MessageType spaceClickType;
 
     @FXML
     private GridPane boardGrid;
@@ -27,11 +29,12 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     public BoardSceneController() {
         availablePositionClicks = 0;
         clickedPositionList = new ArrayList<>();
+        spaceClickType = MessageType.INIT_WORKERSPOSITIONS;
     }
 
     @FXML
     public void initialize() {
-        boardGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onSpaceClick(event));
+        boardGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSpaceClick);
     }
 
     private void onSpaceClick(MouseEvent event) {
@@ -39,26 +42,54 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         Integer row = GridPane.getRowIndex(clickedNode);
         Integer col = GridPane.getColumnIndex(clickedNode);
 
-        if (row != null && col != null) {
-            if (availablePositionClicks >= 1) {
-                clickedPositionList.add(new Position(row, col));
-                clickedNode.setDisable(true);
-                clickedNode.getStyleClass().add("glassPaneSelected");
-                // TODO add worker to the board, but how can I retrieve the color?
-                //  maybe I can put a generic worker of color grey.
-                availablePositionClicks--;
-
-                if (availablePositionClicks == 0) { // Last click done.
-                    // Disable all the spaces.
-                    disableAllSpaces();
-                    // Remove CSS class from spaces
-                    removeCssClassFromSpaces("glassPaneSelected");
-
-                    // Notify views only when all the required positions have been selected.
-                    Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateInitWorkerPosition(clickedPositionList)));
-                }
-            }
+        if (row != null && col != null && availablePositionClicks >= 1) {
+            availablePositionClicks--;
+            handleSpaceClickType(clickedNode, row, col);
         }
+    }
+
+    private void handleSpaceClickType(Node clickedNode, int row, int col) {
+        switch (spaceClickType) {
+            case INIT_WORKERSPOSITIONS:
+                handleInitWorkers(clickedNode, row, col);
+                break;
+            case PICK_MOVING_WORKER:
+                handlePickMovingWorker(clickedNode, row, col);
+                break;
+            case MOVE:
+                break;
+            case BUILD:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void handleInitWorkers(Node clickedNode, int row, int col) {
+        clickedPositionList.add(new Position(row, col));
+        clickedNode.setDisable(true);
+        clickedNode.getStyleClass().add("glassPaneSelected");
+
+        if (availablePositionClicks == 0) { // Last click done.
+            // Disable all the spaces.
+            disableAllSpaces();
+            // Remove CSS class from spaces
+            removeCssClassFromSpaces("glassPaneSelected");
+
+            // Notify views only when all the required positions have been selected.
+            Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateInitWorkerPosition(clickedPositionList)));
+        }
+    }
+
+    private void handlePickMovingWorker(Node clickedNode, int row, int col) {
+        Position clickedPosition = new Position(row, col);
+        clickedNode.setDisable(true);
+        clickedNode.getStyleClass().add("glassPaneSelected");
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePickMovingWorker(clickedPosition)));
+    }
+
+    public void setSpaceClickType(MessageType spaceClickType) {
+        this.spaceClickType = spaceClickType;
     }
 
     private void removeCssClassFromSpaces(String cssClass) {
@@ -72,6 +103,11 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         this.availablePositionClicks = availablePositionClicks;
     }
 
+    /**
+     * Updates the spaces on the board with the latest info received from the server.
+     *
+     * @param reducedSpaces every spaces of the board.
+     */
     public void updateSpaces(ReducedSpace[][] reducedSpaces) {
         ObservableList<Node> spaceList = boardGrid.getChildren();
         for (Node space : spaceList) {
@@ -87,16 +123,24 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         }
     }
 
+    /**
+     * Enables the spaces on the board. All the others spaces will be disabled.
+     *
+     * @param positionList the list of spaces to enable.
+     */
     public void setEnabledSpaces(List<Position> positionList) {
         ObservableList<Node> spaceList = boardGrid.getChildren();
         for (Node space : spaceList) {
             Position tempPos = new Position(GridPane.getRowIndex(space), GridPane.getColumnIndex(space));
-            if (positionList.contains(tempPos)) {
-                space.setDisable(false);
-            }
+            space.setDisable(!positionList.contains(tempPos)); // Enabled if in list.
         }
     }
 
+    /**
+     * Disables the spaces on the board. The others spaces will not be affected.
+     *
+     * @param positionList the list of spaces to disable.
+     */
     public void setDisabledSpaces(List<Position> positionList) {
         ObservableList<Node> spaceList = boardGrid.getChildren();
         for (Node space : spaceList) {
@@ -107,7 +151,10 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         }
     }
 
-    public void disableAllSpaces() {
+    /**
+     * Disables all the spaces on the board.
+     */
+    private void disableAllSpaces() {
         ObservableList<Node> spaceList = boardGrid.getChildren();
         for (Node space : spaceList) {
             space.setDisable(true);

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
+import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.scene.*;
@@ -20,7 +21,10 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askMovingWorker(List<Position> positionList) {
-
+        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        bsc.setAvailablePositionClicks(1);
+        bsc.setSpaceClickType(MessageType.PICK_MOVING_WORKER);
+        Platform.runLater(() -> bsc.setEnabledSpaces(positionList));
     }
 
     @Override
@@ -32,6 +36,7 @@ public class Gui extends ViewObservable implements View {
     public void askInitWorkersPositions(List<Position> positions) {
         BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
         bsc.setAvailablePositionClicks(2);
+        bsc.setSpaceClickType(MessageType.INIT_WORKERSPOSITIONS);
         Platform.runLater(() -> bsc.setEnabledSpaces(positions));
     }
 
