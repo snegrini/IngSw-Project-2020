@@ -7,6 +7,16 @@
     -fx-background-image: url("../images/playbutton2.png");
 }
 
+.playBtn:hover {
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
+
 .quitBtn {
     -fx-background-image: url("../images/Exitbutton2.png");
+}
+
+.quitBtn:hover {
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
 }

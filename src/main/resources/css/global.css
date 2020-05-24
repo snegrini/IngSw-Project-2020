@@ -8,12 +8,39 @@
     -fx-text-fill: #451616;
 }
 
-.customButton {
+.bigButton {
     -fx-font-family: 'LillyBelle';
     -fx-text-fill: #451616;
-    -fx-background-image: url("../images/g26341.png");
-    -fx-background-size: auto;
+    -fx-background-image: url("../images/buttons/big_button.png");
+    -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
+}
+
+.bigButton:hover {
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
+
+.bigButton:pressed {
+    -fx-focus-color: transparent;
+}
+
+.smallButton {
+    -fx-font-family: 'LillyBelle';
+    -fx-text-fill: #451616;
+    -fx-background-image: url("../images/buttons/small_button.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-cursor: hand;
+}
+
+.smallButton:hover {
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-cursor: hand;
+}
+
+.smallButton:pressed {
+    -fx-focus-color: transparent;
 }
 
 .menuBanner {

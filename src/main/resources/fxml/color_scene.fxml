@@ -19,7 +19,7 @@
                         <Label layoutX="144.0" layoutY="5.0" text="CHOOSE A COLOR"/>
                         <Separator layoutX="55.0" layoutY="33.0" prefHeight="0.0" prefWidth="275.0"/>
                         <Button fx:id="mainMenuBtn" layoutX="134.0" layoutY="265.0" mnemonicParsing="false"
-                                styleClass="customButton" text="Back To Menu"/>
+                                styleClass="bigButton" text="Back To Menu"/>
                         <HBox alignment="CENTER" layoutX="5.0" layoutY="68.0" prefHeight="123.0" prefWidth="388.0"
                               spacing="5.0">
                             <children>
