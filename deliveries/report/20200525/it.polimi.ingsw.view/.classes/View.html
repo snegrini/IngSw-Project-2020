@@ -1,0 +1,148 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: View</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.view</a> ]
+</div>
+
+<h1>Coverage Summary for Class: View (it.polimi.ingsw.view)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">View</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.ReducedGod;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.board.ReducedSpace;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * Defines a generic view to be implemented by each view type (e.g. CLI, GUI in JavaFX, ...).
+<i>12</i>&nbsp; */
+<i>13</i>&nbsp;public interface View {
+<i>14</i>&nbsp;    /**
+<i>15</i>&nbsp;     * Asks to the user to choose a Nickname.
+<i>16</i>&nbsp;     */
+<i>17</i>&nbsp;    void askNickname();
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    void askMovingWorker(List&lt;Position&gt; positionList);
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    void askMove(List&lt;Position&gt; positionList);
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    void askInitWorkersPositions(List&lt;Position&gt; positions);
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    void askPlayersNumber();
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Allows the user to choose his workers&#39; color.
+<i>29</i>&nbsp;     *
+<i>30</i>&nbsp;     * @param colors the list of the available colors.
+<i>31</i>&nbsp;     */
+<i>32</i>&nbsp;    void askInitWorkerColor(List&lt;Color&gt; colors);
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * Allows the user to choose his God.
+<i>36</i>&nbsp;     *
+<i>37</i>&nbsp;     * @param gods    the list of the available Gods.
+<i>38</i>&nbsp;     * @param request the number of gods to be selected by the user.
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    void askGod(List&lt;ReducedGod&gt; gods, int request);
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * Asks to the user to choose a new position where to build.
+<i>44</i>&nbsp;     *
+<i>45</i>&nbsp;     * @param positions the list of the available positions.
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    void askBuild(List&lt;Position&gt; positions);
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * Asks to the user to choose a new position where to move the worker.
+<i>51</i>&nbsp;     * This method is called only when a effect is applied.
+<i>52</i>&nbsp;     *
+<i>53</i>&nbsp;     * @param positions the list of the available positions.
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    void askMoveFx(List&lt;Position&gt; positions);
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Asks to the user to choose a new position where to build.
+<i>59</i>&nbsp;     * This method is called only when a effect is applied.
+<i>60</i>&nbsp;     *
+<i>61</i>&nbsp;     * @param positions the list of the available positions.
+<i>62</i>&nbsp;     */
+<i>63</i>&nbsp;    void askBuildFx(List&lt;Position&gt; positions);
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    /**
+<i>66</i>&nbsp;     * Shows to the user if the Login succeeded.
+<i>67</i>&nbsp;     *
+<i>68</i>&nbsp;     * @param nicknameAccepted     indicates if the chosen nickname has been accepted.
+<i>69</i>&nbsp;     * @param connectionSuccessful indicates if the connection has been successful.
+<i>70</i>&nbsp;     * @param nickname             the nickname of the player to be greeted.
+<i>71</i>&nbsp;     */
+<i>72</i>&nbsp;    void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname);
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    /**
+<i>75</i>&nbsp;     * Shows a generic message.
+<i>76</i>&nbsp;     *
+<i>77</i>&nbsp;     * @param genericMessage the generic message to be shown.
+<i>78</i>&nbsp;     */
+<i>79</i>&nbsp;    void showGenericMessage(String genericMessage);
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    /**
+<i>82</i>&nbsp;     * Shows an error message.
+<i>83</i>&nbsp;     *
+<i>84</i>&nbsp;     * @param error the error message to be shown.
+<i>85</i>&nbsp;     */
+<i>86</i>&nbsp;    void showErrorAndExit(String error);
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    /**
+<i>89</i>&nbsp;     * Shows the board on the screen.
+<i>90</i>&nbsp;     *
+<i>91</i>&nbsp;     * @param spaces the board to be shown.
+<i>92</i>&nbsp;     */
+<i>93</i>&nbsp;    void showBoard(ReducedSpace[][] spaces);
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;    void showLobby(List&lt;String&gt; nicknameList, int numPlayers);
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    /**
+<i>98</i>&nbsp;     * Asks the user if he wants to enable the effect.
+<i>99</i>&nbsp;     */
+<i>100</i>&nbsp;    void askEnableEffect();
+<i>101</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-25 22:56</div>
+</div>
+</body>
+</html>
