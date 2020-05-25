@@ -12,8 +12,12 @@
     -fx-background-position: center;
 }
 
+.grayed {
+    -fx-background-color: #939bb6;
+    -fx-opacity: 0.4;
+}
+
 .spacePane {
-    /*-fx-background-color: mediumblue;*/
     -fx-opacity: inherit;
 }
 
@@ -37,18 +41,21 @@
     -fx-background-image: url("../images/workers/worker_cicled_blue.png");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
+    -fx-opacity: 1;
 }
 
 .spacePane.workerGreen {
     -fx-background-image: url("../images/workers/worker_cicled_green.png");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
+    -fx-opacity: 1;
 }
 
 .spacePane.workerRed {
     -fx-background-image: url("../images/workers/worker_cicled_red.png");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
+    -fx-opacity: 1;
 }
 
 .glassPane {
@@ -60,6 +67,11 @@
     -fx-effect: dropshadow(gaussian, #a5f1f6, 50, 0.8, 0, 0);
 }
 
+.glassPane:selected {
+    -fx-background-color: #a5f1f6;
+    -fx-opacity: 1;
+}
+
 .glassPane:disabled {
     -fx-background-color: none;
     -fx-opacity: 1;
@@ -68,4 +80,16 @@
 .glassPane.glassPaneSelected {
     -fx-background-color: #a5f1f6;
     -fx-opacity: 1;
+}
+
+.effectImage {
+    -fx-image: url("../images/buttons/heropower_active.png");
+}
+
+.effectImage:disabled {
+    -fx-image: url("../images/buttons/heropower_inactive.png");
+}
+
+.effectImage:hover {
+    -fx-effect: dropshadow(gaussian, #ae74de, 50, 0.3, 0, 0);
 }
