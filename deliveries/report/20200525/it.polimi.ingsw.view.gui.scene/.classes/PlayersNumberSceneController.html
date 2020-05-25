@@ -1,0 +1,149 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PlayersNumberSceneController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PlayersNumberSceneController (it.polimi.ingsw.view.gui.scene)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PlayersNumberSceneController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.observer.ViewObservable;
+<i>4</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
+<i>5</i>&nbsp;import javafx.application.Platform;
+<i>6</i>&nbsp;import javafx.event.Event;
+<i>7</i>&nbsp;import javafx.fxml.FXML;
+<i>8</i>&nbsp;import javafx.scene.control.Button;
+<i>9</i>&nbsp;import javafx.scene.control.RadioButton;
+<i>10</i>&nbsp;import javafx.scene.control.ToggleGroup;
+<i>11</i>&nbsp;import javafx.scene.input.MouseEvent;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;public class PlayersNumberSceneController extends ViewObservable implements GenericSceneController {
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    @FXML
+<i>16</i>&nbsp;    private Button confirmBtn;
+<i>17</i>&nbsp;    @FXML
+<i>18</i>&nbsp;    private Button backToMenuBtn;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @FXML
+<i>21</i>&nbsp;    private RadioButton radioBtn1;
+<i>22</i>&nbsp;    @FXML
+<i>23</i>&nbsp;    private RadioButton radioBtn2;
+<i>24</i>&nbsp;    @FXML
+<i>25</i>&nbsp;    private ToggleGroup toggleGroup;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    private int minPlayers;
+<i>28</i>&nbsp;    private int maxPlayers;
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;    public PlayersNumberSceneController() {</b>
+<b class="nc"><i>31</i>&nbsp;        minPlayers = 0;</b>
+<b class="nc"><i>32</i>&nbsp;        maxPlayers = 0;</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @FXML
+<i>36</i>&nbsp;    public void initialize() {
+<b class="nc"><i>37</i>&nbsp;        radioBtn1.setText(minPlayers + &quot; players&quot;);</b>
+<b class="nc"><i>38</i>&nbsp;        radioBtn2.setText(maxPlayers + &quot; players&quot;);</b>
+<i>39</i>&nbsp;
+<b class="nc"><i>40</i>&nbsp;        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConfirmBtnClick);</b>
+<b class="nc"><i>41</i>&nbsp;        backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);</b>
+<i>42</i>&nbsp;    }
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    private void onConfirmBtnClick(Event event) {
+<b class="nc"><i>45</i>&nbsp;        RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();</b>
+<b class="nc"><i>46</i>&nbsp;        int playersNumber = Character.getNumericValue(selectedRadioButton.getText().charAt(0));</b>
+<i>47</i>&nbsp;
+<b class="nc"><i>48</i>&nbsp;        Platform.runLater(() -&gt; notifyObserver(obs -&gt; obs.onUpdatePlayersNumber(playersNumber)));</b>
+<i>49</i>&nbsp;    }
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    private void onBackToMenuBtnClick(Event event) {
+<i>52</i>&nbsp;        // TODO disconnect
+<b class="nc"><i>53</i>&nbsp;        SceneController.changeRootPane(observers, event, &quot;menu_scene.fxml&quot;);</b>
+<i>54</i>&nbsp;    }
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    /**
+<i>57</i>&nbsp;     * Initialises the values for the radioButtons.
+<i>58</i>&nbsp;     *
+<i>59</i>&nbsp;     * @param minPlayers the minimum number of players.
+<i>60</i>&nbsp;     * @param maxPlayers the maximum number of players.
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    public void setPlayersRange(int minPlayers, int maxPlayers) {
+<b class="nc"><i>63</i>&nbsp;        this.minPlayers = minPlayers;</b>
+<b class="nc"><i>64</i>&nbsp;        this.maxPlayers = maxPlayers;</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-25 22:56</div>
+</div>
+</body>
+</html>

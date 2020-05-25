@@ -17,6 +17,7 @@ import java.util.Map;
 public class ClientController implements ViewObserver, Observer {
 
     private View view;
+
     private Client client;
     private String nickname;
 
