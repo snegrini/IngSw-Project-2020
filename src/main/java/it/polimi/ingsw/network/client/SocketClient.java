@@ -1,8 +1,6 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.network.message.ErrorMessage;
-import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.network.message.PingMessage;
+import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.view.gui.SceneController;
 
 import java.io.IOException;
@@ -42,6 +40,11 @@ public class SocketClient extends Client {
                 try {
                     message = (Message) inputStm.readObject();
                     SceneController.LOGGER.info("RECEIVED: " + message.getMessageType());
+
+                    if (message.getMessageType() == MessageType.GENERIC_MESSAGE) {
+                        GenericMessage gm = (GenericMessage) message;
+                        SceneController.LOGGER.info("Generic message: " + gm.getMessage());
+                    }
                 } catch (IOException | ClassNotFoundException e) {
                     message = new ErrorMessage(null, "connection lost with the server.");
                     readExecutionQueue.shutdownNow();

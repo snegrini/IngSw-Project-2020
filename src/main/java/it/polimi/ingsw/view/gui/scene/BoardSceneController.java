@@ -10,6 +10,8 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -25,6 +27,10 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     @FXML
     private GridPane boardGrid;
+    @FXML
+    private ImageView effectImage;
+    @FXML
+    private Button skipEffectBtn;
 
     public BoardSceneController() {
         availablePositionClicks = 0;
@@ -35,6 +41,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     @FXML
     public void initialize() {
         boardGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSpaceClick);
+        effectImage.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onEffectImageClick);
+        skipEffectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSkipEffectBtnClick);
     }
 
     private void onSpaceClick(MouseEvent event) {
@@ -44,55 +52,82 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
         if (row != null && col != null && availablePositionClicks >= 1) {
             availablePositionClicks--;
-            handleSpaceClickType(clickedNode, row, col);
+            Position clickedPosition = new Position(row, col);
+            handleSpaceClickType(clickedNode, clickedPosition);
         }
     }
 
-    private void handleSpaceClickType(Node clickedNode, int row, int col) {
+    private void onEffectImageClick(MouseEvent event) {
+        enableEffectControls(false);
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(true)));
+    }
+
+    private void onSkipEffectBtnClick(MouseEvent event) {
+        enableEffectControls(false);
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(false)));
+    }
+
+    private void handleSpaceClickType(Node clickedNode, Position clickedPosition) {
         switch (spaceClickType) {
             case INIT_WORKERSPOSITIONS:
-                handleInitWorkers(clickedNode, row, col);
+                handleInitWorkers(clickedNode, clickedPosition);
                 break;
             case PICK_MOVING_WORKER:
-                handlePickMovingWorker(clickedNode, row, col);
+                handlePickMovingWorker(clickedNode, clickedPosition);
                 break;
             case MOVE:
+                handleMove(clickedNode, clickedPosition);
                 break;
             case BUILD:
+                handleBuild(clickedNode, clickedPosition);
                 break;
             default:
                 break;
         }
     }
 
-    private void handleInitWorkers(Node clickedNode, int row, int col) {
-        clickedPositionList.add(new Position(row, col));
+    private void handleInitWorkers(Node clickedNode, Position clickedPosition) {
+        clickedPositionList.add(clickedPosition);
         clickedNode.setDisable(true);
         clickedNode.getStyleClass().add("glassPaneSelected");
 
         if (availablePositionClicks == 0) { // Last click done.
             // Disable all the spaces.
             disableAllSpaces();
-            // Remove CSS class from spaces
-            removeCssClassFromSpaces("glassPaneSelected");
+            removeCssClassFromAllSpaces("glassPaneSelected");
 
             // Notify views only when all the required positions have been selected.
             Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateInitWorkerPosition(clickedPositionList)));
         }
     }
 
-    private void handlePickMovingWorker(Node clickedNode, int row, int col) {
-        Position clickedPosition = new Position(row, col);
+    private void handlePickMovingWorker(Node clickedNode, Position clickedPosition) {
         clickedNode.setDisable(true);
         clickedNode.getStyleClass().add("glassPaneSelected");
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePickMovingWorker(clickedPosition)));
+    }
+
+    private void handleMove(Node clickedNode, Position clickedPosition) {
+        disableAllSpaces();
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateMove(clickedPosition)));
+    }
+
+    private void handleBuild(Node clickedNode, Position clickedPosition) {
+        disableAllSpaces();
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateBuild(clickedPosition)));
+    }
+
+    private void handleMoveFx(Node clickedNode, Position clickedPosition) {
+    }
+
+    private void handleBuildFx(Node clickedNode, Position clickedPosition) {
     }
 
     public void setSpaceClickType(MessageType spaceClickType) {
         this.spaceClickType = spaceClickType;
     }
 
-    private void removeCssClassFromSpaces(String cssClass) {
+    private void removeCssClassFromAllSpaces(String cssClass) {
         ObservableList<Node> spaceList = boardGrid.getChildren();
         for (Node space : spaceList) {
             space.getStyleClass().remove(cssClass);
@@ -117,6 +152,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 Node styledSpace = ((StackPane) space).getChildren().get(0);
                 ReducedSpace redSp = reducedSpaces[tempPos.getRow()][tempPos.getColumn()];
 
+                // NOTE: always call first setGridSpaceLevel, because it clears all the other styles.
                 setGridSpaceLevel(styledSpace, redSp.getLevel(), redSp.hasDome());
                 setGridSpaceWorker(styledSpace, redSp.getReducedWorker());
             }
@@ -129,6 +165,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      * @param positionList the list of spaces to enable.
      */
     public void setEnabledSpaces(List<Position> positionList) {
+        //boardGrid.getStyleClass().add("grayed");
         ObservableList<Node> spaceList = boardGrid.getChildren();
         for (Node space : spaceList) {
             Position tempPos = new Position(GridPane.getRowIndex(space), GridPane.getColumnIndex(space));
@@ -169,14 +206,26 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      * @param dome      a boolean value to identify the dome on the space.
      */
     private void setGridSpaceLevel(Node gridSpace, int level, boolean dome) {
+        //gridSpace.getStyleClass().clear();
+
         switch (level) {
             case 0:
+                // no buildings over it.
                 break;
             case 1:
                 gridSpace.getStyleClass().add("lvlOne");
                 break;
+            case 2:
+                gridSpace.getStyleClass().add("lvlTwo");
+                break;
+            case 3:
+                gridSpace.getStyleClass().add("lvlThree");
             default:
                 break;
+        }
+
+        if (dome) {
+            gridSpace.getStyleClass().add("dome");
         }
     }
 
@@ -188,6 +237,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      */
     private void setGridSpaceWorker(Node gridSpace, ReducedWorker reducedWorker) {
         if (reducedWorker == null) {
+            gridSpace.getStyleClass().removeIf(s -> s.startsWith("worker"));
             return;
         }
 
@@ -206,5 +256,15 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private boolean isGridPositionOnBoard(Position position) {
         return position.getRow() >= 0 && position.getRow() < Board.MAX_ROWS
                 && position.getColumn() >= 0 && position.getColumn() < Board.MAX_COLUMNS;
+    }
+
+    /**
+     * Enables or disables the effect controls.
+     *
+     * @param enable set to {@code true} to enable the controls, {@code false} to disable.
+     */
+    public void enableEffectControls(boolean enable) {
+        effectImage.setDisable(!enable);
+        skipEffectBtn.setDisable(!enable);
     }
 }

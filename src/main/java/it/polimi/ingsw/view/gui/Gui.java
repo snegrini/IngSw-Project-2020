@@ -20,27 +20,6 @@ public class Gui extends ViewObservable implements View {
     }
 
     @Override
-    public void askMovingWorker(List<Position> positionList) {
-        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
-        bsc.setAvailablePositionClicks(1);
-        bsc.setSpaceClickType(MessageType.PICK_MOVING_WORKER);
-        Platform.runLater(() -> bsc.setEnabledSpaces(positionList));
-    }
-
-    @Override
-    public void askMove(List<Position> positionList) {
-
-    }
-
-    @Override
-    public void askInitWorkersPositions(List<Position> positions) {
-        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
-        bsc.setAvailablePositionClicks(2);
-        bsc.setSpaceClickType(MessageType.INIT_WORKERSPOSITIONS);
-        Platform.runLater(() -> bsc.setEnabledSpaces(positions));
-    }
-
-    @Override
     public void askPlayersNumber() {
         PlayersNumberSceneController pnsc = new PlayersNumberSceneController();
         pnsc.addAllObservers(observers);
@@ -66,8 +45,35 @@ public class Gui extends ViewObservable implements View {
     }
 
     @Override
-    public void askBuild(List<Position> positions) {
+    public void askInitWorkersPositions(List<Position> positions) {
+        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        bsc.setAvailablePositionClicks(2);
+        bsc.setSpaceClickType(MessageType.INIT_WORKERSPOSITIONS);
+        Platform.runLater(() -> bsc.setEnabledSpaces(positions));
+    }
 
+    @Override
+    public void askMovingWorker(List<Position> positions) {
+        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        bsc.setAvailablePositionClicks(1);
+        bsc.setSpaceClickType(MessageType.PICK_MOVING_WORKER);
+        Platform.runLater(() -> bsc.setEnabledSpaces(positions));
+    }
+
+    @Override
+    public void askMove(List<Position> positions) {
+        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        bsc.setAvailablePositionClicks(1);
+        bsc.setSpaceClickType(MessageType.MOVE);
+        Platform.runLater(() -> bsc.setEnabledSpaces(positions));
+    }
+
+    @Override
+    public void askBuild(List<Position> positions) {
+        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        bsc.setAvailablePositionClicks(1);
+        bsc.setSpaceClickType(MessageType.BUILD);
+        Platform.runLater(() -> bsc.setEnabledSpaces(positions));
     }
 
     @Override
@@ -147,6 +153,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askEnableEffect() {
-
+        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        Platform.runLater(() -> bsc.enableEffectControls(true));
     }
 }
