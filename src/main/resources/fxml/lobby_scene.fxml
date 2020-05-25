@@ -1,32 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" stylesheets="@../css/global.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1">
-    <bottom>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+<?import java.net.URL?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+           prefWidth="740.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
+           xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Group>
             <children>
-                <Button fx:id="backToMenuBtn" cancelButton="true" mnemonicParsing="false" text="Back to Menu"/>
+                <AnchorPane prefHeight="214.0" prefWidth="230.0"/>
+                <ImageView fitHeight="644.0" fitWidth="866.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/endgame_victorywin.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="75.0" fitWidth="363.0" layoutX="120.0" layoutY="254.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../images/blocco.png"/>
+                    </image>
+                </ImageView>
+                <Text fill="#451616" layoutX="259.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      styleClass="customText" text="Lobby" textAlignment="CENTER" wrappingWidth="83.99992370605469">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Text>
+                <Text fill="#451616" layoutX="148.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      styleClass="customText" text="Players connected: " wrappingWidth="143.47003173828125">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Text>
+                <Label fx:id="playersLbl" layoutX="301.0" layoutY="355.0" prefHeight="34.0" prefWidth="140.0"
+                       styleClass="customText" text="player1, player2">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <Text fill="#451616" layoutX="148.0" layoutY="436.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      styleClass="customText" text="Waiting for other players to join:"
+                      wrappingWidth="254.13677978515625">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Text>
+                <Label fx:id="numbersLbl" layoutX="402.0" layoutY="415.0" styleClass="customText" text="0/0">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <Button fx:id="backToMenuBtn" layoutX="202.0" layoutY="476.0" mnemonicParsing="false" prefHeight="42.0"
+                        prefWidth="198.0" styleClass="smallButton" text="Back To Menu"/>
             </children>
-        </HBox>
-    </bottom>
-    <center>
-        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="145.0" prefWidth="275.0"
-              spacing="10.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label text="LOBBY"/>
-                <Separator prefHeight="0.0" prefWidth="275.0"/>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                    <children>
-                        <Label layoutX="1.0" layoutY="11.0" text="Players connected:"/>
-                        <Label fx:id="playersLbl" layoutX="110.0" layoutY="11.0" text="player1, player2"/>
-                        <Label layoutY="36.0" text="Waiting for other players to join:"/>
-                        <Label fx:id="numbersLbl" layoutX="185.0" layoutY="36.0" text="0/0"/>
-                    </children>
-                </AnchorPane>
-            </children>
-      </VBox>
-   </center>
-</BorderPane>
+        </Group>
+    </children>
+    <stylesheets>
+        <URL value="@../css/global.css"/>
+        <URL value="@../css/lobby_scene.css"/>
+    </stylesheets>
+</StackPane>
