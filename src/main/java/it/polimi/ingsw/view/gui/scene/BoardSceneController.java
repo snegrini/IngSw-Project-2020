@@ -6,11 +6,13 @@ import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.player.ReducedWorker;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.ViewObservable;
+import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -30,6 +32,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     @FXML
     private ImageView effectImage;
     @FXML
+    private ImageView playerGodImage;
+    @FXML
     private Button skipEffectBtn;
 
     public BoardSceneController() {
@@ -43,6 +47,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         boardGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSpaceClick);
         effectImage.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onEffectImageClick);
         skipEffectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSkipEffectBtnClick);
+
+        Image img = new Image(getClass().getResourceAsStream("/images/cards/" + SceneController.getGod().getName().toLowerCase() + ".png"));
+        playerGodImage.setImage(img);
     }
 
     private void onSpaceClick(MouseEvent event) {

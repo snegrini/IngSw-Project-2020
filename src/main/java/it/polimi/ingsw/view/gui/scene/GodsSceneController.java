@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.observer.ViewObservable;
+import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
@@ -125,7 +126,11 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
     }
 
     private void onConfirmBtnClick(Event event) {
-        // TODO check number of selected gods
+
+        if(selectedGods.size() == 1) {
+            SceneController.setGod(selectedGods.get(0));
+        }
+
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateGod(selectedGods)));
     }
 

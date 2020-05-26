@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui;
 
+import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.gui.scene.AlertSceneController;
@@ -29,6 +30,8 @@ public class SceneController extends ViewObservable {
     public static GenericSceneController getActiveController() {
         return activeController;
     }
+
+    public static ReducedGod god;
 
     /**
      * Changes the root panel of the scene argument.
@@ -150,5 +153,17 @@ public class SceneController extends ViewObservable {
         alertSceneController.setAlertTitle(title);
         alertSceneController.setAlertMessage(message);
         alertSceneController.displayAlert();
+    }
+
+    /**
+     * Set God picked from user.
+     * @param pickedGod selected from user.
+     */
+    public static void setGod(ReducedGod pickedGod) {
+        god = pickedGod;
+    }
+
+    public static ReducedGod getGod() {
+        return god;
     }
 }
