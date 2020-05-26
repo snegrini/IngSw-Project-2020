@@ -78,12 +78,18 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askMoveFx(List<Position> positions) {
-
+        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        bsc.setAvailablePositionClicks(1);
+        bsc.setSpaceClickType(MessageType.MOVE_FX);
+        Platform.runLater(() -> bsc.setEnabledSpaces(positions));
     }
 
     @Override
     public void askBuildFx(List<Position> positions) {
-
+        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        bsc.setAvailablePositionClicks(1);
+        bsc.setSpaceClickType(MessageType.BUILD_FX);
+        Platform.runLater(() -> bsc.setEnabledSpaces(positions));
     }
 
     @Override

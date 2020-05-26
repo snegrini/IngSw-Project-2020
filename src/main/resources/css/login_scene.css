@@ -1,3 +1,7 @@
+#nicknameField {
+    -fx-font-size: 16px;
+}
+
 .nicknameBanner {
     -fx-background-image: url("../images/cl_bg.png");
     -fx-background-size: contain;

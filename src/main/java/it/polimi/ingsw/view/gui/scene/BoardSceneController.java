@@ -81,6 +81,12 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             case BUILD:
                 handleBuild(clickedNode, clickedPosition);
                 break;
+            case MOVE_FX:
+                handleMoveFx(clickedNode, clickedPosition);
+                break;
+            case BUILD_FX:
+                handleBuildFx(clickedNode, clickedPosition);
+                break;
             default:
                 break;
         }
@@ -102,13 +108,14 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     }
 
     private void handlePickMovingWorker(Node clickedNode, Position clickedPosition) {
-        clickedNode.setDisable(true);
+        disableAllSpaces();
         clickedNode.getStyleClass().add("glassPaneSelected");
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePickMovingWorker(clickedPosition)));
     }
 
     private void handleMove(Node clickedNode, Position clickedPosition) {
         disableAllSpaces();
+        removeCssClassFromAllSpaces("glassPaneSelected");
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateMove(clickedPosition)));
     }
 
@@ -118,9 +125,15 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     }
 
     private void handleMoveFx(Node clickedNode, Position clickedPosition) {
+        disableAllSpaces();
+        removeCssClassFromAllSpaces("glassPaneSelected");
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition)));
     }
 
     private void handleBuildFx(Node clickedNode, Position clickedPosition) {
+        disableAllSpaces();
+        removeCssClassFromAllSpaces("glassPaneSelected");
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition)));
     }
 
     public void setSpaceClickType(MessageType spaceClickType) {
@@ -236,15 +249,15 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      * @param reducedWorker the worker of the space. Can be null if no worker is on the space.
      */
     private void setGridSpaceWorker(Node gridSpace, ReducedWorker reducedWorker) {
-        if (reducedWorker == null) {
-            gridSpace.getStyleClass().removeIf(s -> s.startsWith("worker"));
-            return;
+        // Remove the previous worker (if any)
+        gridSpace.getStyleClass().removeIf(s -> s.startsWith("worker"));
+
+        if (reducedWorker != null) {
+            String strColor = reducedWorker.getColor().getText();
+            strColor = strColor.substring(0, 1) + strColor.substring(1).toLowerCase();
+
+            gridSpace.getStyleClass().add("worker" + strColor);
         }
-
-        String strColor = reducedWorker.getColor().getText();
-        strColor = strColor.substring(0, 1) + strColor.substring(1).toLowerCase();
-
-        gridSpace.getStyleClass().add("worker" + strColor);
     }
 
     /**

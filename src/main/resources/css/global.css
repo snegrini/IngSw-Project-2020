@@ -53,9 +53,7 @@
     -fx-background-image: url("../images/buttons/small_button.png");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
-    -fx-cursor: hand;
-    -fx-opacity: 1;
-    -fx-background-color: lawngreen;
+    -fx-opacity: 0.7;
 }
 
 .radioButton {
@@ -89,12 +87,27 @@
     -fx-effect: dropshadow(gaussian, #3333ff, 20, 0.3, 0, 0);
 }
 
+.blueGlow:disabled {
+    -fx-background-color: #939bb6;
+    -fx-opacity: 0.7;
+}
+
 .greenGlow:hover {
     -fx-effect: dropshadow(gaussian, #00cc00, 20, 0.3, 0, 0);
 }
 
+.greenGlow:disabled {
+    -fx-background-color: #939bb6;
+    -fx-opacity: 0.7;
+}
+
 .redGlow:hover {
     -fx-effect: dropshadow(gaussian, #ff3333, 20, 0.3, 0, 0);
+}
+
+.redGlow:disabled {
+    -fx-background-color: #939bb6;
+    -fx-opacity: 0.7;
 }
 
 
