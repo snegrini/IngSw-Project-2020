@@ -22,7 +22,7 @@
 }
 
 .spacePane.lvlOne {
-    -fx-background-color: green;
+    -fx-background-color: lightskyblue;
 }
 
 .spacePane.lvlOne.lvlTwo {
@@ -84,6 +84,7 @@
 
 .effectImage {
     -fx-image: url("../images/buttons/heropower_active.png");
+    -fx-cursor: hand;
 }
 
 .effectImage:disabled {

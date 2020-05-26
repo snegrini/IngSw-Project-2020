@@ -12,48 +12,50 @@
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0"
            prefWidth="1300.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.LoginSceneController">
-   <children>
-      <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5">
-         <children>
-            <AnchorPane layoutX="57.0" layoutY="62.0" prefHeight="452.0" prefWidth="453.0" styleClass="menuBannerAlt">
-               <children>
-                  <Button fx:id="backToMenuBtn" layoutX="110.0" layoutY="320.0" mnemonicParsing="false"
-                          prefHeight="52.0" prefWidth="233.0" styleClass="smallButton" text="Back To Menu">
-                     <font>
-                        <Font size="14.0"/>
-                     </font>
-                  </Button>
-                  <Button fx:id="joinBtn" layoutX="110.0" layoutY="240.0" mnemonicParsing="false" prefHeight="52.0"
-                          prefWidth="233.0" styleClass="smallButton" text="Join">
-                     <font>
-                        <Font size="14.0"/>
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="58.0" fitWidth="333.0" layoutX="56.0" layoutY="69.0" pickOnBounds="true"
-                             preserveRatio="true">
-                     <image>
-                        <Image url="@../images/blocco.png"/>
-                     </image>
-                  </ImageView>
-                  <Text fill="#451616" layoutX="135.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                        styleClass="customText" text="Choose Your Nickname" wrappingWidth="182.49612426757812">
-                     <font>
-                        <Font size="17.0"/>
-                     </font>
-                  </Text>
-                  <TextField fx:id="nicknameField" alignment="CENTER" layoutX="84.0" layoutY="167.0" prefHeight="51.0"
-                             prefWidth="285.0" promptText="Anonymous Wombat" styleClass="customText">
-                     <font>
-                        <Font size="16.0"/>
-                     </font>
-                  </TextField>
+    <children>
+        <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5">
+            <children>
+                <AnchorPane layoutX="57.0" layoutY="62.0" prefHeight="452.0" prefWidth="453.0"
+                            styleClass="menuBannerAlt">
+                    <children>
+                        <Button fx:id="backToMenuBtn" layoutX="110.0" layoutY="320.0" mnemonicParsing="false"
+                                prefHeight="52.0" prefWidth="233.0" styleClass="smallButton" text="Back To Menu">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="joinBtn" layoutX="110.0" layoutY="240.0" mnemonicParsing="false"
+                                prefHeight="52.0" prefWidth="233.0" styleClass="smallButton" text="Join">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Button>
+                        <ImageView fitHeight="58.0" fitWidth="333.0" layoutX="56.0" layoutY="69.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/blocco.png"/>
+                            </image>
+                        </ImageView>
+                        <Text fill="#451616" layoutX="135.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              styleClass="customText" text="Choose Your Nickname" wrappingWidth="182.49612426757812">
+                            <font>
+                                <Font size="17.0"/>
+                            </font>
+                        </Text>
+                        <TextField id="nicknameField" fx:id="nicknameField" alignment="CENTER" layoutX="84.0"
+                                   layoutY="167.0" prefHeight="51.0" prefWidth="285.0" promptText="Anonymous Wombat"
+                                   styleClass="customText">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </TextField>
                </children>
             </AnchorPane>
          </children>
       </Group>
    </children>
-   <stylesheets>
-      <URL value="@../css/global.css"/>
-      <URL value="@../css/login_scene.css"/>
-   </stylesheets>
+    <stylesheets>
+        <URL value="@../css/global.css"/>
+        <URL value="@../css/login_scene.css"/>
+    </stylesheets>
 </StackPane>

@@ -126,12 +126,15 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
     }
 
     private void onConfirmBtnClick(Event event) {
-
         if(selectedGods.size() == 1) {
             SceneController.setGod(selectedGods.get(0));
         }
 
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateGod(selectedGods)));
+        if (selectedGods.size() < numberRequest) {
+            SceneController.showAlert("Error", "Select exactly " + numberRequest + (numberRequest == 1 ? " god!" : " gods!"));
+        } else {
+            Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateGod(selectedGods)));
+        }
     }
 
     /**
