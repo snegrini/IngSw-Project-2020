@@ -62,12 +62,14 @@ public class Cli extends ViewObservable implements View {
             if (port.equals("")) {
                 serverInfo.put("port", defaultPort);
                 validInput = true;
-            } else if (ClientController.isValidPort(Integer.parseInt(port))) {
-                serverInfo.put("port", port);
-                validInput = true;
             } else {
-                out.println("Invalid port!");
-                validInput = false;
+                if (ClientController.isValidPort(port)) {
+                    serverInfo.put("port", port);
+                    validInput = true;
+                } else {
+                    out.println("Invalid port!");
+                    validInput = false;
+                }
             }
         } while (!validInput);
 

@@ -1,13 +1,11 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.network.message.Message;
-import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.view.cli.Cli;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ClientControllerTest {
 
@@ -27,10 +25,11 @@ public class ClientControllerTest {
 
     @Test
     public void isValidPort() {
-        assertTrue(clientController.isValidPort(3333));
-        assertTrue(clientController.isValidPort(16847));
+        assertTrue(clientController.isValidPort("3333"));
+        assertTrue(clientController.isValidPort("16847"));
 
-        assertFalse(clientController.isValidPort(-1));
-        assertFalse(clientController.isValidPort(65536));
+        assertFalse(clientController.isValidPort("-1"));
+        assertFalse(clientController.isValidPort("65536"));
+        assertFalse(clientController.isValidPort("string"));
     }
 }
