@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.ClientController;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
+import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -14,6 +15,8 @@ import javafx.scene.input.MouseEvent;
 import java.util.Map;
 
 public class ConnectSceneController extends ViewObservable implements GenericSceneController {
+
+    private final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
 
     @FXML
     private Parent rootPane;
@@ -39,12 +42,16 @@ public class ConnectSceneController extends ViewObservable implements GenericSce
         String address = serverAddressField.getText();
         String port = serverPortField.getText();
 
-        // TODO input check
-        ClientController.isValidIpAddress(address);
-        ClientController.isValidPort(Integer.parseInt(port));
+        boolean isValidIpAddress = ClientController.isValidIpAddress(address);
+        boolean isValidPort = ClientController.isValidPort(port);
 
-        Map<String, String> serverInfo = Map.of("address", address, "port", port);
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateServerInfo(serverInfo)));
+        serverAddressField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !isValidIpAddress);
+        serverPortField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !isValidPort);
+
+        if (isValidIpAddress && isValidPort) {
+            Map<String, String> serverInfo = Map.of("address", address, "port", port);
+            Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateServerInfo(serverInfo)));
+        }
     }
 
     private void onBackBtnClick(Event event) {

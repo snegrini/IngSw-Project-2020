@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+<?import java.lang.String?>
 <?import java.net.URL?>
 <StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
            prefHeight="760.0" prefWidth="1300.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
@@ -30,10 +31,14 @@
                      </image>
                   </ImageView>
                   <TextField fx:id="serverAddressField" alignment="CENTER" layoutX="124.0" layoutY="220.0"
-                             prefHeight="30.0" prefWidth="229.0" styleClass="customText" text="127.0.0.1">
+                             prefHeight="30.0" prefWidth="229.0" text="127.0.0.1">
                      <font>
                         <Font size="16.0"/>
                      </font>
+                     <styleClass>
+                        <String fx:value="customText"/>
+                        <String fx:value="menuField"/>
+                     </styleClass>
                   </TextField>
                   <ImageView fitHeight="57.0" fitWidth="297.0" layoutX="90.0" layoutY="169.0" pickOnBounds="true"
                              preserveRatio="true">
@@ -42,10 +47,14 @@
                      </image>
                   </ImageView>
                   <TextField fx:id="serverPortField" alignment="CENTER" layoutX="124.0" layoutY="318.0"
-                             prefHeight="42.0" prefWidth="229.0" styleClass="customText" text="16847">
+                             prefHeight="42.0" prefWidth="229.0" text="16847">
                      <font>
                         <Font size="16.0"/>
                      </font>
+                     <styleClass>
+                        <String fx:value="customText"/>
+                        <String fx:value="menuField"/>
+                     </styleClass>
                   </TextField>
                   <Button fx:id="backBtn" layoutX="37.0" layoutY="391.0" mnemonicParsing="false" prefHeight="42.0"
                           prefWidth="187.0" styleClass="smallButton" text="Back"/>

@@ -168,9 +168,13 @@ public class ClientController implements ViewObserver, Observer {
         return ip.matches(regex);
     }
 
-
-    public static boolean isValidPort(int port) {
-        return port >= 1 && port <= 65535;
+    public static boolean isValidPort(String portStr) {
+        try {
+            int port = Integer.parseInt(portStr);
+            return port >= 1 && port <= 65535;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }
