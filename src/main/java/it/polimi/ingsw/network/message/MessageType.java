@@ -20,6 +20,7 @@ public enum MessageType {
 
     //utility:
     GAME_LOAD,
+    MATCH_INFO,
     DISCONNECTION,
     GENERIC_MESSAGE,
     PING,

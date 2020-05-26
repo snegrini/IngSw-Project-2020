@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.observer.Observer;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Hides the network implementation from the controller.
@@ -39,6 +40,11 @@ public class VirtualView implements View, Observer {
 
     public void askEnableEffect() {
         clientHandler.sendMessage(new PrepareEffectMessage(Game.SERVER_NICKNAME, true));
+    }
+
+    @Override
+    public void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
+        clientHandler.sendMessage(new MatchInfoMessage(players, gods, activePlayer));
     }
 
     @Override

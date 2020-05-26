@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Defines a generic view to be implemented by each view type (e.g. CLI, GUI in JavaFX, ...).
@@ -98,4 +99,6 @@ public interface View {
      * Asks the user if he wants to enable the effect.
      */
     void askEnableEffect();
+
+    void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer);
 }

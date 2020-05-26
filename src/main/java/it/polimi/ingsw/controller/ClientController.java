@@ -57,6 +57,9 @@ public class ClientController implements ViewObserver, Observer {
                 break;
             case LOGIN_REQUEST: // Should never be here.
                 break;
+            case MATCH_INFO:
+                MatchInfoMessage matchInfoMessage = (MatchInfoMessage) message;
+                view.showMatchInfo(matchInfoMessage.getActivePlayers(), matchInfoMessage.getActiveGods(), matchInfoMessage.getActivePlayerNickname());
             case MOVE:
                 view.askMove(((PositionMessage) message).getPositionList());
                 break;

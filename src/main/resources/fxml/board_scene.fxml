@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,7 +20,12 @@
             <center>
                 <AnchorPane styleClass="boardPane" BorderPane.alignment="CENTER">
                     <children>
-                  <ImageView fx:id="playerGodImage" fitHeight="150.0" fitWidth="200.0" layoutX="38.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage" />
+                  <Label fx:id="player1Label" layoutX="193.0" layoutY="78.0" text="Label" />
+                  <ImageView fx:id="god1Image" fitHeight="150.0" fitWidth="200.0" layoutX="107.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage" />
+                  <Label fx:id="player2Label" layoutX="193.0" layoutY="274.0" text="Label" />
+                  <ImageView fx:id="god2Image" fitHeight="150.0" fitWidth="200.0" layoutX="107.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="player3Label" layoutX="193.0" layoutY="461.0" text="Label" />
+                  <ImageView fx:id="god3Image" fitHeight="150.0" fitWidth="200.0" layoutX="107.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="effectImage" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="1032.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" styleClass="effectImage">
                             <image>
                                 <Image url="@../images/buttons/heropower_inactive.png" />

@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -126,9 +127,8 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
     }
 
     private void onConfirmBtnClick(Event event) {
-        if(selectedGods.size() == 1) {
-            SceneController.setGod(selectedGods.get(0));
-        }
+
+
 
         if (selectedGods.size() < numberRequest) {
             SceneController.showAlert("Error", "Select exactly " + numberRequest + (numberRequest == 1 ? " god!" : " gods!"));

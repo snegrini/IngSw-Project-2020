@@ -31,7 +31,9 @@ public class SceneController extends ViewObservable {
         return activeController;
     }
 
-    public static ReducedGod god;
+    public static ReducedGod playerGod;
+    public static List<ReducedGod> usedGods;
+
 
     /**
      * Changes the root panel of the scene argument.
@@ -160,10 +162,31 @@ public class SceneController extends ViewObservable {
      * @param pickedGod selected from user.
      */
     public static void setGod(ReducedGod pickedGod) {
-        god = pickedGod;
+        playerGod = pickedGod;
     }
 
+    /**
+     * Returns a Reduced God.
+     * @return a Reduced God.
+     */
     public static ReducedGod getGod() {
-        return god;
+        return playerGod;
     }
+
+    /**
+     * Set Gods picked from user.
+     * @param usedGods selected from user.
+     */
+    public static void setUsedGods(List<ReducedGod> usedGods) {
+        SceneController.usedGods = usedGods;
+    }
+
+    /**
+     * Returns a List of Reduced God.
+     * @return a List of Reduced God.
+     */
+    public static List<ReducedGod> getUsedGods() {
+        return usedGods;
+    }
+
 }

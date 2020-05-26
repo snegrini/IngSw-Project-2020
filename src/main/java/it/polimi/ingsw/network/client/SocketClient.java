@@ -56,14 +56,6 @@ public class SocketClient extends Client {
 
     @Override
     public void sendMessage(Message message) {
-        /*sendExecutionQueue.execute(() -> {
-            try {
-                outputStm.writeObject(message);
-            } catch (IOException e) {
-                notifyObserver(new ErrorMessage(null, "could not send message."));
-                disconnect();
-            }
-        });*/
         try {
             outputStm.writeObject(message);
         } catch (IOException e) {

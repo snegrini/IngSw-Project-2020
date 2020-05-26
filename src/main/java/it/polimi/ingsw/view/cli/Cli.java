@@ -405,6 +405,11 @@ public class Cli extends ViewObservable implements View {
     }
 
     @Override
+    public void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
+
+    }
+
+    @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
         clearCli();
         if (nicknameAccepted && connectionSuccessful) {

@@ -25,6 +25,8 @@ public class GameController implements Observer {
     private GameState gameState;
     private List<ReducedGod> availableGods;
     private List<Color> availableColors;
+    private List<ReducedGod> activeGods;
+
 
     private TurnController turnController;
     private InputController inputController;
@@ -107,7 +109,7 @@ public class GameController implements Observer {
                 break;
             case INIT_WORKERSPOSITIONS:
                 if (inputController.verifyReceivedData(receivedMessage)) {
-                    workerPositionsHandler((PositionMessage) receivedMessage);
+                    workerPositionsHandler((PositionMessage) receivedMessage, virtualView);
                 }
                 break;
 
@@ -358,6 +360,7 @@ public class GameController implements Observer {
         // if received contains a list
         if (receivedMessage.getGodList().size() > 1) {
             availableGods = new ArrayList<>(receivedMessage.getGodList());
+            activeGods = new ArrayList<>(receivedMessage.getGodList());
             broadcastGenericMessage("All Gods received from " + turnController.getActivePlayer()
                     + ". Waiting for other players to pick . . .");
 
@@ -402,7 +405,11 @@ public class GameController implements Observer {
      */
     private void askWorkersPositions(String nickname) {
         VirtualView virtualView = virtualViewMap.get(nickname);
+
         virtualView.showBoard(game.getReducedSpaceBoard());
+
+
+        //virtualView.showMatchInfo(turnController.getNicknameQueue(), activeGods, turnController.getActivePlayer());
         virtualView.askInitWorkersPositions(game.getFreePositions());
     }
 
@@ -411,7 +418,7 @@ public class GameController implements Observer {
      *
      * @param receivedMessage message from client
      */
-    private void workerPositionsHandler(PositionMessage receivedMessage) {
+    private void workerPositionsHandler(PositionMessage receivedMessage, VirtualView virtualView) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
         List<Position> positions = receivedMessage.getPositionList();
 
@@ -426,7 +433,7 @@ public class GameController implements Observer {
 
         if (availableColors.size() != Game.MAX_PLAYERS - game.getChosenPlayersNumber()) {
             turnController.next();
-            VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());
+            virtualView = virtualViewMap.get(turnController.getActivePlayer());
             virtualView.askInitWorkerColor(availableColors);
         } else {
             turnController.next();

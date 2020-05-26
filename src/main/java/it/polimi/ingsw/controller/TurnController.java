@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.God;
+import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.enumerations.PhaseType;
@@ -8,9 +10,7 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.view.VirtualView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TurnController {
 
@@ -256,5 +256,14 @@ public class TurnController {
 
     public List<String> getNicknameQueue() {
         return nicknameQueue;
+    }
+
+    public Map<String, ReducedGod> getMatchInfo() {
+        Map<String, ReducedGod> matchInfo = new HashMap<>();
+        for (String nickname : nicknameQueue) {
+            God god = game.getPlayerByNickname(nickname).getGod();
+            matchInfo.put(nickname, new ReducedGod(god));
+        }
+        return matchInfo;
     }
 }

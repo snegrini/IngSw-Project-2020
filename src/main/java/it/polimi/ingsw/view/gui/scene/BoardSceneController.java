@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scene;
 
+import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
@@ -12,14 +13,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public class BoardSceneController extends ViewObservable implements GenericSceneController {
 
@@ -31,8 +36,20 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private GridPane boardGrid;
     @FXML
     private ImageView effectImage;
+
     @FXML
-    private ImageView playerGodImage;
+    private Label player1Label;
+    @FXML
+    private ImageView god1Image;
+    @FXML
+    private Label player2Label;
+    @FXML
+    private ImageView god2Image;
+    @FXML
+    private Label player3Label;
+    @FXML
+    private ImageView god3Image;
+
     @FXML
     private Button skipEffectBtn;
 
@@ -48,8 +65,10 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         effectImage.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onEffectImageClick);
         skipEffectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSkipEffectBtnClick);
 
-        Image img = new Image(getClass().getResourceAsStream("/images/cards/" + SceneController.getGod().getName().toLowerCase() + ".png"));
-        playerGodImage.setImage(img);
+        player1Label.setText("");
+        player2Label.setText("");
+        player3Label.setText("");
+
     }
 
     private void onSpaceClick(MouseEvent event) {
@@ -286,5 +305,29 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     public void enableEffectControls(boolean enable) {
         effectImage.setDisable(!enable);
         skipEffectBtn.setDisable(!enable);
+    }
+
+    public void updateMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
+        if(players.size() == 2) {
+            // SET 2 players information.
+            player1Label.setText(players.get(0));
+            Image img = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(0).getName().toLowerCase() + ".png"));
+            god1Image.setImage(img);
+            player2Label.setText(players.get(1));
+            Image img2 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(1).getName().toLowerCase() + ".png"));
+            god1Image.setImage(img2);
+
+        } else if (players.size() == 3) {
+            // SET 3 players information.
+            player1Label.setText(players.get(0));
+            Image img = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(0).getName().toLowerCase() + ".png"));
+            god1Image.setImage(img);
+            player2Label.setText(players.get(1));
+            Image img2 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(1).getName().toLowerCase() + ".png"));
+            god1Image.setImage(img2);
+            player2Label.setText(players.get(2));
+            Image img3 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(2).getName().toLowerCase() + ".png"));
+            god1Image.setImage(img3);
+        }
     }
 }
