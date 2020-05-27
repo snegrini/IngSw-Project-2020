@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.player.ReducedWorker;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.ViewObservable;
-import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,11 +19,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public class BoardSceneController extends ViewObservable implements GenericSceneController {
 
@@ -308,23 +304,16 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     }
 
     public void updateMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
-        if(players.size() == 2) {
-            // SET 2 players information.
-            player1Label.setText(players.get(0));
-            Image img = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(0).getName().toLowerCase() + ".png"));
-            god1Image.setImage(img);
-            player2Label.setText(players.get(1));
-            Image img2 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(1).getName().toLowerCase() + ".png"));
-            god1Image.setImage(img2);
 
-        } else if (players.size() == 3) {
-            // SET 3 players information.
-            player1Label.setText(players.get(0));
-            Image img = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(0).getName().toLowerCase() + ".png"));
-            god1Image.setImage(img);
-            player2Label.setText(players.get(1));
-            Image img2 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(1).getName().toLowerCase() + ".png"));
-            god1Image.setImage(img2);
+        player1Label.setText(players.get(0));
+        Image img1 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(0).getName().toLowerCase() + ".png"));
+        god1Image.setImage(img1);
+        player2Label.setText(players.get(1));
+        Image img2 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(1).getName().toLowerCase() + ".png"));
+        god1Image.setImage(img2);
+
+        if (players.size() == 3) {
+            // Sets 3rd player information.
             player2Label.setText(players.get(2));
             Image img3 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(2).getName().toLowerCase() + ".png"));
             god1Image.setImage(img3);
