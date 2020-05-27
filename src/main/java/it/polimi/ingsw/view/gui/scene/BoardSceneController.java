@@ -7,10 +7,14 @@ import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.player.ReducedWorker;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.ViewObservable;
+import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -27,6 +31,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private int availablePositionClicks;
     private List<Position> clickedPositionList;
     private MessageType spaceClickType;
+    private Boolean undo;
+    private Node tempNode;
+    private Position tempPosition;
 
     @FXML
     private GridPane boardGrid;
@@ -50,6 +57,11 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private Button skipEffectBtn;
 
     @FXML
+    private Button undoBtn;
+    @FXML
+    private Button confirmBtn;
+
+    @FXML
     private Label turnInformationLabel;
 
     public BoardSceneController() {
@@ -63,12 +75,17 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         boardGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSpaceClick);
         effectImage.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onEffectImageClick);
         skipEffectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSkipEffectBtnClick);
+        undoBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onUndoBtnClick);
+        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConfirmBtnClick);
 
         player1Label.setText("");
         player2Label.setText("");
         player3Label.setText("");
 
         turnInformationLabel.setText("");
+
+        undoBtn.setVisible(false);
+        confirmBtn.setVisible(false);
 
     }
 
@@ -79,9 +96,44 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
         if (row != null && col != null && availablePositionClicks >= 1) {
             availablePositionClicks--;
+            clickedNode.setOpacity(10);
             Position clickedPosition = new Position(row, col);
             handleSpaceClickType(clickedNode, clickedPosition);
         }
+    }
+
+    private void onUndoBtnClick(MouseEvent event){
+        undoBtn.setVisible(false);
+        confirmBtn.setVisible(false);
+
+        availablePositionClicks++;
+
+    }
+
+    private void onConfirmBtnClick(MouseEvent event){
+
+        undoBtn.setVisible(false);
+        confirmBtn.setVisible(false);
+
+        availablePositionClicks--;
+
+        switch (spaceClickType){
+            case MOVE:
+                handleMove(tempNode, tempPosition);
+                break;
+            case BUILD:
+                handleBuild(tempNode, tempPosition);
+                break;
+            case BUILD_FX:
+                handleBuildFx(tempNode, tempPosition);
+                break;
+            case MOVE_FX:
+                handleMoveFx(tempNode, tempPosition);
+                break;
+        }
+
+        tempNode = null;
+        tempPosition = null;
     }
 
     private void onEffectImageClick(MouseEvent event) {
@@ -103,21 +155,26 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 handlePickMovingWorker(clickedNode, clickedPosition);
                 break;
             case MOVE:
-                handleMove(clickedNode, clickedPosition);
-                break;
             case BUILD:
-                handleBuild(clickedNode, clickedPosition);
-                break;
             case MOVE_FX:
-                handleMoveFx(clickedNode, clickedPosition);
-                break;
             case BUILD_FX:
-                handleBuildFx(clickedNode, clickedPosition);
+                undo(clickedNode, clickedPosition);
+                //handle<X>(clickedNode, clickedPosition);
                 break;
             default:
                 break;
         }
     }
+
+    private void undo(Node node, Position pos) {
+        // LAUNCH A TIMER OF 5 seconds. At the end automatically click on confirm btn.
+
+        undoBtn.setVisible(true);
+        confirmBtn.setVisible(true);
+        tempNode = node;
+        tempPosition = pos;
+    }
+
 
     private void handleInitWorkers(Node clickedNode, Position clickedPosition) {
         clickedPositionList.add(clickedPosition);
@@ -310,7 +367,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     public void updateMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
 
-        if(null != players || null != gods ) {
+        if (null != players || null != gods) {
             player1Label.setText(players.get(0));
             Image img1 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(0).getName().toLowerCase() + ".png"));
             god1Image.setImage(img1);

@@ -20,6 +20,7 @@ public class AlertSceneController implements GenericSceneController {
     @FXML
     private Button okBtn;
 
+
     public AlertSceneController() {
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);

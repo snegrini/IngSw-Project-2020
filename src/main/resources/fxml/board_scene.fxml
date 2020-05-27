@@ -20,6 +20,8 @@
             <center>
                 <AnchorPane styleClass="boardPane" BorderPane.alignment="CENTER">
                     <children>
+                  <Button fx:id="undoBtn" layoutX="1157.0" layoutY="139.0" mnemonicParsing="false" text="UNDO" />
+                  <Button fx:id="confirmBtn" layoutX="1157.0" layoutY="172.0" mnemonicParsing="false" text="CONFIRM" />
                   <Label fx:id="player1Label" layoutX="153.0" layoutY="97.0" text="Label" />
                   <ImageView fx:id="god1Image" fitHeight="150.0" fitWidth="120.0" layoutX="107.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage" />
                   <Label fx:id="player2Label" layoutX="153.0" layoutY="297.0" text="Label" />
