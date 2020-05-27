@@ -408,7 +408,7 @@ public class Cli extends ViewObservable implements View {
 
     @Override
     public void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
-
+        // TODO
     }
 
     @Override

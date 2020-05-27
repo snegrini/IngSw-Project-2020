@@ -407,9 +407,7 @@ public class GameController implements Observer {
         VirtualView virtualView = virtualViewMap.get(nickname);
 
         virtualView.showBoard(game.getReducedSpaceBoard());
-
-
-        //virtualView.showMatchInfo(turnController.getNicknameQueue(), activeGods, turnController.getActivePlayer());
+        virtualView.showMatchInfo(turnController.getNicknameQueue(), activeGods, turnController.getActivePlayer());
         virtualView.askInitWorkersPositions(game.getFreePositions());
     }
 

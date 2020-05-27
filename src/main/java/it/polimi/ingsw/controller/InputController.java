@@ -58,7 +58,7 @@ public class InputController {
     }
 
     public boolean checkLoginNickname(String nickname, View view) {
-        if (nickname.equalsIgnoreCase(Game.SERVER_NICKNAME)) {
+        if (nickname.isEmpty() || nickname.equalsIgnoreCase(Game.SERVER_NICKNAME)) {
             view.showGenericMessage("Forbidden name.");
             view.showLoginResult(false, true, null);
             return false;

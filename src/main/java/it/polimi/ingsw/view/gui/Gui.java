@@ -11,7 +11,6 @@ import it.polimi.ingsw.view.gui.scene.*;
 import javafx.application.Platform;
 
 import java.util.List;
-import java.util.Map;
 
 public class Gui extends ViewObservable implements View {
 
@@ -166,8 +165,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
-        BoardSceneController bsc;
-        bsc = (BoardSceneController) SceneController.getActiveController();
-        bsc.updateMatchInfo(players, gods, activePlayer);
+        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        Platform.runLater(() -> bsc.updateMatchInfo(players, gods, activePlayer));
     }
 }
