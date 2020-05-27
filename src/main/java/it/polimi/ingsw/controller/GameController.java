@@ -38,6 +38,9 @@ public class GameController implements Observer {
         initGameController();
     }
 
+    /**
+     * Initialize Game Controller.
+     */
     public void initGameController() {
         this.game = Game.getInstance();
         this.availableColors = getColorList();
@@ -271,6 +274,9 @@ public class GameController implements Observer {
         turnController.newTurn();
     }
 
+    /**
+     * Broadcast the winner, disconnect all clients and reset whole game.
+     */
     private void win() {
         broadcastGenericMessage(turnController.getActivePlayer() + " wins! Game Finished!");
 
@@ -287,6 +293,10 @@ public class GameController implements Observer {
 
     // INIT METHODS:
 
+    /**
+     * Ask to current Player if want to enable his Effect or bypass the question and apply Effect.
+     * @return {@code true} if everything is done {@code false} otherwise.
+     */
     private Boolean launchEffect() {
         Player player = game.getPlayerByNickname(turnController.getActivePlayer());
         if (turnController.checkEffectPhase(turnController.getPhaseType()) && turnController.requireEffect()) {
@@ -488,6 +498,10 @@ public class GameController implements Observer {
         return colorList;
     }
 
+    /**
+     * Returns a List of Gods.
+     * @return a List of Gods picked by the Challenger.
+     */
     public List<ReducedGod> getActiveGods() {
         return activeGods;
     }
@@ -540,6 +554,9 @@ public class GameController implements Observer {
         }
     }
 
+    /**
+     * Disconnect all connected clients
+     */
     private void disconnectAllClients() {
         int mapSize = virtualViewMap.size();
         for (int i = 0; i < mapSize - 1; i++)

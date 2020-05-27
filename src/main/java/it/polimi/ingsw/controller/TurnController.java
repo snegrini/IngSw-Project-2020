@@ -256,6 +256,10 @@ public class TurnController {
         }
     }
 
+    /**
+     * Returns a list of Players' nicknames.
+     * @return a list of String.
+     */
     public List<String> getNicknameQueue() {
         return nicknameQueue;
     }
