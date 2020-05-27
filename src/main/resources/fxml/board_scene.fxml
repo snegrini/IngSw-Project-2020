@@ -20,18 +20,19 @@
             <center>
                 <AnchorPane styleClass="boardPane" BorderPane.alignment="CENTER">
                     <children>
-                  <Label fx:id="player1Label" layoutX="193.0" layoutY="78.0" text="Label" />
-                  <ImageView fx:id="god1Image" fitHeight="150.0" fitWidth="200.0" layoutX="107.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage" />
-                  <Label fx:id="player2Label" layoutX="193.0" layoutY="274.0" text="Label" />
-                  <ImageView fx:id="god2Image" fitHeight="150.0" fitWidth="200.0" layoutX="107.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="player3Label" layoutX="193.0" layoutY="461.0" text="Label" />
-                  <ImageView fx:id="god3Image" fitHeight="150.0" fitWidth="200.0" layoutX="107.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="player1Label" layoutX="153.0" layoutY="97.0" text="Label" />
+                  <ImageView fx:id="god1Image" fitHeight="150.0" fitWidth="120.0" layoutX="107.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage" />
+                  <Label fx:id="player2Label" layoutX="153.0" layoutY="297.0" text="Label" />
+                  <ImageView fx:id="god2Image" fitHeight="150.0" fitWidth="120.0" layoutX="107.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="player3Label" layoutX="153.0" layoutY="481.0" text="Label" />
+                  <ImageView fx:id="god3Image" fitHeight="150.0" fitWidth="120.0" layoutX="107.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="effectImage" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="1032.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" styleClass="effectImage">
                             <image>
                                 <Image url="@../images/buttons/heropower_inactive.png" />
                             </image>
                         </ImageView>
                         <Button fx:id="skipEffectBtn" disable="true" layoutX="1057.0" layoutY="461.0" mnemonicParsing="false" style="-fx-background-size: stretch;" styleClass="smallButton" text="Skip Effect" />
+                  <Label fx:id="turnInformationLabel" layoutX="636.0" layoutY="700.0" text="Label" />
                         <StackPane layoutX="350.0" layoutY="103.0">
                             <children>
                                 <GridPane fx:id="boardGrid" alignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="555.0" prefWidth="600.0" vgap="20.0">

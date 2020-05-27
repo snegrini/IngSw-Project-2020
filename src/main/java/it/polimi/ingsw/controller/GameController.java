@@ -25,6 +25,9 @@ public class GameController implements Observer {
     private GameState gameState;
     private List<ReducedGod> availableGods;
     private List<Color> availableColors;
+
+
+
     private List<ReducedGod> activeGods;
 
 
@@ -483,6 +486,10 @@ public class GameController implements Observer {
         colorList.add(Color.RED);
         colorList.add(Color.GREEN);
         return colorList;
+    }
+
+    public List<ReducedGod> getActiveGods() {
+        return activeGods;
     }
 
     //********** VIRTUAL VIEWS METHODS **************//

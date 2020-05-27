@@ -49,6 +49,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     @FXML
     private Button skipEffectBtn;
 
+    @FXML
+    private Label turnInformationLabel;
+
     public BoardSceneController() {
         availablePositionClicks = 0;
         clickedPositionList = new ArrayList<>();
@@ -64,6 +67,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         player1Label.setText("");
         player2Label.setText("");
         player3Label.setText("");
+
+        turnInformationLabel.setText("");
 
     }
 
@@ -305,18 +310,24 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     public void updateMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
 
-        player1Label.setText(players.get(0));
-        Image img1 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(0).getName().toLowerCase() + ".png"));
-        god1Image.setImage(img1);
-        player2Label.setText(players.get(1));
-        Image img2 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(1).getName().toLowerCase() + ".png"));
-        god1Image.setImage(img2);
+        if(null != players || null != gods ) {
+            player1Label.setText(players.get(0));
+            Image img1 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(0).getName().toLowerCase() + ".png"));
+            god1Image.setImage(img1);
+            player2Label.setText(players.get(1));
+            Image img2 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(1).getName().toLowerCase() + ".png"));
+            god2Image.setImage(img2);
 
-        if (players.size() == 3) {
-            // Sets 3rd player information.
-            player2Label.setText(players.get(2));
-            Image img3 = new Image(getClass().getResourceAsStream("/images/cards/" + gods.get(2).getName().toLowerCase() + ".png"));
-            god1Image.setImage(img3);
+            turnInformationLabel.setText("Turn Of " + activePlayer);
+
+            if (players.size() == 3) {
+                // Sets 3rd player information.
+                player3Label.setText(players.get(2));
+                Image img3 = new Image(getClass().getResourceAsStream("/images/cards/podium_" + gods.get(2).getName().toLowerCase() + ".png"));
+                god3Image.setImage(img3);
+            }
+        } else {
+            turnInformationLabel.setText("Turn Of " + activePlayer);
         }
     }
 }

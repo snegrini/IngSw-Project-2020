@@ -92,6 +92,7 @@ public class TurnController {
     public void newTurn() {
 
         turnControllerNotify("Turn of " + activePlayer);
+
         setPhaseType(PhaseType.YOUR_MOVE);
         pickWorker();
     }
@@ -251,6 +252,7 @@ public class TurnController {
     private void turnControllerNotify(String messageToNotify) {
         for (VirtualView vv : virtualViewMap.values()) {
             vv.showGenericMessage(messageToNotify);
+            vv.showMatchInfo(null, null, activePlayer);
         }
     }
 
@@ -258,12 +260,5 @@ public class TurnController {
         return nicknameQueue;
     }
 
-    public Map<String, ReducedGod> getMatchInfo() {
-        Map<String, ReducedGod> matchInfo = new HashMap<>();
-        for (String nickname : nicknameQueue) {
-            God god = game.getPlayerByNickname(nickname).getGod();
-            matchInfo.put(nickname, new ReducedGod(god));
-        }
-        return matchInfo;
-    }
+
 }
