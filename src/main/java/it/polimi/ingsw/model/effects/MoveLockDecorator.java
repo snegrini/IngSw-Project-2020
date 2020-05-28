@@ -13,6 +13,7 @@ import java.util.Map;
 public class MoveLockDecorator extends EffectDecorator {
 
     private final MoveType lockMoveType;
+    private List<Worker> targetWorkers;
 
     public MoveLockDecorator(Effect effect, Map<String, String> requirements, MoveType lockMoveType) {
         this.effect = effect;
@@ -32,7 +33,7 @@ public class MoveLockDecorator extends EffectDecorator {
             enabled = 1;
         }
 
-        List<Worker> targetWorkers = Game.getInstance().getWorkersByTargetType(activeWorker, getTargetType(XMLName.PARAMETERS));
+        targetWorkers = Game.getInstance().getWorkersByTargetType(activeWorker, getTargetType(XMLName.PARAMETERS));
         for (Worker w : targetWorkers) {
             w.addLockedMovement(lockMoveType);
         }
@@ -45,24 +46,29 @@ public class MoveLockDecorator extends EffectDecorator {
 
     @Override
     public boolean require(Worker worker) {
-        this.clear(worker); // Clear previous applied effect.
 
-        MoveType moveTypeRequired = MoveType.valueOf(requirements.get(XMLName.MOVE.getText()));
-        if (moveTypeRequired.equals(MoveType.UP)) {
-            return worker.hasMovedUp() && effect.require(worker);
+        clear(worker); // Clear previous applied effect.
+
+        String moveTypeStr = requirements.get(XMLName.MOVE.getText());
+        if (moveTypeStr != null) {
+            MoveType moveTypeRequired = MoveType.valueOf(moveTypeStr);
+            if (moveTypeRequired.equals(MoveType.UP)) {
+                return worker.hasMovedUp() && effect.require(worker);
+            } else if (moveTypeRequired.equals(MoveType.NONE)) {
+                return effect.require(worker);
+            }
         }
         return false;
     }
 
     @Override
     public void clear(Worker worker) {
-        effect.clear(worker);
 
         if (enabled == 2) {
             enabled--;
-        } else if (enabled == 1) {
-            List<Worker> enemyWorkers = Game.getInstance().getEnemyWorkers(worker);
-            for (Worker w : enemyWorkers) {
+        } else if (enabled == 1 && targetWorkers != null) {
+            // The targetWorkers list should not be null since enabled is 1. This means the method apply has been called.
+            for (Worker w : targetWorkers) {
                 w.removeLockedMovement(lockMoveType);
             }
             enabled--;

@@ -12,7 +12,7 @@
                     <userconfirm>true</userconfirm>
                 </requirements>
                 <parameters>
-                    <target>YOUR_WORKER</target>
+                    <target>YOUR_ACTIVE_WORKER</target>
                     <move over="true" swapspace="true"/>
                 </parameters>
             </effect>
@@ -64,7 +64,7 @@
                     <userconfirm>true</userconfirm>
                 </requirements>
                 <parameters>
-                    <target>YOUR_WORKER</target>
+                    <target>YOUR_ACTIVE_WORKER</target>
                     <build forcedome="true"/>
                 </parameters>
             </effect>
@@ -115,7 +115,7 @@
                     <userconfirm>true</userconfirm>
                 </requirements>
                 <parameters>
-                    <target>YOUR_WORKER</target>
+                    <target>YOUR_ACTIVE_WORKER</target>
                     <move over="true" pushback="true"/>
                 </parameters>
             </effect>
@@ -131,7 +131,7 @@
                     <userconfirm>false</userconfirm>
                 </requirements>
                 <parameters>
-                    <target>YOUR_WORKER</target>
+                    <target>YOUR_ACTIVE_WORKER</target>
                     <move win="true" lvl="2">DOWN</move>
                 </parameters>
             </effect>
@@ -146,9 +146,10 @@
             <effect phase="YOUR_MOVE">
                 <requirements>
                     <userconfirm>true</userconfirm>
+                    <move>NONE</move>
                 </requirements>
                 <parameters>
-                    <target>YOUR_WORKER</target>
+                    <target>YOUR_ACTIVE_WORKER</target>
                     <build again="true" quantity="1" samespace="true" dome="true"/>
                     <move lock="true">UP</move>
                 </parameters>
