@@ -10,6 +10,7 @@ import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -34,6 +35,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private Boolean undo;
     private Node tempNode;
     private Position tempPosition;
+    private List<ReducedGod> gods;
+
 
     @FXML
     private GridPane boardGrid;
@@ -78,6 +81,10 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         undoBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onUndoBtnClick);
         confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConfirmBtnClick);
 
+        god1Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod1ImageClick);
+        god2Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod2ImageClick);
+        god3Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod3ImageClick);
+
         player1Label.setText("");
         player2Label.setText("");
         player3Label.setText("");
@@ -86,7 +93,23 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
         undoBtn.setVisible(false);
         confirmBtn.setVisible(false);
+        god3Image.setVisible(false);
 
+    }
+
+    private void onGod1ImageClick(MouseEvent event) {
+        ReducedGod god = gods.get(0);
+        SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());
+    }
+
+    private void onGod2ImageClick(MouseEvent event) {
+        ReducedGod god = gods.get(1);
+        SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());
+    }
+
+    private void onGod3ImageClick(MouseEvent event) {
+        ReducedGod god = gods.get(2);
+        SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());
     }
 
     private void onSpaceClick(MouseEvent event) {
@@ -367,7 +390,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     public void updateMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
 
+
         if (null != players || null != gods) {
+            this.gods = gods;
             player1Label.setText(players.get(0));
             Image img1 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(0).getName().toLowerCase() + ".png"));
             god1Image.setImage(img1);
@@ -379,6 +404,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
             if (players.size() == 3) {
                 // Sets 3rd player information.
+                god3Image.setVisible(true);
                 player3Label.setText(players.get(2));
                 Image img3 = new Image(getClass().getResourceAsStream("/images/cards/podium_" + gods.get(2).getName().toLowerCase() + ".png"));
                 god3Image.setImage(img3);
