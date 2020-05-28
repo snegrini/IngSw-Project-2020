@@ -60,8 +60,15 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         selectGodBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onSelectGodBtnClick(event));
         deselectGodBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onDeselectGodBtnClick(event));
         confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onConfirmBtnClick(event));
+
+        focusGodImg.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onFocusGodImgClick(event));
+
     }
 
+    private void onFocusGodImgClick(Event event) {
+        ReducedGod god = gods.get(godIndex);
+        SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());
+    }
 
     /**
      * Disables the given button if the godIndex is equal to the number argument.
@@ -133,6 +140,7 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         if (selectedGods.size() < numberRequest) {
             SceneController.showAlert("Error", "Select exactly " + numberRequest + (numberRequest == 1 ? " god!" : " gods!"));
         } else {
+            confirmBtn.setVisible(false);
             Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateGod(selectedGods)));
         }
     }
@@ -141,7 +149,6 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
      * Checks and inverts the current status of the selected and unselected buttons.
      */
     private void checkSelectButtonsStatus() {
-
 
         if (selectedGods.size() != numberRequest && selectGodBtn.isDisable()) {
             selectGodBtn.setDisable(false);

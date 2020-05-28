@@ -5,6 +5,7 @@ import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.gui.scene.AlertSceneController;
 import it.polimi.ingsw.view.gui.scene.GenericSceneController;
+import it.polimi.ingsw.view.gui.scene.GodInfoSceneController;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -155,6 +156,33 @@ public class SceneController extends ViewObservable {
         alertSceneController.setAlertTitle(title);
         alertSceneController.setAlertMessage(message);
         alertSceneController.displayAlert();
+    }
+
+    /**
+     * Shows a Gods Information in a popup.
+     *
+     * @param name   the name of the God.
+     * @param caption the caption of the God.
+     * @param description the description of the God.
+     */
+    public static void showGodInformation(String name, String caption,String description) {
+        FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/godInfo_scene.fxml"));
+
+        Parent parent;
+        try {
+            parent = loader.load();
+        } catch (IOException e) {
+            LOGGER.severe(e.getMessage());
+            return;
+        }
+        GodInfoSceneController godInfoSceneController = loader.getController();
+        Scene godInfoScene = new Scene(parent);
+        godInfoSceneController.setScene(godInfoScene);
+        godInfoSceneController.setGodName(name);
+        godInfoSceneController.setGodCaption(caption);
+        godInfoSceneController.setGodDescription(description);
+        godInfoSceneController.setGodImage();
+        godInfoSceneController.displayAlert();
     }
 
     /**
