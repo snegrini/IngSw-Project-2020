@@ -412,7 +412,7 @@ public class Cli extends ViewObservable implements View {
     }
 
     @Override
-    public void askFirstPlayer(List<String> nicknameQueue) {
+    public void askFirstPlayer(List<String> nicknameQueue, List<ReducedGod> gods) {
         out.println("You're the Challenger, choose the first player: ");
         String nickname = scanner.nextLine();
         // TODO check if nickname is in nicknameQueue.

@@ -170,7 +170,11 @@ public class Gui extends ViewObservable implements View {
     }
 
     @Override
-    public void askFirstPlayer(List<String> nicknameQueue) {
-        // TODO ask first player on GUI.
+    public void askFirstPlayer(List<String> nicknameList, List<ReducedGod> gods) {
+        FirstPlayerSceneController fpsc = new FirstPlayerSceneController();
+        fpsc.addAllObservers(observers);
+        fpsc.setNicknames(nicknameList);
+        fpsc.setGods(gods);
+        Platform.runLater(() -> SceneController.changeRootPane(fpsc, "first_player_scene.fxml"));
     }
 }

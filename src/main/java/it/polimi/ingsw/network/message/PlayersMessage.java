@@ -1,21 +1,25 @@
 package it.polimi.ingsw.network.message;
 
+import it.polimi.ingsw.model.ReducedGod;
+
 import java.util.List;
 
 public class PlayersMessage extends Message {
     private List<String> nicknameList;
+    private List<ReducedGod> godList;
 
-    public PlayersMessage(String nickname, List<String> nicknameList) {
+    public PlayersMessage(String nickname, List<String> nicknameList, List<ReducedGod> godList) {
         super(nickname, MessageType.PLAYERS_LIST);
         this.nicknameList = nicknameList;
+        this.godList = godList;
     }
 
     public List<String> getNicknameList() {
         return nicknameList;
     }
 
-    public void setNicknameList(List<String> nicknameList) {
-        this.nicknameList = nicknameList;
+    public List<ReducedGod> getGodList() {
+        return godList;
     }
 
     @Override
@@ -24,6 +28,7 @@ public class PlayersMessage extends Message {
                 "nickname=" + getNickname() +
                 ", messageType=" + getMessageType() +
                 ", nicknameList=" + nicknameList +
+                ", godList=" + godList +
                 '}';
     }
 }

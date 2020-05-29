@@ -73,7 +73,8 @@ public class ClientController implements ViewObserver, Observer {
                 view.askMovingWorker(((PositionMessage) message).getPositionList());
                 break;
             case PLAYERS_LIST:
-                view.askFirstPlayer(((PlayersMessage) message).getNicknameList());
+                PlayersMessage playersMessage = (PlayersMessage) message;
+                view.askFirstPlayer(playersMessage.getNicknameList(), playersMessage.getGodList());
                 break;
             case PLAYERNUMBER_REPLY: // Should never be here.
                 break;
@@ -170,7 +171,7 @@ public class ClientController implements ViewObserver, Observer {
 
     @Override
     public void onUpdateFirstPlayer(String nickname) {
-        client.sendMessage(new PlayersMessage(this.nickname, List.of(nickname)));
+        client.sendMessage(new PlayersMessage(this.nickname, List.of(nickname), List.of()));
     }
 
 
