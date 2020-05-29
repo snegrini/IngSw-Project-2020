@@ -36,7 +36,7 @@ public class GodInfoSceneController implements GenericSceneController {
 
     @FXML
     public void initialize() {
-        okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onOkBtnClick(event));
+        okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);
     }
 
     private void onOkBtnClick(MouseEvent event) {

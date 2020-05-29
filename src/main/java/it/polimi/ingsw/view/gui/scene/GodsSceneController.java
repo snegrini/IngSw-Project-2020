@@ -23,7 +23,7 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
     private int numberRequest;
 
     private int godIndex;
-    private List<ReducedGod> selectedGods;
+    private final List<ReducedGod> selectedGods;
 
     @FXML
     private Button prevGodBtn;
@@ -165,11 +165,7 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
             selectGodBtn.setDisable(true);
             deselectGodBtn.setDisable(false);
         } else {
-            if (selectedGods.size() == numberRequest) {
-                selectGodBtn.setDisable(true);
-            } else {
-                selectGodBtn.setDisable(false);
-            }
+            selectGodBtn.setDisable(selectedGods.size() == numberRequest);
             deselectGodBtn.setDisable(true);
         }
 
@@ -180,7 +176,7 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
      */
     private void updateSelectedGodsListView() {
         List<String> godNameList = selectedGods.stream()
-                .map(god -> god.getName())
+                .map(ReducedGod::getName)
                 .collect(Collectors.toList());
 
         selectedGodsListView.setItems(FXCollections.observableArrayList(godNameList));

@@ -34,8 +34,8 @@ public class ConnectSceneController extends ViewObservable implements GenericSce
 
     @FXML
     public void initialize() {
-        connectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onConnectBtnClick(event));
-        backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onBackBtnClick(event));
+        connectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConnectBtnClick);
+        backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackBtnClick);
     }
 
     private void onConnectBtnClick(Event event) {

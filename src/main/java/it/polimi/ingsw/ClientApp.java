@@ -10,9 +10,10 @@ public class ClientApp {
 
         boolean cliParam = false; // default value
 
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("--cli") || args[i].equals("-c")) {
+        for (String arg : args) {
+            if (arg.equals("--cli") || arg.equals("-c")) {
                 cliParam = true;
+                break;
             }
         }
 

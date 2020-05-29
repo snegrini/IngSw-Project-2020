@@ -21,8 +21,8 @@ public class LoginSceneController extends ViewObservable implements GenericScene
 
     @FXML
     public void initialize() {
-        joinBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onJoinBtnClick(event));
-        backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onBackToMenuBtnClick(event));
+        joinBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onJoinBtnClick);
+        backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);
     }
 
     private void onJoinBtnClick(Event event) {

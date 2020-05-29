@@ -11,7 +11,7 @@ import javafx.stage.StageStyle;
 
 public class AlertSceneController implements GenericSceneController {
 
-    private Stage stage;
+    private final Stage stage;
 
     @FXML
     private Label titleLbl;
@@ -30,7 +30,7 @@ public class AlertSceneController implements GenericSceneController {
 
     @FXML
     public void initialize() {
-        okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onOkBtnClick(event));
+        okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);
     }
 
     private void onOkBtnClick(MouseEvent event) {

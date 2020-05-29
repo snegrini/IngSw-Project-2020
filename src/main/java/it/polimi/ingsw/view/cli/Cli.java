@@ -33,7 +33,7 @@ public class Cli extends ViewObservable implements View {
         Map<String, String> serverInfo = new HashMap<>();
         String defaultAddress = "localhost";
         String defaultPort = "16847";
-        boolean validInput = false;
+        boolean validInput;
 
         out.println("Please specify the following settings. The default value is shown between brackets.");
         do {
@@ -198,7 +198,7 @@ public class Cli extends ViewObservable implements View {
         out.println("Select your workers' color!");
 
         String colors = colorList.stream()
-                .map(color -> color.getText())
+                .map(Color::getText)
                 .collect(Collectors.joining(", "));
 
         out.println("You can choose between: " + colors);
@@ -466,49 +466,44 @@ public class Cli extends ViewObservable implements View {
         clearCli();
 
         out.print(printUpperIndexes());
-        String strBoard = "";
+        StringBuilder strBoardBld = new StringBuilder();
         for (int i = 0; i < Board.MAX_ROWS; i++) {
-            strBoard += ColorCli.YELLOW_BOLD + "\n   +-----+-----+-----+-----+-----+\n" + ColorCli.RESET;
+            strBoardBld.append(ColorCli.YELLOW_BOLD).append("\n   +-----+-----+-----+-----+-----+\n").append(ColorCli.RESET);
             for (int j = 0; j < Board.MAX_COLUMNS; j++) {
                 if (j == 0) {
                     if (spaces[i][j].hasDome()) {
-                        strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + "  |  " + Color.BLUE + "∩"
-                                + ColorCli.YELLOW_BOLD +
-                                "  |" + ColorCli.RESET;
+                        strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  |  ")
+                                .append(Color.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |")
+                                .append(ColorCli.RESET);
                     } else {
                         if (spaces[i][j].getReducedWorker() != null) {
-                            strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + "  | " + ColorCli.RESET +
-                                    spaces[i][j].getLevel() +
-                                    ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()) + " x" + ColorCli.YELLOW_BOLD
-                                    + " |" + ColorCli.RESET;
+                            strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  | ").append(ColorCli.RESET)
+                                    .append(spaces[i][j].getLevel()).append(ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()))
+                                    .append(" x").append(ColorCli.YELLOW_BOLD).append(" |").append(ColorCli.RESET);
                         } else {
-                            strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + "  |  " + ColorCli.RESET
-                                    + spaces[i][j].getLevel()
-                                    + ColorCli.YELLOW_BOLD + "  |"
-                                    + ColorCli.RESET;
+                            strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  |  ").append(ColorCli.RESET)
+                                    .append(spaces[i][j].getLevel()).append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
                         }
 
                     }
                 } else {
                     if (spaces[i][j].hasDome()) {
-                        strBoard += "  " + Color.BLUE + "∩" + ColorCli.YELLOW_BOLD + "  |" + ColorCli.RESET;
+                        strBoardBld.append("  ").append(Color.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
                     } else {
                         if (spaces[i][j].getReducedWorker() != null) {
-                            strBoard += " " + spaces[i][j].getLevel() +
-                                    ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()) + " x" +
-                                    ColorCli.YELLOW_BOLD + " |"
-                                    + ColorCli.RESET;
+                            strBoardBld.append(" ").append(spaces[i][j].getLevel()).append(ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()))
+                                    .append(" x").append(ColorCli.YELLOW_BOLD).append(" |").append(ColorCli.RESET);
                         } else {
-                            strBoard += "  " + spaces[i][j].getLevel() + ColorCli.YELLOW_BOLD + "  |" + ColorCli.RESET;
+                            strBoardBld.append("  ").append(spaces[i][j].getLevel()).append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
                         }
                     }
                 }
 
             }
             if (i == Board.MAX_ROWS - 1)
-                strBoard += ColorCli.YELLOW_BOLD + "\n   +-----+-----+-----+-----+-----+\n" + ColorCli.RESET;
+                strBoardBld.append(ColorCli.YELLOW_BOLD).append("\n   +-----+-----+-----+-----+-----+\n").append(ColorCli.RESET);
         }
-        out.println(strBoard);
+        out.println(strBoardBld.toString());
     }
 
     @Override
@@ -543,11 +538,11 @@ public class Cli extends ViewObservable implements View {
      * @return a string with the columns' indexes.
      */
     private String printUpperIndexes() {
-        String strIndex = "   ";
+        StringBuilder strIndexBld = new StringBuilder("   ");
         for (int i = 0; i < 5; i++) {
-            strIndex += "   " + i + "  ";
+            strIndexBld.append("   ").append(i).append("  ");
         }
-        return strIndex;
+        return strIndexBld.toString();
     }
 
     /**
@@ -568,23 +563,6 @@ public class Cli extends ViewObservable implements View {
         }
         return true;
     }
-
-    /**
-     * Returns {@code true} if the god has already been chosen, {@code false} otherwise.
-     *
-     * @param godId         the Id of the chosen god.
-     * @param chosenIndexes the Indexes of the already chosen gods.
-     * @return Returns {@code true} if the god has already been chosen, {@code false} otherwise.
-     */
-    private boolean god_already_chosen(int godId, int[] chosenIndexes) {
-        for (int i = 0; i < 3; i++) {
-            if (godId == chosenIndexes[i]) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     public void clearCli() {
         out.print(ColorCli.CLEAR);

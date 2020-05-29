@@ -66,9 +66,7 @@ public class SocketClient extends Client {
 
     public void enablePinger(boolean enabled) {
         if (enabled) {
-            pinger.scheduleAtFixedRate(() -> {
-                sendMessage(new PingMessage());
-            }, 0, 1000, TimeUnit.MILLISECONDS);
+            pinger.scheduleAtFixedRate(() -> sendMessage(new PingMessage()), 0, 1000, TimeUnit.MILLISECONDS);
         } else {
             pinger.shutdownNow();
         }
