@@ -412,6 +412,15 @@ public class Cli extends ViewObservable implements View {
     }
 
     @Override
+    public void askFirstPlayer(List<String> nicknameQueue) {
+        out.println("You're the Challenger, choose the first player: ");
+        String nickname = scanner.nextLine();
+        // TODO check if nickname is in nicknameQueue.
+
+        notifyObserver((ViewObserver obs) -> obs.onUpdateFirstPlayer(nickname));
+    }
+
+    @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
         clearCli();
         if (nicknameAccepted && connectionSuccessful) {

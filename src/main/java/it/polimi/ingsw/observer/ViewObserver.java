@@ -30,4 +30,6 @@ public interface ViewObserver {
     void onUpdateEnableEffect(boolean response);
 
     void onUpdateApplyEffect(Position dest);
+
+    void onUpdateFirstPlayer(String nickname);
 }

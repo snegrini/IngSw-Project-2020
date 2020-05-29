@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.Color;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.client.SocketClient;
 import it.polimi.ingsw.network.message.*;
@@ -70,6 +71,9 @@ public class ClientController implements ViewObserver, Observer {
                 break;
             case PICK_MOVING_WORKER:
                 view.askMovingWorker(((PositionMessage) message).getPositionList());
+                break;
+            case PLAYERS_LIST:
+                view.askFirstPlayer(((PlayersMessage) message).getNicknameList());
                 break;
             case PLAYERNUMBER_REPLY: // Should never be here.
                 break;
@@ -162,6 +166,11 @@ public class ClientController implements ViewObserver, Observer {
     @Override
     public void onUpdateApplyEffect(Position dest) {
         client.sendMessage(new PositionMessage(this.nickname, MessageType.APPLY_EFFECT, List.of(dest)));
+    }
+
+    @Override
+    public void onUpdateFirstPlayer(String nickname) {
+        client.sendMessage(new PlayersMessage(this.nickname, List.of(nickname)));
     }
 
 

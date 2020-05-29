@@ -101,4 +101,6 @@ public interface View {
     void askEnableEffect();
 
     void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer);
+
+    void askFirstPlayer(List<String> nicknameQueue);
 }

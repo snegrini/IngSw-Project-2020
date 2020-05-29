@@ -168,4 +168,9 @@ public class Gui extends ViewObservable implements View {
         BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
         Platform.runLater(() -> bsc.updateMatchInfo(players, gods, activePlayer));
     }
+
+    @Override
+    public void askFirstPlayer(List<String> nicknameQueue) {
+        // TODO ask first player on GUI.
+    }
 }

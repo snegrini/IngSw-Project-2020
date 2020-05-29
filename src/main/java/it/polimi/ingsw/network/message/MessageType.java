@@ -5,6 +5,7 @@ public enum MessageType {
     PLAYERNUMBER_REQUEST, PLAYERNUMBER_REPLY,
     LOBBY,
     GODLIST,
+    PLAYERS_LIST,
     BOARD,
     INIT_WORKERSPOSITIONS,
     INIT_COLORS,
@@ -27,5 +28,4 @@ public enum MessageType {
     ERROR,
     ENABLE_EFFECT,
     APPLY_EFFECT
-
 }

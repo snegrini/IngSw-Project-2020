@@ -38,6 +38,14 @@ public class TurnController {
     }
 
     /**
+     * Set the active player.
+     * @param activePlayer is the active Player.
+     */
+    public void setActivePlayer(String activePlayer) {
+        this.activePlayer = activePlayer;
+    }
+
+    /**
      * Set next active player.
      */
     public void next() {

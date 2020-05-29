@@ -108,6 +108,10 @@ public class GameController implements Observer {
                     godListHandler((GodListMessage) receivedMessage, virtualView);
                 }
                 break;
+            case PLAYERS_LIST:
+                // TODO check input
+                pickFirstPlayerHandler(((PlayersMessage) receivedMessage).getNicknameList().get(0));
+                break;
             case INIT_COLORS:
                 if (inputController.verifyReceivedData(receivedMessage)) {
                     colorHandler((ColorsMessage) receivedMessage);
@@ -340,6 +344,10 @@ public class GameController implements Observer {
             virtualView.showLoginResult(true, true, Game.SERVER_NICKNAME);
 
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
+
+                // TODO CHECK SAVED MATCHES
+                // if exists then load
+                // else
                 initGame();
             }
         } else {
@@ -390,14 +398,21 @@ public class GameController implements Observer {
                         + ". Waiting for other players to pick . . .");
                 askGodToNextPlayer();
             } else {
-                // the last one who pick his god is the first one player of every round.
-
-                broadcastGenericMessage("Initializing " + turnController.getActivePlayer()
-                        + ". . .");
-                virtualView.askInitWorkerColor(availableColors);
-                //askWorkersPositions(turnController.getActivePlayer());
+                // the last one who pick his god is the challenger, so He have to choose the first player.
+                virtualView.askFirstPlayer(turnController.getNicknameQueue());
             }
         }
+    }
+
+
+    // Receive the name of the first player. so active player is changed and he will have to pick his color etc etc.
+    private void pickFirstPlayerHandler(String firstPlayerNick) {
+
+        turnController.setActivePlayer(firstPlayerNick);
+
+        broadcastGenericMessage("Initializing " + turnController.getActivePlayer() + ". . .");
+        VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());
+        virtualView.askInitWorkerColor(availableColors);
     }
 
 

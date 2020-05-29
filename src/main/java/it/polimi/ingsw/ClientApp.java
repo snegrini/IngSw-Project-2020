@@ -8,7 +8,7 @@ import javafx.application.Application;
 public class ClientApp {
     public static void main(String[] args) {
 
-        boolean cliParam = false; // default value
+        boolean cliParam = true; // default value
 
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("--cli") || args[i].equals("-c")) {
