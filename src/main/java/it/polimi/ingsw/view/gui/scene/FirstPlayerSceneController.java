@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.ReducedGod;
-import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
@@ -66,9 +65,9 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
         if (nicknames.size() == 3 && gods.size() == 3) {
             player3Group.setVisible(true);
 
-            player2Lbl.setText(nicknames.get(2));
+            player3Lbl.setText(nicknames.get(2));
             Image img3 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(2).getName().toLowerCase() + ".png"));
-            player2godImg.setImage(img3);
+            player3godImg.setImage(img3);
         }
 
         player1Group.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onGroupClick(event, nicknames.get(0)));
@@ -79,7 +78,17 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
     }
 
     private void onGroupClick(MouseEvent event, String nickname) {
+        disableAllGroups();
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateFirstPlayer(nickname)));
+    }
+
+    /**
+     * Disable all the clickable groups in the scene.
+     */
+    private void disableAllGroups() {
+        player1Group.setDisable(true);
+        player2Group.setDisable(true);
+        player3Group.setDisable(true);
     }
 
     private void onBackToMenuBtnClick(Event event) {

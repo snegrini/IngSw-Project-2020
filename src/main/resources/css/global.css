@@ -8,6 +8,11 @@
     -fx-text-fill: #451616;
 }
 
+.customTextAlt {
+    -fx-font-family: 'LillyBelle';
+    -fx-text-fill: #f2e0d6;
+}
+
 .spaceLabel {
     -fx-opacity: 1;
     -fx-font-size: 18;
@@ -21,6 +26,11 @@
     -fx-background-image: url("../images/buttons/big_button.png");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
+
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
 }
 
 .bigButton:hover {
@@ -34,10 +44,16 @@
     -fx-font-family: 'LillyBelle';
     -fx-font-size: 16;
     -fx-text-fill: #451616;
-    -fx-alignment: top-center;
     -fx-background-image: url("../images/buttons/small_button.png");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
+    -fx-label-padding: -3px 0 0 0;
+
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+
     -fx-cursor: hand;
     -fx-opacity: 1;
 }
@@ -45,7 +61,16 @@
 .smallButton:hover {
     -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
     -fx-font-size: 14;
-    -fx-alignment: center;
+    -fx-label-padding: 0px 0 0 0;
+
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+
     -fx-cursor: hand;
     -fx-opacity: 1;
 }

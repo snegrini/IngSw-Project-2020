@@ -19,7 +19,7 @@ public class MenuSceneController extends ViewObservable implements GenericSceneC
 
     @FXML
     public void initialize() {
-        playBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onPlayBtnClick(event));
+        playBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onPlayBtnClick);
         quitBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> System.exit(0));
     }
 

@@ -10,12 +10,8 @@ import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -402,7 +398,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
             turnInformationLabel.setText("Turn Of " + activePlayer);
 
-            if (players.size() == 3) {
+            if (players.size() == 3 && gods.size() == 3) {
                 // Sets 3rd player information.
                 god3Image.setVisible(true);
                 player3Label.setText(players.get(2));

@@ -1,77 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <StackPane prefHeight="622.0" prefWidth="931.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5" StackPane.alignment="CENTER">
             <children>
-                <AnchorPane layoutX="214.0" layoutY="147.0" prefHeight="346.0" prefWidth="398.0">
+                <AnchorPane layoutX="235.0" layoutY="154.0" prefHeight="380.0" prefWidth="530.0">
                     <children>
-                        <Label layoutX="144.0" layoutY="5.0" text="CHOOSE THE FIRST PLAYER" />
-                        <Separator layoutX="55.0" layoutY="33.0" prefHeight="0.0" prefWidth="275.0" />
-                        <Button fx:id="backToMenuBtn" layoutX="134.0" layoutY="265.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" styleClass="smallButton" text="Back To Menu" />
-                        <HBox alignment="CENTER" layoutX="5.0" layoutY="68.0" prefHeight="123.0" prefWidth="388.0" spacing="5.0">
+                        <Label layoutX="185.0" layoutY="6.0" text="CHOOSE THE FIRST PLAYER"/>
+                        <Separator layoutX="107.0" layoutY="35.0" prefHeight="0.0" prefWidth="275.0"/>
+                        <Button fx:id="backToMenuBtn" layoutX="158.0" layoutY="304.0" mnemonicParsing="false"
+                                prefHeight="27.0" prefWidth="181.0" styleClass="smallButton" text="Back To Menu"/>
+                        <HBox alignment="CENTER" layoutX="24.0" layoutY="68.0" prefHeight="146.0" prefWidth="491.0"
+                              spacing="5.0">
                             <children>
-                        <Group fx:id="player1Group" styleClass="playerGroup">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <children>
-                                      <ImageView fx:id="player1godImg" fitHeight="109.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
-                                          <cursor>
-                                              <Cursor fx:constant="HAND" />
-                                          </cursor>
-                                 <image>
-                                    <Image url="@../images/gods/podium_apollo.png" />
-                                 </image>
-                                      </ImageView>
-                              <Label fx:id="player1Lbl" layoutX="28.0" layoutY="-22.0" text="Label" />
-                           </children>
-                        </Group>
-                        <Group fx:id="player2Group" styleClass="playerGroup">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <children>
-                                      <ImageView fx:id="player2godImg" fitHeight="109.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
-                                          <image>
-                                              <Image url="@../images/gods/podium_apollo.png" />
-                                          </image>
-                                          <cursor>
-                                              <Cursor fx:constant="HAND" />
-                                          </cursor>
-                                      </ImageView>
-                              <Label fx:id="player2Lbl" layoutX="26.0" layoutY="-22.0" text="Label" />
-                           </children>
-                        </Group>
-                        <Group fx:id="player3Group" styleClass="playerGroup">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <children>
-                                      <ImageView fx:id="player3godImg" fitHeight="109.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
-                                          <image>
-                                              <Image url="@../images/gods/podium_apollo.png" />
-                                          </image>
-                                          <cursor>
-                                              <Cursor fx:constant="HAND" />
-                                          </cursor>
-                                      </ImageView>
-                              <Label fx:id="player3Lbl" layoutX="29.0" layoutY="-24.0" text="Label" />
-                           </children>
-                        </Group>
+                                <Group fx:id="player1Group" styleClass="playerGroup">
+                                    <HBox.margin>
+                                        <Insets/>
+                                    </HBox.margin>
+                                    <children>
+                                        <ImageView fitHeight="50.0" fitWidth="155.0" layoutX="-45.0" layoutY="-17.0"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/banners/nickname_banner.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <ImageView fx:id="player1godImg" fitHeight="109.0" fitWidth="109.0"
+                                                   layoutX="-9.0" layoutY="19.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                            <image>
+                                                <Image url="@../images/gods/podium_apollo.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label fx:id="player1Lbl" alignment="CENTER" contentDisplay="CENTER"
+                                               layoutX="-20.0" layoutY="-12.0" prefHeight="22.0" prefWidth="101.0"
+                                               styleClass="customTextAlt" text="Label"/>
+                                    </children>
+                                </Group>
+                                <Group fx:id="player2Group" layoutX="223.0" layoutY="28.0" styleClass="playerGroup">
+                                    <children>
+                                        <ImageView fitHeight="50.0" fitWidth="155.0" layoutX="-45.0" layoutY="-17.0"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/banners/nickname_banner.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <ImageView fx:id="player2godImg" fitHeight="109.0" fitWidth="109.0"
+                                                   layoutX="-9.0" layoutY="19.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                            <image>
+                                                <Image url="@../images/gods/podium_apollo.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label fx:id="player2Lbl" alignment="CENTER" contentDisplay="CENTER"
+                                               layoutX="-20.0" layoutY="-12.0" prefHeight="22.0" prefWidth="101.0"
+                                               styleClass="customTextAlt" text="Label"/>
+                                    </children>
+                                </Group>
+                                <Group fx:id="player3Group" layoutX="143.0" layoutY="28.0" styleClass="playerGroup">
+                                    <children>
+                                        <ImageView fitHeight="50.0" fitWidth="155.0" layoutX="-45.0" layoutY="-17.0"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/banners/nickname_banner.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <ImageView fx:id="player3godImg" fitHeight="109.0" fitWidth="109.0"
+                                                   layoutX="-9.0" layoutY="19.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND"/>
+                                            </cursor>
+                                            <image>
+                                                <Image url="@../images/gods/podium_apollo.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label fx:id="player3Lbl" alignment="CENTER" contentDisplay="CENTER"
+                                               layoutX="-20.0" layoutY="-12.0" prefHeight="22.0" prefWidth="101.0"
+                                               styleClass="customTextAlt" text="Label"/>
+                                    </children>
+                                </Group>
                             </children>
                         </HBox>
                     </children>

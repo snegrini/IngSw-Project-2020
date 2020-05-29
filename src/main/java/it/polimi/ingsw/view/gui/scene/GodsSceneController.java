@@ -7,7 +7,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -55,13 +54,13 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         checkAndDisableButton(prevGodBtn, 0);
         checkAndDisableButton(nextGodBtn, gods.size() - 1);
 
-        prevGodBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onPrevGodBtnClick(event));
-        nextGodBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onNextGodBtnClick(event));
-        selectGodBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onSelectGodBtnClick(event));
-        deselectGodBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onDeselectGodBtnClick(event));
-        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onConfirmBtnClick(event));
+        prevGodBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onPrevGodBtnClick);
+        nextGodBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onNextGodBtnClick);
+        selectGodBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSelectGodBtnClick);
+        deselectGodBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onDeselectGodBtnClick);
+        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConfirmBtnClick);
 
-        focusGodImg.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onFocusGodImgClick(event));
+        focusGodImg.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onFocusGodImgClick);
 
     }
 
@@ -105,7 +104,7 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         checkAndDisableButton(prevGodBtn, 0);
         checkSelectButtonsStatus();
 
-        Platform.runLater(() -> setFocusGodImage());
+        Platform.runLater(this::setFocusGodImage);
     }
 
     private void onNextGodBtnClick(Event event) {
@@ -117,7 +116,7 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         checkAndDisableButton(nextGodBtn, gods.size() - 1);
         checkSelectButtonsStatus();
 
-        Platform.runLater(() -> setFocusGodImage());
+        Platform.runLater(this::setFocusGodImage);
     }
 
     private void onSelectGodBtnClick(Event event) {
@@ -134,8 +133,6 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
     }
 
     private void onConfirmBtnClick(Event event) {
-
-
 
         if (selectedGods.size() < numberRequest) {
             SceneController.showAlert("Error", "Select exactly " + numberRequest + (numberRequest == 1 ? " god!" : " gods!"));

@@ -94,13 +94,11 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
-        if (nicknameAccepted && connectionSuccessful) {
-            // TODO show welcome screen and lobby
-        } else if (connectionSuccessful) {
-            SceneController.showAlert("ERROR", "Nickname already taken.");
+        if (connectionSuccessful) {
+            Platform.runLater(() -> SceneController.showAlert("ERROR", "Nickname already taken."));
             Platform.runLater(() -> SceneController.changeRootPane(observers, "login_scene.fxml"));
         } else {
-            SceneController.showAlert("ERROR", "Could not contact server.");
+            Platform.runLater(() -> SceneController.showAlert("ERROR", "Could not contact server."));
             Platform.runLater(() -> SceneController.changeRootPane(observers, "menu_scene.fxml"));
         }
     }
