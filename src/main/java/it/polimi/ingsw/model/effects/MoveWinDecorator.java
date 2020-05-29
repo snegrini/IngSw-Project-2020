@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Worker;

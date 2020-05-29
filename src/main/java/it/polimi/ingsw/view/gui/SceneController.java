@@ -161,11 +161,11 @@ public class SceneController extends ViewObservable {
     /**
      * Shows a Gods Information in a popup.
      *
-     * @param name   the name of the God.
-     * @param caption the caption of the God.
+     * @param name        the name of the God.
+     * @param caption     the caption of the God.
      * @param description the description of the God.
      */
-    public static void showGodInformation(String name, String caption,String description) {
+    public static void showGodInformation(String name, String caption, String description) {
         FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/godInfo_scene.fxml"));
 
         Parent parent;
@@ -187,6 +187,7 @@ public class SceneController extends ViewObservable {
 
     /**
      * Set God picked from user.
+     *
      * @param pickedGod selected from user.
      */
     public static void setGod(ReducedGod pickedGod) {
@@ -195,6 +196,7 @@ public class SceneController extends ViewObservable {
 
     /**
      * Returns a Reduced God.
+     *
      * @return a Reduced God.
      */
     public static ReducedGod getGod() {
@@ -203,6 +205,7 @@ public class SceneController extends ViewObservable {
 
     /**
      * Set Gods picked from user.
+     *
      * @param usedGods selected from user.
      */
     public static void setUsedGods(List<ReducedGod> usedGods) {
@@ -211,6 +214,7 @@ public class SceneController extends ViewObservable {
 
     /**
      * Returns a List of Reduced God.
+     *
      * @return a List of Reduced God.
      */
     public static List<ReducedGod> getUsedGods() {

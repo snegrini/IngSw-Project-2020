@@ -85,12 +85,12 @@ public class God {
             return this;
         }
 
-        public Builder withEffects(List <Effect> effects) {
+        public Builder withEffects(List<Effect> effects) {
             this.effects = effects;
             return this;
         }
 
-        public God build(){
+        public God build() {
             return new God(this);
         }
     }

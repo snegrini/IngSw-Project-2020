@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.PlayerState;
 import it.polimi.ingsw.observer.Observable;
-import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.List;

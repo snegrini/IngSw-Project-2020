@@ -184,6 +184,7 @@ public class InputController {
     }
 
     // TODO test
+
     /**
      * Check if color picked by client is available
      *
@@ -199,6 +200,7 @@ public class InputController {
     }
 
     // TODO test ?
+
     /**
      * Check if god is in the selectedGodList
      *

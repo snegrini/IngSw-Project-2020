@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Defines a generic view to be implemented by each view type (e.g. CLI, GUI in JavaFX, ...).

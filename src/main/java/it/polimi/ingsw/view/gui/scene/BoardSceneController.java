@@ -121,7 +121,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         }
     }
 
-    private void onUndoBtnClick(MouseEvent event){
+    private void onUndoBtnClick(MouseEvent event) {
         undoBtn.setVisible(false);
         confirmBtn.setVisible(false);
 
@@ -129,14 +129,14 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     }
 
-    private void onConfirmBtnClick(MouseEvent event){
+    private void onConfirmBtnClick(MouseEvent event) {
 
         undoBtn.setVisible(false);
         confirmBtn.setVisible(false);
 
         availablePositionClicks--;
 
-        switch (spaceClickType){
+        switch (spaceClickType) {
             case MOVE:
                 handleMove(tempNode, tempPosition);
                 break;

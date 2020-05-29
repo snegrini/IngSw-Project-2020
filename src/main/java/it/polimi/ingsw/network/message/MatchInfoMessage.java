@@ -2,11 +2,8 @@ package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ReducedGod;
-import it.polimi.ingsw.model.board.ReducedSpace;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class MatchInfoMessage extends Message {
 

@@ -17,6 +17,8 @@ import it.polimi.ingsw.view.VirtualView;
 
 import java.util.*;
 
+import static it.polimi.ingsw.network.message.MessageType.PLAYERNUMBER_REPLY;
+
 public class GameController implements Observer {
 
     private Game game;
@@ -25,7 +27,6 @@ public class GameController implements Observer {
     private GameState gameState;
     private List<ReducedGod> availableGods;
     private List<Color> availableColors;
-
 
 
     private List<ReducedGod> activeGods;
@@ -82,16 +83,13 @@ public class GameController implements Observer {
      * @param receivedMessage Message from Active Player.
      */
     private void loginState(Message receivedMessage) {
-        switch (receivedMessage.getMessageType()) {
-            case PLAYERNUMBER_REPLY:
-                if (inputController.verifyReceivedData(receivedMessage)) {
-                    game.setChosenMaxPlayers(((PlayerNumberReply) receivedMessage).getPlayerNumber());
-                    broadcastGenericMessage("Waiting for other Players . . .");
-                }
-                break;
-            default:
-                // TODO show exception
-                break;
+        if (receivedMessage.getMessageType() == PLAYERNUMBER_REPLY) {
+            if (inputController.verifyReceivedData(receivedMessage)) {
+                game.setChosenMaxPlayers(((PlayerNumberReply) receivedMessage).getPlayerNumber());
+                broadcastGenericMessage("Waiting for other Players . . .");
+            }
+        } else {
+            // TODO show exception.
         }
     }
 
@@ -303,6 +301,7 @@ public class GameController implements Observer {
 
     /**
      * Ask to current Player if want to enable his Effect or bypass the question and apply Effect.
+     *
      * @return {@code true} if everything is done {@code false} otherwise.
      */
     private Boolean launchEffect() {
@@ -520,6 +519,7 @@ public class GameController implements Observer {
 
     /**
      * Returns a List of Gods.
+     *
      * @return a List of Gods picked by the Challenger.
      */
     public List<ReducedGod> getActiveGods() {
@@ -612,7 +612,7 @@ public class GameController implements Observer {
      *
      * @param nickname the nickname to be checked.
      * @param view     the view of the player who is logging in.
-     * @return see {@link #checkLoginNickname(String, View)}
+     * @return see {@link InputController#checkLoginNickname(String, View)}
      */
     public boolean checkLoginNickname(String nickname, View view) {
         return inputController.checkLoginNickname(nickname, view);

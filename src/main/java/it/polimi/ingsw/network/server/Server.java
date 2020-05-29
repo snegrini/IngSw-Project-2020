@@ -25,7 +25,7 @@ public class Server {
     /**
      * Adds a client to be managed by the server instance.
      *
-     * @param nickname the nickname associated with the client.
+     * @param nickname      the nickname associated with the client.
      * @param clientHandler the ClientHandler associated with the client.
      */
     public void addClient(String nickname, ClientHandler clientHandler) {
