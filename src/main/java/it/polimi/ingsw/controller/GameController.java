@@ -176,7 +176,8 @@ public class GameController implements Observer {
         Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());
         Position positionApply = receivedMessage.getPositionList().get(0);
         effect.apply(turnController.getActiveWorker(), positionApply);
-        effect.clear(turnController.getActiveWorker());
+        //effect.clear(turnController.getActiveWorker());
+        turnController.setAppliedEffect(effect);
 
         // TODO FIX hardcode Prometheus
         if (player.getGod().getName().equals("Prometheus")) {
@@ -310,7 +311,8 @@ public class GameController implements Observer {
                 virtualView.askEnableEffect();
             } else {
                 effect.apply(turnController.getActiveWorker(), null);
-                effect.clear(turnController.getActiveWorker());
+                //effect.clear(turnController.getActiveWorker());
+                turnController.setAppliedEffect(effect);
                 turnController.nextPhase();
             }
             return true;
