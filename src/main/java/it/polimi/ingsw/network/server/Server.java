@@ -61,6 +61,8 @@ public class Server {
         if (nickname != null) {
             removeClient(nickname);
             gameController.broadcastGenericMessage(nickname + " disconnected from the server. GAME ENDED.");
+            // TODO save data (permanenza)
+            // TODO reset controller and model status
         }
     }
 

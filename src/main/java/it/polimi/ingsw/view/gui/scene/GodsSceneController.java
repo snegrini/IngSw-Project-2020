@@ -140,9 +140,20 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         if (selectedGods.size() < numberRequest) {
             SceneController.showAlert("Error", "Select exactly " + numberRequest + (numberRequest == 1 ? " god!" : " gods!"));
         } else {
-            confirmBtn.setVisible(false);
+            disableAllButtons();
             Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateGod(selectedGods)));
         }
+    }
+
+    /**
+     * Disable all the buttons.
+     */
+    private void disableAllButtons() {
+        prevGodBtn.setDisable(true);
+        nextGodBtn.setDisable(true);
+        deselectGodBtn.setDisable(true);
+        selectGodBtn.setDisable(true);
+        confirmBtn.setDisable(true);
     }
 
     /**

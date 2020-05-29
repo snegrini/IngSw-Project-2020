@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -55,7 +56,15 @@
                                     <children>
                                         <StackPane disable="true" prefHeight="100.0" prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                                             <children>
-                                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0" styleClass="spacePane" />
+                                                <StackPane disable="true" mouseTransparent="true" prefHeight="100.0" prefWidth="100.0" styleClass="spacePane">
+                                       <children>
+                                          <Label text="0" translateY="-30.0">
+                                             <styleClass>
+                                                <String fx:value="customText" />
+                                                <String fx:value="spaceLabel" />
+                                             </styleClass>
+                                          </Label>
+                                       </children></StackPane>
                                             </children>
                                             <cursor>
                                                 <Cursor fx:constant="HAND" />

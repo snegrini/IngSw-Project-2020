@@ -404,7 +404,7 @@ public class GameController implements Observer {
                 askGodToNextPlayer();
             } else {
                 // the last one who pick his god is the challenger, so He have to choose the first player.
-                virtualView.askFirstPlayer(turnController.getNicknameQueue());
+                virtualView.askFirstPlayer(turnController.getNicknameQueue(), getActiveGods());
             }
         }
     }

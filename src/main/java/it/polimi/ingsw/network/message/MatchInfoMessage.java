@@ -22,7 +22,6 @@ public class MatchInfoMessage extends Message {
         this.activePlayerNickname = activePlayerNickname;
     }
 
-
     public String getActivePlayerNickname() {
         return activePlayerNickname;
     }
@@ -34,8 +33,6 @@ public class MatchInfoMessage extends Message {
     public List<ReducedGod> getActiveGods() {
         return activeGods;
     }
-
-
 
     @Override
     public String toString() {
