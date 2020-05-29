@@ -292,7 +292,7 @@ public class GameController implements Observer {
     /**
      * Reset the Game Instance and re-initialize GameController Class.
      */
-    void endGame() {
+    public void endGame() {
 
         // TODO end game, prepare server for a new game. Set server on listen for the first client.
         Game.resetInstance();
