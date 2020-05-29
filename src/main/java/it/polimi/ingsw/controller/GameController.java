@@ -286,14 +286,17 @@ public class GameController implements Observer {
         broadcastGenericMessage(turnController.getActivePlayer() + " wins! Game Finished!");
 
         disconnectAllClients();
+        endGame();
+    }
+
+    /**
+     * Reset the Game Instance and re-initialize GameController Class.
+     */
+    void endGame() {
 
         // TODO end game, prepare server for a new game. Set server on listen for the first client.
         Game.resetInstance();
         initGameController();
-    }
-
-    void endGame() {
-        // TODO send message to all players, close connections
     }
 
     // INIT METHODS:
