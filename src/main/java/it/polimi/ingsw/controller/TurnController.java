@@ -18,6 +18,7 @@ public class TurnController {
     private List<String> nicknameQueue;
     private String activePlayer;
     private Worker activeWorker;
+    private Effect appliedEffect;
 
     Map<String, VirtualView> virtualViewMap;
     private PhaseType phaseType;
@@ -49,6 +50,12 @@ public class TurnController {
      * Set next active player.
      */
     public void next() {
+
+        if(null != appliedEffect) {
+            appliedEffect.clear(activeWorker);
+            appliedEffect = null;
+        }
+
 
         int currentActive = nicknameQueue.indexOf(activePlayer);
         if (currentActive + 1 < game.getNumCurrentPlayers()) {
@@ -144,7 +151,8 @@ public class TurnController {
                 virtualView.askEnableEffect();
             } else {
                 effect.apply(activeWorker, null);
-                effect.clear(getActiveWorker());
+                //effect.clear(getActiveWorker());
+                appliedEffect = effect;
                 virtualView.askMove(getActiveWorker().getPossibleMoves());
             }
 
@@ -159,6 +167,10 @@ public class TurnController {
      */
     private void buildPhase() {
         buildPhase(false);
+    }
+
+    public void setAppliedEffect(Effect appliedEffect) {
+        this.appliedEffect = appliedEffect;
     }
 
     /**
@@ -179,7 +191,8 @@ public class TurnController {
                 virtualView.askEnableEffect();
             } else {
                 effect.apply(activeWorker, null);
-                effect.clear(getActiveWorker());
+                //effect.clear(getActiveWorker());
+                appliedEffect = effect;
                 virtualView.askBuild(getActiveWorker().getPossibleBuilds());
             }
         } else {
