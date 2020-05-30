@@ -387,7 +387,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     public void updateMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
 
 
-        if (null != players || null != gods) {
+        if (null != players || null != gods || !players.isEmpty() || !gods.isEmpty()) {
             this.gods = gods;
             player1Label.setText(players.get(0));
             Image img1 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(0).getName().toLowerCase() + ".png"));
