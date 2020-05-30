@@ -387,7 +387,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     public void updateMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
 
 
-        if (null != players || null != gods) {
+        if (null != players || null != gods || !players.isEmpty() || !gods.isEmpty()) {
             this.gods = gods;
             player1Label.setText(players.get(0));
             Image img1 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(0).getName().toLowerCase() + ".png"));
@@ -402,7 +402,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 // Sets 3rd player information.
                 god3Image.setVisible(true);
                 player3Label.setText(players.get(2));
-                Image img3 = new Image(getClass().getResourceAsStream("/images/cards/podium_" + gods.get(2).getName().toLowerCase() + ".png"));
+                Image img3 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(2).getName().toLowerCase() + ".png"));
                 god3Image.setImage(img3);
             }
         } else {

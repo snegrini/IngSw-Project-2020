@@ -44,7 +44,7 @@ public class GameController implements Observer {
         this.availableColors = getColorList();
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
         this.inputController = new InputController(virtualViewMap, this);
-        this.gameState = GameState.LOGIN; // Initialize Game State.
+        setGameState(GameState.LOGIN);
     }
 
     /**
@@ -268,10 +268,15 @@ public class GameController implements Observer {
      * Initialize the game after all Clients are connected and all Gods, Workers and Colors are setted up.
      */
     private void startGame() {
-        gameState = GameState.IN_GAME;
+
+        setGameState(GameState.IN_GAME);
         broadcastGenericMessage("Game Started!");
 
         turnController.newTurn();
+    }
+
+    private void setGameState(GameState gameState) {
+        this.gameState = gameState;
     }
 
     /**
@@ -361,7 +366,8 @@ public class GameController implements Observer {
      * Change gameState into INIT. Initialize TurnController and asks a player to pick the gods
      */
     private void initGame() {
-        gameState = GameState.INIT;
+        setGameState(GameState.INIT);
+
         turnController = new TurnController(virtualViewMap);
         inputController.setTurnController(turnController);
         broadcastGenericMessage("All Players are connected. " + turnController.getActivePlayer()
