@@ -47,8 +47,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askFirstPlayer(List<String> nicknameList, List<ReducedGod> reducedGodList) {
-        clientHandler.sendMessage(new UsersInfoMessage(Game.SERVER_NICKNAME, MessageType.PICK_FIRST_PLAYER, nicknameList, reducedGodList, null));
+    public void askFirstPlayer(List<String> players, List<ReducedGod> gods) {
+        clientHandler.sendMessage(new UsersInfoMessage(Game.SERVER_NICKNAME, MessageType.PICK_FIRST_PLAYER, players, gods, null));
     }
 
     @Override

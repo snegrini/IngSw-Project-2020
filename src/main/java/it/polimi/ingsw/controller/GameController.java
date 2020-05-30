@@ -29,9 +29,6 @@ public class GameController implements Observer {
     private List<Color> availableColors;
 
 
-    private List<ReducedGod> activeGods;
-
-
     private TurnController turnController;
     private InputController inputController;
 
@@ -385,7 +382,7 @@ public class GameController implements Observer {
         // if received contains a list
         if (receivedMessage.getGodList().size() > 1) {
             availableGods = new ArrayList<>(receivedMessage.getGodList());
-            activeGods = new ArrayList<>(receivedMessage.getGodList());
+
             broadcastGenericMessage("All Gods received from " + turnController.getActivePlayer()
                     + ". Waiting for other players to pick . . .");
 
@@ -403,6 +400,7 @@ public class GameController implements Observer {
                 askGodToNextPlayer();
             } else {
                 // the last one who pick his god is the challenger, so He have to choose the first player.
+
                 virtualView.askFirstPlayer(turnController.getNicknameQueue(), getActiveGods());
             }
         }
@@ -440,7 +438,7 @@ public class GameController implements Observer {
 
         virtualView.showBoard(game.getReducedSpaceBoard());
          virtualView.askInitWorkersPositions(game.getFreePositions());
-         virtualView.showMatchInfo(turnController.getNicknameQueue(), activeGods, turnController.getActivePlayer());
+         virtualView.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), turnController.getActivePlayer());
 
     }
 
@@ -519,12 +517,18 @@ public class GameController implements Observer {
     }
 
     /**
-     * Returns a List of Gods.
+     * Returns a List of Gods sorted with their own players.
      *
      * @return a List of Gods picked by the Challenger.
      */
     public List<ReducedGod> getActiveGods() {
-        return activeGods;
+
+        List<ReducedGod> gods = new ArrayList<>();
+        for(String s : turnController.getNicknameQueue()){
+            gods.add(new ReducedGod(game.getPlayerByNickname(s).getGod()));
+        }
+
+        return gods;
     }
 
     //********** VIRTUAL VIEWS METHODS **************//
