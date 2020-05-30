@@ -103,6 +103,11 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
+    public void showDisconnectionMessage(String nicknameDisconnected, String text) {
+        clientHandler.sendMessage(new DisconnectionMessage(nicknameDisconnected, text));
+    }
+
+    @Override
     public void showErrorAndExit(String error) {
         clientHandler.sendMessage(new ErrorMessage(Game.SERVER_NICKNAME, error));
     }

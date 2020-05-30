@@ -46,6 +46,12 @@ public class Server {
         gameController.removeVirtualView(nickname);
     }
 
+    public void disconnectAllClients() {
+        for (ClientHandler ch : clientHandlerMap.values()) {
+            ch.disconnect();
+        }
+    }
+
     public void onMessageReceived(Message message) {
         gameController.onMessageReceived(message);
     }
@@ -60,9 +66,14 @@ public class Server {
 
         if (nickname != null) {
             removeClient(nickname);
-            gameController.broadcastGenericMessage(nickname + " disconnected from the server. GAME ENDED.");
-            // TODO save data (permanenza)
-            // TODO reset controller and model status
+            gameController.broadcastDisconnectionMessage(nickname, " disconnected from the server. GAME ENDED.");
+
+            disconnectAllClients();
+
+            // TODO save data (persistenza)
+
+            gameController.endGame();
+            clientHandlerMap.clear();
         }
     }
 

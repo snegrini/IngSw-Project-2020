@@ -79,6 +79,14 @@ public interface View {
     void showGenericMessage(String genericMessage);
 
     /**
+     * Shows a disconnection message.
+     *
+     * @param nicknameDisconnected the nickname of the player who has disconnected.
+     * @param text                 a generic info text message.
+     */
+    void showDisconnectionMessage(String nicknameDisconnected, String text);
+
+    /**
      * Shows an error message.
      *
      * @param error the error message to be shown.

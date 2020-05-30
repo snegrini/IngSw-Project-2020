@@ -385,14 +385,14 @@ public class Cli extends ViewObservable implements View {
                         out.print("Column: ");
                         chosenColumn = Integer.parseInt(scanner.nextLine());
                         if (position_isNotValid(chosenRow, chosenColumn, positions))
-                            out.println("You have inserted an invalid position! Please try again!");
+                            out.println("You have inserted an invalid position! Please try again.");
                     } while (position_isNotValid(chosenRow, chosenColumn, positions));
 
                     Position newBuild = new Position(chosenRow, chosenColumn);
                     notifyObserver((ViewObserver obs) -> obs.onUpdateApplyEffect(newBuild));
                     break;
                 } catch (NumberFormatException e) {
-                    out.println("You have not inserted an integer number! Please try again!");
+                    out.println("You have not inserted an integer number! Please try again.");
                 }
             }
         }
@@ -413,11 +413,22 @@ public class Cli extends ViewObservable implements View {
 
     @Override
     public void askFirstPlayer(List<String> nicknameQueue, List<ReducedGod> gods) {
-        out.println("You're the Challenger, choose the first player: ");
-        String nickname = scanner.nextLine();
-        // TODO check if nickname is in nicknameQueue.
+        out.println("You're the Challenger, choose the first player.");
+        out.println("Players: ");
+        for (String nick : nicknameQueue) {
+            out.print(nick + ", ");
+        }
 
-        notifyObserver((ViewObserver obs) -> obs.onUpdateFirstPlayer(nickname));
+        String nickname;
+        do {
+            nickname = scanner.nextLine();
+            if (!nicknameQueue.contains(nickname)) {
+                out.println("You have selected an invalid player! Please try again.");
+            }
+        } while (!nicknameQueue.contains(nickname));
+
+        String finalNickname = nickname;
+        notifyObserver((ViewObserver obs) -> obs.onUpdateFirstPlayer(finalNickname));
     }
 
     @Override
@@ -443,6 +454,15 @@ public class Cli extends ViewObservable implements View {
     @Override
     public void showGenericMessage(String genericMessage) {
         out.println(genericMessage);
+    }
+
+    @Override
+    public void showDisconnectionMessage(String nicknameDisconnected, String text) {
+        out.println(nicknameDisconnected + text);
+        out.println(nicknameDisconnected + text);
+        out.println("\nPress ENTER to exit.");
+        scanner.nextLine();
+        System.exit(1);
     }
 
     /**

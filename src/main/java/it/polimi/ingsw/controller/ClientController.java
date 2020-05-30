@@ -47,6 +47,11 @@ public class ClientController implements ViewObserver, Observer {
             case GENERIC_MESSAGE:
                 view.showGenericMessage(((GenericMessage) message).getMessage());
                 break;
+            case DISCONNECTION:
+                DisconnectionMessage dm = (DisconnectionMessage) message;
+                view.showDisconnectionMessage(dm.getNicknameDisconnected(), dm.getMessageStr());
+                client.disconnect();
+                break;
             case GODLIST:
                 GodListMessage godListMessage = (GodListMessage) message;
                 view.askGod(godListMessage.getGodList(), godListMessage.getRequest());

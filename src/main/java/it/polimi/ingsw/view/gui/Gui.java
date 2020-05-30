@@ -114,6 +114,11 @@ public class Gui extends ViewObservable implements View {
     }
 
     @Override
+    public void showDisconnectionMessage(String nicknameDisconnected, String text) {
+
+    }
+
+    @Override
     public void showErrorAndExit(String error) {
 
     }
@@ -127,7 +132,7 @@ public class Gui extends ViewObservable implements View {
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
 
-        if( true != initializated ) {
+        if (!initializated) {
             return;
         }
 

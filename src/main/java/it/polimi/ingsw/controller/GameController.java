@@ -579,6 +579,12 @@ public class GameController implements Observer {
         }
     }
 
+    public void broadcastDisconnectionMessage(String nicknameDisconnected, String text) {
+        for (VirtualView vv : virtualViewMap.values()) {
+            vv.showDisconnectionMessage(nicknameDisconnected, text);
+        }
+    }
+
     /**
      * Disconnect all connected clients
      */
