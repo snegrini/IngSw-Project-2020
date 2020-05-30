@@ -106,9 +106,9 @@ public class GameController implements Observer {
                     godListHandler((GodListMessage) receivedMessage, virtualView);
                 }
                 break;
-            case PLAYERS_LIST:
+            case PICK_FIRST_PLAYER:
                 // TODO check input
-                pickFirstPlayerHandler(((PlayersMessage) receivedMessage).getNicknameList().get(0));
+                pickFirstPlayerHandler(((UsersInfoMessage) receivedMessage).getActivePlayerNickname());
                 break;
             case INIT_COLORS:
                 if (inputController.verifyReceivedData(receivedMessage)) {
@@ -439,8 +439,9 @@ public class GameController implements Observer {
         VirtualView virtualView = virtualViewMap.get(nickname);
 
         virtualView.showBoard(game.getReducedSpaceBoard());
-        virtualView.showMatchInfo(turnController.getNicknameQueue(), activeGods, turnController.getActivePlayer());
-        virtualView.askInitWorkersPositions(game.getFreePositions());
+         virtualView.askInitWorkersPositions(game.getFreePositions());
+         virtualView.showMatchInfo(turnController.getNicknameQueue(), activeGods, turnController.getActivePlayer());
+
     }
 
     /**

@@ -14,6 +14,8 @@ import java.util.List;
 
 public class Gui extends ViewObservable implements View {
 
+    boolean initializated;
+
     @Override
     public void askNickname() {
         SceneController.changeRootPane(observers, "login_scene.fxml");
@@ -32,6 +34,7 @@ public class Gui extends ViewObservable implements View {
         ColorSceneController csc = new ColorSceneController();
         csc.addAllObservers(observers);
         csc.setAvailableColors(colors);
+        initializated = true;
         Platform.runLater(() -> SceneController.changeRootPane(csc, "color_scene.fxml"));
     }
 
@@ -94,11 +97,13 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
-        if (connectionSuccessful) {
-            Platform.runLater(() -> SceneController.showAlert("ERROR", "Nickname already taken."));
+        if (nicknameAccepted && connectionSuccessful) {
+            // TODO show welcome screen and lobby
+        } else if (connectionSuccessful) {
+            SceneController.showAlert("ERROR", "Nickname already taken.");
             Platform.runLater(() -> SceneController.changeRootPane(observers, "login_scene.fxml"));
         } else {
-            Platform.runLater(() -> SceneController.showAlert("ERROR", "Could not contact server."));
+            SceneController.showAlert("ERROR", "Could not contact server.");
             Platform.runLater(() -> SceneController.changeRootPane(observers, "menu_scene.fxml"));
         }
     }
@@ -121,6 +126,11 @@ public class Gui extends ViewObservable implements View {
      */
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
+
+        if( true != initializated ) {
+            return;
+        }
+
         BoardSceneController bsc;
 
         try {

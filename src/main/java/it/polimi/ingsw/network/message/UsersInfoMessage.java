@@ -5,15 +5,15 @@ import it.polimi.ingsw.model.ReducedGod;
 
 import java.util.List;
 
-public class MatchInfoMessage extends Message {
+public class UsersInfoMessage extends Message {
 
     private static final long serialVersionUID = -2011506753457265907L;
     private List<String> activePlayers;
     private List<ReducedGod> activeGods;
     private String activePlayerNickname;
 
-    public MatchInfoMessage(List<String> activePlayers, List<ReducedGod> activeGods, String activePlayerNickname) {
-        super(Game.SERVER_NICKNAME, MessageType.MATCH_INFO);
+    public UsersInfoMessage(String senderNickname, MessageType messageType, List<String> activePlayers, List<ReducedGod> activeGods, String activePlayerNickname) {
+        super(senderNickname, messageType);
         this.activePlayers = activePlayers;
         this.activeGods = activeGods;
         this.activePlayerNickname = activePlayerNickname;

@@ -58,11 +58,11 @@ public class ClientController implements ViewObserver, Observer {
             case LOGIN_REQUEST: // Should never be here.
                 break;
             case MATCH_INFO:
-                MatchInfoMessage matchInfoMessage = (MatchInfoMessage) message;
+                UsersInfoMessage usersInfoMessage = (UsersInfoMessage) message;
                 view.showMatchInfo(
-                        matchInfoMessage.getActivePlayers(),
-                        matchInfoMessage.getActiveGods(),
-                        matchInfoMessage.getActivePlayerNickname()
+                        usersInfoMessage.getActivePlayers(),
+                        usersInfoMessage.getActiveGods(),
+                        usersInfoMessage.getActivePlayerNickname()
                 );
                 break;
             case MOVE:
@@ -71,9 +71,9 @@ public class ClientController implements ViewObserver, Observer {
             case PICK_MOVING_WORKER:
                 view.askMovingWorker(((PositionMessage) message).getPositionList());
                 break;
-            case PLAYERS_LIST:
-                PlayersMessage playersMessage = (PlayersMessage) message;
-                view.askFirstPlayer(playersMessage.getNicknameList(), playersMessage.getGodList());
+            case PICK_FIRST_PLAYER:
+                UsersInfoMessage playersMessage = (UsersInfoMessage) message;
+                view.askFirstPlayer(playersMessage.getActivePlayers(), playersMessage.getActiveGods());
                 break;
             case PLAYERNUMBER_REPLY: // Should never be here.
                 break;
@@ -170,7 +170,7 @@ public class ClientController implements ViewObserver, Observer {
 
     @Override
     public void onUpdateFirstPlayer(String nickname) {
-        client.sendMessage(new PlayersMessage(this.nickname, List.of(nickname), List.of()));
+        client.sendMessage(new UsersInfoMessage(this.nickname, MessageType.PICK_FIRST_PLAYER,null, null, nickname));
     }
 
 

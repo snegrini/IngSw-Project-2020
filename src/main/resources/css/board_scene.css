@@ -22,19 +22,19 @@
 }
 
 .spacePane.lvlOne {
-    -fx-background-color: lightskyblue;
+    -fx-background-color: white;
 }
 
 .spacePane.lvlOne.lvlTwo {
-    -fx-background-color: mediumblue;
+    -fx-background-color: yellow;
 }
 
 .spacePane.lvlOne.lvlTwo.lvlThree {
-    -fx-background-color: blue;
+    -fx-background-color: green;
 }
 
 .spacePane.dome {
-    -fx-background-color: darkblue;
+    -fx-background-color: blue;
 }
 
 .spacePane.workerBlue {
