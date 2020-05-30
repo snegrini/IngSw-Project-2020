@@ -72,6 +72,7 @@ public class MoveOverDecorator extends EffectDecorator {
 
         Board board = Game.getInstance().getBoard();
         List<Position> adjOpponentPos = board.getNeighbourWorkers(worker.getPosition(), true);
+        adjOpponentPos = worker.filterLockedMovementPositions(adjOpponentPos);
 
         if (swapSpace) {
             possibleMoves.addAll(adjOpponentPos);
@@ -86,7 +87,8 @@ public class MoveOverDecorator extends EffectDecorator {
             }
         }
 
-        return !possibleMoves.isEmpty() && effect.require(worker);
+        // Effect is applicable only if there are adjacent enemy workers in non-locked-movement positions.
+        return !adjOpponentPos.isEmpty() && effect.require(worker);
     }
 
     @Override

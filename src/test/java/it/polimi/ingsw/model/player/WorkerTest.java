@@ -181,4 +181,23 @@ public class WorkerTest {
     public void getColor_Worker_ReducedWorker() {
         assertEquals(worker.getColor(), reducedWorker.getColor());
     }
+
+    @Test
+    public void filterLockedMovementPositions() {
+        Board board = Game.getInstance().getBoard();
+        board.getSpace(4, 4).increaseLevel(1);
+
+        // Adds a lock movement to the worker
+        worker.addLockedMovement(MoveType.UP);
+
+        List<Position> positionList = new ArrayList<>();
+        positionList.add(new Position(2, 3));
+        positionList.add(new Position(4, 4));
+
+        List<Position> positionListResult = new ArrayList<>();
+        positionListResult.add(new Position(2, 3));
+
+        // (4,4) should is removed from the list because the worker has the MoveType UP locked.
+        assertEquals(positionListResult, worker.filterLockedMovementPositions(positionList));
+    }
 }
