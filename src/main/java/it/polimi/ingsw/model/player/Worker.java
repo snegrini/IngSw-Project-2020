@@ -147,10 +147,6 @@ public class Worker {
         history.setBuildPosition(position);
     }
 
-    public Color getColor() {
-        return color;
-    }
-
     public Position getPosition() {
         return position;
     }
@@ -175,6 +171,20 @@ public class Worker {
     public boolean checkLockedMovement(MoveType moveType) {
         return lockedMovements.stream()
                 .anyMatch(lm -> lm.equals(moveType));
+    }
+
+    /**
+     * Filters a list of positions argument by removing all the positions
+     * in conflict with the current locked movements applied to the worker.
+     *
+     * @param positions a list of positions to be filtered.
+     * @return a list of filtered positions.
+     */
+    public List<Position> filterLockedMovementPositions(List<Position> positions) {
+        Board board = Game.getInstance().getBoard();
+        return positions.stream()
+                .filter(pos -> !lockedMovements.contains(board.getMoveTypeByLevel(position, pos)))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -203,6 +213,11 @@ public class Worker {
      */
     public void removeAllLockedMovements() {
         lockedMovements.clear();
+    }
+
+
+    public Color getColor() {
+        return color;
     }
 
     public void setColor(Color color) {

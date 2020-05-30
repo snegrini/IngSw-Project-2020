@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view.gui;
 
-import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.gui.scene.AlertSceneController;
@@ -31,9 +30,6 @@ public class SceneController extends ViewObservable {
     public static GenericSceneController getActiveController() {
         return activeController;
     }
-
-    public static ReducedGod playerGod;
-    public static List<ReducedGod> usedGods;
 
 
     /**
@@ -184,41 +180,4 @@ public class SceneController extends ViewObservable {
         godInfoSceneController.setGodImage();
         godInfoSceneController.displayAlert();
     }
-
-    /**
-     * Set God picked from user.
-     *
-     * @param pickedGod selected from user.
-     */
-    public static void setGod(ReducedGod pickedGod) {
-        playerGod = pickedGod;
-    }
-
-    /**
-     * Returns a Reduced God.
-     *
-     * @return a Reduced God.
-     */
-    public static ReducedGod getGod() {
-        return playerGod;
-    }
-
-    /**
-     * Set Gods picked from user.
-     *
-     * @param usedGods selected from user.
-     */
-    public static void setUsedGods(List<ReducedGod> usedGods) {
-        SceneController.usedGods = usedGods;
-    }
-
-    /**
-     * Returns a List of Reduced God.
-     *
-     * @return a List of Reduced God.
-     */
-    public static List<ReducedGod> getUsedGods() {
-        return usedGods;
-    }
-
 }
