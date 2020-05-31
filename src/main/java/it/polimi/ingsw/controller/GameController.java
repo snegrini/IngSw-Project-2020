@@ -275,6 +275,10 @@ public class GameController implements Observer {
         turnController.newTurn();
     }
 
+    /**
+     * Set the State of the current Game.
+     * @param gameState State of the current Game.
+     */
     private void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
@@ -413,7 +417,10 @@ public class GameController implements Observer {
     }
 
 
-    // Receive the name of the first player. so active player is changed and he will have to pick his color etc etc.
+    /**
+     * Handles the Challenger's choice for the first player.
+     * @param firstPlayerNick first player choosen by Challenger.
+     */
     private void pickFirstPlayerHandler(String firstPlayerNick) {
 
         turnController.setActivePlayer(firstPlayerNick);
@@ -585,6 +592,11 @@ public class GameController implements Observer {
         }
     }
 
+    /**
+     * Sends a broadcast disconnection message.
+     * @param nicknameDisconnected user who had a connection drop.
+     * @param text generic text.
+     */
     public void broadcastDisconnectionMessage(String nicknameDisconnected, String text) {
         for (VirtualView vv : virtualViewMap.values()) {
             vv.showDisconnectionMessage(nicknameDisconnected, text);

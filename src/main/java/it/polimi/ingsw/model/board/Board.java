@@ -41,8 +41,10 @@ public class Board extends Observable {
     }
 
     private void debugWinConditions() {
-        spaces[0][0].increaseLevel(2);
-        spaces[0][1].increaseLevel(3);
+        spaces[0][1].increaseLevel(2);
+        spaces[1][1].increaseLevel(2);
+        spaces[2][1].increaseLevel(2);
+        spaces[2][0].increaseLevel(2);
     }
 
     /**
@@ -358,5 +360,15 @@ public class Board extends Observable {
         space.setDome(true);
         worker.updateBuildHistory(dest);
         notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
+    }
+
+    public void removeWorkers(String activePlayerNickname){
+
+        for (Worker w : Game.getInstance().getPlayerByNickname(activePlayerNickname).getWorkers()) {
+            this.getSpace(w.getPosition()).removeWorker();
+        }
+
+        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
+
     }
 }

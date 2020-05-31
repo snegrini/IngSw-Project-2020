@@ -134,32 +134,13 @@ public class TurnController {
     /**
      * Ask to Active Player where to Move the Active Worker.
      *
-     * @param skipEffect Skip Effect if Effect is already been checked.
+     * @param skipEffect {@code true} if effect should be by-passed {@code false} ohterwise.
      */
     public void movePhase(boolean skipEffect) {
 
-
-        VirtualView virtualView = virtualViewMap.get(getActivePlayer());
         setPhaseType(PhaseType.YOUR_MOVE);
-
         // EFFECT REQUIRE YOUR MOVE
-
-        Player player = game.getPlayerByNickname(activePlayer);
-        if (checkEffectPhase(getPhaseType()) && !skipEffect && requireEffect()) {
-
-            Effect effect = player.getGod().getEffectByType(getPhaseType());
-            if (effect.isUserConfirmNeeded()) {
-                virtualView.askEnableEffect();
-            } else {
-                effect.apply(activeWorker, null);
-                //effect.clear(getActiveWorker());
-                appliedEffect = effect;
-                virtualView.askMove(getActiveWorker().getPossibleMoves());
-            }
-
-        } else {
-            virtualView.askMove(getActiveWorker().getPossibleMoves());
-        }
+        phaseBody(skipEffect);
     }
 
 
@@ -170,20 +151,34 @@ public class TurnController {
         buildPhase(false);
     }
 
+    /**
+     * Set the applied Effect.
+     *
+     * @param appliedEffect Effect already applied.
+     */
     public void setAppliedEffect(Effect appliedEffect) {
         this.appliedEffect = appliedEffect;
     }
 
     /**
      * Ask to Active Player where to Build.
+     *
+     * @param skipEffect {@code true} if effect should be by-passed {@code false} ohterwise.
      */
     private void buildPhase(boolean skipEffect) {
 
-        VirtualView virtualView = virtualViewMap.get(getActivePlayer());
         setPhaseType(PhaseType.YOUR_BUILD);
-
         // CHECK EFFECT YOUR_BUILD
+        phaseBody(skipEffect);
+    }
 
+    /**
+     * Shared istruction for both move & build phases.
+     *
+     * @param skipEffect {@code true} if effect should be by-passed {@code false} ohterwise.
+     */
+    private void phaseBody(boolean skipEffect) {
+        VirtualView virtualView = virtualViewMap.get(getActivePlayer());
         Player player = game.getPlayerByNickname(activePlayer);
 
         if (checkEffectPhase(getPhaseType()) && !skipEffect && requireEffect()) {
@@ -194,10 +189,41 @@ public class TurnController {
                 effect.apply(activeWorker, null);
                 //effect.clear(getActiveWorker());
                 appliedEffect = effect;
-                virtualView.askBuild(getActiveWorker().getPossibleBuilds());
+                continueGame(virtualView);
             }
         } else {
-            virtualView.askBuild(getActiveWorker().getPossibleBuilds());
+            continueGame(virtualView);
+        }
+    }
+
+    private void continueGame(VirtualView virtualView) {
+        List<Position> possiblePositions = new ArrayList<>();
+        switch (getPhaseType()) {
+            case YOUR_MOVE:
+                if (!getActiveWorker().getPossibleMoves().isEmpty()) {
+                    virtualView.askMove(getActiveWorker().getPossibleMoves());
+                } else {
+                    lose(getActiveWorker());
+                }
+                break;
+            case YOUR_BUILD:
+                if (!getActiveWorker().getPossibleBuilds().isEmpty()) {
+                    virtualView.askBuild(getActiveWorker().getPossibleBuilds());
+                } else {
+                    lose(getActiveWorker());
+                }
+        }
+    }
+
+    private void lose(Worker activeWorker) {
+        // if players.size == 3 then remove looser's workers from board. And notify all.
+        // else endgame.
+        if (3 == game.getNumCurrentPlayers()) {
+            game.getBoard().removeWorkers(activePlayer);
+
+        } else {
+            next();
+
         }
     }
 

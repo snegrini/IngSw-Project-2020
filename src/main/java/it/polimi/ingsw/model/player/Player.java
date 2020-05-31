@@ -107,6 +107,11 @@ public class Player extends Observable {
         return positionList;
     }
 
+    public List<Worker> getWorkers() {
+        return workers;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

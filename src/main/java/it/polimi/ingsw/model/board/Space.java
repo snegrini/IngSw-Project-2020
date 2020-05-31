@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.BoardMessage;
+import it.polimi.ingsw.network.message.MessageType;
 
 public class Space implements Comparable<Space> {
     private int level;
@@ -101,5 +104,9 @@ public class Space implements Comparable<Space> {
     @Override
     public int compareTo(Space anotherSpace) {
         return this.level - anotherSpace.level;
+    }
+
+    public void removeWorker() {
+        worker = null;
     }
 }
