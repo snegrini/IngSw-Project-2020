@@ -240,8 +240,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      * The player may click twice on the board to setup the initial workers' position.
      * Data will be sent to the server after the second click has been committed.
      *
-     * @param clickedNode
-     * @param clickedPosition
+     * @param clickedNode     the clicked node.
+     * @param clickedPosition the clicked position on the grid.
      */
     private void handleInitWorkers(Node clickedNode, Position clickedPosition) {
         clickedPositionList.add(clickedPosition);
@@ -258,35 +258,72 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         }
     }
 
+    /**
+     * Handles the click for the worker to be used in this turn.
+     *
+     * @param clickedNode     the clicked node.
+     * @param clickedPosition the clicked position on the grid.
+     */
     private void handlePickMovingWorker(Node clickedNode, Position clickedPosition) {
         disableAllSpaces();
         clickedNode.getStyleClass().add("glassPaneSelected");
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePickMovingWorker(clickedPosition)));
     }
 
+    /**
+     * Handles the click for the move position of the worker.
+     *
+     * @param clickedNode     the clicked node.
+     * @param clickedPosition the clicked position on the grid.
+     */
     private void handleMove(Node clickedNode, Position clickedPosition) {
         disableAllSpaces();
         removeCssClassFromAllSpaces("glassPaneSelected");
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateMove(clickedPosition)));
     }
 
+    /**
+     * Handles the click for the build position.
+     *
+     * @param clickedNode     the clicked node.
+     * @param clickedPosition the clicked position on the grid.
+     */
     private void handleBuild(Node clickedNode, Position clickedPosition) {
         disableAllSpaces();
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateBuild(clickedPosition)));
     }
 
+    /**
+     * Handles the click for the move position of the worker during an effect.
+     *
+     * @param clickedNode     the clicked node.
+     * @param clickedPosition the clicked position on the grid.
+     */
     private void handleMoveFx(Node clickedNode, Position clickedPosition) {
         disableAllSpaces();
         removeCssClassFromAllSpaces("glassPaneSelected");
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition)));
     }
 
+    /**
+     * Handles the click for the build position during an effect.
+     *
+     * @param clickedNode     the clicked node.
+     * @param clickedPosition the clicked position on the grid.
+     */
     private void handleBuildFx(Node clickedNode, Position clickedPosition) {
         disableAllSpaces();
         removeCssClassFromAllSpaces("glassPaneSelected");
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition)));
     }
 
+    /**
+     * Sets the click type which will be handled after the click itself.
+     * This is needed in order to differentiate the various click on the same grid
+     * and perform the right operation.
+     *
+     * @param spaceClickType the click type for the next phase.
+     */
     public void setSpaceClickType(MessageType spaceClickType) {
         this.spaceClickType = spaceClickType;
     }
