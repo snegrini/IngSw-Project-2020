@@ -8,6 +8,13 @@ import it.polimi.ingsw.network.message.Message;
 public interface ClientHandler {
 
     /**
+     * Returns the connection status.
+     *
+     * @return {@code true} if the client is still connected and reachable, {@code false} otherwise.
+     */
+    boolean isConnected();
+
+    /**
      * Disconnects from the client.
      */
     void disconnect();

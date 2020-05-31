@@ -12,6 +12,8 @@ public class SocketClientHandler implements ClientHandler, Runnable {
     private Socket client;
     private SocketServer socketServer;
 
+    private boolean connected;
+
     private final Object inputLock;
     private final Object outputLock;
 
@@ -21,6 +23,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
     public SocketClientHandler(SocketServer socketServer, Socket client) {
         this.socketServer = socketServer;
         this.client = client;
+        this.connected = true;
 
         this.inputLock = new Object();
         this.outputLock = new Object();
@@ -66,20 +69,29 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         client.close();
     }
 
+    @Override
+    public boolean isConnected() {
+        return connected;
+    }
+
     /**
      * Disconnect the socket.
      */
     @Override
     public void disconnect() {
-        try {
-            if (!client.isClosed()) {
-                client.close();
+        if (connected) {
+            try {
+                if (!client.isClosed()) {
+                    client.close();
+                }
+            } catch (IOException e) {
+                Server.LOGGER.severe(e.getMessage());
             }
-        } catch (IOException e) {
-            Server.LOGGER.severe(e.getMessage());
+            connected = false;
+            Thread.currentThread().interrupt();
+
+            socketServer.onDisconnect(this);
         }
-        Thread.currentThread().interrupt();
-        socketServer.onDisconnect(this);
     }
 
     @Override

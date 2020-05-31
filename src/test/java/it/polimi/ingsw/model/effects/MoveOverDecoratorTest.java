@@ -78,20 +78,11 @@ public class MoveOverDecoratorTest {
     }
 
     @Test
-    public void applyEffect_SwapSpace_NormalMove() {
-        Board board = game.getBoard();
+    public void requireEffect_SwapSpace_NormalMove() {
         Position orig = new Position(4, 4);
         Worker w2 = game.getWorkerByPosition(orig);
-        Position movePosition = new Position(4, 3);
 
-        assertTrue(effectSwapSpace.require(w2));
-
-        effectSwapSpace.prepare(w2);
-        effectSwapSpace.apply(w2, movePosition);
-        effectSwapSpace.clear(w2);
-
-        assertEquals(w2, board.getSpace(movePosition).getWorker());
-        assertNull(board.getSpace(orig).getWorker());
+        assertFalse(effectSwapSpace.require(w2));
     }
 
     @Test
@@ -114,18 +105,9 @@ public class MoveOverDecoratorTest {
 
     @Test
     public void applyEffect_PushBack_NormalMove() {
-        Board board = game.getBoard();
         Position orig = new Position(4, 4);
         Worker w2 = game.getWorkerByPosition(orig);
-        Position movePosition = new Position(4, 3);
 
-        assertTrue(effectPushBack.require(w2));
-
-        effectPushBack.prepare(w2);
-        effectPushBack.apply(w2, movePosition);
-        effectPushBack.clear(w2);
-
-        assertEquals(w2, board.getSpace(movePosition).getWorker());
-        assertNull(board.getSpace(orig).getWorker());
+        assertFalse(effectPushBack.require(w2));
     }
 }

@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.Color;
-import it.polimi.ingsw.model.enumerations.GameState;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.view.VirtualView;
@@ -31,6 +30,11 @@ public class GameControllerTest {
 
         game = Game.getInstance();
         clientHandler = new ClientHandler() {
+            @Override
+            public boolean isConnected() {
+                return true;
+            }
+
             @Override
             public void disconnect() {
 
