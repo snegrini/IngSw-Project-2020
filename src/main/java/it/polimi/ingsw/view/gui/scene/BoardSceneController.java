@@ -22,17 +22,20 @@ import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BoardSceneController extends ViewObservable implements GenericSceneController {
 
     private int availablePositionClicks;
     private List<Position> clickedPositionList;
     private MessageType spaceClickType;
-    private Boolean undo;
     private Node tempNode;
     private Position tempPosition;
     private List<ReducedGod> gods;
+    private List<Position> enabledSpaces;
 
+    private Timer undoTimer;
 
     @FXML
     private GridPane boardGrid;
@@ -63,10 +66,12 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     @FXML
     private Label turnInformationLabel;
 
+
     public BoardSceneController() {
         availablePositionClicks = 0;
         clickedPositionList = new ArrayList<>();
         spaceClickType = MessageType.INIT_WORKERSPOSITIONS;
+        undoTimer = new Timer();
     }
 
     @FXML
@@ -93,16 +98,34 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     }
 
+    /**
+     * Handle the click on the first player god image.
+     * Info about the god will be shown.
+     *
+     * @param event the mouse click event.
+     */
     private void onGod1ImageClick(MouseEvent event) {
         ReducedGod god = gods.get(0);
         SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());
     }
 
+    /**
+     * Handle the click on the second player god image.
+     * Info about the god will be shown.
+     *
+     * @param event the mouse click event.
+     */
     private void onGod2ImageClick(MouseEvent event) {
         ReducedGod god = gods.get(1);
         SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());
     }
 
+    /**
+     * Handle the click on the third player god image.
+     * Info about the god will be shown.
+     *
+     * @param event the mouse click event.
+     */
     private void onGod3ImageClick(MouseEvent event) {
         ReducedGod god = gods.get(2);
         SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());
@@ -124,9 +147,10 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private void onUndoBtnClick(MouseEvent event) {
         undoBtn.setVisible(false);
         confirmBtn.setVisible(false);
+        tempNode.getStyleClass().remove("glassPaneSelected");
+        setEnabledSpaces(enabledSpaces);
 
         availablePositionClicks++;
-
     }
 
     private void onConfirmBtnClick(MouseEvent event) {
@@ -177,24 +201,48 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             case BUILD:
             case MOVE_FX:
             case BUILD_FX:
-                undo(clickedNode, clickedPosition);
-                //handle<X>(clickedNode, clickedPosition);
+                waitForUndo(clickedNode, clickedPosition);
                 break;
             default:
                 break;
         }
     }
 
-    private void undo(Node node, Position pos) {
-        // LAUNCH A TIMER OF 5 seconds. At the end automatically click on confirm btn.
+    /**
+     * Waits 5 seconds before sending the data to the server.
+     * The user can Undo his last operation by clicking on the undo button.
+     * After 5 seconds an automatic confirm will be sent to the server.
+     * The user can skip this delay by clicking on the confirm button.
+     *
+     * @param clickedNode
+     * @param clickedPosition
+     */
+    private void waitForUndo(Node clickedNode, Position clickedPosition) {
+        clickedNode.setDisable(true);
+        disableAllSpaces();
+        clickedNode.getStyleClass().add("glassPaneSelected");
 
         undoBtn.setVisible(true);
         confirmBtn.setVisible(true);
-        tempNode = node;
-        tempPosition = pos;
+        tempNode = clickedNode;
+        tempPosition = clickedPosition;
+
+        undoTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                onConfirmBtnClick(null);
+            }
+        }, 5000);
     }
 
-
+    /**
+     * Handles the initial setup of the workers onto the board.
+     * The player may click twice on the board to setup the initial workers' position.
+     * Data will be sent to the server after the second click has been committed.
+     *
+     * @param clickedNode
+     * @param clickedPosition
+     */
     private void handleInitWorkers(Node clickedNode, Position clickedPosition) {
         clickedPositionList.add(clickedPosition);
         clickedNode.setDisable(true);
@@ -243,6 +291,11 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         this.spaceClickType = spaceClickType;
     }
 
+    /**
+     * Removes a CSS class from all the grid spaces.
+     *
+     * @param cssClass the name of the css class to be removed.
+     */
     private void removeCssClassFromAllSpaces(String cssClass) {
         ObservableList<Node> spaceList = boardGrid.getChildren();
         for (Node space : spaceList) {
@@ -250,6 +303,11 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         }
     }
 
+    /**
+     * Sets the clickable positions on the board grid.
+     *
+     * @param availablePositionClicks the new positions which can be clicked.
+     */
     public void setAvailablePositionClicks(int availablePositionClicks) {
         this.availablePositionClicks = availablePositionClicks;
     }
@@ -281,6 +339,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      * @param positionList the list of spaces to enable.
      */
     public void setEnabledSpaces(List<Position> positionList) {
+        this.enabledSpaces = positionList;
+
         //boardGrid.getStyleClass().add("grayed");
         ObservableList<Node> spaceList = boardGrid.getChildren();
         for (Node space : spaceList) {
@@ -384,11 +444,17 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         skipEffectBtn.setDisable(!enable);
     }
 
+    /**
+     * Updates the displayed infos about the current match.
+     * Infos are about the list of players, the turn of the player.
+     *
+     * @param players      a list of player's nicknames.
+     * @param gods         a list of player's gods.
+     * @param activePlayer the nickname of the playing player.
+     */
     public void updateMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
-
-
-        if (null != players || null != gods || !players.isEmpty() || !gods.isEmpty()) {
-            this.gods = gods;
+        if (players != null && gods != null) {
+            this.gods = gods; // save gods for later usage.
             player1Label.setText(players.get(0));
             Image img1 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(0).getName().toLowerCase() + ".png"));
             god1Image.setImage(img1);
