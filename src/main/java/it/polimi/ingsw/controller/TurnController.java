@@ -220,9 +220,12 @@ public class TurnController {
         // else endgame.
         if (3 == game.getNumCurrentPlayers()) {
             game.getBoard().removeWorkers(activePlayer);
-
-        } else {
+            // TODO disconnect 3° player, notify all
             next();
+        } else {
+            // TODO call win from GameController? 
+            next();
+
 
         }
     }
