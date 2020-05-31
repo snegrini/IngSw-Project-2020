@@ -459,7 +459,6 @@ public class Cli extends ViewObservable implements View {
     @Override
     public void showDisconnectionMessage(String nicknameDisconnected, String text) {
         out.println(nicknameDisconnected + text);
-        out.println(nicknameDisconnected + text);
         out.println("\nPress ENTER to exit.");
         scanner.nextLine();
         System.exit(1);

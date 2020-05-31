@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.view.VirtualView;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -19,7 +20,7 @@ public class Server {
 
     public Server(GameController gameController) {
         this.gameController = gameController;
-        this.clientHandlerMap = new HashMap<>();
+        this.clientHandlerMap = Collections.synchronizedMap(new HashMap<>());
     }
 
     /**
@@ -46,12 +47,6 @@ public class Server {
         gameController.removeVirtualView(nickname);
     }
 
-    public void disconnectAllClients() {
-        for (ClientHandler ch : clientHandlerMap.values()) {
-            ch.disconnect();
-        }
-    }
-
     public void onMessageReceived(Message message) {
         gameController.onMessageReceived(message);
     }
@@ -66,9 +61,8 @@ public class Server {
 
         if (nickname != null) {
             removeClient(nickname);
+            System.out.print("PIPPO");
             gameController.broadcastDisconnectionMessage(nickname, " disconnected from the server. GAME ENDED.");
-
-            disconnectAllClients();
 
             // TODO save data (persistenza)
 

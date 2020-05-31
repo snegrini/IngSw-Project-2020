@@ -19,7 +19,6 @@ public class SocketClient extends Client {
     private ObjectOutputStream outputStm;
     private ObjectInputStream inputStm;
     private ExecutorService readExecutionQueue;
-    private ExecutorService sendExecutionQueue;
     private ScheduledExecutorService pinger;
 
 
@@ -28,7 +27,6 @@ public class SocketClient extends Client {
         this.outputStm = new ObjectOutputStream(socket.getOutputStream());
         this.inputStm = new ObjectInputStream(socket.getInputStream());
         this.readExecutionQueue = Executors.newSingleThreadExecutor();
-        this.sendExecutionQueue = Executors.newSingleThreadExecutor();
         this.pinger = Executors.newSingleThreadScheduledExecutor();
     }
 
@@ -47,6 +45,7 @@ public class SocketClient extends Client {
                     }
                 } catch (IOException | ClassNotFoundException e) {
                     message = new ErrorMessage(null, "connection lost with the server.");
+                    disconnect();
                     readExecutionQueue.shutdownNow();
                 }
                 notifyObserver(message);
@@ -64,28 +63,25 @@ public class SocketClient extends Client {
         }
     }
 
+    /**
+     * Disconnect the socket from the server.
+     */
+    @Override
+    public void disconnect() {
+        try {
+            if (!socket.isClosed()) {
+                socket.close();
+            }
+        } catch (IOException e) {
+            notifyObserver(new ErrorMessage(null, "could not disconnect."));
+        }
+    }
+
     public void enablePinger(boolean enabled) {
         if (enabled) {
             pinger.scheduleAtFixedRate(() -> sendMessage(new PingMessage()), 0, 1000, TimeUnit.MILLISECONDS);
         } else {
             pinger.shutdownNow();
         }
-    }
-
-    /**
-     * Disconnect the socket from the server.
-     */
-    @Override
-    public void disconnect() {
-        sendExecutionQueue.execute(() -> {
-            try {
-                if (!socket.isClosed()) {
-                    socket.close();
-                }
-            } catch (IOException e) {
-                notifyObserver(new ErrorMessage(null, "could not disconnect."));
-            }
-        });
-        sendExecutionQueue.shutdown();
     }
 }
