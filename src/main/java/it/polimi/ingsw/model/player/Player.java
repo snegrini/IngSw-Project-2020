@@ -86,8 +86,9 @@ public class Player extends Observable {
 
     public List<Position> getValidWorkersPositions() {
         List<Position> positionList = getWorkersPositions();
+        List<Position> tempPositionList = getWorkersPositions();
 
-        for (Position p : positionList) {
+        for (Position p : tempPositionList) {
             List<Position> possibleMoves = getWorkerByPosition(p).getPossibleMoves();
             if (possibleMoves.isEmpty()) {
                 positionList.remove(p);
@@ -105,10 +106,6 @@ public class Player extends Observable {
             }
         }
         return positionList;
-    }
-
-    public List<Worker> getWorkers() {
-        return workers;
     }
 
 

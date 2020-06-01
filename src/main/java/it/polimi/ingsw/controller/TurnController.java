@@ -123,9 +123,8 @@ public class TurnController {
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
         if (positionList.isEmpty()) {
             // TODO LOSE
-            turnControllerNotify(activePlayer + " LOOSE.");
-            next();
-            newTurn();
+           lose();
+
         } else {
             virtualView.askMovingWorker(positionList);
         }
@@ -203,28 +202,31 @@ public class TurnController {
                 if (!getActiveWorker().getPossibleMoves().isEmpty()) {
                     virtualView.askMove(getActiveWorker().getPossibleMoves());
                 } else {
-                    lose(getActiveWorker());
+                    lose();
                 }
                 break;
             case YOUR_BUILD:
                 if (!getActiveWorker().getPossibleBuilds().isEmpty()) {
                     virtualView.askBuild(getActiveWorker().getPossibleBuilds());
                 } else {
-                    lose(getActiveWorker());
+                    lose();
                 }
         }
     }
 
-    private void lose(Worker activeWorker) {
+    private void lose() {
         // if players.size == 3 then remove looser's workers from board. And notify all.
         // else endgame.
         if (3 == game.getNumCurrentPlayers()) {
             game.getBoard().removeWorkers(activePlayer);
             // TODO disconnect 3° player, notify all
+            turnControllerNotify(activePlayer + " LOOSE.");
             next();
+            newTurn();
         } else {
-            // TODO call win from GameController? 
+            // TODO call win from GameController?
             next();
+            // newTurn();
 
 
         }

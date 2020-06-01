@@ -44,7 +44,7 @@ public class Board extends Observable {
         spaces[0][1].increaseLevel(2);
         spaces[1][1].increaseLevel(2);
         spaces[2][1].increaseLevel(2);
-        spaces[2][0].increaseLevel(2);
+       // spaces[2][0].increaseLevel(2);
     }
 
     /**
@@ -364,8 +364,8 @@ public class Board extends Observable {
 
     public void removeWorkers(String activePlayerNickname){
 
-        for (Worker w : Game.getInstance().getPlayerByNickname(activePlayerNickname).getWorkers()) {
-            this.getSpace(w.getPosition()).removeWorker();
+        for (Position p: Game.getInstance().getPlayerByNickname(activePlayerNickname).getWorkersPositions()) {
+            this.getSpace(p).removeWorker();
         }
 
         notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
