@@ -71,7 +71,6 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         availablePositionClicks = 0;
         clickedPositionList = new ArrayList<>();
         spaceClickType = MessageType.INIT_WORKERSPOSITIONS;
-        undoTimer = new Timer();
     }
 
     @FXML
@@ -154,7 +153,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     }
 
     private void onConfirmBtnClick(MouseEvent event) {
-
+        undoTimer.cancel();
         undoBtn.setVisible(false);
         confirmBtn.setVisible(false);
 
@@ -227,6 +226,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         tempNode = clickedNode;
         tempPosition = clickedPosition;
 
+        undoTimer = new Timer();
         undoTimer.schedule(new TimerTask() {
             @Override
             public void run() {
