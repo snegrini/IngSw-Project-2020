@@ -3,7 +3,8 @@
     <god>
         <name>Apollo</name>
         <caption>God of Music</caption>
-        <description>Your Move: Your Worker may move into an opponent Worker's space by forcing their Worker to the
+        <description>Your Move: Your Worker may move into an opponent Worker's
+            space by forcing their Worker to the
             space yours just vacated.
         </description>
         <effects>
@@ -21,7 +22,8 @@
     <god>
         <name>Artemis</name>
         <caption>Goddess of the Hunt</caption>
-        <description>Your Move: Your Worker may move one additional time, but not back to its initial space.
+        <description>Your Move: Your Worker may move one additional time,
+            but not back to its initial space.
         </description>
         <effects>
             <effect phase="YOUR_MOVE_AFTER">
@@ -38,7 +40,8 @@
     <god>
         <name>Athena</name>
         <caption>Goddess of Wisdom</caption>
-        <description>Opponent's turn: If one of your Workers moved up on your last turn, opponent Workers cannot move up
+        <description>Opponent's turn: If one of your Workers moved up on
+            your last turn, opponent Workers cannot move up
             this turn.
         </description>
         <effects>
@@ -73,7 +76,9 @@
     <god>
         <name>Demeter</name>
         <caption>Goddess of the Harvest</caption>
-        <description>Your Build: Your Worker may build one additional time, but not on the same space.</description>
+        <description>Your Build: Your Worker may build one additional time,
+            but not on the same space.
+        </description>
         <effects>
             <effect phase="YOUR_BUILD_AFTER">
                 <requirements>
@@ -89,7 +94,8 @@
     <god>
         <name>Hephaestus</name>
         <caption>God of Blacksmiths</caption>
-        <description>Your Build: Your Worker may build one additional block (not dome) on top of your first block.
+        <description>Your Build: Your Worker may build one additional
+            block (not dome) on top of your first block.
         </description>
         <effects>
             <effect phase="YOUR_BUILD_AFTER">
@@ -106,8 +112,10 @@
     <god>
         <name>Minotaur</name>
         <caption>Bull-headed Monster</caption>
-        <description>Your Move: Your Worker may move into an opponent Worker's space, if their Worker can be forced one
-            space straight backwards to an unoccupied space at any level.
+        <description>Your Move: Your Worker may move into an opponent
+            Worker's space, if their Worker can be forced
+            one space straight backwards to an
+            unoccupied space at any level.
         </description>
         <effects>
             <effect phase="YOUR_MOVE">
@@ -124,7 +132,9 @@
     <god>
         <name>Pan</name>
         <caption>God of the Wild</caption>
-        <description>Win Condition: You also win if your Worker moves down two or more levels.</description>
+        <description>Win Condition: You also win if your Worker moves down
+            two or more levels.
+        </description>
         <effects>
             <effect phase="YOUR_MOVE_AFTER">
                 <requirements>
@@ -140,7 +150,8 @@
     <god>
         <name>Prometheus</name>
         <caption>Titan Benefactor of Mankind</caption>
-        <description>Your Turn: If your Worker does not move up, it may build both before and after moving.
+        <description>Your Turn: If your Worker does not move up, it may build both
+            before and after moving.
         </description>
         <effects>
             <effect phase="YOUR_MOVE">

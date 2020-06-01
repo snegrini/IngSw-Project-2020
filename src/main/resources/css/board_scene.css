@@ -22,11 +22,11 @@
 }
 
 .spacePane.lvlOne {
-    -fx-background-color: white;
+    -fx-background-image: url("../images/firstfloor.png");
 }
 
 .spacePane.lvlOne.lvlTwo {
-    -fx-background-color: yellow;
+    -fx-background-image: url("../images/secondfloor.png");
 }
 
 .spacePane.lvlOne.lvlTwo.lvlThree {

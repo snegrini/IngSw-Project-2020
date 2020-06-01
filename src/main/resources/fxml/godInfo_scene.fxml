@@ -3,29 +3,51 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.GodInfoSceneController">
-    <top>
-        <Pane prefHeight="58.0" prefWidth="415.0" BorderPane.alignment="CENTER">
-            <children>
-            <AnchorPane prefHeight="250.0" prefWidth="500.0">
-               <children>
-                      <Label fx:id="nameLbl" layoutX="220.0" layoutY="14.0" text="GOD NAME" />
-                  <ImageView fx:id="godImg" fitHeight="150.0" fitWidth="120.0" layoutX="51.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" styleClass="rootPane" />
-                    <Label fx:id="captionLbl" layoutX="230.0" layoutY="42.0" text="Caption" />
-                   <Button fx:id="okBtn" layoutX="234.0" layoutY="152.0" mnemonicParsing="false" text="OK" />
-                  <Label fx:id="descriptionLbl" layoutX="221.0" layoutY="82.0" text="Description" />
-               </children>
-            </AnchorPane>
-            </children>
-        </Pane>
-    </top>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+           prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="it.polimi.ingsw.view.gui.scene.GodInfoSceneController">
+   <children>
+      <AnchorPane prefHeight="500.0" prefWidth="500.0" styleClass="rootPane">
+         <children>
+            <ImageView fitHeight="94.0" fitWidth="380.0" layoutX="157.0" layoutY="58.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <image>
+                  <Image url="@../images/blocco.png"/>
+               </image>
+            </ImageView>
+            <Label fx:id="captionLbl" layoutX="217.0" layoutY="172.0" prefHeight="47.0" prefWidth="285.0"
+                   styleClass="customText" text="Caption" textAlignment="CENTER" textFill="#451616">
+               <font>
+                  <Font size="18.0"/>
+               </font>
+            </Label>
+            <Label fx:id="descriptionLbl" layoutX="217.0" layoutY="208.0" prefHeight="144.0" prefWidth="416.0"
+                   styleClass="customText" text="Description" textAlignment="CENTER" textFill="#451616">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+            </Label>
+            <Button fx:id="okBtn" layoutX="257.0" layoutY="374.0" mnemonicParsing="false" prefHeight="40.0"
+                    prefWidth="186.0" styleClass="smallButton" text="OK"/>
+            <ImageView fx:id="godImg" fitHeight="144.0" fitWidth="130.0" layoutX="79.0" layoutY="172.0"
+                       pickOnBounds="true" preserveRatio="true"/>
+            <Label fx:id="nameLbl" layoutX="310.0" layoutY="68.0" prefHeight="46.0" prefWidth="285.0"
+                   styleClass="customText" text="God Name">
+               <font>
+                  <Font size="24.0"/>
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
    <stylesheets>
-      <URL value="@../css/color_scene.css" />
-      <URL value="@../css/alert_scene.css" />
+      <URL value="@../css/global.css"/>
+      <URL value="@../css/godInfo_scene.css"/>
    </stylesheets>
-</BorderPane>
+</StackPane>
