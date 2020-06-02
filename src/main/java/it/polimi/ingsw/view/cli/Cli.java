@@ -11,17 +11,39 @@ import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.View;
 
 import java.io.PrintStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.stream.Collectors;
 
 public class Cli extends ViewObservable implements View {
 
-    private Scanner scanner;
     private final PrintStream out;
+    private FutureTask<String> futureTask;
+    private Thread inputThread;
 
     public Cli() {
-        scanner = new Scanner(System.in);
         out = System.out;
+    }
+
+    public String readLine() {
+        futureTask = new FutureTask<>(new InputReadTask());
+        inputThread = new Thread(futureTask);
+        inputThread.start();
+
+        String input = null;
+
+        try {
+            input = futureTask.get();
+        } catch (ExecutionException | InterruptedException | CancellationException e) {
+            out.println("Input Interrupted in CLI.java");
+            System.exit(1);
+        }
+        return input;
     }
 
     public void init() {
@@ -38,7 +60,7 @@ public class Cli extends ViewObservable implements View {
         out.println("Please specify the following settings. The default value is shown between brackets.");
         do {
             out.print("Enter the server address [" + defaultAddress + "]: ");
-            String address = scanner.nextLine();
+            String address = readLine();
 
             if (address.equals("")) {
                 serverInfo.put("address", defaultAddress);
@@ -57,7 +79,7 @@ public class Cli extends ViewObservable implements View {
 
         do {
             out.print("Enter the server port [" + defaultPort + "]: ");
-            String port = scanner.nextLine();
+            String port = readLine();
 
             if (port.equals("")) {
                 serverInfo.put("port", defaultPort);
@@ -79,7 +101,7 @@ public class Cli extends ViewObservable implements View {
     @Override
     public void askNickname() {
         out.print("Enter your nickname: ");
-        String nickname = scanner.nextLine();
+        String nickname = readLine();
         notifyObserver((ViewObserver obs) -> obs.onUpdateNickname(nickname));
     }
 
@@ -144,7 +166,7 @@ public class Cli extends ViewObservable implements View {
         do {
             try {
                 out.print(question);
-                number = Integer.parseInt(scanner.nextLine());
+                number = Integer.parseInt(readLine());
 
                 if (number < minValue || number > maxValue) {
                     out.println("Invalid number! Please try again!\n");
@@ -191,9 +213,6 @@ public class Cli extends ViewObservable implements View {
     @Override
     public void askInitWorkerColor(List<Color> colorList) {
 
-        // TODO scanner flush
-        scanner = new Scanner(System.in);
-
         String in;
         out.println("Select your workers' color!");
 
@@ -204,7 +223,7 @@ public class Cli extends ViewObservable implements View {
         out.println("You can choose between: " + colors);
 
         do {
-            in = scanner.nextLine();
+            in = readLine();
             if (!colors.contains(in.toUpperCase())) {
                 out.println("You have not inserted a valid color! Please try again!");
             }
@@ -236,9 +255,9 @@ public class Cli extends ViewObservable implements View {
             try {
                 do {
                     out.print("Row: ");
-                    chosenRow = Integer.parseInt(scanner.nextLine());
+                    chosenRow = Integer.parseInt(readLine());
                     out.print("Column: ");
-                    chosenColumn = Integer.parseInt(scanner.nextLine());
+                    chosenColumn = Integer.parseInt(readLine());
                     if (position_isNotValid(chosenRow, chosenColumn, positionList))
                         out.println("You have inserted an invalid position! Please try again!");
                 } while (position_isNotValid(chosenRow, chosenColumn, positionList));
@@ -275,9 +294,9 @@ public class Cli extends ViewObservable implements View {
                 try {
                     do {
                         out.print("Row: ");
-                        chosenRow = Integer.parseInt(scanner.nextLine());
+                        chosenRow = Integer.parseInt(readLine());
                         out.print("Column: ");
-                        chosenColumn = Integer.parseInt(scanner.nextLine());
+                        chosenColumn = Integer.parseInt(readLine());
                         if (position_isNotValid(chosenRow, chosenColumn, positionList))
                             out.println("You have inserted an invalid position! Please try again!");
                     } while (position_isNotValid(chosenRow, chosenColumn, positionList));
@@ -310,9 +329,9 @@ public class Cli extends ViewObservable implements View {
                 try {
                     do {
                         out.print("Row: ");
-                        chosenRow = Integer.parseInt(scanner.nextLine());
+                        chosenRow = Integer.parseInt(readLine());
                         out.print("Column: ");
-                        chosenColumn = Integer.parseInt(scanner.nextLine());
+                        chosenColumn = Integer.parseInt(readLine());
                         if (position_isNotValid(chosenRow, chosenColumn, positions))
                             out.println("You have inserted an invalid position! Please try again!");
                     } while (position_isNotValid(chosenRow, chosenColumn, positions));
@@ -347,9 +366,9 @@ public class Cli extends ViewObservable implements View {
                 try {
                     do {
                         out.print("Row: ");
-                        chosenRow = Integer.parseInt(scanner.nextLine());
+                        chosenRow = Integer.parseInt(readLine());
                         out.print("Column: ");
-                        chosenColumn = Integer.parseInt(scanner.nextLine());
+                        chosenColumn = Integer.parseInt(readLine());
                         if (position_isNotValid(chosenRow, chosenColumn, positionList))
                             out.println("You have inserted an invalid position! Please try again!");
                     } while (position_isNotValid(chosenRow, chosenColumn, positionList));
@@ -381,9 +400,9 @@ public class Cli extends ViewObservable implements View {
                 try {
                     do {
                         out.print("Row: ");
-                        chosenRow = Integer.parseInt(scanner.nextLine());
+                        chosenRow = Integer.parseInt(readLine());
                         out.print("Column: ");
-                        chosenColumn = Integer.parseInt(scanner.nextLine());
+                        chosenColumn = Integer.parseInt(readLine());
                         if (position_isNotValid(chosenRow, chosenColumn, positions))
                             out.println("You have inserted an invalid position! Please try again.");
                     } while (position_isNotValid(chosenRow, chosenColumn, positions));
@@ -402,7 +421,7 @@ public class Cli extends ViewObservable implements View {
     @Override
     public void askEnableEffect() {
         out.println("Do you want to enable your god effect? [y/N]: ");
-        String response = scanner.nextLine();
+        String response = readLine();
         notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(response.equalsIgnoreCase("y")));
     }
 
@@ -421,7 +440,7 @@ public class Cli extends ViewObservable implements View {
 
         String nickname;
         do {
-            nickname = scanner.nextLine();
+            nickname = readLine();
             if (!nicknameQueue.contains(nickname)) {
                 out.println("You have selected an invalid player! Please try again.");
             }
@@ -434,14 +453,20 @@ public class Cli extends ViewObservable implements View {
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
         clearCli();
+
         if (nicknameAccepted && connectionSuccessful) {
             out.println("Hi, " + nickname + "! You connected to the server.");
         } else if (connectionSuccessful) {
             askNickname();
+        } else if (nicknameAccepted) {
+            out.println("Max players reached. Refusing connection...");
+            out.println("\nPress ENTER to exit.");
+            readLine();
+            System.exit(1);
         } else {
             out.println("Could not contact server.");
             out.println("\nPress ENTER to exit.");
-            scanner.nextLine();
+            readLine();
             System.exit(1);
         }
     }
@@ -458,10 +483,9 @@ public class Cli extends ViewObservable implements View {
 
     @Override
     public void showDisconnectionMessage(String nicknameDisconnected, String text) {
-        out.println(nicknameDisconnected + text);
-        out.println("\nPress ENTER to exit.");
-        scanner.nextLine();
-        System.exit(1);
+        out.println("\n" + nicknameDisconnected + text);
+        //inputThread.interrupt();
+        futureTask.cancel(true);
     }
 
     /**

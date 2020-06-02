@@ -12,9 +12,9 @@ import java.util.logging.Logger;
 
 public class Server {
 
-    private GameController gameController;
+    private final GameController gameController;
 
-    private Map<String, ClientHandler> clientHandlerMap;
+    private final Map<String, ClientHandler> clientHandlerMap;
 
     public static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
@@ -31,10 +31,17 @@ public class Server {
      */
     public void addClient(String nickname, ClientHandler clientHandler) {
         VirtualView vv = new VirtualView(clientHandler);
-        if (gameController.checkLoginNickname(nickname, vv)) {
-            clientHandlerMap.put(nickname, clientHandler);
-            gameController.loginHandler(nickname, vv);
+
+        if (!gameController.isGameStarted()) {
+            if (gameController.checkLoginNickname(nickname, vv)) {
+                clientHandlerMap.put(nickname, clientHandler);
+                gameController.loginHandler(nickname, vv);
+            }
+        } else {
+            vv.showLoginResult(true, false, null);
+            clientHandler.disconnect();
         }
+
     }
 
     /**
@@ -47,6 +54,11 @@ public class Server {
         gameController.removeVirtualView(nickname);
     }
 
+    /**
+     * Forwards a received message from the client to the GameController.
+     *
+     * @param message the message to be forwarded.
+     */
     public void onMessageReceived(Message message) {
         gameController.onMessageReceived(message);
     }
@@ -61,7 +73,6 @@ public class Server {
 
         if (nickname != null) {
             removeClient(nickname);
-            System.out.print("PIPPO");
             gameController.broadcastDisconnectionMessage(nickname, " disconnected from the server. GAME ENDED.");
 
             // TODO save data (persistenza)

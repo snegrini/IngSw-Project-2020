@@ -646,4 +646,13 @@ public class GameController implements Observer {
     public boolean checkLoginNickname(String nickname, View view) {
         return inputController.checkLoginNickname(nickname, view);
     }
+
+    /**
+     * Checks if the game is already started, then no more players can connect.
+     *
+     * @return {@code true} if the game isn't started yet, {@code false} otherwise.
+     */
+    public boolean isGameStarted() {
+        return this.gameState != GameState.LOGIN;
+    }
 }

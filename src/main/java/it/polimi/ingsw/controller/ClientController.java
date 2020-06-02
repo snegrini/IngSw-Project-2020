@@ -13,6 +13,8 @@ import it.polimi.ingsw.view.View;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ClientController implements ViewObserver, Observer {
 
@@ -21,92 +23,12 @@ public class ClientController implements ViewObserver, Observer {
     private Client client;
     private String nickname;
 
+    private final ExecutorService taskQueue;
+
 
     public ClientController(View view) {
         this.view = view;
-    }
-
-    /**
-     * Takes action based on the message type received from the server.
-     *
-     * @param message the message received from the server.
-     */
-    @Override
-    public void update(Message message) {
-        switch (message.getMessageType()) {
-            case BOARD:
-                BoardMessage boardMessage = (BoardMessage) message;
-                view.showBoard(boardMessage.getBoard());
-                break;
-            case BUILD:
-                view.askBuild(((PositionMessage) message).getPositionList());
-                break;
-            case INIT_COLORS:
-                view.askInitWorkerColor(((ColorsMessage) message).getColorList());
-                break;
-            case GENERIC_MESSAGE:
-                view.showGenericMessage(((GenericMessage) message).getMessage());
-                break;
-            case DISCONNECTION:
-                DisconnectionMessage dm = (DisconnectionMessage) message;
-                view.showDisconnectionMessage(dm.getNicknameDisconnected(), dm.getMessageStr());
-                client.disconnect();
-                break;
-            case GODLIST:
-                GodListMessage godListMessage = (GodListMessage) message;
-                view.askGod(godListMessage.getGodList(), godListMessage.getRequest());
-                break;
-            case LOGIN_REPLY:
-                LoginReply loginReply = (LoginReply) message;
-                view.showLoginResult(loginReply.isNicknameAccepted(), loginReply.isConnectionSuccessful(), this.nickname);
-                break;
-            case LOGIN_REQUEST: // Should never be here.
-                break;
-            case MATCH_INFO:
-                UsersInfoMessage usersInfoMessage = (UsersInfoMessage) message;
-                view.showMatchInfo(
-                        usersInfoMessage.getActivePlayers(),
-                        usersInfoMessage.getActiveGods(),
-                        usersInfoMessage.getActivePlayerNickname()
-                );
-                break;
-            case MOVE:
-                view.askMove(((PositionMessage) message).getPositionList());
-                break;
-            case PICK_MOVING_WORKER:
-                view.askMovingWorker(((PositionMessage) message).getPositionList());
-                break;
-            case PICK_FIRST_PLAYER:
-                UsersInfoMessage playersMessage = (UsersInfoMessage) message;
-                view.askFirstPlayer(playersMessage.getActivePlayers(), playersMessage.getActiveGods());
-                break;
-            case PLAYERNUMBER_REPLY: // Should never be here.
-                break;
-            case PLAYERNUMBER_REQUEST:
-                view.askPlayersNumber();
-                break;
-            case INIT_WORKERSPOSITIONS:
-                view.askInitWorkersPositions(((PositionMessage) message).getPositionList());
-                break;
-            case ERROR:
-                view.showErrorAndExit(((ErrorMessage) message).getError());
-                break;
-            case ENABLE_EFFECT:
-                view.askEnableEffect();
-                break;
-            case MOVE_FX:
-                view.askMoveFx(((PositionMessage) message).getPositionList());
-                break;
-            case BUILD_FX:
-                view.askBuildFx(((PositionMessage) message).getPositionList());
-                break;
-            case LOBBY:
-                LobbyMessage lobbyMessage = (LobbyMessage) message;
-                view.showLobby(lobbyMessage.getNicknameList(), lobbyMessage.getMaxPlayers());
-
-            default: // Should never reach this condition
-                break;
-        }
+        taskQueue = Executors.newSingleThreadExecutor();
     }
 
     @Override
@@ -116,9 +38,9 @@ public class ClientController implements ViewObserver, Observer {
             client.addObserver(this);
             client.readMessage(); // Starts an asynchronous reading from the server.
             client.enablePinger(true);
-            view.askNickname();
+            taskQueue.execute(view::askNickname);
         } catch (IOException e) {
-            view.showLoginResult(false, false, this.nickname);
+            taskQueue.execute(() -> view.showLoginResult(false, false, this.nickname));
         }
     }
 
@@ -175,8 +97,88 @@ public class ClientController implements ViewObserver, Observer {
 
     @Override
     public void onUpdateFirstPlayer(String nickname) {
-        client.sendMessage(new UsersInfoMessage(this.nickname, MessageType.PICK_FIRST_PLAYER,null, null, nickname));
+        client.sendMessage(new UsersInfoMessage(this.nickname, MessageType.PICK_FIRST_PLAYER, null, null, nickname));
     }
+
+    /**
+     * Takes action based on the message type received from the server.
+     *
+     * @param message the message received from the server.
+     */
+    @Override
+    public void update(Message message) {
+
+        switch (message.getMessageType()) {
+            case BOARD:
+                BoardMessage boardMessage = (BoardMessage) message;
+                taskQueue.execute(() -> view.showBoard(boardMessage.getBoard()));
+                break;
+            case BUILD:
+                taskQueue.execute(() -> view.askBuild(((PositionMessage) message).getPositionList()));
+                break;
+            case INIT_COLORS:
+                taskQueue.execute(() -> view.askInitWorkerColor(((ColorsMessage) message).getColorList()));
+                break;
+            case GENERIC_MESSAGE:
+                taskQueue.execute(() -> view.showGenericMessage(((GenericMessage) message).getMessage()));
+                break;
+            case DISCONNECTION:
+                DisconnectionMessage dm = (DisconnectionMessage) message;
+                client.disconnect();
+                view.showDisconnectionMessage(dm.getNicknameDisconnected(), dm.getMessageStr());
+                break;
+            case GODLIST:
+                GodListMessage godListMessage = (GodListMessage) message;
+                taskQueue.execute(() -> view.askGod(godListMessage.getGodList(), godListMessage.getRequest()));
+                break;
+            case LOGIN_REPLY:
+                LoginReply loginReply = (LoginReply) message;
+                taskQueue.execute(() -> view.showLoginResult(loginReply.isNicknameAccepted(), loginReply.isConnectionSuccessful(), this.nickname));
+                break;
+            case MATCH_INFO:
+                UsersInfoMessage usersInfoMessage = (UsersInfoMessage) message;
+                taskQueue.execute(() -> view.showMatchInfo(
+                        usersInfoMessage.getActivePlayers(),
+                        usersInfoMessage.getActiveGods(),
+                        usersInfoMessage.getActivePlayerNickname()
+                ));
+                break;
+            case MOVE:
+                taskQueue.execute(() -> view.askMove(((PositionMessage) message).getPositionList()));
+                break;
+            case PICK_MOVING_WORKER:
+                taskQueue.execute(() -> view.askMovingWorker(((PositionMessage) message).getPositionList()));
+                break;
+            case PICK_FIRST_PLAYER:
+                UsersInfoMessage playersMessage = (UsersInfoMessage) message;
+                taskQueue.execute(() -> view.askFirstPlayer(playersMessage.getActivePlayers(), playersMessage.getActiveGods()));
+                break;
+            case PLAYERNUMBER_REQUEST:
+                taskQueue.execute(view::askPlayersNumber);
+                break;
+            case INIT_WORKERSPOSITIONS:
+                taskQueue.execute(() -> view.askInitWorkersPositions(((PositionMessage) message).getPositionList()));
+                break;
+            case ERROR:
+                taskQueue.execute(() -> view.showErrorAndExit(((ErrorMessage) message).getError()));
+                break;
+            case ENABLE_EFFECT:
+                taskQueue.execute(view::askEnableEffect);
+                break;
+            case MOVE_FX:
+                taskQueue.execute(() -> view.askMoveFx(((PositionMessage) message).getPositionList()));
+                break;
+            case BUILD_FX:
+                taskQueue.execute(() -> view.askBuildFx(((PositionMessage) message).getPositionList()));
+                break;
+            case LOBBY:
+                LobbyMessage lobbyMessage = (LobbyMessage) message;
+                taskQueue.execute(() -> view.showLobby(lobbyMessage.getNicknameList(), lobbyMessage.getMaxPlayers()));
+            default: // Should never reach this condition
+                break;
+        }
+    }
+
 
 
     public static boolean isValidIpAddress(String ip) {

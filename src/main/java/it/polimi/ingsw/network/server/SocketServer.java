@@ -48,6 +48,11 @@ public class SocketServer implements Runnable {
         server.removeClient(nickname);
     }
 
+    /**
+     * Forwards a received message from the client to the Server.
+     *
+     * @param message the message to be forwarded.
+     */
     public void onMessageReceived(Message message) {
         server.onMessageReceived(message);
     }
