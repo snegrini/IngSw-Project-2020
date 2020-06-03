@@ -1,3 +1,6 @@
 .rootPane {
-    -fx-background-color: #ff0000;
+    -fx-background-image: url("../images/banners/menu_banner_alt.png");
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }

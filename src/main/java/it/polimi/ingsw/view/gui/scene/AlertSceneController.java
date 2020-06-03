@@ -46,7 +46,6 @@ public class AlertSceneController implements GenericSceneController {
     }
 
     public void displayAlert() {
-        //stage.show();
         stage.showAndWait();
     }
 
