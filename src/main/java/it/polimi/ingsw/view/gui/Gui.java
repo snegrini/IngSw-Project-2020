@@ -14,8 +14,6 @@ import java.util.List;
 
 public class Gui extends ViewObservable implements View {
 
-    boolean initializated;
-
     @Override
     public void askNickname() {
         SceneController.changeRootPane(observers, "login_scene.fxml");
@@ -34,7 +32,6 @@ public class Gui extends ViewObservable implements View {
         ColorSceneController csc = new ColorSceneController();
         csc.addAllObservers(observers);
         csc.setAvailableColors(colors);
-        initializated = true;
         Platform.runLater(() -> SceneController.changeRootPane(csc, "color_scene.fxml"));
     }
 
@@ -131,11 +128,6 @@ public class Gui extends ViewObservable implements View {
      */
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
-
-        if (!initializated) {
-            return;
-        }
-
         BoardSceneController bsc;
 
         try {
