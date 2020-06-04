@@ -126,7 +126,7 @@ public class Gui extends ViewObservable implements View {
     }
 
     /**
-     * Show the board. A new root pane will be set if no board is already on scene, otherwise only the values will be
+     * Shows the board. A new root pane will be set if no board is already on scene, otherwise only the values will be
      * updated without changing the current root pane.
      *
      * @param spaces the board to be shown.

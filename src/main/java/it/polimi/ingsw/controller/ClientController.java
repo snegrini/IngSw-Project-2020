@@ -25,7 +25,6 @@ public class ClientController implements ViewObserver, Observer {
 
     private final ExecutorService taskQueue;
 
-
     public ClientController(View view) {
         this.view = view;
         taskQueue = Executors.newSingleThreadExecutor();
@@ -44,12 +43,23 @@ public class ClientController implements ViewObserver, Observer {
         }
     }
 
+    /**
+     * Sends a message to the server with the updated nickname.
+     * The nickname is also stored locally for later usages.
+     *
+     * @param nickname the nickname to be sent.
+     */
     @Override
     public void onUpdateNickname(String nickname) {
         this.nickname = nickname;
         client.sendMessage(new LoginRequest(this.nickname));
     }
 
+    /**
+     * Sends a message to the server with the player number chosen by the user.
+     *
+     * @param playersNumber the number of players.
+     */
     @Override
     public void onUpdatePlayersNumber(int playersNumber) {
         client.sendMessage(new PlayerNumberReply(this.nickname, playersNumber));
@@ -180,7 +190,12 @@ public class ClientController implements ViewObserver, Observer {
     }
 
 
-
+    /**
+     * Validates the given IPv4 address by using a regex.
+     *
+     * @param ip the string of the ip address to be validated
+     * @return {@code true} if the ip is valid, {@code false} otherwise.
+     */
     public static boolean isValidIpAddress(String ip) {
         String regex = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
                 "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
@@ -189,6 +204,12 @@ public class ClientController implements ViewObserver, Observer {
         return ip.matches(regex);
     }
 
+    /**
+     * Checks if the given port string is in the range of allowed ports.
+     *
+     * @param portStr the ports to be checked.
+     * @return {@code true} if the port is valid, {@code false} otherwise.
+     */
     public static boolean isValidPort(String portStr) {
         try {
             int port = Integer.parseInt(portStr);

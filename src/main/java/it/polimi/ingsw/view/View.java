@@ -12,16 +12,34 @@ import java.util.List;
  */
 public interface View {
     /**
-     * Asks to the user to choose a Nickname.
+     * Asks the user to choose a Nickname.
      */
     void askNickname();
 
+    /**
+     * Asks the user to choose the worker to be moved.
+     *
+     * @param positionList the list of available workers' positions.
+     */
     void askMovingWorker(List<Position> positionList);
 
+    /**
+     * Asks the user the position where he wants to move the worker.
+     *
+     * @param positionList the list of valid move positions.
+     */
     void askMove(List<Position> positionList);
 
+    /**
+     * Asks the user the initial positions of his workers.
+     *
+     * @param positions the list of available positions.
+     */
     void askInitWorkersPositions(List<Position> positions);
 
+    /**
+     * Asks the user how many players he wants to play with.
+     */
     void askPlayersNumber();
 
     /**
@@ -107,9 +125,28 @@ public interface View {
      */
     void askEnableEffect();
 
+    /**
+     * Shows the match info.
+     * Infos are about the active player, the other players and their gods.
+     *
+     * @param players the list of currently playing players.
+     * @param gods the list of gods chosen by each player.
+     * @param activePlayer the currently active player (player's turn).
+     */
     void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer);
 
+    /**
+     * Asks the "chosen player" who he wants the game to start from.
+     *
+     * @param nicknameList the list of nicknames of all the players.
+     * @param godList the list of gods of the players.
+     */
     void askFirstPlayer(List<String> nicknameList, List<ReducedGod> godList);
 
+    /**
+     * Shows a win message.
+     *
+     * @param winner the nickname of the winner.
+     */
     void showWinMessage(String winner);
 }
