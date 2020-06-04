@@ -110,4 +110,6 @@ public interface View {
     void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer);
 
     void askFirstPlayer(List<String> nicknameList, List<ReducedGod> godList);
+
+    void showWinMessage(String winner);
 }

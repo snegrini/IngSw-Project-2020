@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
+import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.View;
@@ -185,5 +186,12 @@ public class Gui extends ViewObservable implements View {
         fpsc.setNicknames(nicknameList);
         fpsc.setGods(gods);
         Platform.runLater(() -> SceneController.changeRootPane(fpsc, "first_player_scene.fxml"));
+    }
+
+    @Override
+    public void showWinMessage(String winner) {
+        WinSceneController wsc = new WinSceneController();
+        wsc.setNicknameLbl(winner);
+        Platform.runLater(() -> SceneController.changeRootPane(wsc, "win_scene.fxml"));
     }
 }

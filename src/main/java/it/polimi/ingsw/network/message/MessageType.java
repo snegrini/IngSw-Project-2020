@@ -10,7 +10,6 @@ public enum MessageType {
     INIT_WORKERSPOSITIONS,
     INIT_COLORS,
     PICK_MOVING_WORKER,
-    PICK_BUILDING_WORKER,
     MOVE,
     MOVE_FX,
     BUILD,

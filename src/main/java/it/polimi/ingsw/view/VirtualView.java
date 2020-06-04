@@ -52,6 +52,11 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
+    public void showWinMessage(String winner) {
+        clientHandler.sendMessage(new WinMessage(winner));
+    }
+
+    @Override
     public void askMove(List<Position> positionList) {
         clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.MOVE, positionList));
     }

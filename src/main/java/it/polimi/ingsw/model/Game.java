@@ -81,6 +81,7 @@ public class Game extends Observable {
      */
     public boolean removePlayerByNickname(String nickname) {
         return players.remove(getPlayerByNickname(nickname));
+
     }
 
     /**

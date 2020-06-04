@@ -43,8 +43,6 @@ public class InputController {
                 return moveCheck(message);
             case PICK_MOVING_WORKER:
                 return pickMovingCheck(message);
-            case PICK_BUILDING_WORKER:
-                return pickMovingCheck(message);
             case PLAYERNUMBER_REPLY:
                 return playerNumberReplyCheck(message);
             case PLAYERNUMBER_REQUEST: // server doesn't receive a GenericErrorMessage.

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.enumerations.PhaseType;
@@ -221,6 +222,9 @@ public class TurnController {
             game.getBoard().removeWorkers(activePlayer);
             // TODO disconnect 3° player, notify all
             turnControllerNotify(activePlayer + " LOOSE.");
+            nicknameQueue.remove(activePlayer);
+            game.removePlayerByNickname(activePlayer);
+            broadcastMatchInfo();
             next();
             newTurn();
         } else {
@@ -229,6 +233,17 @@ public class TurnController {
             // newTurn();
 
 
+        }
+    }
+
+    private void broadcastMatchInfo() {
+        List<ReducedGod> gods = new ArrayList<>();
+        for(String s : nicknameQueue){
+            gods.add(new ReducedGod(game.getPlayerByNickname(s).getGod()));
+        }
+
+        for (VirtualView vv : virtualViewMap.values()) {
+            vv.showMatchInfo(nicknameQueue, gods, activePlayer);
         }
     }
 

@@ -451,6 +451,11 @@ public class Cli extends ViewObservable implements View {
     }
 
     @Override
+    public void showWinMessage(String winner) {
+        System.out.println("Game Finished! " + winner + "wins!");
+    }
+
+    @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
         clearCli();
 

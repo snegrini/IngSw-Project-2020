@@ -30,7 +30,10 @@ public class MoveWinDecorator extends EffectDecorator {
             if (lastLvl - currentLvl >= levels) {
                 // The player of the active workers has won the game.
                 // Game is finished.
-                notifyObserver(new WinMessage());
+
+                //nickname will be setted by controller.
+                notifyObserver(new WinMessage(null));
+
             }
         }
     }

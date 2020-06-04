@@ -287,10 +287,15 @@ public class GameController implements Observer {
      * Broadcast the winner, disconnect all clients and reset whole game.
      */
     private void win() {
-        broadcastGenericMessage(turnController.getActivePlayer() + " wins! Game Finished!");
-
+        broadcastWinMessage(turnController.getActivePlayer());
         disconnectAllClients();
         endGame();
+    }
+
+    private void broadcastWinMessage(String activePlayer) {
+        for (VirtualView vv : virtualViewMap.values()) {
+            vv.showWinMessage(activePlayer);
+        }
     }
 
     /**

@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.network.server.ClientHandler;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.After;
 import org.junit.Before;
@@ -67,6 +68,11 @@ public class GameControllerTest {
         LoginRequest loginRequestSamuel = new LoginRequest(p3);
         gameController.onMessageReceived(loginRequestSamuel);
         // TODO gestire i loginHandler che inizializzano il tutto.
+        Server server = new Server(gameController);
+        server.addClient(p1, clientHandler);
+        server.addClient(p2, clientHandler);
+        server.addClient(p3, clientHandler);
+
 
         // Challenger pick up 3 gods.
         List<ReducedGod> godList = new ArrayList<>();
@@ -79,7 +85,7 @@ public class GameControllerTest {
         GodListMessage firstGodListMessage = new GodListMessage(p1, godList, 0);
         gameController.onMessageReceived(firstGodListMessage);
 
-        // Users pick up their own gods.
+        // Users pick up their own gods. (p2-> minotaur, p3-> athena, p1-> apollo)
         GodListMessage one_godListMessage = new GodListMessage(p2, List.of(godList.get(2)), 0);
         gameController.onMessageReceived(one_godListMessage);
         GodListMessage two_godListMessage = new GodListMessage(p3, List.of(godList.get(1)), 0);
@@ -99,26 +105,50 @@ public class GameControllerTest {
         positions.add(new Position(0, 0));
         positions.add(new Position(0, 1));
         PositionMessage p1_workersPositionMessage = new PositionMessage(p1, MessageType.INIT_WORKERSPOSITIONS, positions);
+        gameController.onMessageReceived(p1_workersPositionMessage);
         positions.removeAll(positions);
 
         // Init second player.
         ColorsMessage second_colorsMessage = new ColorsMessage(p2, List.of(Color.GREEN));
         gameController.onMessageReceived(second_colorsMessage);
-        positions.add(new Position(0,3));
-        positions.add(new Position(0,4));
+        positions.add(new Position(0,2));
+        positions.add(new Position(1,2));
         PositionMessage p2_workersPositionMessage = new PositionMessage(p2, MessageType.INIT_WORKERSPOSITIONS, positions);
+        gameController.onMessageReceived(p2_workersPositionMessage);
         positions.removeAll(positions);
 
         // Init third player.
         ColorsMessage third_colorsMessage = new ColorsMessage(p3, List.of(Color.RED));
         gameController.onMessageReceived(third_colorsMessage);
-        positions.add(new Position(2,4));
-        positions.add(new Position(3,4));
+        positions.add(new Position(1,0));
+        positions.add(new Position(1,1));
         PositionMessage p3_workersPositionMessage = new PositionMessage(p3, MessageType.INIT_WORKERSPOSITIONS, positions);
+        gameController.onMessageReceived(p3_workersPositionMessage);
         positions.removeAll(positions);
 
-        // Turn of first player.
-       // assertTrue(gameController.getAvailableGods().isEmpty());
+        // Asserts of INIT phase.
+       assertTrue(gameController.getAvailableGods().isEmpty());
+       List<Position> checkWorkersPositions = new ArrayList<>();
+       checkWorkersPositions.add(new Position(1,0));
+       checkWorkersPositions.add(new Position(1,1));
+       assertTrue(Game.getInstance().getPlayerByNickname("SamuelKala").getWorkersPositions().equals(checkWorkersPositions));
+        checkWorkersPositions.removeAll(checkWorkersPositions);
+
+       // First player LOSE.
+
+        //Second player moves.
+        PositionMessage p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER,List.of(new Position(0,2)));
+        gameController.onMessageReceived(p2_movingWorker);
+        PrepareEffectMessage p2_notApply = new PrepareEffectMessage(p2, false);
+        gameController.onMessageReceived(p2_notApply);
+        PositionMessage p2_move = new PositionMessage(p2, MessageType.MOVE, List.of(new Position(0,1)));
+        gameController.onMessageReceived(p2_move);
+        checkWorkersPositions.add(new Position(0,1));
+        checkWorkersPositions.add(new Position(1,2));
+        assertTrue(Game.getInstance().getPlayerByNickname("SamueleNegrini").getWorkersPositions().equals(checkWorkersPositions));
+
+
+
 
     }
 

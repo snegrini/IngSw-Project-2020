@@ -90,10 +90,12 @@ public class Player extends Observable {
 
         for (Position p : tempPositionList) {
             List<Position> possibleMoves = getWorkerByPosition(p).getPossibleMoves();
+            List<Position> tempPossibleMoves = getWorkerByPosition(p).getPossibleMoves();
+
             if (possibleMoves.isEmpty()) {
                 positionList.remove(p);
             } else {
-                for (Position pos : possibleMoves) {
+                for (Position pos : tempPossibleMoves) {
                     Worker tempWorker = new Worker(pos);
                     if (tempWorker.getPossibleBuilds().isEmpty()) {
                         possibleMoves.remove(pos);

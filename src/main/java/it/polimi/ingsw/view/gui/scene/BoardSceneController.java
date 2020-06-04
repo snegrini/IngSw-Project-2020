@@ -41,7 +41,6 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private GridPane boardGrid;
     @FXML
     private ImageView effectImage;
-
     @FXML
     private Label player1Label;
     @FXML
@@ -54,15 +53,14 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private Label player3Label;
     @FXML
     private ImageView god3Image;
-
+    @FXML
+    private ImageView undoImg;
+    @FXML
+    private Label timerLbl;
     @FXML
     private Button skipEffectBtn;
-
-    @FXML
-    private Button undoBtn;
     @FXML
     private Button confirmBtn;
-
     @FXML
     private Label turnInformationLabel;
 
@@ -78,7 +76,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         boardGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSpaceClick);
         effectImage.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onEffectImageClick);
         skipEffectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSkipEffectBtnClick);
-        undoBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onUndoBtnClick);
+        undoImg.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onUndoImgClick);
         confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConfirmBtnClick);
 
         god1Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod1ImageClick);
@@ -91,7 +89,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
         turnInformationLabel.setText("");
 
-        undoBtn.setVisible(false);
+        timerLbl.setVisible(false);
+        undoImg.setVisible(false);
         confirmBtn.setVisible(false);
         god3Image.setVisible(false);
 
@@ -143,8 +142,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         }
     }
 
-    private void onUndoBtnClick(MouseEvent event) {
-        undoBtn.setVisible(false);
+    private void onUndoImgClick(MouseEvent event) {
+        undoImg.setVisible(false);
         confirmBtn.setVisible(false);
         tempNode.getStyleClass().remove("glassPaneSelected");
         setEnabledSpaces(enabledSpaces);
@@ -154,7 +153,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     private void onConfirmBtnClick(MouseEvent event) {
         undoTimer.cancel();
-        undoBtn.setVisible(false);
+        timerLbl.setVisible(false);
+        undoImg.setVisible(false);
         confirmBtn.setVisible(false);
 
         availablePositionClicks--;
@@ -207,6 +207,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         }
     }
 
+
     /**
      * Waits 5 seconds before sending the data to the server.
      * The user can Undo his last operation by clicking on the undo button.
@@ -221,8 +222,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         disableAllSpaces();
         clickedNode.getStyleClass().add("glassPaneSelected");
 
-        undoBtn.setVisible(true);
+        undoImg.setVisible(true);
         confirmBtn.setVisible(true);
+        timerLbl.setVisible(true);
         tempNode = clickedNode;
         tempPosition = clickedPosition;
 
@@ -233,7 +235,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 onConfirmBtnClick(null);
             }
         }, 5000);
+
     }
+
 
     /**
      * Handles the initial setup of the workers onto the board.
@@ -507,6 +511,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 player3Label.setText(players.get(2));
                 Image img3 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(2).getName().toLowerCase() + ".png"));
                 god3Image.setImage(img3);
+            } else {
+                god3Image.setVisible(false);
+                player3Label.setVisible(false);
             }
         } else {
             turnInformationLabel.setText("Turn Of " + activePlayer);
