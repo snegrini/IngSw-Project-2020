@@ -72,6 +72,17 @@ public class Worker {
         List<Position> possibleMoves = board.getNeighbours(position);
         possibleMoves.removeAll(board.getNeighbourWorkers(position, false));
 
+        // remove all possible destination in wich worker couldn't build.
+        List<Position> tempPossibleMoves = board.getNeighbours(position);
+        tempPossibleMoves.removeAll(board.getNeighbourWorkers(position, false));
+        for (Position pos : tempPossibleMoves) {
+            Worker tempWorker = new Worker(pos);
+            if (tempWorker.getPossibleBuilds().isEmpty()) {
+                possibleMoves.remove(pos);
+            }
+        }
+
+
         return possibleMoves.stream()
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
