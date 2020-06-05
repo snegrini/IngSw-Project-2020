@@ -124,6 +124,8 @@ public class TurnController {
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
         if (positionList.isEmpty()) {
             // TODO LOSE
+            // require fx
+
            lose();
 
         } else {
@@ -184,12 +186,16 @@ public class TurnController {
         if (checkEffectPhase(getPhaseType()) && !skipEffect && requireEffect()) {
             Effect effect = player.getGod().getEffectByType(getPhaseType());
             if (effect.isUserConfirmNeeded()) {
-                virtualView.askEnableEffect();
+                virtualView.askEnableEffect(false);
             } else {
-                effect.apply(activeWorker, null);
-                //effect.clear(getActiveWorker());
-                appliedEffect = effect;
-                continueGame(virtualView);
+                if(getPhaseType().equals(PhaseType.YOUR_MOVE) && !player.getGod().getName().equals("Prometheus")) {
+                    virtualView.askEnableEffect(true);
+                } else {
+                    effect.apply(activeWorker, null);
+                    //effect.clear(getActiveWorker());
+                    appliedEffect = effect;
+                    continueGame(virtualView);
+                }
             }
         } else {
             continueGame(virtualView);

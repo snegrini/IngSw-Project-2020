@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.board.Position;
+import it.polimi.ingsw.model.effects.Effect;
+import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.enumerations.PlayerState;
 import it.polimi.ingsw.observer.Observable;
 
@@ -92,8 +94,16 @@ public class Player extends Observable {
             List<Position> possibleMoves = getWorkerByPosition(p).getPossibleMoves();
             List<Position> tempPossibleMoves = getWorkerByPosition(p).getPossibleMoves();
 
+            // TODO test
             if (possibleMoves.isEmpty()) {
-                positionList.remove(p);
+                Effect effect = this.getGod().getEffectByType(PhaseType.YOUR_MOVE);
+                if(null != effect) {
+                    if(!effect.require(getWorkerByPosition(p))){
+                        positionList.remove(p);
+                    }
+                } else {
+                    positionList.remove(p);
+                }
             } else {
                 for (Position pos : tempPossibleMoves) {
                     Worker tempWorker = new Worker(pos);
@@ -107,6 +117,8 @@ public class Player extends Observable {
 
             }
         }
+
+
         return positionList;
     }
 

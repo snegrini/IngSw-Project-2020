@@ -10,7 +10,7 @@
         <effects>
             <effect phase="YOUR_MOVE">
                 <requirements>
-                    <userconfirm>true</userconfirm>
+                    <userconfirm>false</userconfirm>
                 </requirements>
                 <parameters>
                     <target>YOUR_ACTIVE_WORKER</target>
@@ -120,7 +120,7 @@
         <effects>
             <effect phase="YOUR_MOVE">
                 <requirements>
-                    <userconfirm>true</userconfirm>
+                    <userconfirm>false</userconfirm>
                 </requirements>
                 <parameters>
                     <target>YOUR_ACTIVE_WORKER</target>

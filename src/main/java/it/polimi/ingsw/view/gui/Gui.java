@@ -168,9 +168,14 @@ public class Gui extends ViewObservable implements View {
     }
 
     @Override
-    public void askEnableEffect() {
-        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
-        Platform.runLater(() -> bsc.enableEffectControls(true));
+    public void askEnableEffect(boolean forceApply) {
+        if(forceApply) {
+            // send to server the request to apply my effect.
+            Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(true)));
+        } else {
+            BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+            Platform.runLater(() -> bsc.enableEffectControls(true));
+        }
     }
 
     @Override

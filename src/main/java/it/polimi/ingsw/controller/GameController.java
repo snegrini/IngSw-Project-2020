@@ -321,7 +321,7 @@ public class GameController implements Observer {
             Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());
             if (effect.isUserConfirmNeeded()) {
                 VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());
-                virtualView.askEnableEffect();
+                virtualView.askEnableEffect(false);
             } else {
                 effect.apply(turnController.getActiveWorker(), null);
                 //effect.clear(turnController.getActiveWorker());

@@ -173,7 +173,7 @@ public class ClientController implements ViewObserver, Observer {
                 taskQueue.execute(() -> view.showErrorAndExit(((ErrorMessage) message).getError()));
                 break;
             case ENABLE_EFFECT:
-                taskQueue.execute(view::askEnableEffect);
+                taskQueue.execute(() -> view.askEnableEffect(((PrepareEffectMessage) message).isEnableEffect()));
                 break;
             case MOVE_FX:
                 taskQueue.execute(() -> view.askMoveFx(((PositionMessage) message).getPositionList()));

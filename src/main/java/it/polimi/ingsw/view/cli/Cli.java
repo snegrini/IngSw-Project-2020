@@ -419,10 +419,14 @@ public class Cli extends ViewObservable implements View {
     }
 
     @Override
-    public void askEnableEffect() {
-        out.println("Do you want to enable your god effect? [y/N]: ");
-        String response = readLine();
-        notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(response.equalsIgnoreCase("y")));
+    public void askEnableEffect(boolean forceApply) {
+        if(forceApply) {
+            notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(true));
+        } else {
+            out.println("Do you want to enable your god effect? [y/N]: ");
+            String response = readLine();
+            notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(response.equalsIgnoreCase("y")));
+        }
     }
 
     @Override
