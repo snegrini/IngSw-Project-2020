@@ -12,11 +12,12 @@ import it.polimi.ingsw.network.message.LobbyMessage;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.parser.GodParser;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Game extends Observable {
+public class Game extends Observable implements Serializable {
 
     private static Game instance;
 

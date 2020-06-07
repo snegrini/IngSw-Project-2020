@@ -9,11 +9,12 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.view.VirtualView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class TurnController {
+public class TurnController implements Serializable {
 
     private Game game;
     private List<String> nicknameQueue;

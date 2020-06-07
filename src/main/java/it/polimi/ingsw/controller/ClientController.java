@@ -110,6 +110,11 @@ public class ClientController implements ViewObserver, Observer {
         client.sendMessage(new UsersInfoMessage(this.nickname, MessageType.PICK_FIRST_PLAYER, null, null, nickname));
     }
 
+    @Override
+    public void onUpdatePersistence(boolean persistence) {
+        client.sendMessage(new PersistenceMessage(this.nickname, true));
+    }
+
     /**
      * Takes action based on the message type received from the server.
      *

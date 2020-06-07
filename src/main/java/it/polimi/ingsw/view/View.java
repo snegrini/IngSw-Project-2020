@@ -118,6 +118,11 @@ public interface View {
      */
     void showBoard(ReducedSpace[][] spaces);
 
+    /**
+     * Shows the lobby with connected players.
+     * @param nicknameList list of players.
+     * @param numPlayers number of players.
+     */
     void showLobby(List<String> nicknameList, int numPlayers);
 
     /**
@@ -149,4 +154,6 @@ public interface View {
      * @param winner the nickname of the winner.
      */
     void showWinMessage(String winner);
+
+    void askPeristence(boolean persistence);
 }

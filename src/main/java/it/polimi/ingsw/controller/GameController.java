@@ -15,6 +15,9 @@ import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
 import static it.polimi.ingsw.network.message.MessageType.PLAYERNUMBER_REPLY;
@@ -45,6 +48,7 @@ public class GameController implements Observer {
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
         this.inputController = new InputController(virtualViewMap, this);
         setGameState(GameState.LOGIN);
+        //saveGame();
     }
 
     /**
@@ -153,9 +157,49 @@ public class GameController implements Observer {
             case APPLY_EFFECT:
                 applyEffect((PositionMessage) receivedMessage);
                 break;
+            case PERSISTENCE:
+                persistence((PersistenceMessage) receivedMessage);
+                break;
             default:
                 // TODO show exception
                 break;
+        }
+    }
+
+
+    // TODO remove.
+    /**
+     * If player requests to exit and save then save the whole game.
+     *
+     * @param receivedMessage Message from a Player.
+     */
+    private void persistence(PersistenceMessage receivedMessage) {
+        if (receivedMessage.getPersistenceFlag()) {
+            saveGame();
+        }
+    }
+
+    /**
+     * Saves GameController, TurnController and Game classes.
+     */
+    private void saveGame() {
+        // TODO Save match on file.
+        writeClassOnFile(game);
+        //writeClassOnFile(this.getSerializable());
+        writeClassOnFile(turnController);
+        // TODO notify that game has been saved and suspended.
+    }
+
+    private void writeClassOnFile(Object serializableObj) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("save.bin");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(serializableObj);
+            objectOut.close();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -277,6 +321,7 @@ public class GameController implements Observer {
 
     /**
      * Set the State of the current Game.
+     *
      * @param gameState State of the current Game.
      */
     private void setGameState(GameState gameState) {
@@ -363,11 +408,40 @@ public class GameController implements Observer {
                 // TODO CHECK SAVED MATCHES
                 // if exists then load
                 // else
-                initGame();
+              /*  Object savedFile = matchAlreadyExists();
+                if (savedFile.equals("isNotNull.")) { // Temporaneo.
+                    load(savedFile);
+                } else {
+                */    initGame();
+            //    }
             }
         } else {
             virtualView.showLoginResult(true, false, Game.SERVER_NICKNAME);
         }
+    }
+
+    /**
+     * Load the whole saved Game from file.
+     */
+    private void load(Object savedFile) {
+
+        // this = gameControllerLoaded;
+        // turnController = turnControllerLoaded;
+        // game = gameLoaded;
+
+        // eventuali shows da fare ai clients.
+        turnController.resumePhase();
+    }
+
+
+    /**
+     * Check if exists a persistence file of the match.
+     *
+     * @return {@code savedMatch} if exists, {@code null} otherwise.
+     */
+    private Object matchAlreadyExists() {
+        // TODO for every files return savedMatch if present, null otherwise.
+        return null;
     }
 
 
@@ -424,6 +498,7 @@ public class GameController implements Observer {
 
     /**
      * Handles the Challenger's choice for the first player.
+     *
      * @param firstPlayerNick first player choosen by Challenger.
      */
     private void pickFirstPlayerHandler(String firstPlayerNick) {
@@ -455,8 +530,8 @@ public class GameController implements Observer {
         VirtualView virtualView = virtualViewMap.get(nickname);
 
         virtualView.showBoard(game.getReducedSpaceBoard());
-         virtualView.askInitWorkersPositions(game.getFreePositions());
-         virtualView.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), turnController.getActivePlayer());
+        virtualView.askInitWorkersPositions(game.getFreePositions());
+        virtualView.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), turnController.getActivePlayer());
 
     }
 
@@ -542,7 +617,7 @@ public class GameController implements Observer {
     public List<ReducedGod> getActiveGods() {
 
         List<ReducedGod> gods = new ArrayList<>();
-        for(String s : turnController.getNicknameQueue()){
+        for (String s : turnController.getNicknameQueue()) {
             gods.add(new ReducedGod(game.getPlayerByNickname(s).getGod()));
         }
 
@@ -599,8 +674,9 @@ public class GameController implements Observer {
 
     /**
      * Sends a broadcast disconnection message.
+     *
      * @param nicknameDisconnected user who had a connection drop.
-     * @param text generic text.
+     * @param text                 generic text.
      */
     public void broadcastDisconnectionMessage(String nicknameDisconnected, String text) {
         for (VirtualView vv : virtualViewMap.values()) {
