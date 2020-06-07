@@ -30,6 +30,8 @@ public class Cli extends ViewObservable implements View {
         out = System.out;
     }
 
+    // TODO check every input for command "save" or "persistence" or "save and exit" or SLT.
+
     public String readLine() {
         futureTask = new FutureTask<>(new InputReadTask());
         inputThread = new Thread(futureTask);
@@ -457,6 +459,11 @@ public class Cli extends ViewObservable implements View {
     @Override
     public void showWinMessage(String winner) {
         System.out.println("Game Finished! " + winner + "wins!");
+    }
+
+    @Override
+    public void askPeristence(boolean persistence) {
+        notifyObserver((ViewObserver obs) -> obs.onUpdatePersistence(persistence));
     }
 
     @Override

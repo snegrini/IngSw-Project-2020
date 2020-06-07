@@ -9,6 +9,7 @@ import it.polimi.ingsw.network.message.BoardMessage;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.Observable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class Board extends Observable {
+public class Board extends Observable implements Serializable {
 
     public static final int MAX_ROWS = 5;
     public static final int MAX_COLUMNS = 5;

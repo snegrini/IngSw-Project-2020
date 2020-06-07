@@ -369,7 +369,7 @@
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Button layoutX="1082.0" layoutY="562.0" mnemonicParsing="false" prefHeight="106.0" prefWidth="202.0" style="-fx-background-size: stretch;" styleClass="smallButton" text="SAVE &amp; EXIT">
+                  <Button fx:id="persistenceBtn" layoutX="1082.0" layoutY="562.0" mnemonicParsing="false" prefHeight="106.0" prefWidth="202.0" style="-fx-background-size: stretch;" styleClass="smallButton" text="SAVE &amp; EXIT">
                      <font>
                         <Font size="33.0" />
                      </font>

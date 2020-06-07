@@ -26,5 +26,6 @@ public enum MessageType {
     PING,
     ERROR,
     ENABLE_EFFECT,
-    APPLY_EFFECT
+    APPLY_EFFECT,
+    PERSISTENCE
 }

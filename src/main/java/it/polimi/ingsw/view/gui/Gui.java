@@ -199,4 +199,9 @@ public class Gui extends ViewObservable implements View {
         wsc.setNicknameLbl(winner);
         Platform.runLater(() -> SceneController.changeRootPane(wsc, "win_scene.fxml"));
     }
+
+    @Override
+    public void askPeristence(boolean persistence) {
+        // do nothing.
+    }
 }

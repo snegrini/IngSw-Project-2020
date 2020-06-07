@@ -57,6 +57,12 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
+    public void askPeristence(boolean persistence) {
+        // only used from client to server.
+    }
+
+
+    @Override
     public void askMove(List<Position> positionList) {
         clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.MOVE, positionList));
     }

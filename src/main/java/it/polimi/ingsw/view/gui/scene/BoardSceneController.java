@@ -10,6 +10,7 @@ import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -64,6 +65,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     @FXML
     private Label turnInformationLabel;
 
+    @FXML
+    private Button persistenceBtn;
 
     public BoardSceneController() {
         availablePositionClicks = 0;
@@ -78,6 +81,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         skipEffectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSkipEffectBtnClick);
         undoImg.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onUndoImgClick);
         confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConfirmBtnClick);
+        persistenceBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onPersistenceBtnClick);
 
         god1Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod1ImageClick);
         god2Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod2ImageClick);
@@ -94,6 +98,15 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         confirmBtn.setVisible(false);
         god3Image.setVisible(false);
 
+    }
+
+    /**
+     * Send to server a message for save all match, then exit.
+     * @param event the mouse click event.
+     */
+    private void onPersistenceBtnClick(MouseEvent event) {
+
+        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePersistence(true)));
     }
 
     /**
