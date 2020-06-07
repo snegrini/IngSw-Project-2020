@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.player.ReducedWorker;
 import it.polimi.ingsw.network.message.MessageType;
+import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
@@ -364,12 +365,15 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             Position tempPos = new Position(GridPane.getRowIndex(space), GridPane.getColumnIndex(space));
 
             if (isGridPositionOnBoard(tempPos)) {
-                Node styledSpace = ((StackPane) space).getChildren().get(0);
+                ObservableList<Node> children = ((StackPane) space).getChildren();
+                Node spaceNode = children.get(0); // panel for the levels
+                Node spaceWorkerNode = children.get(1); // panel for the dome/worker
                 ReducedSpace redSp = reducedSpaces[tempPos.getRow()][tempPos.getColumn()];
 
                 // NOTE: always call first setGridSpaceLevel, because it clears all the other styles.
-                setGridSpaceLevel(styledSpace, redSp.getLevel(), redSp.hasDome());
-                setGridSpaceWorker(styledSpace, redSp.getReducedWorker());
+                // The dome will be set in the worker panel since they mutually exclude.
+                setGridSpaceLevel(spaceNode, redSp.getLevel());
+                setGridSpaceWorker(spaceWorkerNode, redSp.getReducedWorker(), redSp.hasDome());
             }
         }
     }
@@ -416,13 +420,12 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     }
 
     /**
-     * Sets the CSS style on the grid space argument based on the given level and optional dome.
+     * Sets the CSS style on the grid space argument based on the given level.
      *
      * @param gridSpace the Node of the grid board to be modified.
      * @param level     the level to be set.
-     * @param dome      a boolean value to identify the dome on the space.
      */
-    private void setGridSpaceLevel(Node gridSpace, int level, boolean dome) {
+    private void setGridSpaceLevel(Node gridSpace, int level) {
         //gridSpace.getStyleClass().clear();
 
         switch (level) {
@@ -440,19 +443,16 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             default:
                 break;
         }
-
-        if (dome) {
-            gridSpace.getStyleClass().add("dome");
-        }
     }
 
     /**
-     * Sets the CSS style on the grid space argument based on the given worker.
+     * Sets the CSS style on the grid space argument based on the given worker or optional dome.
      *
      * @param gridSpace     the Node of the grid board to be modified.
      * @param reducedWorker the worker of the space. Can be null if no worker is on the space.
+     * @param dome          a boolean value to identify the dome on the space.
      */
-    private void setGridSpaceWorker(Node gridSpace, ReducedWorker reducedWorker) {
+    private void setGridSpaceWorker(Node gridSpace, ReducedWorker reducedWorker, boolean dome) {
         // Remove the previous worker (if any)
         gridSpace.getStyleClass().removeIf(s -> s.startsWith("worker"));
 
@@ -461,6 +461,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             strColor = strColor.substring(0, 1) + strColor.substring(1).toLowerCase();
 
             gridSpace.getStyleClass().add("worker" + strColor);
+        } else if (dome) {
+            gridSpace.getStyleClass().add("dome");
         }
     }
 
