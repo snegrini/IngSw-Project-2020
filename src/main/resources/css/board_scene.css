@@ -22,11 +22,11 @@
 }
 
 .spacePane.lvlOne {
-    -fx-background-image: url("../images/firstfloor.png");
+    -fx-background-image: url("../images/buildings/firstfloor.png");
 }
 
 .spacePane.lvlOne.lvlTwo {
-    -fx-background-image: url("../images/secondfloor.png");
+    -fx-background-image: url("../images/buildings/sample1.png");
 }
 
 .spacePane.lvlOne.lvlTwo.lvlThree {

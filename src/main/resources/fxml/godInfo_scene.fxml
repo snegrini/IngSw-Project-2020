@@ -38,7 +38,7 @@
             <ImageView fx:id="godImg" fitHeight="144.0" fitWidth="130.0" layoutX="79.0" layoutY="172.0"
                        pickOnBounds="true" preserveRatio="true"/>
             <Label fx:id="nameLbl" layoutX="310.0" layoutY="68.0" prefHeight="46.0" prefWidth="285.0"
-                   styleClass="customText" text="God Name">
+                   styleClass="customText">
                <font>
                   <Font size="24.0"/>
                </font>
