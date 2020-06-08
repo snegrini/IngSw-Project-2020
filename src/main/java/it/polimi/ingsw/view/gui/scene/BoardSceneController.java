@@ -157,6 +157,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     }
 
     private void onUndoImgClick(MouseEvent event) {
+        undoTimer.cancel();
         undoImg.setVisible(false);
         confirmBtn.setVisible(false);
         tempNode.getStyleClass().remove("glassPaneSelected");
@@ -249,7 +250,6 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 onConfirmBtnClick(null);
             }
         }, 5000);
-
     }
 
 
