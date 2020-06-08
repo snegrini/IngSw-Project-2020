@@ -8,13 +8,14 @@ import it.polimi.ingsw.model.enumerations.XMLName;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.observer.Observable;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Abstract class used to implement the Decorator Pattern for the effects.
  */
-public abstract class Effect extends Observable {
+public abstract class Effect extends Observable implements Serializable {
 
     private PhaseType phaseType;
     private Map<XMLName, TargetType> targetTypeMap;

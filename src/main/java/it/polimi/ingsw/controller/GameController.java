@@ -18,11 +18,12 @@ import it.polimi.ingsw.view.VirtualView;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
 import static it.polimi.ingsw.network.message.MessageType.PLAYERNUMBER_REPLY;
 
-public class GameController implements Observer {
+public class GameController implements Observer, Serializable {
 
     private Game game;
     private Map<String, VirtualView> virtualViewMap;
@@ -48,7 +49,7 @@ public class GameController implements Observer {
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
         this.inputController = new InputController(virtualViewMap, this);
         setGameState(GameState.LOGIN);
-        //saveGame();
+        saveGame();
     }
 
     /**
@@ -691,9 +692,7 @@ public class GameController implements Observer {
         int mapSize = virtualViewMap.size();
         for (int i = 0; i < mapSize - 1; i++)
             virtualViewMap.get(turnController.getNicknameQueue().get(i)).getClientHandler().disconnect();
-
     }
-
 
     /**
      * Receives an update message from the effect model.

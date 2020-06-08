@@ -4,10 +4,11 @@ import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.observer.Observer;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class God {
+public class God implements Serializable {
     private final String name;
     private final String caption;
     private final String description;

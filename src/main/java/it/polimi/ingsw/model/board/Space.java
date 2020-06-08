@@ -5,7 +5,9 @@ import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.BoardMessage;
 import it.polimi.ingsw.network.message.MessageType;
 
-public class Space implements Comparable<Space> {
+import java.io.Serializable;
+
+public class Space implements Comparable<Space>, Serializable {
     private int level;
     private boolean dome;
     private Worker worker;
