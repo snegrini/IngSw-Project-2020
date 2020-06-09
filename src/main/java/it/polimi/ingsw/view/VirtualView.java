@@ -56,10 +56,7 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new WinMessage(winner));
     }
 
-    @Override
-    public void askPeristence(boolean persistence) {
-        // only used from client to server.
-    }
+
 
 
     @Override

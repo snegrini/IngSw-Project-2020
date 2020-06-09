@@ -24,7 +24,6 @@ public class Game extends Observable implements Serializable {
     public static final int MAX_PLAYERS = 3;
     public static final String SERVER_NICKNAME = "server";
 
-
     private Board board;
     private List<Player> players;
     private List<God> gods;
@@ -63,7 +62,7 @@ public class Game extends Observable implements Serializable {
 
     /**
      * Adds a player to the game.
-     * Notify all the views if the playersNumber is already set.
+     * Notifies all the views if the playersNumber is already set.
      *
      * @param player the player to add to the game.
      */
@@ -76,13 +75,20 @@ public class Game extends Observable implements Serializable {
 
     /**
      * Removes a player from the game.
+     * Notifies all the views if the notifyEnabled argument is set to {@code true}.
      *
-     * @param nickname the nickname of the player to remove from the game.
+     * @param nickname      the nickname of the player to remove from the game.
+     * @param notifyEnabled set to {@code true} to enable a lobby disconnection message, {@code false} otherwise.
      * @return {@code true} if the player is removed, {@code false} otherwise.
      */
-    public boolean removePlayerByNickname(String nickname) {
-        return players.remove(getPlayerByNickname(nickname));
+    public boolean removePlayerByNickname(String nickname, boolean notifyEnabled) {
+        boolean result = players.remove(getPlayerByNickname(nickname));
 
+        if (notifyEnabled) {
+            notifyObserver(new LobbyMessage(getPlayersNicknames(), this.chosenPlayersNumber));
+        }
+
+        return result;
     }
 
     /**

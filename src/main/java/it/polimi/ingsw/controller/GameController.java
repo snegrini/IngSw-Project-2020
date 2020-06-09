@@ -12,6 +12,8 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.observer.Observer;
+import it.polimi.ingsw.persistence.Persistence;
+import it.polimi.ingsw.persistence.StorageData;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -29,12 +31,11 @@ public class GameController implements Observer, Serializable {
     private Map<String, VirtualView> virtualViewMap;
 
     private GameState gameState;
-    private List<ReducedGod> availableGods;
-    private List<Color> availableColors;
-
-
     private TurnController turnController;
-    private InputController inputController;
+
+    private transient List<ReducedGod> availableGods;
+    private transient List<Color> availableColors;
+    private transient InputController inputController;
 
     public GameController() {
         initGameController();
@@ -49,7 +50,7 @@ public class GameController implements Observer, Serializable {
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
         this.inputController = new InputController(virtualViewMap, this);
         setGameState(GameState.LOGIN);
-        saveGame();
+
     }
 
     /**
@@ -158,51 +159,12 @@ public class GameController implements Observer, Serializable {
             case APPLY_EFFECT:
                 applyEffect((PositionMessage) receivedMessage);
                 break;
-            case PERSISTENCE:
-                persistence((PersistenceMessage) receivedMessage);
-                break;
             default:
                 // TODO show exception
                 break;
         }
     }
 
-
-    // TODO remove.
-    /**
-     * If player requests to exit and save then save the whole game.
-     *
-     * @param receivedMessage Message from a Player.
-     */
-    private void persistence(PersistenceMessage receivedMessage) {
-        if (receivedMessage.getPersistenceFlag()) {
-            saveGame();
-        }
-    }
-
-    /**
-     * Saves GameController, TurnController and Game classes.
-     */
-    private void saveGame() {
-        // TODO Save match on file.
-        writeClassOnFile(game);
-        //writeClassOnFile(this.getSerializable());
-        writeClassOnFile(turnController);
-        // TODO notify that game has been saved and suspended.
-    }
-
-    private void writeClassOnFile(Object serializableObj) {
-        try {
-            FileOutputStream fileOut = new FileOutputStream("save.bin");
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(serializableObj);
-            objectOut.close();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
     /**
@@ -317,7 +279,24 @@ public class GameController implements Observer, Serializable {
         setGameState(GameState.IN_GAME);
         broadcastGenericMessage("Game Started!");
 
-        turnController.newTurn();
+        StorageData storageData = new StorageData();
+        if(storageData.restore() != null) {
+            GameController tempGameController = storageData.restore();
+            if (tempGameController.getTurnController().getNicknameQueue().equals(turnController.getNicknameQueue())) {
+                restoreControllers(tempGameController);
+                turnController.resumePhase();
+            }
+        }else {
+            turnController.newTurn();
+        }
+    }
+
+    private void restoreControllers(GameController tempGameController) {
+        this.game = tempGameController.game;
+        this.turnController = tempGameController.turnController;
+        this.gameState = tempGameController.gameState;
+       // this.virtualViewMap = tempGameController.virtualViewMap;
+
     }
 
     /**
@@ -350,6 +329,9 @@ public class GameController implements Observer, Serializable {
     public void endGame() {
 
         // TODO end game, prepare server for a new game. Set server on listen for the first client.
+        StorageData storageData = new StorageData();
+        storageData.store(this);
+
         Game.resetInstance();
         initGameController();
     }
@@ -419,30 +401,6 @@ public class GameController implements Observer, Serializable {
         } else {
             virtualView.showLoginResult(true, false, Game.SERVER_NICKNAME);
         }
-    }
-
-    /**
-     * Load the whole saved Game from file.
-     */
-    private void load(Object savedFile) {
-
-        // this = gameControllerLoaded;
-        // turnController = turnControllerLoaded;
-        // game = gameLoaded;
-
-        // eventuali shows da fare ai clients.
-        turnController.resumePhase();
-    }
-
-
-    /**
-     * Check if exists a persistence file of the match.
-     *
-     * @return {@code savedMatch} if exists, {@code null} otherwise.
-     */
-    private Object matchAlreadyExists() {
-        // TODO for every files return savedMatch if present, null otherwise.
-        return null;
     }
 
 
@@ -581,16 +539,12 @@ public class GameController implements Observer, Serializable {
 
     }
 
-    // TODO test?
-
     /**
      * @return a List of available Gods.
      */
     public List<ReducedGod> getAvailableGods() {
         return availableGods;
     }
-
-    // TODO test?
 
     /**
      * @return a List of available Colors.
@@ -653,11 +607,12 @@ public class GameController implements Observer, Serializable {
     /**
      * Removes a VirtualView from the controller.
      *
-     * @param nickname the nickname of the VirtualView associated.
+     * @param nickname      the nickname of the VirtualView associated.
+     * @param notifyEnabled set to {@code true} to enable a lobby disconnection message, {@code false} otherwise.
      */
-    public void removeVirtualView(String nickname) {
+    public void removeVirtualView(String nickname, boolean notifyEnabled) {
         VirtualView vv = virtualViewMap.remove(nickname);
-        game.removePlayerByNickname(nickname);
+        game.removePlayerByNickname(nickname, notifyEnabled);
         game.removeObserver(vv);
         game.getBoard().removeObserver(vv);
     }
@@ -734,5 +689,9 @@ public class GameController implements Observer, Serializable {
      */
     public boolean isGameStarted() {
         return this.gameState != GameState.LOGIN;
+    }
+
+    public TurnController getTurnController() {
+        return  turnController;
     }
 }

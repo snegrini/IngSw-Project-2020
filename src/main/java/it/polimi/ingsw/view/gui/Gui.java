@@ -117,7 +117,10 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void showDisconnectionMessage(String nicknameDisconnected, String text) {
-
+        Platform.runLater(() -> {
+            SceneController.showAlert("GAME OVER", "The player " + nicknameDisconnected + "disconnected.");
+            SceneController.changeRootPane(observers, "menu_scene.fxml");
+        });
     }
 
     @Override
@@ -200,8 +203,5 @@ public class Gui extends ViewObservable implements View {
         Platform.runLater(() -> SceneController.changeRootPane(wsc, "win_scene.fxml"));
     }
 
-    @Override
-    public void askPeristence(boolean persistence) {
-        // do nothing.
-    }
+
 }

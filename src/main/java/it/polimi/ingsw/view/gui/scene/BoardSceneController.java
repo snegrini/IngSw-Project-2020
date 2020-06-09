@@ -66,8 +66,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     @FXML
     private Label turnInformationLabel;
 
-    @FXML
-    private Button persistenceBtn;
+
 
     public BoardSceneController() {
         availablePositionClicks = 0;
@@ -82,7 +81,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         skipEffectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSkipEffectBtnClick);
         undoImg.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onUndoImgClick);
         confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConfirmBtnClick);
-        persistenceBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onPersistenceBtnClick);
+
 
         god1Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod1ImageClick);
         god2Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod2ImageClick);
@@ -101,14 +100,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     }
 
-    /**
-     * Send to server a message for save all match, then exit.
-     * @param event the mouse click event.
-     */
-    private void onPersistenceBtnClick(MouseEvent event) {
 
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePersistence(true)));
-    }
 
     /**
      * Handle the click on the first player god image.
