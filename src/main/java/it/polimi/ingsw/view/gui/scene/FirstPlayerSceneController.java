@@ -92,7 +92,7 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
     }
 
     private void onBackToMenuBtnClick(Event event) {
-        // TODO disconnect
+        notifyObserver(obs -> obs.onDisconnection());
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 

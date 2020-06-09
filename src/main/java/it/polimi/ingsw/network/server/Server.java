@@ -51,7 +51,7 @@ public class Server {
      */
     public void removeClient(String nickname) {
         clientHandlerMap.remove(nickname);
-        gameController.removeVirtualView(nickname);
+        gameController.removeVirtualView(nickname, true);
     }
 
     /**
@@ -73,12 +73,15 @@ public class Server {
 
         if (nickname != null) {
             removeClient(nickname);
-            gameController.broadcastDisconnectionMessage(nickname, " disconnected from the server. GAME ENDED.");
 
-            // TODO save data (persistenza)
+            // Resets server status only if the game was already started.
+            // Otherwise the server will wait for a new player to connect.
+            if (gameController.isGameStarted()) {
+                gameController.broadcastDisconnectionMessage(nickname, " disconnected from the server. GAME ENDED.");
 
-            gameController.endGame();
-            clientHandlerMap.clear();
+                gameController.endGame();
+                clientHandlerMap.clear();
+            }
         }
     }
 

@@ -113,6 +113,11 @@ public class ClientController implements ViewObserver, Observer {
 
 
 
+    @Override
+    public void onDisconnection() {
+        client.disconnect();
+    }
+
     /**
      * Takes action based on the message type received from the server.
      *

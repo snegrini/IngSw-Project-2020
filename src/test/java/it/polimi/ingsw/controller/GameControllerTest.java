@@ -230,7 +230,7 @@ public class GameControllerTest {
     public void removeVirtualView() {
         VirtualView virtualView = new VirtualView(clientHandler);
         gameController.addVirtualView("testNickname", virtualView);
-        gameController.removeVirtualView("testNickname");
+        gameController.removeVirtualView("testNickname", true);
         assertNull(gameController.getVirtualViewMap().get("testNickname"));
     }
 
