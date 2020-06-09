@@ -340,5 +340,4 @@ public class TurnController implements Serializable {
         return nicknameQueue;
     }
 
-
 }

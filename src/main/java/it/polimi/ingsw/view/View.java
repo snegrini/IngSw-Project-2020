@@ -155,5 +155,4 @@ public interface View {
      */
     void showWinMessage(String winner);
 
-    void askPeristence(boolean persistence);
 }

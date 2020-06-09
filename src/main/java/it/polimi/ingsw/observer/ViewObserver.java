@@ -33,5 +33,5 @@ public interface ViewObserver {
 
     void onUpdateFirstPlayer(String nickname);
 
-    void onUpdatePersistence(boolean persistence);
+
 }

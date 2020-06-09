@@ -51,11 +51,6 @@
                                 <Font size="23.0" />
                             </font>
                         </Label>
-                        <Button fx:id="persistenceBtn" layoutX="1082.0" layoutY="562.0" mnemonicParsing="false" prefHeight="106.0" prefWidth="202.0" style="-fx-background-size: stretch;" styleClass="smallButton" text="SAVE &amp; EXIT">
-                            <font>
-                                <Font size="33.0" />
-                            </font>
-                        </Button>
                         <StackPane layoutX="350.0" layoutY="103.0">
                             <children>
                                 <GridPane fx:id="boardGrid" alignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="555.0" prefWidth="600.0" vgap="20.0">
