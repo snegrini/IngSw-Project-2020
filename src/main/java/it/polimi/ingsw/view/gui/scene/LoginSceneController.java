@@ -32,7 +32,7 @@ public class LoginSceneController extends ViewObservable implements GenericScene
     }
 
     private void onBackToMenuBtnClick(Event event) {
-        // TODO disconnect from server
-        SceneController.changeRootPane(observers, event, "connect_scene.fxml");
+        notifyObserver(obs -> obs.onDisconnection());
+        SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 }

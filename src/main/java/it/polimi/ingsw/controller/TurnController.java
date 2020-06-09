@@ -230,7 +230,7 @@ public class TurnController implements Serializable {
             // TODO disconnect 3° player, notify all
             turnControllerNotify(activePlayer + " LOOSE.");
             nicknameQueue.remove(activePlayer);
-            game.removePlayerByNickname(activePlayer);
+            game.removePlayerByNickname(activePlayer, false);
             broadcastMatchInfo();
             next();
             newTurn();

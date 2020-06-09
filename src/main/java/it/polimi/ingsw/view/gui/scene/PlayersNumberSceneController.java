@@ -49,7 +49,7 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
     }
 
     private void onBackToMenuBtnClick(Event event) {
-        // TODO disconnect
+        notifyObserver(obs -> obs.onDisconnection());
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 

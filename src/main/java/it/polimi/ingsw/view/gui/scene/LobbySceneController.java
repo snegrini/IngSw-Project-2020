@@ -31,7 +31,7 @@ public class LobbySceneController extends ViewObservable implements GenericScene
     }
 
     private void onBackToMenuBtnClick(Event event) {
-        // TODO disconnect
+        notifyObserver(obs -> obs.onDisconnection());
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 

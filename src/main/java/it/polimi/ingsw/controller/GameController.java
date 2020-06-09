@@ -653,11 +653,12 @@ public class GameController implements Observer, Serializable {
     /**
      * Removes a VirtualView from the controller.
      *
-     * @param nickname the nickname of the VirtualView associated.
+     * @param nickname      the nickname of the VirtualView associated.
+     * @param notifyEnabled set to {@code true} to enable a lobby disconnection message, {@code false} otherwise.
      */
-    public void removeVirtualView(String nickname) {
+    public void removeVirtualView(String nickname, boolean notifyEnabled) {
         VirtualView vv = virtualViewMap.remove(nickname);
-        game.removePlayerByNickname(nickname);
+        game.removePlayerByNickname(nickname, notifyEnabled);
         game.removeObserver(vv);
         game.getBoard().removeObserver(vv);
     }

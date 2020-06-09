@@ -115,6 +115,11 @@ public class ClientController implements ViewObserver, Observer {
         client.sendMessage(new PersistenceMessage(this.nickname, true));
     }
 
+    @Override
+    public void onDisconnection() {
+        client.disconnect();
+    }
+
     /**
      * Takes action based on the message type received from the server.
      *
