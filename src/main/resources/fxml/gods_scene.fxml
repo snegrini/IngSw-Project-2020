@@ -1,43 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import java.net.URL?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import java.net.URL?>
+<?import javafx.scene.text.Text?>
+
 <StackPane prefHeight="622.0" prefWidth="931.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5" StackPane.alignment="CENTER">
-         <children>
-            <AnchorPane layoutX="162.0" layoutY="110.0" prefHeight="313.0" prefWidth="356.0">
-               <children>
-                  <Label layoutX="144.0" layoutY="5.0" text="PICK THE GODS"/>
-                  <Separator layoutX="55.0" layoutY="33.0" prefHeight="0.0" prefWidth="275.0"/>
-                  <ImageView fx:id="focusGodImg" fitHeight="173.0" fitWidth="129.0" layoutX="96.0" layoutY="60.0"
-                             pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../../Downloads/RisorseGrafiche-Santorini/godCards/29.png"/>
-                     </image>
-                  </ImageView>
-                  <Button fx:id="selectGodBtn" layoutX="96.0" layoutY="239.0" mnemonicParsing="false" text="Select"/>
-                  <Button fx:id="nextGodBtn" layoutX="212.0" layoutY="123.0" mnemonicParsing="false" prefHeight="48.0"
-                          prefWidth="52.0" text="Next"/>
-                  <Button fx:id="prevGodBtn" layoutX="31.0" layoutY="122.0" mnemonicParsing="false" prefHeight="48.0"
-                          prefWidth="52.0" text="Prev"/>
-                  <ListView fx:id="selectedGodsListView" layoutX="322.0" layoutY="98.0" prefHeight="99.0"
-                            prefWidth="90.0"/>
-                  <Label layoutX="322.0" layoutY="73.0" text="Selected Gods:"/>
-                  <Button fx:id="confirmBtn" layoutX="322.0" layoutY="226.0" mnemonicParsing="false" text="Confirm"/>
-                  <Button fx:id="deselectGodBtn" layoutX="147.0" layoutY="239.0" mnemonicParsing="false"
-                          text="Deselect"/>
-               </children>
-            </AnchorPane>
-         </children>
-      </Group>
-   </children>
+   <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5" StackPane.alignment="CENTER">
+      <AnchorPane layoutX="85.0" layoutY="150.0" prefHeight="313.0" prefWidth="356.0">
+         <Separator layoutX="70.0" layoutY="50.0" prefHeight="0.0" prefWidth="275.0"/>
+         <ImageView fitHeight="54.0" fitWidth="235.0" layoutX="93.0" layoutY="2.0" pickOnBounds="true"
+                    preserveRatio="true">
+            <Image url="@../images/blocco.png"/>
+         </ImageView>
+         <ImageView fx:id="focusGodImg" fitHeight="173.0" fitWidth="129.0" layoutX="96.0" layoutY="60.0"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <Button fx:id="selectGodBtn" layoutX="-2.0" layoutY="255.0" mnemonicParsing="false" prefHeight="26.0"
+                 prefWidth="135.0" styleClass="godButton" stylesheets="@../css/gods_scene.css" text="Select"/>
+         <Button fx:id="nextGodBtn" layoutX="212.0" layoutY="123.0" mnemonicParsing="false" prefHeight="52.0"
+                 prefWidth="52.0" styleClass="nextGodBtn" stylesheets="@../css/gods_scene.css"/>
+         <Button fx:id="prevGodBtn" layoutX="31.0" layoutY="122.0" mnemonicParsing="false" prefHeight="52.0"
+                 prefWidth="52.0" styleClass="prevGodBtn" stylesheets="@../css/gods_scene.css"/>
+         <ListView fx:id="selectedGodsListView" layoutX="322.0" layoutY="98.0" prefHeight="99.0"
+                   prefWidth="90.0" styleClass="customText"/>
+         <Button fx:id="confirmBtn" layoutX="303.0" layoutY="255.0" mnemonicParsing="false" prefHeight="26.0"
+                 prefWidth="135.0" styleClass="godButton" stylesheets="@../css/gods_scene.css" text="Confirm"/>
+         <Button fx:id="deselectGodBtn" layoutX="151.0" layoutY="255.0" mnemonicParsing="false"
+                 prefHeight="26.0" prefWidth="135.0" styleClass="godButton"
+                 stylesheets="@../css/gods_scene.css" text="Deselect"/>
+         <Text fill="#451616" layoutX="167.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0"
+               styleClass="customText" text="Choose your Gods" wrappingWidth="102.4444580078125"/>
+         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="265.0" layoutY="59.0" pickOnBounds="true"
+                    preserveRatio="true">
+            <Image url="@../images/blocco.png"/>
+         </ImageView>
+         <Label layoutX="328.0" layoutY="63.0" styleClass="customText" text="Selected Gods:"/>
+      </AnchorPane>
+   </Group>
    <stylesheets>
       <URL value="@../css/connect_scene.css"/>
       <URL value="@../css/global.css"/>

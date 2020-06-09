@@ -1,0 +1,80 @@
+.prevGodBtn {
+    -fx-background-image: url("../images/buttons/btn_back.png");
+    -fx-background-size: cover;
+}
+
+.prevGodBtn:hover {
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 52, 0.3, 0, 0);
+}
+
+.prevGodBtn:disabled {
+    -fx-background-image: url("../images/buttons/btn_back.png");
+}
+
+.prevGodBtn:pressed {
+    -fx-background-image: url("../images/buttons/btn_back_pressed.png");
+    -fx-background-size: cover;
+}
+
+.nextGodBtn {
+    -fx-background-image: url("../images/buttons/btn_next.png");
+    -fx-background-size: cover;
+}
+
+.nextGodBtn:hover {
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 52, 0.3, 0, 0);
+}
+
+.nextGodBtn:disabled {
+    -fx-background-image: url("../images/buttons/btn_next.png");
+}
+
+.nextGodBtn:pressed {
+    -fx-background-image: url("../images/buttons/btn_next_pressed.png");
+    -fx-background-size: cover;
+}
+
+.godButton {
+    -fx-font-family: 'LillyBelle';
+    -fx-font-size: 8;
+    -fx-text-fill: #451616;
+    -fx-background-image: url("../images/buttons/godbutton.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-label-padding: -4px 0 0 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+
+    -fx-cursor: hand;
+    -fx-opacity: 1;
+}
+
+.godButton:hover {
+    -fx-effect: dropshadow(gaussian, #f2e0d6, 20, 0.3, 0, 0);
+    -fx-font-size: 9;
+    -fx-label-padding: 0px 0 0 0;
+
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+
+    -fx-cursor: hand;
+    -fx-opacity: 1;
+}
+
+.godButton:disabled {
+    -fx-font-family: 'LillyBelle';
+    -fx-font-size: 9;
+    -fx-text-fill: #451616;
+    -fx-alignment: top-center;
+    -fx-background-image: url("../images/buttons/godbutton.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-opacity: 0.7;
+}
