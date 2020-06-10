@@ -32,10 +32,10 @@ public class GameController implements Observer, Serializable {
 
     private GameState gameState;
     private TurnController turnController;
+    private InputController inputController;
 
     private transient List<ReducedGod> availableGods;
     private transient List<Color> availableColors;
-    private transient InputController inputController;
 
     public GameController() {
         initGameController();
@@ -329,8 +329,7 @@ public class GameController implements Observer, Serializable {
     public void endGame() {
 
         // TODO end game, prepare server for a new game. Set server on listen for the first client.
-        StorageData storageData = new StorageData();
-        storageData.store(this);
+
 
         Game.resetInstance();
         initGameController();
@@ -410,7 +409,7 @@ public class GameController implements Observer, Serializable {
     private void initGame() {
         setGameState(GameState.INIT);
 
-        turnController = new TurnController(virtualViewMap);
+        turnController = new TurnController(virtualViewMap, this);
         inputController.setTurnController(turnController);
         broadcastGenericMessage("All Players are connected. " + turnController.getActivePlayer()
                 + " is choosing " + game.getChosenPlayersNumber() + " Gods . . .");

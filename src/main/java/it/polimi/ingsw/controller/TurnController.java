@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.persistence.Persistence;
+import it.polimi.ingsw.persistence.StorageData;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.Serializable;
@@ -22,10 +24,14 @@ public class TurnController implements Serializable {
     private Worker activeWorker;
     private Effect appliedEffect;
 
+
     Map<String, VirtualView> virtualViewMap;
     private PhaseType phaseType;
 
-    public TurnController(Map<String, VirtualView> virtualViewMap) {
+    private GameController gameController;
+
+
+    public TurnController(Map<String, VirtualView> virtualViewMap, GameController gameController) {
         this.game = Game.getInstance();
         nicknameQueue = new ArrayList<>(game.getPlayersNicknames());
 
@@ -110,6 +116,9 @@ public class TurnController implements Serializable {
     public void newTurn() {
 
         turnControllerNotify("Turn of " + activePlayer);
+
+        StorageData storageData = new StorageData();
+        storageData.store(gameController);
 
         setPhaseType(PhaseType.YOUR_MOVE);
         pickWorker();

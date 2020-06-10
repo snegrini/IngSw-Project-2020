@@ -3,6 +3,7 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.SocketServer;
+import it.polimi.ingsw.persistence.StorageData;
 
 public class ServerApp {
 
@@ -24,6 +25,8 @@ public class ServerApp {
 
         int finalServerPort = serverPort;
         Server.LOGGER.info(() -> "Socket server started on port " + finalServerPort + ".");
+
+      
     }
 
 }
