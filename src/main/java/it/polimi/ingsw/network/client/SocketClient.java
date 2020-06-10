@@ -34,7 +34,7 @@ public class SocketClient extends Client {
         readExecutionQueue.execute(() -> {
 
             while (!readExecutionQueue.isShutdown()) {
-                Message message = null;
+                Message message;
                 try {
                     message = (Message) inputStm.readObject();
                     SceneController.LOGGER.info("RECEIVED: " + message.getMessageType());
@@ -58,8 +58,8 @@ public class SocketClient extends Client {
         try {
             outputStm.writeObject(message);
         } catch (IOException e) {
-            notifyObserver(new ErrorMessage(null, "could not send message."));
             disconnect();
+            notifyObserver(new ErrorMessage(null, "could not send message."));
         }
     }
 
@@ -70,6 +70,8 @@ public class SocketClient extends Client {
     public void disconnect() {
         try {
             if (!socket.isClosed()) {
+                readExecutionQueue.shutdownNow();
+                enablePinger(false);
                 socket.close();
             }
         } catch (IOException e) {

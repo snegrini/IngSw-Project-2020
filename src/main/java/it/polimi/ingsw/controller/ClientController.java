@@ -145,6 +145,10 @@ public class ClientController implements ViewObserver, Observer {
                 client.disconnect();
                 view.showDisconnectionMessage(dm.getNicknameDisconnected(), dm.getMessageStr());
                 break;
+            case ERROR:
+                ErrorMessage em = (ErrorMessage) message;
+                view.showErrorAndExit(em.getError());
+                break;
             case GODLIST:
                 GodListMessage godListMessage = (GodListMessage) message;
                 taskQueue.execute(() -> view.askGod(godListMessage.getGodList(), godListMessage.getRequest()));
@@ -176,9 +180,6 @@ public class ClientController implements ViewObserver, Observer {
                 break;
             case INIT_WORKERSPOSITIONS:
                 taskQueue.execute(() -> view.askInitWorkersPositions(((PositionMessage) message).getPositionList()));
-                break;
-            case ERROR:
-                taskQueue.execute(() -> view.showErrorAndExit(((ErrorMessage) message).getError()));
                 break;
             case ENABLE_EFFECT:
                 taskQueue.execute(() -> view.askEnableEffect(((PrepareEffectMessage) message).isEnableEffect()));

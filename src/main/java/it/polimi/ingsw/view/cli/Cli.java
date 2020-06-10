@@ -41,8 +41,7 @@ public class Cli extends ViewObservable implements View {
         try {
             input = futureTask.get();
         } catch (ExecutionException | InterruptedException | CancellationException e) {
-            out.println("Input Interrupted in CLI.java");
-            System.exit(1);
+            System.exit(1); // exit here to avoid null pointers passed as input
         }
         return input;
     }
@@ -477,10 +476,7 @@ public class Cli extends ViewObservable implements View {
             readLine();
             System.exit(1);
         } else {
-            out.println("Could not contact server.");
-            out.println("\nPress ENTER to exit.");
-            readLine();
-            System.exit(1);
+            showErrorAndExit("Could not contact server.");
         }
     }
 
@@ -494,21 +490,30 @@ public class Cli extends ViewObservable implements View {
         out.println(genericMessage);
     }
 
+    /**
+     * Shows a player disconnection message and exit.
+     *
+     * @param nicknameDisconnected the nickname of the disconnected player.
+     * @param text                 the text to be shown.
+     */
     @Override
     public void showDisconnectionMessage(String nicknameDisconnected, String text) {
         out.println("\n" + nicknameDisconnected + text);
-        //inputThread.interrupt();
-        futureTask.cancel(true);
+        futureTask.cancel(true);  // if locked on input, it also calls System.exit(1)
+        System.exit(1); // may not reach this point if client was locked on input read.
     }
 
     /**
-     * Shows an error message.
+     * Shows an error message and exit.
      *
      * @param error the error to be shown.
      */
     @Override
     public void showErrorAndExit(String error) {
-
+        out.println("\nERROR: " + error);
+        out.println("EXIT.");
+        futureTask.cancel(true); // if locked on input, it also calls System.exit(1)
+        System.exit(1); // may not reach this point if client was locked on input read.
     }
 
 
