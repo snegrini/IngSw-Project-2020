@@ -109,7 +109,7 @@ public class Cli extends ViewObservable implements View {
     public void askPlayersNumber() {
         int playerNumber;
         String question = "How many players are going to play? (You can choose between 2 or 3 players): ";
-        playerNumber = numberInput(2, 3, question);
+        playerNumber = numberInput(2, 3, List.of(), question);
 
         notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(playerNumber));
     }
@@ -132,20 +132,23 @@ public class Cli extends ViewObservable implements View {
         if (gods.size() > 1) {
             if (request > 1) {
                 List<ReducedGod> chosenGods = new ArrayList<>();
+                List<Integer> jumpList = new ArrayList<>();
+
                 out.println("Select " + request + " Gods from the list.");
                 printGodList(gods);
 
                 out.println("Please, enter one ID per line and confirm with ENTER.");
                 for (int i = 0; i < request; i++) {
-                    godId = numberInput(1, gods.size(), (i + 1) + "° god ID: ") - 1;
+                    godId = numberInput(1, gods.size(), jumpList, (i + 1) + "° god ID: ") - 1;
+                    jumpList.add(godId + 1);
+
                     chosenGods.add(gods.get(godId));
                 }
-
                 notifyObserver((ViewObserver obs) -> obs.onUpdateGod(chosenGods));
             } else {
                 out.println("Select your own personal God!");
                 printGodList(gods);
-                godId = numberInput(1, gods.size(), "To select one God type in his ID: ") - 1;
+                godId = numberInput(1, gods.size(), List.of(), "To select one God type in his ID: ") - 1;
 
                 ReducedGod finalGod = gods.get(godId);
                 notifyObserver((ViewObserver obs) -> obs.onUpdateGod(List.of(finalGod)));
@@ -160,8 +163,25 @@ public class Cli extends ViewObservable implements View {
         }
     }
 
-    private int numberInput(int minValue, int maxValue, String question) {
+    /**
+     * Asks the user for a input number. The number must be between minValue and maxValue.
+     * A wrong number (outside the range) or a non-number will result in a new request of the input.
+     * A forbidden list of numbers inside the range can be set through jumpList parameter.
+     * An output question can be set via question parameter.
+     *
+     * @param minValue the minimum value which can be inserted (included).
+     * @param maxValue the maximum value which can be inserted (included).
+     * @param jumpList a list of forbidden values inside the range [minValue, maxValue]
+     * @param question a question which will be shown to the user.
+     * @return the number inserted by the user.
+     */
+    private int numberInput(int minValue, int maxValue, List<Integer> jumpList, String question) {
         int number = minValue - 1;
+
+        // A null jumpList will be transformed in a empty list.
+        if (jumpList == null) {
+            jumpList = List.of();
+        }
 
         do {
             try {
@@ -169,12 +189,14 @@ public class Cli extends ViewObservable implements View {
                 number = Integer.parseInt(readLine());
 
                 if (number < minValue || number > maxValue) {
-                    out.println("Invalid number! Please try again!\n");
+                    out.println("Invalid number! Please try again.\n");
+                } else if (jumpList.contains(number)) {
+                    out.println("This number cannot be selected! Please try again.\n");
                 }
             } catch (NumberFormatException e) {
-                out.println("Invalid input! Please try again!\n");
+                out.println("Invalid input! Please try again.\n");
             }
-        } while (number < minValue || number > maxValue);
+        } while (number < minValue || number > maxValue || jumpList.contains(number));
 
         return number;
     }
@@ -195,8 +217,8 @@ public class Cli extends ViewObservable implements View {
 
         for (int i = 0; i < 2; i++) {
             out.println("Position for Worker " + (i + 1));
-            chosenRow = numberInput(0, positions.get(positions.size() - 1).getRow(), "Row: ");
-            chosenColumn = numberInput(0, positions.get(positions.size() - 1).getColumn(), "Column: ");
+            chosenRow = numberInput(0, positions.get(positions.size() - 1).getRow(), List.of(), "Row: ");
+            chosenColumn = numberInput(0, positions.get(positions.size() - 1).getColumn(), List.of(), "Column: ");
 
             initPositions.add(new Position(chosenRow, chosenColumn));
         }
@@ -436,11 +458,8 @@ public class Cli extends ViewObservable implements View {
 
     @Override
     public void askFirstPlayer(List<String> nicknameQueue, List<ReducedGod> gods) {
-        out.println("You're the Challenger, choose the first player.");
-        out.println("Players: ");
-        for (String nick : nicknameQueue) {
-            out.print(nick + ", ");
-        }
+        out.println("You're the Challenger, choose the first player: ");
+        out.print("Online players: " + String.join(", ", nicknameQueue));
 
         String nickname;
         do {
@@ -458,9 +477,6 @@ public class Cli extends ViewObservable implements View {
     public void showWinMessage(String winner) {
         System.out.println("Game Finished! " + winner + "wins!");
     }
-
-
-
 
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
