@@ -44,6 +44,16 @@ public class Game extends Observable implements Serializable {
         return instance;
     }
 
+
+    public void restoreGame(Game instance, Board board, List<Player> players, List<God> gods, int chosenPlayersNumber) {
+        this.instance = instance;
+        //this.board = board;
+        this.board.restoreBoard(board.getSpaces());
+        this.players = players;
+        this.gods = gods;
+        this.chosenPlayersNumber = chosenPlayersNumber;
+    }
+
     /**
      * Returns a player given his {@code nickname}.
      * Only the first occurrence is returned because
@@ -320,4 +330,11 @@ public class Game extends Observable implements Serializable {
     }
 
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public List<God> getGods() {
+        return gods;
+    }
 }

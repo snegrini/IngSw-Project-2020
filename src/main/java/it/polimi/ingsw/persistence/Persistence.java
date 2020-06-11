@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class Persistence implements Serializable {
 
-    private static final long serialVersionUID = -8111323357904853198L;
+    private static final long serialVersionUID = 6970123627732910952L;
     private GameController gameController;
 
     public Persistence(GameController gameController) {

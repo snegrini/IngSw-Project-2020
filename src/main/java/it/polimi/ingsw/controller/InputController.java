@@ -8,19 +8,20 @@ import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class InputController {
+public class InputController implements Serializable {
 
     private Game game;
-    private Map<String, VirtualView> virtualViews;
+    private transient Map<String, VirtualView> virtualViewMap;
     private GameController gameController;
     private TurnController turnController;
 
-    public InputController(Map<String, VirtualView> virtualViews, GameController gameController) {
+    public InputController(Map<String, VirtualView> virtualViewMap, GameController gameController) {
         this.game = Game.getInstance();
-        this.virtualViews = virtualViews;
+        this.virtualViewMap = virtualViewMap;
         this.gameController = gameController;
     }
 
@@ -82,14 +83,14 @@ public class InputController {
                     game.arePositionsFree(((PositionMessage) message).getPositionList())) {
                 return true;
             } else {
-                VirtualView virtualView = virtualViews.get(message.getNickname());
+                VirtualView virtualView = virtualViewMap.get(message.getNickname());
                 // Avoid to show board.
                 virtualView.showGenericMessage("Positions are not free!");
                 virtualView.askInitWorkersPositions(game.getFreePositions());
                 return false;
             }
         } else {
-            VirtualView virtualView = virtualViews.get(message.getNickname());
+            VirtualView virtualView = virtualViewMap.get(message.getNickname());
             // Avoid to show board.
             virtualView.showGenericMessage("Positions must be 2!");
             virtualView.askInitWorkersPositions(game.getFreePositions());
@@ -103,14 +104,14 @@ public class InputController {
         if (playerNumberReply.getPlayerNumber() < 4 && playerNumberReply.getPlayerNumber() > 1) {
             return true;
         } else {
-            VirtualView virtualView = virtualViews.get(message.getNickname());
+            VirtualView virtualView = virtualViewMap.get(message.getNickname());
             virtualView.askPlayersNumber();
             return false;
         }
     }
 
     private boolean moveCheck(Message message) {
-        VirtualView virtualView = virtualViews.get(message.getNickname());
+        VirtualView virtualView = virtualViewMap.get(message.getNickname());
         PositionMessage positionMessage = ((PositionMessage) message);
         Position choosenDest = positionMessage.getPositionList().get(0);
         List<Position> possibleMovePositions = turnController.getActiveWorker().getPossibleMoves();
@@ -132,14 +133,14 @@ public class InputController {
             if (godListMessage.getGodList().size() == game.getChosenPlayersNumber()) {
                 return true;
             } else {
-                VirtualView virtualView = virtualViews.get(message.getNickname());
+                VirtualView virtualView = virtualViewMap.get(message.getNickname());
                 virtualView.askGod(game.getReduceGodList(), game.getChosenPlayersNumber());
                 return false;
             }
         } else if (isInSelectedGodList(godListMessage.getGodList().get(0))) { // if is only 1 god check if had been selected
             return true;
         } else {
-            VirtualView virtualView = virtualViews.get(message.getNickname());
+            VirtualView virtualView = virtualViewMap.get(message.getNickname());
             virtualView.askGod(gameController.getAvailableGods(), 1);
             return false;
         }
@@ -152,12 +153,12 @@ public class InputController {
             if (isInAvailableColor(((ColorsMessage) message).getColorList().get(0))) {
                 return true;
             } else {
-                VirtualView virtualView = virtualViews.get(message.getNickname());
+                VirtualView virtualView = virtualViewMap.get(message.getNickname());
                 virtualView.askInitWorkerColor(gameController.getAvailableColors());
                 return false;
             }
         } else {
-            VirtualView virtualView = virtualViews.get(message.getNickname());
+            VirtualView virtualView = virtualViewMap.get(message.getNickname());
             virtualView.askInitWorkerColor(gameController.getAvailableColors());
             return false;
         }
@@ -167,7 +168,7 @@ public class InputController {
 
     private boolean buildCheck(Message message) {
 
-        VirtualView virtualView = virtualViews.get(message.getNickname());
+        VirtualView virtualView = virtualViewMap.get(message.getNickname());
         PositionMessage positionMessage = ((PositionMessage) message);
         Position choosenBuild = positionMessage.getPositionList().get(0);
         List<Position> possibleBuildPositions = turnController.getActiveWorker().getPossibleBuilds();
@@ -218,4 +219,7 @@ public class InputController {
         this.turnController = turnController;
     }
 
+    public void setVirtualViewMap(Map<String, VirtualView> virtualViewMap) {
+        this.virtualViewMap = virtualViewMap;
+    }
 }

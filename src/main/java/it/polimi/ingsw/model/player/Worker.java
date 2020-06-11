@@ -7,12 +7,13 @@ import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.MoveType;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Worker {
+public class Worker implements Serializable {
 
     private Color color;
     private Position position;

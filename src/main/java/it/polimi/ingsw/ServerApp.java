@@ -26,7 +26,7 @@ public class ServerApp {
         int finalServerPort = serverPort;
         Server.LOGGER.info(() -> "Socket server started on port " + finalServerPort + ".");
 
-      
+
     }
 
 }

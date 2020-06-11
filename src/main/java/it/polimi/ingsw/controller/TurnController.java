@@ -25,7 +25,7 @@ public class TurnController implements Serializable {
     private Effect appliedEffect;
 
 
-    Map<String, VirtualView> virtualViewMap;
+    transient Map<String, VirtualView> virtualViewMap;
     private PhaseType phaseType;
 
     private GameController gameController;
@@ -37,6 +37,7 @@ public class TurnController implements Serializable {
 
         activePlayer = nicknameQueue.get(0); // TODO set first active player
         this.virtualViewMap = virtualViewMap;
+        this.gameController = gameController;
     }
 
     /**
@@ -347,6 +348,10 @@ public class TurnController implements Serializable {
      */
     public List<String> getNicknameQueue() {
         return nicknameQueue;
+    }
+
+    public void setVirtualViewMap(Map<String, VirtualView> virtualViewMap) {
+        this.virtualViewMap = virtualViewMap;
     }
 
 }

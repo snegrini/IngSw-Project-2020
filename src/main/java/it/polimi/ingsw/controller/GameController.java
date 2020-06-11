@@ -1,8 +1,10 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.ServerApp;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.ReducedGod;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.enumerations.Color;
@@ -28,7 +30,7 @@ import static it.polimi.ingsw.network.message.MessageType.PLAYERNUMBER_REPLY;
 public class GameController implements Observer, Serializable {
 
     private Game game;
-    private Map<String, VirtualView> virtualViewMap;
+    private transient Map<String, VirtualView> virtualViewMap;
 
     private GameState gameState;
     private TurnController turnController;
@@ -166,7 +168,6 @@ public class GameController implements Observer, Serializable {
     }
 
 
-
     /**
      * Apply Player's God's Effect then clear.
      *
@@ -279,23 +280,8 @@ public class GameController implements Observer, Serializable {
         setGameState(GameState.IN_GAME);
         broadcastGenericMessage("Game Started!");
 
-        StorageData storageData = new StorageData();
-        if(storageData.restore() != null) {
-            GameController tempGameController = storageData.restore();
-            if (tempGameController.getTurnController().getNicknameQueue().equals(turnController.getNicknameQueue())) {
-                restoreControllers(tempGameController);
-                turnController.resumePhase();
-            }
-        }else {
-            turnController.newTurn();
-        }
-    }
 
-    private void restoreControllers(GameController tempGameController) {
-        this.game = tempGameController.game;
-        this.turnController = tempGameController.turnController;
-        this.gameState = tempGameController.gameState;
-       // this.virtualViewMap = tempGameController.virtualViewMap;
+        turnController.newTurn();
 
     }
 
@@ -388,20 +374,49 @@ public class GameController implements Observer, Serializable {
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
 
                 // TODO CHECK SAVED MATCHES
-                // if exists then load
-                // else
-              /*  Object savedFile = matchAlreadyExists();
-                if (savedFile.equals("isNotNull.")) { // Temporaneo.
-                    load(savedFile);
+                StorageData storageData = new StorageData();
+                if (storageData.restore() != null) {
+                    GameController savedGameController = storageData.restore();
+                    if (savedGameController.getTurnController().getNicknameQueue().equals(game.getPlayersNicknames())) {
+                        restoreControllers(savedGameController);
+                        turnController.newTurn();
+                    }
                 } else {
-                */    initGame();
-            //    }
+                    initGame();
+                }
             }
         } else {
             virtualView.showLoginResult(true, false, Game.SERVER_NICKNAME);
         }
     }
 
+
+    private void restoreControllers(GameController savedGameController) {
+
+
+
+       // this.game = savedGameController.game;
+        Game restoredInstanceGame = savedGameController.game;
+        Board restoredBoard = savedGameController.game.getBoard();
+        List<Player> restoredPlayers = savedGameController.game.getPlayers();
+        List<God> restoredGods = savedGameController.game.getGods();
+        int restoredChoosenPlayerNumber = savedGameController.game.getChosenPlayersNumber();
+        this.game.restoreGame(restoredInstanceGame, restoredBoard,restoredPlayers,restoredGods, restoredChoosenPlayerNumber);
+
+        this.turnController = savedGameController.turnController;
+        this.gameState = savedGameController.gameState;
+
+        // set this gameController as Observer of all effects of all gods of all players.
+        for (int i = 0; i<game.getNumCurrentPlayers(); i++) {
+            game.getPlayerByNickname(turnController.getNicknameQueue().get(i)).getGod().addObserverToAllEffects(this);
+        }
+
+        inputController = new InputController(this.virtualViewMap, this);
+        turnController.setVirtualViewMap(this.virtualViewMap);
+        inputController.setTurnController(this.turnController);
+
+
+    }
 
     /**
      * Change gameState into INIT. Initialize TurnController and asks a player to pick the gods
@@ -691,6 +706,6 @@ public class GameController implements Observer, Serializable {
     }
 
     public TurnController getTurnController() {
-        return  turnController;
+        return turnController;
     }
 }

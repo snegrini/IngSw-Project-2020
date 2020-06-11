@@ -7,11 +7,12 @@ import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.enumerations.PlayerState;
 import it.polimi.ingsw.observer.Observable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Player extends Observable {
+public class Player extends Observable implements Serializable {
 
     private final String nickname;
     private List<Worker> workers;
