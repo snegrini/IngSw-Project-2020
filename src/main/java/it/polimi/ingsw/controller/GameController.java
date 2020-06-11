@@ -379,6 +379,7 @@ public class GameController implements Observer, Serializable {
                     GameController savedGameController = storageData.restore();
                     if (savedGameController.getTurnController().getNicknameQueue().equals(game.getPlayersNicknames())) {
                         restoreControllers(savedGameController);
+                        broadcastRestoreMessages();
                         turnController.newTurn();
                     }
                 } else {
@@ -387,6 +388,17 @@ public class GameController implements Observer, Serializable {
             }
         } else {
             virtualView.showLoginResult(true, false, Game.SERVER_NICKNAME);
+        }
+    }
+
+    private void broadcastRestoreMessages() {
+        for (VirtualView vv : virtualViewMap.values()) {
+            vv.showBoard(game.getReducedSpaceBoard());
+        }
+
+        for (VirtualView vv : virtualViewMap.values()) {
+            vv.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), turnController.getActivePlayer());
+
         }
     }
 
