@@ -14,6 +14,7 @@ import java.util.Objects;
 
 public class Player extends Observable implements Serializable {
 
+    private static final long serialVersionUID = 7470069648548034935L;
     private final String nickname;
     private List<Worker> workers;
     private God god;
@@ -22,6 +23,12 @@ public class Player extends Observable implements Serializable {
     public Player(String nickname) {
         this.nickname = nickname;
         this.workers = new ArrayList<>();
+    }
+
+    public void restorePlayer(List<Worker> workers, God god, PlayerState state) {
+        this.workers = workers;
+        this.god = god;
+        this.state = state;
     }
 
     public String getNickname() {
@@ -135,5 +142,9 @@ public class Player extends Observable implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(nickname);
+    }
+
+    public List<Worker> getWorkers() {
+        return workers;
     }
 }
