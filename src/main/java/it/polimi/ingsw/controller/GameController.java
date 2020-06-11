@@ -313,10 +313,6 @@ public class GameController implements Observer, Serializable {
      * Reset the Game Instance and re-initialize GameController Class.
      */
     public void endGame() {
-
-        // TODO end game, prepare server for a new game. Set server on listen for the first client.
-
-
         Game.resetInstance();
         initGameController();
     }
@@ -361,9 +357,9 @@ public class GameController implements Observer, Serializable {
             addVirtualView(nickname, virtualView);
             game.addPlayer(new Player(nickname));
 
-            // TODO maybe removable --
+
             virtualView.showLoginResult(true, true, Game.SERVER_NICKNAME);
-            // --
+
 
             virtualView.askPlayersNumber();
         } else if (virtualViewMap.size() < game.getChosenPlayersNumber()) {
@@ -373,7 +369,7 @@ public class GameController implements Observer, Serializable {
 
             if (game.getNumCurrentPlayers() == game.getChosenPlayersNumber()) { // If all players logged
 
-                // TODO CHECK SAVED MATCHES
+                // check saved matches.
                 StorageData storageData = new StorageData();
                 if (storageData.restore() != null) {
                     GameController savedGameController = storageData.restore();

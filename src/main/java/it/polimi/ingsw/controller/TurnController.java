@@ -35,7 +35,7 @@ public class TurnController implements Serializable {
         this.game = Game.getInstance();
         nicknameQueue = new ArrayList<>(game.getPlayersNicknames());
 
-        activePlayer = nicknameQueue.get(0); // TODO set first active player
+        activePlayer = nicknameQueue.get(0); // set first active player
         this.virtualViewMap = virtualViewMap;
         this.gameController = gameController;
     }
@@ -134,11 +134,7 @@ public class TurnController implements Serializable {
         List<Position> positionList = new ArrayList<>(player.getValidWorkersPositions());
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
         if (positionList.isEmpty()) {
-            // TODO LOSE
-            // require fx
-
            lose();
-
         } else {
             virtualView.askMovingWorker(positionList);
         }
@@ -237,7 +233,7 @@ public class TurnController implements Serializable {
         // else endgame.
         if (3 == game.getNumCurrentPlayers()) {
             game.getBoard().removeWorkers(activePlayer);
-            // TODO disconnect 3° player, notify all
+            // disconnect 3° player, notify all
             turnControllerNotify(activePlayer + " LOOSE.");
             nicknameQueue.remove(activePlayer);
             game.removePlayerByNickname(activePlayer, false);

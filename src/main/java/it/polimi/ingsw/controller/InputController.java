@@ -182,7 +182,6 @@ public class InputController implements Serializable {
         }
     }
 
-    // TODO test
 
     /**
      * Check if color picked by client is available
@@ -198,7 +197,7 @@ public class InputController implements Serializable {
         return false;
     }
 
-    // TODO test ?
+
 
     /**
      * Check if god is in the selectedGodList
@@ -214,7 +213,7 @@ public class InputController implements Serializable {
         return false;
     }
 
-    // TODO test
+
     public void setTurnController(TurnController turnController) {
         this.turnController = turnController;
     }

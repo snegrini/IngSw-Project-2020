@@ -331,7 +331,7 @@ public class Cli extends ViewObservable implements View {
             }
         }
     }
-
+    // TODO undo
 
     @Override
     public void askBuild(List<Position> positions) {
@@ -368,6 +368,7 @@ public class Cli extends ViewObservable implements View {
         }
 
     }
+    // TODO undo
 
     @Override
     public void askMoveFx(List<Position> positionList) {
@@ -403,6 +404,8 @@ public class Cli extends ViewObservable implements View {
             }
         }
     }
+    // TODO undo
+
 
     @Override
     public void askBuildFx(List<Position> positions) {
@@ -439,6 +442,8 @@ public class Cli extends ViewObservable implements View {
         }
 
     }
+    // TODO undo
+
 
     @Override
     public void askEnableEffect(boolean forceApply) {
@@ -453,7 +458,7 @@ public class Cli extends ViewObservable implements View {
 
     @Override
     public void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
-        // TODO
+
     }
 
     @Override

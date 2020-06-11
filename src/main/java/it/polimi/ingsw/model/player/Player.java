@@ -102,7 +102,7 @@ public class Player extends Observable implements Serializable {
             List<Position> possibleMoves = getWorkerByPosition(p).getPossibleMoves();
             List<Position> tempPossibleMoves = getWorkerByPosition(p).getPossibleMoves();
 
-            // TODO test
+
             if (possibleMoves.isEmpty()) {
                 Effect effect = this.getGod().getEffectByType(PhaseType.YOUR_MOVE);
                 if(null != effect) {

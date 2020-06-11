@@ -68,7 +68,7 @@ public class GameControllerTest {
         gameController.onMessageReceived(loginRequestSamuele);
         LoginRequest loginRequestSamuel = new LoginRequest(p3);
         gameController.onMessageReceived(loginRequestSamuel);
-        // TODO gestire i loginHandler che inizializzano il tutto.
+
         Server server = new Server(gameController);
         server.addClient(p1, clientHandler);
         server.addClient(p2, clientHandler);
