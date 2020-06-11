@@ -1,7 +1,6 @@
 package it.polimi.ingsw.persistence;
 
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.server.Server;
 
 import java.io.*;
@@ -23,8 +22,6 @@ public class StorageData {
             Server.LOGGER.info("Game Saved.");
 
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,7 +30,7 @@ public class StorageData {
     public GameController restore() {
         Persistence persistence;
 
-        try ( FileInputStream fileInputStream = new FileInputStream(new File("match.bless")) ) {
+        try (FileInputStream fileInputStream = new FileInputStream(new File("match.bless"))) {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
             persistence = (Persistence) objectInputStream.readObject();
@@ -41,11 +38,7 @@ public class StorageData {
 
             return gameController;
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
         return null;

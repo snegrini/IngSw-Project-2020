@@ -38,7 +38,9 @@ public class Board extends Observable implements Serializable {
                 spaces[i][j] = new Space();
             }
         }
+        // TODO REMOVE ME!!!
         //debugWinConditions();
+        // <--
     }
 
     private void debugWinConditions() {

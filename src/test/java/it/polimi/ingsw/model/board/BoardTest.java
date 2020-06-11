@@ -65,7 +65,15 @@ public class BoardTest {
 
     @Test
     public void initWorkers() {
-        board.initWorkers(List.of()); // TODO
+        Position p1 = new Position(1, 2);
+        Position p2 = new Position(3, 4);
+        Worker w1 = new Worker(p1);
+        Worker w2 = new Worker(p2);
+
+        board.initWorkers(List.of(w1, w2));
+
+        assertEquals(w1, board.getSpace(p1).getWorker());
+        assertEquals(w2, board.getSpace(p2).getWorker());
     }
 
     @Test

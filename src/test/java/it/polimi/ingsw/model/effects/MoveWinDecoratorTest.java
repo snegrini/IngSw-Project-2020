@@ -67,7 +67,6 @@ public class MoveWinDecoratorTest {
         assertTrue(effect.require(worker));
         effect.prepare(worker);
         effect.apply(worker, new Position(1, 0));
-        // TODO check game state
     }
 
     @Test

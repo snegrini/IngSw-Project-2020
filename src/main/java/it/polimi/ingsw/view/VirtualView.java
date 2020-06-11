@@ -29,7 +29,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void askNickname() {
-        // TODO use to re-ask a nickname if it is not unique.
+        clientHandler.sendMessage(new LoginReply(false, true));
     }
 
     @Override
@@ -55,9 +55,6 @@ public class VirtualView implements View, Observer {
     public void showWinMessage(String winner) {
         clientHandler.sendMessage(new WinMessage(winner));
     }
-
-
-
 
     @Override
     public void askMove(List<Position> positionList) {

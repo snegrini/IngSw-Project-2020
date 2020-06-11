@@ -6,12 +6,10 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.player.ReducedWorker;
 import it.polimi.ingsw.network.message.MessageType;
-import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -221,8 +219,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      * After 5 seconds an automatic confirm will be sent to the server.
      * The user can skip this delay by clicking on the confirm button.
      *
-     * @param clickedNode
-     * @param clickedPosition
+     * @param clickedNode     the clicked node of the grid.
+     * @param clickedPosition the clicked position on the grid.
      */
     private void waitForUndo(Node clickedNode, Position clickedPosition) {
         clickedNode.setDisable(true);

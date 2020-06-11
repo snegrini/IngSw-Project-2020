@@ -35,7 +35,6 @@ public class SocketServer implements Runnable {
                 thread.start();
             } catch (IOException e) {
                 Server.LOGGER.severe("Connection dropped");
-                // TODO end everything.
             }
         }
     }

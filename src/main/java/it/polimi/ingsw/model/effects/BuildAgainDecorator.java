@@ -41,8 +41,9 @@ public class BuildAgainDecorator extends EffectDecorator {
         if (possibleBuilds.contains(position)) {
             Board board = Game.getInstance().getBoard();
             board.buildBlock(activeWorker, position);
+        } else {
+            // TODO notify wrong position selected.
         }
-        // TODO notify wrong position selected.
     }
 
     @Override

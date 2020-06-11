@@ -107,7 +107,7 @@ public class GameControllerTest {
         positions.add(new Position(0, 1));
         PositionMessage p1_workersPositionMessage = new PositionMessage(p1, MessageType.INIT_WORKERSPOSITIONS, positions);
         gameController.onMessageReceived(p1_workersPositionMessage);
-        positions.removeAll(positions);
+        positions.clear();
 
         // Init second player.
         ColorsMessage second_colorsMessage = new ColorsMessage(p2, List.of(Color.GREEN));
@@ -116,30 +116,30 @@ public class GameControllerTest {
         positions.add(new Position(1,2));
         PositionMessage p2_workersPositionMessage = new PositionMessage(p2, MessageType.INIT_WORKERSPOSITIONS, positions);
         gameController.onMessageReceived(p2_workersPositionMessage);
-        positions.removeAll(positions);
+        positions.clear();
 
         // Init third player.
         ColorsMessage third_colorsMessage = new ColorsMessage(p3, List.of(Color.RED));
         gameController.onMessageReceived(third_colorsMessage);
-        positions.add(new Position(1,0));
-        positions.add(new Position(1,1));
+        positions.add(new Position(1, 0));
+        positions.add(new Position(1, 1));
         PositionMessage p3_workersPositionMessage = new PositionMessage(p3, MessageType.INIT_WORKERSPOSITIONS, positions);
         gameController.onMessageReceived(p3_workersPositionMessage);
-        positions.removeAll(positions);
+        positions.clear();
 
         // Asserts of INIT phase.
-       assertTrue(gameController.getAvailableGods().isEmpty());
-       List<Position> checkWorkersPositions = new ArrayList<>();
-       checkWorkersPositions.add(new Position(1,0));
-       checkWorkersPositions.add(new Position(1,1));
-       assertTrue(Game.getInstance().getPlayerByNickname("SamuelKala").getWorkersPositions().equals(checkWorkersPositions));
-        checkWorkersPositions.removeAll(checkWorkersPositions);
+        assertTrue(gameController.getAvailableGods().isEmpty());
+        List<Position> checkWorkersPositions = new ArrayList<>();
+        checkWorkersPositions.add(new Position(1, 0));
+        checkWorkersPositions.add(new Position(1, 1));
+        assertEquals(checkWorkersPositions, Game.getInstance().getPlayerByNickname("SamuelKala").getWorkersPositions());
+        checkWorkersPositions.clear();
 
-       // First player LOSE.
+        // First player LOSE.
 
         // Second player's turn.
         // pick worker.
-        PositionMessage p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER,List.of(new Position(0,2)));
+        PositionMessage p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(0, 2)));
         gameController.onMessageReceived(p2_movingWorker);
         // not apply effect.
         PrepareEffectMessage p2_effectResponse = new PrepareEffectMessage(p2, false);
@@ -148,8 +148,8 @@ public class GameControllerTest {
         PositionMessage p2_move = new PositionMessage(p2, MessageType.MOVE, List.of(new Position(0,1)));
         gameController.onMessageReceived(p2_move);
         checkWorkersPositions.add(new Position(0,1));
-        checkWorkersPositions.add(new Position(1,2));
-        assertTrue(Game.getInstance().getPlayerByNickname("SamueleNegrini").getWorkersPositions().equals(checkWorkersPositions));
+        checkWorkersPositions.add(new Position(1, 2));
+        assertEquals(checkWorkersPositions, Game.getInstance().getPlayerByNickname("SamueleNegrini").getWorkersPositions());
         // build.
         PositionMessage p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(0,2)));
         gameController.onMessageReceived(p2_build);
