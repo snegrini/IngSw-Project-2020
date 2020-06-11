@@ -38,7 +38,9 @@ public class StorageData {
 
             return gameController;
 
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (IOException e) {
+            Server.LOGGER.info("No File Found.");
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.player;
 
 import it.polimi.ingsw.model.board.Position;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import java.util.Map;
  * "Forced" is not "moved". Some God Effects may cause Workers to be "forced" into another space.
  * A Worker that is forced, is not considered to have moved.
  */
-public class History {
+public class History implements Serializable {
 
     private final Map<String, Position> lastPositions;
     private final Map<String, Integer> lastLevels;

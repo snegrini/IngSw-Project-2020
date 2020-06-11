@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 public class Game extends Observable implements Serializable {
 
+    private static final long serialVersionUID = 4405183481677036856L;
     private static Game instance;
 
     public static final int MAX_PLAYERS = 3;
@@ -42,6 +43,20 @@ public class Game extends Observable implements Serializable {
         if (instance == null)
             instance = new Game();
         return instance;
+    }
+
+
+    public void restoreGame(Game instance, Board board, List<Player> players, List<God> gods, int chosenPlayersNumber) {
+        //this.instance = instance;
+        //this.board = board;
+        this.board.restoreBoard(board.getSpaces());
+        this.players = players;
+        /*for( int i = 0; i < Game.getInstance().getNumCurrentPlayers(); i++) {
+            Player p = players.get(i);
+            this.players.get(i).restorePlayer(p.getWorkers(), p.getGod(), p.getState());
+        }*/
+        this.gods = gods;
+        this.chosenPlayersNumber = chosenPlayersNumber;
     }
 
     /**
@@ -320,4 +335,11 @@ public class Game extends Observable implements Serializable {
     }
 
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public List<God> getGods() {
+        return gods;
+    }
 }

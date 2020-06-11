@@ -7,12 +7,14 @@ import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.enumerations.PlayerState;
 import it.polimi.ingsw.observer.Observable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Player extends Observable {
+public class Player extends Observable implements Serializable {
 
+    private static final long serialVersionUID = 7470069648548034935L;
     private final String nickname;
     private List<Worker> workers;
     private God god;
@@ -21,6 +23,12 @@ public class Player extends Observable {
     public Player(String nickname) {
         this.nickname = nickname;
         this.workers = new ArrayList<>();
+    }
+
+    public void restorePlayer(List<Worker> workers, God god, PlayerState state) {
+        this.workers = workers;
+        this.god = god;
+        this.state = state;
     }
 
     public String getNickname() {
@@ -94,7 +102,7 @@ public class Player extends Observable {
             List<Position> possibleMoves = getWorkerByPosition(p).getPossibleMoves();
             List<Position> tempPossibleMoves = getWorkerByPosition(p).getPossibleMoves();
 
-            // TODO test
+
             if (possibleMoves.isEmpty()) {
                 Effect effect = this.getGod().getEffectByType(PhaseType.YOUR_MOVE);
                 if(null != effect) {
@@ -134,5 +142,9 @@ public class Player extends Observable {
     @Override
     public int hashCode() {
         return Objects.hash(nickname);
+    }
+
+    public List<Worker> getWorkers() {
+        return workers;
     }
 }

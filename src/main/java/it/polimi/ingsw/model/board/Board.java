@@ -21,12 +21,17 @@ public class Board extends Observable implements Serializable {
 
     public static final int MAX_ROWS = 5;
     public static final int MAX_COLUMNS = 5;
+    private static final long serialVersionUID = -1383384640099230306L;
 
-    private final Space[][] spaces;
+    private Space[][] spaces;
 
     public Board() {
         this.spaces = new Space[MAX_ROWS][MAX_COLUMNS];
         initSpaces();
+    }
+
+    public void restoreBoard(Space[][] spaces){
+        this.spaces = spaces;
     }
 
     /**
@@ -373,5 +378,9 @@ public class Board extends Observable implements Serializable {
 
         notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
 
+    }
+
+    public Space[][] getSpaces() {
+        return spaces;
     }
 }
