@@ -6,14 +6,14 @@ import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
 
 public class InputReadTask implements Callable<String> {
-    private BufferedReader br;
+    private final BufferedReader br;
 
     public InputReadTask() {
         br = new BufferedReader(new InputStreamReader(System.in));
     }
 
     @Override
-    public String call() throws IOException {
+    public String call() throws IOException, InterruptedException {
         String input;
         try {
             // wait until there is data to complete a readLine()
@@ -22,7 +22,8 @@ public class InputReadTask implements Callable<String> {
             }
             input = br.readLine();
         } catch (InterruptedException e) {
-            return null;
+            System.out.println("InputReadTask InterruptedException");
+            throw e;
         }
         return input;
     }

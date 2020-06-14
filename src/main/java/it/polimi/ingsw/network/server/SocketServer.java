@@ -43,10 +43,6 @@ public class SocketServer implements Runnable {
         server.addClient(nickname, clientHandler);
     }
 
-    public void removeClient(String nickname) {
-        server.removeClient(nickname);
-    }
-
     /**
      * Forwards a received message from the client to the Server.
      *

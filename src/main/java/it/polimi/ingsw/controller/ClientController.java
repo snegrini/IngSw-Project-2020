@@ -198,7 +198,6 @@ public class ClientController implements ViewObserver, Observer {
         }
     }
 
-
     /**
      * Validates the given IPv4 address by using a regex.
      *

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.ServerApp;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.ReducedGod;
@@ -14,14 +13,10 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.observer.Observer;
-import it.polimi.ingsw.persistence.Persistence;
 import it.polimi.ingsw.persistence.StorageData;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
@@ -29,6 +24,7 @@ import static it.polimi.ingsw.network.message.MessageType.PLAYERNUMBER_REPLY;
 
 public class GameController implements Observer, Serializable {
 
+    private static final long serialVersionUID = 4951303731052728724L;
     private Game game;
     private transient Map<String, VirtualView> virtualViewMap;
 
@@ -209,7 +205,7 @@ public class GameController implements Observer, Serializable {
 
 
     /**
-     * Set Active Worker and calls the Move Phase.
+     * Sets Active Worker and calls the Move Phase.
      *
      * @param receivedMessage Message from Active Player.
      */
@@ -273,7 +269,7 @@ public class GameController implements Observer, Serializable {
 
 
     /**
-     * Initialize the game after all Clients are connected and all Gods, Workers and Colors are setted up.
+     * Initializes the game after all Clients are connected and all Gods, Workers and Colors are setted up.
      */
     private void startGame() {
 
@@ -295,7 +291,7 @@ public class GameController implements Observer, Serializable {
     }
 
     /**
-     * Broadcast the winner, disconnect all clients and reset whole game.
+     * Broadcasts the winner, disconnects all clients and resets whole game.
      */
     private void win() {
         broadcastWinMessage(turnController.getActivePlayer());
@@ -303,9 +299,14 @@ public class GameController implements Observer, Serializable {
         endGame();
     }
 
-    private void broadcastWinMessage(String activePlayer) {
+    /**
+     * Broadcasts a message to all the clients connected.
+     *
+     * @param winningPlayer the nickname of the winning player.
+     */
+    private void broadcastWinMessage(String winningPlayer) {
         for (VirtualView vv : virtualViewMap.values()) {
-            vv.showWinMessage(activePlayer);
+            vv.showWinMessage(winningPlayer);
         }
     }
 
@@ -634,9 +635,10 @@ public class GameController implements Observer, Serializable {
      */
     public void removeVirtualView(String nickname, boolean notifyEnabled) {
         VirtualView vv = virtualViewMap.remove(nickname);
-        game.removePlayerByNickname(nickname, notifyEnabled);
+
         game.removeObserver(vv);
         game.getBoard().removeObserver(vv);
+        game.removePlayerByNickname(nickname, notifyEnabled);
     }
 
     /**

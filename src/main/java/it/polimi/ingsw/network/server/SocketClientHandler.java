@@ -69,6 +69,11 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         client.close();
     }
 
+    /**
+     * Returns the current status of the connection.
+     *
+     * @return {@code true} if the connection is still active, {@code false} otherwise.
+     */
     @Override
     public boolean isConnected() {
         return connected;

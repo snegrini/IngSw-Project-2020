@@ -47,11 +47,12 @@ public class Server {
     /**
      * Removes a client given his nickname.
      *
-     * @param nickname the VirtualView to be removed.
+     * @param nickname      the VirtualView to be removed.
+     * @param notifyEnabled set to {@code true} to enable a lobby disconnection message, {@code false} otherwise.
      */
-    public void removeClient(String nickname) {
+    public void removeClient(String nickname, boolean notifyEnabled) {
         clientHandlerMap.remove(nickname);
-        gameController.removeVirtualView(nickname, true);
+        gameController.removeVirtualView(nickname, notifyEnabled);
     }
 
     /**
@@ -72,11 +73,13 @@ public class Server {
         String nickname = getNicknameFromClientHandler(clientHandler);
 
         if (nickname != null) {
-            removeClient(nickname);
+
+            boolean gameStarted = gameController.isGameStarted();
+            removeClient(nickname, !gameStarted); // enable lobby notifications only if the game didn't start yet.
 
             // Resets server status only if the game was already started.
             // Otherwise the server will wait for a new player to connect.
-            if (gameController.isGameStarted()) {
+            if (gameStarted) {
                 gameController.broadcastDisconnectionMessage(nickname, " disconnected from the server. GAME ENDED.");
 
                 gameController.endGame();

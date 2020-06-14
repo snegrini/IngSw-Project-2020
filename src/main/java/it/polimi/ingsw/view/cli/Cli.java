@@ -7,15 +7,10 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.observer.ViewObservable;
-import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.View;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CancellationException;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.stream.Collectors;
@@ -31,7 +26,7 @@ public class Cli extends ViewObservable implements View {
     }
 
 
-    public String readLine() {
+    public String readLine() throws ExecutionException {
         futureTask = new FutureTask<>(new InputReadTask());
         inputThread = new Thread(futureTask);
         inputThread.start();
@@ -40,26 +35,41 @@ public class Cli extends ViewObservable implements View {
 
         try {
             input = futureTask.get();
-        } catch (ExecutionException | InterruptedException | CancellationException e) {
-            System.exit(1); // exit here to avoid null pointers passed as input
+        } catch (InterruptedException e) {
+            System.out.println("readLine() InterruptedException");
+
+            System.out.println("readLine() BEFORE futureTask.cancel()");
+            futureTask.cancel(true);
+            System.out.println("readLine() AFTER futureTask.cancel()");
+        } catch (ExecutionException e) {
+            System.out.println("readLine() ExecutionException");
+            throw e;
         }
+
         return input;
     }
 
     public void init() {
         out.println("Welcome to SANTORINI board game!");
-        askServerInfo();
+
+        try {
+            askServerInfo();
+        } catch (ExecutionException e) {
+            out.println("User input canceled.");
+        }
     }
 
-    public void askServerInfo() {
+    public void askServerInfo() throws ExecutionException {
         Map<String, String> serverInfo = new HashMap<>();
         String defaultAddress = "localhost";
         String defaultPort = "16847";
         boolean validInput;
 
         out.println("Please specify the following settings. The default value is shown between brackets.");
+
         do {
             out.print("Enter the server address [" + defaultAddress + "]: ");
+
             String address = readLine();
 
             if (address.equals("")) {
@@ -95,23 +105,31 @@ public class Cli extends ViewObservable implements View {
             }
         } while (!validInput);
 
-        notifyObserver((ViewObserver obs) -> obs.onUpdateServerInfo(serverInfo));
+        notifyObserver(obs -> obs.onUpdateServerInfo(serverInfo));
     }
 
     @Override
     public void askNickname() {
         out.print("Enter your nickname: ");
-        String nickname = readLine();
-        notifyObserver((ViewObserver obs) -> obs.onUpdateNickname(nickname));
+        try {
+            String nickname = readLine();
+            notifyObserver(obs -> obs.onUpdateNickname(nickname));
+        } catch (ExecutionException e) {
+            out.println("User input canceled.");
+        }
     }
 
     @Override
     public void askPlayersNumber() {
         int playerNumber;
         String question = "How many players are going to play? (You can choose between 2 or 3 players): ";
-        playerNumber = numberInput(2, 3, List.of(), question);
 
-        notifyObserver((ViewObserver obs) -> obs.onUpdatePlayersNumber(playerNumber));
+        try {
+            playerNumber = numberInput(2, 3, List.of(), question);
+            notifyObserver(obs -> obs.onUpdatePlayersNumber(playerNumber));
+        } catch (ExecutionException e) {
+            out.println("User input canceled.");
+        }
     }
 
 
@@ -138,26 +156,34 @@ public class Cli extends ViewObservable implements View {
                 printGodList(gods);
 
                 out.println("Please, enter one ID per line and confirm with ENTER.");
-                for (int i = 0; i < request; i++) {
-                    godId = numberInput(1, gods.size(), jumpList, (i + 1) + "° god ID: ") - 1;
-                    jumpList.add(godId + 1);
+                try {
+                    for (int i = 0; i < request; i++) {
+                        godId = numberInput(1, gods.size(), jumpList, (i + 1) + "° god ID: ") - 1;
+                        jumpList.add(godId + 1);
 
-                    chosenGods.add(gods.get(godId));
+                        chosenGods.add(gods.get(godId));
+                    }
+                    notifyObserver(obs -> obs.onUpdateGod(chosenGods));
+                } catch (ExecutionException e) {
+                    out.println("User input canceled.");
                 }
-                notifyObserver((ViewObserver obs) -> obs.onUpdateGod(chosenGods));
             } else {
                 out.println("Select your own personal God!");
                 printGodList(gods);
-                godId = numberInput(1, gods.size(), List.of(), "To select one God type in his ID: ") - 1;
+                try {
+                    godId = numberInput(1, gods.size(), List.of(), "To select one God type in his ID: ") - 1;
 
-                ReducedGod finalGod = gods.get(godId);
-                notifyObserver((ViewObserver obs) -> obs.onUpdateGod(List.of(finalGod)));
+                    ReducedGod finalGod = gods.get(godId);
+                    notifyObserver(obs -> obs.onUpdateGod(List.of(finalGod)));
+                } catch (ExecutionException e) {
+                    out.println("User input canceled.");
+                }
             }
         } else if (gods.size() == 1) {
             out.println("You're the last player, your god is: ");
             printGodList(gods);
             ReducedGod finalGod = gods.get(0);
-            notifyObserver((ViewObserver obs) -> obs.onUpdateGod(List.of(finalGod)));
+            notifyObserver(obs -> obs.onUpdateGod(List.of(finalGod)));
         } else {
             showErrorAndExit("no gods found in the request.");
         }
@@ -174,8 +200,9 @@ public class Cli extends ViewObservable implements View {
      * @param jumpList a list of forbidden values inside the range [minValue, maxValue]
      * @param question a question which will be shown to the user.
      * @return the number inserted by the user.
+     * @throws ExecutionException if the input stream thread is interrupted.
      */
-    private int numberInput(int minValue, int maxValue, List<Integer> jumpList, String question) {
+    private int numberInput(int minValue, int maxValue, List<Integer> jumpList, String question) throws ExecutionException {
         int number = minValue - 1;
 
         // A null jumpList will be transformed in a empty list.
@@ -211,19 +238,20 @@ public class Cli extends ViewObservable implements View {
     public void askInitWorkersPositions(List<Position> positions) {
         List<Position> initPositions = new ArrayList<>();
 
-        int chosenRow, chosenColumn;
-
         out.println("Select your workers' initial positions");
+        try {
+            for (int i = 0; i < 2; i++) {
+                out.println("Position for Worker " + (i + 1));
+                int chosenRow = numberInput(0, positions.get(positions.size() - 1).getRow(), List.of(), "Row: ");
+                int chosenColumn = numberInput(0, positions.get(positions.size() - 1).getColumn(), List.of(), "Column: ");
 
-        for (int i = 0; i < 2; i++) {
-            out.println("Position for Worker " + (i + 1));
-            chosenRow = numberInput(0, positions.get(positions.size() - 1).getRow(), List.of(), "Row: ");
-            chosenColumn = numberInput(0, positions.get(positions.size() - 1).getColumn(), List.of(), "Column: ");
+                initPositions.add(new Position(chosenRow, chosenColumn));
+            }
 
-            initPositions.add(new Position(chosenRow, chosenColumn));
+            notifyObserver(obs -> obs.onUpdateInitWorkerPosition(initPositions));
+        } catch (ExecutionException e) {
+            out.println("User input canceled.");
         }
-
-        notifyObserver((ViewObserver obs) -> obs.onUpdateInitWorkerPosition(initPositions));
     }
 
 
@@ -235,25 +263,38 @@ public class Cli extends ViewObservable implements View {
     @Override
     public void askInitWorkerColor(List<Color> colorList) {
 
-        String in;
         out.println("Select your workers' color!");
 
-        String colors = colorList.stream()
+        String colorsStr = colorList.stream()
                 .map(Color::getText)
                 .collect(Collectors.joining(", "));
 
-        out.println("You can choose between: " + colors);
+        out.println("You can choose between: " + colorsStr);
 
-        do {
-            in = readLine();
-            if (!colors.contains(in.toUpperCase())) {
-                out.println("You have not inserted a valid color! Please try again!");
-            }
+        try {
+            String in;
+            Color color = null;
 
-        } while (!colors.contains(in.toUpperCase()));
-        Color color = Color.valueOf(in.toUpperCase());
-        // only one color is chosen by a player
-        notifyObserver((ViewObserver obs) -> obs.onUpdateWorkersColor(color));
+            do {
+                try {
+                    in = readLine();
+                    color = Color.valueOf(in.toUpperCase());
+
+                    if (!colorList.contains(color)) {
+                        out.println("Invalid color! Please try again.");
+                    }
+                } catch (IllegalArgumentException e) {
+                    out.println("Invalid color! Please try again.");
+                }
+            } while (!colorList.contains(color));
+
+            // only one color is chosen by a player
+            Color finalColor = color;
+            notifyObserver(obs -> obs.onUpdateWorkersColor(finalColor));
+        } catch (ExecutionException e) {
+            out.println("User input canceled.");
+        }
+
     }
 
     /**
@@ -263,8 +304,7 @@ public class Cli extends ViewObservable implements View {
      */
     @Override
     public void askMovingWorker(List<Position> positionList) {
-        int chosenRow;
-        int chosenColumn;
+
         out.println("Your workers are in the following positions:");
         for (int i = 0; i < positionList.size(); i++) {
             out.println((i + 1) + "° worker is on Row: " +
@@ -273,22 +313,14 @@ public class Cli extends ViewObservable implements View {
         }
 
         out.println("Insert the position of the worker which you want to move:");
-        while (true) {
-            try {
-                do {
-                    out.print("Row: ");
-                    chosenRow = Integer.parseInt(readLine());
-                    out.print("Column: ");
-                    chosenColumn = Integer.parseInt(readLine());
-                    if (position_isNotValid(chosenRow, chosenColumn, positionList))
-                        out.println("You have inserted an invalid position! Please try again!");
-                } while (position_isNotValid(chosenRow, chosenColumn, positionList));
-                Position pos = new Position(chosenRow, chosenColumn);
-                notifyObserver((ViewObserver obs) -> obs.onUpdatePickMovingWorker(pos));
-                break;
-            } catch (NumberFormatException e) {
-                out.println("You have not inserted an integer number! Please try again!");
-            }
+        try {
+            int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, "Row: ");
+            int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, "Column: ");
+
+            Position pos = new Position(chosenRow, chosenColumn);
+            notifyObserver(obs -> obs.onUpdatePickMovingWorker(pos));
+        } catch (ExecutionException e) {
+            out.println("User input canceled.");
         }
     }
 
@@ -299,148 +331,110 @@ public class Cli extends ViewObservable implements View {
      */
     @Override
     public void askMove(List<Position> positionList) {
-        int chosenRow;
-        int chosenColumn;
         out.println("Select the new position for your Worker!");
         out.println("Here there are your Worker's possible moves:");
+
         if (positionList.isEmpty()) {
             out.println("Oh no! Unfortunately you can't move...");
-            notifyObserver((ViewObserver obs) -> obs.onUpdateMove(null));
+            notifyObserver(obs -> obs.onUpdateMove(null));
         } else {
             for (int i = 0; i < positionList.size(); i++) {
                 out.println("Position " + (i + 1) + ": " + "Row: " + positionList.get(i).getRow() +
                         " Column: " + positionList.get(i).getColumn());
             }
+
             out.println("Select the new position:");
-            while (true) {
-                try {
-                    do {
-                        out.print("Row: ");
-                        chosenRow = Integer.parseInt(readLine());
-                        out.print("Column: ");
-                        chosenColumn = Integer.parseInt(readLine());
-                        if (position_isNotValid(chosenRow, chosenColumn, positionList))
-                            out.println("You have inserted an invalid position! Please try again!");
-                    } while (position_isNotValid(chosenRow, chosenColumn, positionList));
-                    Position dest = new Position(chosenRow, chosenColumn);
-                    notifyObserver((ViewObserver obs) -> obs.onUpdateMove(dest));
-                    break;
-                } catch (NumberFormatException e) {
-                    out.println("You have not inserted an integer number! Please try again!");
-                }
+            try {
+                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, "Row: ");
+                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, "Column: ");
+
+                Position dest = new Position(chosenRow, chosenColumn);
+                notifyObserver(obs -> obs.onUpdateMove(dest));
+            } catch (ExecutionException e) {
+                out.println("User input canceled.");
             }
         }
     }
     // TODO undo
 
     @Override
-    public void askBuild(List<Position> positions) {
-        int chosenRow;
-        int chosenColumn;
+    public void askBuild(List<Position> positionList) {
         out.println("Select in which position you want your Worker to build!");
         out.println("Your Worker can Build here:");
-        if (positions.isEmpty()) {
+
+        if (positionList.isEmpty()) {
             out.println("Oh no! Unfortunately you can't build...");
         } else {
-            for (int i = 0; i < positions.size(); i++) {
-                out.println("Position " + (i + 1) + ": " + "Row: " + positions.get(i).getRow() +
-                        " Column: " + positions.get(i).getColumn());
+            for (int i = 0; i < positionList.size(); i++) {
+                out.println("Position " + (i + 1) + ": " + "Row: " + positionList.get(i).getRow() +
+                        " Column: " + positionList.get(i).getColumn());
             }
             out.println("Select where to build:");
-            while (true) {
-                try {
-                    do {
-                        out.print("Row: ");
-                        chosenRow = Integer.parseInt(readLine());
-                        out.print("Column: ");
-                        chosenColumn = Integer.parseInt(readLine());
-                        if (position_isNotValid(chosenRow, chosenColumn, positions))
-                            out.println("You have inserted an invalid position! Please try again!");
-                    } while (position_isNotValid(chosenRow, chosenColumn, positions));
+            try {
+                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, "Row: ");
+                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, "Column: ");
 
-                    Position newBuild = new Position(chosenRow, chosenColumn);
-                    notifyObserver((ViewObserver obs) -> obs.onUpdateBuild(newBuild));
-                    break;
-                } catch (NumberFormatException e) {
-                    out.println("You have not inserted an integer number! Please try again!");
-                }
+                Position buildPos = new Position(chosenRow, chosenColumn);
+                notifyObserver(obs -> obs.onUpdateBuild(buildPos));
+            } catch (ExecutionException e) {
+                out.println("User input canceled.");
             }
         }
-
     }
     // TODO undo
 
     @Override
     public void askMoveFx(List<Position> positionList) {
-        int chosenRow;
-        int chosenColumn;
         out.println("Select the new position for your Worker!");
         out.println("Here there are your Worker's possible moves:");
+
         if (positionList.isEmpty()) {
             out.println("Oh no! Unfortunately you can't move...");
-            notifyObserver((ViewObserver obs) -> obs.onUpdateMove(null));
+            notifyObserver(obs -> obs.onUpdateMove(null));
         } else {
             for (int i = 0; i < positionList.size(); i++) {
                 out.println("Position " + (i + 1) + ": " + "Row: " + positionList.get(i).getRow() +
                         " Column: " + positionList.get(i).getColumn());
             }
+
             out.println("Select the new position:");
-            while (true) {
-                try {
-                    do {
-                        out.print("Row: ");
-                        chosenRow = Integer.parseInt(readLine());
-                        out.print("Column: ");
-                        chosenColumn = Integer.parseInt(readLine());
-                        if (position_isNotValid(chosenRow, chosenColumn, positionList))
-                            out.println("You have inserted an invalid position! Please try again!");
-                    } while (position_isNotValid(chosenRow, chosenColumn, positionList));
-                    Position dest = new Position(chosenRow, chosenColumn);
-                    notifyObserver((ViewObserver obs) -> obs.onUpdateApplyEffect(dest));
-                    break;
-                } catch (NumberFormatException e) {
-                    out.println("You have not inserted an integer number! Please try again!");
-                }
+            try {
+                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, "Row: ");
+                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, "Column: ");
+
+                Position dest = new Position(chosenRow, chosenColumn);
+                notifyObserver(obs -> obs.onUpdateApplyEffect(dest));
+            } catch (ExecutionException e) {
+                out.println("User input canceled.");
             }
         }
     }
     // TODO undo
 
-
     @Override
-    public void askBuildFx(List<Position> positions) {
-        int chosenRow;
-        int chosenColumn;
+    public void askBuildFx(List<Position> positionList) {
         out.println("Select in which position you want your Worker to build!");
         out.println("Your Worker can Build here:");
-        if (positions.isEmpty()) {
+
+        if (positionList.isEmpty()) {
             out.println("Oh no! Unfortunately you can't build...");
         } else {
-            for (int i = 0; i < positions.size(); i++) {
-                out.println("Position " + (i + 1) + ": " + "Row: " + positions.get(i).getRow() +
-                        " Column: " + positions.get(i).getColumn());
+            for (int i = 0; i < positionList.size(); i++) {
+                out.println("Position " + (i + 1) + ": " + "Row: " + positionList.get(i).getRow() +
+                        " Column: " + positionList.get(i).getColumn());
             }
-            out.println("Select where to build:");
-            while (true) {
-                try {
-                    do {
-                        out.print("Row: ");
-                        chosenRow = Integer.parseInt(readLine());
-                        out.print("Column: ");
-                        chosenColumn = Integer.parseInt(readLine());
-                        if (position_isNotValid(chosenRow, chosenColumn, positions))
-                            out.println("You have inserted an invalid position! Please try again.");
-                    } while (position_isNotValid(chosenRow, chosenColumn, positions));
 
-                    Position newBuild = new Position(chosenRow, chosenColumn);
-                    notifyObserver((ViewObserver obs) -> obs.onUpdateApplyEffect(newBuild));
-                    break;
-                } catch (NumberFormatException e) {
-                    out.println("You have not inserted an integer number! Please try again.");
-                }
+            out.println("Select where to build:");
+            try {
+                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, "Row: ");
+                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, "Column: ");
+
+                Position buildPos = new Position(chosenRow, chosenColumn);
+                notifyObserver(obs -> obs.onUpdateApplyEffect(buildPos));
+            } catch (ExecutionException e) {
+                out.println("User input canceled.");
             }
         }
-
     }
     // TODO undo
 
@@ -448,11 +442,16 @@ public class Cli extends ViewObservable implements View {
     @Override
     public void askEnableEffect(boolean forceApply) {
         if(forceApply) {
-            notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(true));
+            notifyObserver(obs -> obs.onUpdateEnableEffect(true));
         } else {
+
             out.println("Do you want to enable your god effect? [y/N]: ");
-            String response = readLine();
-            notifyObserver((ViewObserver obs) -> obs.onUpdateEnableEffect(response.equalsIgnoreCase("y")));
+            try {
+                String response = readLine();
+                notifyObserver(obs -> obs.onUpdateEnableEffect(response.equalsIgnoreCase("y")));
+            } catch (ExecutionException e) {
+                out.println("User input canceled.");
+            }
         }
     }
 
@@ -465,17 +464,23 @@ public class Cli extends ViewObservable implements View {
     public void askFirstPlayer(List<String> nicknameQueue, List<ReducedGod> gods) {
         out.println("You're the Challenger, choose the first player: ");
         out.print("Online players: " + String.join(", ", nicknameQueue));
+        try {
 
-        String nickname;
-        do {
-            nickname = readLine();
-            if (!nicknameQueue.contains(nickname)) {
-                out.println("You have selected an invalid player! Please try again.");
-            }
-        } while (!nicknameQueue.contains(nickname));
+            String nickname;
+            do {
+                out.println("\nType the exact name of the player: ");
 
-        String finalNickname = nickname;
-        notifyObserver((ViewObserver obs) -> obs.onUpdateFirstPlayer(finalNickname));
+                nickname = readLine();
+                if (!nicknameQueue.contains(nickname)) {
+                    out.println("You have selected an invalid player! Please try again.");
+                }
+            } while (!nicknameQueue.contains(nickname));
+
+            String finalNickname = nickname;
+            notifyObserver(obs -> obs.onUpdateFirstPlayer(finalNickname));
+        } catch (ExecutionException e) {
+            out.println("User input canceled.");
+        }
     }
 
     @Override
@@ -492,9 +497,10 @@ public class Cli extends ViewObservable implements View {
         } else if (connectionSuccessful) {
             askNickname();
         } else if (nicknameAccepted) {
-            out.println("Max players reached. Refusing connection...");
-            out.println("\nPress ENTER to exit.");
-            readLine();
+            out.println("Max players reached. Connection refused.");
+            out.println("EXIT.");
+            //out.println("\nPress ENTER to exit.");
+            //readLine();
             System.exit(1);
         } else {
             showErrorAndExit("Could not contact server.");
@@ -519,8 +525,19 @@ public class Cli extends ViewObservable implements View {
      */
     @Override
     public void showDisconnectionMessage(String nicknameDisconnected, String text) {
+
+        System.out.println("showDisconnectionMessage() BEFORE inputThread.interrupt()");
+        inputThread.interrupt();
+        try {
+            inputThread.join();
+            System.out.println("join effettuato");
+        } catch (InterruptedException e) {
+            System.out.println("catch join marcio");
+        }
+        System.out.println("showDisconnectionMessage() AFTER inputThread.interrupt()");
+
         out.println("\n" + nicknameDisconnected + text);
-        futureTask.cancel(true);  // if locked on input, it also calls System.exit(1)
+
         System.exit(1); // may not reach this point if client was locked on input read.
     }
 
@@ -627,23 +644,73 @@ public class Cli extends ViewObservable implements View {
         return strIndexBld.toString();
     }
 
+
     /**
-     * Returns {@code true} if the position inserted is not valid, {@code false} otherwise.
-     * This method is used in the "Ask" type methods to check if the position inserted by the user
-     * is correct. If it is incorrect input is asked again.
+     * Finds and returns the min row in a list of positions.
+     * The minimum value is found by sorting the list and getting
+     * the first occurrence of the sorted list.
+     * A deep copy of the argument list if performed to avoid any modification
+     * of the original list.
      *
-     * @param chosenRow    the Row chosen by the user.
-     * @param chosenColumn the Column chosen by the user.
-     * @param positions    the List of valid positions.
-     * @return {@code true} if the position inserted is not valid, {@code false} otherwise.
+     * @param positions a list of positions.
+     * @return the integer of the maximum row position inside the list.
      */
-    private boolean position_isNotValid(int chosenRow, int chosenColumn, List<Position> positions) {
-        for (Position position : positions) {
-            if (chosenRow == position.getRow() && chosenColumn == position.getColumn()) {
-                return false;
-            }
-        }
-        return true;
+    private int findMinRow(List<Position> positions) {
+        List<Position> sortedList = new ArrayList<>(List.copyOf(positions));
+        sortedList.sort(Comparator.comparingInt(Position::getRow)
+                .thenComparingInt(Position::getColumn));
+        return sortedList.get(0).getRow();
+    }
+
+    /**
+     * Finds and returns the max row in a list of positions.
+     * The maximum value is found by sorting the list and getting
+     * the last occurrence of the sorted list.
+     * A deep copy of the argument list if performed to avoid any modification
+     * of the original list.
+     *
+     * @param positions a list of positions.
+     * @return the integer of the maximum row position inside the list.
+     */
+    private int findMaxRow(List<Position> positions) {
+        List<Position> sortedList = new ArrayList<>(List.copyOf(positions));
+        sortedList.sort(Comparator.comparingInt(Position::getRow)
+                .thenComparingInt(Position::getColumn));
+        return sortedList.get(sortedList.size() - 1).getRow();
+    }
+
+    /**
+     * Finds and returns the min column in a list of positions.
+     * The minimum value is found by sorting the list and getting
+     * the first occurrence of the sorted list.
+     * A deep copy of the argument list if performed to avoid any modification
+     * of the original list.
+     *
+     * @param positions a list of positions.
+     * @return the integer of the maximum column position inside the list.
+     */
+    private int findMinColumn(List<Position> positions) {
+        List<Position> sortedList = new ArrayList<>(List.copyOf(positions));
+        sortedList.sort(Comparator.comparingInt(Position::getColumn)
+                .thenComparingInt(Position::getColumn));
+        return sortedList.get(0).getColumn();
+    }
+
+    /**
+     * Finds and returns the max column in a list of positions.
+     * The maximum value is found by sorting the list and getting
+     * the last occurrence of the sorted list.
+     * A deep copy of the argument list if performed to avoid any modification
+     * of the original list.
+     *
+     * @param positions a list of positions.
+     * @return the integer of the maximum column position inside the list.
+     */
+    private int findMaxColumn(List<Position> positions) {
+        List<Position> sortedList = new ArrayList<>(List.copyOf(positions));
+        sortedList.sort(Comparator.comparingInt(Position::getColumn)
+                .thenComparingInt(Position::getColumn));
+        return sortedList.get(sortedList.size() - 1).getColumn();
     }
 
     public void clearCli() {
