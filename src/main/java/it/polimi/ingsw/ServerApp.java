@@ -3,7 +3,6 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.SocketServer;
-import it.polimi.ingsw.persistence.StorageData;
 
 public class ServerApp {
 

@@ -166,20 +166,19 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
         switch (spaceClickType) {
             case MOVE:
-                handleMove(tempNode, tempPosition);
+                handleMove(tempPosition);
                 break;
             case BUILD:
-                handleBuild(tempNode, tempPosition);
+                handleBuild(tempPosition);
                 break;
             case BUILD_FX:
-                handleBuildFx(tempNode, tempPosition);
+                handleBuildFx(tempPosition);
                 break;
             case MOVE_FX:
-                handleMoveFx(tempNode, tempPosition);
+                handleMoveFx(tempPosition);
                 break;
         }
 
-        tempNode = null;
         tempPosition = null;
     }
 
@@ -281,10 +280,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     /**
      * Handles the click for the move position of the worker.
      *
-     * @param clickedNode     the clicked node.
      * @param clickedPosition the clicked position on the grid.
      */
-    private void handleMove(Node clickedNode, Position clickedPosition) {
+    private void handleMove(Position clickedPosition) {
         disableAllSpaces();
         removeCssClassFromAllSpaces("glassPaneSelected");
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateMove(clickedPosition)));
@@ -293,10 +291,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     /**
      * Handles the click for the build position.
      *
-     * @param clickedNode     the clicked node.
      * @param clickedPosition the clicked position on the grid.
      */
-    private void handleBuild(Node clickedNode, Position clickedPosition) {
+    private void handleBuild(Position clickedPosition) {
         disableAllSpaces();
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateBuild(clickedPosition)));
     }
@@ -304,10 +301,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     /**
      * Handles the click for the move position of the worker during an effect.
      *
-     * @param clickedNode     the clicked node.
      * @param clickedPosition the clicked position on the grid.
      */
-    private void handleMoveFx(Node clickedNode, Position clickedPosition) {
+    private void handleMoveFx(Position clickedPosition) {
         disableAllSpaces();
         removeCssClassFromAllSpaces("glassPaneSelected");
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition)));
@@ -316,10 +312,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     /**
      * Handles the click for the build position during an effect.
      *
-     * @param clickedNode     the clicked node.
      * @param clickedPosition the clicked position on the grid.
      */
-    private void handleBuildFx(Node clickedNode, Position clickedPosition) {
+    private void handleBuildFx(Position clickedPosition) {
         disableAllSpaces();
         removeCssClassFromAllSpaces("glassPaneSelected");
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition)));
@@ -443,6 +438,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 break;
             case 3:
                 gridSpace.getStyleClass().add("lvlThree");
+                break;
             default:
                 break;
         }

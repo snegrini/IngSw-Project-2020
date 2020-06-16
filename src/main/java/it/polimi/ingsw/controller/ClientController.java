@@ -193,6 +193,7 @@ public class ClientController implements ViewObserver, Observer {
             case LOBBY:
                 LobbyMessage lobbyMessage = (LobbyMessage) message;
                 taskQueue.execute(() -> view.showLobby(lobbyMessage.getNicknameList(), lobbyMessage.getMaxPlayers()));
+                break;
             default: // Should never reach this condition
                 break;
         }

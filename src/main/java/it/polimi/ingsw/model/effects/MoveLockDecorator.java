@@ -11,14 +11,16 @@ import java.util.List;
 import java.util.Map;
 
 public class MoveLockDecorator extends EffectDecorator {
+    private static final long serialVersionUID = 2288855472114446569L;
 
     private final MoveType lockMoveType;
     private List<Worker> targetWorkers;
 
     public MoveLockDecorator(Effect effect, Map<String, String> requirements, MoveType lockMoveType) {
         this.effect = effect;
-        this.requirements = requirements;
         this.lockMoveType = lockMoveType;
+
+        setRequirements(requirements);
         setPhaseType(effect.getPhaseType());
         setTargetTypeMap(effect.getTargetTypeMap());
     }
@@ -49,7 +51,7 @@ public class MoveLockDecorator extends EffectDecorator {
 
         clear(worker); // Clear previous applied effect.
 
-        String moveTypeStr = requirements.get(XMLName.MOVE.getText());
+        String moveTypeStr = getRequirements().get(XMLName.MOVE.getText());
         if (moveTypeStr != null) {
             MoveType moveTypeRequired = MoveType.valueOf(moveTypeStr);
             if (moveTypeRequired.equals(MoveType.UP)) {

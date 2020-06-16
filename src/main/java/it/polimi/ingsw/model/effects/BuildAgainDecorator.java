@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public class BuildAgainDecorator extends EffectDecorator {
+    private static final long serialVersionUID = 8442370103194172484L;
 
-    private final int quantity;
     private final boolean sameSpace;
     private final boolean dome;
     private final boolean forceSameSpace;
@@ -22,14 +22,14 @@ public class BuildAgainDecorator extends EffectDecorator {
     private List<Position> possibleBuilds;
 
     public BuildAgainDecorator(Effect effect, Map<String, String> requirements,
-                               int quantity, boolean sameSpace, boolean dome, boolean forceSameSpace) {
+                               boolean sameSpace, boolean dome, boolean forceSameSpace) {
         this.effect = effect;
-        this.requirements = requirements;
-        this.quantity = quantity;
         this.sameSpace = sameSpace;
         this.dome = dome;
         this.forceSameSpace = forceSameSpace;
         this.possibleBuilds = new ArrayList<>();
+
+        setRequirements(requirements);
         setPhaseType(effect.getPhaseType());
         setTargetTypeMap(effect.getTargetTypeMap());
     }

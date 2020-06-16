@@ -1,7 +1,6 @@
 package it.polimi.ingsw.persistence;
 
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.controller.TurnController;
 
 import java.io.Serializable;
 

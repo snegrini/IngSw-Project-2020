@@ -103,6 +103,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
     public void sendMessage(Message message) {
         try {
             synchronized (outputLock) {
+                Server.LOGGER.info("SENDING " + message.getMessageType());
                 output.writeObject(message);
             }
         } catch (IOException e) {

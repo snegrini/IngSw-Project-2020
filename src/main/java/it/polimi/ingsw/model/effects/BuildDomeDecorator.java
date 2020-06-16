@@ -13,12 +13,14 @@ import java.util.Map;
 
 public class BuildDomeDecorator extends EffectDecorator {
 
+    private static final long serialVersionUID = -7461449390585591178L;
     private List<Position> possibleBuilds;
 
     public BuildDomeDecorator(Effect effect, Map<String, String> requirements) {
         this.effect = effect;
-        this.requirements = requirements;
         this.possibleBuilds = new ArrayList<>();
+
+        setRequirements(requirements);
         setPhaseType(effect.getPhaseType());
         setTargetTypeMap(effect.getTargetTypeMap());
     }

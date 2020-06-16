@@ -12,17 +12,16 @@ import java.util.Map;
 
 public class MoveAgainDecorator extends EffectDecorator {
 
-    private final int quantity;
+    private static final long serialVersionUID = -7009125378905883696L;
     private final boolean goBack;
 
     private List<Position> possibleMoves;
 
-    public MoveAgainDecorator(Effect effect, Map<String, String> requirements, int quantity, boolean goBack) {
+    public MoveAgainDecorator(Effect effect, Map<String, String> requirements, boolean goBack) {
         this.effect = effect;
-        this.requirements = requirements;
-        this.quantity = quantity;
         this.goBack = goBack;
         this.possibleMoves = new ArrayList<>();
+        setRequirements(requirements);
         setPhaseType(effect.getPhaseType());
         setTargetTypeMap(effect.getTargetTypeMap());
     }

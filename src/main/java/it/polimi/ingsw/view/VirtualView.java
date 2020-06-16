@@ -9,7 +9,6 @@ import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.observer.Observer;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

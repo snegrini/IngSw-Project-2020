@@ -15,16 +15,11 @@ public class InputReadTask implements Callable<String> {
     @Override
     public String call() throws IOException, InterruptedException {
         String input;
-        try {
-            // wait until there is data to complete a readLine()
-            while (!br.ready()) {
-                Thread.sleep(200);
-            }
-            input = br.readLine();
-        } catch (InterruptedException e) {
-            System.out.println("InputReadTask InterruptedException");
-            throw e;
+        // wait until there is data to complete a readLine()
+        while (!br.ready()) {
+            Thread.sleep(200);
         }
+        input = br.readLine();
         return input;
     }
 }

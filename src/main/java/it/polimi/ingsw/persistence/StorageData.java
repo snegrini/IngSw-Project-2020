@@ -7,8 +7,7 @@ import java.io.*;
 
 public class StorageData {
 
-    public StorageData(){
-
+    public StorageData() {
     }
 
     public void store(GameController gameController) {
@@ -23,7 +22,7 @@ public class StorageData {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Server.LOGGER.severe(e.getMessage());
         }
     }
 
@@ -34,14 +33,13 @@ public class StorageData {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
             persistence = (Persistence) objectInputStream.readObject();
-            GameController gameController = persistence.getGameController();
 
-            return gameController;
+            return persistence.getGameController();
 
         } catch (IOException e) {
-            Server.LOGGER.info("No File Found.");
+            Server.LOGGER.severe("No File Found.");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Server.LOGGER.severe(e.getMessage());
         }
         return null;
     }

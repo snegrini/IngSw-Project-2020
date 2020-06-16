@@ -14,6 +14,7 @@ import java.util.Map;
 
 public class MoveOverDecorator extends EffectDecorator {
 
+    private static final long serialVersionUID = -4280308808871559027L;
     private final boolean pushBack;
     private final boolean swapSpace;
 
@@ -21,10 +22,11 @@ public class MoveOverDecorator extends EffectDecorator {
 
     public MoveOverDecorator(Effect effect, Map<String, String> requirements, boolean pushBack, boolean swapSpace) {
         this.effect = effect;
-        this.requirements = requirements;
         this.pushBack = pushBack;
         this.swapSpace = swapSpace;
         this.possibleMoves = new ArrayList<>();
+
+        setRequirements(requirements);
         setPhaseType(effect.getPhaseType());
         setTargetTypeMap(effect.getTargetTypeMap());
     }

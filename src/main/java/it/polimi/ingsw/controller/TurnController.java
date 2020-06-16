@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.persistence.Persistence;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.persistence.StorageData;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -18,6 +18,7 @@ import java.util.Map;
 
 public class TurnController implements Serializable {
 
+    private static final long serialVersionUID = -5987205913389392005L;
     private Game game;
     private List<String> nicknameQueue;
     private String activePlayer;
@@ -210,7 +211,6 @@ public class TurnController implements Serializable {
     }
 
     private void continueGame(VirtualView virtualView) {
-        List<Position> possiblePositions = new ArrayList<>();
         switch (getPhaseType()) {
             case YOUR_MOVE:
                 if (!getActiveWorker().getPossibleMoves().isEmpty()) {
@@ -225,6 +225,10 @@ public class TurnController implements Serializable {
                 } else {
                     lose();
                 }
+                break;
+            default:
+                Server.LOGGER.warning("Invalid game state!");
+                break;
         }
     }
 

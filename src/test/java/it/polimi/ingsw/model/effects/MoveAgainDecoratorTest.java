@@ -19,15 +19,13 @@ public class MoveAgainDecoratorTest {
     private Effect effectNoGoBack;
 
     @Before
-    public void setUp() throws Exception {
-        effectCanGoBack = new MoveAgainDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), Map.of(),
-                1, true);
-        effectNoGoBack = new MoveAgainDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), Map.of(),
-                1, false);
+    public void setUp() {
+        effectCanGoBack = new MoveAgainDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), Map.of(), true);
+        effectNoGoBack = new MoveAgainDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), Map.of(), false);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         effectCanGoBack = null;
         effectNoGoBack = null;
         Game.resetInstance();

@@ -19,15 +19,15 @@ public class BuildAgainDecoratorTest {
     private Effect effect2;
 
     @Before
-    public void setUp() throws Exception {
-        effect1 = new BuildAgainDecorator(new SimpleEffect(PhaseType.YOUR_BUILD), Map.of(), 1,
+    public void setUp() {
+        effect1 = new BuildAgainDecorator(new SimpleEffect(PhaseType.YOUR_BUILD), Map.of(),
                 false, false, false);
-        effect2 = new BuildAgainDecorator(new SimpleEffect(PhaseType.YOUR_BUILD), Map.of(), 1,
+        effect2 = new BuildAgainDecorator(new SimpleEffect(PhaseType.YOUR_BUILD), Map.of(),
                 false, false, true);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         effect1 = null;
         effect2 = null;
         Game.resetInstance();

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network.message;
 
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ReducedGod;
 
 import java.util.List;

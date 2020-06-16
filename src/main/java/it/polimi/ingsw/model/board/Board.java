@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.MoveType;
-import it.polimi.ingsw.model.player.History;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.BoardMessage;
 import it.polimi.ingsw.network.message.MessageType;
@@ -48,11 +47,12 @@ public class Board extends Observable implements Serializable {
         // <--
     }
 
+    // TODO REMOVE ME!!!
     private void debugWinConditions() {
         spaces[0][1].increaseLevel(2);
         spaces[1][1].increaseLevel(2);
         spaces[2][1].increaseLevel(2);
-       // spaces[2][0].increaseLevel(2);
+        // spaces[2][0].increaseLevel(2);
     }
 
     /**
@@ -253,28 +253,6 @@ public class Board extends Observable implements Serializable {
         } else {
             return MoveType.FLAT;
         }
-    }
-
-    /**
-     * Returns {@code true} if the worker is moving back into his last position
-     *
-     * @param worker the worker to check the move.
-     * @param dest   the destination position.
-     * @return the MoveType needed to perform the move from the first position argument to
-     * the second position argument. Returns {@code null} if the arguments are not neighbours.
-     * @see History , {@code false} otherwise.
-     */
-    public boolean isMovingBack(Worker worker, Position dest) {
-        Position orig = worker.getPosition();
-
-        // Check if the arguments are neighbours.
-        if (!getNeighbours(orig).contains(dest) || orig.equals(dest)) {
-            return false;
-        }
-
-        Position lastPosition = worker.getHistory().getMovePosition();
-
-        return dest.equals(lastPosition);
     }
 
     /**

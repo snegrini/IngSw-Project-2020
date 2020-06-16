@@ -1,13 +1,12 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.network.message.BoardMessage;
-import it.polimi.ingsw.network.message.MessageType;
 
 import java.io.Serializable;
 
 public class Space implements Comparable<Space>, Serializable {
+    private static final long serialVersionUID = -8565971658789856338L;
+
     private int level;
     private boolean dome;
     private Worker worker;

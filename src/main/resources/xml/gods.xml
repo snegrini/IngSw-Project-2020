@@ -32,7 +32,7 @@
                 </requirements>
                 <parameters>
                     <target>YOUR_ACTIVE_WORKER</target>
-                    <move again="true" quantity="1" goback="false"/>
+                    <move again="true" goback="false"/>
                 </parameters>
             </effect>
         </effects>
@@ -86,7 +86,7 @@
                 </requirements>
                 <parameters>
                     <target>YOUR_ACTIVE_WORKER</target>
-                    <build again="true" quantity="1" samespace="false"/>
+                    <build again="true" samespace="false"/>
                 </parameters>
             </effect>
         </effects>
@@ -104,7 +104,7 @@
                 </requirements>
                 <parameters>
                     <target>YOUR_ACTIVE_WORKER</target>
-                    <build again="true" quantity="1" forcesamespace="true" dome="false"/>
+                    <build again="true" forcesamespace="true" dome="false"/>
                 </parameters>
             </effect>
         </effects>
@@ -161,7 +161,7 @@
                 </requirements>
                 <parameters>
                     <target>YOUR_ACTIVE_WORKER</target>
-                    <build again="true" quantity="1" samespace="true" dome="true"/>
+                    <build again="true" samespace="true" dome="true"/>
                     <move lock="true">UP</move>
                 </parameters>
             </effect>

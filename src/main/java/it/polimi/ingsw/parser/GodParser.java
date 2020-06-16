@@ -37,7 +37,7 @@ public class GodParser {
      */
     public static List<God> parseGods() {
         List<God> gods = new ArrayList<>();
-        DocumentBuilder db = null;
+        DocumentBuilder db;
         Document doc = null;
 
         File file = new File(GodParser.class.getClassLoader().getResource(FILE_PATH).getFile());
@@ -162,12 +162,11 @@ public class GodParser {
     private static Effect decorateBuild(Effect effect, Map<String, String> requirements,
                                         Map<String, String> parameters) {
         if (Boolean.parseBoolean(parameters.get(BUILD.getText() + AGAIN.getText()))) {
-            int quantity = Integer.parseInt(parameters.get(BUILD.getText() + QUANTITY.getText()));
             boolean sameSpace = Boolean.parseBoolean(parameters.get(BUILD.getText() + SAME_SPACE.getText()));
             boolean dome = Boolean.parseBoolean(parameters.get(BUILD.getText() + DOME.getText()));
             boolean forceSameSpace = Boolean.parseBoolean(parameters.get(BUILD.getText() + FORCE_SAME_SPACE.getText()));
 
-            effect = new BuildAgainDecorator(effect, requirements, quantity, sameSpace, dome, forceSameSpace);
+            effect = new BuildAgainDecorator(effect, requirements, sameSpace, dome, forceSameSpace);
         }
 
         if (Boolean.parseBoolean(parameters.get(BUILD.getText() + FORCE_DOME.getText()))) {
@@ -180,9 +179,8 @@ public class GodParser {
     private static Effect decorateMove(Effect effect, Map<String, String> requirements,
                                        Map<String, String> parameters) {
         if (Boolean.parseBoolean(parameters.get(MOVE.getText() + AGAIN.getText()))) {
-            int quantity = Integer.parseInt(parameters.get(MOVE.getText() + QUANTITY.getText()));
             boolean goBack = Boolean.parseBoolean(parameters.get(MOVE.getText() + GO_BACK.getText()));
-            effect = new MoveAgainDecorator(effect, requirements, quantity, goBack);
+            effect = new MoveAgainDecorator(effect, requirements, goBack);
         }
 
         if (Boolean.parseBoolean(parameters.get(MOVE.getText() + OVER.getText()))) {

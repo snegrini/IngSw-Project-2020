@@ -18,8 +18,11 @@ import java.util.stream.Collectors;
 public class Cli extends ViewObservable implements View {
 
     private final PrintStream out;
-    private FutureTask<String> futureTask;
     private Thread inputThread;
+
+    private static final String STR_ROW = "Row: ";
+    private static final String STR_COLUMN = "Column: ";
+    private static final String STR_POSITION = "Position ";
 
     public Cli() {
         out = System.out;
@@ -27,7 +30,7 @@ public class Cli extends ViewObservable implements View {
 
 
     public String readLine() throws ExecutionException {
-        futureTask = new FutureTask<>(new InputReadTask());
+        FutureTask<String> futureTask = new FutureTask<>(new InputReadTask());
         inputThread = new Thread(futureTask);
         inputThread.start();
 
@@ -36,16 +39,9 @@ public class Cli extends ViewObservable implements View {
         try {
             input = futureTask.get();
         } catch (InterruptedException e) {
-            System.out.println("readLine() InterruptedException");
-
-            System.out.println("readLine() BEFORE futureTask.cancel()");
             futureTask.cancel(true);
-            System.out.println("readLine() AFTER futureTask.cancel()");
-        } catch (ExecutionException e) {
-            System.out.println("readLine() ExecutionException");
-            throw e;
+            Thread.currentThread().interrupt();
         }
-
         return input;
     }
 
@@ -242,8 +238,8 @@ public class Cli extends ViewObservable implements View {
         try {
             for (int i = 0; i < 2; i++) {
                 out.println("Position for Worker " + (i + 1));
-                int chosenRow = numberInput(0, positions.get(positions.size() - 1).getRow(), List.of(), "Row: ");
-                int chosenColumn = numberInput(0, positions.get(positions.size() - 1).getColumn(), List.of(), "Column: ");
+                int chosenRow = numberInput(0, positions.get(positions.size() - 1).getRow(), List.of(), STR_ROW);
+                int chosenColumn = numberInput(0, positions.get(positions.size() - 1).getColumn(), List.of(), STR_COLUMN);
 
                 initPositions.add(new Position(chosenRow, chosenColumn));
             }
@@ -314,8 +310,8 @@ public class Cli extends ViewObservable implements View {
 
         out.println("Insert the position of the worker which you want to move:");
         try {
-            int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, "Row: ");
-            int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, "Column: ");
+            int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
+            int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
 
             Position pos = new Position(chosenRow, chosenColumn);
             notifyObserver(obs -> obs.onUpdatePickMovingWorker(pos));
@@ -339,14 +335,14 @@ public class Cli extends ViewObservable implements View {
             notifyObserver(obs -> obs.onUpdateMove(null));
         } else {
             for (int i = 0; i < positionList.size(); i++) {
-                out.println("Position " + (i + 1) + ": " + "Row: " + positionList.get(i).getRow() +
+                out.println(STR_POSITION + (i + 1) + ": " + STR_ROW + positionList.get(i).getRow() +
                         " Column: " + positionList.get(i).getColumn());
             }
 
             out.println("Select the new position:");
             try {
-                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, "Row: ");
-                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, "Column: ");
+                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
+                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
 
                 Position dest = new Position(chosenRow, chosenColumn);
                 notifyObserver(obs -> obs.onUpdateMove(dest));
@@ -366,13 +362,13 @@ public class Cli extends ViewObservable implements View {
             out.println("Oh no! Unfortunately you can't build...");
         } else {
             for (int i = 0; i < positionList.size(); i++) {
-                out.println("Position " + (i + 1) + ": " + "Row: " + positionList.get(i).getRow() +
-                        " Column: " + positionList.get(i).getColumn());
+                out.println(STR_POSITION + (i + 1) + ": " + STR_ROW + positionList.get(i).getRow() +
+                        " " + STR_COLUMN + positionList.get(i).getColumn());
             }
             out.println("Select where to build:");
             try {
-                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, "Row: ");
-                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, "Column: ");
+                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
+                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
 
                 Position buildPos = new Position(chosenRow, chosenColumn);
                 notifyObserver(obs -> obs.onUpdateBuild(buildPos));
@@ -393,14 +389,14 @@ public class Cli extends ViewObservable implements View {
             notifyObserver(obs -> obs.onUpdateMove(null));
         } else {
             for (int i = 0; i < positionList.size(); i++) {
-                out.println("Position " + (i + 1) + ": " + "Row: " + positionList.get(i).getRow() +
-                        " Column: " + positionList.get(i).getColumn());
+                out.println(STR_POSITION + (i + 1) + ": " + STR_ROW + positionList.get(i).getRow() +
+                        " " + STR_COLUMN + positionList.get(i).getColumn());
             }
 
             out.println("Select the new position:");
             try {
-                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, "Row: ");
-                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, "Column: ");
+                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
+                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
 
                 Position dest = new Position(chosenRow, chosenColumn);
                 notifyObserver(obs -> obs.onUpdateApplyEffect(dest));
@@ -420,14 +416,14 @@ public class Cli extends ViewObservable implements View {
             out.println("Oh no! Unfortunately you can't build...");
         } else {
             for (int i = 0; i < positionList.size(); i++) {
-                out.println("Position " + (i + 1) + ": " + "Row: " + positionList.get(i).getRow() +
-                        " Column: " + positionList.get(i).getColumn());
+                out.println(STR_POSITION + (i + 1) + ": " + STR_ROW + positionList.get(i).getRow() +
+                        " " + STR_COLUMN + positionList.get(i).getColumn());
             }
 
             out.println("Select where to build:");
             try {
-                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, "Row: ");
-                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, "Column: ");
+                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
+                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
 
                 Position buildPos = new Position(chosenRow, chosenColumn);
                 notifyObserver(obs -> obs.onUpdateApplyEffect(buildPos));
@@ -485,7 +481,7 @@ public class Cli extends ViewObservable implements View {
 
     @Override
     public void showWinMessage(String winner) {
-        System.out.println("Game Finished! " + winner + "wins!");
+        out.println("GAME FINISHED. " + winner + "WINS!");
     }
 
     @Override
@@ -499,8 +495,7 @@ public class Cli extends ViewObservable implements View {
         } else if (nicknameAccepted) {
             out.println("Max players reached. Connection refused.");
             out.println("EXIT.");
-            //out.println("\nPress ENTER to exit.");
-            //readLine();
+
             System.exit(1);
         } else {
             showErrorAndExit("Could not contact server.");
@@ -525,20 +520,10 @@ public class Cli extends ViewObservable implements View {
      */
     @Override
     public void showDisconnectionMessage(String nicknameDisconnected, String text) {
-
-        System.out.println("showDisconnectionMessage() BEFORE inputThread.interrupt()");
         inputThread.interrupt();
-        try {
-            inputThread.join();
-            System.out.println("join effettuato");
-        } catch (InterruptedException e) {
-            System.out.println("catch join marcio");
-        }
-        System.out.println("showDisconnectionMessage() AFTER inputThread.interrupt()");
-
         out.println("\n" + nicknameDisconnected + text);
 
-        System.exit(1); // may not reach this point if client was locked on input read.
+        System.exit(1);
     }
 
     /**
@@ -548,10 +533,12 @@ public class Cli extends ViewObservable implements View {
      */
     @Override
     public void showErrorAndExit(String error) {
+        inputThread.interrupt();
+
         out.println("\nERROR: " + error);
         out.println("EXIT.");
-        futureTask.cancel(true); // if locked on input, it also calls System.exit(1)
-        System.exit(1); // may not reach this point if client was locked on input read.
+
+        System.exit(1);
     }
 
 

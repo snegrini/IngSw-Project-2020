@@ -15,10 +15,11 @@ import java.util.stream.Collectors;
 
 public class Worker implements Serializable {
 
+    private static final long serialVersionUID = 773685750902018150L;
     private Color color;
     private Position position;
     private History history;
-    private Set<MoveType> lockedMovements;
+    private final Set<MoveType> lockedMovements;
 
     public Worker(Position position) {
         this.position = position;
@@ -89,8 +90,6 @@ public class Worker implements Serializable {
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
                 .filter(pos -> board.getSpace(pos).isFree())
                 .filter(pos -> !lockedMovements.contains(board.getMoveTypeByLevel(position, pos)))
-                // FIXME
-                // .filter(pos -> !lockedMovements.contains(board.isMovingBack(position, pos)))
                 .collect(Collectors.toList());
     }
 

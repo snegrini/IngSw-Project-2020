@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.*;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.persistence.StorageData;
 import it.polimi.ingsw.view.View;
@@ -23,8 +24,8 @@ import java.util.*;
 import static it.polimi.ingsw.network.message.MessageType.PLAYERNUMBER_REPLY;
 
 public class GameController implements Observer, Serializable {
-
     private static final long serialVersionUID = 4951303731052728724L;
+
     private Game game;
     private transient Map<String, VirtualView> virtualViewMap;
 
@@ -68,9 +69,10 @@ public class GameController implements Observer, Serializable {
                 initState(receivedMessage, virtualView);
                 break;
             case IN_GAME:
-                inGameState(receivedMessage, virtualView);
+                inGameState(receivedMessage);
                 break;
             default: // Should never reach this condition
+                Server.LOGGER.warning("Invalid game state!");
                 break;
         }
     }
@@ -118,12 +120,11 @@ public class GameController implements Observer, Serializable {
                 break;
             case INIT_WORKERSPOSITIONS:
                 if (inputController.verifyReceivedData(receivedMessage)) {
-                    workerPositionsHandler((PositionMessage) receivedMessage, virtualView);
+                    workerPositionsHandler((PositionMessage) receivedMessage);
                 }
                 break;
-
             default:
-                // TODO show exception
+                Server.LOGGER.warning("Invalid game state!");
                 break;
         }
     }
@@ -132,9 +133,8 @@ public class GameController implements Observer, Serializable {
      * Switch on Game Messages' Types.
      *
      * @param receivedMessage Message from Active Player.
-     * @param virtualView     Virtual View the Active PLayer.
      */
-    private void inGameState(Message receivedMessage, VirtualView virtualView) {
+    private void inGameState(Message receivedMessage) {
         switch (receivedMessage.getMessageType()) {
             case PICK_MOVING_WORKER:
                 if (inputController.verifyReceivedData(receivedMessage)) {
@@ -323,9 +323,9 @@ public class GameController implements Observer, Serializable {
     /**
      * Ask to current Player if want to enable his Effect or bypass the question and apply Effect.
      *
-     * @return {@code true} if everything is done {@code false} otherwise.
+     * @return {@code true} if everything is done, {@code false} otherwise.
      */
-    private Boolean launchEffect() {
+    private boolean launchEffect() {
         Player player = game.getPlayerByNickname(turnController.getActivePlayer());
         if (turnController.checkEffectPhase(turnController.getPhaseType()) && turnController.requireEffect()) {
             Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());
@@ -522,7 +522,7 @@ public class GameController implements Observer, Serializable {
      *
      * @param receivedMessage message from client
      */
-    private void workerPositionsHandler(PositionMessage receivedMessage, VirtualView virtualView) {
+    private void workerPositionsHandler(PositionMessage receivedMessage) {
         Player player = game.getPlayerByNickname(receivedMessage.getNickname());
         List<Position> positions = receivedMessage.getPositionList();
 
@@ -537,8 +537,8 @@ public class GameController implements Observer, Serializable {
 
         if (availableColors.size() != Game.MAX_PLAYERS - game.getChosenPlayersNumber()) {
             turnController.next();
-            virtualView = virtualViewMap.get(turnController.getActivePlayer());
-            virtualView.askInitWorkerColor(availableColors);
+            VirtualView vv = virtualViewMap.get(turnController.getActivePlayer());
+            vv.askInitWorkerColor(availableColors);
         } else {
             turnController.next();
             startGame();
@@ -690,6 +690,9 @@ public class GameController implements Observer, Serializable {
                 break;
             case WIN_FX:
                 win();
+                break;
+            default:
+                Server.LOGGER.warning("Invalid effect request!");
                 break;
         }
 

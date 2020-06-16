@@ -26,7 +26,6 @@ public enum XMLName {
     ACTIVE("active"),
     GO_BACK("goback"),
     LEVEL("lvl"),
-    QUANTITY("quantity"),
     LOCK("lock"),
     DOME("dome"),
     FORCE_DOME("forcedome"),

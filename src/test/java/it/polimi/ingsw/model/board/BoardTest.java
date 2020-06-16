@@ -19,13 +19,13 @@ public class BoardTest {
     private Space space;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         board = new Board();
         space = board.getSpace(new Position(0, 0));
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         board = null;
         space = null;
         Game.resetInstance();
@@ -186,39 +186,6 @@ public class BoardTest {
         expectedPositions.add(new Position(0, 1));
 
         assertEquals(expectedPositions, board.getNeighbourWorkers(w1.getPosition(), false));
-    }
-
-    @Test
-    public void isMovingBack_True() {
-        Position orig = new Position(0, 0);
-        Position dest = new Position(1, 0);
-        Worker w1 = new Worker(Color.BLUE);
-        w1.initPosition(orig);
-        w1.move(dest);
-
-        assertTrue(board.isMovingBack(w1, orig));
-    }
-
-    @Test
-    public void isMovingBack_False() {
-        Position orig = new Position(0, 0);
-        Position dest = new Position(1, 0);
-        Worker w1 = new Worker(Color.BLUE);
-        w1.initPosition(orig);
-        w1.move(dest);
-
-        assertFalse(board.isMovingBack(w1, new Position(1, 1)));
-    }
-
-    @Test
-    public void isMovingBack_NotNeighbours() {
-        Position orig = new Position(0, 0);
-        Position dest = new Position(4, 0);
-        Worker w1 = new Worker(Color.BLUE);
-        w1.initPosition(orig);
-        w1.move(dest);
-
-        assertFalse(board.isMovingBack(w1, orig));
     }
 
     @Test
