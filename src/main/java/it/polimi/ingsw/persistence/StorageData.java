@@ -10,6 +10,10 @@ public class StorageData {
     public StorageData() {
     }
 
+    /**
+     * Save current Game Controller on a file named "match.bless".
+     * @param gameController current Game Controller.
+     */
     public void store(GameController gameController) {
         Persistence persistence = new Persistence(gameController);
 
@@ -26,6 +30,10 @@ public class StorageData {
         }
     }
 
+    /**
+     * Restore a Saved Game.
+     * @return Game Controller of saved Game.
+     */
     public GameController restore() {
         Persistence persistence;
 
@@ -42,5 +50,14 @@ public class StorageData {
             Server.LOGGER.severe(e.getMessage());
         }
         return null;
+    }
+
+    /**
+     * Delete Saved Game.
+     */
+    public void delete() {
+        File file = new File("match.bless");
+        if(file.exists())
+            file.delete();
     }
 }

@@ -315,6 +315,10 @@ public class GameController implements Observer, Serializable {
      */
     public void endGame() {
         Game.resetInstance();
+
+        StorageData storageData = new StorageData();
+        storageData.delete();
+
         initGameController();
     }
 
