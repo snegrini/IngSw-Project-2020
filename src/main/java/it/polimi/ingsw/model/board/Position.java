@@ -8,6 +8,13 @@ public class Position implements Serializable {
     private int row;
     private int column;
 
+    /**
+     * Default constructor.
+     * A position must always have an initial row and an initial column.
+     *
+     * @param row    the initial row to be set.
+     * @param column the initial column to be set.
+     */
     public Position(int row, int column) {
         this.row = row;
         this.column = column;
@@ -23,18 +30,38 @@ public class Position implements Serializable {
         this.column = position.column;
     }
 
+    /**
+     * Returns the row of the position.
+     *
+     * @return the row of the position.
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     * Sets the row of the position.
+     *
+     * @param row the row to be set.
+     */
     public void setRow(int row) {
         this.row = row;
     }
 
+    /**
+     * Returns the column of the position.
+     *
+     * @return the column of the position.
+     */
     public int getColumn() {
         return column;
     }
 
+    /**
+     * Sets the column of the position.
+     *
+     * @param column the column to be set.
+     */
     public void setColumn(int column) {
         this.column = column;
     }

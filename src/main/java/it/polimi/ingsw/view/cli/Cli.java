@@ -7,14 +7,12 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.observer.ViewObservable;
-import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.View;
 
 import java.io.PrintStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Cli extends ViewObservable implements View {
@@ -136,6 +134,7 @@ public class Cli extends ViewObservable implements View {
      * If gods are {@literal >} 1 and request {@literal >} 1 then you are the "god like player" and you have to pick N gods
      * If gods are {@literal >}  1 and request == 1 then You've to pick only 1 god
      * If gods are only 1, you don't have to pick any god.
+     * Notifies the client controller with the selected god/gods.
      *
      * @param gods    the list of the available Gods.
      * @param request how many gods user have to pick
@@ -230,6 +229,7 @@ public class Cli extends ViewObservable implements View {
 
     /**
      * Ask player to choose the initial position of his two workers.
+     * Notifies the client controller with the selected worker's position.
      *
      * @param positions list of the initial positions of two workers.
      */
@@ -256,8 +256,9 @@ public class Cli extends ViewObservable implements View {
 
     /**
      * Ask Player to pick his Color.
+     * Notifies the client controller with the selected color.
      *
-     * @param colorList list of available Colors.
+     * @param colorList list of available colors.
      */
     @Override
     public void askInitWorkerColor(List<Color> colorList) {
@@ -298,6 +299,7 @@ public class Cli extends ViewObservable implements View {
 
     /**
      * Ask Player to pick one of his Worker by Position.
+     * Notifies the client controller with the selected position.
      *
      * @param positionList list of workers Position.
      */
@@ -324,9 +326,10 @@ public class Cli extends ViewObservable implements View {
     }
 
     /**
-     * Ask Player where to move his selected Worker.
+     * Asks the player where to move his selected worker.
+     * Notifies the client controller with the selected position.
      *
-     * @param positionList possible Position to move on.
+     * @param positionList a list of possible positions where the worker can be moved onto.
      */
     @Override
     public void askMove(List<Position> positionList) {
@@ -337,24 +340,23 @@ public class Cli extends ViewObservable implements View {
             out.println("Oh no! Unfortunately you can't move...");
             notifyObserver(obs -> obs.onUpdateMove(null));
         } else {
-            printPositions(positionList);
-
-            out.println("Select the new position:");
             try {
-                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
-                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
+                String message = "Select where to move.";
+                Position destPos = readPositionAndWait(positionList, message);
 
-                Position destPos = new Position(chosenRow, chosenColumn);
-                waitForUndo(obs -> obs.onUpdateMove(destPos));
-                //notifyObserver(obs -> obs.onUpdateMove(dest));
+                notifyObserver(obs -> obs.onUpdateMove(destPos));
             } catch (ExecutionException e) {
                 out.println("User input canceled.");
             }
         }
     }
-    // TODO undo
 
-
+    /**
+     * Asks the player where to build a block on the board.
+     * Notifies the client controller with the selected position.
+     *
+     * @param positionList a list of possible positions where a block can be builded onto.
+     */
     @Override
     public void askBuild(List<Position> positionList) {
         out.println("Select in which position you want your Worker to build!");
@@ -363,25 +365,24 @@ public class Cli extends ViewObservable implements View {
         if (positionList.isEmpty()) {
             out.println("Oh no! Unfortunately you can't build...");
         } else {
-            printPositions(positionList);
-            out.println("Select where to build:");
             try {
-                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
-                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
+                String message = "Select where to build.";
+                Position buildPos = readPositionAndWait(positionList, message);
 
-                Position buildPos = new Position(chosenRow, chosenColumn);
-
-                waitForUndo(obs -> obs.onUpdateBuild(buildPos));
-                //notifyObserver(obs -> obs.onUpdateBuild(buildPos));
+                notifyObserver(obs -> obs.onUpdateBuild(buildPos));
             } catch (ExecutionException e) {
                 out.println("User input canceled.");
             }
         }
     }
 
-
-    // TODO undo
-
+    /**
+     * Performs a special move or an extra move due to some effect applied.
+     * Asks the player where to move his selected worker.
+     * Notifies the client controller with the selected position.
+     *
+     * @param positionList a list of possible positions where the worker can be moved onto.
+     */
     @Override
     public void askMoveFx(List<Position> positionList) {
         out.println("Select the new position for your Worker!");
@@ -391,23 +392,23 @@ public class Cli extends ViewObservable implements View {
             out.println("Oh no! Unfortunately you can't move...");
             notifyObserver(obs -> obs.onUpdateMove(null));
         } else {
-            printPositions(positionList);
-
-            out.println("Select the new position:");
             try {
-                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
-                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
+                String message = "Select where to move.";
+                Position destPos = readPositionAndWait(positionList, message);
 
-                Position destPos = new Position(chosenRow, chosenColumn);
-                waitForUndo(obs -> obs.onUpdateApplyEffect(destPos));
-                //notifyObserver(obs -> obs.onUpdateApplyEffect(destPos));
+                notifyObserver(obs -> obs.onUpdateApplyEffect(destPos));
             } catch (ExecutionException e) {
                 out.println("User input canceled.");
             }
         }
     }
-    // TODO undo
 
+    /**
+     * Asks the player where to build a block on the board.
+     * Notifies the client controller with the selected position.
+     *
+     * @param positionList a list of possible positions where a block can be builded onto.
+     */
     @Override
     public void askBuildFx(List<Position> positionList) {
         out.println("Select in which position you want your Worker to build!");
@@ -416,23 +417,16 @@ public class Cli extends ViewObservable implements View {
         if (positionList.isEmpty()) {
             out.println("Oh no! Unfortunately you can't build...");
         } else {
-            printPositions(positionList);
-
-            out.println("Select where to build:");
             try {
-                int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
-                int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
+                String message = "Select where to build.";
+                Position buildPos = readPositionAndWait(positionList, message);
 
-                Position buildPos = new Position(chosenRow, chosenColumn);
-                waitForUndo(obs -> obs.onUpdateApplyEffect(buildPos));
-                //notifyObserver(obs -> obs.onUpdateApplyEffect(buildPos));
+                notifyObserver(obs -> obs.onUpdateApplyEffect(buildPos));
             } catch (ExecutionException e) {
                 out.println("User input canceled.");
             }
         }
     }
-    // TODO undo
-
 
     @Override
     public void askEnableEffect(boolean forceApply) {
@@ -440,7 +434,7 @@ public class Cli extends ViewObservable implements View {
             notifyObserver(obs -> obs.onUpdateEnableEffect(true));
         } else {
 
-            out.println("Do you want to enable your god effect? [y/N]: ");
+            out.print("Do you want to enable your god effect? [y/N]: ");
             try {
                 String response = readLine();
                 notifyObserver(obs -> obs.onUpdateEnableEffect(response.equalsIgnoreCase("y")));
@@ -463,7 +457,7 @@ public class Cli extends ViewObservable implements View {
 
             String nickname;
             do {
-                out.println("\nType the exact name of the player: ");
+                out.print("\nType the exact name of the player: ");
 
                 nickname = readLine();
                 if (!nicknameQueue.contains(nickname)) {
@@ -478,11 +472,24 @@ public class Cli extends ViewObservable implements View {
         }
     }
 
+    /**
+     * Shows a win message on the terminal.
+     *
+     * @param winner the nickname of the winner.
+     */
     @Override
     public void showWinMessage(String winner) {
         out.println("GAME FINISHED. " + winner + "WINS!");
     }
 
+    /**
+     * Shows the login result on the terminal.
+     * On login fail, the program is terminated immediatly.
+     *
+     * @param nicknameAccepted     indicates if the chosen nickname has been accepted.
+     * @param connectionSuccessful indicates if the connection has been successful.
+     * @param nickname             the nickname of the player to be greeted.
+     */
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
         clearCli();
@@ -540,11 +547,10 @@ public class Cli extends ViewObservable implements View {
         System.exit(1);
     }
 
-
     /**
-     * Print the Board.
+     * Prints the Board.
      *
-     * @param spaces matrix of Reduced Space which compose the Board.
+     * @param spaces matrix of ReducedSpace which compose the board.
      */
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
@@ -591,6 +597,12 @@ public class Cli extends ViewObservable implements View {
         out.println(strBoardBld.toString());
     }
 
+    /**
+     * Shows the lobby screen on the terminal.
+     *
+     * @param nicknameList list of players.
+     * @param numPlayers   number of players.
+     */
     @Override
     public void showLobby(List<String> nicknameList, int numPlayers) {
         out.println("LOBBY:");
@@ -598,7 +610,6 @@ public class Cli extends ViewObservable implements View {
             out.println(nick + "\n");
         }
         out.println("Waiting for other players to join: " + nicknameList.size() + " / " + numPlayers);
-
     }
 
 
@@ -699,26 +710,68 @@ public class Cli extends ViewObservable implements View {
         return sortedList.get(sortedList.size() - 1).getColumn();
     }
 
-    private void waitForUndo(Consumer<ViewObserver> lambda) {
+    private Position readPositionAndWait(List<Position> positionList, String message) throws ExecutionException {
+        printPositions(positionList);
+        out.println(message);
+
+        int chosenRow, chosenColumn;
+
+        do {
+            chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
+            chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
+        } while (waitForUndo());
+
+        return new Position(chosenColumn, chosenRow);
+    }
+
+    /**
+     * Starts a timer of 5 (five) seconds and wait for user input.
+     * At the timeout, {@code false} is returned, meaning that the user didn't want to undo his last operation.
+     * If user insert "y", then {@code true} is returned.
+     *
+     * @return {@code false} on timeout or on user undo, {@code true} otherwise.
+     */
+    private boolean waitForUndo() {
         out.println("Wait for undo...");
+
         undoTimer = new Timer();
         undoTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                notifyObserver(lambda);
+                inputThread.interrupt();
             }
         }, 5000);
+
+        try {
+            out.print("Undo the last operation? [y/N]: ");
+            String undoConfirm = readLine();
+
+            undoTimer.cancel();
+            return undoConfirm.equalsIgnoreCase("y");
+        } catch (ExecutionException e) {
+            out.println("User input canceled.");
+        }
+        return false;
     }
 
+    /**
+     * Prints a list of positions.
+     *
+     * @param positionList the list of positions to be printed.
+     */
+    private void printPositions(List<Position> positionList) {
+        for (int i = 0; i < positionList.size(); i++) {
+            out.println((i + 1) + "° " + STR_POSITION + " is " + STR_ROW + positionList.get(i).getRow() +
+                    " " + STR_COLUMN + positionList.get(i).getColumn());
+        }
+    }
+
+    /**
+     * Clears the CLI terminal.
+     */
     public void clearCli() {
         out.print(ColorCli.CLEAR);
         out.flush();
     }
 
-    private void printPositions(List<Position> positionList) {
-        for (int i = 0; i < positionList.size(); i++) {
-            out.println(STR_POSITION + (i + 1) + ": " + STR_ROW + positionList.get(i).getRow() +
-                    " " + STR_COLUMN + positionList.get(i).getColumn());
-        }
-    }
 }
