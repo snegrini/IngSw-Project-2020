@@ -7,18 +7,21 @@ import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.observer.ViewObservable;
+import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.View;
 
 import java.io.PrintStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Cli extends ViewObservable implements View {
 
     private final PrintStream out;
     private Thread inputThread;
+    private Timer undoTimer;
 
     private static final String STR_ROW = "Row: ";
     private static final String STR_COLUMN = "Column: ";
@@ -344,14 +347,16 @@ public class Cli extends ViewObservable implements View {
                 int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
                 int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
 
-                Position dest = new Position(chosenRow, chosenColumn);
-                notifyObserver(obs -> obs.onUpdateMove(dest));
+                Position destPos = new Position(chosenRow, chosenColumn);
+                waitForUndo(obs -> obs.onUpdateMove(destPos));
+                //notifyObserver(obs -> obs.onUpdateMove(dest));
             } catch (ExecutionException e) {
                 out.println("User input canceled.");
             }
         }
     }
     // TODO undo
+
 
     @Override
     public void askBuild(List<Position> positionList) {
@@ -371,7 +376,9 @@ public class Cli extends ViewObservable implements View {
                 int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
 
                 Position buildPos = new Position(chosenRow, chosenColumn);
-                notifyObserver(obs -> obs.onUpdateBuild(buildPos));
+
+                waitForUndo(obs -> obs.onUpdateBuild(buildPos));
+                //notifyObserver(obs -> obs.onUpdateBuild(buildPos));
             } catch (ExecutionException e) {
                 out.println("User input canceled.");
             }
@@ -398,8 +405,9 @@ public class Cli extends ViewObservable implements View {
                 int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
                 int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
 
-                Position dest = new Position(chosenRow, chosenColumn);
-                notifyObserver(obs -> obs.onUpdateApplyEffect(dest));
+                Position destPos = new Position(chosenRow, chosenColumn);
+                waitForUndo(obs -> obs.onUpdateApplyEffect(destPos));
+                //notifyObserver(obs -> obs.onUpdateApplyEffect(destPos));
             } catch (ExecutionException e) {
                 out.println("User input canceled.");
             }
@@ -426,7 +434,8 @@ public class Cli extends ViewObservable implements View {
                 int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
 
                 Position buildPos = new Position(chosenRow, chosenColumn);
-                notifyObserver(obs -> obs.onUpdateApplyEffect(buildPos));
+                waitForUndo(obs -> obs.onUpdateApplyEffect(buildPos));
+                //notifyObserver(obs -> obs.onUpdateApplyEffect(buildPos));
             } catch (ExecutionException e) {
                 out.println("User input canceled.");
             }
@@ -437,7 +446,7 @@ public class Cli extends ViewObservable implements View {
 
     @Override
     public void askEnableEffect(boolean forceApply) {
-        if(forceApply) {
+        if (forceApply) {
             notifyObserver(obs -> obs.onUpdateEnableEffect(true));
         } else {
 
@@ -698,6 +707,17 @@ public class Cli extends ViewObservable implements View {
         sortedList.sort(Comparator.comparingInt(Position::getColumn)
                 .thenComparingInt(Position::getColumn));
         return sortedList.get(sortedList.size() - 1).getColumn();
+    }
+
+    private void waitForUndo(Consumer<ViewObserver> lambda) {
+        out.println("Wait for undo...");
+        undoTimer = new Timer();
+        undoTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                notifyObserver(lambda);
+            }
+        }, 5000);
     }
 
     public void clearCli() {
