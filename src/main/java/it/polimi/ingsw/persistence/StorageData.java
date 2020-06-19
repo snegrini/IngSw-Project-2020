@@ -12,12 +12,13 @@ public class StorageData {
 
     /**
      * Save current Game Controller on a file named "match.bless".
+     *
      * @param gameController current Game Controller.
      */
     public void store(GameController gameController) {
         Persistence persistence = new Persistence(gameController);
 
-        try ( FileOutputStream fileOutputStream = new FileOutputStream(new File("match.bless")) ) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(new File("match.bless"))) {
 
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
@@ -32,6 +33,7 @@ public class StorageData {
 
     /**
      * Restore a Saved Game.
+     *
      * @return Game Controller of saved Game.
      */
     public GameController restore() {
@@ -57,7 +59,7 @@ public class StorageData {
      */
     public void delete() {
         File file = new File("match.bless");
-        if(file.exists())
+        if (file.exists())
             file.delete();
     }
 }

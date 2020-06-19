@@ -29,7 +29,7 @@ public class Board extends Observable implements Serializable {
         initSpaces();
     }
 
-    public void restoreBoard(Space[][] spaces){
+    public void restoreBoard(Space[][] spaces) {
         this.spaces = spaces;
     }
 
@@ -221,7 +221,11 @@ public class Board extends Observable implements Serializable {
 
         return getNeighbours(position).stream()
                 .filter(pos -> getSpace(pos).getWorker() != null)
-                .filter(pos -> !oppOnly || !color.equals(getSpace(pos).getWorker().getColor()))
+                .filter(pos -> {
+                    if (!oppOnly) return true;
+                    assert color != null;
+                    return !color.equals(getSpace(pos).getWorker().getColor());
+                })
                 .collect(Collectors.toList());
     }
 
@@ -348,9 +352,9 @@ public class Board extends Observable implements Serializable {
         notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
     }
 
-    public void removeWorkers(String activePlayerNickname){
+    public void removeWorkers(String activePlayerNickname) {
 
-        for (Position p: Game.getInstance().getPlayerByNickname(activePlayerNickname).getWorkersPositions()) {
+        for (Position p : Game.getInstance().getPlayerByNickname(activePlayerNickname).getWorkersPositions()) {
             this.getSpace(p).removeWorker();
         }
 

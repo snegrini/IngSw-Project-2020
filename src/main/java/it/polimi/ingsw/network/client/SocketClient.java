@@ -14,12 +14,12 @@ import java.util.concurrent.TimeUnit;
 
 public class SocketClient extends Client {
 
-    private Socket socket;
+    private final Socket socket;
 
-    private ObjectOutputStream outputStm;
-    private ObjectInputStream inputStm;
-    private ExecutorService readExecutionQueue;
-    private ScheduledExecutorService pinger;
+    private final ObjectOutputStream outputStm;
+    private final ObjectInputStream inputStm;
+    private final ExecutorService readExecutionQueue;
+    private final ScheduledExecutorService pinger;
 
 
     public SocketClient(String address, int port) throws IOException {

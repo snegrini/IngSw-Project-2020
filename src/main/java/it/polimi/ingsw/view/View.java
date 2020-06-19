@@ -120,8 +120,9 @@ public interface View {
 
     /**
      * Shows the lobby with connected players.
+     *
      * @param nicknameList list of players.
-     * @param numPlayers number of players.
+     * @param numPlayers   number of players.
      */
     void showLobby(List<String> nicknameList, int numPlayers);
 
@@ -134,8 +135,8 @@ public interface View {
      * Shows the match info.
      * Infos are about the active player, the other players and their gods.
      *
-     * @param players the list of currently playing players.
-     * @param gods the list of gods chosen by each player.
+     * @param players      the list of currently playing players.
+     * @param gods         the list of gods chosen by each player.
      * @param activePlayer the currently active player (player's turn).
      */
     void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer);
@@ -144,7 +145,7 @@ public interface View {
      * Asks the "chosen player" who he wants the game to start from.
      *
      * @param nicknameList the list of nicknames of all the players.
-     * @param godList the list of gods of the players.
+     * @param godList      the list of gods of the players.
      */
     void askFirstPlayer(List<String> nicknameList, List<ReducedGod> godList);
 

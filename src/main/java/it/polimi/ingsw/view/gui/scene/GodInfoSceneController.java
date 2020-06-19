@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class GodInfoSceneController implements GenericSceneController {
-    private Stage stage;
+    private final Stage stage;
     private String godName;
 
     @FXML
@@ -57,7 +57,6 @@ public class GodInfoSceneController implements GenericSceneController {
     }
 
     public void displayAlert() {
-        //stage.show();
         stage.showAndWait();
     }
 

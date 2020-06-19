@@ -7,9 +7,9 @@ import java.util.List;
 public class UsersInfoMessage extends Message {
 
     private static final long serialVersionUID = -2011506753457265907L;
-    private List<String> activePlayers;
-    private List<ReducedGod> activeGods;
-    private String activePlayerNickname;
+    private final List<String> activePlayers;
+    private final List<ReducedGod> activeGods;
+    private final String activePlayerNickname;
 
     public UsersInfoMessage(String senderNickname, MessageType messageType, List<String> activePlayers, List<ReducedGod> activeGods, String activePlayerNickname) {
         super(senderNickname, messageType);

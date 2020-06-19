@@ -9,7 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class WinSceneController implements GenericSceneController  {
+public class WinSceneController implements GenericSceneController {
     private final Stage stage;
 
     @FXML

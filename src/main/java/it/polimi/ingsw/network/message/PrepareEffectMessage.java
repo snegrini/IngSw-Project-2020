@@ -2,7 +2,7 @@ package it.polimi.ingsw.network.message;
 
 public class PrepareEffectMessage extends Message {
     private static final long serialVersionUID = -2346126431323407902L;
-    private boolean enableEffect;
+    private final boolean enableEffect;
 
     public PrepareEffectMessage(String nickname, boolean enableEffect) {
         super(nickname, MessageType.ENABLE_EFFECT);

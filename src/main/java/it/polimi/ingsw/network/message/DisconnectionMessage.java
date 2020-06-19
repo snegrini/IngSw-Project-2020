@@ -6,8 +6,8 @@ public class DisconnectionMessage extends Message {
 
     private static final long serialVersionUID = -5422965079989607600L;
 
-    private String nicknameDisconnected;
-    private String messageStr;
+    private final String nicknameDisconnected;
+    private final String messageStr;
 
     public DisconnectionMessage(String nicknameDisconnected, String messageStr) {
         super(Game.SERVER_NICKNAME, MessageType.DISCONNECTION);

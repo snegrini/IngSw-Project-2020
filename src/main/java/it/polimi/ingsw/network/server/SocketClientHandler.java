@@ -9,8 +9,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class SocketClientHandler implements ClientHandler, Runnable {
-    private Socket client;
-    private SocketServer socketServer;
+    private final Socket client;
+    private final SocketServer socketServer;
 
     private boolean connected;
 

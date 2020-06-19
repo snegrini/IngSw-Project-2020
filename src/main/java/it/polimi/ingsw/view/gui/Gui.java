@@ -96,7 +96,7 @@ public class Gui extends ViewObservable implements View {
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
         if (nicknameAccepted && connectionSuccessful) {
             // Do nothing. Wait for the next message from server.
-        } else if (connectionSuccessful) {
+        } else if (!nicknameAccepted && connectionSuccessful) {
             Platform.runLater(() -> {
                 SceneController.showAlert("ERROR", "Nickname already taken.");
                 SceneController.changeRootPane(observers, "login_scene.fxml");
@@ -174,7 +174,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askEnableEffect(boolean forceApply) {
-        if(forceApply) {
+        if (forceApply) {
             // send to server the request to apply my effect.
             Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(true)));
         } else {

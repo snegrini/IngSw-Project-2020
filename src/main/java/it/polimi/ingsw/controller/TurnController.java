@@ -19,8 +19,8 @@ import java.util.Map;
 public class TurnController implements Serializable {
 
     private static final long serialVersionUID = -5987205913389392005L;
-    private Game game;
-    private List<String> nicknameQueue;
+    private final Game game;
+    private final List<String> nicknameQueue;
     private String activePlayer;
     private Worker activeWorker;
     private Effect appliedEffect;
@@ -29,7 +29,7 @@ public class TurnController implements Serializable {
     transient Map<String, VirtualView> virtualViewMap;
     private PhaseType phaseType;
 
-    private GameController gameController;
+    private final GameController gameController;
 
 
     public TurnController(Map<String, VirtualView> virtualViewMap, GameController gameController) {
@@ -135,7 +135,7 @@ public class TurnController implements Serializable {
         List<Position> positionList = new ArrayList<>(player.getValidWorkersPositions());
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
         if (positionList.isEmpty()) {
-           lose();
+            lose();
         } else {
             virtualView.askMovingWorker(positionList);
         }
@@ -196,7 +196,7 @@ public class TurnController implements Serializable {
             if (effect.isUserConfirmNeeded()) {
                 virtualView.askEnableEffect(false);
             } else {
-                if(getPhaseType().equals(PhaseType.YOUR_MOVE) && !player.getGod().getName().equals("Prometheus")) {
+                if (getPhaseType().equals(PhaseType.YOUR_MOVE) && !player.getGod().getName().equals("Prometheus")) {
                     virtualView.askEnableEffect(true);
                 } else {
                     effect.apply(activeWorker, null);
@@ -255,7 +255,7 @@ public class TurnController implements Serializable {
 
     private void broadcastMatchInfo() {
         List<ReducedGod> gods = new ArrayList<>();
-        for(String s : nicknameQueue){
+        for (String s : nicknameQueue) {
             gods.add(new ReducedGod(game.getPlayerByNickname(s).getGod()));
         }
 

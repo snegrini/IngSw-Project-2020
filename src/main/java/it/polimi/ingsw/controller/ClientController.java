@@ -111,8 +111,6 @@ public class ClientController implements ViewObserver, Observer {
     }
 
 
-
-
     @Override
     public void onDisconnection() {
         client.disconnect();

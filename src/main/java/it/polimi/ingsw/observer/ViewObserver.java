@@ -34,7 +34,6 @@ public interface ViewObserver {
     void onUpdateFirstPlayer(String nickname);
 
 
-
     /**
      * Handles a disconnection wanted by the user.
      * (e.g. a click on the back button into the GUI).

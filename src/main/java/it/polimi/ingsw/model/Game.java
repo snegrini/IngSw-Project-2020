@@ -25,7 +25,7 @@ public class Game extends Observable implements Serializable {
     public static final int MAX_PLAYERS = 3;
     public static final String SERVER_NICKNAME = "server";
 
-    private Board board;
+    private final Board board;
     private List<Player> players;
     private List<God> gods;
     private int chosenPlayersNumber;

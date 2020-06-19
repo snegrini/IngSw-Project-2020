@@ -407,20 +407,19 @@ public class GameController implements Observer, Serializable {
     private void restoreControllers(GameController savedGameController) {
 
 
-
-       // this.game = savedGameController.game;
+        // this.game = savedGameController.game;
         Game restoredInstanceGame = savedGameController.game;
         Board restoredBoard = savedGameController.game.getBoard();
         List<Player> restoredPlayers = savedGameController.game.getPlayers();
         List<God> restoredGods = savedGameController.game.getGods();
         int restoredChoosenPlayerNumber = savedGameController.game.getChosenPlayersNumber();
-        this.game.restoreGame(restoredInstanceGame, restoredBoard,restoredPlayers,restoredGods, restoredChoosenPlayerNumber);
+        this.game.restoreGame(restoredInstanceGame, restoredBoard, restoredPlayers, restoredGods, restoredChoosenPlayerNumber);
 
         this.turnController = savedGameController.turnController;
         this.gameState = savedGameController.gameState;
 
         // set this gameController as Observer of all effects of all gods of all players.
-        for (int i = 0; i<game.getNumCurrentPlayers(); i++) {
+        for (int i = 0; i < game.getNumCurrentPlayers(); i++) {
             game.getPlayerByNickname(turnController.getNicknameQueue().get(i)).getGod().addObserverToAllEffects(this);
         }
 

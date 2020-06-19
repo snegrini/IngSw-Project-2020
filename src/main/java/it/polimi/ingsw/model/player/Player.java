@@ -105,8 +105,8 @@ public class Player extends Observable implements Serializable {
 
             if (possibleMoves.isEmpty()) {
                 Effect effect = this.getGod().getEffectByType(PhaseType.YOUR_MOVE);
-                if(null != effect) {
-                    if(!effect.require(getWorkerByPosition(p))){
+                if (null != effect) {
+                    if (!effect.require(getWorkerByPosition(p))) {
                         positionList.remove(p);
                     }
                 } else {

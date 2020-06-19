@@ -28,7 +28,7 @@ import java.util.TimerTask;
 public class BoardSceneController extends ViewObservable implements GenericSceneController {
 
     private int availablePositionClicks;
-    private List<Position> clickedPositionList;
+    private final List<Position> clickedPositionList;
     private MessageType spaceClickType;
     private Node tempNode;
     private Position tempPosition;
@@ -65,7 +65,6 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private Label turnInformationLabel;
 
 
-
     public BoardSceneController() {
         availablePositionClicks = 0;
         clickedPositionList = new ArrayList<>();
@@ -97,7 +96,6 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         god3Image.setVisible(false);
 
     }
-
 
 
     /**

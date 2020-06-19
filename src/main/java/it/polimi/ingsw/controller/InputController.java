@@ -14,9 +14,11 @@ import java.util.Map;
 
 public class InputController implements Serializable {
 
-    private Game game;
+    private static final long serialVersionUID = 7413156215358698632L;
+
+    private final Game game;
     private transient Map<String, VirtualView> virtualViewMap;
-    private GameController gameController;
+    private final GameController gameController;
     private TurnController turnController;
 
     public InputController(Map<String, VirtualView> virtualViewMap, GameController gameController) {
@@ -196,7 +198,6 @@ public class InputController implements Serializable {
         }
         return false;
     }
-
 
 
     /**
