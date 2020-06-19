@@ -727,9 +727,10 @@ public class Cli extends ViewObservable implements View {
     /**
      * Starts a timer of 5 (five) seconds and wait for user input.
      * At the timeout, {@code false} is returned, meaning that the user didn't want to undo his last operation.
-     * If user insert "y", then {@code true} is returned.
+     * On user input, the timer is canceled immediately and {@code true} is returned if "y" is inserted,
+     * {@code false} otherwise.
      *
-     * @return {@code false} on timeout or on user undo, {@code true} otherwise.
+     * @return {@code false} on timeout or on user confirm, {@code true} otherwise.
      */
     private boolean waitForUndo() {
         out.println("Wait for undo...");
