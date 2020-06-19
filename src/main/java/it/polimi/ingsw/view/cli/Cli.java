@@ -337,10 +337,7 @@ public class Cli extends ViewObservable implements View {
             out.println("Oh no! Unfortunately you can't move...");
             notifyObserver(obs -> obs.onUpdateMove(null));
         } else {
-            for (int i = 0; i < positionList.size(); i++) {
-                out.println(STR_POSITION + (i + 1) + ": " + STR_ROW + positionList.get(i).getRow() +
-                        " Column: " + positionList.get(i).getColumn());
-            }
+            printPositions(positionList);
 
             out.println("Select the new position:");
             try {
@@ -366,10 +363,7 @@ public class Cli extends ViewObservable implements View {
         if (positionList.isEmpty()) {
             out.println("Oh no! Unfortunately you can't build...");
         } else {
-            for (int i = 0; i < positionList.size(); i++) {
-                out.println(STR_POSITION + (i + 1) + ": " + STR_ROW + positionList.get(i).getRow() +
-                        " " + STR_COLUMN + positionList.get(i).getColumn());
-            }
+            printPositions(positionList);
             out.println("Select where to build:");
             try {
                 int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
@@ -384,6 +378,8 @@ public class Cli extends ViewObservable implements View {
             }
         }
     }
+
+
     // TODO undo
 
     @Override
@@ -395,10 +391,7 @@ public class Cli extends ViewObservable implements View {
             out.println("Oh no! Unfortunately you can't move...");
             notifyObserver(obs -> obs.onUpdateMove(null));
         } else {
-            for (int i = 0; i < positionList.size(); i++) {
-                out.println(STR_POSITION + (i + 1) + ": " + STR_ROW + positionList.get(i).getRow() +
-                        " " + STR_COLUMN + positionList.get(i).getColumn());
-            }
+            printPositions(positionList);
 
             out.println("Select the new position:");
             try {
@@ -423,10 +416,7 @@ public class Cli extends ViewObservable implements View {
         if (positionList.isEmpty()) {
             out.println("Oh no! Unfortunately you can't build...");
         } else {
-            for (int i = 0; i < positionList.size(); i++) {
-                out.println(STR_POSITION + (i + 1) + ": " + STR_ROW + positionList.get(i).getRow() +
-                        " " + STR_COLUMN + positionList.get(i).getColumn());
-            }
+            printPositions(positionList);
 
             out.println("Select where to build:");
             try {
@@ -723,5 +713,12 @@ public class Cli extends ViewObservable implements View {
     public void clearCli() {
         out.print(ColorCli.CLEAR);
         out.flush();
+    }
+
+    private void printPositions(List<Position> positionList) {
+        for (int i = 0; i < positionList.size(); i++) {
+            out.println(STR_POSITION + (i + 1) + ": " + STR_ROW + positionList.get(i).getRow() +
+                    " " + STR_COLUMN + positionList.get(i).getColumn());
+        }
     }
 }
