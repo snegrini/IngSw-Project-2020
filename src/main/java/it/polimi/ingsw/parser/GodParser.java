@@ -13,8 +13,8 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 import static it.polimi.ingsw.model.enumerations.XMLName.*;
@@ -25,7 +25,7 @@ import static it.polimi.ingsw.model.enumerations.XMLName.*;
  */
 public class GodParser {
 
-    public static final String FILE_PATH = "xml/gods.xml";
+    public static final String FILE_PATH = "/xml/gods.xml";
 
     private GodParser() {
     }
@@ -40,7 +40,7 @@ public class GodParser {
         DocumentBuilder db;
         Document doc = null;
 
-        File file = new File(GodParser.class.getClassLoader().getResource(FILE_PATH).getFile());
+        InputStream godsIs = GodParser.class.getResourceAsStream(FILE_PATH);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
         try {
@@ -50,7 +50,7 @@ public class GodParser {
 
             db = dbf.newDocumentBuilder();
             dbf.setValidating(false);
-            doc = db.parse(file);
+            doc = db.parse(godsIs);
         } catch (ParserConfigurationException | SAXException | IOException e) {
             Server.LOGGER.severe("failed to read gods.xml file.");
             System.exit(1);

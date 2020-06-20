@@ -5,18 +5,29 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 <StackPane prefHeight="622.0" prefWidth="931.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5" StackPane.alignment="CENTER">
             <children>
-                <AnchorPane layoutX="235.0" layoutY="154.0" prefHeight="380.0" prefWidth="530.0">
+                <AnchorPane layoutX="149.0" layoutY="208.0" prefHeight="380.0" prefWidth="530.0">
                     <children>
-                        <Label layoutX="185.0" layoutY="6.0" text="CHOOSE THE FIRST PLAYER"/>
-                        <Separator layoutX="107.0" layoutY="35.0" prefHeight="0.0" prefWidth="275.0"/>
+                        <ImageView fitHeight="50.0" fitWidth="314.0" layoutX="118.0" layoutY="10.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/blocco.png"/>
+                            </image>
+                        </ImageView>
+                        <Label layoutX="171.0" layoutY="13.0" styleClass="customText" text="Choose the First Player">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Separator layoutX="93.0" layoutY="67.0" prefHeight="5.0" prefWidth="336.0"/>
                         <Button fx:id="backToMenuBtn" layoutX="158.0" layoutY="304.0" mnemonicParsing="false"
                                 prefHeight="27.0" prefWidth="181.0" styleClass="smallButton" text="Back To Menu"/>
-                        <HBox alignment="CENTER" layoutX="24.0" layoutY="68.0" prefHeight="146.0" prefWidth="491.0"
+                        <HBox alignment="CENTER" layoutX="23.0" layoutY="99.0" prefHeight="146.0" prefWidth="491.0"
                               spacing="5.0">
                             <children>
                                 <Group fx:id="player1Group" styleClass="playerGroup">

@@ -103,3 +103,7 @@
 .effectImage:hover {
     -fx-effect: dropshadow(gaussian, #ae74de, 50, 0.3, 0, 0);
 }
+
+.playerGodImage {
+    -fx-cursor: hand;
+}

@@ -8,19 +8,30 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 <StackPane prefHeight="622.0" prefWidth="931.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5" StackPane.alignment="CENTER">
             <children>
-                <AnchorPane layoutX="214.0" layoutY="147.0" prefHeight="346.0" prefWidth="398.0">
+                <AnchorPane layoutX="160.0" layoutY="105.0" prefHeight="346.0" prefWidth="398.0">
                     <children>
-                        <Label layoutX="144.0" layoutY="5.0" text="CHOOSE A COLOR"/>
-                        <Separator layoutX="55.0" layoutY="33.0" prefHeight="0.0" prefWidth="275.0"/>
-                        <Button fx:id="backToMenuBtn" layoutX="134.0" layoutY="265.0" mnemonicParsing="false"
-                                styleClass="bigButton" text="Back To Menu"/>
-                        <HBox alignment="CENTER" layoutX="5.0" layoutY="68.0" prefHeight="123.0" prefWidth="388.0"
+                        <ImageView fitHeight="51.0" fitWidth="306.0" layoutX="57.0" layoutY="3.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/blocco.png"/>
+                            </image>
+                        </ImageView>
+                        <Label layoutX="144.0" layoutY="5.0" styleClass="customText" text="Choose a color">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </Label>
+                        <Separator layoutX="44.0" layoutY="57.0" prefHeight="5.0" prefWidth="321.0"/>
+                        <Button fx:id="backToMenuBtn" layoutX="95.0" layoutY="262.0" mnemonicParsing="false"
+                                prefHeight="44.0" prefWidth="194.0" styleClass="smallButton" text="Back To Menu"/>
+                        <HBox alignment="CENTER" layoutX="5.0" layoutY="87.0" prefHeight="123.0" prefWidth="388.0"
                               spacing="5.0">
                             <children>
                                 <ImageView fx:id="blueWorker" fitHeight="109.0" fitWidth="109.0" pickOnBounds="true"
