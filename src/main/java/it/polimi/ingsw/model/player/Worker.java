@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class Worker implements Serializable {
 
     private static final long serialVersionUID = 773685750902018150L;
+
     private Color color;
     private Position position;
     private History history;

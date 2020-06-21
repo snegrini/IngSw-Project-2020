@@ -3,8 +3,15 @@ package it.polimi.ingsw.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * This class identifies a reduced version of the class {@link God}.
+ * It is used inside the messages between client and server in order to
+ * avoid sending unnecessary methods to the client.
+ */
 public class ReducedGod implements Serializable {
+
     private static final long serialVersionUID = -2089913761654565866L;
+
     private final String name;
     private final String caption;
     private final String description;

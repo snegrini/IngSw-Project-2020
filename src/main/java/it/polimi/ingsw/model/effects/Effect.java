@@ -17,6 +17,8 @@ import java.util.Map;
  */
 public abstract class Effect extends Observable implements Serializable {
 
+    private static final long serialVersionUID = -2554121388314624548L;
+
     private PhaseType phaseType;
     private Map<XMLName, TargetType> targetTypeMap;
 

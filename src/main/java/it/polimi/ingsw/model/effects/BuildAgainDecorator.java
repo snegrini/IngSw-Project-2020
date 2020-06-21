@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BuildAgainDecorator extends EffectDecorator {
+
     private static final long serialVersionUID = 8442370103194172484L;
 
     private final boolean sameSpace;

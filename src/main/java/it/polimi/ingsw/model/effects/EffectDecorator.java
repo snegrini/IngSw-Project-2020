@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.player.Worker;
 import java.util.Map;
 
 public abstract class EffectDecorator extends Effect {
+
     private static final long serialVersionUID = -7206957104654092952L;
 
     protected Effect effect;

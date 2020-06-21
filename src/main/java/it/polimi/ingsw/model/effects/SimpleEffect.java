@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.player.Worker;
 
 public class SimpleEffect extends Effect {
 
+    private static final long serialVersionUID = 6467254688715458424L;
+
     public SimpleEffect(PhaseType phaseType) {
         super.setPhaseType(phaseType);
     }

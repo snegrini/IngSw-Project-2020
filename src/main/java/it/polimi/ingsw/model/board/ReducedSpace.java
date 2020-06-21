@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * This class identifies a reduced version of the class {@link Space}.
  * It is used inside the messages between client and server in order to
- * avoid sending non relevant methods to the client.
+ * avoid sending unnecessary methods to the client.
  */
 public class ReducedSpace implements Serializable {
     private static final long serialVersionUID = 961249489188346446L;

@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class God implements Serializable {
+
+    private static final long serialVersionUID = 92615339614352879L;
+
     private final String name;
     private final String caption;
     private final String description;
@@ -47,6 +50,12 @@ public class God implements Serializable {
                 .orElse(null);
     }
 
+    /**
+     * Adds an observer to all the effects of the god.
+     * This is necessary in order to perform the effect.
+     *
+     * @param obs the observer to be added.
+     */
     public void addObserverToAllEffects(Observer obs) {
         for (Effect effect : effects) {
             effect.addObserver(obs);
@@ -66,6 +75,9 @@ public class God implements Serializable {
         return Objects.hash(name);
     }
 
+    /**
+     * Builder class used to create new gods.
+     */
     public static class Builder {
         private final String name;
         private String caption;

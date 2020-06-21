@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public class History implements Serializable {
 
+    private static final long serialVersionUID = 5092332759009034420L;
+
     private final Map<String, Position> lastPositions;
     private final Map<String, Integer> lastLevels;
 

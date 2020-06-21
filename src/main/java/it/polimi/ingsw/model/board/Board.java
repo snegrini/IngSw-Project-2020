@@ -21,9 +21,10 @@ import static java.lang.Math.min;
  */
 public class Board extends Observable implements Serializable {
 
+    private static final long serialVersionUID = -1383384640099230306L;
+
     public static final int MAX_ROWS = 5;
     public static final int MAX_COLUMNS = 5;
-    private static final long serialVersionUID = -1383384640099230306L;
 
     private Space[][] spaces;
 
