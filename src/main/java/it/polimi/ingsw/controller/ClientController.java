@@ -25,6 +25,8 @@ public class ClientController implements ViewObserver, Observer {
 
     private final ExecutorService taskQueue;
 
+    public static final int UNDO_TIME = 5000;
+
     public ClientController(View view) {
         this.view = view;
         taskQueue = Executors.newSingleThreadExecutor();

@@ -6,7 +6,6 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import java.lang.String?>
 <?import java.net.URL?>
 <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -29,15 +28,21 @@
                                 <Font size="7.0"/>
                             </font>
                         </Button>
-                  <Label fx:id="player1Label" layoutX="153.0" layoutY="97.0" styleClass="customText" text="Label" />
-                  <ImageView fx:id="god1Image" fitHeight="150.0" fitWidth="120.0" layoutX="107.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage" />
-                  <Label fx:id="player2Label" layoutX="153.0" layoutY="297.0" styleClass="customText" text="Label" />
+                        <Label fx:id="player1Label" layoutX="153.0" layoutY="97.0" styleClass="customText"
+                               text="Label"/>
+                        <ImageView fx:id="god1Image" fitHeight="150.0" fitWidth="120.0" layoutX="107.0" layoutY="122.0"
+                                   pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage"/>
+                        <Label fx:id="player2Label" layoutX="153.0" layoutY="297.0" styleClass="customText"
+                               text="Label"/>
                         <ImageView fx:id="god2Image" fitHeight="150.0" fitWidth="120.0" layoutX="107.0" layoutY="324.0"
                                    pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage"/>
-                        <Label fx:id="player3Label" layoutX="153.0" layoutY="481.0" styleClass="customText" text="Label" />
+                        <Label fx:id="player3Label" layoutX="153.0" layoutY="481.0" styleClass="customText"
+                               text="Label"/>
                         <ImageView fx:id="god3Image" fitHeight="150.0" fitWidth="120.0" layoutX="107.0" layoutY="509.0"
                                    pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage"/>
-                        <ImageView fx:id="effectImage" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="1107.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" styleClass="effectImage">
+                        <ImageView fx:id="effectImage" disable="true" fitHeight="150.0" fitWidth="200.0"
+                                   layoutX="1107.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true"
+                                   styleClass="effectImage">
                             <image>
                                 <Image url="@../images/buttons/heropower_inactive.png"/>
                             </image>
@@ -45,7 +50,7 @@
                         <Button fx:id="skipEffectBtn" disable="true" layoutX="1132.0" layoutY="462.0"
                                 mnemonicParsing="false" style="-fx-background-size: stretch;" styleClass="smallButton"
                                 text="Skip Effect"/>
-                        <Label fx:id="turnInformationLabel" layoutX="636.0" layoutY="679.0" styleClass="customText"
+                        <Label fx:id="turnInformationLabel" layoutX="630.0" layoutY="659.0" styleClass="customText"
                                text="Label"/>
                         <Label fx:id="timerLbl" layoutX="1140.0" layoutY="71.0" styleClass="customText"
                                text="5 seconds">
@@ -78,12 +83,8 @@
                                         <StackPane disable="true" mouseTransparent="true" prefHeight="100.0"
                                                    prefWidth="100.0" styleClass="spacePane"/>
                                         <StackPane disable="true" mouseTransparent="true" prefHeight="100.0"
-                                                   prefWidth="100.0" scaleX="0.6" scaleY="0.6" scaleZ="0.6">
-                                            <styleClass>
-                                                <String fx:value="spaceWorkerPane"/>
-                                                <String fx:value="workerBlue"/>
-                                            </styleClass>
-                                        </StackPane>
+                                                   prefWidth="100.0" scaleX="0.6" scaleY="0.6" scaleZ="0.6"
+                                                   styleClass="spaceWorkerPane"/>
                                     </children>
                                     <cursor>
                                         <Cursor fx:constant="HAND"/>
@@ -406,12 +407,8 @@
                                             </opaqueInsets>
                                         </StackPane>
                                         <StackPane disable="true" mouseTransparent="true" prefHeight="100.0"
-                                                   prefWidth="100.0" scaleX="0.6" scaleY="0.6" scaleZ="0.6">
-                                            <styleClass>
-                                                <String fx:value="spaceWorkerPane"/>
-                                                <String fx:value="workerRed"/>
-                                            </styleClass>
-                                        </StackPane>
+                                                   prefWidth="100.0" scaleX="0.6" scaleY="0.6" scaleZ="0.6"
+                                                   styleClass="spaceWorkerPane"/>
                                     </children>
                                     <cursor>
                                         <Cursor fx:constant="HAND"/>

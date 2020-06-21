@@ -46,7 +46,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askInitWorkersPositions(List<Position> positions) {
-        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        BoardSceneController bsc = getBoardSceneController();
         bsc.setAvailablePositionClicks(2);
         bsc.setSpaceClickType(MessageType.INIT_WORKERSPOSITIONS);
         Platform.runLater(() -> bsc.setEnabledSpaces(positions));
@@ -54,7 +54,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askMovingWorker(List<Position> positions) {
-        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        BoardSceneController bsc = getBoardSceneController();
         bsc.setAvailablePositionClicks(1);
         bsc.setSpaceClickType(MessageType.PICK_MOVING_WORKER);
         Platform.runLater(() -> bsc.setEnabledSpaces(positions));
@@ -62,7 +62,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askMove(List<Position> positions) {
-        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        BoardSceneController bsc = getBoardSceneController();
         bsc.setAvailablePositionClicks(1);
         bsc.setSpaceClickType(MessageType.MOVE);
         Platform.runLater(() -> bsc.setEnabledSpaces(positions));
@@ -70,7 +70,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askBuild(List<Position> positions) {
-        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        BoardSceneController bsc = getBoardSceneController();
         bsc.setAvailablePositionClicks(1);
         bsc.setSpaceClickType(MessageType.BUILD);
         Platform.runLater(() -> bsc.setEnabledSpaces(positions));
@@ -78,7 +78,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askMoveFx(List<Position> positions) {
-        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        BoardSceneController bsc = getBoardSceneController();
         bsc.setAvailablePositionClicks(1);
         bsc.setSpaceClickType(MessageType.MOVE_FX);
         Platform.runLater(() -> bsc.setEnabledSpaces(positions));
@@ -86,7 +86,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askBuildFx(List<Position> positions) {
-        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        BoardSceneController bsc = getBoardSceneController();
         bsc.setAvailablePositionClicks(1);
         bsc.setSpaceClickType(MessageType.BUILD_FX);
         Platform.runLater(() -> bsc.setEnabledSpaces(positions));
@@ -94,18 +94,18 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
-        if (nicknameAccepted && connectionSuccessful) {
-            // Do nothing. Wait for the next message from server.
-        } else if (!nicknameAccepted && connectionSuccessful) {
-            Platform.runLater(() -> {
-                SceneController.showAlert("ERROR", "Nickname already taken.");
-                SceneController.changeRootPane(observers, "login_scene.fxml");
-            });
-        } else {
-            Platform.runLater(() -> {
-                SceneController.showAlert("ERROR", "Could not contact server.");
-                SceneController.changeRootPane(observers, "menu_scene.fxml");
-            });
+        if (!nicknameAccepted || !connectionSuccessful) {
+            if (!nicknameAccepted && connectionSuccessful) {
+                Platform.runLater(() -> {
+                    SceneController.showAlert("ERROR", "Nickname already taken.");
+                    SceneController.changeRootPane(observers, "login_scene.fxml");
+                });
+            } else {
+                Platform.runLater(() -> {
+                    SceneController.showAlert("ERROR", "Could not contact server.");
+                    SceneController.changeRootPane(observers, "menu_scene.fxml");
+                });
+            }
         }
     }
 
@@ -131,26 +131,14 @@ public class Gui extends ViewObservable implements View {
     }
 
     /**
-     * Shows the board. A new root pane will be set if no board is already on scene, otherwise only the values will be
-     * updated without changing the current root pane.
+     * Shows the board and update his values.
      *
      * @param spaces the board to be shown.
      */
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
-        BoardSceneController bsc;
-
-        try {
-            bsc = (BoardSceneController) SceneController.getActiveController();
-        } catch (ClassCastException e) {
-            bsc = new BoardSceneController();
-            bsc.addAllObservers(observers);
-            BoardSceneController finalBsc = bsc;
-            Platform.runLater(() -> SceneController.changeRootPane(finalBsc, "board_scene.fxml"));
-        }
-
-        BoardSceneController finalBsc = bsc;
-        Platform.runLater(() -> finalBsc.updateSpaces(spaces));
+        BoardSceneController bsc = getBoardSceneController();
+        Platform.runLater(() -> bsc.updateSpaces(spaces));
     }
 
     @Override
@@ -178,14 +166,14 @@ public class Gui extends ViewObservable implements View {
             // send to server the request to apply my effect.
             Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(true)));
         } else {
-            BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+            BoardSceneController bsc = getBoardSceneController();
             Platform.runLater(() -> bsc.enableEffectControls(true));
         }
     }
 
     @Override
     public void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
-        BoardSceneController bsc = (BoardSceneController) SceneController.getActiveController();
+        BoardSceneController bsc = getBoardSceneController();
         Platform.runLater(() -> bsc.updateMatchInfo(players, gods, activePlayer));
     }
 
@@ -205,5 +193,23 @@ public class Gui extends ViewObservable implements View {
         Platform.runLater(() -> SceneController.changeRootPane(wsc, "win_scene.fxml"));
     }
 
+    /**
+     * Returns the current BoardSceneController if the board is already on scene.
+     * Otherwise returns a new BoardSceneController and the scene is changed to this one.
+     *
+     * @return the active BoardSceneController if any present, a new one otherwise.
+     */
+    private BoardSceneController getBoardSceneController() {
+        BoardSceneController bsc;
+        try {
+            bsc = (BoardSceneController) SceneController.getActiveController();
+        } catch (ClassCastException e) {
+            bsc = new BoardSceneController();
+            bsc.addAllObservers(observers);
+            BoardSceneController finalBsc = bsc;
+            Platform.runLater(() -> SceneController.changeRootPane(finalBsc, "board_scene.fxml"));
+        }
+        return bsc;
+    }
 
 }

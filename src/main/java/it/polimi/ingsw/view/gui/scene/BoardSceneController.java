@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static it.polimi.ingsw.controller.ClientController.UNDO_TIME;
+
 public class BoardSceneController extends ViewObservable implements GenericSceneController {
 
     private int availablePositionClicks;
@@ -236,7 +238,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             public void run() {
                 onConfirmBtnClick(null);
             }
-        }, 5000);
+        }, UNDO_TIME);
     }
 
 

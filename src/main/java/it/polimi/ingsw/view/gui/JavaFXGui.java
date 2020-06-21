@@ -38,7 +38,7 @@ public class JavaFXGui extends Application {
         stage.setScene(scene);
         stage.setWidth(1280d);
         stage.setHeight(720d);
-        stage.setResizable(false);
+        //stage.setResizable(false);
         //stage.setMaximized(true);
         //stage.setFullScreen(true);
         stage.setFullScreenExitHint("");

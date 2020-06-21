@@ -25,11 +25,5 @@ public class MenuSceneController extends ViewObservable implements GenericSceneC
 
     private void onPlayBtnClick(Event event) {
         SceneController.changeRootPane(observers, event, "connect_scene.fxml");
-
-        /*List<Position> spacesToBeEnabled = List.of(new Position(0, 1), new Position(1, 0), new Position(1, 1));
-        BoardSceneController bsc = new BoardSceneController();
-        bsc.addAllObservers(observers);
-        SceneController.changeRootPane(bsc, event, "board_scene.fxml");
-        bsc.setEnabledSpaces(spacesToBeEnabled);*/
     }
 }

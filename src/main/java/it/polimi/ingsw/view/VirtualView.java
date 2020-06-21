@@ -127,7 +127,6 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new LobbyMessage(nicknameList, numPlayers));
     }
 
-
     /**
      * Receives an update message from the model.
      * The message is sent over the network to the client.

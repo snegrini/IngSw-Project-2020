@@ -15,11 +15,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.stream.Collectors;
 
+import static it.polimi.ingsw.controller.ClientController.UNDO_TIME;
+
 public class Cli extends ViewObservable implements View {
 
     private final PrintStream out;
     private Thread inputThread;
-    private Timer undoTimer;
 
     private static final String STR_ROW = "Row: ";
     private static final String STR_COLUMN = "Column: ";
@@ -81,8 +82,6 @@ public class Cli extends ViewObservable implements View {
                 validInput = false;
             }
         } while (!validInput);
-
-        clearCli();
 
         do {
             out.print("Enter the server port [" + defaultPort + "]: ");
@@ -269,13 +268,13 @@ public class Cli extends ViewObservable implements View {
                 .map(Color::getText)
                 .collect(Collectors.joining(", "));
 
-        out.println("You can choose between: " + colorsStr);
-
         try {
             String in;
             Color color = null;
 
             do {
+                out.print("Choose between " + colorsStr + ": ");
+
                 try {
                     in = readLine();
                     color = Color.valueOf(in.toUpperCase());
@@ -733,15 +732,15 @@ public class Cli extends ViewObservable implements View {
      * @return {@code false} on timeout or on user confirm, {@code true} otherwise.
      */
     private boolean waitForUndo() {
-        out.println("Wait for undo...");
+        out.println("Waiting undo for " + UNDO_TIME / 1E3 + " seconds...");
 
-        undoTimer = new Timer();
+        Timer undoTimer = new Timer();
         undoTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 inputThread.interrupt();
             }
-        }, 5000);
+        }, UNDO_TIME);
 
         try {
             out.print("Undo the last operation? [y/N]: ");
@@ -762,7 +761,7 @@ public class Cli extends ViewObservable implements View {
      */
     private void printPositions(List<Position> positionList) {
         for (int i = 0; i < positionList.size(); i++) {
-            out.println((i + 1) + "° " + STR_POSITION + " is " + STR_ROW + positionList.get(i).getRow() +
+            out.println((i + 1) + "° " + STR_POSITION + "is " + STR_ROW + positionList.get(i).getRow() +
                     " " + STR_COLUMN + positionList.get(i).getColumn());
         }
     }
