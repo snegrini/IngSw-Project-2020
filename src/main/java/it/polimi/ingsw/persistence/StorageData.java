@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.network.server.Server;
 
 import java.io.*;
+import java.nio.file.Files;
 
 public class StorageData {
 
@@ -59,7 +60,10 @@ public class StorageData {
      */
     public void delete() {
         File file = new File("match.bless");
-        if (file.exists())
-            file.delete();
+        try {
+            Files.deleteIfExists(file.toPath());
+        } catch (IOException e) {
+            Server.LOGGER.severe("Failed to delete match.bless file.");
+        }
     }
 }

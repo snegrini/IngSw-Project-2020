@@ -236,7 +236,7 @@ public class TurnController implements Serializable {
         // if players.size == 3 then remove looser's workers from board. And notify all.
         // else endgame.
         if (3 == game.getNumCurrentPlayers()) {
-            game.getBoard().removeWorkers(activePlayer);
+            game.removeWorkers(activePlayer);
             // disconnect 3° player, notify all
             turnControllerNotify(activePlayer + " LOOSE.");
             nicknameQueue.remove(activePlayer);

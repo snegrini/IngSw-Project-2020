@@ -48,12 +48,12 @@ public class Board extends Observable implements Serializable {
     }
 
     // TODO REMOVE ME!!!
-    private void debugWinConditions() {
+    /*private void debugWinConditions() {
         spaces[0][1].increaseLevel(2);
         spaces[1][1].increaseLevel(2);
         spaces[2][1].increaseLevel(2);
         // spaces[2][0].increaseLevel(2);
-    }
+    }*/
 
     /**
      * Sets the workers on the board at the worker position. This method should be called only on game start.
@@ -352,16 +352,11 @@ public class Board extends Observable implements Serializable {
         notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
     }
 
-    public void removeWorkers(String activePlayerNickname) {
-
-        for (Position p : Game.getInstance().getPlayerByNickname(activePlayerNickname).getWorkersPositions()) {
-            this.getSpace(p).removeWorker();
-        }
-
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
-
-    }
-
+    /**
+     * Returns a matrix of the board spaces.
+     *
+     * @return a matrix of spaces.
+     */
     public Space[][] getSpaces() {
         return spaces;
     }

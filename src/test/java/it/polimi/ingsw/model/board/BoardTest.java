@@ -299,5 +299,4 @@ public class BoardTest {
         assertEquals(w1, board.getSpace(p2).getWorker());
         assertEquals(w2, board.getSpace(p1).getWorker());
     }
-
 }

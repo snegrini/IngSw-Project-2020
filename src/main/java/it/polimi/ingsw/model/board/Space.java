@@ -72,20 +72,47 @@ public class Space implements Comparable<Space>, Serializable {
         return true;
     }
 
+    /**
+     * Returns the status of the dome on the current space.
+     *
+     * @return {@code true} if the dome is set, {@code false} otherwise.
+     */
     public boolean hasDome() {
         return dome;
     }
 
+    /**
+     * Sets the dome on the current space.
+     *
+     * @param dome set to {@code true} to enable the dome, {@code false} otherwise.
+     */
     public void setDome(boolean dome) {
         this.dome = dome;
     }
 
+    /**
+     * Returns the worker of the current space.
+     *
+     * @return the worker of the current space.
+     */
     public Worker getWorker() {
         return worker;
     }
 
+    /**
+     * Sets a worker into the space.
+     *
+     * @param worker the worker to be set into the space.
+     */
     public void setWorker(Worker worker) {
         this.worker = worker;
+    }
+
+    /**
+     * Removes the worker from the current space.
+     */
+    public void removeWorker() {
+        setWorker(null);
     }
 
     /**
@@ -107,7 +134,4 @@ public class Space implements Comparable<Space>, Serializable {
         return this.level - anotherSpace.level;
     }
 
-    public void removeWorker() {
-        worker = null;
-    }
 }

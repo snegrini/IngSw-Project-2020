@@ -1,27 +1,26 @@
 package it.polimi.ingsw.model.board;
 
-import static org.junit.Assert.*;
-
 import it.polimi.ingsw.model.player.Worker;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class SpaceTest {
 
-    private Board board;
     private Space space;
     private ReducedSpace reducedSpace;
 
     @Before
-    public void setUp() throws Exception {
-        board = new Board();
+    public void setUp() {
+        Board board = new Board();
         space = board.getSpace(new Position(0, 0));
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         space = null;
     }
 
@@ -93,6 +92,24 @@ public class SpaceTest {
         assertEquals(0, space.getLevel());
         assertFalse(space.decreaseLevel(-1));
         assertEquals(0, space.getLevel());
+    }
+
+    @Test
+    public void removeWorker_WorkerPresent() {
+        Worker worker = new Worker(new Position(0, 0));
+        space.setWorker(worker);
+        assertEquals(worker, space.getWorker());
+
+        assertFalse(space.isFree());
+        space.removeWorker();
+        assertTrue(space.isFree());
+    }
+
+    @Test
+    public void removeWorker_WorkerNotPresent() {
+        assertTrue(space.isFree());
+        space.removeWorker();
+        assertTrue(space.isFree());
     }
 
     @Test

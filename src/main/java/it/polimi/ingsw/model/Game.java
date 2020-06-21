@@ -8,7 +8,9 @@ import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.BoardMessage;
 import it.polimi.ingsw.network.message.LobbyMessage;
+import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.parser.GodParser;
 
@@ -104,6 +106,21 @@ public class Game extends Observable implements Serializable {
         }
 
         return result;
+    }
+
+    /**
+     * Removes all the workers of the given player nickname from the board.
+     * A notification with the updated board is sent to all the views.
+     *
+     * @param activePlayerNickname the nickname of the player whose workers must be removed.
+     */
+    public void removeWorkers(String activePlayerNickname) {
+
+        for (Position p : getPlayerByNickname(activePlayerNickname).getWorkersPositions()) {
+            board.getSpace(p).removeWorker();
+        }
+
+        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
     }
 
     /**

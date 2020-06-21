@@ -25,7 +25,7 @@ public class GameTest {
     private Game instance;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.instance = Game.getInstance();
 
         Player p1 = new Player("mario");
@@ -49,7 +49,7 @@ public class GameTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         Game.resetInstance();
     }
 
@@ -155,6 +155,19 @@ public class GameTest {
 
         instance.buildBlock(w1, p2);
         assertEquals(1, instance.getBoard().getSpace(p2).getLevel());
+    }
+
+    @Test
+    public void removeWorkers() {
+        Player player = instance.getPlayers().get(0);
+        List<Position> workerPositionList = player.getWorkersPositions();
+        assertNotNull(workerPositionList);
+        assertNotEquals(List.of(), workerPositionList);
+
+        instance.removeWorkers(player.getNickname());
+        for (Position pos : workerPositionList) {
+            assertNull(instance.getWorkerByPosition(pos));
+        }
     }
 
     @Test

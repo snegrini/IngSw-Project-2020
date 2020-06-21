@@ -126,10 +126,8 @@ public class Player extends Observable implements Serializable {
             }
         }
 
-
         return positionList;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -144,7 +142,4 @@ public class Player extends Observable implements Serializable {
         return Objects.hash(nickname);
     }
 
-    public List<Worker> getWorkers() {
-        return workers;
-    }
 }

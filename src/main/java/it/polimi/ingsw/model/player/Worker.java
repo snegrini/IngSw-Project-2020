@@ -74,7 +74,7 @@ public class Worker implements Serializable {
         List<Position> possibleMoves = board.getNeighbours(position);
         possibleMoves.removeAll(board.getNeighbourWorkers(position, false));
 
-        // remove all possible destination in wich worker couldn't build.
+        // Remove all possible destination in which the worker couldn't build.
         List<Position> tempPossibleMoves = board.getNeighbours(position);
         tempPossibleMoves.removeAll(board.getNeighbourWorkers(position, false));
         for (Position pos : tempPossibleMoves) {
