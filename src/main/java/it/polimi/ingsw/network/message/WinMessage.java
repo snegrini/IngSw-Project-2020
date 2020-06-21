@@ -9,7 +9,7 @@ public class WinMessage extends Message {
         return winnerNickname;
     }
 
-    String winnerNickname;
+    private final String winnerNickname;
 
     public WinMessage(String winnerNickname) {
         super(Game.SERVER_NICKNAME, MessageType.WIN_FX);

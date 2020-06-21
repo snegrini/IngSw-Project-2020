@@ -178,7 +178,7 @@ public class TurnController implements Serializable {
     private void buildPhase(boolean skipEffect) {
 
         setPhaseType(PhaseType.YOUR_BUILD);
-        // CHECK EFFECT YOUR_BUILD
+        // Check effect "your build"
         phaseBody(skipEffect);
     }
 

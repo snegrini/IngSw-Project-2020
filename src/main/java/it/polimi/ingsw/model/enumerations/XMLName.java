@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model.enumerations;
 
 public enum XMLName {
-    // Elements
-    GODS("gods"),
-    GOD("god"),
     NAME("name"),
     CAPTION("caption"),
     DESCRIPTION("description"),
@@ -15,23 +12,18 @@ public enum XMLName {
     TARGET("target"),
     BUILD("build"),
     MOVE("move"),
-    SPACE("space"),
     USERCONFIRM("userconfirm"),
 
     // Attributes
-    ID("id"),
     AGAIN("again"),
     OVER("over"),
     SWAP_SPACE("swapspace"),
-    ACTIVE("active"),
     GO_BACK("goback"),
     LEVEL("lvl"),
     LOCK("lock"),
     DOME("dome"),
     FORCE_DOME("forcedome"),
-    FREE("free"),
     ALL("all"),
-    MIN_BLOCK("minblock"),
     PUSH_BACK("pushback"),
     SAME_SPACE("samespace"),
     FORCE_SAME_SPACE("forcesamespace"),

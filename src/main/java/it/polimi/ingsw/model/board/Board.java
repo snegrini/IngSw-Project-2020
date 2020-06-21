@@ -106,7 +106,7 @@ public class Board extends Observable implements Serializable {
      * Check if positionList refers only to free spaces.
      *
      * @param positionList positionList from client.
-     * @return {@code true} if ALL the positions in the argument list are free, {@code false} otherwise.
+     * @return {@code true} if all the positions in the argument list are free, {@code false} otherwise.
      */
     public boolean arePositionsFree(List<Position> positionList) {
         boolean areFree = true;
