@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scene;
 
+import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,6 +30,7 @@ public class GodInfoSceneController implements GenericSceneController {
 
     public GodInfoSceneController() {
         stage = new Stage();
+        stage.initOwner(SceneController.getActiveScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setAlwaysOnTop(true);

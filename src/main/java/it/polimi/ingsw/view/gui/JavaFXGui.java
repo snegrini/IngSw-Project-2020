@@ -38,9 +38,9 @@ public class JavaFXGui extends Application {
         stage.setScene(scene);
         stage.setWidth(1280d);
         stage.setHeight(720d);
-        //stage.setResizable(false);
-        //stage.setMaximized(true);
-        //stage.setFullScreen(true);
+        stage.setResizable(false);
+        stage.setMaximized(true);
+        stage.setFullScreen(true);
         stage.setFullScreenExitHint("");
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setTitle("Santorini Board Game");

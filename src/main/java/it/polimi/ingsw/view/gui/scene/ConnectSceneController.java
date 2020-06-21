@@ -3,7 +3,6 @@ package it.polimi.ingsw.view.gui.scene;
 import it.polimi.ingsw.controller.ClientController;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
-import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -49,8 +48,11 @@ public class ConnectSceneController extends ViewObservable implements GenericSce
         serverPortField.pseudoClassStateChanged(ERROR_PSEUDO_CLASS, !isValidPort);
 
         if (isValidIpAddress && isValidPort) {
+            backBtn.setDisable(true);
+            connectBtn.setDisable(true);
+
             Map<String, String> serverInfo = Map.of("address", address, "port", port);
-            Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateServerInfo(serverInfo)));
+            new Thread(() -> notifyObserver(obs -> obs.onUpdateServerInfo(serverInfo))).start();
         }
     }
 
