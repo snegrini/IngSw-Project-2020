@@ -14,6 +14,7 @@ import java.util.Map;
 
 /**
  * Abstract class used to implement the Decorator Pattern for the effects.
+ * A target of the effect can be specified via attributes.
  */
 public abstract class Effect extends Observable implements Serializable {
 
@@ -35,7 +36,8 @@ public abstract class Effect extends Observable implements Serializable {
     public abstract void apply(Worker activeWorker, Position position);
 
     /**
-     * Prepare the argument worker in order to apply the effect.
+     * Prepares the argument worker in order to apply the effect.
+     * Notifies the views in order to retrieve the needed information to apply the effect.
      *
      * @param worker the worker to prepare.
      */
@@ -50,7 +52,7 @@ public abstract class Effect extends Observable implements Serializable {
     public abstract boolean require(Worker worker);
 
     /**
-     * Clear the effect buffs or debuffs applied during the apply() method.
+     * Clears the effect buffs or debuffs applied during the apply() method.
      *
      * @param worker the current worker.
      */

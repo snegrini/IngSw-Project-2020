@@ -7,12 +7,24 @@ import it.polimi.ingsw.network.message.WinMessage;
 
 import java.util.Map;
 
+/**
+ * Decorator to add a move win condition to the simple effect.
+ * This allows a player to win by satisfying the given move condition.
+ */
 public class MoveWinDecorator extends EffectDecorator {
     private static final long serialVersionUID = -6797320098115774664L;
 
     private final MoveType moveType;
     private final int levels;
 
+    /**
+     * Default constructor.
+     *
+     * @param effect       the effect to be decorated.
+     * @param requirements the requirements (if any) which must be satisfied in order to apply the effect.
+     * @param moveType     the movement type which must be performed in order to win by using this effect.
+     * @param levels       the number of levels which must be satisfied in order to apply this effect.
+     */
     public MoveWinDecorator(Effect effect, Map<String, String> requirements,
                             MoveType moveType, int levels) {
         this.effect = effect;
@@ -40,6 +52,11 @@ public class MoveWinDecorator extends EffectDecorator {
         }
     }
 
+    /**
+     * Prepares the argument worker in order to apply the effect.
+     *
+     * @param worker the worker to prepare.
+     */
     @Override
     public void prepare(Worker worker) {
         effect.prepare(worker);
@@ -50,6 +67,11 @@ public class MoveWinDecorator extends EffectDecorator {
         return effect.require(worker);
     }
 
+    /**
+     * Clears the effect buffs or debuffs applied during the apply() method.
+     *
+     * @param worker the current worker.
+     */
     @Override
     public void clear(Worker worker) {
         effect.clear(worker);

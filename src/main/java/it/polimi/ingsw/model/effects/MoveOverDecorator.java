@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Decorator to add a custom move to the simple effect.
+ */
 public class MoveOverDecorator extends EffectDecorator {
 
     private static final long serialVersionUID = -4280308808871559027L;
@@ -20,6 +23,14 @@ public class MoveOverDecorator extends EffectDecorator {
 
     private List<Position> possibleMoves;
 
+    /**
+     * Default constructor.
+     *
+     * @param effect       the effect to be decorated.
+     * @param requirements the requirements (if any) which must be satisfied in order to apply the effect.
+     * @param pushBack     set to {@code true} to allow the custom move to push an adjacent enemy worker on the next available space (in-line), {@code false} to deny it.
+     * @param swapSpace    set to {@code true} to allow the custom move to swap the position with an adjacent enemy worker, {@code false} to deny it.
+     */
     public MoveOverDecorator(Effect effect, Map<String, String> requirements, boolean pushBack, boolean swapSpace) {
         this.effect = effect;
         this.pushBack = pushBack;
@@ -59,6 +70,12 @@ public class MoveOverDecorator extends EffectDecorator {
         }
     }
 
+    /**
+     * Prepares the argument worker in order to apply the effect.
+     * Notifies the views in order to retrieve the needed information to apply the effect.
+     *
+     * @param worker the worker to prepare.
+     */
     @Override
     public void prepare(Worker worker) {
         effect.prepare(worker);
@@ -93,6 +110,11 @@ public class MoveOverDecorator extends EffectDecorator {
         return !adjOpponentPos.isEmpty() && effect.require(worker);
     }
 
+    /**
+     * Clears the effect buffs or debuffs applied during the apply() method.
+     *
+     * @param worker the current worker.
+     */
     @Override
     public void clear(Worker worker) {
         effect.clear(worker);

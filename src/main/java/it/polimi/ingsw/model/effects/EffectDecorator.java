@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.player.Worker;
 
 import java.util.Map;
 
+/**
+ * Parent decorator for the Effect class. Used to add custom effects to a SimpleEffect.
+ */
 public abstract class EffectDecorator extends Effect {
 
     private static final long serialVersionUID = -7206957104654092952L;

@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Decorator to add an extra move to the simple effect.
+ */
 public class MoveAgainDecorator extends EffectDecorator {
 
     private static final long serialVersionUID = -7009125378905883696L;
@@ -17,6 +20,13 @@ public class MoveAgainDecorator extends EffectDecorator {
 
     private List<Position> possibleMoves;
 
+    /**
+     * Default constructor.
+     *
+     * @param effect       the effect to be decorated.
+     * @param requirements the requirements (if any) which must be satisfied in order to apply the effect.
+     * @param goBack       set to {@code true} to allow the extra move back to the previous position, {@code false} to deny it.
+     */
     public MoveAgainDecorator(Effect effect, Map<String, String> requirements, boolean goBack) {
         this.effect = effect;
         this.goBack = goBack;
@@ -32,6 +42,12 @@ public class MoveAgainDecorator extends EffectDecorator {
         Game.getInstance().moveWorker(activeWorker, position);
     }
 
+    /**
+     * Prepares the argument worker in order to apply the effect.
+     * Notifies the views in order to retrieve the needed information to apply the effect.
+     *
+     * @param worker the worker to prepare.
+     */
     @Override
     public void prepare(Worker worker) {
         effect.prepare(worker);
@@ -59,6 +75,11 @@ public class MoveAgainDecorator extends EffectDecorator {
         return !possibleMoves.isEmpty() && effect.require(worker);
     }
 
+    /**
+     * Clears the effect buffs or debuffs applied during the apply() method.
+     *
+     * @param worker the current worker.
+     */
     @Override
     public void clear(Worker worker) {
         effect.clear(worker);

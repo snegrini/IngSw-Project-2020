@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Decorator to add an extra build to the simple effect.
+ */
 public class BuildAgainDecorator extends EffectDecorator {
 
     private static final long serialVersionUID = 8442370103194172484L;
@@ -22,6 +25,15 @@ public class BuildAgainDecorator extends EffectDecorator {
 
     private List<Position> possibleBuilds;
 
+    /**
+     * Default constructor.
+     *
+     * @param effect         the effect to be decorated.
+     * @param requirements   the requirements (if any) which must be satisfied in order to apply the effect.
+     * @param sameSpace      set to {@code true} to allow the extra build over the previous one, {@code false} to deny it.
+     * @param dome           set to {@code true} to allow the extra build to be a dome, {@code false} to deny it.
+     * @param forceSameSpace set to {@code true} to force the extra build to be on the same space as the previous one, {@code false} to deny it.
+     */
     public BuildAgainDecorator(Effect effect, Map<String, String> requirements,
                                boolean sameSpace, boolean dome, boolean forceSameSpace) {
         this.effect = effect;
@@ -35,6 +47,13 @@ public class BuildAgainDecorator extends EffectDecorator {
         setTargetTypeMap(effect.getTargetTypeMap());
     }
 
+    /**
+     * Applies the effect to the given arguments.
+     * Performs an extra build if the conditions are satisfied.
+     *
+     * @param activeWorker the active worker on which to activate the effect.
+     * @param position     the position on which to perform the extra build.
+     */
     @Override
     public void apply(Worker activeWorker, Position position) {
         effect.apply(activeWorker, position);
@@ -47,6 +66,12 @@ public class BuildAgainDecorator extends EffectDecorator {
         }
     }
 
+    /**
+     * Prepares the argument worker in order to apply the effect.
+     * Notifies the views in order to retrieve the needed information to apply the effect.
+     *
+     * @param worker the worker to prepare.
+     */
     @Override
     public void prepare(Worker worker) {
         effect.prepare(worker);
@@ -83,6 +108,12 @@ public class BuildAgainDecorator extends EffectDecorator {
         return !possibleBuilds.isEmpty() && effect.require(worker);
     }
 
+
+    /**
+     * Clears the effect buffs or debuffs applied during the apply() method.
+     *
+     * @param worker the current worker.
+     */
     @Override
     public void clear(Worker worker) {
         effect.clear(worker);
