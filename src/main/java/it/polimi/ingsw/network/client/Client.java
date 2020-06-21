@@ -16,7 +16,7 @@ public abstract class Client extends Observable {
     public abstract void sendMessage(Message message);
 
     /**
-     * Asynchronously reads a message from the server and notify the ClientController.
+     * Asynchronously reads a message from the server and notifies the ClientController.
      */
     public abstract void readMessage();
 
@@ -28,8 +28,8 @@ public abstract class Client extends Observable {
     /**
      * Enable a heartbeat (ping messages) to keep the connection alive.
      *
-     * @param enabled Set this argument to {@code true} to enable the heartbeat.
-     *                Set to {@code false} to kill the heartbeat.
+     * @param enabled set this argument to {@code true} to enable the heartbeat.
+     *                set to {@code false} to kill the heartbeat.
      */
     public abstract void enablePinger(boolean enabled);
 }

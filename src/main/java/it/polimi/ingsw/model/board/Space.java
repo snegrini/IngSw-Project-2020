@@ -4,6 +4,11 @@ import it.polimi.ingsw.model.player.Worker;
 
 import java.io.Serializable;
 
+/**
+ * This class identifies a single space inside a {@link Board}.
+ * A space is composed of a level and a dome.
+ * A space can be occupied by a {@link Worker}.
+ */
 public class Space implements Comparable<Space>, Serializable {
     private static final long serialVersionUID = -8565971658789856338L;
 
@@ -14,6 +19,9 @@ public class Space implements Comparable<Space>, Serializable {
     public static final int MIN_LEVEL = 0;
     public static final int MAX_LEVEL = 3;
 
+    /**
+     * Default constructor.
+     */
     public Space() {
         this.level = 0;
         this.dome = false;

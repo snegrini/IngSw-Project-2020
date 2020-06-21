@@ -30,6 +30,10 @@ public class SocketClient extends Client {
         this.pinger = Executors.newSingleThreadScheduledExecutor();
     }
 
+    /**
+     * Asynchronously reads a message from the server via socket and notifies the ClientController.
+     */
+    @Override
     public void readMessage() {
         readExecutionQueue.execute(() -> {
 
@@ -53,6 +57,11 @@ public class SocketClient extends Client {
         });
     }
 
+    /**
+     * Sends a message to the server via socket.
+     *
+     * @param message the message to be sent.
+     */
     @Override
     public void sendMessage(Message message) {
         try {
@@ -79,6 +88,12 @@ public class SocketClient extends Client {
         }
     }
 
+    /**
+     * Enable a heartbeat (ping messages) between client and server sockets to keep the connection alive.
+     *
+     * @param enabled set this argument to {@code true} to enable the heartbeat.
+     *                set to {@code false} to kill the heartbeat.
+     */
     public void enablePinger(boolean enabled) {
         if (enabled) {
             pinger.scheduleAtFixedRate(() -> sendMessage(new PingMessage()), 0, 1000, TimeUnit.MILLISECONDS);

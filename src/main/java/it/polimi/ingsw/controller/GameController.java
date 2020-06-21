@@ -23,6 +23,10 @@ import java.util.*;
 
 import static it.polimi.ingsw.network.message.MessageType.PLAYERNUMBER_REPLY;
 
+/**
+ * This class controls the evolution of the {@link Game}.
+ * Messages are read and responses are elaborated.
+ */
 public class GameController implements Observer, Serializable {
     private static final long serialVersionUID = 4951303731052728724L;
 

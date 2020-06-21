@@ -3,6 +3,9 @@ package it.polimi.ingsw.model.board;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * This class uses a Two-Dimensional Coordinate System to identify positions inside the {@link Board}.
+ */
 public class Position implements Serializable {
     private static final long serialVersionUID = 6198190192800214046L;
     private int row;

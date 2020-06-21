@@ -45,7 +45,7 @@ public abstract class ViewObservable {
     }
 
     /**
-     * Notify all the current observers through the lambda argument.
+     * Notifies all the current observers through the lambda argument.
      *
      * @param lambda the lambda to be called on the observers.
      */

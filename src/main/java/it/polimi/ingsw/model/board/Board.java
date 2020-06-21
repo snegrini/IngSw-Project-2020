@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
+/**
+ * This class represents the board used to play the game. It is a 5x5 matrix of {@link Space}.
+ */
 public class Board extends Observable implements Serializable {
 
     public static final int MAX_ROWS = 5;
@@ -24,6 +27,9 @@ public class Board extends Observable implements Serializable {
 
     private Space[][] spaces;
 
+    /**
+     * Constructs a new board and initializes every space inside it.
+     */
     public Board() {
         this.spaces = new Space[MAX_ROWS][MAX_COLUMNS];
         initSpaces();

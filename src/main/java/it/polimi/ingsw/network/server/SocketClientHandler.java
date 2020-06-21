@@ -20,6 +20,12 @@ public class SocketClientHandler implements ClientHandler, Runnable {
     private ObjectOutputStream output;
     private ObjectInputStream input;
 
+    /**
+     * Default constructor.
+     *
+     * @param socketServer the socket of the server.
+     * @param client       the client connecting.
+     */
     public SocketClientHandler(SocketServer socketServer, Socket client) {
         this.socketServer = socketServer;
         this.client = client;
@@ -46,6 +52,11 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         }
     }
 
+    /**
+     * Handles the connection of a new client and keep listening to the socket for new messages.
+     *
+     * @throws IOException any of the usual Input/Output related exceptions.
+     */
     private void handleClientConnection() throws IOException {
         Server.LOGGER.info("Client connected from " + client.getInetAddress());
 
@@ -99,6 +110,11 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         }
     }
 
+    /**
+     * Sends a message to the client via socket.
+     *
+     * @param message the message to be sent.
+     */
     @Override
     public void sendMessage(Message message) {
         try {

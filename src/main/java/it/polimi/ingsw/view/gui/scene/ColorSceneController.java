@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.observer.ViewObservable;
+import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -48,7 +49,7 @@ public class ColorSceneController extends ViewObservable implements GenericScene
     }
 
     private void onBackToMenuBtnClick(Event event) {
-        notifyObserver(obs -> obs.onDisconnection());
+        notifyObserver(ViewObserver::onDisconnection);
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 
