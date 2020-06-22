@@ -147,6 +147,11 @@ public class Game extends Observable implements Serializable {
         return false;
     }
 
+    /**
+     * Returns the number of players chosen by the first player.
+     *
+     * @return the number of players chosen by the first player.
+     */
     public int getChosenPlayersNumber() {
         return chosenPlayersNumber;
     }
@@ -218,52 +223,138 @@ public class Game extends Observable implements Serializable {
         return nicknames;
     }
 
+    /**
+     * Returns the current board.
+     *
+     * @return the board of the game.
+     */
     public Board getBoard() {
         return board;
     }
 
-
+    /**
+     * Sets the workers on the board at the worker position. This method should be called only on game start.
+     * See {@link it.polimi.ingsw.model.board.Board#initWorkers}.
+     *
+     * @param workers a list of workers.
+     */
     public void initWorkersOnBoard(List<Worker> workers) {
         board.initWorkers(workers);
     }
 
+    /**
+     * Moves a worker to the given {@code Position}.
+     * Finally, a notification to the views is sent.
+     * See {@link it.polimi.ingsw.model.board.Board#moveWorker}.
+     *
+     * @param worker the worker to be moved.
+     * @param dest   the destination of the move.
+     */
     public void moveWorker(Worker worker, Position dest) {
         board.moveWorker(worker, dest);
     }
 
+    /**
+     * Builds a single block over the {@code Space} at the given position.
+     * See {@link it.polimi.ingsw.model.board.Board#buildBlock}.
+     *
+     * @param worker the worker who builds.
+     * @param dest   the space position to build onto.
+     */
     public void buildBlock(Worker worker, Position dest) {
         board.buildBlock(worker, dest);
     }
 
-
+    /**
+     * Returns a matrix of ReducedSpace which is an immutable object.
+     * See {@link it.polimi.ingsw.model.board.Board#getReducedSpaceBoard}.
+     *
+     * @return a board of reduced spaces
+     */
     public ReducedSpace[][] getReducedSpaceBoard() {
         return board.getReducedSpaceBoard();
     }
 
+    /**
+     * Returns the free positions on the board.
+     * See {@link it.polimi.ingsw.model.board.Board#getFreePositions}.
+     *
+     * @return the free positions on the board.
+     */
     public List<Position> getFreePositions() {
         return board.getFreePositions();
     }
 
+    /**
+     * Check if positionList refers only to free spaces.
+     * See {@link it.polimi.ingsw.model.board.Board#arePositionsFree}.
+     *
+     * @param positionList positionList from client.
+     * @return {@code true} if all the positions in the argument list are free, {@code false} otherwise.
+     */
     public boolean arePositionsFree(List<Position> positionList) {
         return board.arePositionsFree(positionList);
     }
 
+    /**
+     * Return the next Space on the line passing between {@code orig} and {@code dest}.
+     * See {@link it.polimi.ingsw.model.board.Board#getNextSpaceInLine}.
+     *
+     * @param orig the starting position.
+     * @param dest the destination position.
+     * @return the next Space on the line passing between {@code orig} and {@code dest},
+     * {@code null} if the next Space on the line is invalid.
+     */
     public Space getNextSpaceInLine(Position orig, Position dest) {
         return board.getNextSpaceInLine(orig, dest);
     }
 
+    /**
+     * Returns a list of positions that are adjacent to the position argument.
+     * See {@link it.polimi.ingsw.model.board.Board#getNeighbours}.
+     *
+     * @param position The position to look for the neighbours.
+     * @return The list of spaces adjacent to this space.
+     */
     public List<Position> getNeighbours(Position position) {
         return board.getNeighbours(position);
     }
 
+    /**
+     * Returns a list of positions that are adjacent to the position argument and are occupied by a worker.
+     * See {@link it.polimi.ingsw.model.board.Board#getNeighbourWorkers}.
+     *
+     * @param position The position to look for the neighbours.
+     * @param oppOnly  If set to {@code true} only opponent workers are checked.
+     * @return The list of spaces adjacent to this space.
+     */
     public List<Position> getNeighbourWorkers(Position position, boolean oppOnly) {
         return board.getNeighbourWorkers(position, oppOnly);
     }
 
+    /**
+     * Returns the MoveType needed to perform the move from the first position argument to
+     * the second position argument. Comparison is done by checking the current levels
+     * of the spaces.
+     * Returns {@code null} if the arguments are not neighbours.
+     * See {@link it.polimi.ingsw.model.board.Board#getMoveTypeByLevel}.
+     *
+     * @param orig the starting position.
+     * @param dest the destination position.
+     * @return the MoveType needed to perform the move from the first position argument to
+     * the second position argument. Returns {@code null} if the arguments are not neighbours or if
+     * the origin position is the same as the destination.
+     */
     public MoveType getMoveTypeByLevel(Position orig, Position dest) {
         return board.getMoveTypeByLevel(orig, dest);
     }
 
+    /**
+     * Returns the level of the given space.
+     *
+     * @param position the position of the space to be checked.
+     * @return the level of the given space.
+     */
     public int getSpaceLevel(Position position) {
         return board.getSpace(position).getLevel();
     }
@@ -328,6 +419,13 @@ public class Game extends Observable implements Serializable {
         return null;
     }
 
+    /**
+     * Returns a list of workers based on the target type parameter and the base worker.
+     *
+     * @param worker     the base worker used for comparison.
+     * @param targetType the target type.
+     * @return a list of workers.
+     */
     public List<Worker> getWorkersByTargetType(Worker worker, TargetType targetType) {
         List<Worker> workerList;
 
@@ -351,11 +449,20 @@ public class Game extends Observable implements Serializable {
         return workerList;
     }
 
-
+    /**
+     * Returns a list of players.
+     *
+     * @return the players.
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Returns a list of gods available in the game.
+     *
+     * @return a list of all the gods available in the game.
+     */
     public List<God> getGods() {
         return gods;
     }

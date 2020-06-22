@@ -159,6 +159,14 @@ public class GodParser {
         return effect;
     }
 
+    /**
+     * Decorates the effect argument with a build decorator.
+     *
+     * @param effect       the effect to decorate.
+     * @param requirements the map of settings to be satisfied in order to apply the effect.
+     * @param parameters   the map of settings applied by the effect.
+     * @return the decorated effect.
+     */
     private static Effect decorateBuild(Effect effect, Map<String, String> requirements,
                                         Map<String, String> parameters) {
         if (Boolean.parseBoolean(parameters.get(BUILD.getText() + AGAIN.getText()))) {
@@ -176,6 +184,14 @@ public class GodParser {
         return effect;
     }
 
+    /**
+     * Decorates the effect argument with a move decorator.
+     *
+     * @param effect       the effect to decorate.
+     * @param requirements the map of settings to be satisfied in order to apply the effect.
+     * @param parameters   the map of settings applied by the effect.
+     * @return the decorated effect.
+     */
     private static Effect decorateMove(Effect effect, Map<String, String> requirements,
                                        Map<String, String> parameters) {
         if (Boolean.parseBoolean(parameters.get(MOVE.getText() + AGAIN.getText()))) {

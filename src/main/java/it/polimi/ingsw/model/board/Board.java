@@ -279,7 +279,7 @@ public class Board extends Observable implements Serializable {
     }
 
     /**
-     * Returns a matrix of ReducedSpace wich is immutable object.
+     * Returns a matrix of ReducedSpace which is animmutable object.
      *
      * @return a board of reduced spaces
      */
