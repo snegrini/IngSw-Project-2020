@@ -51,7 +51,7 @@ public class SocketClient extends Client {
                         SceneController.LOGGER.info("Generic message: " + gm.getMessage());
                     }
                 } catch (IOException | ClassNotFoundException e) {
-                    message = new ErrorMessage(null, "connection lost with the server.");
+                    message = new ErrorMessage(null, "Connection lost with the server.");
                     disconnect();
                     readExecutionQueue.shutdownNow();
                 }
@@ -71,7 +71,7 @@ public class SocketClient extends Client {
             outputStm.writeObject(message);
         } catch (IOException e) {
             disconnect();
-            notifyObserver(new ErrorMessage(null, "could not send message."));
+            notifyObserver(new ErrorMessage(null, "Could not send message."));
         }
     }
 
@@ -87,7 +87,7 @@ public class SocketClient extends Client {
                 socket.close();
             }
         } catch (IOException e) {
-            notifyObserver(new ErrorMessage(null, "could not disconnect."));
+            notifyObserver(new ErrorMessage(null, "Could not disconnect."));
         }
     }
 

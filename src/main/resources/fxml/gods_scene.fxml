@@ -11,14 +11,14 @@
 <?import java.net.URL?>
 <StackPane prefHeight="720.0" prefWidth="1280.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1">
-   <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5" StackPane.alignment="CENTER">
-      <AnchorPane layoutX="924.0" layoutY="-257.0" prefHeight="390.0" prefWidth="588.0">
-         <Separator layoutX="149.0" layoutY="74.0" prefHeight="0.0" prefWidth="275.0"/>
-         <ImageView fitHeight="54.0" fitWidth="235.0" layoutX="171.0" layoutY="28.0" pickOnBounds="true"
+   <Group scaleX="2.0" scaleY="2.0" scaleZ="2.0" StackPane.alignment="CENTER">
+      <AnchorPane layoutX="910.0" layoutY="-270.0" prefHeight="351.0" prefWidth="561.0">
+         <Separator layoutX="149.0" layoutY="65.0" prefHeight="0.0" prefWidth="275.0"/>
+         <ImageView fitHeight="54.0" fitWidth="235.0" layoutX="171.0" layoutY="19.0" pickOnBounds="true"
                     preserveRatio="true">
             <Image url="@../images/blocco.png"/>
          </ImageView>
-         <ImageView fx:id="focusGodImg" fitHeight="173.0" fitWidth="129.0" layoutX="124.0" layoutY="87.0"
+         <ImageView fx:id="focusGodImg" fitHeight="173.0" fitWidth="129.0" layoutX="124.0" layoutY="78.0"
                     pickOnBounds="true" preserveRatio="true">
             <cursor>
                <Cursor fx:constant="HAND"/>
@@ -27,33 +27,33 @@
                <Image url="@../images/cards/athena.png"/>
             </image>
          </ImageView>
-         <Button fx:id="selectGodBtn" layoutX="105.0" layoutY="276.0" mnemonicParsing="false" prefHeight="26.0"
+         <Button fx:id="selectGodBtn" layoutX="105.0" layoutY="267.0" mnemonicParsing="false" prefHeight="26.0"
                  prefWidth="135.0" styleClass="godButton" stylesheets="@../css/gods_scene.css" text="Select"/>
-         <Button fx:id="nextGodBtn" layoutX="240.0" layoutY="147.0" mnemonicParsing="false" prefHeight="52.0"
+         <Button fx:id="nextGodBtn" layoutX="240.0" layoutY="138.0" mnemonicParsing="false" prefHeight="52.0"
                  prefWidth="52.0" styleClass="nextGodBtn" stylesheets="@../css/gods_scene.css">
             <cursor>
                <Cursor fx:constant="HAND"/>
             </cursor>
          </Button>
-         <Button fx:id="prevGodBtn" layoutX="59.0" layoutY="148.0" mnemonicParsing="false" prefHeight="52.0"
-                 prefWidth="52.0" styleClass="prevGodBtn" stylesheets="@../css/gods_scene.css">
+         <Button fx:id="prevGodBtn" layoutX="60.0" layoutY="139.0" mnemonicParsing="false" prefHeight="52.0"
+                 prefWidth="51.0" styleClass="prevGodBtn" stylesheets="@../css/gods_scene.css">
             <cursor>
                <Cursor fx:constant="HAND"/>
             </cursor>
          </Button>
-         <ListView fx:id="selectedGodsListView" layoutX="394.0" layoutY="136.0" prefHeight="99.0" prefWidth="90.0"
+         <ListView fx:id="selectedGodsListView" layoutX="394.0" layoutY="127.0" prefHeight="99.0" prefWidth="90.0"
                    styleClass="customText"/>
-         <Button fx:id="confirmBtn" layoutX="357.0" layoutY="277.0" mnemonicParsing="false" prefHeight="26.0"
+         <Button fx:id="confirmBtn" layoutX="357.0" layoutY="268.0" mnemonicParsing="false" prefHeight="26.0"
                  prefWidth="135.0" styleClass="godButton" stylesheets="@../css/gods_scene.css" text="Confirm"/>
-         <Button fx:id="deselectGodBtn" layoutX="105.0" layoutY="312.0" mnemonicParsing="false" prefHeight="26.0"
+         <Button fx:id="deselectGodBtn" layoutX="105.0" layoutY="301.0" mnemonicParsing="false" prefHeight="26.0"
                  prefWidth="135.0" styleClass="godButton" stylesheets="@../css/gods_scene.css" text="Deselect"/>
-         <Text fill="#451616" layoutX="240.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0"
+         <Text fill="#451616" layoutX="240.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0"
                styleClass="customText" text="Choose your Gods" wrappingWidth="102.4444580078125"/>
-         <ImageView fitHeight="34.0" fitWidth="154.0" layoutX="361.0" layoutY="100.0" pickOnBounds="true"
+         <ImageView fitHeight="34.0" fitWidth="154.0" layoutX="361.0" layoutY="91.0" pickOnBounds="true"
                     preserveRatio="true">
             <Image url="@../images/blocco.png"/>
          </ImageView>
-         <Label layoutX="405.0" layoutY="101.0" styleClass="customText" text="Selected Gods:">
+         <Label layoutX="405.0" layoutY="92.0" styleClass="customText" text="Selected Gods:">
             <font>
                <Font size="10.0"/>
             </font>

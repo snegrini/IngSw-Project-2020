@@ -184,12 +184,12 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     private void onEffectImageClick(MouseEvent event) {
         enableEffectControls(false);
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(true)));
+        new Thread(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(true))).start();
     }
 
     private void onSkipEffectBtnClick(MouseEvent event) {
         enableEffectControls(false);
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(false)));
+        new Thread(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(false))).start();
     }
 
     private void handleSpaceClickType(Node clickedNode, Position clickedPosition) {

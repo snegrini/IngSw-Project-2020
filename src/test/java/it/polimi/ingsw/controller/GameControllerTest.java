@@ -1,20 +1,14 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.God;
-import it.polimi.ingsw.model.ReducedGod;
-import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.Color;
-import it.polimi.ingsw.model.enumerations.MoveType;
-import it.polimi.ingsw.network.message.*;
+import it.polimi.ingsw.network.message.Message;
 import it.polimi.ingsw.network.server.ClientHandler;
-import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -54,7 +48,7 @@ public class GameControllerTest {
         Game.resetInstance();
     }
 
-    @Test
+    /*@Test
     public void onMessageReceived() {
         String p1 = "AndreaLanzi";
         String p2 = "SamueleNegrini";
@@ -229,7 +223,7 @@ public class GameControllerTest {
         assertEquals(2, Game.getInstance().getBoard().getSpace(2, 3).getLevel());
 
 
-/*
+*//*
         // Second player's turn.
         // pick worker
         p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(0,0)));
@@ -241,9 +235,9 @@ public class GameControllerTest {
         // build
         p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(0,1)));
         gameController.onMessageReceived(p2_build);
-*/
+*//*
 
-    }
+    }*/
 
 
     @Test

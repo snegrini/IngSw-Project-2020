@@ -4,3 +4,8 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+
+.alertText {
+    -fx-text-fill: #451616;
+    -fx-font-size: 16px;
+}

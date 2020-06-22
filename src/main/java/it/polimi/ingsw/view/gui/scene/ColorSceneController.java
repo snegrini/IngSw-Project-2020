@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.gui.SceneController;
-import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,7 +44,10 @@ public class ColorSceneController extends ViewObservable implements GenericScene
     }
 
     private void onWorkerClick(Color color) {
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateWorkersColor(color)));
+        blueWorker.setDisable(true);
+        greenWorker.setDisable(true);
+        redWorker.setDisable(true);
+        new Thread(() -> notifyObserver(obs -> obs.onUpdateWorkersColor(color))).start();
     }
 
     private void onBackToMenuBtnClick(Event event) {

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.observer.ViewObservable;
+import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.gui.SceneController;
-import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,13 +26,15 @@ public class LoginSceneController extends ViewObservable implements GenericScene
     }
 
     private void onJoinBtnClick(Event event) {
+        joinBtn.setDisable(true);
+
         String nickname = nicknameField.getText();
 
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateNickname(nickname)));
+        new Thread(() -> notifyObserver(obs -> obs.onUpdateNickname(nickname))).start();
     }
 
     private void onBackToMenuBtnClick(Event event) {
-        notifyObserver(obs -> obs.onDisconnection());
+        notifyObserver(ViewObserver::onDisconnection);
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 }
