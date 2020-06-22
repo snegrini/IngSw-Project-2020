@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 public class SceneController extends ViewObservable {
 
     public static final Logger LOGGER = Logger.getLogger(SceneController.class.getName());
+    public static final String GOD_IMAGE_PREFIX = "/images/gods/podium_";
 
     private static Scene activeScene;
 

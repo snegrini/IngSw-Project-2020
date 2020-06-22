@@ -22,7 +22,7 @@ public class SocketClient extends Client {
     private final ExecutorService readExecutionQueue;
     private final ScheduledExecutorService pinger;
 
-    private final static int SOCKET_TIMEOUT = 10000;
+    private static final int SOCKET_TIMEOUT = 10000;
 
     public SocketClient(String address, int port) throws IOException {
         this.socket = new Socket();

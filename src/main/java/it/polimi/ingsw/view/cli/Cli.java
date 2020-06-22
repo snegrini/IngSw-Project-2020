@@ -25,6 +25,7 @@ public class Cli extends ViewObservable implements View {
     private static final String STR_ROW = "Row: ";
     private static final String STR_COLUMN = "Column: ";
     private static final String STR_POSITION = "Position ";
+    private static final String STR_INPUT_CANCELED = "User input canceled.";
 
     public Cli() {
         out = System.out;
@@ -53,7 +54,7 @@ public class Cli extends ViewObservable implements View {
         try {
             askServerInfo();
         } catch (ExecutionException e) {
-            out.println("User input canceled.");
+            out.println(STR_INPUT_CANCELED);
         }
     }
 
@@ -111,7 +112,7 @@ public class Cli extends ViewObservable implements View {
             String nickname = readLine();
             notifyObserver(obs -> obs.onUpdateNickname(nickname));
         } catch (ExecutionException e) {
-            out.println("User input canceled.");
+            out.println(STR_INPUT_CANCELED);
         }
     }
 
@@ -124,7 +125,7 @@ public class Cli extends ViewObservable implements View {
             playerNumber = numberInput(2, 3, List.of(), question);
             notifyObserver(obs -> obs.onUpdatePlayersNumber(playerNumber));
         } catch (ExecutionException e) {
-            out.println("User input canceled.");
+            out.println(STR_INPUT_CANCELED);
         }
     }
 
@@ -162,7 +163,7 @@ public class Cli extends ViewObservable implements View {
                     }
                     notifyObserver(obs -> obs.onUpdateGod(chosenGods));
                 } catch (ExecutionException e) {
-                    out.println("User input canceled.");
+                    out.println(STR_INPUT_CANCELED);
                 }
             } else {
                 out.println("Select your own personal God!");
@@ -173,7 +174,7 @@ public class Cli extends ViewObservable implements View {
                     ReducedGod finalGod = gods.get(godId);
                     notifyObserver(obs -> obs.onUpdateGod(List.of(finalGod)));
                 } catch (ExecutionException e) {
-                    out.println("User input canceled.");
+                    out.println(STR_INPUT_CANCELED);
                 }
             }
         } else if (gods.size() == 1) {
@@ -248,7 +249,7 @@ public class Cli extends ViewObservable implements View {
 
             notifyObserver(obs -> obs.onUpdateInitWorkerPosition(initPositions));
         } catch (ExecutionException e) {
-            out.println("User input canceled.");
+            out.println(STR_INPUT_CANCELED);
         }
     }
 
@@ -291,7 +292,7 @@ public class Cli extends ViewObservable implements View {
             Color finalColor = color;
             notifyObserver(obs -> obs.onUpdateWorkersColor(finalColor));
         } catch (ExecutionException e) {
-            out.println("User input canceled.");
+            out.println(STR_INPUT_CANCELED);
         }
 
     }
@@ -320,7 +321,7 @@ public class Cli extends ViewObservable implements View {
             Position pos = new Position(chosenRow, chosenColumn);
             notifyObserver(obs -> obs.onUpdatePickMovingWorker(pos));
         } catch (ExecutionException e) {
-            out.println("User input canceled.");
+            out.println(STR_INPUT_CANCELED);
         }
     }
 
@@ -345,7 +346,7 @@ public class Cli extends ViewObservable implements View {
 
                 notifyObserver(obs -> obs.onUpdateMove(destPos));
             } catch (ExecutionException e) {
-                out.println("User input canceled.");
+                out.println(STR_INPUT_CANCELED);
             }
         }
     }
@@ -370,7 +371,7 @@ public class Cli extends ViewObservable implements View {
 
                 notifyObserver(obs -> obs.onUpdateBuild(buildPos));
             } catch (ExecutionException e) {
-                out.println("User input canceled.");
+                out.println(STR_INPUT_CANCELED);
             }
         }
     }
@@ -397,7 +398,7 @@ public class Cli extends ViewObservable implements View {
 
                 notifyObserver(obs -> obs.onUpdateApplyEffect(destPos));
             } catch (ExecutionException e) {
-                out.println("User input canceled.");
+                out.println(STR_INPUT_CANCELED);
             }
         }
     }
@@ -422,7 +423,7 @@ public class Cli extends ViewObservable implements View {
 
                 notifyObserver(obs -> obs.onUpdateApplyEffect(buildPos));
             } catch (ExecutionException e) {
-                out.println("User input canceled.");
+                out.println(STR_INPUT_CANCELED);
             }
         }
     }
@@ -438,7 +439,7 @@ public class Cli extends ViewObservable implements View {
                 String response = readLine();
                 notifyObserver(obs -> obs.onUpdateEnableEffect(response.equalsIgnoreCase("y")));
             } catch (ExecutionException e) {
-                out.println("User input canceled.");
+                out.println(STR_INPUT_CANCELED);
             }
         }
     }
@@ -467,7 +468,7 @@ public class Cli extends ViewObservable implements View {
             String finalNickname = nickname;
             notifyObserver(obs -> obs.onUpdateFirstPlayer(finalNickname));
         } catch (ExecutionException e) {
-            out.println("User input canceled.");
+            out.println(STR_INPUT_CANCELED);
         }
     }
 
@@ -713,7 +714,8 @@ public class Cli extends ViewObservable implements View {
         printPositions(positionList);
         out.println(message);
 
-        int chosenRow, chosenColumn;
+        int chosenRow;
+        int chosenColumn;
 
         do {
             chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
@@ -749,7 +751,7 @@ public class Cli extends ViewObservable implements View {
             undoTimer.cancel();
             return undoConfirm.equalsIgnoreCase("y");
         } catch (ExecutionException e) {
-            out.println("User input canceled.");
+            out.println(STR_INPUT_CANCELED);
         }
         return false;
     }

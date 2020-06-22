@@ -26,6 +26,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static it.polimi.ingsw.controller.ClientController.UNDO_TIME;
+import static it.polimi.ingsw.view.gui.SceneController.GOD_IMAGE_PREFIX;
 
 public class BoardSceneController extends ViewObservable implements GenericSceneController {
 
@@ -498,10 +499,10 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         if (players != null && gods != null) {
             this.gods = gods; // save gods for later usage.
             player1Label.setText(players.get(0));
-            Image img1 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(0).getName().toLowerCase() + ".png"));
+            Image img1 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(0).getName().toLowerCase() + ".png"));
             god1Image.setImage(img1);
             player2Label.setText(players.get(1));
-            Image img2 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(1).getName().toLowerCase() + ".png"));
+            Image img2 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(1).getName().toLowerCase() + ".png"));
             god2Image.setImage(img2);
 
             turnInformationLabel.setText("Turn Of " + activePlayer);
@@ -510,7 +511,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 // Sets 3rd player information.
                 god3Image.setVisible(true);
                 player3Label.setText(players.get(2));
-                Image img3 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(2).getName().toLowerCase() + ".png"));
+                Image img3 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(2).getName().toLowerCase() + ".png"));
                 god3Image.setImage(img3);
             } else {
                 god3Image.setVisible(false);

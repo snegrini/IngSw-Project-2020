@@ -35,7 +35,7 @@ public class Game extends Observable implements Serializable {
     private Game() {
         this.board = new Board();
         this.players = new ArrayList<>();
-        this.gods = GodParser.parseGods();
+        this.gods = GodParser.parseGods("gods.xml");
     }
 
     /**

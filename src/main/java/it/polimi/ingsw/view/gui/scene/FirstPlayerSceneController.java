@@ -17,10 +17,13 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.polimi.ingsw.view.gui.SceneController.GOD_IMAGE_PREFIX;
+
 public class FirstPlayerSceneController extends ViewObservable implements GenericSceneController {
 
     private List<String> nicknames;
     private List<ReducedGod> gods;
+
 
     @FXML
     private Label player1Lbl;
@@ -56,29 +59,29 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
         player3Group.setVisible(false);
 
         player1Lbl.setText(nicknames.get(0));
-        Image img1 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(0).getName().toLowerCase() + ".png"));
+        Image img1 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(0).getName().toLowerCase() + ".png"));
         player1godImg.setImage(img1);
 
         player2Lbl.setText(nicknames.get(1));
-        Image img2 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(1).getName().toLowerCase() + ".png"));
+        Image img2 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(1).getName().toLowerCase() + ".png"));
         player2godImg.setImage(img2);
 
         if (nicknames.size() == 3 && gods.size() == 3) {
             player3Group.setVisible(true);
 
             player3Lbl.setText(nicknames.get(2));
-            Image img3 = new Image(getClass().getResourceAsStream("/images/gods/podium_" + gods.get(2).getName().toLowerCase() + ".png"));
+            Image img3 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(2).getName().toLowerCase() + ".png"));
             player3godImg.setImage(img3);
         }
 
-        player1Group.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onGroupClick(event, nicknames.get(0)));
-        player2Group.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onGroupClick(event, nicknames.get(1)));
-        player3Group.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onGroupClick(event, nicknames.get(2)));
+        player1Group.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onGroupClick(nicknames.get(0)));
+        player2Group.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onGroupClick(nicknames.get(1)));
+        player3Group.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onGroupClick(nicknames.get(2)));
 
         backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);
     }
 
-    private void onGroupClick(MouseEvent event, String nickname) {
+    private void onGroupClick(String nickname) {
         disableAllGroups();
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateFirstPlayer(nickname)));
     }

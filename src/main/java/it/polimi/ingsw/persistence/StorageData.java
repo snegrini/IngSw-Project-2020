@@ -12,14 +12,14 @@ public class StorageData {
     }
 
     /**
-     * Save current Game Controller on a file named "match.bless".
+     * Save current Game Controller on a file.
      *
      * @param gameController current Game Controller.
      */
     public void store(GameController gameController) {
         Persistence persistence = new Persistence(gameController);
 
-        try (FileOutputStream fileOutputStream = new FileOutputStream(new File("match.bless"))) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(new File(GameController.SAVED_GAME_FILE))) {
 
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
@@ -40,7 +40,7 @@ public class StorageData {
     public GameController restore() {
         Persistence persistence;
 
-        try (FileInputStream fileInputStream = new FileInputStream(new File("match.bless"))) {
+        try (FileInputStream fileInputStream = new FileInputStream(new File(GameController.SAVED_GAME_FILE))) {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
             persistence = (Persistence) objectInputStream.readObject();
@@ -59,11 +59,11 @@ public class StorageData {
      * Delete Saved Game.
      */
     public void delete() {
-        File file = new File("match.bless");
+        File file = new File(GameController.SAVED_GAME_FILE);
         try {
             Files.deleteIfExists(file.toPath());
         } catch (IOException e) {
-            Server.LOGGER.severe("Failed to delete match.bless file.");
+            Server.LOGGER.severe("Failed to delete " + GameController.SAVED_GAME_FILE + " file.");
         }
     }
 }

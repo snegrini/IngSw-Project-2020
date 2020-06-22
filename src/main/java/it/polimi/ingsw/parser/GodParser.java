@@ -25,22 +25,24 @@ import static it.polimi.ingsw.model.enumerations.XMLName.*;
  */
 public class GodParser {
 
-    public static final String FILE_PATH = "/xml/gods.xml";
+    public static final String FILE_PATH = "/xml/";
 
     private GodParser() {
     }
 
     /**
      * Parses the XML file into a list of {@link God} objects.
+     * The XML file must be put inside the /xml folder.
      *
+     * @param fileName the name of the XML file.
      * @return the list of gods parsed from the XML file.
      */
-    public static List<God> parseGods() {
+    public static List<God> parseGods(String fileName) {
         List<God> gods = new ArrayList<>();
         DocumentBuilder db;
         Document doc = null;
 
-        InputStream godsIs = GodParser.class.getResourceAsStream(FILE_PATH);
+        InputStream godsIs = GodParser.class.getResourceAsStream(FILE_PATH + fileName);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
         try {
@@ -51,7 +53,7 @@ public class GodParser {
             db = dbf.newDocumentBuilder();
             dbf.setValidating(false);
             doc = db.parse(godsIs);
-        } catch (ParserConfigurationException | SAXException | IOException e) {
+        } catch (ParserConfigurationException | IllegalArgumentException | SAXException | IOException e) {
             Server.LOGGER.severe("failed to read gods.xml file.");
             System.exit(1);
         }

@@ -40,6 +40,8 @@ public class GameController implements Observer, Serializable {
     private transient List<ReducedGod> availableGods;
     private transient List<Color> availableColors;
 
+    public static final String SAVED_GAME_FILE = "match.bless";
+
     public GameController() {
         initGameController();
     }

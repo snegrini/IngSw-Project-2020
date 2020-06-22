@@ -12,16 +12,16 @@ import static org.junit.Assert.assertTrue;
 public class GodParserTest {
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
     public void parseGods() {
-        List<God> gods = GodParser.parseGods();
+        List<God> gods = GodParser.parseGods("gods.xml");
         assertTrue(gods.size() > 0);
     }
 }

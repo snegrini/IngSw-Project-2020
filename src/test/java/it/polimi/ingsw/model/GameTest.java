@@ -104,7 +104,7 @@ public class GameTest {
 
     @Test
     public void getReduceGodList() {
-        List<God> godList = GodParser.parseGods();
+        List<God> godList = GodParser.parseGods("gods.xml");
         List<ReducedGod> reducedGodList = new ArrayList<>();
         for (God god : godList) {
             reducedGodList.add(new ReducedGod(god));
@@ -115,7 +115,7 @@ public class GameTest {
 
     @Test
     public void getGodByName_Found() {
-        List<God> godList = GodParser.parseGods();
+        List<God> godList = GodParser.parseGods("gods.xml");
         String name = godList.get(0).getName();
         assertEquals(godList.get(0), instance.getGodByName(name));
     }

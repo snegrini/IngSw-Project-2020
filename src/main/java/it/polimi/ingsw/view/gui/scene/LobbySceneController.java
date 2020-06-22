@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.observer.ViewObservable;
+import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ public class LobbySceneController extends ViewObservable implements GenericScene
     }
 
     private void onBackToMenuBtnClick(Event event) {
-        notifyObserver(obs -> obs.onDisconnection());
+        notifyObserver(ViewObserver::onDisconnection);
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 
