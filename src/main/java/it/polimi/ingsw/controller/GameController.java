@@ -184,13 +184,32 @@ public class GameController implements Observer, Serializable {
         //effect.clear(turnController.getActiveWorker());
         turnController.setAppliedEffect(effect);
 
-        // TODO FIX hardcode Prometheus
+
         if (player.getGod().getName().equals("Prometheus")) {
             turnController.resumePhase();
         } else {
-            turnController.nextPhase();
+
+            // Win condition for workers that are moving with an effects.
+            if ( ( turnController.getPhaseType().equals(PhaseType.YOUR_MOVE) ||
+                    turnController.getPhaseType().equals(PhaseType.YOUR_MOVE_AFTER) )
+                && null != positionApply
+                && winConditions(positionApply)) {
+                win();
+            } else {
+                turnController.nextPhase();
+            }
         }
 
+    }
+
+    private boolean winConditions(Position destination) {
+        int origLevel = turnController.getActiveWorker().getHistory().getMoveLevel();
+        int destLevel = game.getSpaceLevel(destination);
+        if( 2 == origLevel && 3 == destLevel) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -232,13 +251,10 @@ public class GameController implements Observer, Serializable {
     private void moveHandler(PositionMessage receivedMessage) {
         Position destination = receivedMessage.getPositionList().get(0);
 
-        int origLevel = game.getSpaceLevel(turnController.getActiveWorker().getPosition());
-        int destLevel = game.getSpaceLevel(destination);
-
         game.moveWorker(turnController.getActiveWorker(), destination);
 
         // Win condition:
-        if (origLevel == 2 && destLevel == 3) {
+        if (winConditions(destination)) {
             win();
         } else {
 
@@ -382,13 +398,12 @@ public class GameController implements Observer, Serializable {
 
                 // check saved matches.
                 StorageData storageData = new StorageData();
-                if (storageData.restore() != null) {
-                    GameController savedGameController = storageData.restore();
-                    if (savedGameController.getTurnController().getNicknameQueue().equals(game.getPlayersNicknames())) {
-                        restoreControllers(savedGameController);
-                        broadcastRestoreMessages();
-                        turnController.newTurn();
-                    }
+                GameController savedGameController = storageData.restore();
+                if (storageData.restore() != null &&
+                        savedGameController.getTurnController().getNicknameQueue().equals(game.getPlayersNicknames())) {
+                    restoreControllers(savedGameController);
+                    broadcastRestoreMessages();
+                    turnController.newTurn();
                 } else {
                     initGame();
                 }
