@@ -23,7 +23,6 @@ La seguente documentazione include una descrizione per la maggior parte delle cl
 |__JavaFx__|Libreria grafica|
 |__Maven__|Strumento di automazione della compilazione utilizzato principalmente per progetti Java.|
 |__JUnit__|Framework di unit test|
-|__Gson__|Libreria Java open-source per serializzare e deserializzare oggetti Java su JSON|
 
 
 
