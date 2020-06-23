@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.Space;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.ErrorMessage;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.network.message.PositionMessage;
 
@@ -45,6 +46,11 @@ public class MoveOverDecorator extends EffectDecorator {
     @Override
     public void apply(Worker activeWorker, Position position) {
         effect.apply(activeWorker, position);
+
+        if (!possibleMoves.contains(position)) {
+            notifyObserver(new ErrorMessage(Game.SERVER_NICKNAME, "Bad position."));
+            return;
+        }
 
         Board board = Game.getInstance().getBoard();
 
