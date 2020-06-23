@@ -15,7 +15,7 @@
                     <children>
                         <AnchorPane prefHeight="703.0" prefWidth="1264.0" styleClass="boardPane">
                             <children>
-                                <ImageView fx:id="undoImg" fitHeight="77.0" fitWidth="102.0" layoutX="1116.0"
+                                <ImageView fx:id="undoImg" fitHeight="77.0" fitWidth="102.0" layoutX="1091.0"
                                            layoutY="114.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../images/buttons/undo.png"/>
@@ -24,7 +24,7 @@
                                         <Cursor fx:constant="HAND"/>
                                     </cursor>
                                 </ImageView>
-                                <Button fx:id="confirmBtn" layoutX="1091.0" layoutY="197.0" mnemonicParsing="false"
+                                <Button fx:id="confirmBtn" layoutX="1066.0" layoutY="197.0" mnemonicParsing="false"
                                         prefHeight="53.0" prefWidth="142.0" style="-fx-background-size: stretch;"
                                         styleClass="smallButton" text="Confirm">
                                     <font>
@@ -46,20 +46,20 @@
                                 <ImageView fx:id="god3Image" fitHeight="150.0" fitWidth="120.0" layoutX="107.0"
                                            layoutY="509.0" pickOnBounds="true" preserveRatio="true"
                                            styleClass="playerGodImage"/>
-                                <ImageView fx:id="effectImage" disable="true" fitHeight="150.0" fitWidth="200.0"
-                                           layoutX="1086.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true"
+                                <ImageView fx:id="effectImage" fitHeight="150.0" fitWidth="200.0" layoutX="1061.0"
+                                           layoutY="305.0" pickOnBounds="true" preserveRatio="true"
                                            styleClass="effectImage">
                                     <image>
                                         <Image url="@../images/buttons/heropower_inactive.png"/>
                                     </image>
                                 </ImageView>
-                                <Button fx:id="skipEffectBtn" disable="true" layoutX="1090.0" layoutY="477.0"
+                                <Button fx:id="skipEffectBtn" disable="true" layoutX="1065.0" layoutY="477.0"
                                         mnemonicParsing="false" prefHeight="53.0" prefWidth="142.0"
                                         style="-fx-background-size: stretch;" styleClass="smallButton"
                                         text="Skip Effect"/>
                                 <Label fx:id="turnInformationLabel" layoutX="630.0" layoutY="659.0"
                                        styleClass="customText" text="Label"/>
-                                <Label fx:id="timerLbl" layoutX="1119.0" layoutY="71.0" styleClass="customText"
+                                <Label fx:id="timerLbl" layoutX="1085.0" layoutY="71.0" styleClass="customText"
                                        text="5 seconds">
                                     <font>
                                         <Font size="23.0"/>
