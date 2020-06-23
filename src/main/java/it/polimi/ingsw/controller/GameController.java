@@ -42,6 +42,9 @@ public class GameController implements Observer, Serializable {
 
     public static final String SAVED_GAME_FILE = "match.bless";
 
+    /**
+     * Controller of the Game.
+     */
     public GameController() {
         initGameController();
     }
@@ -202,6 +205,11 @@ public class GameController implements Observer, Serializable {
 
     }
 
+    /**
+     * Check the win condition of the active Worker.
+     * @param destination destination of the Worker.
+     * @return {@code true} if Player wins {@code false} otherwise.
+     */
     private boolean winConditions(Position destination) {
         int origLevel = turnController.getActiveWorker().getHistory().getMoveLevel();
         int destLevel = game.getSpaceLevel(destination);
@@ -413,6 +421,9 @@ public class GameController implements Observer, Serializable {
         }
     }
 
+    /**
+     * Restore Message for all connected Clients.
+     */
     private void broadcastRestoreMessages() {
         for (VirtualView vv : virtualViewMap.values()) {
             vv.showBoard(game.getReducedSpaceBoard());
@@ -424,7 +435,10 @@ public class GameController implements Observer, Serializable {
         }
     }
 
-
+    /**
+     * Restore Controllers from file.
+     * @param savedGameController Controller from file.
+     */
     private void restoreControllers(GameController savedGameController) {
 
 
@@ -742,6 +756,10 @@ public class GameController implements Observer, Serializable {
         return this.gameState != GameState.LOGIN;
     }
 
+    /**
+     * Return Turn Controller of the Game.
+     * @return Turn Controller of the Game.
+     */
     public TurnController getTurnController() {
         return turnController;
     }
