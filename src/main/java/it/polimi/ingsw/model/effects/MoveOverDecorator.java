@@ -11,6 +11,7 @@ import it.polimi.ingsw.network.message.PositionMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Decorator to add a custom move to the simple effect.
@@ -90,11 +91,18 @@ public class MoveOverDecorator extends EffectDecorator {
         possibleMoves = worker.getPossibleMoves();
 
         Board board = Game.getInstance().getBoard();
+        Space currentSpace = board.getSpace(worker.getPosition());
+
         List<Position> adjOpponentPos = board.getNeighbourWorkers(worker.getPosition(), true);
         adjOpponentPos = worker.filterLockedMovementPositions(adjOpponentPos);
 
         if (swapSpace) {
             possibleMoves.addAll(adjOpponentPos);
+            // FIXME
+            possibleMoves.stream()
+                    .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
+                    .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
+                    .collect(Collectors.toList());
         }
 
         if (pushBack) {
@@ -104,6 +112,11 @@ public class MoveOverDecorator extends EffectDecorator {
                     possibleMoves.add(oppPos);
                 }
             }
+            // FIXME
+            possibleMoves.stream()
+                    .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
+                    .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
+                    .collect(Collectors.toList());
         }
 
         // Effect is applicable only if there are adjacent enemy workers in non-locked-movement positions.
