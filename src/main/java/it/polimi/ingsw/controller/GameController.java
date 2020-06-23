@@ -729,6 +729,10 @@ public class GameController implements Observer, Serializable {
             case WIN_FX:
                 win();
                 break;
+            case ERROR:
+                ErrorMessage errMsg = (ErrorMessage) message;
+                Server.LOGGER.warning(errMsg.getError());
+                break;
             default:
                 Server.LOGGER.warning("Invalid effect request!");
                 break;

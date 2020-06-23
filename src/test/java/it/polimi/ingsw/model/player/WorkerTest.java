@@ -20,17 +20,17 @@ public class WorkerTest {
     private ReducedWorker reducedWorker;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         worker = new Worker(new Position(3, 4));
         worker.setColor(Color.BLUE);
         reducedWorker = new ReducedWorker(worker);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         worker = null;
         reducedWorker = null;
-        Game.getInstance().resetInstance();
+        Game.resetInstance();
     }
 
     @Test
@@ -102,6 +102,23 @@ public class WorkerTest {
         listPositionResult.add(new Position(3, 3));
         listPositionResult.add(new Position(4, 3));
         // (4,4) is not in the list of possible moves because the player has the MoveType UP locked.
+
+        assertEquals(listPositionResult, worker.getPossibleMoves());
+    }
+
+    @Test
+    public void getPossibleMoves_borderCase() {
+        Board board = Game.getInstance().getBoard();
+        board.getSpace(3, 4).setWorker(worker);
+
+        // Fill up the board to create an extreme condition.
+        board.getSpace(2, 3).setDome(true);
+        board.getSpace(2, 4).setDome(true);
+        board.getSpace(3, 3).setDome(true);
+        board.getSpace(4, 3).setDome(true);
+
+        List<Position> listPositionResult = new ArrayList<>();
+        listPositionResult.add(new Position(4, 4));
 
         assertEquals(listPositionResult, worker.getPossibleMoves());
     }

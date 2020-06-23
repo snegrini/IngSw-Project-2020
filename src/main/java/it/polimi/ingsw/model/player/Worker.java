@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Worker implements Serializable {
@@ -51,15 +52,30 @@ public class Worker implements Serializable {
     /**
      * Returns the adjacent positions where this worker can normally build.
      * Non-free spaces will be ignored @see it.polimi.ingsw.model.Space#isFree.
+     * Set the boolean parameter to {@code true} to ignore the current worker position in the list
+     * of the possible builds. This is needed to calculate the list of possible builds before
+     * the actual move is done.
+     *
+     * @param checkPos              the starting position to check
+     * @param ignoreCurrentPosition set to {@code true} to ignore the current position of the worker, {@code false} otherwise.
+     * @return a list of positions where this worker can build.
+     */
+    public List<Position> getPossibleBuilds(Position checkPos, boolean ignoreCurrentPosition) {
+        Board board = Game.getInstance().getBoard();
+
+        return board.getNeighbours(checkPos).stream()
+                .filter(pos -> (!ignoreCurrentPosition && pos.equals(this.position)) || board.getSpace(pos).isFree())
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns the adjacent positions where this worker can normally build.
+     * Non-free spaces will be ignored @see it.polimi.ingsw.model.Space#isFree.
      *
      * @return a list of positions where this worker can build.
      */
     public List<Position> getPossibleBuilds() {
-        Board board = Game.getInstance().getBoard();
-
-        return board.getNeighbours(position).stream()
-                .filter(pos -> board.getSpace(pos).isFree())
-                .collect(Collectors.toList());
+        return getPossibleBuilds(this.position, true);
     }
 
     /**
@@ -79,12 +95,10 @@ public class Worker implements Serializable {
         List<Position> tempPossibleMoves = board.getNeighbours(position);
         tempPossibleMoves.removeAll(board.getNeighbourWorkers(position, false));
         for (Position pos : tempPossibleMoves) {
-            Worker tempWorker = new Worker(pos);
-            if (tempWorker.getPossibleBuilds().isEmpty()) {
+            if (this.getPossibleBuilds(pos, false).isEmpty()) {
                 possibleMoves.remove(pos);
             }
         }
-
 
         return possibleMoves.stream()
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
