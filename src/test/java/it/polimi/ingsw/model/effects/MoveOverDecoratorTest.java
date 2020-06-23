@@ -25,7 +25,7 @@ public class MoveOverDecoratorTest {
     private Game game;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         effectSwapSpace = new MoveOverDecorator(new SimpleEffect(PhaseType.YOUR_MOVE), Map.of(),
                 false, true);
         effectPushBack = new MoveOverDecorator(new SimpleEffect(PhaseType.YOUR_MOVE), Map.of(),
@@ -54,7 +54,7 @@ public class MoveOverDecoratorTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         effectSwapSpace = null;
         effectPushBack = null;
         Game.resetInstance();
@@ -109,5 +109,21 @@ public class MoveOverDecoratorTest {
         Worker w2 = game.getWorkerByPosition(orig);
 
         assertFalse(effectPushBack.require(w2));
+    }
+
+    @Test
+    public void applyEffect_BadMove() {
+        Board board = game.getBoard();
+        Position orig = new Position(0, 0);
+        Position movePosition = new Position(3, 3);
+        Worker w2 = game.getWorkerByPosition(orig);
+
+        assertTrue(effectSwapSpace.require(w2));
+        effectSwapSpace.prepare(w2);
+        effectSwapSpace.apply(w2, movePosition);
+
+        // Worker will not be moved
+        assertEquals(w2, board.getSpace(orig).getWorker());
+        assertNotEquals(w2, board.getSpace(movePosition).getWorker());
     }
 }
