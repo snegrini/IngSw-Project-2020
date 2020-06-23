@@ -314,12 +314,12 @@ public class GameControllerTest {
         p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 4)));
         gameController.onMessageReceived(p2_movingWorker);
         // move
-        p2_apply = new PositionMessage(p2, MessageType.APPLY_EFFECT, List.of(new Position(3, 2)));
+        p2_apply = new PositionMessage(p2, MessageType.APPLY_EFFECT, List.of(new Position(2, 4)));
         gameController.onMessageReceived(p2_apply);
         // build
-        p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(3, 3)));
+        p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(3, 4)));
         gameController.onMessageReceived(p2_build);
-        assertEquals(2, Game.getInstance().getBoard().getSpace(3, 3).getLevel());
+        assertEquals(1, Game.getInstance().getBoard().getSpace(3, 4).getLevel());
 
 
 
