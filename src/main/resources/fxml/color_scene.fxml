@@ -34,8 +34,8 @@
                         <HBox alignment="CENTER" layoutX="5.0" layoutY="87.0" prefHeight="123.0" prefWidth="388.0"
                               spacing="5.0">
                             <children>
-                                <ImageView fx:id="blueWorker" fitHeight="109.0" fitWidth="109.0" pickOnBounds="true"
-                                           preserveRatio="true" styleClass="blueGlow">
+                                <ImageView fx:id="blueWorker" fitHeight="109.0" fitWidth="109.0" preserveRatio="true"
+                                           styleClass="blueGlow">
                                     <image>
                                         <Image url="@../images/workers/worker_cicled_blue.png"/>
                                     </image>
@@ -46,8 +46,8 @@
                                         <Cursor fx:constant="HAND"/>
                                     </cursor>
                                 </ImageView>
-                                <ImageView fx:id="greenWorker" fitHeight="109.0" fitWidth="109.0" pickOnBounds="true"
-                                           preserveRatio="true" styleClass="greenGlow">
+                                <ImageView fx:id="greenWorker" fitHeight="109.0" fitWidth="109.0" preserveRatio="true"
+                                           styleClass="greenGlow">
                                     <image>
                                         <Image url="@../images/workers/worker_cicled_green.png"/>
                                     </image>
@@ -58,8 +58,8 @@
                                         <Cursor fx:constant="HAND"/>
                                     </cursor>
                                 </ImageView>
-                                <ImageView fx:id="redWorker" fitHeight="109.0" fitWidth="109.0" pickOnBounds="true"
-                                           preserveRatio="true" styleClass="redGlow">
+                                <ImageView fx:id="redWorker" fitHeight="109.0" fitWidth="109.0" preserveRatio="true"
+                                           styleClass="redGlow">
                                     <image>
                                         <Image url="@../images/workers/worker_cicled_red.png"/>
                                     </image>

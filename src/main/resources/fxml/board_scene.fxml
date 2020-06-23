@@ -85,8 +85,8 @@
                                                         prefHeight="81.0"/>
                                     </rowConstraints>
                                     <children>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="0"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="0"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="0" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -101,8 +101,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="1"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="1"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="0" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -121,8 +121,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="2"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="2"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="0" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -141,8 +141,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="3"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="3"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="0" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -161,8 +161,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="4"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="4"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="0" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -181,8 +181,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="0"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="0"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="1" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -201,8 +201,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="1"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="1"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="1" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -222,8 +222,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="2"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="2"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="1" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -242,8 +242,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="3"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="3"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="1" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -262,8 +262,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="4"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="4"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="1" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -282,8 +282,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="0"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="0"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="2" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -302,8 +302,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="1"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="1"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="2" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -322,8 +322,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="2"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="2"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="2" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -342,8 +342,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="3"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="3"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="2" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -362,8 +362,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="4"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="4"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="2" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -382,8 +382,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="0"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="0"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="3" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -402,8 +402,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="1"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="1"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="3" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -422,8 +422,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="2"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="2"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="3" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -442,8 +442,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="3"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="3"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="3" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -462,8 +462,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="4"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="4"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="3" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -482,8 +482,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="0"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="0"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="4" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -502,8 +502,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="1"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="1"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="4" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -522,8 +522,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="2"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="2"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="4" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -542,8 +542,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="3"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="3"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="4" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
@@ -562,8 +562,8 @@
                                                 <Cursor fx:constant="HAND"/>
                                             </cursor>
                                         </StackPane>
-                                        <StackPane disable="true" prefHeight="100.0" prefWidth="100.0"
-                                                   styleClass="glassPane" GridPane.columnIndex="4"
+                                        <StackPane disable="true" pickOnBounds="false" prefHeight="100.0"
+                                                   prefWidth="100.0" styleClass="glassPane" GridPane.columnIndex="4"
                                                    GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                                    GridPane.rowIndex="4" GridPane.valignment="CENTER"
                                                    GridPane.vgrow="ALWAYS">
