@@ -45,7 +45,7 @@ I Jar del progetto possono essere scaricati dal seguente link: [Jars](N/A).
 Le seguenti istruzioni descrivono come eseguire il client CLI o GUI.
 
 #### CLI
-Per lanciare Santorini Client CLI digitare il comando:
+Per lanciare Santorini Client CLI digitare da terminale il comando:
 ```
 java -jar santorini-client.jar --cli
 ```
@@ -54,11 +54,11 @@ Per poter lanciare la modalità GUI sono disponibili 2 modalità:
 - effettuare doppio click sull'eseguibile ```santorini-client.jar```
 - digitare da terminale il comando:
 ```
-java santorini-client.jar
+java -jar santorini-client.jar
 ```
 
 ### Santorini Server
-Per lanciare Santorini Server digitare il comando:
+Per lanciare Santorini Server digitare da terminale il comando:
 ```
 java -jar santorini-server.jar [--port <port_number>]
 ```
