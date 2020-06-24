@@ -129,7 +129,7 @@ public interface View {
     /**
      * Asks the user if he wants to enable the effect.
      */
-    void askEnableEffect(boolean forceAplly);
+    void askEnableEffect(boolean forceApply);
 
     /**
      * Shows the match info.
