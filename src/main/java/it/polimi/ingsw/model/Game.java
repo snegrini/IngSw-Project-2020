@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This Class represents the whole Game.
+ */
 public class Game extends Observable implements Serializable {
 
     private static final long serialVersionUID = 4405183481677036856L;
@@ -32,6 +35,9 @@ public class Game extends Observable implements Serializable {
     private List<God> gods;
     private int chosenPlayersNumber;
 
+    /**
+     * Default constructor.
+     */
     private Game() {
         this.board = new Board();
         this.players = new ArrayList<>();
@@ -47,7 +53,14 @@ public class Game extends Observable implements Serializable {
         return instance;
     }
 
-
+    /**
+     * Restore an instance of the Game saved on a file.
+     * @param instance Instance of the saved Game.
+     * @param board Board of the saved Game.
+     * @param players Player List of the saved Game.
+     * @param gods God List of the saved Game.
+     * @param chosenPlayersNumber Number of Players playing in the saved Game.
+     */
     public void restoreGame(Game instance, Board board, List<Player> players, List<God> gods, int chosenPlayersNumber) {
         //this.instance = instance;
         //this.board = board;

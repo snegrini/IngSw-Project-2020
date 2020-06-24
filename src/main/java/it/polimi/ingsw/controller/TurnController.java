@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This Class contains all methods used for manage every single turn of the match.
+ */
 public class TurnController implements Serializable {
 
     private static final long serialVersionUID = -5987205913389392005L;
@@ -31,7 +34,11 @@ public class TurnController implements Serializable {
 
     private final GameController gameController;
 
-
+    /**
+     * Constructor of the Turn Controller.
+     * @param virtualViewMap Virtual View Map of all Clients.
+     * @param gameController Game Controller.
+     */
     public TurnController(Map<String, VirtualView> virtualViewMap, GameController gameController) {
         this.game = Game.getInstance();
         nicknameQueue = new ArrayList<>(game.getPlayersNicknames());
@@ -210,6 +217,10 @@ public class TurnController implements Serializable {
         }
     }
 
+    /**
+     * Change phase of the active turn.
+     * @param virtualView Virtual View of active Player.
+     */
     private void continueGame(VirtualView virtualView) {
         switch (getPhaseType()) {
             case YOUR_MOVE:
@@ -232,6 +243,10 @@ public class TurnController implements Serializable {
         }
     }
 
+    /**
+     * Method for Lose Phase: if there are 3 players then remove the looser's worker and continue the game
+     * else call endGame() and finish the Game.
+     */
     private void lose() {
         // if players.size == 3 then remove looser's workers from board. And notify all.
         // else endgame.
@@ -253,6 +268,9 @@ public class TurnController implements Serializable {
         }
     }
 
+    /**
+     * Broadcast Match Info to all Clients.
+     */
     private void broadcastMatchInfo() {
         List<ReducedGod> gods = new ArrayList<>();
         for (String s : nicknameQueue) {
@@ -350,6 +368,10 @@ public class TurnController implements Serializable {
         return nicknameQueue;
     }
 
+    /**
+     * Set the virtual view map.
+     * @param virtualViewMap Virtual View Map.
+     */
     public void setVirtualViewMap(Map<String, VirtualView> virtualViewMap) {
         this.virtualViewMap = virtualViewMap;
     }

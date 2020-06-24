@@ -17,15 +17,27 @@ public class ReducedWorker implements Serializable {
     private final Color color;
     private final Position position;
 
+    /**
+     * Default constructor.
+     * @param worker
+     */
     public ReducedWorker(Worker worker) {
         this.color = worker.getColor();
         this.position = worker.getPosition();
     }
 
+    /**
+     * Return the Color of the Worker.
+     * @return Color of the Worker.
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Return the Position of the Worker.
+     * @return Position of the Worker.
+     */
     public Position getPosition() {
         return position;
     }

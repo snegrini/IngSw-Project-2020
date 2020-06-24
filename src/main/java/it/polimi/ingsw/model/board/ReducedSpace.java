@@ -15,6 +15,10 @@ public class ReducedSpace implements Serializable {
     private final boolean dome;
     private final ReducedWorker reducedWorker;
 
+    /**
+     * Constructor of Reduced Space.
+     * @param space space to reduce.
+     */
     public ReducedSpace(Space space) {
         this.level = space.getLevel();
         this.dome = space.hasDome();
@@ -26,14 +30,26 @@ public class ReducedSpace implements Serializable {
         }
     }
 
+    /**
+     * Returns the level of the reduced space.
+     * @return level.
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Returns the presence of a dome on a space.
+     * @return {code @true} if contains a Dome {code @false} otherwise.
+     */
     public boolean hasDome() {
         return dome;
     }
 
+    /**
+     * Return the occupant reduced worker on the space.
+     * @return Reduced Worker.
+     */
     public ReducedWorker getReducedWorker() {
         return reducedWorker;
     }

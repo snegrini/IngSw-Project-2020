@@ -11,6 +11,10 @@ public class SimpleEffect extends Effect {
 
     private static final long serialVersionUID = 6467254688715458424L;
 
+    /**
+     * Default constructor
+     * @param phaseType Phase Type of the Effect.
+     */
     public SimpleEffect(PhaseType phaseType) {
         super.setPhaseType(phaseType);
     }

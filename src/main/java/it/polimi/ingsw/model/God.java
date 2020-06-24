@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This Class represents the God object.
+ */
 public class God implements Serializable {
 
     private static final long serialVersionUID = 92615339614352879L;
@@ -17,6 +20,10 @@ public class God implements Serializable {
     private final String description;
     private final List<Effect> effects;
 
+    /**
+     * Default constructor.
+     * @param builder
+     */
     private God(Builder builder) {
         this.name = builder.name;
         this.caption = builder.caption;
@@ -24,14 +31,26 @@ public class God implements Serializable {
         this.effects = builder.effects;
     }
 
+    /**
+     * Return the name of the God.
+     * @return name of the God.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Return the caption of the God.
+     * @return caption of the God.
+     */
     public String getCaption() {
         return caption;
     }
 
+    /**
+     * Return the description of the God.
+     * @return description of the God.
+     */
     public String getDescription() {
         return description;
     }
@@ -84,25 +103,49 @@ public class God implements Serializable {
         private String description;
         private List<Effect> effects;
 
+        /**
+         * Default constructor.
+         * @param name
+         */
         public Builder(String name) {
             this.name = name;
         }
 
+        /**
+         * Return a Builder with caption.
+         * @param caption caption of the builder.
+         * @return Builder with caption.
+         */
         public Builder withCaption(String caption) {
             this.caption = caption;
             return this;
         }
 
+
+        /**
+         * Return a Builder with description.
+         * @param description description of the builder.
+         * @return Builder with description.
+         */
         public Builder withDescription(String description) {
             this.description = description;
             return this;
         }
 
+        /**
+         * Return a Builder with effects.
+         * @param effects effects of the builder.
+         * @return Builder with effects.
+         */
         public Builder withEffects(List<Effect> effects) {
             this.effects = effects;
             return this;
         }
 
+        /**
+         * Return the God builded.
+         * @return God builded with Builder.
+         */
         public God build() {
             return new God(this);
         }
