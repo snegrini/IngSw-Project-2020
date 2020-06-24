@@ -14,6 +14,9 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * This Class represents the single Worker object which contains the main info and methods.
+ */
 public class Worker implements Serializable {
 
     private static final long serialVersionUID = 773685750902018150L;
@@ -23,17 +26,29 @@ public class Worker implements Serializable {
     private History history;
     private final Set<MoveType> lockedMovements;
 
+    /**
+     * Default constructor.
+     * @param position Initial Position of the Worker.
+     */
     public Worker(Position position) {
         this.position = position;
         this.history = new History();
         this.lockedMovements = new HashSet<>();
     }
 
+    /**
+     * Constructor with color.
+     * @param color Color of the Worker.
+     */
     public Worker(Color color) {
         this.color = color;
         this.lockedMovements = new HashSet<>();
     }
 
+    /**
+     * Set the initial Position of the Worker.
+     * @param position Position of the Worker.
+     */
     public void initPosition(Position position) {
         this.position = position;
         this.history = new History();
@@ -173,6 +188,10 @@ public class Worker implements Serializable {
         history.setBuildPosition(position);
     }
 
+    /**
+     * Return the Position of the Worker.
+     * @return Position of the Worker.
+     */
     public Position getPosition() {
         return position;
     }
@@ -241,11 +260,18 @@ public class Worker implements Serializable {
         lockedMovements.clear();
     }
 
-
+    /**
+     * Return the Color of the Worker.
+     * @return Color of the Worker.
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Set the Color of the Worker.
+     * @param color Color of the Worker.
+     */
     public void setColor(Color color) {
         this.color = color;
     }

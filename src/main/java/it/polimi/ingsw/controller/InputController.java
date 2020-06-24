@@ -12,6 +12,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class verifies that all messages sent by client contain valid information.
+ */
 public class InputController implements Serializable {
 
     private static final long serialVersionUID = 7413156215358698632L;
@@ -21,12 +24,22 @@ public class InputController implements Serializable {
     private final GameController gameController;
     private TurnController turnController;
 
+    /**
+     * Constructor of the Input Controller Class.
+     * @param virtualViewMap Virtual View Map.
+     * @param gameController Game Controller.
+     */
     public InputController(Map<String, VirtualView> virtualViewMap, GameController gameController) {
         this.game = Game.getInstance();
         this.virtualViewMap = virtualViewMap;
         this.gameController = gameController;
     }
 
+    /**
+     * Verify data sent by client to server.
+     * @param message Message from Client.
+     * @return {code @true} if Message contains valid data {@code false} otherwise.
+     */
     public boolean verifyReceivedData(Message message) {
 
         switch (message.getMessageType()) {
@@ -58,6 +71,12 @@ public class InputController implements Serializable {
 
     }
 
+    /**
+     * Check if a nickname is valid or not.
+     * @param nickname new client's nickname.
+     * @param view view for active client.
+     * @return {code @true} if it's a valid nickname {code @false} otherwise.
+     */
     public boolean checkLoginNickname(String nickname, View view) {
         if (nickname.isEmpty() || nickname.equalsIgnoreCase(Game.SERVER_NICKNAME)) {
             view.showGenericMessage("Forbidden name.");
@@ -71,11 +90,21 @@ public class InputController implements Serializable {
         return true;
     }
 
+    /**
+     * Check of Pick Moving Worker message.
+     * @param message message from client.
+     * @return {code @true} if it's a valid position {code @false} otherwise.
+     */
     private boolean pickMovingCheck(Message message) {
         // TODO
         return true;
     }
 
+    /**
+     * Check initializing workers positions.
+     * @param message message from client.
+     * @return {code @true} if are two valid position {code @false} otherwise.
+     */
     private boolean workerPositionsCheck(Message message) {
 
         if (((PositionMessage) message).getPositionList().size() == 2) {
@@ -100,6 +129,11 @@ public class InputController implements Serializable {
         }
     }
 
+    /**
+     * Check player number reply message.
+     * @param message message from client.
+     * @return {code @true} if it's a valid number {code @false} otherwise.
+     */
     private boolean playerNumberReplyCheck(Message message) {
         PlayerNumberReply playerNumberReply = (PlayerNumberReply) message;
 
@@ -112,6 +146,11 @@ public class InputController implements Serializable {
         }
     }
 
+    /**
+     * Check of Moving Worker message.
+     * @param message message from client.
+     * @return {code @true} if it's a valid position {code @false} otherwise.
+     */
     private boolean moveCheck(Message message) {
         VirtualView virtualView = virtualViewMap.get(message.getNickname());
         PositionMessage positionMessage = ((PositionMessage) message);
@@ -127,6 +166,11 @@ public class InputController implements Serializable {
         }
     }
 
+    /**
+     * Check God List messages.
+     * @param message message from client.
+     * @return {code @true} if it's a valid set of gods {code @false} otherwise.
+     */
     private boolean godListCheck(Message message) {
 
         GodListMessage godListMessage = (GodListMessage) message;
@@ -148,7 +192,11 @@ public class InputController implements Serializable {
         }
     }
 
-
+    /**
+     * Check Color messages.
+     * @param message message from client.
+     * @return {code @true} if it's a valid color {code @false} otherwise.
+     */
     private boolean colorCheck(Message message) {
 
         if (((ColorsMessage) message).getColorList().size() == 1) {
@@ -167,7 +215,11 @@ public class InputController implements Serializable {
 
     }
 
-
+    /**
+     * Check of Building Worker message.
+     * @param message message from client.
+     * @return {code @true} if it's a valid position {code @false} otherwise.
+     */
     private boolean buildCheck(Message message) {
 
         VirtualView virtualView = virtualViewMap.get(message.getNickname());
@@ -215,10 +267,18 @@ public class InputController implements Serializable {
     }
 
 
+    /**
+     * Set the actual turn controller.
+     * @param turnController active turn controller.
+     */
     public void setTurnController(TurnController turnController) {
         this.turnController = turnController;
     }
 
+    /**
+     * Set the virtual view map.
+     * @param virtualViewMap Virtual View Map.
+     */
     public void setVirtualViewMap(Map<String, VirtualView> virtualViewMap) {
         this.virtualViewMap = virtualViewMap;
     }

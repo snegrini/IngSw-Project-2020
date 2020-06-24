@@ -16,20 +16,37 @@ public class ReducedGod implements Serializable {
     private final String caption;
     private final String description;
 
+    /**
+     * Default constructor.
+     * @param god God to reduce.
+     */
     public ReducedGod(God god) {
         this.name = god.getName();
         this.caption = god.getCaption();
         this.description = god.getDescription();
     }
 
+    /**
+     * Return the name of the God.
+     * @return name of the God.
+     */
     public String getName() {
         return name;
     }
 
+
+    /**
+     * Return the caption of the God.
+     * @return caption of the God.
+     */
     public String getCaption() {
         return caption;
     }
 
+    /**
+     * Return the description of the God.
+     * @return description of the God.
+     */
     public String getDescription() {
         return description;
     }

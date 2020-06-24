@@ -23,6 +23,9 @@ public abstract class Effect extends Observable implements Serializable {
     private PhaseType phaseType;
     private Map<XMLName, TargetType> targetTypeMap;
 
+    /**
+     * Default constructor.
+     */
     protected Effect() {
         targetTypeMap = new HashMap<>();
     }
@@ -58,6 +61,10 @@ public abstract class Effect extends Observable implements Serializable {
      */
     public abstract void clear(Worker worker);
 
+    /**
+     * Return the phase type of this Effect.
+     * @return Phase Type of current Effect.
+     */
     public PhaseType getPhaseType() {
         return phaseType;
     }
@@ -74,21 +81,43 @@ public abstract class Effect extends Observable implements Serializable {
         }
     }
 
+    /**
+     * Return the target type of the Effect.
+     * @param xmlName Name from file.
+     * @return Target Type.
+     */
     public TargetType getTargetType(XMLName xmlName) {
         return targetTypeMap.get(xmlName);
     }
 
+    /**
+     * Add a Target Type to the map.
+     * @param xmlName Name from file.
+     * @param targetType Target Type to add.
+     */
     public void addTargetType(XMLName xmlName, TargetType targetType) {
         targetTypeMap.put(xmlName, targetType);
     }
 
+    /**
+     * Return the map of the target type.
+     * @return Map of Target Type.
+     */
     protected Map<XMLName, TargetType> getTargetTypeMap() {
         return targetTypeMap;
     }
 
+    /**
+     * Set the target type map.
+     * @param targetTypeMap Target Type Map.
+     */
     protected void setTargetTypeMap(Map<XMLName, TargetType> targetTypeMap) {
         this.targetTypeMap = targetTypeMap;
     }
 
+    /**
+     * Returns if this Effect needs a user confirm in order to be activated.
+     * @return {code @true} if Effect needs a user confirm {code @false} otherwise.
+     */
     public abstract boolean isUserConfirmNeeded();
 }

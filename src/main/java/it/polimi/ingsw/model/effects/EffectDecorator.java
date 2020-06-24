@@ -34,10 +34,18 @@ public abstract class EffectDecorator extends Effect {
         return Boolean.parseBoolean(requirements.getOrDefault(XMLName.USERCONFIRM.getText(), "true"));
     }
 
+    /**
+     * Set requirements of Effect.
+     * @param requirements requirements of Effect.
+     */
     protected void setRequirements(Map<String, String> requirements) {
         this.requirements = requirements;
     }
 
+    /**
+     * Get Requirements of Effect.
+     * @return Requirements of Effect.
+     */
     protected Map<String, String> getRequirements() {
         return requirements;
     }

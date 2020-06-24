@@ -24,6 +24,9 @@ public class History implements Serializable {
     private static final String MOVE = "MOVE";
     private static final String BUILD = "BUILD";
 
+    /**
+     * Default constructor.
+     */
     public History() {
         this.lastPositions = new HashMap<>();
         this.lastLevels = new HashMap<>();
@@ -39,26 +42,50 @@ public class History implements Serializable {
         this.lastLevels = new HashMap<>(history.lastLevels);
     }
 
+    /**
+     * Return the last position of the move.
+     * @return last position.
+     */
     public Position getMovePosition() {
         return lastPositions.get(MOVE);
     }
 
+    /**
+     * Set the last position of the move.
+     * @param lastPosition last position.
+     */
     public void setMovePosition(Position lastPosition) {
         this.lastPositions.put(MOVE, lastPosition);
     }
 
+    /**
+     * Return the previous level of the worker.
+     * @return last level.
+     */
     public int getMoveLevel() {
         return lastLevels.get(MOVE);
     }
 
+    /**
+     * Set the previous level of the worker.
+     * @param lastLevel last level.
+     */
     public void setMoveLevel(int lastLevel) {
         this.lastLevels.put(MOVE, lastLevel);
     }
 
+    /**
+     * Return the last position of the build.
+     * @return last position.
+     */
     public Position getBuildPosition() {
         return lastPositions.get(BUILD);
     }
 
+    /**
+     * Set the last position of the build.
+     * @return last position.
+     */
     public void setBuildPosition(Position lastPosition) {
         this.lastPositions.put(BUILD, lastPosition);
     }

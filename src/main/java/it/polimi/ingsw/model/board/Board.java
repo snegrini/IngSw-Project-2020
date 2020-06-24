@@ -36,6 +36,10 @@ public class Board extends Observable implements Serializable {
         initSpaces();
     }
 
+    /**
+     * Restore the board from file.
+     * @param spaces Spaces saved on file.
+     */
     public void restoreBoard(Space[][] spaces) {
         this.spaces = spaces;
     }
@@ -54,13 +58,6 @@ public class Board extends Observable implements Serializable {
         // <--
     }
 
-    // TODO REMOVE ME!!!
-    /*private void debugWinConditions() {
-        spaces[0][1].increaseLevel(2);
-        spaces[1][1].increaseLevel(2);
-        spaces[2][1].increaseLevel(2);
-        // spaces[2][0].increaseLevel(2);
-    }*/
 
     /**
      * Sets the workers on the board at the worker position. This method should be called only on game start.
