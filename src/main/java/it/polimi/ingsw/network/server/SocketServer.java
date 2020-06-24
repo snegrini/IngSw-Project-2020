@@ -9,7 +9,7 @@ import java.net.Socket;
 public class SocketServer implements Runnable {
     private final Server server;
     private final int port;
-    private ServerSocket serverSocket;
+    ServerSocket serverSocket;
 
     public SocketServer(Server server, int port) {
         this.server = server;
@@ -20,8 +20,10 @@ public class SocketServer implements Runnable {
     public void run() {
         try {
             serverSocket = new ServerSocket(port);
+            Server.LOGGER.info("Socket server started on port " + port + ".");
         } catch (IOException e) {
-            Server.LOGGER.severe("Server didn't start");
+            Server.LOGGER.severe("Server could not start!");
+            return;
         }
 
         while (!Thread.currentThread().isInterrupted()) {

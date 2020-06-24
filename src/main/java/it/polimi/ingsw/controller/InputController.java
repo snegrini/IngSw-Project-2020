@@ -92,6 +92,7 @@ public class InputController implements Serializable {
 
     /**
      * Check of Pick Moving Worker message.
+     *
      * @param message message from client.
      * @return {code @true} if it's a valid position {code @false} otherwise.
      */

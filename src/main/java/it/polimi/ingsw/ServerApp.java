@@ -21,11 +21,5 @@ public class ServerApp {
         SocketServer socketServer = new SocketServer(server, serverPort);
         Thread thread = new Thread(socketServer, "socketserver_");
         thread.start();
-
-        int finalServerPort = serverPort;
-        Server.LOGGER.info(() -> "Socket server started on port " + finalServerPort + ".");
-
-
     }
-
 }

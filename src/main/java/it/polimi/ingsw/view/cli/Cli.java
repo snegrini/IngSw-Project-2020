@@ -314,9 +314,19 @@ public class Cli extends ViewObservable implements View {
         }
 
         out.println("Insert the position of the worker which you want to move:");
+
         try {
             int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
-            int chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
+
+            // Column must be filtered from positions with chosenRow as the row.
+            List<Position> availableColList = new ArrayList<>();
+            for (Position pos : positionList) {
+                if (chosenRow == pos.getRow()) {
+                    availableColList.add(pos);
+                }
+            }
+
+            int chosenColumn = numberInput(findMinColumn(availableColList), findMaxColumn(availableColList), null, STR_COLUMN);
 
             Position pos = new Position(chosenRow, chosenColumn);
             notifyObserver(obs -> obs.onUpdatePickMovingWorker(pos));
@@ -716,10 +726,20 @@ public class Cli extends ViewObservable implements View {
 
         int chosenRow;
         int chosenColumn;
+        List<Position> availableColList = new ArrayList<>();
 
         do {
             chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
-            chosenColumn = numberInput(findMinColumn(positionList), findMaxColumn(positionList), null, STR_COLUMN);
+
+            // Column must be filtered from positions with chosenRow as the row.
+            availableColList.clear();
+            for (Position pos : positionList) {
+                if (chosenRow == pos.getRow()) {
+                    availableColList.add(pos);
+                }
+            }
+
+            chosenColumn = numberInput(findMinColumn(availableColList), findMaxColumn(availableColList), null, STR_COLUMN);
         } while (waitForUndo());
 
         return new Position(chosenColumn, chosenRow);
