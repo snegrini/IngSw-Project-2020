@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This Class contains all methods used for manage every single turn of the match.
+ * This Class contains all methods used to manage every single turn of the match.
  */
 public class TurnController implements Serializable {
 
