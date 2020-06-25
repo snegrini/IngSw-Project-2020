@@ -14,6 +14,9 @@ import java.util.List;
 
 public class Gui extends ViewObservable implements View {
 
+    private static final String STR_ERROR = "ERROR";
+    private static final String MENU_SCENE_FXML = "menu_scene.fxml";
+
     @Override
     public void askNickname() {
         SceneController.changeRootPane(observers, "login_scene.fxml");
@@ -97,13 +100,13 @@ public class Gui extends ViewObservable implements View {
         if (!nicknameAccepted || !connectionSuccessful) {
             if (!nicknameAccepted && connectionSuccessful) {
                 Platform.runLater(() -> {
-                    SceneController.showAlert("ERROR", "Nickname already taken.");
+                    SceneController.showAlert(STR_ERROR, "Nickname already taken.");
                     SceneController.changeRootPane(observers, "login_scene.fxml");
                 });
             } else {
                 Platform.runLater(() -> {
-                    SceneController.showAlert("ERROR", "Could not contact server.");
-                    SceneController.changeRootPane(observers, "menu_scene.fxml");
+                    SceneController.showAlert(STR_ERROR, "Could not contact server.");
+                    SceneController.changeRootPane(observers, MENU_SCENE_FXML);
                 });
             }
         }
@@ -111,22 +114,22 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void showGenericMessage(String genericMessage) {
-
+        Platform.runLater(() -> SceneController.showAlert("Info Message", genericMessage));
     }
 
     @Override
     public void showDisconnectionMessage(String nicknameDisconnected, String text) {
         Platform.runLater(() -> {
             SceneController.showAlert("GAME OVER", "The player " + nicknameDisconnected + " disconnected.");
-            SceneController.changeRootPane(observers, "menu_scene.fxml");
+            SceneController.changeRootPane(observers, MENU_SCENE_FXML);
         });
     }
 
     @Override
-    public void showErrorAndExit(String error) {
+    public void showErrorAndExit(String errorMsg) {
         Platform.runLater(() -> {
-            SceneController.showAlert("ERROR", error);
-            SceneController.changeRootPane(observers, "menu_scene.fxml");
+            SceneController.showAlert(STR_ERROR, errorMsg);
+            SceneController.changeRootPane(observers, MENU_SCENE_FXML);
         });
     }
 

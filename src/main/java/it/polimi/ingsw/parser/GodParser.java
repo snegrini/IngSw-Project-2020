@@ -25,8 +25,6 @@ import static it.polimi.ingsw.model.enumerations.XMLName.*;
  */
 public class GodParser {
 
-    public static final String FILE_PATH = "/xml/";
-
     private GodParser() {
     }
 
@@ -38,11 +36,12 @@ public class GodParser {
      * @return the list of gods parsed from the XML file.
      */
     public static List<God> parseGods(String fileName) {
+        String filePath = "/xml/" + fileName;
         List<God> gods = new ArrayList<>();
         DocumentBuilder db;
         Document doc = null;
 
-        InputStream godsIs = GodParser.class.getResourceAsStream(FILE_PATH + fileName);
+        InputStream godsIs = GodParser.class.getResourceAsStream(filePath);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
         try {

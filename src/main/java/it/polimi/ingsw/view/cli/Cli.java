@@ -262,39 +262,50 @@ public class Cli extends ViewObservable implements View {
      */
     @Override
     public void askInitWorkerColor(List<Color> colorList) {
-
         out.println("Select your workers' color!");
+
+        try {
+            Color color = colorInput(colorList);
+
+            // only one color is chosen by a player
+            notifyObserver(obs -> obs.onUpdateWorkersColor(color));
+        } catch (ExecutionException e) {
+            out.println(STR_INPUT_CANCELED);
+        }
+    }
+
+    /**
+     * Asks the user for a color input. The color must available in the colorList parameter.
+     * A wrong color (not in the list) or an invalid input will result in a new request of the input.
+     *
+     * @param colorList list of available colors.
+     * @return the color picked by the user.
+     * @throws ExecutionException if the input stream thread is interrupted.
+     */
+    private Color colorInput(List<Color> colorList) throws ExecutionException {
+        String in;
+        Color color = null;
 
         String colorsStr = colorList.stream()
                 .map(Color::getText)
                 .collect(Collectors.joining(", "));
 
-        try {
-            String in;
-            Color color = null;
+        do {
+            out.print("Choose between " + colorsStr + ": ");
 
-            do {
-                out.print("Choose between " + colorsStr + ": ");
+            try {
+                in = readLine();
+                color = Color.valueOf(in.toUpperCase());
 
-                try {
-                    in = readLine();
-                    color = Color.valueOf(in.toUpperCase());
-
-                    if (!colorList.contains(color)) {
-                        out.println("Invalid color! Please try again.");
-                    }
-                } catch (IllegalArgumentException e) {
+                if (!colorList.contains(color)) {
                     out.println("Invalid color! Please try again.");
                 }
-            } while (!colorList.contains(color));
+            } catch (IllegalArgumentException e) {
+                out.println("Invalid color! Please try again.");
+            }
+        } while (!colorList.contains(color));
 
-            // only one color is chosen by a player
-            Color finalColor = color;
-            notifyObserver(obs -> obs.onUpdateWorkersColor(finalColor));
-        } catch (ExecutionException e) {
-            out.println(STR_INPUT_CANCELED);
-        }
-
+        return color;
     }
 
     /**
@@ -456,7 +467,7 @@ public class Cli extends ViewObservable implements View {
 
     @Override
     public void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
-
+        // Do nothing. Updates are reprinted to the terminal automatically by each method.
     }
 
     @Override

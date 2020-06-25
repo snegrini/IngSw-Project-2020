@@ -213,11 +213,7 @@ public class GameController implements Observer, Serializable {
     private boolean winConditions(Position destination) {
         int origLevel = turnController.getActiveWorker().getHistory().getMoveLevel();
         int destLevel = game.getSpaceLevel(destination);
-        if( 2 == origLevel && 3 == destLevel) {
-            return true;
-        } else {
-            return false;
-        }
+        return 2 == origLevel && 3 == destLevel;
     }
 
     /**

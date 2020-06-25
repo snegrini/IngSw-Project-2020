@@ -30,6 +30,8 @@ import static it.polimi.ingsw.view.gui.SceneController.GOD_IMAGE_PREFIX;
 
 public class BoardSceneController extends ViewObservable implements GenericSceneController {
 
+    private static final String GLASS_PANE_SELECTED = "glassPaneSelected";
+
     private int availablePositionClicks;
     private final List<Position> clickedPositionList;
     private MessageType spaceClickType;
@@ -151,7 +153,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         undoTimer.cancel();
         undoImg.setVisible(false);
         confirmBtn.setVisible(false);
-        tempNode.getStyleClass().remove("glassPaneSelected");
+        tempNode.getStyleClass().remove(GLASS_PANE_SELECTED);
         setEnabledSpaces(enabledSpaces);
 
         availablePositionClicks++;
@@ -177,6 +179,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 break;
             case MOVE_FX:
                 handleMoveFx(tempPosition);
+                break;
+            default:
                 break;
         }
 
@@ -225,7 +229,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private void waitForUndo(Node clickedNode, Position clickedPosition) {
         clickedNode.setDisable(true);
         disableAllSpaces();
-        clickedNode.getStyleClass().add("glassPaneSelected");
+        clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);
 
         undoImg.setVisible(true);
         confirmBtn.setVisible(true);
@@ -254,12 +258,12 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private void handleInitWorkers(Node clickedNode, Position clickedPosition) {
         clickedPositionList.add(clickedPosition);
         clickedNode.setDisable(true);
-        clickedNode.getStyleClass().add("glassPaneSelected");
+        clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);
 
         if (availablePositionClicks == 0) { // Last click done.
             // Disable all the spaces.
             disableAllSpaces();
-            removeCssClassFromAllSpaces("glassPaneSelected");
+            removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
 
             // Notify views only when all the required positions have been selected.
             Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateInitWorkerPosition(clickedPositionList)));
@@ -274,7 +278,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      */
     private void handlePickMovingWorker(Node clickedNode, Position clickedPosition) {
         disableAllSpaces();
-        clickedNode.getStyleClass().add("glassPaneSelected");
+        clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePickMovingWorker(clickedPosition)));
     }
 
@@ -285,7 +289,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      */
     private void handleMove(Position clickedPosition) {
         disableAllSpaces();
-        removeCssClassFromAllSpaces("glassPaneSelected");
+        removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateMove(clickedPosition)));
     }
 
@@ -306,7 +310,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      */
     private void handleMoveFx(Position clickedPosition) {
         disableAllSpaces();
-        removeCssClassFromAllSpaces("glassPaneSelected");
+        removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition)));
     }
 
@@ -317,7 +321,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      */
     private void handleBuildFx(Position clickedPosition) {
         disableAllSpaces();
-        removeCssClassFromAllSpaces("glassPaneSelected");
+        removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition)));
     }
 
