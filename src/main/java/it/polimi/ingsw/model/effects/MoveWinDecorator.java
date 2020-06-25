@@ -47,7 +47,6 @@ public class MoveWinDecorator extends EffectDecorator {
 
                 //nickname will be setted by controller.
                 notifyObserver(new WinMessage(null));
-
             }
         }
     }

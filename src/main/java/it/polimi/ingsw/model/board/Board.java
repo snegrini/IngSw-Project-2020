@@ -38,6 +38,7 @@ public class Board extends Observable implements Serializable {
 
     /**
      * Restore the board from file.
+     *
      * @param spaces Spaces saved on file.
      */
     public void restoreBoard(Space[][] spaces) {

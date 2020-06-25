@@ -92,5 +92,4 @@ public class MoveLockDecoratorTest {
 
         assertFalse(effect.require(worker));
     }
-
 }

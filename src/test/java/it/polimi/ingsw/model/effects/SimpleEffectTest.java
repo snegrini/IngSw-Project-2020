@@ -7,8 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static it.polimi.ingsw.model.enumerations.XMLName.PARAMETERS;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SimpleEffectTest {
 
@@ -46,8 +45,14 @@ public class SimpleEffectTest {
 
     @Test
     public void addAndGetTargetType() {
-        assertEquals(null, simpleEffect.getTargetType(PARAMETERS));
+        assertNull(simpleEffect.getTargetType(PARAMETERS));
         simpleEffect.addTargetType(PARAMETERS, TargetType.YOUR_ACTIVE_WORKER);
         assertEquals(TargetType.YOUR_ACTIVE_WORKER, simpleEffect.getTargetType(PARAMETERS));
     }
+
+    @Test
+    public void isUserConfirmNeeded() {
+        assertFalse(simpleEffect.isUserConfirmNeeded());
+    }
+
 }

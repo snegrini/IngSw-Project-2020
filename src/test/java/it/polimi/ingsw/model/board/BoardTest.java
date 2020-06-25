@@ -11,6 +11,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.polimi.ingsw.model.board.Board.MAX_COLUMNS;
+import static it.polimi.ingsw.model.board.Board.MAX_ROWS;
 import static org.junit.Assert.*;
 
 public class BoardTest {
@@ -35,6 +37,17 @@ public class BoardTest {
     public void getSpace() {
         assertNotNull(board.getSpace(new Position(0, 0)));
         assertEquals(space, board.getSpace(new Position(0, 0)));
+    }
+
+    @Test
+    public void getSpaces() {
+        Space[][] actualSpaces = board.getSpaces();
+
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
+                assertEquals(board.getSpace(i, j), actualSpaces[i][j]);
+            }
+        }
     }
 
     @Test
@@ -79,8 +92,8 @@ public class BoardTest {
     @Test
     public void getFreePositions_AllFree() {
         List<Position> expectedPositions = new ArrayList<>();
-        for (int i = 0; i < Board.MAX_ROWS; i++) {
-            for (int j = 0; j < Board.MAX_COLUMNS; j++) {
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
                 expectedPositions.add(new Position(i, j));
             }
         }
@@ -91,8 +104,8 @@ public class BoardTest {
     @Test
     public void getFreePositions_PositionOccupied() {
         List<Position> expectedPositions = new ArrayList<>();
-        for (int i = 0; i < Board.MAX_ROWS; i++) {
-            for (int j = 0; j < Board.MAX_COLUMNS; j++) {
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
                 expectedPositions.add(new Position(i, j));
             }
         }
@@ -239,8 +252,8 @@ public class BoardTest {
 
         ReducedSpace[][] reducedSpaces = board.getReducedSpaceBoard();
 
-        for (int i = 0; i < Board.MAX_ROWS; i++) {
-            for (int j = 0; j < Board.MAX_COLUMNS; j++) {
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
                 assertEquals(0, reducedSpaces[i][j].getLevel());
                 assertFalse(reducedSpaces[i][j].hasDome());
             }
@@ -298,5 +311,19 @@ public class BoardTest {
 
         assertEquals(w1, board.getSpace(p2).getWorker());
         assertEquals(w2, board.getSpace(p1).getWorker());
+    }
+
+    @Test
+    public void restoreBoard() {
+        Space[][] restoredSpaces = new Space[MAX_ROWS][MAX_COLUMNS];
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
+                restoredSpaces[i][j] = new Space();
+            }
+        }
+
+        assertNotEquals(restoredSpaces, board.getSpaces());
+        board.restoreBoard(restoredSpaces);
+        assertArrayEquals(restoredSpaces, board.getSpaces());
     }
 }

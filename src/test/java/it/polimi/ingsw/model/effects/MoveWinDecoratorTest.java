@@ -22,7 +22,7 @@ public class MoveWinDecoratorTest {
     private Effect effect;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         effect = new MoveWinDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), Map.of(),
                 MoveType.DOWN, 2);
 
@@ -49,7 +49,7 @@ public class MoveWinDecoratorTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         effect = null;
         Game.resetInstance();
     }
@@ -67,9 +67,7 @@ public class MoveWinDecoratorTest {
         assertTrue(effect.require(worker));
         effect.prepare(worker);
         effect.apply(worker, new Position(1, 0));
+        effect.clear(worker);
     }
 
-    @Test
-    public void applyEffect_PlayerNotWin() {
-    }
 }

@@ -3,14 +3,14 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.effects.SimpleEffect;
 import it.polimi.ingsw.model.enumerations.PhaseType;
-import it.polimi.ingsw.observer.Observer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class GodTest {
 
@@ -48,16 +48,8 @@ public class GodTest {
     @Test
     public void equals_God() {
         God god2 = new God.Builder("Name Test").build();
-        assertTrue(god.equals(god2) && god.equals(god2));
-        assertTrue(god.hashCode() == god.hashCode());
-    }
-
-    @Test
-    public void addObserverToAllEffects() throws IllegalAccessException {
-        Observer obs = message -> {
-        };
-        god.addObserverToAllEffects(obs);
-        Effect effect = god.getEffectByType(PhaseType.YOUR_BUILD);
+        assertEquals(god, god2);
+        assertEquals(god.hashCode(), god2.hashCode());
     }
 
     @Test
@@ -78,7 +70,7 @@ public class GodTest {
     @Test
     public void equals_ReducedGod() {
         ReducedGod r2 = new ReducedGod(god);
-        assertTrue(reducedGod.equals(r2) && reducedGod.equals(r2));
-        assertTrue(reducedGod.hashCode() == r2.hashCode());
+        assertEquals(reducedGod, r2);
+        assertEquals(reducedGod.hashCode(), r2.hashCode());
     }
 }

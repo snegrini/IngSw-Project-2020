@@ -76,6 +76,9 @@ public class WorkerTest {
         Board board = Game.getInstance().getBoard();
         Worker w2 = new Worker(new Position(4, 4));
         w2.setColor(Color.BLUE);
+        assertEquals("BLUE", Color.BLUE.getText());
+        assertEquals(Color.BLUE.getText(), Color.BLUE.toString());
+
         board.getSpace(4, 4).setWorker(w2);
 
         List<Position> listPositionResult = new ArrayList<>();

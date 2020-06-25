@@ -121,7 +121,8 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * Return a list of positions only of the player's workers that can be moved.
+     * Returns a list of positions only of the player's workers that can be moved.
+     *
      * @return Position List of Workers.
      */
     public List<Position> getValidWorkersPositions() {
@@ -131,7 +132,6 @@ public class Player extends Observable implements Serializable {
         for (Position p : tempPositionList) {
             List<Position> possibleMoves = getWorkerByPosition(p).getPossibleMoves();
             List<Position> tempPossibleMoves = getWorkerByPosition(p).getPossibleMoves();
-
 
             if (possibleMoves.isEmpty()) {
                 Effect effect = this.getGod().getEffectByType(PhaseType.YOUR_MOVE);
@@ -152,7 +152,6 @@ public class Player extends Observable implements Serializable {
                 if (possibleMoves.isEmpty()) {
                     positionList.remove(p);
                 }
-
             }
         }
 
