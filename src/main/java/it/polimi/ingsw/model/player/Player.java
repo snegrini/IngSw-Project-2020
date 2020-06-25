@@ -20,7 +20,7 @@ public class Player extends Observable implements Serializable {
     private static final long serialVersionUID = 7470069648548034935L;
 
     private final String nickname;
-    private List<Worker> workers;
+    private final List<Worker> workers;
     private God god;
     private PlayerState state;
 
