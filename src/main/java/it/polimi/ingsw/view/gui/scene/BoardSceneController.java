@@ -307,6 +307,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      */
     private void handleBuild(Position clickedPosition) {
         disableAllSpaces();
+        removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
         new Thread(() -> notifyObserver(obs -> obs.onUpdateBuild(clickedPosition))).start();
     }
 
