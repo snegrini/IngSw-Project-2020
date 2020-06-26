@@ -119,8 +119,9 @@ public class GameController implements Observer, Serializable {
                 }
                 break;
             case PICK_FIRST_PLAYER:
-                // TODO check input
-                pickFirstPlayerHandler(((UsersInfoMessage) receivedMessage).getActivePlayerNickname());
+                if (inputController.checkFirstPlayerHandler(receivedMessage)) {
+                    pickFirstPlayerHandler(((UsersInfoMessage) receivedMessage).getActivePlayerNickname());
+                }
                 break;
             case INIT_COLORS:
                 if (inputController.verifyReceivedData(receivedMessage)) {
@@ -167,7 +168,7 @@ public class GameController implements Observer, Serializable {
                 applyEffect((PositionMessage) receivedMessage);
                 break;
             default:
-                // TODO show exception
+               // TODO
                 break;
         }
     }
@@ -319,9 +320,9 @@ public class GameController implements Observer, Serializable {
     /**
      * Broadcasts the winner, disconnects all clients and resets whole game.
      */
-    private void win() {
+    public void win() {
         broadcastWinMessage(turnController.getActivePlayer());
-        disconnectAllClients();
+        //disconnectAllClients();
         endGame();
     }
 
