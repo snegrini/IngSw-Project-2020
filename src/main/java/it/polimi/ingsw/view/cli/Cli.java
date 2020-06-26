@@ -753,7 +753,7 @@ public class Cli extends ViewObservable implements View {
             chosenColumn = numberInput(findMinColumn(availableColList), findMaxColumn(availableColList), null, STR_COLUMN);
         } while (waitForUndo());
 
-        return new Position(chosenColumn, chosenRow);
+        return new Position(chosenRow, chosenColumn);
     }
 
     /**
