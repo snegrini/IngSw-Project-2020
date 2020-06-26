@@ -10,8 +10,12 @@ public class ServerApp {
         int serverPort = 16847; // default value
 
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("--port") || args[i].equals("-p")) {
-                serverPort = Integer.parseInt(args[i + 1]);
+            if (args.length >= 2 && (args[i].equals("--port") || args[i].equals("-p"))) {
+                try {
+                    serverPort = Integer.parseInt(args[i + 1]);
+                } catch (NumberFormatException e) {
+                    Server.LOGGER.warning("Invalid port specified. Using default port.");
+                }
             }
         }
 
