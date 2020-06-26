@@ -24,8 +24,8 @@
                     <children>
                         <AnchorPane prefHeight="703.0" prefWidth="1264.0" styleClass="boardPane">
                             <children>
-                                <ImageView fitHeight="127.0" fitWidth="127.0" layoutX="1072.0" layoutY="281.0"
-                                           pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="undoBg" fitHeight="127.0" fitWidth="127.0" layoutX="1072.0"
+                                           layoutY="281.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../images/banners/confirm_banner.png"/>
                                     </image>
@@ -76,8 +76,8 @@
                                 <ImageView fx:id="god2Image" fitHeight="150.0" fitWidth="120.0" layoutX="140.0"
                                            layoutY="327.0" pickOnBounds="true" preserveRatio="true"
                                            styleClass="playerGodImage"/>
-                                <ImageView fitHeight="41.0" fitWidth="157.0" layoutX="123.0" layoutY="488.0"
-                                           pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="player3Img" fitHeight="41.0" fitWidth="157.0" layoutX="123.0"
+                                           layoutY="488.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../images/blocco.png"/>
                                     </image>
@@ -91,8 +91,8 @@
                                 <ImageView fx:id="god3Image" fitHeight="150.0" fitWidth="120.0" layoutX="141.0"
                                            layoutY="530.0" pickOnBounds="true" preserveRatio="true"
                                            styleClass="playerGodImage"/>
-                                <ImageView fx:id="effectImage" fitHeight="150.0" fitWidth="200.0" layoutX="1060.0"
-                                           layoutY="466.0" pickOnBounds="true" preserveRatio="true"
+                                <ImageView fx:id="effectImage" disable="true" fitHeight="150.0" fitWidth="200.0"
+                                           layoutX="1060.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true"
                                            styleClass="effectImage">
                                     <image>
                                         <Image url="@../images/buttons/heropower_inactive.png"/>
@@ -108,7 +108,8 @@
                                         <Image url="@../images/blocco.png"/>
                                     </image>
                                 </ImageView>
-                                <Label fx:id="turnInformationLabel" layoutX="603.0" layoutY="655.0"
+                                <Label fx:id="turnInformationLabel" alignment="CENTER" contentDisplay="CENTER"
+                                       layoutX="559.0" layoutY="655.0" prefHeight="26.0" prefWidth="186.0"
                                        styleClass="customText" text="Label">
                                     <font>
                                         <Font size="14.0"/>

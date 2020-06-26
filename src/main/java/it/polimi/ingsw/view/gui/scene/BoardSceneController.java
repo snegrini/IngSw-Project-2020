@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.player.ReducedWorker;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.view.gui.SceneController;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -57,9 +56,13 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     @FXML
     private Label player3Label;
     @FXML
+    private ImageView player3Img;
+    @FXML
     private ImageView god3Image;
     @FXML
     private ImageView undoImg;
+    @FXML
+    private ImageView undoBg;
     @FXML
     private Label timerLbl;
     @FXML
@@ -84,7 +87,6 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         undoImg.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onUndoImgClick);
         confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConfirmBtnClick);
 
-
         god1Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod1ImageClick);
         god2Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod2ImageClick);
         god3Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod3ImageClick);
@@ -97,6 +99,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
         timerLbl.setVisible(false);
         undoImg.setVisible(false);
+        undoBg.setVisible(false);
         confirmBtn.setVisible(false);
         god3Image.setVisible(false);
 
@@ -151,7 +154,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     private void onUndoImgClick(MouseEvent event) {
         undoTimer.cancel();
+        timerLbl.setVisible(false);
         undoImg.setVisible(false);
+        undoBg.setVisible(false);
         confirmBtn.setVisible(false);
         tempNode.getStyleClass().remove(GLASS_PANE_SELECTED);
         setEnabledSpaces(enabledSpaces);
@@ -163,6 +168,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         undoTimer.cancel();
         timerLbl.setVisible(false);
         undoImg.setVisible(false);
+        undoBg.setVisible(false);
         confirmBtn.setVisible(false);
 
         availablePositionClicks--;
@@ -232,6 +238,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);
 
         undoImg.setVisible(true);
+        undoBg.setVisible(true);
         confirmBtn.setVisible(true);
         timerLbl.setVisible(true);
         tempNode = clickedNode;
@@ -266,7 +273,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
 
             // Notify views only when all the required positions have been selected.
-            Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateInitWorkerPosition(clickedPositionList)));
+            new Thread(() -> notifyObserver(obs -> obs.onUpdateInitWorkerPosition(clickedPositionList))).start();
         }
     }
 
@@ -279,7 +286,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private void handlePickMovingWorker(Node clickedNode, Position clickedPosition) {
         disableAllSpaces();
         clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePickMovingWorker(clickedPosition)));
+        new Thread(() -> notifyObserver(obs -> obs.onUpdatePickMovingWorker(clickedPosition))).start();
     }
 
     /**
@@ -290,7 +297,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private void handleMove(Position clickedPosition) {
         disableAllSpaces();
         removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateMove(clickedPosition)));
+        new Thread(() -> notifyObserver(obs -> obs.onUpdateMove(clickedPosition))).start();
     }
 
     /**
@@ -300,7 +307,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      */
     private void handleBuild(Position clickedPosition) {
         disableAllSpaces();
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateBuild(clickedPosition)));
+        new Thread(() -> notifyObserver(obs -> obs.onUpdateBuild(clickedPosition))).start();
     }
 
     /**
@@ -311,7 +318,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private void handleMoveFx(Position clickedPosition) {
         disableAllSpaces();
         removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition)));
+        new Thread(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition))).start();
     }
 
     /**
@@ -322,7 +329,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private void handleBuildFx(Position clickedPosition) {
         disableAllSpaces();
         removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition)));
+        new Thread(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition))).start();
     }
 
     /**
@@ -513,13 +520,17 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
             if (players.size() == 3 && gods.size() == 3) {
                 // Sets 3rd player information.
-                god3Image.setVisible(true);
                 player3Label.setText(players.get(2));
+
                 Image img3 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(2).getName().toLowerCase() + ".png"));
                 god3Image.setImage(img3);
+
+                god3Image.setVisible(true);
+                player3Img.setVisible(true);
             } else {
                 god3Image.setVisible(false);
                 player3Label.setVisible(false);
+                player3Img.setVisible(false);
             }
         } else {
             turnInformationLabel.setText("Turn Of " + activePlayer);
