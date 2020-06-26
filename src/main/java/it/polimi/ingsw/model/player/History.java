@@ -75,7 +75,8 @@ public class History implements Serializable {
     }
 
     /**
-     * Return the last position of the build.
+     * Returns the last position of the build.
+     *
      * @return last position.
      */
     public Position getBuildPosition() {
@@ -83,8 +84,8 @@ public class History implements Serializable {
     }
 
     /**
-     * Set the last position of the build.
-     * @return last position.
+     * Sets the last position of the build.
+     * @param lastPosition the last position of the build to be set.
      */
     public void setBuildPosition(Position lastPosition) {
         this.lastPositions.put(BUILD, lastPosition);
