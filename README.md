@@ -7,6 +7,11 @@ Il progetto consiste nell’implementazione di un sistema distribuito composto d
 Interazione e gameplay: linea di comando (CLI) e grafica (GUI).
 La rete è stata gestita con l'utilizzo delle socket.
 
+## Componenti del gruppo
+- [__Samuele Negrini__](https://github.com/snegrini)
+- [__Andrea Lanzi__](https://github.com/AndreaLanzi-PoliMi)
+- [__Samuel Kala__](https://github.com/samuelkala)
+
 ## Documentazione
 
 ### UML
@@ -64,8 +69,3 @@ java -jar santorini-server.jar [--port <port_number>]
 ```
 #### Parameters
 - `--port` `-p` : permette di specificare la porta del server. Se non specificato il valore di default è __16847__;
-
-## Componenti del gruppo
-- [__Samuele Negrini__](https://github.com/snegrini)
-- [__Andrea Lanzi__](https://github.com/AndreaLanzi-PoliMi)
-- [__Samuel Kala__](https://github.com/samuelkala)
