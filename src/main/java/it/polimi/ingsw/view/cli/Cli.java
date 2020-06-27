@@ -585,7 +585,7 @@ public class Cli extends ViewObservable implements View {
                 if (j == 0) {
                     if (spaces[i][j].hasDome()) {
                         strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  |  ")
-                                .append(Color.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |")
+                                .append(ColorCli.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |")
                                 .append(ColorCli.RESET);
                     } else {
                         if (spaces[i][j].getReducedWorker() != null) {
@@ -600,7 +600,7 @@ public class Cli extends ViewObservable implements View {
                     }
                 } else {
                     if (spaces[i][j].hasDome()) {
-                        strBoardBld.append("  ").append(Color.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
+                        strBoardBld.append("  ").append(ColorCli.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
                     } else {
                         if (spaces[i][j].getReducedWorker() != null) {
                             strBoardBld.append(" ").append(spaces[i][j].getLevel()).append(ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()))
