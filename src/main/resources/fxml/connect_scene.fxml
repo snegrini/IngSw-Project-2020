@@ -27,7 +27,7 @@
                   <ImageView fitHeight="51.0" fitWidth="297.0" layoutX="91.0" layoutY="267.0" pickOnBounds="true"
                              preserveRatio="true">
                      <image>
-                        <Image url="@../images/serverport2.png"/>
+                        <Image url="@../images/serverport.png"/>
                      </image>
                   </ImageView>
                   <TextField fx:id="serverAddressField" alignment="CENTER" layoutX="124.0" layoutY="220.0"
