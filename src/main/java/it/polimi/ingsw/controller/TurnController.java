@@ -299,7 +299,7 @@ public class TurnController implements Serializable {
                 newTurn();
                 break;
             default: // should never reach this condition.
-                // TODO
+                Server.LOGGER.warning("Invalid game phase!");
                 break;
         }
     }
@@ -341,7 +341,7 @@ public class TurnController implements Serializable {
                 newTurn();
                 break;
             default: // Should never reach this condition.
-                // TODO
+                Server.LOGGER.warning("Invalid game phase!");
                 break;
         }
     }

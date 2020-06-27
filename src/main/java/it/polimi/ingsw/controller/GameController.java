@@ -101,7 +101,7 @@ public class GameController implements Observer, Serializable {
                 broadcastGenericMessage("Waiting for other Players . . .");
             }
         } else {
-            // TODO show exception.
+           Server.LOGGER.warning("Wrong message received from client.");
         }
     }
 
@@ -168,7 +168,7 @@ public class GameController implements Observer, Serializable {
                 applyEffect((PositionMessage) receivedMessage);
                 break;
             default:
-               // TODO
+                Server.LOGGER.warning("Invalid game state!");
                 break;
         }
     }
