@@ -105,7 +105,8 @@ public class God implements Serializable {
 
         /**
          * Default constructor.
-         * @param name
+         *
+         * @param name the name of the god.
          */
         public Builder(String name) {
             this.name = name;

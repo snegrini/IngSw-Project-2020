@@ -253,6 +253,10 @@ public class ClientController implements ViewObserver, Observer {
             case BUILD_FX:
                 taskQueue.execute(() -> view.askBuildFx(((PositionMessage) message).getPositionList()));
                 break;
+            case WIN_FX:
+                WinMessage winMessage = (WinMessage) message;
+                taskQueue.execute(() -> view.showWinMessage(winMessage.getWinnerNickname()));
+                break;
             case LOBBY:
                 LobbyMessage lobbyMessage = (LobbyMessage) message;
                 taskQueue.execute(() -> view.showLobby(lobbyMessage.getNicknameList(), lobbyMessage.getMaxPlayers()));

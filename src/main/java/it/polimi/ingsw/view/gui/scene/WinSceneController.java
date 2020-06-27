@@ -12,6 +12,8 @@ import javafx.stage.StageStyle;
 public class WinSceneController implements GenericSceneController {
     private final Stage stage;
 
+    private String winnerNickname;
+
     @FXML
     private Label titleLbl;
     @FXML
@@ -29,6 +31,7 @@ public class WinSceneController implements GenericSceneController {
 
     @FXML
     public void initialize() {
+        nicknameLbl.setText(winnerNickname);
         okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);
     }
 
@@ -38,8 +41,8 @@ public class WinSceneController implements GenericSceneController {
         // TODO Close all and disconnect.
     }
 
-    public void setNicknameLbl(String str) {
-        nicknameLbl.setText(str);
+    public void setWinnerNickname(String winnerNickname) {
+        this.winnerNickname = winnerNickname;
     }
 
     public void displayAlert() {

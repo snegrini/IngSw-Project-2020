@@ -128,6 +128,8 @@ public interface View {
 
     /**
      * Asks the user if he wants to enable the effect.
+     *
+     * @param forceApply set to {@code true} to enable the effect without user interaction, {@code false} otherwise.
      */
     void askEnableEffect(boolean forceApply);
 

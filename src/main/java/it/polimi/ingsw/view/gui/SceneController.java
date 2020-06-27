@@ -39,6 +39,7 @@ public class SceneController extends ViewObservable {
      * @param observerList a list of observers to be set into the scene controller.
      * @param scene        the scene whose change the root panel. This will become the active scene.
      * @param fxml         the new scene fxml name. It must include the extension ".fxml" (i.e. next_scene.fxml).
+     * @param <T>          this is the type parameter.
      * @return the controller of the new scene loaded by the FXMLLoader.
      */
     public static <T> T changeRootPane(List<ViewObserver> observerList, Scene scene, String fxml) {
@@ -65,6 +66,7 @@ public class SceneController extends ViewObservable {
      * @param observerList a list of observers to be set into the scene controller.
      * @param event        the event which is happened into the scene.
      * @param fxml         the new scene fxml name. It must include the extension ".fxml" (i.e. next_scene.fxml).
+     * @param <T>          this is the type parameter.
      * @return the controller of the new scene loaded by the FXMLLoader.
      */
     public static <T> T changeRootPane(List<ViewObserver> observerList, Event event, String fxml) {
@@ -77,6 +79,7 @@ public class SceneController extends ViewObservable {
      *
      * @param observerList a list of observers to be set into the scene controller.
      * @param fxml         the new scene fxml name. It must include the extension ".fxml" (i.e. next_scene.fxml).
+     * @param <T>          this is the type parameter.
      * @return the controller of the new scene loaded by the FXMLLoader.
      */
     public static <T> T changeRootPane(List<ViewObserver> observerList, String fxml) {

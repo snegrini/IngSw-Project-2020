@@ -19,7 +19,8 @@ public class ReducedWorker implements Serializable {
 
     /**
      * Default constructor.
-     * @param worker
+     *
+     * @param worker the worker to produce a reduced version from.
      */
     public ReducedWorker(Worker worker) {
         this.color = worker.getColor();
@@ -28,6 +29,7 @@ public class ReducedWorker implements Serializable {
 
     /**
      * Return the Color of the Worker.
+     *
      * @return Color of the Worker.
      */
     public Color getColor() {
@@ -36,6 +38,7 @@ public class ReducedWorker implements Serializable {
 
     /**
      * Return the Position of the Worker.
+     *
      * @return Position of the Worker.
      */
     public Position getPosition() {

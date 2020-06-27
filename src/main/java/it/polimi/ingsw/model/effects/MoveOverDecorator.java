@@ -104,8 +104,8 @@ public class MoveOverDecorator extends EffectDecorator {
 
         if (swapSpace) {
             possibleMoves.addAll(adjOpponentPos);
-            // FIXME
-            possibleMoves.stream()
+
+            possibleMoves = possibleMoves.stream()
                     .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
                     .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
                     .collect(Collectors.toList());
@@ -118,8 +118,8 @@ public class MoveOverDecorator extends EffectDecorator {
                     possibleMoves.add(oppPos);
                 }
             }
-            // FIXME
-            possibleMoves.stream()
+
+            possibleMoves = possibleMoves.stream()
                     .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
                     .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
                     .collect(Collectors.toList());

@@ -136,7 +136,7 @@ public class TurnController implements Serializable {
     /**
      * Ask to Active Player which Worker want to Move.
      */
-    private void pickWorker() {
+    public void pickWorker() {
 
         Player player = game.getPlayerByNickname(getActivePlayer());
         List<Position> positionList = new ArrayList<>(player.getValidWorkersPositions());
@@ -260,10 +260,10 @@ public class TurnController implements Serializable {
             next();
             newTurn();
         } else {
-            // TODO call win from GameController?
-            next();
-            // newTurn();
 
+            next();
+            // next player wins.
+            gameController.win();
 
         }
     }
@@ -299,7 +299,7 @@ public class TurnController implements Serializable {
                 newTurn();
                 break;
             default: // should never reach this condition.
-                // TODO
+                Server.LOGGER.warning("Invalid game phase!");
                 break;
         }
     }
@@ -341,7 +341,7 @@ public class TurnController implements Serializable {
                 newTurn();
                 break;
             default: // Should never reach this condition.
-                // TODO
+                Server.LOGGER.warning("Invalid game phase!");
                 break;
         }
     }

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.enumerations.Color;
+import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
@@ -90,6 +91,18 @@ public class InputController implements Serializable {
         return true;
     }
 
+    public boolean checkFirstPlayerHandler(Message message) {
+        String firstPlayer = ((UsersInfoMessage) message).getActivePlayerNickname();
+        if(turnController.getNicknameQueue().contains(firstPlayer)){
+            return true;
+        } else {
+            VirtualView virtualView = virtualViewMap.get(message.getNickname());
+            virtualView.showGenericMessage("Incorrect First Player.");
+            virtualView.askFirstPlayer(turnController.getNicknameQueue(), gameController.getActiveGods());
+            return false;
+        }
+    }
+
     /**
      * Check of Pick Moving Worker message.
      *
@@ -97,8 +110,17 @@ public class InputController implements Serializable {
      * @return {code @true} if it's a valid position {code @false} otherwise.
      */
     private boolean pickMovingCheck(Message message) {
-        // TODO
-        return true;
+        Position workerPosition = ((PositionMessage) message).getPositionList().get(0);
+        String activePlayerNickname = turnController.getActivePlayer();
+        Worker pickedWorker =  game.getPlayerByNickname(activePlayerNickname).getWorkerByPosition(workerPosition);
+        if ( null != pickedWorker) {
+            return true;
+        } else {
+            VirtualView virtualView = virtualViewMap.get(message.getNickname());
+            virtualView.showGenericMessage("You don't have a worker in this position.");
+            turnController.pickWorker();
+            return false;
+        }
     }
 
     /**
@@ -283,4 +305,6 @@ public class InputController implements Serializable {
     public void setVirtualViewMap(Map<String, VirtualView> virtualViewMap) {
         this.virtualViewMap = virtualViewMap;
     }
+
+
 }

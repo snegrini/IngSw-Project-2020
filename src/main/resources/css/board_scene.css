@@ -76,11 +76,6 @@
     -fx-effect: dropshadow(gaussian, #a5f1f6, 50, 0.8, 0, 0);
 }
 
-.glassPane:selected {
-    -fx-background-color: #a5f1f6;
-    -fx-opacity: 1;
-}
-
 .glassPane:disabled {
     -fx-background-color: none;
     -fx-opacity: 1;
@@ -88,6 +83,7 @@
 
 .glassPane.glassPaneSelected {
     -fx-background-color: #a5f1f6;
+    -fx-effect: innershadow(gaussian, #a5f1f6, 30, 0.4, 0, 0);
     -fx-opacity: 1;
 }
 
