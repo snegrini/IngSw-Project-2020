@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: Cli</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">view.cli</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: Cli (view.cli)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">Cli</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 23)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 122)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package view.cli;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import model.ReducedGod;
+        <i>4</i>&nbsp;import model.board.Position;
+        <i>5</i>&nbsp;import model.board.ReducedSpace;
+        <i>6</i>&nbsp;
+        <i>7</i>&nbsp;import model.enumerations.Color;
+        <i>8</i>&nbsp;import network.message.GenericMessage;
+        <i>9</i>&nbsp;import observer.ViewObserver;
+        <i>10</i>&nbsp;import view.View;
+        <i>11</i>&nbsp;
+        <i>12</i>&nbsp;import java.util.*;
+        <i>13</i>&nbsp;import java.util.stream.Collectors;
+        <i>14</i>&nbsp;
+        <i>15</i>&nbsp;import static model.board.Board.MAX_COLUMNS;
+        <i>16</i>&nbsp;import static model.board.Board.MAX_ROWS;
+        <i>17</i>&nbsp;
+        <i>18</i>&nbsp;public class Cli extends View {
+        <i>19</i>&nbsp;
+        <i>20</i>&nbsp; //private static final int = 5;
+        <i>21</i>&nbsp; //private static final int COLUMNS = 5;
+        <i>22</i>&nbsp; //private String[][] board = new String[ROWS][COLUMNS];
+        <i>23</i>&nbsp;
+        <i>24</i>&nbsp;
+        <i>25</i>&nbsp; private Scanner scanner;
+        <i>26</i>&nbsp;
+        <i>27</i>&nbsp;
+        <b class="nc"><i>28</i>&nbsp; public Cli() {</b>
+        <b class="nc"><i>29</i>&nbsp; scanner = new Scanner(System.in);</b>
+        <i>30</i>&nbsp; }
+        <i>31</i>&nbsp;
+        <i>32</i>&nbsp;
+        <i>33</i>&nbsp; @Override
+        <i>34</i>&nbsp; public void init() {
+        <b class="nc"><i>35</i>&nbsp; System.out.println(&quot;Welcome to SANTORINI board game!&quot;);</b>
+        <b class="nc"><i>36</i>&nbsp; askServerInfo();</b>
+        <i>37</i>&nbsp; }
+        <i>38</i>&nbsp;
+        <i>39</i>&nbsp; @Override
+        <i>40</i>&nbsp; public void askServerInfo() {
+        <b class="nc"><i>41</i>&nbsp; Map&lt;String, String&gt; serverInfo = new HashMap&lt;&gt;();</b>
+        <i>42</i>&nbsp;
+        <b class="nc"><i>43</i>&nbsp; System.out.print(&quot;Enter the server address: &quot;);</b>
+        <b class="nc"><i>44</i>&nbsp; serverInfo.put(&quot;address&quot;, scanner.nextLine());</b>
+        <i>45</i>&nbsp;
+        <b class="nc"><i>46</i>&nbsp; System.out.print(&quot;Server port: &quot;);</b>
+        <b class="nc"><i>47</i>&nbsp; serverInfo.put(&quot;port&quot;, scanner.nextLine());</b>
+        <i>48</i>&nbsp;
+        <b class="nc"><i>49</i>&nbsp; notifyObserver((ViewObserver obs) -&gt; obs.onUpdateServerInfo(serverInfo));</b>
+        <i>50</i>&nbsp; }
+        <i>51</i>&nbsp;
+        <i>52</i>&nbsp; @Override
+        <i>53</i>&nbsp; public void askNickname() {
+        <b class="nc"><i>54</i>&nbsp; System.out.print(&quot;Enter your nickname: &quot;);</b>
+        <b class="nc"><i>55</i>&nbsp; String nickname = scanner.nextLine();</b>
+        <b class="nc"><i>56</i>&nbsp; notifyObserver((ViewObserver obs) -&gt; obs.onUpdateNickname(nickname));</b>
+        <i>57</i>&nbsp; }
+        <i>58</i>&nbsp;
+        <i>59</i>&nbsp; @Override
+        <i>60</i>&nbsp; public void askPlayersNumber() {
+        <i>61</i>&nbsp; int playerNumber;
+        <b class="nc"><i>62</i>&nbsp; System.out.print(&quot;How many players are going to play? (You can choose between
+            2 or 3 players): &quot;);</b>
+        <i>63</i>&nbsp; do {
+        <b class="nc"><i>64</i>&nbsp; playerNumber = scanner.nextInt();</b>
+        <b class="nc"><i>65</i>&nbsp; if (playerNumber != 2 &amp;&amp; playerNumber != 3)</b>
+        <b class="nc"><i>66</i>&nbsp; System.out.println(&quot;Remember! Only 2 or 3 players can play!&quot;);</b>
+        <b class="nc"><i>67</i>&nbsp; } while (playerNumber != 2 &amp;&amp; playerNumber != 3);</b>
+        <b class="nc"><i>68</i>&nbsp; int finalPlayerNumber = playerNumber;</b>
+        <b class="nc"><i>69</i>&nbsp; notifyObserver((ViewObserver obs) -&gt;
+            obs.onUpdatePlayersNumber(finalPlayerNumber));</b>
+        <i>70</i>&nbsp; }
+        <i>71</i>&nbsp;
+        <i>72</i>&nbsp; @Override
+        <i>73</i>&nbsp; public void askWorkersPositions(List&lt;Position&gt; positions){
+        <i>74</i>&nbsp;
+        <i>75</i>&nbsp; }
+        <i>76</i>&nbsp;
+        <i>77</i>&nbsp; @Override
+        <i>78</i>&nbsp; public void showLoginResult(boolean nicknameAccepted, boolean connectionSuccessful) {
+        <i>79</i>&nbsp;
+        <i>80</i>&nbsp; }
+        <i>81</i>&nbsp;
+        <i>82</i>&nbsp;
+        <i>83</i>&nbsp;
+        <i>84</i>&nbsp; @Override
+        <i>85</i>&nbsp; public void askWorkersColor(List&lt;Color&gt; colorList) {
+        <i>86</i>&nbsp; String in;
+        <b class="nc"><i>87</i>&nbsp; System.out.println(&quot;Select your workers&#39; color!&quot;);</b>
+        <i>88</i>&nbsp;
+        <b class="nc"><i>89</i>&nbsp; String colors = colorList.stream()</b>
+        <b class="nc"><i>90</i>&nbsp; .map(color -&gt; color.getText())</b>
+        <b class="nc"><i>91</i>&nbsp; .collect(Collectors.joining(&quot;, &quot;));</b>
+        <i>92</i>&nbsp;
+        <b class="nc"><i>93</i>&nbsp; System.out.println(&quot;You can choose between: &quot; + colors);</b>
+        <i>94</i>&nbsp;
+        <i>95</i>&nbsp; do {
+        <b class="nc"><i>96</i>&nbsp; in = scanner.nextLine();</b>
+        <b class="nc"><i>97</i>&nbsp; if (!colors.contains(in.toUpperCase())) {</b>
+        <b class="nc"><i>98</i>&nbsp; System.out.println(&quot;You have not inserted a valid color! Please try again!&quot;);</b>
+        <i>99</i>&nbsp; }
+        <i>100</i>&nbsp;
+        <b class="nc"><i>101</i>&nbsp; } while (!colors.contains(in.toUpperCase()));</b>
+        <b class="nc"><i>102</i>&nbsp; Color color = Color.valueOf(in.toUpperCase());</b>
+        <i>103</i>&nbsp; //only one color is chosen by a player
+        <b class="nc"><i>104</i>&nbsp; notifyObserver((ViewObserver obs) -&gt; obs.onUpdateWorkersColor(color));</b>
+        <i>105</i>&nbsp; }
+        <i>106</i>&nbsp;
+        <i>107</i>&nbsp; @Override
+        <i>108</i>&nbsp; public void askGod(List&lt;ReducedGod&gt; gods) {
+        <i>109</i>&nbsp;
+        <b class="nc"><i>110</i>&nbsp; System.out.println(&quot;Select your own personal God!&quot;);</b>
+        <i>111</i>&nbsp;
+        <b class="nc"><i>112</i>&nbsp; for (int i = 0; i &lt; gods.size(); i++) {</b>
+        <b class="nc"><i>113</i>&nbsp; ReducedGod god = gods.get(i);</b>
+        <b class="nc"><i>114</i>&nbsp; System.out.println(&quot;ID: &quot; + (i + 1));</b>
+        <b class="nc"><i>115</i>&nbsp; System.out.println(&quot;Name: &quot; + god.getName());</b>
+        <b class="nc"><i>116</i>&nbsp; System.out.println(&quot;Caption: &quot; + god.getCaption());</b>
+        <b class="nc"><i>117</i>&nbsp; System.out.println(&quot;Description: &quot; + god.getDescription() + &quot;\n&quot;);</b>
+        <i>118</i>&nbsp; }
+        <i>119</i>&nbsp; int godId;
+        <b class="nc"><i>120</i>&nbsp; System.out.print(&quot;To select one God type in his ID: &quot;);</b>
+        <i>121</i>&nbsp; do {
+        <b class="nc"><i>122</i>&nbsp; godId = Integer.parseInt(scanner.nextLine()) - 1;</b>
+        <b class="nc"><i>123</i>&nbsp; if (godId &lt; 0 || godId &gt; gods.size()) {</b>
+        <b class="nc"><i>124</i>&nbsp; System.out.println(&quot;You have not inserted a valid ID! Please try again.&quot;);</b>
+        <i>125</i>&nbsp; }
+        <b class="nc"><i>126</i>&nbsp; } while (godId &lt; 0 || godId &gt; gods.size());</b>
+        <i>127</i>&nbsp;
+        <b class="nc"><i>128</i>&nbsp; ReducedGod finalGod = gods.get(godId);</b>
+        <b class="nc"><i>129</i>&nbsp; notifyObserver((ViewObserver obs) -&gt; obs.onUpdateGod(finalGod));</b>
+        <i>130</i>&nbsp; }
+        <i>131</i>&nbsp;
+        <i>132</i>&nbsp;
+        <i>133</i>&nbsp; @Override
+        <i>134</i>&nbsp; public void askWorkerToMove(List&lt;Position&gt; positions) {
+        <i>135</i>&nbsp; int chosenRow;
+        <i>136</i>&nbsp; int chosenColumn;
+        <b class="nc"><i>137</i>&nbsp; System.out.println(&quot;Insert the position of the worker which you want to
+            move:&quot;);</b>
+        <b class="nc"><i>138</i>&nbsp; for (int i = 0; i &lt; positions.size(); i++) {</b>
+        <b class="nc"><i>139</i>&nbsp; System.out.println(&quot;Position of worker &quot; + i + 1 + &quot;is Row: &quot;
+            + positions.get(i).getRow() + &quot;Column: &quot; +</b>
+        <b class="nc"><i>140</i>&nbsp; positions.get(i).getColumn());</b>
+        <i>141</i>&nbsp; }
+        <i>142</i>&nbsp; do {
+        <b class="nc"><i>143</i>&nbsp; chosenRow = Integer.parseInt(scanner.nextLine());</b>
+        <b class="nc"><i>144</i>&nbsp; chosenColumn = Integer.parseInt(scanner.nextLine());</b>
+        <b class="nc"><i>145</i>&nbsp; if (position_isNotValid(chosenRow, chosenColumn, positions))</b>
+        <b class="nc"><i>146</i>&nbsp; System.out.println(&quot;You have inserted an invalid position! Please try again!&quot;);</b>
+        <b class="nc"><i>147</i>&nbsp; } while (position_isNotValid(chosenRow, chosenColumn, positions));</b>
+        <i>148</i>&nbsp;
+        <b class="nc"><i>149</i>&nbsp; int finalChosenRow = chosenRow;</b>
+        <b class="nc"><i>150</i>&nbsp; int finalChosenColumn = chosenColumn;</b>
+        <b class="nc"><i>151</i>&nbsp; notifyObserver((ViewObserver obs) -&gt; obs.onUpdateWorkerToMove(finalChosenRow,
+            finalChosenColumn));</b>
+        <i>152</i>&nbsp;
+        <i>153</i>&nbsp; }
+        <i>154</i>&nbsp;
+        <i>155</i>&nbsp; @Override
+        <i>156</i>&nbsp; public void askNewPosition(List&lt;Position&gt; positions) {
+        <i>157</i>&nbsp; int chosenRow;
+        <i>158</i>&nbsp; int chosenColumn;
+        <b class="nc"><i>159</i>&nbsp; System.out.println(&quot;Select the new position for your Worker!&quot;);</b>
+        <b class="nc"><i>160</i>&nbsp; System.out.println(&quot;Here there are your Worker&#39;s possible moves:&quot;);</b>
+        <b class="nc"><i>161</i>&nbsp; if (positions.isEmpty()) {</b>
+        <b class="nc"><i>162</i>&nbsp; System.out.println(&quot;Oh no! Unfortunately you can&#39;t move...&quot;);</b>
+        <i>163</i>&nbsp; } else {
+        <b class="nc"><i>164</i>&nbsp; for (int i = 0; i &lt; positions.size(); i++) {</b>
+        <b class="nc"><i>165</i>&nbsp; System.out.println(&quot;Position &quot; + i + 1 + &quot;:&quot; + &quot;Row:
+            &quot; + positions.get(i).getRow() +</b>
+        <b class="nc"><i>166</i>&nbsp; &quot;Column: &quot; + positions.get(i).getColumn());</b>
+        <i>167</i>&nbsp; }
+        <b class="nc"><i>168</i>&nbsp; System.out.println(&quot;Select the new position:&quot;);</b>
+        <i>169</i>&nbsp; do {
+        <b class="nc"><i>170</i>&nbsp; chosenRow = Integer.parseInt(scanner.nextLine());</b>
+        <b class="nc"><i>171</i>&nbsp; chosenColumn = Integer.parseInt(scanner.nextLine());</b>
+        <b class="nc"><i>172</i>&nbsp; if (position_isNotValid(chosenRow, chosenColumn, positions))</b>
+        <b class="nc"><i>173</i>&nbsp; System.out.println(&quot;You have inserted an invalid position! Please try again!&quot;);</b>
+        <b class="nc"><i>174</i>&nbsp; } while (position_isNotValid(chosenRow, chosenColumn, positions));</b>
+        <b class="nc"><i>175</i>&nbsp; int finalChosenRow = chosenRow;</b>
+        <b class="nc"><i>176</i>&nbsp; int finalChosenColumn = chosenColumn;</b>
+        <b class="nc"><i>177</i>&nbsp; notifyObserver((ViewObserver obs) -&gt;
+            obs.onUpdateWorkerPosition(finalChosenRow, finalChosenColumn));</b>
+        <i>178</i>&nbsp; }
+        <i>179</i>&nbsp; }
+        <i>180</i>&nbsp;
+        <i>181</i>&nbsp;
+        <i>182</i>&nbsp; @Override
+        <i>183</i>&nbsp; public void askNewBuildingPosition(List&lt;Position&gt; positions) {
+        <i>184</i>&nbsp; int chosenRow;
+        <i>185</i>&nbsp; int chosenColumn;
+        <b class="nc"><i>186</i>&nbsp; System.out.println(&quot;Select in which position you want your Worker to build!&quot;);</b>
+        <b class="nc"><i>187</i>&nbsp; System.out.println(&quot;Your Worker can Build here:&quot;);</b>
+        <b class="nc"><i>188</i>&nbsp; if (positions.isEmpty()) {</b>
+        <b class="nc"><i>189</i>&nbsp; System.out.println(&quot;Oh no! Unfortunately you can&#39;t build...&quot;);</b>
+        <i>190</i>&nbsp; } else {
+        <b class="nc"><i>191</i>&nbsp; for (int i = 0; i &lt; positions.size(); i++) {</b>
+        <b class="nc"><i>192</i>&nbsp; System.out.println(&quot;Position &quot; + i + 1 + &quot;:&quot; + &quot;Row:
+            &quot; + positions.get(i).getRow() +</b>
+        <b class="nc"><i>193</i>&nbsp; &quot;Column: &quot; + positions.get(i).getColumn());</b>
+        <i>194</i>&nbsp; }
+        <b class="nc"><i>195</i>&nbsp; System.out.println(&quot;Select where to build:&quot;);</b>
+        <i>196</i>&nbsp; do {
+        <b class="nc"><i>197</i>&nbsp; chosenRow = Integer.parseInt(scanner.nextLine());</b>
+        <b class="nc"><i>198</i>&nbsp; chosenColumn = Integer.parseInt(scanner.nextLine());</b>
+        <b class="nc"><i>199</i>&nbsp; if (position_isNotValid(chosenRow, chosenColumn, positions))</b>
+        <b class="nc"><i>200</i>&nbsp; System.out.println(&quot;You have inserted an invalid position! Please try again!&quot;);</b>
+        <b class="nc"><i>201</i>&nbsp; } while (position_isNotValid(chosenRow, chosenColumn, positions));</b>
+        <b class="nc"><i>202</i>&nbsp; int finalChosenRow = chosenRow;</b>
+        <b class="nc"><i>203</i>&nbsp; int finalChosenColumn = chosenColumn;</b>
+        <b class="nc"><i>204</i>&nbsp; notifyObserver((ViewObserver obs) -&gt; obs.onUpdateBuild(finalChosenRow,
+            finalChosenColumn));</b>
+        <i>205</i>&nbsp; }
+        <i>206</i>&nbsp;
+        <i>207</i>&nbsp; }
+        <i>208</i>&nbsp;
+        <i>209</i>&nbsp;
+        <i>210</i>&nbsp; @Override
+        <i>211</i>&nbsp; public void showGenericErrorMessage(String Error) {
+        <b class="nc"><i>212</i>&nbsp; System.out.println(Error);</b>
+        <i>213</i>&nbsp; }
+        <i>214</i>&nbsp;
+        <i>215</i>&nbsp;
+        <i>216</i>&nbsp; @Override
+        <i>217</i>&nbsp; public String showBoard(ReducedSpace[][] spaces) {
+        <b class="nc"><i>218</i>&nbsp; System.out.print(printUpperIndexes());</b>
+        <b class="nc"><i>219</i>&nbsp; String strBoard = &quot;&quot;;</b>
+        <b class="nc"><i>220</i>&nbsp; for (int i = 0; i &lt; MAX_ROWS; i++) {</b>
+        <b class="nc"><i>221</i>&nbsp; strBoard += ColorCli.YELLOW_BOLD + &quot;\n +-----+-----+-----+-----+-----+\n&quot;
+            + ColorCli.RESET;</b>
+        <b class="nc"><i>222</i>&nbsp; for (int j = 0; j &lt; MAX_COLUMNS; j++) {</b>
+        <b class="nc"><i>223</i>&nbsp; if (j == 0) {</b>
+        <b class="nc"><i>224</i>&nbsp; if (spaces[i][j].hasDome()) {</b>
+        <b class="nc"><i>225</i>&nbsp; strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + &quot; | &quot; +
+            Color.BLUE + &quot;?&quot;</b>
+        <i>226</i>&nbsp; + ColorCli.YELLOW_BOLD +
+        <i>227</i>&nbsp; &quot; |&quot; + ColorCli.RESET;
+        <i>228</i>&nbsp; } else {
+        <b class="nc"><i>229</i>&nbsp; if (spaces[i][j].getReducedWorker() != null) {</b>
+        <b class="nc"><i>230</i>&nbsp; strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + &quot; | &quot; +
+            ColorCli.RESET +</b>
+        <b class="nc"><i>231</i>&nbsp; spaces[i][j].getLevel() +</b>
+        <b class="nc"><i>232</i>&nbsp; spaces[i][j].getReducedWorker().getColor().getCode() + &quot; x&quot; +
+            ColorCli.YELLOW_BOLD</b>
+        <i>233</i>&nbsp; + &quot; |&quot; + ColorCli.RESET;
+        <i>234</i>&nbsp; } else {
+        <b class="nc"><i>235</i>&nbsp; strBoard += Integer.toString(i) + ColorCli.YELLOW_BOLD + &quot; | &quot; +
+            ColorCli.RESET</b>
+        <b class="nc"><i>236</i>&nbsp; + spaces[i][j].getLevel()</b>
+        <i>237</i>&nbsp; + ColorCli.YELLOW_BOLD + &quot; |&quot;
+        <i>238</i>&nbsp; + ColorCli.RESET;
+        <i>239</i>&nbsp; }
+        <i>240</i>&nbsp;
+        <i>241</i>&nbsp; }
+        <i>242</i>&nbsp; } else {
+        <b class="nc"><i>243</i>&nbsp; if (spaces[i][j].hasDome()) {</b>
+        <b class="nc"><i>244</i>&nbsp; strBoard += &quot; &quot; + Color.BLUE + &quot;?&quot; + ColorCli.YELLOW_BOLD +
+            &quot; |&quot; + ColorCli.RESET;</b>
+        <i>245</i>&nbsp; } else {
+        <b class="nc"><i>246</i>&nbsp; if (spaces[i][j].getReducedWorker() != null) {</b>
+        <b class="nc"><i>247</i>&nbsp; strBoard += &quot; &quot; + spaces[i][j].getLevel() +</b>
+        <b class="nc"><i>248</i>&nbsp; spaces[i][j].getReducedWorker().getColor().getCode() + &quot; x&quot; +</b>
+        <i>249</i>&nbsp; ColorCli.YELLOW_BOLD + &quot; |&quot;
+        <i>250</i>&nbsp; + ColorCli.RESET;
+        <i>251</i>&nbsp; } else {
+        <b class="nc"><i>252</i>&nbsp; strBoard += &quot; &quot; + spaces[i][j].getLevel() + ColorCli.YELLOW_BOLD +
+            &quot; |&quot; + ColorCli.RESET;</b>
+        <i>253</i>&nbsp; }
+        <i>254</i>&nbsp; }
+        <i>255</i>&nbsp; }
+        <i>256</i>&nbsp;
+        <i>257</i>&nbsp; }
+        <b class="nc"><i>258</i>&nbsp; if (i == MAX_ROWS - 1)</b>
+        <b class="nc"><i>259</i>&nbsp; strBoard += ColorCli.YELLOW_BOLD + &quot;\n +-----+-----+-----+-----+-----+\n&quot;
+            + ColorCli.RESET;</b>
+        <i>260</i>&nbsp; }
+        <b class="nc"><i>261</i>&nbsp; return strBoard;</b>
+        <i>262</i>&nbsp; }
+        <i>263</i>&nbsp;
+        <i>264</i>&nbsp; /**
+        <i>265</i>&nbsp; * Returns a string with the columns&#39; indexes.
+        <i>266</i>&nbsp; *
+        <i>267</i>&nbsp; * @return a string with the columns&#39; indexes.
+        <i>268</i>&nbsp; */
+        <i>269</i>&nbsp; private String printUpperIndexes() {
+        <b class="nc"><i>270</i>&nbsp; String strIndex = &quot; &quot;;</b>
+        <b class="nc"><i>271</i>&nbsp; for (int i = 0; i &lt; 5; i++) {</b>
+        <b class="nc"><i>272</i>&nbsp; strIndex += &quot; &quot; + i + &quot; &quot;;</b>
+        <i>273</i>&nbsp; }
+        <b class="nc"><i>274</i>&nbsp; return strIndex;</b>
+        <i>275</i>&nbsp; }
+        <i>276</i>&nbsp;
+        <i>277</i>&nbsp; /**
+        <i>278</i>&nbsp; * Returns {@code true} if the position inserted is not valid, {@code false} otherwise.
+        <i>279</i>&nbsp; * This method is used in the &quot;Ask&quot; type methods to check if the position inserted by
+        the user
+        <i>280</i>&nbsp; * is correct. If it is incorrect input is asked again.
+        <i>281</i>&nbsp; *
+        <i>282</i>&nbsp; * @param chosenRow the Row chosen by the user.
+        <i>283</i>&nbsp; * @param chosenColumn the Column chosen by the user.
+        <i>284</i>&nbsp; * @param positions the List of valid positions.
+        <i>285</i>&nbsp; * @return {@code true} if the position inserted is not valid, {@code false} otherwise.
+        <i>286</i>&nbsp; */
+        <i>287</i>&nbsp; private boolean position_isNotValid(int chosenRow, int chosenColumn, List&lt;Position&gt;
+        positions) {
+        <b class="nc"><i>288</i>&nbsp; for (Position position : positions) {</b>
+        <b class="nc"><i>289</i>&nbsp; if (chosenRow == position.getRow() &amp;&amp; chosenColumn ==
+            position.getColumn()) {</b>
+        <b class="nc"><i>290</i>&nbsp; return false;</b>
+        <i>291</i>&nbsp; }
+        <b class="nc"><i>292</i>&nbsp; }</b>
+        <b class="nc"><i>293</i>&nbsp; return true;</b>
+        <i>294</i>&nbsp; }
+        <i>295</i>&nbsp;
+        <i>296</i>&nbsp; //method to check if a position to build is valid
+        <i>297</i>&nbsp; /*boolean position_isNotValid2(int chosenRow, int chosenColumn, Worker worker) {
+        <i>298</i>&nbsp; boolean is_NotValid = (worker.getPossibleBuilds().get(0).getRow() != chosenRow) ||
+        <i>299</i>&nbsp; (worker.getPossibleBuilds().get(0).getColumn() != chosenColumn);
+        <i>300</i>&nbsp;
+        <i>301</i>&nbsp; for (int i = 1; i &lt; worker.getPossibleBuilds().size(); i++) {
+        <i>302</i>&nbsp; is_NotValid = (is_NotValid &amp;&amp; ((worker.getPossibleBuilds().get(i).getRow() !=
+        chosenRow) ||
+        <i>303</i>&nbsp; (worker.getPossibleBuilds().get(i).getColumn() != chosenColumn)));
+        <i>304</i>&nbsp; }
+        <i>305</i>&nbsp;
+        <i>306</i>&nbsp; return is_NotValid;
+        <i>307</i>&nbsp;
+        <i>308</i>&nbsp; }
+        <i>309</i>&nbsp;
+        <i>310</i>&nbsp; //checks if the position inserted for a worker is correct
+        <i>311</i>&nbsp; boolean pstWorkerNotValid(int chosenRow, int chosenColumn, List&lt;Worker&gt; workers) {
+        <i>312</i>&nbsp; return ((workers.get(0).getPosition().getRow() != chosenRow) ||
+        <i>313</i>&nbsp; (workers.get(0).getPosition().getColumn() != chosenColumn)) &amp;&amp;
+        <i>314</i>&nbsp; ((workers.get(1).getPosition().getRow() !=
+        <i>315</i>&nbsp; chosenRow) || (workers.get(1).getPosition().getColumn() != chosenColumn));
+        <i>316</i>&nbsp; }*/
+        <i>317</i>&nbsp;
+        <i>318</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-04-27 22:20</div>
+</div>
+</body>
+</html>

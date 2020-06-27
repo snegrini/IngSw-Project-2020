@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: Worker</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">model.player</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: Worker (model.player)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">Worker</td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (1/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    33,3%
+  </span>
+                <span class="absValue">
+    (5/ 15)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    30,7%
+  </span>
+                <span class="absValue">
+    (27/ 88)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package model.player;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import model.Game;
+        <i>4</i>&nbsp;import model.board.Board;
+        <i>5</i>&nbsp;import model.board.Position;
+        <i>6</i>&nbsp;import model.effects.Effect;
+        <i>7</i>&nbsp;import model.enumerations.Color;
+        <i>8</i>&nbsp;
+        <i>9</i>&nbsp;import java.util.ArrayList;
+        <i>10</i>&nbsp;import java.util.List;
+        <i>11</i>&nbsp;
+        <i>12</i>&nbsp;public class Worker {
+        <i>13</i>&nbsp;
+        <i>14</i>&nbsp; private static Color color;
+        <i>15</i>&nbsp; private Position position;
+        <i>16</i>&nbsp; private MoveHistory history;
+        <i>17</i>&nbsp; private List&lt;Effect&gt; effects;
+        <i>18</i>&nbsp;
+        <b class="fc"><i>19</i>&nbsp; public Worker(Position position, List&lt;Effect&gt; effects) {</b>
+        <b class="fc"><i>20</i>&nbsp; this.position = position;</b>
+        <b class="fc"><i>21</i>&nbsp; this.history = new MoveHistory(position, 0);</b>
+        <b class="fc"><i>22</i>&nbsp; this.effects = effects;</b>
+        <b class="fc"><i>23</i>&nbsp; }</b>
+        <i>24</i>&nbsp;
+        <i>25</i>&nbsp; public void build(Position p) {
+        <i>26</i>&nbsp; // Calls controller.
+        <b class="nc"><i>27</i>&nbsp; }</b>
+        <i>28</i>&nbsp;
+        <i>29</i>&nbsp; /**
+        <i>30</i>&nbsp; * Move the Worker to the given position.
+        <i>31</i>&nbsp; *
+        <i>32</i>&nbsp; * @param position a valid position to move
+        <i>33</i>&nbsp; */
+        <i>34</i>&nbsp; public void move(Position position) {
+        <i>35</i>&nbsp; // Executing move
+        <b class="fc"><i>36</i>&nbsp; updateMoveHistory(this.position,
+            Game.getInstance().getBoard().getSpace(this.position).getLevel());</b>
+        <b class="fc"><i>37</i>&nbsp; this.position = position; // Worker is now in the new position</b>
+        <b class="fc"><i>38</i>&nbsp; }</b>
+        <i>39</i>&nbsp;
+        <i>40</i>&nbsp; /**
+        <i>41</i>&nbsp; *
+        <i>42</i>&nbsp; * @param position1 obj of class Position
+        <i>43</i>&nbsp; * @param position2 obf of class Position
+        <i>44</i>&nbsp; * @return true if difference of position&#39;s space&#39;s levels is not greater than 1
+        <i>45</i>&nbsp; */
+        <i>46</i>&nbsp; public boolean checkLevel(Position position1, Position position2){
+        <i>47</i>&nbsp;
+        <b class="nc"><i>48</i>&nbsp; int level1 = Game.getInstance().getBoard().getSpace(position1).getLevel();</b>
+        <b class="nc"><i>49</i>&nbsp; int level2 = Game.getInstance().getBoard().getSpace(position2).getLevel();</b>
+        <i>50</i>&nbsp;
+        <b class="nc"><i>51</i>&nbsp; return (level1 - level2) &lt;= 1 || (level1 - level2) &gt;= -1;</b>
+        <i>52</i>&nbsp;
+        <i>53</i>&nbsp; }
+        <i>54</i>&nbsp;
+        <i>55</i>&nbsp; /**
+        <i>56</i>&nbsp; *
+        <i>57</i>&nbsp; * @return a List of adjacent positions to the worker&#39;s position
+        <i>58</i>&nbsp; */
+        <i>59</i>&nbsp; public List&lt;Position&gt; getPossibleBuilds() {
+        <i>60</i>&nbsp;
+        <b class="fc"><i>61</i>&nbsp; List&lt;Position&gt; positionList = new ArrayList&lt;Position&gt;();</b>
+        <i>62</i>&nbsp;
+        <i>63</i>&nbsp; //Check all adjacent positions clockwise
+        <b class="fc"><i>64</i>&nbsp; if (position.getColumn()-1&gt;=0 &amp;&amp; position.getRow()-1&gt;=0)</b>
+        <b class="fc"><i>65</i>&nbsp; positionList.add(new Position(position.getRow() - 1, position.getColumn() -
+            1));</b>
+        <b class="fc"><i>66</i>&nbsp; if (position.getRow()-1&gt;=0)</b>
+        <b class="fc"><i>67</i>&nbsp; positionList.add(new Position(position.getRow()-1, position.getColumn()));</b>
+        <b class="fc"><i>68</i>&nbsp; if (position.getColumn()+1&lt;5 &amp;&amp; position.getRow()-1&gt;=0)</b>
+        <b class="nc"><i>69</i>&nbsp; positionList.add(new Position(position.getRow()-1, position.getColumn()+1));</b>
+        <b class="fc"><i>70</i>&nbsp; if (position.getColumn()+1&lt;5)</b>
+        <b class="nc"><i>71</i>&nbsp; positionList.add(new Position(position.getRow(), position.getColumn()+1));</b>
+        <b class="fc"><i>72</i>&nbsp; if (position.getColumn()+1&lt;5 &amp;&amp; position.getRow()+1&lt;5)</b>
+        <b class="nc"><i>73</i>&nbsp; positionList.add(new Position(position.getRow()+1, position.getColumn()+1));</b>
+        <b class="fc"><i>74</i>&nbsp; if (position.getRow()+1&lt;=5)</b>
+        <b class="fc"><i>75</i>&nbsp; positionList.add(new Position(position.getRow()+1, position.getColumn()));</b>
+        <b class="fc"><i>76</i>&nbsp; if (position.getColumn()-1&gt;=0 &amp;&amp; position.getRow()+1&lt;5)</b>
+        <b class="fc"><i>77</i>&nbsp; positionList.add(new Position(position.getRow()+1, position.getColumn()-1));</b>
+        <b class="fc"><i>78</i>&nbsp; if (position.getColumn()-1&gt;=0)</b>
+        <b class="fc"><i>79</i>&nbsp; positionList.add(new Position(position.getRow(), position.getColumn()-1));</b>
+        <i>80</i>&nbsp;
+        <b class="fc"><i>81</i>&nbsp; return positionList;</b>
+        <i>82</i>&nbsp; }
+        <i>83</i>&nbsp;
+        <i>84</i>&nbsp; /**
+        <i>85</i>&nbsp; *
+        <i>86</i>&nbsp; * @return a List of adjacent and &quot;level compatible&quot; positions to the worker&#39;s
+        position
+        <i>87</i>&nbsp; */
+        <i>88</i>&nbsp; public List&lt;Position&gt; getPossibleMoves() {
+        <i>89</i>&nbsp;
+        <b class="nc"><i>90</i>&nbsp; List&lt;Position&gt; positionList = new ArrayList&lt;Position&gt;();</b>
+        <b class="nc"><i>91</i>&nbsp; Position rotatingPosition = new Position(0,0);</b>
+        <i>92</i>&nbsp;
+        <i>93</i>&nbsp; //Check all adjacent positions clockwise
+        <b class="nc"><i>94</i>&nbsp; if (position.getColumn()-1&gt;=0 &amp;&amp; position.getRow()-1&gt;=0) { //UP LEFT</b>
+        <b class="nc"><i>95</i>&nbsp; rotatingPosition.setColumn(position.getColumn() - 1);</b>
+        <b class="nc"><i>96</i>&nbsp; rotatingPosition.setRow(position.getRow() - 1);</b>
+        <b class="nc"><i>97</i>&nbsp; if(checkLevel(rotatingPosition, position))</b>
+        <b class="nc"><i>98</i>&nbsp; positionList.add(rotatingPosition);</b>
+        <i>99</i>&nbsp; }
+        <b class="nc"><i>100</i>&nbsp; if (position.getRow()-1&gt;=0) { //UP</b>
+        <b class="nc"><i>101</i>&nbsp; rotatingPosition.setColumn(position.getColumn());</b>
+        <b class="nc"><i>102</i>&nbsp; rotatingPosition.setRow(position.getRow() - 1);</b>
+        <b class="nc"><i>103</i>&nbsp; if(checkLevel(rotatingPosition, position))</b>
+        <b class="nc"><i>104</i>&nbsp; positionList.add(rotatingPosition);</b>
+        <i>105</i>&nbsp; }
+        <b class="nc"><i>106</i>&nbsp; if (position.getColumn()+1&lt;5 &amp;&amp; position.getRow()-1&gt;=0) {//UP RIGHT</b>
+        <b class="nc"><i>107</i>&nbsp; rotatingPosition.setColumn(position.getColumn() + 1);</b>
+        <b class="nc"><i>108</i>&nbsp; rotatingPosition.setRow(position.getRow() - 1);</b>
+        <b class="nc"><i>109</i>&nbsp; if(checkLevel(rotatingPosition, position))</b>
+        <b class="nc"><i>110</i>&nbsp; positionList.add(rotatingPosition);</b>
+        <i>111</i>&nbsp; }
+        <b class="nc"><i>112</i>&nbsp; if (position.getColumn()+1&lt;5) {//RIGHT</b>
+        <b class="nc"><i>113</i>&nbsp; rotatingPosition.setColumn(position.getColumn() + 1);</b>
+        <b class="nc"><i>114</i>&nbsp; rotatingPosition.setRow(position.getRow());</b>
+        <b class="nc"><i>115</i>&nbsp; if (checkLevel(rotatingPosition, position))</b>
+        <b class="nc"><i>116</i>&nbsp; positionList.add(rotatingPosition);</b>
+        <i>117</i>&nbsp; }
+        <b class="nc"><i>118</i>&nbsp; if (position.getColumn()+1&lt;5 &amp;&amp; position.getRow()+1&lt;5) {//DOWN
+            RIGHT</b>
+        <b class="nc"><i>119</i>&nbsp; rotatingPosition.setColumn(position.getColumn() + 1);</b>
+        <b class="nc"><i>120</i>&nbsp; rotatingPosition.setRow(position.getRow() + 1);</b>
+        <b class="nc"><i>121</i>&nbsp; if (checkLevel(rotatingPosition, position))</b>
+        <b class="nc"><i>122</i>&nbsp; positionList.add(rotatingPosition);</b>
+        <i>123</i>&nbsp; }
+        <b class="nc"><i>124</i>&nbsp; if (position.getRow()+1&lt;5) {//DOWN</b>
+        <b class="nc"><i>125</i>&nbsp; rotatingPosition.setColumn(position.getColumn());</b>
+        <b class="nc"><i>126</i>&nbsp; rotatingPosition.setRow(position.getRow() + 1);</b>
+        <b class="nc"><i>127</i>&nbsp; if (checkLevel(rotatingPosition, position))</b>
+        <b class="nc"><i>128</i>&nbsp; positionList.add(rotatingPosition);</b>
+        <i>129</i>&nbsp; }
+        <b class="nc"><i>130</i>&nbsp; if (position.getColumn()-1&gt;=0 &amp;&amp; position.getRow()+1&lt;5) {//DOWN
+            LEFT</b>
+        <b class="nc"><i>131</i>&nbsp; rotatingPosition.setColumn(position.getColumn() - 1);</b>
+        <b class="nc"><i>132</i>&nbsp; rotatingPosition.setRow(position.getRow() + 1);</b>
+        <b class="nc"><i>133</i>&nbsp; if (checkLevel(rotatingPosition, position))</b>
+        <b class="nc"><i>134</i>&nbsp; positionList.add(rotatingPosition);</b>
+        <i>135</i>&nbsp; }
+        <b class="nc"><i>136</i>&nbsp; if (position.getColumn()-1&gt;=0) {//LEFT</b>
+        <b class="nc"><i>137</i>&nbsp; rotatingPosition.setColumn(position.getColumn() - 1);</b>
+        <b class="nc"><i>138</i>&nbsp; rotatingPosition.setRow(position.getRow());</b>
+        <b class="nc"><i>139</i>&nbsp; if (checkLevel(rotatingPosition, position))</b>
+        <b class="nc"><i>140</i>&nbsp; positionList.add(rotatingPosition);</b>
+        <i>141</i>&nbsp; }
+        <i>142</i>&nbsp;
+        <b class="nc"><i>143</i>&nbsp; return positionList;</b>
+        <i>144</i>&nbsp; }
+        <i>145</i>&nbsp;
+        <i>146</i>&nbsp; /**
+        <i>147</i>&nbsp; * Update the worker move history.
+        <i>148</i>&nbsp; *
+        <i>149</i>&nbsp; * @param position worker&#39;s position in the previous turn
+        <i>150</i>&nbsp; * @param level worker&#39;s level in the previous turn
+        <i>151</i>&nbsp; */
+        <i>152</i>&nbsp; private void updateMoveHistory(Position position, int level){
+        <b class="fc"><i>153</i>&nbsp; history.setLastPosition(position);</b>
+        <b class="fc"><i>154</i>&nbsp; history.setLastLevel(level);</b>
+        <b class="fc"><i>155</i>&nbsp; }</b>
+        <i>156</i>&nbsp;
+        <i>157</i>&nbsp; public static Color getColor() {
+        <b class="nc"><i>158</i>&nbsp; return color;</b>
+        <i>159</i>&nbsp; }
+        <i>160</i>&nbsp;
+        <i>161</i>&nbsp; public static void setColor(Color color) {
+        <b class="nc"><i>162</i>&nbsp; Worker.color = color;</b>
+        <b class="nc"><i>163</i>&nbsp; }</b>
+        <i>164</i>&nbsp;
+        <i>165</i>&nbsp; public Position getPosition() {
+        <b class="fc"><i>166</i>&nbsp; return position;</b>
+        <i>167</i>&nbsp; }
+        <i>168</i>&nbsp;
+        <i>169</i>&nbsp; public void setPosition(Position position) {
+        <b class="nc"><i>170</i>&nbsp; this.position = position;</b>
+        <b class="nc"><i>171</i>&nbsp; }</b>
+        <i>172</i>&nbsp;
+        <i>173</i>&nbsp; public MoveHistory getMoveHistory() {
+        <b class="nc"><i>174</i>&nbsp; return history;</b>
+        <i>175</i>&nbsp; }
+        <i>176</i>&nbsp;
+        <i>177</i>&nbsp; public void setMoveHistory(MoveHistory history) {
+        <b class="nc"><i>178</i>&nbsp; this.history = history;</b>
+        <b class="nc"><i>179</i>&nbsp; }</b>
+        <i>180</i>&nbsp;
+        <i>181</i>&nbsp; public List&lt;Effect&gt; getEffects() {
+        <b class="nc"><i>182</i>&nbsp; return effects;</b>
+        <i>183</i>&nbsp; }
+        <i>184</i>&nbsp;
+        <i>185</i>&nbsp; public void setEffects(List&lt;Effect&gt; effects) {
+        <b class="nc"><i>186</i>&nbsp; this.effects = effects;</b>
+        <b class="nc"><i>187</i>&nbsp; }</b>
+        <i>188</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-03-31 13:22</div>
+</div>
+</body>
+</html>

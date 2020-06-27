@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: SceneController</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.view.gui</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: SceneController (it.polimi.ingsw.view.gui)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">SceneController</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 7)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 34)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.view.View;
+        <i>4</i>&nbsp;import it.polimi.ingsw.view.gui.scene.AlertSceneController;
+        <i>5</i>&nbsp;import it.polimi.ingsw.view.gui.scene.ViewGuiController;
+        <i>6</i>&nbsp;import javafx.event.Event;
+        <i>7</i>&nbsp;import javafx.fxml.FXMLLoader;
+        <i>8</i>&nbsp;import javafx.scene.Node;
+        <i>9</i>&nbsp;import javafx.scene.Parent;
+        <i>10</i>&nbsp;import javafx.scene.Scene;
+        <i>11</i>&nbsp;
+        <i>12</i>&nbsp;import java.io.IOException;
+        <i>13</i>&nbsp;import java.util.logging.Logger;
+        <i>14</i>&nbsp;
+        <b class="nc"><i>15</i>&nbsp;public class SceneController {</b>
+        <i>16</i>&nbsp;
+        <b class="nc"><i>17</i>&nbsp; public static final Logger LOGGER =
+            Logger.getLogger(SceneController.class.getName());</b>
+        <i>18</i>&nbsp;
+        <i>19</i>&nbsp; /**
+        <i>20</i>&nbsp; * Changes the root panel of the scene argument.
+        <i>21</i>&nbsp; *
+        <i>22</i>&nbsp; * @param view the view to be set into the FXMLLoader controller.
+        <i>23</i>&nbsp; * @param scene the scene whose change the root panel.
+        <i>24</i>&nbsp; * @param fxml the new scene fxml name. It must include the extension &quot;.fxml&quot; (i.e.
+        next_scene.fxml).
+        <i>25</i>&nbsp; * @return the controller of the new scene loaded by the FXMLLoader.
+        <i>26</i>&nbsp; */
+        <i>27</i>&nbsp; public static ViewGuiController changeRootPane(View view, Scene scene, String fxml) {
+        <b class="nc"><i>28</i>&nbsp; ViewGuiController controller = null;</b>
+        <i>29</i>&nbsp; try {
+        <b class="nc"><i>30</i>&nbsp; FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(&quot;/fxml/&quot;
+            + fxml));</b>
+        <b class="nc"><i>31</i>&nbsp; Parent root = loader.load();</b>
+        <b class="nc"><i>32</i>&nbsp; controller = loader.getController();</b>
+        <b class="nc"><i>33</i>&nbsp; controller.setView(view);</b>
+        <i>34</i>&nbsp;
+        <b class="nc"><i>35</i>&nbsp; scene.setRoot(root);</b>
+        <b class="nc"><i>36</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>37</i>&nbsp; LOGGER.severe(e.getMessage());</b>
+        <b class="nc"><i>38</i>&nbsp; }</b>
+        <b class="nc"><i>39</i>&nbsp; return controller;</b>
+        <i>40</i>&nbsp; }
+        <i>41</i>&nbsp;
+        <i>42</i>&nbsp; /**
+        <i>43</i>&nbsp; * Changes the root panel of the scene argument.
+        <i>44</i>&nbsp; *
+        <i>45</i>&nbsp; * @param view the view to be set into the FXMLLoader controller.
+        <i>46</i>&nbsp; * @param event the event which is happened into the scene.
+        <i>47</i>&nbsp; * @param fxml the new scene fxml name. It must include the extension &quot;.fxml&quot; (i.e.
+        next_scene.fxml).
+        <i>48</i>&nbsp; * @return the controller of the new scene loaded by the FXMLLoader.
+        <i>49</i>&nbsp; */
+        <i>50</i>&nbsp; public static ViewGuiController changeRootPane(View view, Event event, String fxml) {
+        <b class="nc"><i>51</i>&nbsp; Scene scene = ((Node) event.getSource()).getScene();</b>
+        <b class="nc"><i>52</i>&nbsp; return changeRootPane(view, scene, fxml);</b>
+        <i>53</i>&nbsp; }
+        <i>54</i>&nbsp;
+        <i>55</i>&nbsp; /**
+        <i>56</i>&nbsp; * Changes the root panel of the scene argument.
+        <i>57</i>&nbsp; * Offers the possibility to set a custom controller to the FXMLLoader.
+        <i>58</i>&nbsp; *
+        <i>59</i>&nbsp; * @param controller the custom controller that will be set into the FXMLLoader.
+        <i>60</i>&nbsp; * @param scene the scene whose change the panel.
+        <i>61</i>&nbsp; * @param fxml the new scene fxml name. It must include the extension &quot;.fxml&quot; (i.e.
+        next_scene.fxml).
+        <i>62</i>&nbsp; */
+        <i>63</i>&nbsp; public static void changeRootPane(ViewGuiController controller, Scene scene, String fxml) {
+        <i>64</i>&nbsp; try {
+        <b class="nc"><i>65</i>&nbsp; FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(&quot;/fxml/&quot;
+            + fxml));</b>
+        <i>66</i>&nbsp;
+        <i>67</i>&nbsp; // Setting the controller BEFORE the load() method.
+        <b class="nc"><i>68</i>&nbsp; loader.setController(controller);</b>
+        <b class="nc"><i>69</i>&nbsp; Parent root = loader.load();</b>
+        <b class="nc"><i>70</i>&nbsp; scene.setRoot(root);</b>
+        <b class="nc"><i>71</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>72</i>&nbsp; LOGGER.severe(e.getMessage());</b>
+        <b class="nc"><i>73</i>&nbsp; }</b>
+        <i>74</i>&nbsp; }
+        <i>75</i>&nbsp;
+        <i>76</i>&nbsp; /**
+        <i>77</i>&nbsp; * Changes the root panel of the scene argument.
+        <i>78</i>&nbsp; * Offers the possibility to set a custom controller to the FXMLLoader.
+        <i>79</i>&nbsp; *
+        <i>80</i>&nbsp; * @param controller the custom controller that will be set into the FXMLLoader.
+        <i>81</i>&nbsp; * @param event the event which is happened into the scene.
+        <i>82</i>&nbsp; * @param fxml the new scene fxml name. It must include the extension &quot;.fxml&quot; (i.e.
+        next_scene.fxml).
+        <i>83</i>&nbsp; */
+        <i>84</i>&nbsp; public static void changeRootPane(ViewGuiController controller, Event event, String fxml) {
+        <b class="nc"><i>85</i>&nbsp; Scene scene = ((Node) event.getSource()).getScene();</b>
+        <b class="nc"><i>86</i>&nbsp; changeRootPane(controller, scene, fxml);</b>
+        <i>87</i>&nbsp; }
+        <i>88</i>&nbsp;
+        <i>89</i>&nbsp; /**
+        <i>90</i>&nbsp; * Shows a custom message in a popup.
+        <i>91</i>&nbsp; *
+        <i>92</i>&nbsp; * @param title the title of the popup.
+        <i>93</i>&nbsp; * @param message the message of the popup.
+        <i>94</i>&nbsp; */
+        <i>95</i>&nbsp; public static void showAlert(String title, String message) {
+        <b class="nc"><i>96</i>&nbsp; FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(&quot;/fxml/alert_scene.fxml&quot;));</b>
+        <i>97</i>&nbsp;
+        <i>98</i>&nbsp; Parent parent;
+        <i>99</i>&nbsp; try {
+        <b class="nc"><i>100</i>&nbsp; parent = loader.load();</b>
+        <b class="nc"><i>101</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>102</i>&nbsp; LOGGER.severe(e.getMessage());</b>
+        <i>103</i>&nbsp; return;
+        <b class="nc"><i>104</i>&nbsp; }</b>
+        <b class="nc"><i>105</i>&nbsp; AlertSceneController alertSceneController = loader.getController();</b>
+        <b class="nc"><i>106</i>&nbsp; Scene alertScene = new Scene(parent);</b>
+        <b class="nc"><i>107</i>&nbsp; alertSceneController.setScene(alertScene);</b>
+        <b class="nc"><i>108</i>&nbsp; alertSceneController.setAlertTitle(title);</b>
+        <b class="nc"><i>109</i>&nbsp; alertSceneController.setAlertMessage(message);</b>
+        <b class="nc"><i>110</i>&nbsp; alertSceneController.displayAlert();</b>
+        <i>111</i>&nbsp; }
+        <i>112</i>&nbsp;
+        <i>113</i>&nbsp;
+        <i>114</i>&nbsp;
+        <i>115</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-05-18 21:43</div>
+</div>
+</body>
+</html>

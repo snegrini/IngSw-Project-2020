@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: MenuSceneController</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: MenuSceneController (it.polimi.ingsw.view.gui.scene)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">MenuSceneController</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 4)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 4)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.observer.ViewObservable;
+        <i>4</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
+        <i>5</i>&nbsp;import javafx.event.Event;
+        <i>6</i>&nbsp;import javafx.fxml.FXML;
+        <i>7</i>&nbsp;import javafx.scene.control.Button;
+        <i>8</i>&nbsp;import javafx.scene.input.MouseEvent;
+        <i>9</i>&nbsp;import javafx.scene.layout.AnchorPane;
+        <i>10</i>&nbsp;
+        <b class="nc"><i>11</i>&nbsp;public class MenuSceneController extends ViewObservable implements
+            GenericSceneController {</b>
+        <i>12</i>&nbsp;
+        <i>13</i>&nbsp; @FXML
+        <i>14</i>&nbsp; private AnchorPane rootPane;
+        <i>15</i>&nbsp; @FXML
+        <i>16</i>&nbsp; private Button playBtn;
+        <i>17</i>&nbsp; @FXML
+        <i>18</i>&nbsp; private Button quitBtn;
+        <i>19</i>&nbsp;
+        <i>20</i>&nbsp; @FXML
+        <i>21</i>&nbsp; public void initialize() {
+        <b class="nc"><i>22</i>&nbsp; playBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -&gt;
+            onPlayBtnClick(event));</b>
+        <b class="nc"><i>23</i>&nbsp; quitBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -&gt; System.exit(0));</b>
+        <i>24</i>&nbsp; }
+        <i>25</i>&nbsp;
+        <i>26</i>&nbsp; private void onPlayBtnClick(Event event) {
+        <b class="nc"><i>27</i>&nbsp; SceneController.changeRootPane(observers, event, &quot;connect_scene.fxml&quot;);</b>
+        <i>28</i>&nbsp;
+        <i>29</i>&nbsp; /*List&lt;Position&gt; spacesToBeEnabled = List.of(new Position(0, 1), new Position(1, 0), new
+        Position(1, 1));
+        <i>30</i>&nbsp; BoardSceneController bsc = new BoardSceneController();
+        <i>31</i>&nbsp; bsc.addAllObservers(observers);
+        <i>32</i>&nbsp; SceneController.changeRootPane(bsc, event, &quot;board_scene.fxml&quot;);
+        <i>33</i>&nbsp; bsc.setEnabledSpaces(spacesToBeEnabled);*/
+        <i>34</i>&nbsp; }
+        <i>35</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-05-25 22:56</div>
+</div>
+</body>
+</html>
