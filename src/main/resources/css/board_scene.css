@@ -19,6 +19,7 @@
 
 .spacePane {
     -fx-opacity: inherit;
+    -fx-background-size: stretch;
 }
 
 .spacePane.lvlOne {
@@ -34,6 +35,7 @@
 }
 
 .spaceWorkerPane {
+    -fx-background-size: stretch;
     -fx-scale-x: 0.6;
     -fx-scale-y: 0.6;
     -fx-scale-z: 0.6;
@@ -41,6 +43,7 @@
 
 .spaceWorkerPane.dome {
     -fx-background-image: url("../images/buildings/dome.png");
+    -fx-background-size: stretch;
     -fx-scale-x: 1;
     -fx-scale-y: 1;
     -fx-scale-z: 1;
@@ -48,21 +51,21 @@
 
 .spaceWorkerPane.workerBlue {
     -fx-background-image: url("../images/workers/worker_cicled_blue.png");
-    -fx-background-size: cover;
+    -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
     -fx-opacity: 1;
 }
 
 .spaceWorkerPane.workerGreen {
     -fx-background-image: url("../images/workers/worker_cicled_green.png");
-    -fx-background-size: cover;
+    -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
     -fx-opacity: 1;
 }
 
 .spaceWorkerPane.workerRed {
     -fx-background-image: url("../images/workers/worker_cicled_red.png");
-    -fx-background-size: cover;
+    -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
     -fx-opacity: 1;
 }
