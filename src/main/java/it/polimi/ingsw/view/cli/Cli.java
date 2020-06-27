@@ -500,7 +500,7 @@ public class Cli extends ViewObservable implements View {
      */
     @Override
     public void showWinMessage(String winner) {
-        out.println("GAME FINISHED. " + winner + "WINS!");
+        out.println("Game finished: " + winner + " WINS!");
     }
 
     /**
