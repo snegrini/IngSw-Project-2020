@@ -191,10 +191,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void showWinMessage(String winner) {
-        WinSceneController wsc = new WinSceneController();
-        wsc.setWinnerNickname(winner);
-
-        Platform.runLater(() -> SceneController.changeRootPane(wsc, "win_scene.fxml"));
+        Platform.runLater(() -> SceneController.showWin(winner));
     }
 
     /**

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scene;
 
+import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,6 +25,7 @@ public class WinSceneController implements GenericSceneController {
 
     public WinSceneController() {
         stage = new Stage();
+        stage.initOwner(SceneController.getActiveScene().getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setAlwaysOnTop(true);
@@ -37,15 +39,13 @@ public class WinSceneController implements GenericSceneController {
 
     private void onOkBtnClick(MouseEvent event) {
         stage.close();
-
-        // TODO Close all and disconnect.
     }
 
     public void setWinnerNickname(String winnerNickname) {
         this.winnerNickname = winnerNickname;
     }
 
-    public void displayAlert() {
+    public void displayWinScene() {
         stage.showAndWait();
     }
 

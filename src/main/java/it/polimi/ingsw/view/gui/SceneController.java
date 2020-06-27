@@ -5,6 +5,7 @@ import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.gui.scene.AlertSceneController;
 import it.polimi.ingsw.view.gui.scene.GenericSceneController;
 import it.polimi.ingsw.view.gui.scene.GodInfoSceneController;
+import it.polimi.ingsw.view.gui.scene.WinSceneController;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -182,6 +183,28 @@ public class SceneController extends ViewObservable {
         godInfoSceneController.setGodCaption(caption);
         godInfoSceneController.setGodDescription(description);
         godInfoSceneController.setGodImage();
-        godInfoSceneController.displayAlert();
+        godInfoSceneController.displayGodInfo();
+    }
+
+    /**
+     * Shows the win message popup.
+     *
+     * @param nickname the nickname of the winning player.
+     */
+    public static void showWin(String nickname) {
+        FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/win_scene.fxml"));
+
+        Parent parent;
+        try {
+            parent = loader.load();
+        } catch (IOException e) {
+            LOGGER.severe(e.getMessage());
+            return;
+        }
+        WinSceneController winSceneController = loader.getController();
+        Scene winScene = new Scene(parent);
+        winSceneController.setScene(winScene);
+        winSceneController.setWinnerNickname(nickname);
+        winSceneController.displayWinScene();
     }
 }

@@ -27,7 +27,6 @@ public class GodInfoSceneController implements GenericSceneController {
     @FXML
     private ImageView godImg;
 
-
     public GodInfoSceneController() {
         stage = new Stage();
         stage.initOwner(SceneController.getActiveScene().getWindow());
@@ -58,7 +57,7 @@ public class GodInfoSceneController implements GenericSceneController {
         descriptionLbl.setText(str);
     }
 
-    public void displayAlert() {
+    public void displayGodInfo() {
         stage.showAndWait();
     }
 
