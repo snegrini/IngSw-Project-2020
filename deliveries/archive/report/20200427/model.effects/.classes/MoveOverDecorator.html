@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: MoveOverDecorator</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">model.effects</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: MoveOverDecorator (model.effects)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">MoveOverDecorator</td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (1/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    33,3%
+  </span>
+                <span class="absValue">
+    (1/ 3)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    30%
+  </span>
+                <span class="absValue">
+    (6/ 20)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package model.effects;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import model.Game;
+        <i>4</i>&nbsp;import model.board.Board;
+        <i>5</i>&nbsp;import model.board.Position;
+        <i>6</i>&nbsp;import model.board.Space;
+        <i>7</i>&nbsp;import model.enumerations.EffectType;
+        <i>8</i>&nbsp;import model.enumerations.XMLName;
+        <i>9</i>&nbsp;import model.player.Worker;
+        <i>10</i>&nbsp;
+        <i>11</i>&nbsp;import java.util.List;
+        <i>12</i>&nbsp;import java.util.Map;
+        <i>13</i>&nbsp;
+        <i>14</i>&nbsp;public class MoveOverDecorator extends EffectDecorator {
+        <i>15</i>&nbsp;
+        <i>16</i>&nbsp; private Map&lt;String, String&gt; requirements;
+        <i>17</i>&nbsp; private boolean pushBack;
+        <i>18</i>&nbsp; private boolean swapSpace;
+        <i>19</i>&nbsp;
+        <b class="fc"><i>20</i>&nbsp; public MoveOverDecorator(Effect effect, Map&lt;String, String&gt; requirements,
+            boolean pushBack, boolean swapSpace) {</b>
+        <b class="fc"><i>21</i>&nbsp; this.effect = effect;</b>
+        <b class="fc"><i>22</i>&nbsp; this.requirements = requirements;</b>
+        <b class="fc"><i>23</i>&nbsp; this.pushBack = pushBack;</b>
+        <b class="fc"><i>24</i>&nbsp; this.swapSpace = swapSpace;</b>
+        <b class="fc"><i>25</i>&nbsp; }</b>
+        <i>26</i>&nbsp;
+        <i>27</i>&nbsp; @Override
+        <i>28</i>&nbsp; public void apply(List&lt;Worker&gt; workers) {
+        <b class="nc"><i>29</i>&nbsp; effect.apply(workers);</b>
+        <i>30</i>&nbsp;
+        <i>31</i>&nbsp;
+        <i>32</i>&nbsp; // TODO return list of possibleMoves or at least notify the controller in any way.
+        <i>33</i>&nbsp;
+        <b class="nc"><i>34</i>&nbsp; }</b>
+        <i>35</i>&nbsp;
+        <i>36</i>&nbsp; @Override
+        <i>37</i>&nbsp; public boolean require(Worker worker) {
+        <b class="nc"><i>38</i>&nbsp; List&lt;Position&gt; possibleMoves = worker.getPossibleMoves();</b>
+        <i>39</i>&nbsp;
+        <b class="nc"><i>40</i>&nbsp; Board board = Game.getInstance().getBoard();</b>
+        <b class="nc"><i>41</i>&nbsp; List&lt;Position&gt; adjOpponentPos =
+            board.getNeighbourWorkers(worker.getPosition());</b>
+        <i>42</i>&nbsp;
+        <b class="nc"><i>43</i>&nbsp; if (pushBack) {</b>
+        <b class="nc"><i>44</i>&nbsp; possibleMoves.addAll(adjOpponentPos);</b>
+        <i>45</i>&nbsp; }
+        <i>46</i>&nbsp;
+        <b class="nc"><i>47</i>&nbsp; if (swapSpace) {</b>
+        <b class="nc"><i>48</i>&nbsp; for (Position oppPos : adjOpponentPos) {</b>
+        <b class="nc"><i>49</i>&nbsp; Space space = board.getNextSpaceInLine(worker.getPosition(), oppPos);</b>
+        <b class="nc"><i>50</i>&nbsp; if (space.isFree()) {</b>
+        <b class="nc"><i>51</i>&nbsp; possibleMoves.add(oppPos);</b>
+        <i>52</i>&nbsp; }
+        <b class="nc"><i>53</i>&nbsp; }</b>
+        <i>54</i>&nbsp; }
+        <i>55</i>&nbsp;
+        <b class="nc"><i>56</i>&nbsp; return effect.require(worker);</b>
+        <i>57</i>&nbsp; }
+        <i>58</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-04-27 22:20</div>
+</div>
+</body>
+</html>

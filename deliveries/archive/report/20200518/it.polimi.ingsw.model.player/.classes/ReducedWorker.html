@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: ReducedWorker</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.model.player</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: ReducedWorker (it.polimi.ingsw.model.player)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">ReducedWorker</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 3)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 5)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.player;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+        <i>4</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
+        <i>5</i>&nbsp;
+        <i>6</i>&nbsp;import java.io.Serializable;
+        <i>7</i>&nbsp;
+        <i>8</i>&nbsp;public class ReducedWorker implements Serializable {
+        <i>9</i>&nbsp; private static final long serialVersionUID = 6276055061235883140L;
+        <i>10</i>&nbsp; private final Color color;
+        <i>11</i>&nbsp; private final Position position;
+        <i>12</i>&nbsp;
+        <b class="nc"><i>13</i>&nbsp; public ReducedWorker(Worker worker) {</b>
+        <b class="nc"><i>14</i>&nbsp; this.color = worker.getColor();</b>
+        <b class="nc"><i>15</i>&nbsp; this.position = worker.getPosition();</b>
+        <i>16</i>&nbsp; }
+        <i>17</i>&nbsp;
+        <i>18</i>&nbsp; public Color getColor() {
+        <b class="nc"><i>19</i>&nbsp; return color;</b>
+        <i>20</i>&nbsp; }
+        <i>21</i>&nbsp;
+        <i>22</i>&nbsp; public Position getPosition() {
+        <b class="nc"><i>23</i>&nbsp; return position;</b>
+        <i>24</i>&nbsp; }
+        <i>25</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-05-18 21:43</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: Game</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.model</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: Game (it.polimi.ingsw.model)</h1>
+
+    <table class="coverageStats">
+
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">Game</td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (29/ 29)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    96,7%
+  </span>
+                <span class="absValue">
+    (88/ 91)
+  </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="name">Game$1</td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (1/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (1/ 1)
+  </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="name"><strong>total</strong></td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (30/ 30)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    96,7%
+  </span>
+                <span class="absValue">
+    (89/ 92)
+  </span>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.model.board.Board;
+        <i>4</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+        <i>5</i>&nbsp;import it.polimi.ingsw.model.board.ReducedSpace;
+        <i>6</i>&nbsp;import it.polimi.ingsw.model.board.Space;
+        <i>7</i>&nbsp;import it.polimi.ingsw.model.enumerations.MoveType;
+        <i>8</i>&nbsp;import it.polimi.ingsw.model.enumerations.TargetType;
+        <i>9</i>&nbsp;import it.polimi.ingsw.model.player.Player;
+        <i>10</i>&nbsp;import it.polimi.ingsw.model.player.Worker;
+        <i>11</i>&nbsp;import it.polimi.ingsw.observer.Observable;
+        <i>12</i>&nbsp;import it.polimi.ingsw.parser.GodParser;
+        <i>13</i>&nbsp;
+        <i>14</i>&nbsp;import java.util.ArrayList;
+        <i>15</i>&nbsp;import java.util.List;
+        <i>16</i>&nbsp;import java.util.stream.Collectors;
+        <i>17</i>&nbsp;
+        <i>18</i>&nbsp;public class Game extends Observable {
+        <i>19</i>&nbsp;
+        <i>20</i>&nbsp; private static Game instance;
+        <i>21</i>&nbsp;
+        <i>22</i>&nbsp; public static final int MAX_PLAYERS = 3;
+        <i>23</i>&nbsp; public static final String SERVER_NICKNAME = &quot;server&quot;;
+        <i>24</i>&nbsp;
+        <i>25</i>&nbsp;
+        <i>26</i>&nbsp; private Board board;
+        <i>27</i>&nbsp; private List&lt;Player&gt; players;
+        <i>28</i>&nbsp; private List&lt;God&gt; gods;
+        <i>29</i>&nbsp; private int chosenPlayersNumber;
+        <i>30</i>&nbsp;
+        <b class="fc"><i>31</i>&nbsp; private Game() {</b>
+        <b class="fc"><i>32</i>&nbsp; this.board = new Board();</b>
+        <b class="fc"><i>33</i>&nbsp; this.players = new ArrayList&lt;&gt;();</b>
+        <b class="fc"><i>34</i>&nbsp; this.gods = GodParser.parseGods();</b>
+        <b class="fc"><i>35</i>&nbsp; }</b>
+        <i>36</i>&nbsp;
+        <i>37</i>&nbsp; /**
+        <i>38</i>&nbsp; * @return the singleton instance.
+        <i>39</i>&nbsp; */
+        <i>40</i>&nbsp; public static Game getInstance() {
+        <b class="fc"><i>41</i>&nbsp; if (instance == null)</b>
+        <b class="fc"><i>42</i>&nbsp; instance = new Game();</b>
+        <b class="fc"><i>43</i>&nbsp; return instance;</b>
+        <i>44</i>&nbsp; }
+        <i>45</i>&nbsp;
+        <i>46</i>&nbsp; /**
+        <i>47</i>&nbsp; * Returns a player given his {@code nickname}.
+        <i>48</i>&nbsp; * Only the first occurrence is returned because
+        <i>49</i>&nbsp; * the player nickname is considered to be unique.
+        <i>50</i>&nbsp; * If no player is found {@code null} is returned.
+        <i>51</i>&nbsp; *
+        <i>52</i>&nbsp; * @param nickname the nickname of the player to be found.
+        <i>53</i>&nbsp; * @return Returns the player given his {@code nickname}, {@code null} otherwise.
+        <i>54</i>&nbsp; */
+        <i>55</i>&nbsp; public Player getPlayerByNickname(String nickname) {
+        <b class="fc"><i>56</i>&nbsp; return players.stream()</b>
+        <b class="fc"><i>57</i>&nbsp; .filter(player -&gt; nickname.equals(player.getNickname()))</b>
+        <b class="fc"><i>58</i>&nbsp; .findFirst()</b>
+        <b class="fc"><i>59</i>&nbsp; .orElse(null);</b>
+        <i>60</i>&nbsp; }
+        <i>61</i>&nbsp;
+        <i>62</i>&nbsp; /**
+        <i>63</i>&nbsp; * Adds a player to the game.
+        <i>64</i>&nbsp; *
+        <i>65</i>&nbsp; * @param player the player to add to the game.
+        <i>66</i>&nbsp; */
+        <i>67</i>&nbsp; public void addPlayer(Player player) {
+        <b class="fc"><i>68</i>&nbsp; players.add(player);</b>
+        <b class="fc"><i>69</i>&nbsp; }</b>
+        <i>70</i>&nbsp;
+        <i>71</i>&nbsp; /**
+        <i>72</i>&nbsp; * Number of current players added in the game.
+        <i>73</i>&nbsp; *
+        <i>74</i>&nbsp; * @return the number of players.
+        <i>75</i>&nbsp; */
+        <i>76</i>&nbsp; public int getNumCurrentPlayers() {
+        <b class="fc"><i>77</i>&nbsp; return players.size();</b>
+        <i>78</i>&nbsp; }
+        <i>79</i>&nbsp;
+        <i>80</i>&nbsp; /**
+        <i>81</i>&nbsp; * Sets the max number of players chosen by the first player joining the game.
+        <i>82</i>&nbsp; *
+        <i>83</i>&nbsp; * @param chosenMaxPlayers the max players number. Value can be {@code 0 &lt; x &lt;
+        MAX_PLAYERS}.
+        <i>84</i>&nbsp; * @return {@code true} if the argument value is {@code 0 &lt; x &lt; MAX_PLAYERS}, {@code false}
+        otherwise.
+        <i>85</i>&nbsp; */
+        <i>86</i>&nbsp; public boolean setChosenMaxPlayers(int chosenMaxPlayers) {
+        <b class="fc"><i>87</i>&nbsp; if (chosenMaxPlayers &gt; 0 &amp;&amp; chosenMaxPlayers &lt;= MAX_PLAYERS) {</b>
+        <b class="fc"><i>88</i>&nbsp; this.chosenPlayersNumber = chosenMaxPlayers;</b>
+        <b class="fc"><i>89</i>&nbsp; return true;</b>
+        <i>90</i>&nbsp; }
+        <b class="fc"><i>91</i>&nbsp; return false;</b>
+        <i>92</i>&nbsp; }
+        <i>93</i>&nbsp;
+        <i>94</i>&nbsp; public int getChosenPlayersNumber() {
+        <b class="fc"><i>95</i>&nbsp; return chosenPlayersNumber;</b>
+        <i>96</i>&nbsp; }
+        <i>97</i>&nbsp;
+        <i>98</i>&nbsp; /**
+        <i>99</i>&nbsp; * Returns a worker given the position argument.
+        <i>100</i>&nbsp; *
+        <i>101</i>&nbsp; * @param position the position of the worker.
+        <i>102</i>&nbsp; * @return the worker found, {@code null} if not found.
+        <i>103</i>&nbsp; */
+        <i>104</i>&nbsp; public Worker getWorkerByPosition(Position position) {
+        <b class="fc"><i>105</i>&nbsp; return board.getWorkerByPosition(position);</b>
+        <i>106</i>&nbsp; }
+        <i>107</i>&nbsp;
+        <i>108</i>&nbsp; /**
+        <i>109</i>&nbsp; * Search a nickname in the current Game.
+        <i>110</i>&nbsp; *
+        <i>111</i>&nbsp; * @param nickname the nickname of the player.
+        <i>112</i>&nbsp; * @return {@code true} if the nickname is found, {@code false} otherwise.
+        <i>113</i>&nbsp; */
+        <i>114</i>&nbsp; public boolean isNicknameTaken(String nickname) {
+        <b class="fc"><i>115</i>&nbsp; return players.stream()</b>
+        <b class="fc"><i>116</i>&nbsp; .anyMatch(p -&gt; nickname.equals(p.getNickname()));</b>
+        <i>117</i>&nbsp; }
+        <i>118</i>&nbsp;
+        <i>119</i>&nbsp; /**
+        <i>120</i>&nbsp; * Resets the game instance. After this operations, all the game data is lost.
+        <i>121</i>&nbsp; */
+        <i>122</i>&nbsp; public static void resetInstance() {
+        <b class="fc"><i>123</i>&nbsp; Game.instance = null;</b>
+        <b class="fc"><i>124</i>&nbsp; }</b>
+        <i>125</i>&nbsp;
+        <i>126</i>&nbsp; /**
+        <i>127</i>&nbsp; * Returns a list of reduced gods.
+        <i>128</i>&nbsp; *
+        <i>129</i>&nbsp; * @return a list with all reduced gods.
+        <i>130</i>&nbsp; */
+        <i>131</i>&nbsp; public List&lt;ReducedGod&gt; getReduceGodList() {
+        <b class="fc"><i>132</i>&nbsp; List&lt;ReducedGod&gt; reducedGods = new ArrayList&lt;&gt;();</b>
+        <b class="fc"><i>133</i>&nbsp; for (God god : gods) {</b>
+        <b class="fc"><i>134</i>&nbsp; reducedGods.add(new ReducedGod(god));</b>
+        <b class="fc"><i>135</i>&nbsp; }</b>
+        <b class="fc"><i>136</i>&nbsp; return reducedGods;</b>
+        <i>137</i>&nbsp; }
+        <i>138</i>&nbsp;
+        <i>139</i>&nbsp; /**
+        <i>140</i>&nbsp; * Return the god given his name.
+        <i>141</i>&nbsp; *
+        <i>142</i>&nbsp; * @param godName the name of the god.
+        <i>143</i>&nbsp; * @return the corresponding God object, {@code null} if it is not found.
+        <i>144</i>&nbsp; */
+        <i>145</i>&nbsp; public God getGodByName(String godName) {
+        <b class="fc"><i>146</i>&nbsp; return gods.stream()</b>
+        <b class="fc"><i>147</i>&nbsp; .filter(god -&gt; godName.equals(god.getName()))</b>
+        <b class="fc"><i>148</i>&nbsp; .findFirst()</b>
+        <b class="fc"><i>149</i>&nbsp; .orElse(null);</b>
+        <i>150</i>&nbsp; }
+        <i>151</i>&nbsp;
+        <i>152</i>&nbsp; /**
+        <i>153</i>&nbsp; * Returns a list of player nicknames that are already in-game.
+        <i>154</i>&nbsp; *
+        <i>155</i>&nbsp; * @return a list with all nicknames in the Game
+        <i>156</i>&nbsp; */
+        <i>157</i>&nbsp; public List&lt;String&gt; getPlayersNicknames() {
+        <b class="fc"><i>158</i>&nbsp; List&lt;String&gt; nicknames = new ArrayList&lt;&gt;();</b>
+        <b class="fc"><i>159</i>&nbsp; for (Player p : players) {</b>
+        <b class="fc"><i>160</i>&nbsp; nicknames.add(p.getNickname());</b>
+        <b class="fc"><i>161</i>&nbsp; }</b>
+        <b class="fc"><i>162</i>&nbsp; return nicknames;</b>
+        <i>163</i>&nbsp; }
+        <i>164</i>&nbsp;
+        <i>165</i>&nbsp; public Board getBoard() {
+        <b class="fc"><i>166</i>&nbsp; return board;</b>
+        <i>167</i>&nbsp; }
+        <i>168</i>&nbsp;
+        <i>169</i>&nbsp;
+        <i>170</i>&nbsp; public void initWorkersOnBoard(List&lt;Worker&gt; workers) {
+        <b class="fc"><i>171</i>&nbsp; board.initWorkers(workers);</b>
+        <b class="fc"><i>172</i>&nbsp; }</b>
+        <i>173</i>&nbsp;
+        <i>174</i>&nbsp; public void moveWorker(Worker worker, Position dest) {
+        <b class="fc"><i>175</i>&nbsp; board.moveWorker(worker, dest);</b>
+        <b class="fc"><i>176</i>&nbsp; }</b>
+        <i>177</i>&nbsp;
+        <i>178</i>&nbsp; public void buildBlock(Worker worker, Position dest) {
+        <b class="fc"><i>179</i>&nbsp; board.buildBlock(worker, dest);</b>
+        <b class="fc"><i>180</i>&nbsp; }</b>
+        <i>181</i>&nbsp;
+        <i>182</i>&nbsp;
+        <i>183</i>&nbsp; public ReducedSpace[][] getReducedSpaceBoard() {
+        <b class="fc"><i>184</i>&nbsp; return board.getReducedSpaceBoard();</b>
+        <i>185</i>&nbsp; }
+        <i>186</i>&nbsp;
+        <i>187</i>&nbsp; public List&lt;Position&gt; getFreePositions() {
+        <b class="fc"><i>188</i>&nbsp; return board.getFreePositions();</b>
+        <i>189</i>&nbsp; }
+        <i>190</i>&nbsp;
+        <i>191</i>&nbsp; public boolean arePositionsFree(List&lt;Position&gt; positionList) {
+        <b class="fc"><i>192</i>&nbsp; return board.arePositionsFree(positionList);</b>
+        <i>193</i>&nbsp; }
+        <i>194</i>&nbsp;
+        <i>195</i>&nbsp; public Space getNextSpaceInLine(Position orig, Position dest) {
+        <b class="fc"><i>196</i>&nbsp; return board.getNextSpaceInLine(orig, dest);</b>
+        <i>197</i>&nbsp; }
+        <i>198</i>&nbsp;
+        <i>199</i>&nbsp; public List&lt;Position&gt; getNeighbours(Position position) {
+        <b class="fc"><i>200</i>&nbsp; return board.getNeighbours(position);</b>
+        <i>201</i>&nbsp; }
+        <i>202</i>&nbsp;
+        <i>203</i>&nbsp; public List&lt;Position&gt; getNeighbourWorkers(Position position, boolean oppOnly) {
+        <b class="fc"><i>204</i>&nbsp; return board.getNeighbourWorkers(position, oppOnly);</b>
+        <i>205</i>&nbsp; }
+        <i>206</i>&nbsp;
+        <i>207</i>&nbsp; public MoveType getMoveTypeByLevel(Position orig, Position dest) {
+        <b class="fc"><i>208</i>&nbsp; return board.getMoveTypeByLevel(orig, dest);</b>
+        <i>209</i>&nbsp; }
+        <i>210</i>&nbsp;
+        <i>211</i>&nbsp; public int getSpaceLevel(Position position) {
+        <b class="fc"><i>212</i>&nbsp; return board.getSpace(position).getLevel();</b>
+        <i>213</i>&nbsp; }
+        <i>214</i>&nbsp;
+        <i>215</i>&nbsp; /**
+        <i>216</i>&nbsp; * Returns the enemy workers given a worker.
+        <i>217</i>&nbsp; *
+        <i>218</i>&nbsp; * @param worker the target worker.
+        <i>219</i>&nbsp; * @return a List of Worker that are enemies of the argument.
+        <i>220</i>&nbsp; */
+        <i>221</i>&nbsp; public List&lt;Worker&gt; getEnemyWorkers(Worker worker) {
+        <b class="fc"><i>222</i>&nbsp; List&lt;Worker&gt; allWorkers = new ArrayList&lt;&gt;();</b>
+        <b class="fc"><i>223</i>&nbsp; for (Player player : players) {</b>
+        <b class="fc"><i>224</i>&nbsp; for (Position position : player.getWorkersPositions()) {</b>
+        <b class="fc"><i>225</i>&nbsp; allWorkers.add(board.getWorkerByPosition(position));</b>
+        <b class="fc"><i>226</i>&nbsp; }</b>
+        <b class="fc"><i>227</i>&nbsp; }</b>
+        <b class="fc"><i>228</i>&nbsp; return allWorkers.stream()</b>
+        <b class="fc"><i>229</i>&nbsp; .filter(w -&gt; !w.getColor().equals(worker.getColor()))</b>
+        <b class="fc"><i>230</i>&nbsp; .collect(Collectors.toList());</b>
+        <i>231</i>&nbsp; }
+        <i>232</i>&nbsp;
+        <i>233</i>&nbsp; /**
+        <i>234</i>&nbsp; * Returns the ally workers given a worker.
+        <i>235</i>&nbsp; *
+        <i>236</i>&nbsp; * @param worker the target worker.
+        <i>237</i>&nbsp; * @return a List of Worker that are ally of the argument worker.
+        <i>238</i>&nbsp; */
+        <i>239</i>&nbsp; public List&lt;Worker&gt; getAllyWorkers(Worker worker) {
+        <b class="fc"><i>240</i>&nbsp; List&lt;Worker&gt; allWorkers = new ArrayList&lt;&gt;();</b>
+        <i>241</i>&nbsp;
+        <b class="fc"><i>242</i>&nbsp; for (Player player : players) {</b>
+        <b class="fc"><i>243</i>&nbsp; for (Position position : player.getWorkersPositions()) {</b>
+        <b class="fc"><i>244</i>&nbsp; Worker tmpWorker = board.getWorkerByPosition(position);</b>
+        <i>245</i>&nbsp;
+        <b class="fc"><i>246</i>&nbsp; if (tmpWorker.getColor().equals(worker.getColor())) {</b>
+        <b class="fc"><i>247</i>&nbsp; allWorkers.add(tmpWorker);</b>
+        <i>248</i>&nbsp; }
+        <b class="fc"><i>249</i>&nbsp; }</b>
+        <b class="fc"><i>250</i>&nbsp; }</b>
+        <i>251</i>&nbsp;
+        <b class="fc"><i>252</i>&nbsp; return allWorkers;</b>
+        <i>253</i>&nbsp; }
+        <i>254</i>&nbsp;
+        <i>255</i>&nbsp;
+        <i>256</i>&nbsp; /**
+        <i>257</i>&nbsp; * Returns the other player worker given a worker.
+        <i>258</i>&nbsp; *
+        <i>259</i>&nbsp; * @param worker a player worker.
+        <i>260</i>&nbsp; * @return the other player worker, {@code null} if none is found.
+        <i>261</i>&nbsp; */
+        <i>262</i>&nbsp; public Worker getOtherWorker(Worker worker) {
+        <b class="fc"><i>263</i>&nbsp; for (Player player : players) {</b>
+        <b class="fc"><i>264</i>&nbsp; for (Position position : player.getWorkersPositions()) {</b>
+        <b class="fc"><i>265</i>&nbsp; Worker tmpWorker = board.getWorkerByPosition(position);</b>
+        <i>266</i>&nbsp;
+        <b class="fc"><i>267</i>&nbsp; if (!tmpWorker.equals(worker) &amp;&amp;
+            tmpWorker.getColor().equals(worker.getColor())) {</b>
+        <b class="fc"><i>268</i>&nbsp; return tmpWorker;</b>
+        <i>269</i>&nbsp; }
+        <b class="fc"><i>270</i>&nbsp; }</b>
+        <b class="nc"><i>271</i>&nbsp; }</b>
+        <b class="nc"><i>272</i>&nbsp; return null;</b>
+        <i>273</i>&nbsp; }
+        <i>274</i>&nbsp;
+        <i>275</i>&nbsp; public List&lt;Worker&gt; getWorkersByTargetType(Worker worker, TargetType targetType) {
+        <i>276</i>&nbsp; List&lt;Worker&gt; workerList;
+        <i>277</i>&nbsp;
+        <b class="fc"><i>278</i>&nbsp; switch (targetType) {</b>
+        <i>279</i>&nbsp; case ALL_YOUR_WORKERS:
+        <b class="fc"><i>280</i>&nbsp; workerList = getAllyWorkers(worker);</b>
+        <b class="fc"><i>281</i>&nbsp; break;</b>
+        <i>282</i>&nbsp; case ALL_OPP_WORKERS:
+        <b class="fc"><i>283</i>&nbsp; workerList = getEnemyWorkers(worker);</b>
+        <b class="fc"><i>284</i>&nbsp; break;</b>
+        <i>285</i>&nbsp; case YOUR_ACTIVE_WORKER:
+        <b class="fc"><i>286</i>&nbsp; workerList = List.of(worker);</b>
+        <b class="fc"><i>287</i>&nbsp; break;</b>
+        <i>288</i>&nbsp; case YOUR_WORKER:
+        <b class="fc"><i>289</i>&nbsp; workerList = List.of(getOtherWorker(worker));</b>
+        <b class="fc"><i>290</i>&nbsp; break;</b>
+        <i>291</i>&nbsp; default: // should never reach this condition.
+        <b class="nc"><i>292</i>&nbsp; workerList = List.of();</b>
+        <i>293</i>&nbsp; break;
+        <i>294</i>&nbsp; }
+        <b class="fc"><i>295</i>&nbsp; return workerList;</b>
+        <i>296</i>&nbsp; }
+        <i>297</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-05-11 22:22</div>
+</div>
+</body>
+</html>

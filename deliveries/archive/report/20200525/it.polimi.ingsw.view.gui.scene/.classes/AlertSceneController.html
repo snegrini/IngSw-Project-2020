@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: AlertSceneController</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: AlertSceneController (it.polimi.ingsw.view.gui.scene)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">AlertSceneController</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 7)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 11)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import javafx.fxml.FXML;
+        <i>4</i>&nbsp;import javafx.scene.Scene;
+        <i>5</i>&nbsp;import javafx.scene.control.Button;
+        <i>6</i>&nbsp;import javafx.scene.control.Label;
+        <i>7</i>&nbsp;import javafx.scene.input.MouseEvent;
+        <i>8</i>&nbsp;import javafx.stage.Modality;
+        <i>9</i>&nbsp;import javafx.stage.Stage;
+        <i>10</i>&nbsp;import javafx.stage.StageStyle;
+        <i>11</i>&nbsp;
+        <i>12</i>&nbsp;public class AlertSceneController implements GenericSceneController {
+        <i>13</i>&nbsp;
+        <i>14</i>&nbsp; private Stage stage;
+        <i>15</i>&nbsp;
+        <i>16</i>&nbsp; @FXML
+        <i>17</i>&nbsp; private Label titleLbl;
+        <i>18</i>&nbsp; @FXML
+        <i>19</i>&nbsp; private Label messageLbl;
+        <i>20</i>&nbsp; @FXML
+        <i>21</i>&nbsp; private Button okBtn;
+        <i>22</i>&nbsp;
+        <b class="nc"><i>23</i>&nbsp; public AlertSceneController() {</b>
+        <b class="nc"><i>24</i>&nbsp; stage = new Stage();</b>
+        <b class="nc"><i>25</i>&nbsp; stage.initModality(Modality.APPLICATION_MODAL);</b>
+        <b class="nc"><i>26</i>&nbsp; stage.initStyle(StageStyle.UNDECORATED);</b>
+        <b class="nc"><i>27</i>&nbsp; stage.setAlwaysOnTop(true);</b>
+        <i>28</i>&nbsp; }
+        <i>29</i>&nbsp;
+        <i>30</i>&nbsp; @FXML
+        <i>31</i>&nbsp; public void initialize() {
+        <b class="nc"><i>32</i>&nbsp; okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -&gt; onOkBtnClick(event));</b>
+        <i>33</i>&nbsp; }
+        <i>34</i>&nbsp;
+        <i>35</i>&nbsp; private void onOkBtnClick(MouseEvent event) {
+        <b class="nc"><i>36</i>&nbsp; stage.close();</b>
+        <i>37</i>&nbsp; }
+        <i>38</i>&nbsp;
+        <i>39</i>&nbsp; public void setAlertTitle(String str) {
+        <b class="nc"><i>40</i>&nbsp; titleLbl.setText(str);</b>
+        <i>41</i>&nbsp; }
+        <i>42</i>&nbsp;
+        <i>43</i>&nbsp; public void setAlertMessage(String str) {
+        <b class="nc"><i>44</i>&nbsp; messageLbl.setText(str);</b>
+        <i>45</i>&nbsp; }
+        <i>46</i>&nbsp;
+        <i>47</i>&nbsp; public void displayAlert() {
+        <i>48</i>&nbsp; //stage.show();
+        <b class="nc"><i>49</i>&nbsp; stage.showAndWait();</b>
+        <i>50</i>&nbsp; }
+        <i>51</i>&nbsp;
+        <i>52</i>&nbsp; public void setScene(Scene scene) {
+        <b class="nc"><i>53</i>&nbsp; stage.setScene(scene);</b>
+        <i>54</i>&nbsp; }
+        <i>55</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-05-25 22:56</div>
+</div>
+</body>
+</html>

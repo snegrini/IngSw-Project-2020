@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: MoveHistory</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">model.player</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: MoveHistory (model.player)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">MoveHistory</td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (1/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    37,5%
+  </span>
+                <span class="absValue">
+    (3/ 8)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    61,5%
+  </span>
+                <span class="absValue">
+    (8/ 13)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package model.player;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import model.board.Position;
+        <i>4</i>&nbsp;
+        <i>5</i>&nbsp;/**
+        <i>6</i>&nbsp; * This class keeps the history of position and level of the worker.
+        <i>7</i>&nbsp; * Methods are available to establish the last move executed by the player.
+        <i>8</i>&nbsp; * A note about this class:
+        <i>9</i>&nbsp; * &quot;Forced&quot; is not &quot;moved&quot;. Some God Effects may cause Workers to be &quot;forced&quot;
+        into another space.
+        <i>10</i>&nbsp; * A Worker that is forced, is not considered to have moved.
+        <i>11</i>&nbsp; *
+        <i>12</i>&nbsp; */
+        <i>13</i>&nbsp;public class MoveHistory {
+        <i>14</i>&nbsp;
+        <i>15</i>&nbsp; private Position lastPosition;
+        <i>16</i>&nbsp; private int lastLevel;
+        <i>17</i>&nbsp;
+        <b class="fc"><i>18</i>&nbsp; public MoveHistory(Position lastPosition, int lastLevel) {</b>
+        <b class="fc"><i>19</i>&nbsp; this.lastPosition = lastPosition;</b>
+        <b class="fc"><i>20</i>&nbsp; this.lastLevel = lastLevel;</b>
+        <b class="fc"><i>21</i>&nbsp; }</b>
+        <i>22</i>&nbsp;
+        <i>23</i>&nbsp; /**
+        <i>24</i>&nbsp; * A worker has moved up if his player has moved it during his turn.
+        <i>25</i>&nbsp; *
+        <i>26</i>&nbsp; * @param currentPosition
+        <i>27</i>&nbsp; * @param currentLevel
+        <i>28</i>&nbsp; * @return {@code true} if the worker has moved up by one level, {@code false} otherwise.
+        <i>29</i>&nbsp; */
+        <i>30</i>&nbsp; public boolean hasMovedUp(Position currentPosition, int currentLevel) {
+        <b class="nc"><i>31</i>&nbsp; return !currentPosition.equals(lastPosition) &amp;&amp;</b>
+        <i>32</i>&nbsp; currentLevel == lastLevel + 1;
+        <i>33</i>&nbsp; }
+        <i>34</i>&nbsp;
+        <i>35</i>&nbsp; /**
+        <i>36</i>&nbsp; *
+        <i>37</i>&nbsp; * @param currentPosition
+        <i>38</i>&nbsp; * @param currentLevel
+        <i>39</i>&nbsp; * @return {@code true} if the worker has moved down by one or more levels, {@code false}
+        otherwise.
+        <i>40</i>&nbsp; */
+        <i>41</i>&nbsp; public boolean hasMovedDown(Position currentPosition, int currentLevel) {
+        <b class="nc"><i>42</i>&nbsp; return !currentPosition.equals(lastPosition) &amp;&amp;</b>
+        <i>43</i>&nbsp; currentLevel &lt; lastLevel;
+        <i>44</i>&nbsp; }
+        <i>45</i>&nbsp;
+        <i>46</i>&nbsp; /**
+        <i>47</i>&nbsp; *
+        <i>48</i>&nbsp; * @param currentPosition
+        <i>49</i>&nbsp; * @param currentLevel
+        <i>50</i>&nbsp; * @return {@code true} if the worker has moved flat, {@code false} otherwise.
+        <i>51</i>&nbsp; */
+        <i>52</i>&nbsp; public boolean hasMovedFlat(Position currentPosition, int currentLevel) {
+        <b class="nc"><i>53</i>&nbsp; return !currentPosition.equals(lastPosition) &amp;&amp;</b>
+        <i>54</i>&nbsp; currentLevel == lastLevel;
+        <i>55</i>&nbsp; }
+        <i>56</i>&nbsp;
+        <i>57</i>&nbsp; public Position getLastPosition() {
+        <b class="nc"><i>58</i>&nbsp; return lastPosition;</b>
+        <i>59</i>&nbsp; }
+        <i>60</i>&nbsp;
+        <i>61</i>&nbsp; public void setLastPosition(Position lastPosition) {
+        <b class="fc"><i>62</i>&nbsp; this.lastPosition = lastPosition;</b>
+        <b class="fc"><i>63</i>&nbsp; }</b>
+        <i>64</i>&nbsp;
+        <i>65</i>&nbsp; public int getLastLevel() {
+        <b class="nc"><i>66</i>&nbsp; return lastLevel;</b>
+        <i>67</i>&nbsp; }
+        <i>68</i>&nbsp;
+        <i>69</i>&nbsp; public void setLastLevel(int lastLevel) {
+        <b class="fc"><i>70</i>&nbsp; this.lastLevel = lastLevel;</b>
+        <b class="fc"><i>71</i>&nbsp; }</b>
+        <i>72</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-03-31 13:22</div>
+</div>
+</body>
+</html>
