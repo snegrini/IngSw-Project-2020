@@ -39,6 +39,7 @@ public class WinSceneController implements GenericSceneController {
 
     private void onOkBtnClick(MouseEvent event) {
         stage.close();
+
     }
 
     public void setWinnerNickname(String winnerNickname) {
