@@ -2,6 +2,9 @@ package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.model.board.Position;
 
+/**
+ * The message which contains
+ */
 public class BuildMessage extends Message {
     private static final long serialVersionUID = -5330536550018687004L;
     private final Position position;
