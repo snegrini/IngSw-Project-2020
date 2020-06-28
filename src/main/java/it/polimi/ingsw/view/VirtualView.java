@@ -119,7 +119,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
-        clientHandler.sendMessage(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, spaces));
+        clientHandler.sendMessage(new BoardMessage(spaces));
     }
 
     @Override

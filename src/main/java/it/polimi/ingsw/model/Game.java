@@ -133,7 +133,7 @@ public class Game extends Observable implements Serializable {
             board.getSpace(p).removeWorker();
         }
 
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
+        notifyObserver(new BoardMessage(getReducedSpaceBoard()));
     }
 
     /**

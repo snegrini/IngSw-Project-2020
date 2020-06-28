@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.message;
 
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.ReducedSpace;
 
 import java.util.Arrays;
@@ -9,8 +10,8 @@ public class BoardMessage extends Message {
     private final ReducedSpace[][] board;
 
 
-    public BoardMessage(String nickname, MessageType messageType, ReducedSpace[][] board) {
-        super(nickname, messageType);
+    public BoardMessage(ReducedSpace[][] board) {
+        super(Game.SERVER_NICKNAME, MessageType.BOARD);
         this.board = board;
 
     }
