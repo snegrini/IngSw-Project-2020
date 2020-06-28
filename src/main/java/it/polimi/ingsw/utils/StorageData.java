@@ -1,7 +1,8 @@
-package it.polimi.ingsw.persistence;
+package it.polimi.ingsw.utils;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.network.server.Server;
+import it.polimi.ingsw.utils.Persistence;
 
 import java.io.*;
 import java.nio.file.Files;

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.parser;
+package it.polimi.ingsw.utils;
 
 import it.polimi.ingsw.model.God;
 import org.junit.After;

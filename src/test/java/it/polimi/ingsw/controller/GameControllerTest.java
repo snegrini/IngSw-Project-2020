@@ -9,7 +9,7 @@ import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
-import it.polimi.ingsw.persistence.StorageData;
+import it.polimi.ingsw.utils.StorageData;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.After;
 import org.junit.Before;

@@ -14,7 +14,7 @@ import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.*;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.observer.Observer;
-import it.polimi.ingsw.persistence.StorageData;
+import it.polimi.ingsw.utils.StorageData;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 

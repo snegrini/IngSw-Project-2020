@@ -1,4 +1,4 @@
-package it.polimi.ingsw.persistence;
+package it.polimi.ingsw.utils;
 
 import it.polimi.ingsw.controller.GameController;
 

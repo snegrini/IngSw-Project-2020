@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.enumerations.TargetType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
-import it.polimi.ingsw.parser.GodParser;
+import it.polimi.ingsw.utils.GodParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
