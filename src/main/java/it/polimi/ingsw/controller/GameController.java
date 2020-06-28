@@ -40,6 +40,9 @@ public class GameController implements Observer, Serializable {
     private transient List<ReducedGod> availableGods;
     private transient List<Color> availableColors;
 
+    private static final String STR_INVALID_STATE = "Invalid game state!";
+
+
     public static final String SAVED_GAME_FILE = "match.bless";
 
     /**
@@ -81,7 +84,7 @@ public class GameController implements Observer, Serializable {
                 inGameState(receivedMessage);
                 break;
             default: // Should never reach this condition
-                Server.LOGGER.warning("Invalid game state!");
+                Server.LOGGER.warning(STR_INVALID_STATE);
                 break;
         }
     }
@@ -134,7 +137,7 @@ public class GameController implements Observer, Serializable {
                 }
                 break;
             default:
-                Server.LOGGER.warning("Invalid game state!");
+                Server.LOGGER.warning(STR_INVALID_STATE);
                 break;
         }
     }
@@ -168,7 +171,7 @@ public class GameController implements Observer, Serializable {
                 applyEffect((PositionMessage) receivedMessage);
                 break;
             default:
-                Server.LOGGER.warning("Invalid game state!");
+                Server.LOGGER.warning(STR_INVALID_STATE);
                 break;
         }
     }
@@ -180,14 +183,11 @@ public class GameController implements Observer, Serializable {
      * @param receivedMessage Message from Active Player.
      */
     private void applyEffect(PositionMessage receivedMessage) {
-
         Player player = game.getPlayerByNickname(turnController.getActivePlayer());
         Effect effect = player.getGod().getEffectByType(turnController.getPhaseType());
         Position positionApply = receivedMessage.getPositionList().get(0);
         effect.apply(turnController.getActiveWorker(), positionApply);
-        //effect.clear(turnController.getActiveWorker());
         turnController.setAppliedEffect(effect);
-
 
         if (player.getGod().getName().equals("Prometheus")) {
             turnController.resumePhase();
@@ -203,7 +203,6 @@ public class GameController implements Observer, Serializable {
                 turnController.nextPhase();
             }
         }
-
     }
 
     /**
@@ -286,12 +285,9 @@ public class GameController implements Observer, Serializable {
         // CHECK EFFECT YOUR_BUILD_AFTER
         turnController.setPhaseType(PhaseType.YOUR_BUILD_AFTER);
 
-
         if (!launchEffect()) {
             turnController.nextPhase();
         }
-
-
     }
 
 
@@ -299,13 +295,10 @@ public class GameController implements Observer, Serializable {
      * Initializes the game after all Clients are connected and all Gods, Workers and Colors are setted up.
      */
     private void startGame() {
-
         setGameState(GameState.IN_GAME);
         broadcastGenericMessage("Game Started!");
 
-
         turnController.newTurn();
-
     }
 
     /**
@@ -322,7 +315,6 @@ public class GameController implements Observer, Serializable {
      */
     public void win() {
         broadcastWinMessage(turnController.getActivePlayer());
-        //disconnectAllClients();
         endGame();
     }
 
@@ -365,7 +357,6 @@ public class GameController implements Observer, Serializable {
                 virtualView.askEnableEffect(false);
             } else {
                 effect.apply(turnController.getActiveWorker(), null);
-                //effect.clear(turnController.getActiveWorker());
                 turnController.setAppliedEffect(effect);
                 turnController.nextPhase();
             }
@@ -389,11 +380,9 @@ public class GameController implements Observer, Serializable {
             addVirtualView(nickname, virtualView);
             game.addPlayer(new Player(nickname));
 
-
             virtualView.showLoginResult(true, true, Game.SERVER_NICKNAME);
-
-
             virtualView.askPlayersNumber();
+
         } else if (virtualViewMap.size() < game.getChosenPlayersNumber()) {
             addVirtualView(nickname, virtualView);
             game.addPlayer(new Player(nickname));
@@ -437,9 +426,6 @@ public class GameController implements Observer, Serializable {
      * @param savedGameController Controller from file.
      */
     private void restoreControllers(GameController savedGameController) {
-
-
-        // this.game = savedGameController.game;
         Game restoredInstanceGame = savedGameController.game;
         Board restoredBoard = savedGameController.game.getBoard();
         List<Player> restoredPlayers = savedGameController.game.getPlayers();
@@ -458,8 +444,6 @@ public class GameController implements Observer, Serializable {
         inputController = new InputController(this.virtualViewMap, this);
         turnController.setVirtualViewMap(this.virtualViewMap);
         inputController.setTurnController(this.turnController);
-
-
     }
 
     /**
@@ -697,15 +681,6 @@ public class GameController implements Observer, Serializable {
         for (VirtualView vv : virtualViewMap.values()) {
             vv.showDisconnectionMessage(nicknameDisconnected, text);
         }
-    }
-
-    /**
-     * Disconnect all connected clients
-     */
-    private void disconnectAllClients() {
-        int mapSize = virtualViewMap.size();
-        for (int i = 0; i < mapSize - 1; i++)
-            virtualViewMap.get(turnController.getNicknameQueue().get(i)).getClientHandler().disconnect();
     }
 
     /**

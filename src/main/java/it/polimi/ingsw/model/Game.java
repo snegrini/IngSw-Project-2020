@@ -10,7 +10,6 @@ import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.BoardMessage;
 import it.polimi.ingsw.network.message.LobbyMessage;
-import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.utils.GodParser;
 
@@ -55,6 +54,7 @@ public class Game extends Observable implements Serializable {
 
     /**
      * Restore an instance of the Game saved on a file.
+     *
      * @param instance Instance of the saved Game.
      * @param board Board of the saved Game.
      * @param players Player List of the saved Game.

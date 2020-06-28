@@ -198,7 +198,7 @@ public class Gui extends ViewObservable implements View {
         Platform.runLater(() -> {
             SceneController.showWin(winner);
             notifyObserver(ViewObserver::onDisconnection);
-            SceneController.changeRootPane(observers, "menu_scene.fxml");
+            SceneController.changeRootPane(observers, MENU_SCENE_FXML);
         });
     }
 

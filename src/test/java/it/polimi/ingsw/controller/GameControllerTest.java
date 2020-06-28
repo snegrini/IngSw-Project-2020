@@ -26,14 +26,16 @@ public class GameControllerTest {
     private Game game;
     private GameController gameController;
     private ClientHandler clientHandler;
+    private StorageData storageData;
+
 
     @Before
     public void setUp() {
         gameController = new GameController();
-
-
-
         game = Game.getInstance();
+
+        storageData = new StorageData();
+
         clientHandler = new ClientHandler() {
             @Override
             public boolean isConnected() {
@@ -42,24 +44,24 @@ public class GameControllerTest {
 
             @Override
             public void disconnect() {
-
             }
 
             @Override
             public void sendMessage(Message message) {
-
             }
         };
     }
 
     @After
     public void tearDown() {
-
         // clear saved file.
-        StorageData storageData = new StorageData();
         storageData.delete();
 
         Game.resetInstance();
+
+        gameController = null;
+        clientHandler = null;
+        storageData = null;
     }
 
     @Test
@@ -70,48 +72,46 @@ public class GameControllerTest {
 
         // FIRST MATCH
         {
-        LoginRequest loginRequest = new LoginRequest(p1);
-        gameController.onMessageReceived(loginRequest);
-        PlayerNumberReply playerNumberReply = new PlayerNumberReply(p1, 3);
-        gameController.onMessageReceived(playerNumberReply);
-        LoginRequest loginRequestSamuele = new LoginRequest(p2);
-        gameController.onMessageReceived(loginRequestSamuele);
-        LoginRequest loginRequestSamuel = new LoginRequest(p3);
-        gameController.onMessageReceived(loginRequestSamuel);
+            LoginRequest loginRequest = new LoginRequest(p1);
+            gameController.onMessageReceived(loginRequest);
+            PlayerNumberReply playerNumberReply = new PlayerNumberReply(p1, 3);
+            gameController.onMessageReceived(playerNumberReply);
+            LoginRequest loginRequestSamuele = new LoginRequest(p2);
+            gameController.onMessageReceived(loginRequestSamuele);
+            LoginRequest loginRequestSamuel = new LoginRequest(p3);
+            gameController.onMessageReceived(loginRequestSamuel);
 
-        Server server = new Server(gameController);
-        server.addClient(p1, clientHandler);
-        server.addClient(p2, clientHandler);
-        server.addClient(p3, clientHandler);
+            Server server = new Server(gameController);
+            server.addClient(p1, clientHandler);
+            server.addClient(p2, clientHandler);
+            server.addClient(p3, clientHandler);
 
 
-        // Challenger pick up 3 gods.
-        List<ReducedGod> godList = new ArrayList<>();
-        God.Builder godBuilder1 = new God.Builder("Apollo");
-        godList.add(new ReducedGod(godBuilder1.build()));
-        God.Builder godBuilder2 = new God.Builder("Athena");
-        godList.add(new ReducedGod(godBuilder2.build()));
-        God.Builder godBuilder3 = new God.Builder("Minotaur");
-        godList.add(new ReducedGod(godBuilder3.build()));
-        GodListMessage firstGodListMessage = new GodListMessage(p1, godList, 0);
-        gameController.onMessageReceived(firstGodListMessage);
+            // Challenger pick up 3 gods.
+            ReducedGod rg1 = new ReducedGod(new God.Builder("Apollo").build());
+            ReducedGod rg2 = new ReducedGod(new God.Builder("Athena").build());
+            ReducedGod rg3 = new ReducedGod(new God.Builder("Minotaur").build());
+            List<ReducedGod> godList = List.of(rg1, rg2, rg3);
+            GodListMessage firstGodListMessage = new GodListMessage(p1, godList, 0);
+            gameController.onMessageReceived(firstGodListMessage);
+            assertEquals(godList, gameController.getAvailableGods());
 
-        // Users pick up their own gods. (p2-> minotaur, p3-> athena, p1-> apollo)
-        GodListMessage one_godListMessage = new GodListMessage(p2, List.of(godList.get(2)), 0);
-        gameController.onMessageReceived(one_godListMessage);
-        GodListMessage two_godListMessage = new GodListMessage(p3, List.of(godList.get(1)), 0);
-        gameController.onMessageReceived(two_godListMessage);
-        GodListMessage three_godListMessage = new GodListMessage(p1, List.of(godList.get(0)), 0);
-        gameController.onMessageReceived(three_godListMessage);
+            // Users pick up their own gods. (p2-> minotaur, p3-> athena, p1-> apollo)
+            GodListMessage one_godListMessage = new GodListMessage(p2, List.of(godList.get(2)), 0);
+            gameController.onMessageReceived(one_godListMessage);
+            GodListMessage two_godListMessage = new GodListMessage(p3, List.of(godList.get(1)), 0);
+            gameController.onMessageReceived(two_godListMessage);
+            GodListMessage three_godListMessage = new GodListMessage(p1, List.of(godList.get(0)), 0);
+            gameController.onMessageReceived(three_godListMessage);
 
-        // Challenger pick which is the first player.
-        UsersInfoMessage firstPlayer_UsersInfoMessage = new UsersInfoMessage(p1, MessageType.PICK_FIRST_PLAYER, null, null, "AndreaLanzi");
-        gameController.onMessageReceived(firstPlayer_UsersInfoMessage);
+            // Challenger pick which is the first player.
+            UsersInfoMessage firstPlayer_UsersInfoMessage = new UsersInfoMessage(p1, MessageType.PICK_FIRST_PLAYER, null, null, "AndreaLanzi");
+            gameController.onMessageReceived(firstPlayer_UsersInfoMessage);
 
-        // Users pick up their own colors and set their initial workers positions.
-        // Init first player.
-        ColorsMessage first_colorsMessage = new ColorsMessage(p1, List.of(Color.BLUE));
-        gameController.onMessageReceived(first_colorsMessage);
+            // Users pick up their own colors and set their initial workers positions.
+            // Init first player.
+            ColorsMessage first_colorsMessage = new ColorsMessage(p1, List.of(Color.BLUE));
+            gameController.onMessageReceived(first_colorsMessage);
         List<Position> positions = new ArrayList<>();
         positions.add(new Position(0, 0));
         positions.add(new Position(1, 1));
@@ -131,220 +131,218 @@ public class GameControllerTest {
         // Init third player.
         ColorsMessage third_colorsMessage = new ColorsMessage(p3, List.of(Color.RED));
         gameController.onMessageReceived(third_colorsMessage);
-        positions.add(new Position(1, 3));
-        positions.add(new Position(1, 4));
-        PositionMessage p3_workersPositionMessage = new PositionMessage(p3, MessageType.INIT_WORKERSPOSITIONS, positions);
-        gameController.onMessageReceived(p3_workersPositionMessage);
-        positions.clear();
+            positions.add(new Position(1, 3));
+            positions.add(new Position(1, 4));
+            PositionMessage p3_workersPositionMessage = new PositionMessage(p3, MessageType.INIT_WORKERSPOSITIONS, positions);
+            gameController.onMessageReceived(p3_workersPositionMessage);
+            positions.clear();
 
-        // Asserts of INIT phase.
-        assertTrue(gameController.getAvailableGods().isEmpty());
-        List<Position> checkWorkersPositions = new ArrayList<>();
-        checkWorkersPositions.add(new Position(1, 3));
-        checkWorkersPositions.add(new Position(1, 4));
-        assertEquals(checkWorkersPositions, Game.getInstance().getPlayerByNickname("SamuelKala").getWorkersPositions());
-        checkWorkersPositions.clear();
+            // Asserts of INIT phase.
+            assertTrue(gameController.getAvailableGods().isEmpty());
+            List<Position> checkWorkersPositions = new ArrayList<>();
+            checkWorkersPositions.add(new Position(1, 3));
+            checkWorkersPositions.add(new Position(1, 4));
+            assertEquals(checkWorkersPositions, game.getPlayerByNickname("SamuelKala").getWorkersPositions());
+            checkWorkersPositions.clear();
 
+            // First player's turn.
+            // pick worker.
+            PositionMessage p1_movingWorker = new PositionMessage(p1, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 1)));
+            gameController.onMessageReceived(p1_movingWorker);
+            // move.
+            PositionMessage p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(2, 2)));
+            gameController.onMessageReceived(p1_apply);
+            checkWorkersPositions.add(new Position(0, 0));
+            checkWorkersPositions.add(new Position(2, 2));
+            assertEquals(checkWorkersPositions, game.getPlayerByNickname(p1).getWorkersPositions());
+            checkWorkersPositions.clear();
+            // build.
+            PositionMessage p1_build = new PositionMessage(p1, MessageType.BUILD, List.of(new Position(2, 3)));
+            gameController.onMessageReceived(p1_build);
+            assertEquals(1, game.getBoard().getSpace(2, 3).getLevel());
 
-        // First player's turn.
-        // pick worker.
-        PositionMessage p1_movingWorker = new PositionMessage(p1, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 1)));
-        gameController.onMessageReceived(p1_movingWorker);
-        // move.
-        PositionMessage p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(2, 2)));
-        gameController.onMessageReceived(p1_apply);
-        checkWorkersPositions.add(new Position(0, 0));
-        checkWorkersPositions.add(new Position(2, 2));
-        assertEquals(checkWorkersPositions, Game.getInstance().getPlayerByNickname(p1).getWorkersPositions());
-        checkWorkersPositions.clear();
-        // build.
-        PositionMessage p1_build = new PositionMessage(p1, MessageType.BUILD, List.of(new Position(2, 3)));
-        gameController.onMessageReceived(p1_build);
-        assertEquals(1, Game.getInstance().getBoard().getSpace(2, 3).getLevel());
+            // Second player's turn.
+            // pick worker.
+            PositionMessage p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(3, 3)));
+            gameController.onMessageReceived(p2_movingWorker);
+            // move.
+            PositionMessage p2_apply = new PositionMessage(p2, MessageType.APPLY_EFFECT, List.of(new Position(2, 4)));
+            gameController.onMessageReceived(p2_apply);
+            checkWorkersPositions.add(new Position(1, 1));
+            checkWorkersPositions.add(new Position(2, 4));
+            assertEquals(checkWorkersPositions, game.getPlayerByNickname(p2).getWorkersPositions());
+            checkWorkersPositions.clear();
+            // build.
+            PositionMessage p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(3, 3)));
+            gameController.onMessageReceived(p2_build);
+            assertEquals(1, game.getBoard().getSpace(3, 3).getLevel());
 
-
-        // Second player's turn.
-        // pick worker.
-        PositionMessage p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(3, 3)));
-        gameController.onMessageReceived(p2_movingWorker);
-        // move.
-        PositionMessage p2_apply = new PositionMessage(p2, MessageType.APPLY_EFFECT, List.of(new Position(2, 4)));
-        gameController.onMessageReceived(p2_apply);
-        checkWorkersPositions.add(new Position(1, 1));
-        checkWorkersPositions.add(new Position(2, 4));
-        assertEquals(checkWorkersPositions, Game.getInstance().getPlayerByNickname(p2).getWorkersPositions());
-        checkWorkersPositions.clear();
-        // build.
-        PositionMessage p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(3, 3)));
-        gameController.onMessageReceived(p2_build);
-        assertEquals(1, Game.getInstance().getBoard().getSpace(3, 3).getLevel());
-
-        // Third player's turn.
-        // pick worker.
-        PositionMessage p3_movingWorker = new PositionMessage(p3, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 3)));
-        gameController.onMessageReceived(p3_movingWorker);
-        // move.
-        PositionMessage p3_move = new PositionMessage(p3, MessageType.MOVE, List.of(new Position(2, 3)));
-        gameController.onMessageReceived(p3_move);
-        // move-up -> Athena FX applied to opponents
-        assertTrue(game.getPlayerByNickname(p1).getWorkerByPosition(new Position(0, 0)).checkLockedMovement(MoveType.UP));
-        assertTrue(game.getPlayerByNickname(p2).getWorkerByPosition(new Position(2, 4)).checkLockedMovement(MoveType.UP));
-        // build.
-        PositionMessage p3_build = new PositionMessage(p3, MessageType.BUILD, List.of(new Position(1, 3)));
-        gameController.onMessageReceived(p3_build);
-        assertEquals(1, Game.getInstance().getBoard().getSpace(1, 3).getLevel());
+            // Third player's turn.
+            // pick worker.
+            PositionMessage p3_movingWorker = new PositionMessage(p3, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 3)));
+            gameController.onMessageReceived(p3_movingWorker);
+            // move.
+            PositionMessage p3_move = new PositionMessage(p3, MessageType.MOVE, List.of(new Position(2, 3)));
+            gameController.onMessageReceived(p3_move);
+            // move-up -> Athena FX applied to opponents
+            assertTrue(game.getPlayerByNickname(p1).getWorkerByPosition(new Position(0, 0)).checkLockedMovement(MoveType.UP));
+            assertTrue(game.getPlayerByNickname(p2).getWorkerByPosition(new Position(2, 4)).checkLockedMovement(MoveType.UP));
+            // build.
+            PositionMessage p3_build = new PositionMessage(p3, MessageType.BUILD, List.of(new Position(1, 3)));
+            gameController.onMessageReceived(p3_build);
+            assertEquals(1, game.getBoard().getSpace(1, 3).getLevel());
 
 
-        // First player's turn.
-        // pick worker.
-        p1_movingWorker = new PositionMessage(p1, MessageType.PICK_MOVING_WORKER, List.of(new Position(2, 2)));
-        gameController.onMessageReceived(p1_movingWorker);
-        // move.
-        p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(1, 1)));
-        gameController.onMessageReceived(p1_apply);
-        checkWorkersPositions.add(new Position(0, 0));
-        checkWorkersPositions.add(new Position(1, 1));
-        assertEquals(checkWorkersPositions, Game.getInstance().getPlayerByNickname(p1).getWorkersPositions());
-        checkWorkersPositions.clear();
-        // build.
-        p1_build = new PositionMessage(p1, MessageType.BUILD, List.of(new Position(1, 2)));
-        gameController.onMessageReceived(p1_build);
-        assertEquals(1, Game.getInstance().getBoard().getSpace(1, 2).getLevel());
+            // First player's turn.
+            // pick worker.
+            p1_movingWorker = new PositionMessage(p1, MessageType.PICK_MOVING_WORKER, List.of(new Position(2, 2)));
+            gameController.onMessageReceived(p1_movingWorker);
+            // move.
+            p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(1, 1)));
+            gameController.onMessageReceived(p1_apply);
+            checkWorkersPositions.add(new Position(0, 0));
+            checkWorkersPositions.add(new Position(1, 1));
+            assertEquals(checkWorkersPositions, game.getPlayerByNickname(p1).getWorkersPositions());
+            checkWorkersPositions.clear();
+            // build.
+            p1_build = new PositionMessage(p1, MessageType.BUILD, List.of(new Position(1, 2)));
+            gameController.onMessageReceived(p1_build);
+            assertEquals(1, game.getBoard().getSpace(1, 2).getLevel());
 
 
-        // Second player's turn.
-        // pick worker.
-        p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(2, 4)));
-        gameController.onMessageReceived(p2_movingWorker);
-        // move
-        p2_apply = new PositionMessage(p2, MessageType.APPLY_EFFECT, List.of(new Position(1, 4)));
-        gameController.onMessageReceived(p2_apply);
-        // build
-        p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(2, 4)));
-        gameController.onMessageReceived(p2_build);
-        assertEquals(1, Game.getInstance().getBoard().getSpace(2, 4).getLevel());
+            // Second player's turn.
+            // pick worker.
+            p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(2, 4)));
+            gameController.onMessageReceived(p2_movingWorker);
+            // move
+            p2_apply = new PositionMessage(p2, MessageType.APPLY_EFFECT, List.of(new Position(1, 4)));
+            gameController.onMessageReceived(p2_apply);
+            // build
+            p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(2, 4)));
+            gameController.onMessageReceived(p2_build);
+            assertEquals(1, game.getBoard().getSpace(2, 4).getLevel());
 
 
-        // Third player's turn.
-        // pick worker.
-        p3_movingWorker = new PositionMessage(p3, MessageType.PICK_MOVING_WORKER, List.of(new Position(2, 3)));
-        gameController.onMessageReceived(p3_movingWorker);
-        // move.
-        p3_move = new PositionMessage(p3, MessageType.MOVE, List.of(new Position(1, 3)));
-        gameController.onMessageReceived(p3_move);
-        // move-flat -> Athena FX not applied to opponents
-        assertFalse(game.getPlayerByNickname(p1).getWorkerByPosition(new Position(0, 0)).checkLockedMovement(MoveType.UP));
-        assertFalse(game.getPlayerByNickname(p2).getWorkerByPosition(new Position(1, 4)).checkLockedMovement(MoveType.UP));
-        // build
-        p3_build = new PositionMessage(p3, MessageType.BUILD, List.of(new Position(2, 3)));
-        gameController.onMessageReceived(p3_build);
-        assertEquals(2, Game.getInstance().getBoard().getSpace(2, 3).getLevel());
+            // Third player's turn.
+            // pick worker.
+            p3_movingWorker = new PositionMessage(p3, MessageType.PICK_MOVING_WORKER, List.of(new Position(2, 3)));
+            gameController.onMessageReceived(p3_movingWorker);
+            // move.
+            p3_move = new PositionMessage(p3, MessageType.MOVE, List.of(new Position(1, 3)));
+            gameController.onMessageReceived(p3_move);
+            // move-flat -> Athena FX not applied to opponents
+            assertFalse(game.getPlayerByNickname(p1).getWorkerByPosition(new Position(0, 0)).checkLockedMovement(MoveType.UP));
+            assertFalse(game.getPlayerByNickname(p2).getWorkerByPosition(new Position(1, 4)).checkLockedMovement(MoveType.UP));
+            // build
+            p3_build = new PositionMessage(p3, MessageType.BUILD, List.of(new Position(2, 3)));
+            gameController.onMessageReceived(p3_build);
+            assertEquals(2, game.getBoard().getSpace(2, 3).getLevel());
 
 
-        // First player's turn.
-        // pick worker.
-        p1_movingWorker = new PositionMessage(p1, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 1)));
-        gameController.onMessageReceived(p1_movingWorker);
-        // move.
-        p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(1, 2)));
-        gameController.onMessageReceived(p1_apply);
-        checkWorkersPositions.add(new Position(0, 0));
-        checkWorkersPositions.add(new Position(1, 2));
-        assertEquals(checkWorkersPositions, Game.getInstance().getPlayerByNickname(p1).getWorkersPositions());
-        checkWorkersPositions.clear();
-        // build.
-        p1_build = new PositionMessage(p1, MessageType.BUILD, List.of(new Position(2, 3)));
-        gameController.onMessageReceived(p1_build);
-        assertEquals(3, Game.getInstance().getBoard().getSpace(2, 3).getLevel());
+            // First player's turn.
+            // pick worker.
+            p1_movingWorker = new PositionMessage(p1, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 1)));
+            gameController.onMessageReceived(p1_movingWorker);
+            // move.
+            p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(1, 2)));
+            gameController.onMessageReceived(p1_apply);
+            checkWorkersPositions.add(new Position(0, 0));
+            checkWorkersPositions.add(new Position(1, 2));
+            assertEquals(checkWorkersPositions, game.getPlayerByNickname(p1).getWorkersPositions());
+            checkWorkersPositions.clear();
+            // build.
+            p1_build = new PositionMessage(p1, MessageType.BUILD, List.of(new Position(2, 3)));
+            gameController.onMessageReceived(p1_build);
+            assertEquals(3, game.getBoard().getSpace(2, 3).getLevel());
 
-        // Second player's turn.
-        // pick worker.
-        p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(2, 2)));
-        gameController.onMessageReceived(p2_movingWorker);
-        // move
-        p2_apply = new PositionMessage(p2, MessageType.APPLY_EFFECT, List.of(new Position(3, 2)));
-        gameController.onMessageReceived(p2_apply);
-        // build
-        p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(3, 3)));
-        gameController.onMessageReceived(p2_build);
-        assertEquals(2, Game.getInstance().getBoard().getSpace(3, 3).getLevel());
+            // Second player's turn.
+            // pick worker.
+            p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(2, 2)));
+            gameController.onMessageReceived(p2_movingWorker);
+            // move
+            p2_apply = new PositionMessage(p2, MessageType.APPLY_EFFECT, List.of(new Position(3, 2)));
+            gameController.onMessageReceived(p2_apply);
+            // build
+            p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(3, 3)));
+            gameController.onMessageReceived(p2_build);
+            assertEquals(2, game.getBoard().getSpace(3, 3).getLevel());
 
-        // Third player's turn.
-        // pick worker.
-        p3_movingWorker = new PositionMessage(p3, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 3)));
-        gameController.onMessageReceived(p3_movingWorker);
-        // move.
-        p3_move = new PositionMessage(p3, MessageType.MOVE, List.of(new Position(0, 3)));
-        gameController.onMessageReceived(p3_move);
-        // move-flat -> Athena FX not applied to opponents
-        assertFalse(game.getPlayerByNickname(p1).getWorkerByPosition(new Position(0, 0)).checkLockedMovement(MoveType.UP));
-        assertFalse(game.getPlayerByNickname(p2).getWorkerByPosition(new Position(1, 4)).checkLockedMovement(MoveType.UP));
-        // build
-        p3_build = new PositionMessage(p3, MessageType.BUILD, List.of(new Position(1, 3)));
-        gameController.onMessageReceived(p3_build);
-        assertEquals(2, Game.getInstance().getBoard().getSpace(1, 3).getLevel());
-
-
-        // First player's turn.
-        // pick worker.
-        p1_movingWorker = new PositionMessage(p1, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 2)));
-        gameController.onMessageReceived(p1_movingWorker);
-        // move.
-        p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(1, 3)));
-        gameController.onMessageReceived(p1_apply);
-        checkWorkersPositions.add(new Position(0, 0));
-        checkWorkersPositions.add(new Position(1, 3));
-        assertEquals(checkWorkersPositions, Game.getInstance().getPlayerByNickname(p1).getWorkersPositions());
-        checkWorkersPositions.clear();
-        // build.
-        p1_build = new PositionMessage(p1, MessageType.BUILD, List.of(new Position(1, 2)));
-        gameController.onMessageReceived(p1_build);
-        assertEquals(2, Game.getInstance().getBoard().getSpace(1, 2).getLevel());
-
-        // Second player's turn.
-        // pick worker.
-        p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 4)));
-        gameController.onMessageReceived(p2_movingWorker);
-        // move
-        p2_apply = new PositionMessage(p2, MessageType.APPLY_EFFECT, List.of(new Position(2, 4)));
-        gameController.onMessageReceived(p2_apply);
-        // build
-        p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(3, 4)));
-        gameController.onMessageReceived(p2_build);
-        assertEquals(1, Game.getInstance().getBoard().getSpace(3, 4).getLevel());
+            // Third player's turn.
+            // pick worker.
+            p3_movingWorker = new PositionMessage(p3, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 3)));
+            gameController.onMessageReceived(p3_movingWorker);
+            // move.
+            p3_move = new PositionMessage(p3, MessageType.MOVE, List.of(new Position(0, 3)));
+            gameController.onMessageReceived(p3_move);
+            // move-flat -> Athena FX not applied to opponents
+            assertFalse(game.getPlayerByNickname(p1).getWorkerByPosition(new Position(0, 0)).checkLockedMovement(MoveType.UP));
+            assertFalse(game.getPlayerByNickname(p2).getWorkerByPosition(new Position(1, 4)).checkLockedMovement(MoveType.UP));
+            // build
+            p3_build = new PositionMessage(p3, MessageType.BUILD, List.of(new Position(1, 3)));
+            gameController.onMessageReceived(p3_build);
+            assertEquals(2, game.getBoard().getSpace(1, 3).getLevel());
 
 
-        // Third player's turn.
-        // pick worker.
-        p3_movingWorker = new PositionMessage(p3, MessageType.PICK_MOVING_WORKER, List.of(new Position(0, 3)));
-        gameController.onMessageReceived(p3_movingWorker);
-        // move.
-        p3_move = new PositionMessage(p3, MessageType.MOVE, List.of(new Position(0, 2)));
-        gameController.onMessageReceived(p3_move);
-        // move-flat -> Athena FX not applied to opponents
-        assertFalse(game.getPlayerByNickname(p1).getWorkerByPosition(new Position(0, 0)).checkLockedMovement(MoveType.UP));
-        assertFalse(game.getPlayerByNickname(p2).getWorkerByPosition(new Position(2, 4)).checkLockedMovement(MoveType.UP));
-        // build
-        p3_build = new PositionMessage(p3, MessageType.BUILD, List.of(new Position(1, 2)));
-        gameController.onMessageReceived(p3_build);
-        assertEquals(3, Game.getInstance().getBoard().getSpace(1, 2).getLevel());
+            // First player's turn.
+            // pick worker.
+            p1_movingWorker = new PositionMessage(p1, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 2)));
+            gameController.onMessageReceived(p1_movingWorker);
+            // move.
+            p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(1, 3)));
+            gameController.onMessageReceived(p1_apply);
+            checkWorkersPositions.add(new Position(0, 0));
+            checkWorkersPositions.add(new Position(1, 3));
+            assertEquals(checkWorkersPositions, game.getPlayerByNickname(p1).getWorkersPositions());
+            checkWorkersPositions.clear();
+            // build.
+            p1_build = new PositionMessage(p1, MessageType.BUILD, List.of(new Position(1, 2)));
+            gameController.onMessageReceived(p1_build);
+            assertEquals(2, game.getBoard().getSpace(1, 2).getLevel());
+
+            // Second player's turn.
+            // pick worker.
+            p2_movingWorker = new PositionMessage(p2, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 4)));
+            gameController.onMessageReceived(p2_movingWorker);
+            // move
+            p2_apply = new PositionMessage(p2, MessageType.APPLY_EFFECT, List.of(new Position(2, 4)));
+            gameController.onMessageReceived(p2_apply);
+            // build
+            p2_build = new PositionMessage(p2, MessageType.BUILD, List.of(new Position(3, 4)));
+            gameController.onMessageReceived(p2_build);
+            assertEquals(1, game.getBoard().getSpace(3, 4).getLevel());
 
 
-        // First player's turn.
-        // pick worker.
-        p1_movingWorker = new PositionMessage(p1, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 3)));
-        gameController.onMessageReceived(p1_movingWorker);
-        // move.
-        p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(1, 2)));
-        gameController.onMessageReceived(p1_apply);
+            // Third player's turn.
+            // pick worker.
+            p3_movingWorker = new PositionMessage(p3, MessageType.PICK_MOVING_WORKER, List.of(new Position(0, 3)));
+            gameController.onMessageReceived(p3_movingWorker);
+            // move.
+            p3_move = new PositionMessage(p3, MessageType.MOVE, List.of(new Position(0, 2)));
+            gameController.onMessageReceived(p3_move);
+            // move-flat -> Athena FX not applied to opponents
+            assertFalse(game.getPlayerByNickname(p1).getWorkerByPosition(new Position(0, 0)).checkLockedMovement(MoveType.UP));
+            assertFalse(game.getPlayerByNickname(p2).getWorkerByPosition(new Position(2, 4)).checkLockedMovement(MoveType.UP));
+            // build
+            p3_build = new PositionMessage(p3, MessageType.BUILD, List.of(new Position(1, 2)));
+            gameController.onMessageReceived(p3_build);
+            assertEquals(3, game.getBoard().getSpace(1, 2).getLevel());
+
+
+            // First player's turn.
+            // pick worker.
+            p1_movingWorker = new PositionMessage(p1, MessageType.PICK_MOVING_WORKER, List.of(new Position(1, 3)));
+            gameController.onMessageReceived(p1_movingWorker);
+            // move.
+            p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(1, 2)));
+            gameController.onMessageReceived(p1_apply);
 
         assertNull(Game.getInstance().getPlayerByNickname("AndreaLanzi"));
-
     }
 
         // clear saved file.
         StorageData storageData = new StorageData();
         storageData.delete();
+        Game.resetInstance();
 
 
         // SECOND MATCH (Only for test prepare effect with Prometheus.
@@ -366,15 +364,13 @@ public class GameControllerTest {
 
 
             // Challenger pick up 3 gods.
-            List<ReducedGod> godList = new ArrayList<>();
-            God.Builder godBuilder1 = new God.Builder("Prometheus");
-            godList.add(new ReducedGod(godBuilder1.build()));
-            God.Builder godBuilder2 = new God.Builder("Athena");
-            godList.add(new ReducedGod(godBuilder2.build()));
-            God.Builder godBuilder3 = new God.Builder("Minotaur");
-            godList.add(new ReducedGod(godBuilder3.build()));
+            ReducedGod rg1 = new ReducedGod(new God.Builder("Prometheus").build());
+            ReducedGod rg2 = new ReducedGod(new God.Builder("Athena").build());
+            ReducedGod rg3 = new ReducedGod(new God.Builder("Minotaur").build());
+            List<ReducedGod> godList = List.of(rg1, rg2, rg3);
             GodListMessage firstGodListMessage = new GodListMessage(p1, godList, 0);
             gameController.onMessageReceived(firstGodListMessage);
+            assertEquals(godList, gameController.getAvailableGods());
 
             // Users pick up their own gods. (p2-> minotaur, p3-> athena, p1-> prometheus)
             GodListMessage one_godListMessage = new GodListMessage(p2, List.of(godList.get(2)), 0);
@@ -435,8 +431,8 @@ public class GameControllerTest {
             // build.
             PositionMessage p1_build = new PositionMessage(p1, MessageType.BUILD, List.of(new Position(0, 0)));
             gameController.onMessageReceived(p1_build);
-            assertEquals(1, Game.getInstance().getBoard().getSpace(0, 0).getLevel());
-            assertEquals(1, Game.getInstance().getBoard().getSpace(0, 1).getLevel());
+            assertEquals(1, game.getBoard().getSpace(0, 0).getLevel());
+            assertEquals(1, game.getBoard().getSpace(0, 1).getLevel());
 
         }
 
@@ -467,10 +463,6 @@ public class GameControllerTest {
         assertEquals(Color.BLUE, colors.get(0));
         assertEquals(Color.RED, colors.get(1));
         assertEquals(Color.GREEN, colors.get(2));
-    }
-
-    @Test
-    public void getAvailableGods() {
     }
 
     @Test

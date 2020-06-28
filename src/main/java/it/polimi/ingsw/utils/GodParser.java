@@ -125,8 +125,6 @@ public class GodParser {
         if (reqNodeList.getLength() > 0) {
             reqNodeList = reqNodeList.item(0).getChildNodes();
             requirements = toMap(reqNodeList);
-            //TargetType reqTargetType = TargetType.valueOf(requirements.get(TARGET.getText()));
-            //effect.addTargetType(REQUIREMENTS, reqTargetType);
         }
         if (parNodeList.getLength() > 0) {
             parNodeList = parNodeList.item(0).getChildNodes();

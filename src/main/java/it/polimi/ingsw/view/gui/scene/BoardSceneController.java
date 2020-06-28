@@ -199,10 +199,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 handleBuild(tempPosition);
                 break;
             case BUILD_FX:
-                handleBuildFx(tempPosition);
-                break;
             case MOVE_FX:
-                handleMoveFx(tempPosition);
+                handleApplyFx(tempPosition);
                 break;
             default:
                 break;
@@ -347,22 +345,11 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     }
 
     /**
-     * Handles the click for the move position of the worker during an effect.
+     * Handles the click for the move or build position of the worker during an effect.
      *
      * @param clickedPosition the clicked position on the grid.
      */
-    private void handleMoveFx(Position clickedPosition) {
-        disableAllSpaces();
-        removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
-        new Thread(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition))).start();
-    }
-
-    /**
-     * Handles the click for the build position during an effect.
-     *
-     * @param clickedPosition the clicked position on the grid.
-     */
-    private void handleBuildFx(Position clickedPosition) {
+    private void handleApplyFx(Position clickedPosition) {
         disableAllSpaces();
         removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);
         new Thread(() -> notifyObserver(obs -> obs.onUpdateApplyEffect(clickedPosition))).start();
@@ -432,7 +419,6 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     public void setEnabledSpaces(List<Position> positionList) {
         this.enabledSpaces = positionList;
 
-        //boardGrid.getStyleClass().add("grayed");
         ObservableList<Node> spaceList = boardGrid.getChildren();
         for (Node space : spaceList) {
             Position tempPos = new Position(GridPane.getRowIndex(space), GridPane.getColumnIndex(space));
@@ -472,8 +458,6 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      * @param level     the level to be set.
      */
     private void setGridSpaceLevel(Node gridSpace, int level) {
-        //gridSpace.getStyleClass().clear();
-
         switch (level) {
             case 0:
                 // no buildings over it.

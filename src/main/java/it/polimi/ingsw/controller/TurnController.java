@@ -41,9 +41,9 @@ public class TurnController implements Serializable {
      */
     public TurnController(Map<String, VirtualView> virtualViewMap, GameController gameController) {
         this.game = Game.getInstance();
-        nicknameQueue = new ArrayList<>(game.getPlayersNicknames());
+        this.nicknameQueue = new ArrayList<>(game.getPlayersNicknames());
 
-        activePlayer = nicknameQueue.get(0); // set first active player
+        this.activePlayer = nicknameQueue.get(0); // set first active player
         this.virtualViewMap = virtualViewMap;
         this.gameController = gameController;
     }
@@ -123,7 +123,6 @@ public class TurnController implements Serializable {
      * Initialize a new Turn.
      */
     public void newTurn() {
-
         turnControllerNotify("Turn of " + activePlayer);
 
         StorageData storageData = new StorageData();
@@ -137,10 +136,10 @@ public class TurnController implements Serializable {
      * Ask to Active Player which Worker want to Move.
      */
     public void pickWorker() {
-
         Player player = game.getPlayerByNickname(getActivePlayer());
         List<Position> positionList = new ArrayList<>(player.getValidWorkersPositions());
         VirtualView virtualView = virtualViewMap.get(getActivePlayer());
+
         if (positionList.isEmpty()) {
             lose();
         } else {
@@ -154,7 +153,6 @@ public class TurnController implements Serializable {
      * @param skipEffect {@code true} if effect should be by-passed {@code false} ohterwise.
      */
     public void movePhase(boolean skipEffect) {
-
         setPhaseType(PhaseType.YOUR_MOVE);
         // EFFECT REQUIRE YOUR MOVE
         phaseBody(skipEffect);
@@ -183,7 +181,6 @@ public class TurnController implements Serializable {
      * @param skipEffect {@code true} if effect should be by-passed {@code false} ohterwise.
      */
     private void buildPhase(boolean skipEffect) {
-
         setPhaseType(PhaseType.YOUR_BUILD);
         // Check effect "your build"
         phaseBody(skipEffect);
@@ -207,7 +204,6 @@ public class TurnController implements Serializable {
                     virtualView.askEnableEffect(true);
                 } else {
                     effect.apply(activeWorker, null);
-                    //effect.clear(getActiveWorker());
                     appliedEffect = effect;
                     continueGame(virtualView);
                 }

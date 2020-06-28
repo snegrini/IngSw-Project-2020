@@ -1,11 +1,9 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.MoveType;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.message.BoardMessage;
-import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.Observable;
 
 import java.io.Serializable;

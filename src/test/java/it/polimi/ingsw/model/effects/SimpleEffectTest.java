@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.model.board.Position;
+import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.enumerations.TargetType;
+import it.polimi.ingsw.model.player.Worker;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,28 +17,25 @@ public class SimpleEffectTest {
     private Effect simpleEffect;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         simpleEffect = new SimpleEffect(PhaseType.YOUR_MOVE);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         simpleEffect = null;
     }
 
     @Test
-    public void apply_doNothing() {
-        simpleEffect.apply(null, null);
-    }
+    public void test_SimpleEffect_DoNothing() {
+        Worker worker = new Worker(Color.BLUE);
 
-    @Test
-    public void require_True() {
-        assertTrue(simpleEffect.require(null));
-    }
-
-    @Test
-    public void clear_doNothing() {
-        simpleEffect.clear(null);
+        assertTrue(simpleEffect.require(worker));
+        simpleEffect.prepare(worker);
+        simpleEffect.apply(worker, new Position(0, 0));
+        simpleEffect.clear(worker);
+        assertEquals(worker, worker);
+        assertEquals(simpleEffect, simpleEffect);
     }
 
     @Test
