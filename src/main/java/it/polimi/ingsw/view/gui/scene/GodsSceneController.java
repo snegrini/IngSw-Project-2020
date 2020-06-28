@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class implements the scene where players pick the gods.
+ */
 public class GodsSceneController extends ViewObservable implements GenericSceneController {
 
     private List<ReducedGod> gods;
@@ -40,6 +43,9 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
     @FXML
     private ListView<String> selectedGodsListView;
 
+    /**
+     * Default constructor.
+     */
     public GodsSceneController() {
         godIndex = 0;
         selectedGods = new ArrayList<>();
@@ -64,6 +70,10 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
 
     }
 
+    /**
+     * Handle the click on the focus god image.
+     * @param event the mouse click event.
+     */
     private void onFocusGodImgClick(Event event) {
         ReducedGod god = gods.get(godIndex);
         SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());
@@ -86,15 +96,26 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         return false;
     }
 
+    /**
+     * Set the focus god image.
+     * @param godName name of the focus god.
+     */
     private void setFocusGodImage(String godName) {
         Image img = new Image(getClass().getResourceAsStream("/images/cards/" + godName.toLowerCase() + ".png"));
         focusGodImg.setImage(img);
     }
 
+    /**
+     * Set the focus god image of current god.
+     */
     private void setFocusGodImage() {
         setFocusGodImage(gods.get(godIndex).getName());
     }
 
+    /**
+     * Handle the click on previous god button.
+     * @param event the mouse click event.
+     */
     private void onPrevGodBtnClick(Event event) {
 
         if (godIndex > 0) {
@@ -107,6 +128,10 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         Platform.runLater(this::setFocusGodImage);
     }
 
+    /**
+     * Handle the click on next god button.
+     * @param event the mouse click event.
+     */
     private void onNextGodBtnClick(Event event) {
 
         if (godIndex < gods.size() - 1) {
@@ -119,6 +144,10 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         Platform.runLater(this::setFocusGodImage);
     }
 
+    /**
+     * Handle click on the select button.
+     * @param event the mouse click event.
+     */
     private void onSelectGodBtnClick(Event event) {
         selectedGods.add(gods.get(godIndex));
 
@@ -126,12 +155,20 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         updateSelectedGodsListView();
     }
 
+    /**
+     * Handle click on the deselect button.
+     * @param event the mouse click event.
+     */
     private void onDeselectGodBtnClick(MouseEvent event) {
         selectedGods.remove(gods.get(godIndex));
         checkSelectButtonsStatus();
         updateSelectedGodsListView();
     }
 
+    /**
+     * Handle click on confirm button.
+     * @param event the mouse click event.
+     */
     private void onConfirmBtnClick(Event event) {
 
         if (selectedGods.size() < numberRequest) {
@@ -182,10 +219,17 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
         selectedGodsListView.setItems(FXCollections.observableArrayList(godNameList));
     }
 
+    /**
+     * Set gods to be displayed
+     * @param gods list of gods.
+     */
     public void setGods(List<ReducedGod> gods) {
         this.gods = gods;
     }
 
+    /**
+     * Set the number of gods to be picked by user.
+     */
     public void setNumberRequest(int numberRequest) {
         this.numberRequest = numberRequest;
     }

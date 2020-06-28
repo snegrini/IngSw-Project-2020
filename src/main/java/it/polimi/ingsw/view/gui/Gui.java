@@ -13,6 +13,9 @@ import javafx.application.Platform;
 
 import java.util.List;
 
+/**
+ * This class implements all methods of View. Is used for the Graphic User Interface.
+ */
 public class Gui extends ViewObservable implements View {
 
     private static final String STR_ERROR = "ERROR";

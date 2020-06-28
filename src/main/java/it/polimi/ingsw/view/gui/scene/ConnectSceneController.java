@@ -13,6 +13,9 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.Map;
 
+/**
+ * This class implements the scene where users connect to the server.
+ */
 public class ConnectSceneController extends ViewObservable implements GenericSceneController {
 
     private final PseudoClass ERROR_PSEUDO_CLASS = PseudoClass.getPseudoClass("error");
@@ -37,6 +40,11 @@ public class ConnectSceneController extends ViewObservable implements GenericSce
         backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackBtnClick);
     }
 
+    /**
+     * Handle the click on the connect button.
+     *
+     * @param event the mouse click event.
+     */
     private void onConnectBtnClick(Event event) {
         String address = serverAddressField.getText();
         String port = serverPortField.getText();
@@ -56,6 +64,11 @@ public class ConnectSceneController extends ViewObservable implements GenericSce
         }
     }
 
+    /**
+     * Handle the click on the back button.
+     *
+     * @param event the mouse click event.
+     */
     private void onBackBtnClick(Event event) {
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }

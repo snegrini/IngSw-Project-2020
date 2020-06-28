@@ -11,6 +11,9 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.List;
 
+/**
+ * This class implements the scene where players wait for other players to join the game.
+ */
 public class LobbySceneController extends ViewObservable implements GenericSceneController {
 
     private List<String> nicknames;
@@ -31,19 +34,34 @@ public class LobbySceneController extends ViewObservable implements GenericScene
         backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);
     }
 
+    /**
+     * Handle click on back to menu button.
+     * @param event the mouse click event.
+     */
     private void onBackToMenuBtnClick(Event event) {
         notifyObserver(ViewObserver::onDisconnection);
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 
+    /**
+     * Set nicknames already logged in game.
+     * @param nicknames list of nicknames.
+     */
     public void setNicknames(List<String> nicknames) {
         this.nicknames = nicknames;
     }
 
+    /**
+     * Set number of max players chosen by first user.
+     * @param maxPlayers number of max players in game.
+     */
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
 
+    /**
+     * Update nicknames and number of players connecte every time a user join.
+     */
     public void updateValues() {
         playersLbl.setText(String.join(", ", this.nicknames));
         numbersLbl.setText(this.nicknames.size() + "/" + this.maxPlayers);
