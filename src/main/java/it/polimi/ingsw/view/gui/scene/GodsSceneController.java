@@ -64,6 +64,7 @@ public class GodsSceneController extends ViewObservable implements GenericSceneC
 
     }
 
+
     private void onFocusGodImgClick(Event event) {
         ReducedGod god = gods.get(godIndex);
         SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());

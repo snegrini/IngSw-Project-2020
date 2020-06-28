@@ -37,6 +37,7 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new PositionMessage(Game.SERVER_NICKNAME, MessageType.PICK_MOVING_WORKER, positionList));
     }
 
+    @Override
     public void askEnableEffect(boolean forceApply) {
         clientHandler.sendMessage(new PrepareEffectMessage(Game.SERVER_NICKNAME, forceApply));
     }
