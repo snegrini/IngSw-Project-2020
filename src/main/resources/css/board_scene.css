@@ -34,6 +34,14 @@
     -fx-background-image: url("../images/buildings/thirdfloor.png");
 }
 
+.spacePane.lvlTwo {
+    -fx-background-image: url("../images/buildings/secondfloor.png");
+}
+
+.spacePane.lvlThree {
+    -fx-background-image: url("../images/buildings/thirdfloor.png");
+}
+
 .spaceWorkerPane {
     -fx-background-size: stretch;
     -fx-scale-x: 0.6;
