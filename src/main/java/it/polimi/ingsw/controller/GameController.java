@@ -405,7 +405,7 @@ public class GameController implements Observer, Serializable {
                 StorageData storageData = new StorageData();
                 GameController savedGameController = storageData.restore();
                 if (storageData.restore() != null &&
-                        savedGameController.getTurnController().getNicknameQueue().equals(game.getPlayersNicknames())) {
+                        savedGameController.getTurnController().getNicknameQueue().containsAll(game.getPlayersNicknames())) {
                     restoreControllers(savedGameController);
                     broadcastRestoreMessages();
                     turnController.newTurn();
