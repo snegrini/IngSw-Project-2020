@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.player.Player;
 import it.polimi.ingsw.model.player.Worker;
 import it.polimi.ingsw.network.server.Server;
-import it.polimi.ingsw.persistence.StorageData;
+import it.polimi.ingsw.utils.StorageData;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.Serializable;

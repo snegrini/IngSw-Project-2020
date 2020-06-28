@@ -12,7 +12,7 @@ import it.polimi.ingsw.network.message.BoardMessage;
 import it.polimi.ingsw.network.message.LobbyMessage;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.Observable;
-import it.polimi.ingsw.parser.GodParser;
+import it.polimi.ingsw.utils.GodParser;
 
 import java.io.Serializable;
 import java.util.ArrayList;
