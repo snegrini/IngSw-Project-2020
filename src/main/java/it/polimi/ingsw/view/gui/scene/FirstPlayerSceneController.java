@@ -19,6 +19,9 @@ import java.util.List;
 
 import static it.polimi.ingsw.view.gui.SceneController.GOD_IMAGE_PREFIX;
 
+/**
+ * This class implements the controller of the scene where the first player choose the first user.
+ */
 public class FirstPlayerSceneController extends ViewObservable implements GenericSceneController {
 
     private List<String> nicknames;
@@ -49,6 +52,9 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
     @FXML
     private Button backToMenuBtn;
 
+    /**
+     * Default constructor.
+     */
     public FirstPlayerSceneController() {
         nicknames = new ArrayList<>();
         gods = new ArrayList<>();
@@ -81,6 +87,9 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
         backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);
     }
 
+    /**
+     * Handle the click on a player's group.
+     */
     private void onGroupClick(String nickname) {
         disableAllGroups();
         Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateFirstPlayer(nickname)));
@@ -95,16 +104,28 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
         player3Group.setDisable(true);
     }
 
+    /**
+     * Handle click on back to menu button.
+     * @param event the mouse click event.
+     */
     private void onBackToMenuBtnClick(Event event) {
         notifyObserver(ViewObserver::onDisconnection);
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 
 
+    /**
+     * Set nicknames of connected players.
+     * @param nicknames nicknames of the players.
+     */
     public void setNicknames(List<String> nicknames) {
         this.nicknames = nicknames;
     }
 
+    /**
+     * Set gods of all connected players.
+     * @param gods gods of the players.
+     */
     public void setGods(List<ReducedGod> gods) {
         this.gods = gods;
     }

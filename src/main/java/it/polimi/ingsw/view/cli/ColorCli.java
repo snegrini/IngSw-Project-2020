@@ -1,5 +1,8 @@
 package it.polimi.ingsw.view.cli;
 
+/**
+ * This class contains all colors used in Cli.
+ */
 public enum ColorCli {
     //Color end string, color reset
     RESET("\033[0m"),

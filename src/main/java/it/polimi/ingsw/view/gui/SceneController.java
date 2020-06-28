@@ -16,19 +16,29 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * This class implements a the controller of a generic scene.
+ */
 public class SceneController extends ViewObservable {
 
     public static final Logger LOGGER = Logger.getLogger(SceneController.class.getName());
     public static final String GOD_IMAGE_PREFIX = "/images/gods/podium_";
 
     private static Scene activeScene;
-
     private static GenericSceneController activeController;
 
+    /**
+     * Returns the active scene.
+     * @return active scene.
+     */
     public static Scene getActiveScene() {
         return activeScene;
     }
 
+    /**
+     * Returns the active controller.
+     * @return active controller.
+     */
     public static GenericSceneController getActiveController() {
         return activeController;
     }

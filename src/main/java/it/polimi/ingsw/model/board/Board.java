@@ -67,7 +67,7 @@ public class Board extends Observable implements Serializable {
         for (Worker w : workers) {
             getSpace(w.getPosition()).setWorker(w);
         }
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
+        notifyObserver(new BoardMessage(getReducedSpaceBoard()));
     }
 
     /**
@@ -300,7 +300,7 @@ public class Board extends Observable implements Serializable {
         getSpace(worker.getPosition()).setWorker(null);
         worker.move(dest);
         getSpace(dest).setWorker(worker);
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
+        notifyObserver(new BoardMessage(getReducedSpaceBoard()));
     }
 
     /**
@@ -320,7 +320,7 @@ public class Board extends Observable implements Serializable {
 
         space1.setWorker(worker2);
         space2.setWorker(worker1);
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
+        notifyObserver(new BoardMessage(getReducedSpaceBoard()));
     }
 
 
@@ -338,7 +338,7 @@ public class Board extends Observable implements Serializable {
             space.increaseLevel(1);
         }
         worker.updateBuildHistory(dest);
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
+        notifyObserver(new BoardMessage(getReducedSpaceBoard()));
     }
 
     /**
@@ -352,7 +352,7 @@ public class Board extends Observable implements Serializable {
         Space space = getSpace(dest);
         space.setDome(true);
         worker.updateBuildHistory(dest);
-        notifyObserver(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, getReducedSpaceBoard()));
+        notifyObserver(new BoardMessage(getReducedSpaceBoard()));
     }
 
     /**

@@ -139,6 +139,12 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());
     }
 
+    /**
+     * Handle the click on a generic space.
+     * The opacity of the selected space will be edited.
+     *
+     * @param event the mouse click event.
+     */
     private void onSpaceClick(MouseEvent event) {
         Node clickedNode = event.getPickResult().getIntersectedNode();
         Integer row = GridPane.getRowIndex(clickedNode);
@@ -152,6 +158,12 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         }
     }
 
+    /**
+     * Handle the click on the undo image.
+     * Action of the player will be cancelled.
+     *
+     * @param event the mouse click event.
+     */
     private void onUndoImgClick(MouseEvent event) {
         undoTimer.cancel();
         timerLbl.setVisible(false);
@@ -164,6 +176,12 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         availablePositionClicks++;
     }
 
+    /**
+     * Handle the click on the Confirm Button.
+     * Action of the player will be confirmed.
+     *
+     * @param event the mouse click event.
+     */
     private void onConfirmBtnClick(MouseEvent event) {
         undoTimer.cancel();
         timerLbl.setVisible(false);
@@ -193,16 +211,33 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         tempPosition = null;
     }
 
+    /**
+     * Handle the click on the effect image.
+     * Effect of the player's god will be activated.
+     *
+     * @param event the mouse click event.
+     */
     private void onEffectImageClick(MouseEvent event) {
         enableEffectControls(false);
         new Thread(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(true))).start();
     }
 
+    /**
+     * Handle the click on the skip effect button.
+     * Effect of the player's god will not be activated.
+     *
+     * @param event the mouse click event.
+     */
     private void onSkipEffectBtnClick(MouseEvent event) {
         enableEffectControls(false);
         new Thread(() -> notifyObserver(obs -> obs.onUpdateEnableEffect(false))).start();
     }
 
+    /**
+     * Handle the type of the space clicked by player.
+     * @param clickedNode clicked node of the board.
+     * @param clickedPosition clicked position of the board.
+     */
     private void handleSpaceClickType(Node clickedNode, Position clickedPosition) {
         switch (spaceClickType) {
             case INIT_WORKERSPOSITIONS:

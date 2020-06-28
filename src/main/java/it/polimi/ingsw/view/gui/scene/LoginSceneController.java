@@ -9,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * This class implements the scene where users choose their nicknames.
+ */
 public class LoginSceneController extends ViewObservable implements GenericSceneController {
 
     @FXML
@@ -25,6 +28,10 @@ public class LoginSceneController extends ViewObservable implements GenericScene
         backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);
     }
 
+    /**
+     * Handle click on Join button.
+     * @param event the mouse click event.
+     */
     private void onJoinBtnClick(Event event) {
         joinBtn.setDisable(true);
 
@@ -33,6 +40,10 @@ public class LoginSceneController extends ViewObservable implements GenericScene
         new Thread(() -> notifyObserver(obs -> obs.onUpdateNickname(nickname))).start();
     }
 
+    /**
+     * Handle click on back to menu button.
+     * @param event the mouse click event.
+     */
     private void onBackToMenuBtnClick(Event event) {
         notifyObserver(ViewObserver::onDisconnection);
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");

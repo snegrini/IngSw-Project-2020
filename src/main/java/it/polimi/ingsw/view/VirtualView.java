@@ -19,10 +19,18 @@ import java.util.List;
 public class VirtualView implements View, Observer {
     private final ClientHandler clientHandler;
 
+    /**
+     * Default constructor.
+     * @param clientHandler
+     */
     public VirtualView(ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
     }
 
+    /**
+     * Returns the client handler associated to a client.
+     * @return client handler.
+     */
     public ClientHandler getClientHandler() {
         return clientHandler;
     }
@@ -120,7 +128,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showBoard(ReducedSpace[][] spaces) {
-        clientHandler.sendMessage(new BoardMessage(Game.SERVER_NICKNAME, MessageType.BOARD, spaces));
+        clientHandler.sendMessage(new BoardMessage(spaces));
     }
 
     @Override
