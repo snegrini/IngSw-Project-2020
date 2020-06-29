@@ -49,7 +49,7 @@ public class MoveOverDecorator extends EffectDecorator {
         effect.apply(activeWorker, position);
 
         if (!possibleMoves.contains(position)) {
-            notifyObserver(new ErrorMessage(Game.SERVER_NICKNAME, "Bad position."));
+            notifyObserver(new ErrorMessage(Game.SERVER_NICKNAME, "Bad position given."));
             return;
         }
 
