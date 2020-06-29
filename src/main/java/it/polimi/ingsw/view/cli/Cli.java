@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 
 import static it.polimi.ingsw.controller.ClientController.UNDO_TIME;
 
+/**
+ * This class offers a User Interface to the user via terminal. It is an implementation of the {@link View}.
+ */
 public class Cli extends ViewObservable implements View {
 
     private final PrintStream out;
@@ -32,6 +35,12 @@ public class Cli extends ViewObservable implements View {
     }
 
 
+    /**
+     * Reads a line from the standard input.
+     *
+     * @return the string read from the input.
+     * @throws ExecutionException if the input stream thread is interrupted.
+     */
     public String readLine() throws ExecutionException {
         FutureTask<String> futureTask = new FutureTask<>(new InputReadTask());
         inputThread = new Thread(futureTask);
