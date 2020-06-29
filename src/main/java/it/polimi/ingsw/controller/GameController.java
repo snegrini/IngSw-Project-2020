@@ -444,7 +444,6 @@ public class GameController implements Observer, Serializable {
 
         inputController = new InputController(this.virtualViewMap, this);
         turnController.setVirtualViewMap(this.virtualViewMap);
-        inputController.setTurnController(this.turnController);
     }
 
     /**
@@ -454,7 +453,6 @@ public class GameController implements Observer, Serializable {
         setGameState(GameState.INIT);
 
         turnController = new TurnController(virtualViewMap, this);
-        inputController.setTurnController(turnController);
         broadcastGenericMessage("All Players are connected. " + turnController.getActivePlayer()
                 + " is choosing " + game.getChosenPlayersNumber() + " Gods . . .");
 

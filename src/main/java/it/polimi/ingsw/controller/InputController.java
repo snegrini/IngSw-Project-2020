@@ -23,7 +23,6 @@ public class InputController implements Serializable {
     private final Game game;
     private transient Map<String, VirtualView> virtualViewMap;
     private final GameController gameController;
-    private TurnController turnController;
 
     /**
      * Constructor of the Input Controller Class.
@@ -34,6 +33,7 @@ public class InputController implements Serializable {
         this.game = Game.getInstance();
         this.virtualViewMap = virtualViewMap;
         this.gameController = gameController;
+
     }
 
     /**
@@ -93,12 +93,12 @@ public class InputController implements Serializable {
 
     public boolean checkFirstPlayerHandler(Message message) {
         String firstPlayer = ((UsersInfoMessage) message).getActivePlayerNickname();
-        if(turnController.getNicknameQueue().contains(firstPlayer)){
+        if(gameController.getTurnController().getNicknameQueue().contains(firstPlayer)){
             return true;
         } else {
             VirtualView virtualView = virtualViewMap.get(message.getNickname());
             virtualView.showGenericMessage("Incorrect First Player.");
-            virtualView.askFirstPlayer(turnController.getNicknameQueue(), gameController.getActiveGods());
+            virtualView.askFirstPlayer(gameController.getTurnController().getNicknameQueue(), gameController.getActiveGods());
             return false;
         }
     }
@@ -111,14 +111,14 @@ public class InputController implements Serializable {
      */
     private boolean pickMovingCheck(Message message) {
         Position workerPosition = ((PositionMessage) message).getPositionList().get(0);
-        String activePlayerNickname = turnController.getActivePlayer();
+        String activePlayerNickname = gameController.getTurnController().getActivePlayer();
         Worker pickedWorker =  game.getPlayerByNickname(activePlayerNickname).getWorkerByPosition(workerPosition);
         if ( null != pickedWorker) {
             return true;
         } else {
             VirtualView virtualView = virtualViewMap.get(message.getNickname());
             virtualView.showGenericMessage("You don't have a worker in this position.");
-            turnController.pickWorker();
+            gameController.getTurnController().pickWorker();
             return false;
         }
     }
@@ -178,13 +178,13 @@ public class InputController implements Serializable {
         VirtualView virtualView = virtualViewMap.get(message.getNickname());
         PositionMessage positionMessage = ((PositionMessage) message);
         Position choosenDest = positionMessage.getPositionList().get(0);
-        List<Position> possibleMovePositions = turnController.getActiveWorker().getPossibleMoves();
+        List<Position> possibleMovePositions = gameController.getTurnController().getActiveWorker().getPossibleMoves();
 
         if (!positionMessage.getPositionList().isEmpty() && possibleMovePositions.contains(choosenDest)) {
             return true;
         } else {
             virtualView.showGenericMessage("You didn't provided a valid Destination. Retry.");
-            virtualView.askMove(turnController.getActiveWorker().getPossibleMoves());
+            virtualView.askMove(gameController.getTurnController().getActiveWorker().getPossibleMoves());
             return false;
         }
     }
@@ -248,13 +248,13 @@ public class InputController implements Serializable {
         VirtualView virtualView = virtualViewMap.get(message.getNickname());
         PositionMessage positionMessage = ((PositionMessage) message);
         Position choosenBuild = positionMessage.getPositionList().get(0);
-        List<Position> possibleBuildPositions = turnController.getActiveWorker().getPossibleBuilds();
+        List<Position> possibleBuildPositions = gameController.getTurnController().getActiveWorker().getPossibleBuilds();
 
         if (!positionMessage.getPositionList().isEmpty() && possibleBuildPositions.contains(choosenBuild)) {
             return true;
         } else {
             virtualView.showGenericMessage("You didn't provided a valid Position. Retry.");
-            virtualView.askBuild(turnController.getActiveWorker().getPossibleBuilds());
+            virtualView.askBuild(gameController.getTurnController().getActiveWorker().getPossibleBuilds());
             return false;
         }
     }
@@ -287,23 +287,6 @@ public class InputController implements Serializable {
                 return true;
         }
         return false;
-    }
-
-
-    /**
-     * Set the actual turn controller.
-     * @param turnController active turn controller.
-     */
-    public void setTurnController(TurnController turnController) {
-        this.turnController = turnController;
-    }
-
-    /**
-     * Set the virtual view map.
-     * @param virtualViewMap Virtual View Map.
-     */
-    public void setVirtualViewMap(Map<String, VirtualView> virtualViewMap) {
-        this.virtualViewMap = virtualViewMap;
     }
 
 
