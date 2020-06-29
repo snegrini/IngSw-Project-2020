@@ -8,9 +8,6 @@ import java.nio.file.Files;
 
 public class StorageData {
 
-    public StorageData() {
-    }
-
     /**
      * Save current Game Controller on a file.
      *

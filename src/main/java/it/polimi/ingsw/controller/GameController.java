@@ -397,6 +397,7 @@ public class GameController implements Observer, Serializable {
                         savedGameController.getTurnController().getNicknameQueue().containsAll(game.getPlayersNicknames())) {
                     restoreControllers(savedGameController);
                     broadcastRestoreMessages();
+                    Server.LOGGER.info("Saved Match restored.");
                     turnController.newTurn();
                 } else {
                     initGame();
