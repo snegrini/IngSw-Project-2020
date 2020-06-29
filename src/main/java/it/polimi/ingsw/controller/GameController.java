@@ -393,7 +393,7 @@ public class GameController implements Observer, Serializable {
                 // check saved matches.
                 StorageData storageData = new StorageData();
                 GameController savedGameController = storageData.restore();
-                if (storageData.restore() != null &&
+                if (savedGameController != null &&
                         savedGameController.getTurnController().getNicknameQueue().containsAll(game.getPlayersNicknames())) {
                     restoreControllers(savedGameController);
                     broadcastRestoreMessages();
