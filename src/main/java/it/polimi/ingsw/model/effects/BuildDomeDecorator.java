@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.player.Worker;
+import it.polimi.ingsw.network.message.ErrorMessage;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.network.message.PositionMessage;
 
@@ -45,8 +46,12 @@ public class BuildDomeDecorator extends EffectDecorator {
     public void apply(Worker activeWorker, Position position) {
         effect.apply(activeWorker, position);
 
-        Board board = Game.getInstance().getBoard();
-        board.buildDomeForced(activeWorker, position);
+        if (possibleBuilds.contains(position)) {
+            Board board = Game.getInstance().getBoard();
+            board.buildDomeForced(activeWorker, position);
+        } else {
+            notifyObserver(new ErrorMessage(Game.SERVER_NICKNAME, "Bad position given."));
+        }
     }
 
     /**
