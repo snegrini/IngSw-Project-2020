@@ -8,29 +8,31 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.AlertSceneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0"
+            prefWidth="540.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.AlertSceneController">
     <top>
-        <AnchorPane prefHeight="250.0" prefWidth="500.0">
+        <AnchorPane prefHeight="250.0" prefWidth="545.0">
             <children>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="138.0" layoutY="36.0" pickOnBounds="true"
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="170.0" layoutY="36.0" pickOnBounds="true"
                            preserveRatio="true">
                     <image>
                         <Image url="@../images/blocco.png"/>
                     </image>
                 </ImageView>
-                <Label fx:id="titleLbl" alignment="CENTER" layoutX="149.0" layoutY="38.0" prefHeight="22.0"
-                       prefWidth="180.0" styleClass="customText" text="Error">
+                <Label fx:id="titleLbl" alignment="CENTER" layoutX="179.0" layoutY="38.0" prefHeight="22.0"
+                       prefWidth="180.0" styleClass="customText" text="ERROR">
                     <font>
                         <Font size="14.0"/>
                     </font>
                 </Label>
-                <Label fx:id="messageLbl" layoutX="140.0" layoutY="85.0" prefHeight="72.0" prefWidth="199.0"
-                       styleClass="alertText" text="Something went wrong :(" wrapText="true">
+                <Label fx:id="messageLbl" alignment="CENTER" layoutX="84.0" layoutY="83.0" prefHeight="85.0"
+                       prefWidth="370.0" styleClass="alertText" text="Something went wrong :(" wrapText="true">
                     <font>
                         <Font size="14.0"/>
                     </font>
                 </Label>
-                <Button fx:id="okBtn" layoutX="134.0" layoutY="166.0" mnemonicParsing="false" prefHeight="47.0"
+                <Button fx:id="okBtn" layoutX="167.0" layoutY="189.0" mnemonicParsing="false" prefHeight="47.0"
                         prefWidth="204.0" styleClass="smallButton" text="OK"/>
             </children>
         </AnchorPane>
