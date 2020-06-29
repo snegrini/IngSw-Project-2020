@@ -276,10 +276,10 @@ public class InputController implements Serializable {
 
 
     /**
-     * Check if god is in the selectedGodList
+     * Check if god is in the selectedGodList.
      *
-     * @param god god picked by client
-     * @return {@code true} if correct {@code false} otherwise
+     * @param god god picked by client.
+     * @return {@code true} if correct {@code false} otherwise.
      */
     private boolean isInSelectedGodList(ReducedGod god) {
         for (ReducedGod g : gameController.getAvailableGods()) {
@@ -289,7 +289,11 @@ public class InputController implements Serializable {
         return false;
     }
 
-
+    /**
+     * Check if message is sent from active player.
+     * @param receivedMessage message from client.
+     * @return {@code true} if correct {@code false} otherwise.
+     */
     public boolean checkUser(Message receivedMessage) {
         if(receivedMessage.getNickname().equals(gameController.getTurnController().getActivePlayer())) {
             return true;
