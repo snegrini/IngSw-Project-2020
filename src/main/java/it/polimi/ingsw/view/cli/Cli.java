@@ -57,8 +57,21 @@ public class Cli extends ViewObservable implements View {
         return input;
     }
 
+    /**
+     * Starts the command-line interface.
+     */
     public void init() {
-        out.println("Welcome to SANTORINI board game!");
+        out.println("" +
+                " .d8888b.                    888                    d8b          d8b \n" +
+                "d88P  Y88b                   888                    Y8P          Y8P \n" +
+                "Y88b.                        888                                     \n" +
+                " \"Y888b.    8888b.  88888b.  888888 .d88b.  888d888 888 88888b.  888 \n" +
+                "    \"Y88b.     \"88b 888 \"88b 888   d88\"\"88b 888P\"   888 888 \"88b 888 \n" +
+                "      \"888 .d888888 888  888 888   888  888 888     888 888  888 888 \n" +
+                "Y88b  d88P 888  888 888  888 Y88b. Y88..88P 888     888 888  888 888 \n" +
+                " \"Y8888P\"  \"Y888888 888  888  \"Y888 \"Y88P\"  888     888 888  888 888 \n");
+
+        out.println("Welcome to Santorini Board Game!");
 
         try {
             askServerInfo();
@@ -67,6 +80,11 @@ public class Cli extends ViewObservable implements View {
         }
     }
 
+    /**
+     * Asks the server address and port to the user.
+     *
+     * @throws ExecutionException if the input stream thread is interrupted.
+     */
     public void askServerInfo() throws ExecutionException {
         Map<String, String> serverInfo = new HashMap<>();
         String defaultAddress = "localhost";
