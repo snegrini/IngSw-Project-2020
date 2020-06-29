@@ -112,16 +112,16 @@ public class InputController implements Serializable {
     private boolean pickMovingCheck(Message message) {
         Position workerPosition = ((PositionMessage) message).getPositionList().get(0);
         String activePlayerNickname = gameController.getTurnController().getActivePlayer();
-        Worker pickedWorker =  game.getPlayerByNickname(activePlayerNickname).getWorkerByPosition(workerPosition);
+    Worker pickedWorker =  game.getPlayerByNickname(activePlayerNickname).getWorkerByPosition(workerPosition);
         if ( null != pickedWorker) {
-            return true;
-        } else {
-            VirtualView virtualView = virtualViewMap.get(message.getNickname());
-            virtualView.showGenericMessage("You don't have a worker in this position.");
-            gameController.getTurnController().pickWorker();
-            return false;
-        }
+        return true;
+    } else {
+        VirtualView virtualView = virtualViewMap.get(message.getNickname());
+        virtualView.showGenericMessage("You don't have a worker in this position.");
+        gameController.getTurnController().pickWorker();
+        return false;
     }
+}
 
     /**
      * Check initializing workers positions.
@@ -290,4 +290,11 @@ public class InputController implements Serializable {
     }
 
 
+    public boolean checkUser(Message receivedMessage) {
+        if(receivedMessage.getNickname().equals(gameController.getTurnController().getActivePlayer())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

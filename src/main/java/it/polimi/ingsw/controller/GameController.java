@@ -72,21 +72,24 @@ public class GameController implements Observer, Serializable {
     public void onMessageReceived(Message receivedMessage) {
 
         VirtualView virtualView = virtualViewMap.get(receivedMessage.getNickname());
-
-        switch (gameState) {
-            case LOGIN:
-                loginState(receivedMessage);
-                break;
-            case INIT:
-                initState(receivedMessage, virtualView);
-                break;
-            case IN_GAME:
-                inGameState(receivedMessage);
-                break;
-            default: // Should never reach this condition
-                Server.LOGGER.warning(STR_INVALID_STATE);
-                break;
-        }
+            switch (gameState) {
+                case LOGIN:
+                    loginState(receivedMessage);
+                    break;
+                case INIT:
+                    if(inputController.checkUser(receivedMessage)) {
+                        initState(receivedMessage, virtualView);
+                    }
+                    break;
+                case IN_GAME:
+                    if(inputController.checkUser(receivedMessage)) {
+                    inGameState(receivedMessage);
+                    }
+                    break;
+                default: // Should never reach this condition
+                    Server.LOGGER.warning(STR_INVALID_STATE);
+                    break;
+            }
     }
 
 
@@ -104,7 +107,7 @@ public class GameController implements Observer, Serializable {
                 broadcastGenericMessage("Waiting for other Players . . .");
             }
         } else {
-           Server.LOGGER.warning("Wrong message received from client.");
+            Server.LOGGER.warning("Wrong message received from client.");
         }
     }
 
@@ -194,10 +197,10 @@ public class GameController implements Observer, Serializable {
         } else {
 
             // Win condition for workers that are moving with an effects.
-            if ( ( turnController.getPhaseType().equals(PhaseType.YOUR_MOVE) ||
-                    turnController.getPhaseType().equals(PhaseType.YOUR_MOVE_AFTER) )
-                && null != positionApply
-                && winConditions(positionApply)) {
+            if ((turnController.getPhaseType().equals(PhaseType.YOUR_MOVE) ||
+                    turnController.getPhaseType().equals(PhaseType.YOUR_MOVE_AFTER))
+                    && null != positionApply
+                    && winConditions(positionApply)) {
                 win();
             } else {
                 turnController.nextPhase();
@@ -207,6 +210,7 @@ public class GameController implements Observer, Serializable {
 
     /**
      * Check the win condition of the active Worker.
+     *
      * @param destination destination of the Worker.
      * @return {@code true} if Player wins {@code false} otherwise.
      */
@@ -424,6 +428,7 @@ public class GameController implements Observer, Serializable {
 
     /**
      * Restore Controllers from file.
+     *
      * @param savedGameController Controller from file.
      */
     private void restoreControllers(GameController savedGameController) {
@@ -733,6 +738,7 @@ public class GameController implements Observer, Serializable {
 
     /**
      * Return Turn Controller of the Game.
+     *
      * @return Turn Controller of the Game.
      */
     public TurnController getTurnController() {
