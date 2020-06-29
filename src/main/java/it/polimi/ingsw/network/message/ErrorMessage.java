@@ -14,4 +14,12 @@ public class ErrorMessage extends Message {
     public String getError() {
         return error;
     }
+
+    @Override
+    public String toString() {
+        return "ErrorMessage{" +
+                "nickname=" + getNickname() +
+                ", error=" + error +
+                '}';
+    }
 }

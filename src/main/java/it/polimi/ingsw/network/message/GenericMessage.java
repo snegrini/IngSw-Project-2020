@@ -20,9 +20,9 @@ public class GenericMessage extends Message {
 
     @Override
     public String toString() {
-        return "GenericErrorMessage{" +
-                "messageType=" + getMessageType() +
-                "message='" + message + '\'' +
+        return "GenericMessage{" +
+                "nickname=" + getNickname() +
+                ", message=" + message +
                 '}';
     }
 }

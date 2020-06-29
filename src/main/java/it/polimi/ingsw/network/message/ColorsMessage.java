@@ -18,7 +18,6 @@ public class ColorsMessage extends Message {
     public String toString() {
         return "ColorsMessage{" +
                 "nickname=" + getNickname() +
-                ", messageType=" + getMessageType() +
                 ", colorList=" + colorList +
                 '}';
     }

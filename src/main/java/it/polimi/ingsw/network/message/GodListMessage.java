@@ -27,17 +27,16 @@ public class GodListMessage extends Message {
         return godList;
     }
 
+    public int getRequest() {
+        return request;
+    }
+
     @Override
     public String toString() {
         return "GodList{" +
                 "nickname=" + getNickname() +
-                ", messageType=" + getMessageType() +
                 ", godList=" + godList +
                 ", request=" + request +
                 '}';
-    }
-
-    public int getRequest() {
-        return request;
     }
 }

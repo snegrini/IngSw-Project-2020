@@ -9,6 +9,13 @@ public class PlayerNumberRequest extends Message {
     public PlayerNumberRequest() {
         super(Game.SERVER_NICKNAME, MessageType.PLAYERNUMBER_REQUEST);
     }
+
+    @Override
+    public String toString() {
+        return "PlayerNumberRequest{" +
+                "nickname=" + getNickname() +
+                '}';
+    }
 }
 
 

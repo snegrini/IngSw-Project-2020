@@ -27,7 +27,6 @@ public class LobbyMessage extends Message {
     public String toString() {
         return "LobbyMessage{" +
                 "nickname=" + getNickname() +
-                ", messageType=" + getMessageType() +
                 ", nicknameList=" + nicknameList +
                 ", numPlayers=" + maxPlayers +
                 '}';

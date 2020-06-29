@@ -27,7 +27,6 @@ public class PositionMessage extends Message {
     public String toString() {
         return "PositionMessage{" +
                 "nickname=" + getNickname() +
-                ", messageType=" + getMessageType() +
                 ", positionList=" + positionList +
                 '}';
     }

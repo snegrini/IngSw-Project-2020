@@ -20,8 +20,7 @@ public class WinMessage extends Message {
     public String toString() {
         return "WinMessage{" +
                 "nickname=" + getNickname() +
-                ", messageType=" + getMessageType() +
-                ", winnerNickname='" + winnerNickname + '\'' +
+                ", winnerNickname=" + winnerNickname +
                 '}';
     }
 }

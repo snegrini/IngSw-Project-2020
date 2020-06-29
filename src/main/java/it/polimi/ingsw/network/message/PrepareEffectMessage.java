@@ -18,8 +18,7 @@ public class PrepareEffectMessage extends Message {
     public String toString() {
         return "EnableEffect{" +
                 "nickname=" + getNickname() +
-                ", messageType=" + getMessageType() +
-                "enableEffect=" + enableEffect +
+                ", enableEffect=" + enableEffect +
                 '}';
     }
 }

@@ -26,9 +26,8 @@ public class BuildMessage extends Message {
 
     @Override
     public String toString() {
-        return "Build{" +
+        return "BuildMessage{" +
                 "nickname=" + getNickname() +
-                ", messageType=" + getMessageType() +
                 ", position=" + position +
                 '}';
     }

@@ -53,6 +53,7 @@ public class Server {
     public void removeClient(String nickname, boolean notifyEnabled) {
         clientHandlerMap.remove(nickname);
         gameController.removeVirtualView(nickname, notifyEnabled);
+        LOGGER.info(() -> "Removed " + nickname + " from the client list.");
     }
 
     /**

@@ -44,4 +44,12 @@ public class ReducedWorker implements Serializable {
     public Position getPosition() {
         return position;
     }
+
+    @Override
+    public String toString() {
+        return "ReducedWorker{" +
+                "color=" + color +
+                ", position=" + position +
+                '}';
+    }
 }

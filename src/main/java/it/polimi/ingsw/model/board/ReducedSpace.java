@@ -48,9 +48,19 @@ public class ReducedSpace implements Serializable {
 
     /**
      * Return the occupant reduced worker on the space.
+     *
      * @return Reduced Worker.
      */
     public ReducedWorker getReducedWorker() {
         return reducedWorker;
+    }
+
+    @Override
+    public String toString() {
+        return "ReducedSpace{" +
+                "level=" + level +
+                ", dome=" + dome +
+                ", reducedWorker=" + reducedWorker +
+                '}';
     }
 }

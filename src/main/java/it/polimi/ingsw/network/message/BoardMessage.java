@@ -36,8 +36,7 @@ public class BoardMessage extends Message {
     public String toString() {
         return "BoardMessage{" +
                 "nickname=" + getNickname() +
-                ", messageType=" + getMessageType() +
-                "board=" + Arrays.toString(board) +
+                ", board=" + Arrays.toString(board) +
                 '}';
     }
 }

@@ -14,12 +14,10 @@ public class PlayerNumberReply extends Message {
         return playerNumber;
     }
 
-
     @Override
     public String toString() {
         return "PlayerNumberReply{" +
                 "nickname=" + getNickname() +
-                ", messageType=" + getMessageType() +
                 ", playerNumber=" + playerNumber +
                 '}';
     }

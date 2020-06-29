@@ -34,10 +34,9 @@ public class UsersInfoMessage extends Message {
     public String toString() {
         return "MatchInfoMessage{" +
                 "nickname=" + getNickname() +
-                ", messageType=" + getMessageType() +
-                "activePlayers=" + activePlayers +
+                ", activePlayers=" + activePlayers +
                 ", activeGods=" + activeGods +
-                ", activePlayerNickname='" + activePlayerNickname + '\'' +
+                ", activePlayerNickname=" + activePlayerNickname +
                 '}';
     }
 

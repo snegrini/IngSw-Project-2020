@@ -8,4 +8,10 @@ public class LoginRequest extends Message {
         super(nickname, MessageType.LOGIN_REQUEST);
     }
 
+    @Override
+    public String toString() {
+        return "LoginRequest{" +
+                "nickname=" + getNickname() +
+                '}';
+    }
 }
