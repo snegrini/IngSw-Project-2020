@@ -23,7 +23,7 @@ public class Gui extends ViewObservable implements View {
 
     @Override
     public void askNickname() {
-        SceneController.changeRootPane(observers, "login_scene.fxml");
+        Platform.runLater(() -> SceneController.changeRootPane(observers, "login_scene.fxml"));
     }
 
     @Override

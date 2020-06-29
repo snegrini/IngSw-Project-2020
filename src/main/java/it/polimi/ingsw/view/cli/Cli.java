@@ -631,7 +631,7 @@ public class Cli extends ViewObservable implements View {
         for (String nick : nicknameList) {
             out.println(nick + "\n");
         }
-        out.println("Waiting for other players to join: " + nicknameList.size() + " / " + numPlayers);
+        out.println("Current players in lobby: " + nicknameList.size() + " / " + numPlayers);
     }
 
 

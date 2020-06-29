@@ -44,12 +44,12 @@ public class SocketClient extends Client {
                 Message message;
                 try {
                     message = (Message) inputStm.readObject();
-                    SceneController.LOGGER.info("RECEIVED: " + message.getMessageType());
+                    Client.LOGGER.info("Received: " + message);
 
-                    if (message.getMessageType() == MessageType.GENERIC_MESSAGE) {
+                    /*if (message.getMessageType() == MessageType.GENERIC_MESSAGE) {
                         GenericMessage gm = (GenericMessage) message;
-                        SceneController.LOGGER.info("Generic message: " + gm.getMessage());
-                    }
+                        Client.LOGGER.info("Generic message: " + gm.getMessage());
+                    }*/
                 } catch (IOException | ClassNotFoundException e) {
                     message = new ErrorMessage(null, "Connection lost with the server.");
                     disconnect();

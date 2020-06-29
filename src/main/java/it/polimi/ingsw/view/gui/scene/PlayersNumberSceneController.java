@@ -46,11 +46,11 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
         RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
         int playersNumber = Character.getNumericValue(selectedRadioButton.getText().charAt(0));
 
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdatePlayersNumber(playersNumber)));
+        new Thread(() -> notifyObserver(obs -> obs.onUpdatePlayersNumber(playersNumber))).start();
     }
 
     private void onBackToMenuBtnClick(Event event) {
-        notifyObserver(ViewObserver::onDisconnection);
+        new Thread(() -> notifyObserver(ViewObserver::onDisconnection)).start();
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 

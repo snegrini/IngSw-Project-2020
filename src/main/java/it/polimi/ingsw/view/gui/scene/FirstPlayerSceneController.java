@@ -92,7 +92,7 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
      */
     private void onGroupClick(String nickname) {
         disableAllGroups();
-        Platform.runLater(() -> notifyObserver(obs -> obs.onUpdateFirstPlayer(nickname)));
+        new Thread(() -> notifyObserver(obs -> obs.onUpdateFirstPlayer(nickname))).start();
     }
 
     /**
@@ -109,7 +109,7 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
      * @param event the mouse click event.
      */
     private void onBackToMenuBtnClick(Event event) {
-        notifyObserver(ViewObserver::onDisconnection);
+        new Thread(() -> notifyObserver(ViewObserver::onDisconnection)).start();
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 

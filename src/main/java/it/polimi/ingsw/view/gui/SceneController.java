@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui;
 
+import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.observer.ViewObservable;
 import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.gui.scene.AlertSceneController;
@@ -21,7 +22,6 @@ import java.util.logging.Logger;
  */
 public class SceneController extends ViewObservable {
 
-    public static final Logger LOGGER = Logger.getLogger(SceneController.class.getName());
     public static final String GOD_IMAGE_PREFIX = "/images/gods/podium_";
 
     private static Scene activeScene;
@@ -66,7 +66,7 @@ public class SceneController extends ViewObservable {
             activeScene = scene;
             activeScene.setRoot(root);
         } catch (IOException e) {
-            LOGGER.severe(e.getMessage());
+            Client.LOGGER.severe(e.getMessage());
         }
         return controller;
     }
@@ -117,7 +117,7 @@ public class SceneController extends ViewObservable {
             activeScene = scene;
             activeScene.setRoot(root);
         } catch (IOException e) {
-            LOGGER.severe(e.getMessage());
+            Client.LOGGER.severe(e.getMessage());
         }
     }
 
@@ -158,7 +158,7 @@ public class SceneController extends ViewObservable {
         try {
             parent = loader.load();
         } catch (IOException e) {
-            LOGGER.severe(e.getMessage());
+            Client.LOGGER.severe(e.getMessage());
             return;
         }
         AlertSceneController alertSceneController = loader.getController();
@@ -183,7 +183,7 @@ public class SceneController extends ViewObservable {
         try {
             parent = loader.load();
         } catch (IOException e) {
-            LOGGER.severe(e.getMessage());
+            Client.LOGGER.severe(e.getMessage());
             return;
         }
         GodInfoSceneController godInfoSceneController = loader.getController();
@@ -208,7 +208,7 @@ public class SceneController extends ViewObservable {
         try {
             parent = loader.load();
         } catch (IOException e) {
-            LOGGER.severe(e.getMessage());
+            Client.LOGGER.severe(e.getMessage());
             return;
         }
         WinSceneController winSceneController = loader.getController();

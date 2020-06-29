@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.controller.ClientController;
+import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.view.gui.scene.MenuSceneController;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -28,7 +29,7 @@ public class JavaFXGui extends Application {
         try {
             rootLayout = loader.load();
         } catch (IOException e) {
-            SceneController.LOGGER.severe(e.getMessage());
+            Client.LOGGER.severe(e.getMessage());
             System.exit(1);
         }
         MenuSceneController controller = loader.getController();

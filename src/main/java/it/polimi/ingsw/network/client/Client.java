@@ -1,12 +1,17 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.message.Message;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.observer.Observable;
+
+import java.util.logging.Logger;
 
 /**
  * Abstract class to communicate with the server. Every type of connection must implement this interface.
  */
 public abstract class Client extends Observable {
+
+    public static final Logger LOGGER = Logger.getLogger(Client.class.getName());
 
     /**
      * Sends a message to the server.

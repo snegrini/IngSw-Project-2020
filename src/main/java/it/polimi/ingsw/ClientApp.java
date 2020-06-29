@@ -1,9 +1,12 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.controller.ClientController;
+import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.gui.JavaFXGui;
 import javafx.application.Application;
+
+import java.util.logging.Level;
 
 public class ClientApp {
     public static void main(String[] args) {
@@ -18,6 +21,7 @@ public class ClientApp {
         }
 
         if (cliParam) {
+            Client.LOGGER.setLevel(Level.WARNING);
             Cli view = new Cli();
             ClientController clientcontroller = new ClientController(view);
             view.addObserver(clientcontroller);

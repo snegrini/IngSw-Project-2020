@@ -45,7 +45,7 @@ public class LoginSceneController extends ViewObservable implements GenericScene
      * @param event the mouse click event.
      */
     private void onBackToMenuBtnClick(Event event) {
-        notifyObserver(ViewObserver::onDisconnection);
+        new Thread(() -> notifyObserver(ViewObserver::onDisconnection)).start();
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 }
