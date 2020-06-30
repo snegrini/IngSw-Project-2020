@@ -63,14 +63,8 @@ public class Game extends Observable implements Serializable {
      * @param chosenPlayersNumber Number of Players playing in the saved Game.
      */
     public void restoreGame(Game instance, Board board, List<Player> players, List<God> gods, int chosenPlayersNumber) {
-        //this.instance = instance;
-        //this.board = board;
         this.board.restoreBoard(board.getSpaces());
         this.players = players;
-        /*for( int i = 0; i < Game.getInstance().getNumCurrentPlayers(); i++) {
-            Player p = players.get(i);
-            this.players.get(i).restorePlayer(p.getWorkers(), p.getGod(), p.getState());
-        }*/
         this.gods = gods;
         this.chosenPlayersNumber = chosenPlayersNumber;
     }
