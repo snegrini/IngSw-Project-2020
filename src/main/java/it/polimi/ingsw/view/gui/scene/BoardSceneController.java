@@ -564,7 +564,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 player3Img.setVisible(false);
             }
         } else {
-            turnInformationLabel.setText("Turn Of " + activePlayer);
+            turnInformationLabel.setText("Turn of " + activePlayer);
         }
     }
 }
