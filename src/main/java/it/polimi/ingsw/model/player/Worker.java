@@ -65,7 +65,7 @@ public class Worker implements Serializable {
 
     /**
      * Returns the adjacent positions where this worker can normally build.
-     * Non-free spaces will be ignored @see it.polimi.ingsw.model.Space#isFree.
+     * Non-free spaces will be ignored {@link Space#isFree}.
      * Set the boolean parameter to {@code true} to ignore the current worker position in the list
      * of the possible builds. This is needed to calculate the list of possible builds before
      * the actual move is done.
@@ -84,7 +84,7 @@ public class Worker implements Serializable {
 
     /**
      * Returns the adjacent positions where this worker can normally build.
-     * Non-free spaces will be ignored @see it.polimi.ingsw.model.Space#isFree.
+     * Non-free spaces will be ignored {@link Space#isFree}.
      *
      * @return a list of positions where this worker can build.
      */

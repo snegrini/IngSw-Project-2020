@@ -104,11 +104,6 @@ public class MoveOverDecorator extends EffectDecorator {
 
         if (swapSpace) {
             possibleMoves.addAll(adjOpponentPos);
-
-            possibleMoves = possibleMoves.stream()
-                    .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
-                    .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
-                    .collect(Collectors.toList());
         }
 
         if (pushBack) {
@@ -118,12 +113,13 @@ public class MoveOverDecorator extends EffectDecorator {
                     possibleMoves.add(oppPos);
                 }
             }
-
-            possibleMoves = possibleMoves.stream()
-                    .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
-                    .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
-                    .collect(Collectors.toList());
         }
+
+        // Incompatible level movements are removed.
+        possibleMoves = possibleMoves.stream()
+                .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
+                .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) >= -1)
+                .collect(Collectors.toList());
 
         // Effect is applicable only if there are adjacent enemy workers in non-locked-movement positions.
         return !adjOpponentPos.isEmpty() && effect.require(worker);
