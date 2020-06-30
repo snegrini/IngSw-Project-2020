@@ -26,6 +26,7 @@ public class Player extends Observable implements Serializable {
 
     /**
      * Default constructor.
+     *
      * @param nickname nickname of the Player.
      */
     public Player(String nickname) {
@@ -35,6 +36,7 @@ public class Player extends Observable implements Serializable {
 
     /**
      * Return the nickname of the Player.
+     *
      * @return nickname of the Player.
      */
     public String getNickname() {
@@ -78,6 +80,7 @@ public class Player extends Observable implements Serializable {
 
     /**
      * Return the God associated to this Player.
+     *
      * @return God of the Player.
      */
     public God getGod() {
@@ -86,6 +89,7 @@ public class Player extends Observable implements Serializable {
 
     /**
      * Set the God associated to the PLayer.
+     *
      * @param god God of the Player.
      */
     public void setGod(God god) {
@@ -94,6 +98,7 @@ public class Player extends Observable implements Serializable {
 
     /**
      * Return the State of the Player.
+     *
      * @return State of the Player.
      */
     public PlayerState getState() {
@@ -102,6 +107,7 @@ public class Player extends Observable implements Serializable {
 
     /**
      * Set the State of the Player.
+     *
      * @param state State of the Player.
      */
     public void setState(PlayerState state) {
@@ -110,6 +116,7 @@ public class Player extends Observable implements Serializable {
 
     /**
      * Return a list of positions of player's workers.
+     *
      * @return Position List of Workers.
      */
     public List<Position> getWorkersPositions() {
@@ -131,24 +138,12 @@ public class Player extends Observable implements Serializable {
 
         for (Position p : tempPositionList) {
             List<Position> possibleMoves = getWorkerByPosition(p).getPossibleMoves();
-            List<Position> tempPossibleMoves = getWorkerByPosition(p).getPossibleMoves();
 
             if (possibleMoves.isEmpty()) {
-                Effect effect = this.getGod().getEffectByType(PhaseType.YOUR_MOVE);
-                if (null != effect) {
-                    if (!effect.require(getWorkerByPosition(p))) {
-                        positionList.remove(p);
-                    }
-                } else {
-                    positionList.remove(p);
-                }
+                checkEffect(p, positionList);
             } else {
-                for (Position pos : tempPossibleMoves) {
-                    Worker tempWorker = new Worker(pos);
-                    if (tempWorker.getPossibleBuilds().isEmpty()) {
-                        possibleMoves.remove(pos);
-                    }
-                }
+                filterPossibleMoves(p, possibleMoves);
+
                 if (possibleMoves.isEmpty()) {
                     positionList.remove(p);
                 }
@@ -157,6 +152,37 @@ public class Player extends Observable implements Serializable {
 
         return positionList;
     }
+
+    /**
+     * Removes from possibleMoves all positions in which the worker couldn't build.
+     *
+     * @param p             generic position.
+     * @param possibleMoves list of positions.
+     */
+    private void filterPossibleMoves(Position p, List<Position> possibleMoves) {
+        List<Position> tempPossibleMoves = getWorkerByPosition(p).getPossibleMoves();
+
+        for (Position pos : tempPossibleMoves) {
+            Worker tempWorker = new Worker(pos);
+            if (tempWorker.getPossibleBuilds().isEmpty()) {
+                possibleMoves.remove(pos);
+            }
+        }
+    }
+
+    /**
+     * Removes from positionList if effect isn't requireble or effect type is not YOUR_MOVE.
+     *
+     * @param p            generic position.
+     * @param positionList list of position.
+     */
+    private void checkEffect(Position p, List<Position> positionList) {
+        Effect effect = this.getGod().getEffectByType(PhaseType.YOUR_MOVE);
+        if (null == effect || !effect.require(getWorkerByPosition(p))) {
+            positionList.remove(p);
+        }
+    }
+
 
     @Override
     public boolean equals(Object o) {
