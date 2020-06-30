@@ -20,7 +20,6 @@ import it.polimi.ingsw.view.VirtualView;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static it.polimi.ingsw.network.message.MessageType.PLAYERNUMBER_REPLY;
 

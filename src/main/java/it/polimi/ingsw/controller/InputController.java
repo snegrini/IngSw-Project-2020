@@ -291,14 +291,11 @@ public class InputController implements Serializable {
 
     /**
      * Check if message is sent from active player.
+     *
      * @param receivedMessage message from client.
      * @return {@code true} if correct {@code false} otherwise.
      */
     public boolean checkUser(Message receivedMessage) {
-        if(receivedMessage.getNickname().equals(gameController.getTurnController().getActivePlayer())) {
-            return true;
-        } else {
-            return false;
-        }
+        return receivedMessage.getNickname().equals(gameController.getTurnController().getActivePlayer());
     }
 }

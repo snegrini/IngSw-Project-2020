@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * This class implements a the controller of a generic scene.

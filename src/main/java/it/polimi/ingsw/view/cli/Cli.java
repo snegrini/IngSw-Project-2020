@@ -642,39 +642,62 @@ public class Cli extends ViewObservable implements View {
             strBoardBld.append(ColorCli.YELLOW_BOLD).append("\n   +-----+-----+-----+-----+-----+\n").append(ColorCli.RESET);
             for (int j = 0; j < Board.MAX_COLUMNS; j++) {
                 if (j == 0) {
-                    if (spaces[i][j].hasDome()) {
-                        strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  |  ")
-                                .append(ColorCli.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |")
-                                .append(ColorCli.RESET);
-                    } else {
-                        if (spaces[i][j].getReducedWorker() != null) {
-                            strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  | ").append(ColorCli.RESET)
-                                    .append(spaces[i][j].getLevel()).append(ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()))
-                                    .append(" x").append(ColorCli.YELLOW_BOLD).append(" |").append(ColorCli.RESET);
-                        } else {
-                            strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  |  ").append(ColorCli.RESET)
-                                    .append(spaces[i][j].getLevel()).append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
-                        }
-
-                    }
+                    printFirstColumn(spaces, strBoardBld, i, j);
                 } else {
-                    if (spaces[i][j].hasDome()) {
-                        strBoardBld.append("  ").append(ColorCli.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
-                    } else {
-                        if (spaces[i][j].getReducedWorker() != null) {
-                            strBoardBld.append(" ").append(spaces[i][j].getLevel()).append(ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()))
-                                    .append(" x").append(ColorCli.YELLOW_BOLD).append(" |").append(ColorCli.RESET);
-                        } else {
-                            strBoardBld.append("  ").append(spaces[i][j].getLevel()).append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
-                        }
-                    }
+                    printOtherColumn(spaces, strBoardBld, i, j);
                 }
-
             }
             if (i == Board.MAX_ROWS - 1)
                 strBoardBld.append(ColorCli.YELLOW_BOLD).append("\n   +-----+-----+-----+-----+-----+\n").append(ColorCli.RESET);
         }
         out.println(strBoardBld.toString());
+    }
+
+    /**
+     * Builds a string to print the first column of the board.
+     *
+     * @param spaces      the matrix of spaces of the board.
+     * @param strBoardBld the string builder used to print the board.
+     * @param i           the current row index of the board.
+     * @param j           the current column index of the board.
+     */
+    private void printFirstColumn(ReducedSpace[][] spaces, StringBuilder strBoardBld, int i, int j) {
+        if (spaces[i][j].hasDome()) {
+            strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  |  ")
+                    .append(ColorCli.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |")
+                    .append(ColorCli.RESET);
+        } else {
+            if (spaces[i][j].getReducedWorker() != null) {
+                strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  | ").append(ColorCli.RESET)
+                        .append(spaces[i][j].getLevel()).append(ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()))
+                        .append(" x").append(ColorCli.YELLOW_BOLD).append(" |").append(ColorCli.RESET);
+            } else {
+                strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  |  ").append(ColorCli.RESET)
+                        .append(spaces[i][j].getLevel()).append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
+            }
+
+        }
+    }
+
+    /**
+     * Builds a string to print a column of the board.
+     *
+     * @param spaces      the matrix of spaces of the board.
+     * @param strBoardBld the string builder used to print the board.
+     * @param i           the current row index of the board.
+     * @param j           the current column index of the board.
+     */
+    private void printOtherColumn(ReducedSpace[][] spaces, StringBuilder strBoardBld, int i, int j) {
+        if (spaces[i][j].hasDome()) {
+            strBoardBld.append("  ").append(ColorCli.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
+        } else {
+            if (spaces[i][j].getReducedWorker() != null) {
+                strBoardBld.append(" ").append(spaces[i][j].getLevel()).append(ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()))
+                        .append(" x").append(ColorCli.YELLOW_BOLD).append(" |").append(ColorCli.RESET);
+            } else {
+                strBoardBld.append("  ").append(spaces[i][j].getLevel()).append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
+            }
+        }
     }
 
     /**

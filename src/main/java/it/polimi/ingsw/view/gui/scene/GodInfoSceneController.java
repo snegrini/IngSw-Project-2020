@@ -47,7 +47,8 @@ public class GodInfoSceneController implements GenericSceneController {
     }
 
     /**
-     * Handle click on Ok button.
+     * Handles click on ok button.
+     *
      * @param event the mouse click event.
      */
     private void onOkBtnClick(MouseEvent event) {
@@ -55,7 +56,7 @@ public class GodInfoSceneController implements GenericSceneController {
     }
 
     /**
-     * Set the god's name.
+     * Sets the god's name.
      * @param str name of the god.
      */
     public void setGodName(String str) {
@@ -64,7 +65,7 @@ public class GodInfoSceneController implements GenericSceneController {
     }
 
     /**
-     * Set the god's caption.
+     * Sets the god's caption.
      * @param str caption of the god.
      */
     public void setGodCaption(String str) {
@@ -72,7 +73,7 @@ public class GodInfoSceneController implements GenericSceneController {
     }
 
     /**
-     * Set the god's description.
+     * Sets the god's description.
      * @param str description of the god.
      */
     public void setGodDescription(String str) {
@@ -87,7 +88,7 @@ public class GodInfoSceneController implements GenericSceneController {
     }
 
     /**
-     * Set the scene.
+     * Sets the scene.
      * @param scene scene of the stage.
      */
     public void setScene(Scene scene) {
@@ -95,7 +96,7 @@ public class GodInfoSceneController implements GenericSceneController {
     }
 
     /**
-     * Set the god's image.
+     * Sets the god's image.
      */
     public void setGodImage() {
         Image img = new Image(getClass().getResourceAsStream("/images/gods/podium_" + godName.toLowerCase() + ".png"));

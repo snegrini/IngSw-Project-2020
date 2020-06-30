@@ -69,7 +69,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
                         if (message.getMessageType() == MessageType.LOGIN_REQUEST) {
                             socketServer.addClient(message.getNickname(), this);
                         } else {
-                            Server.LOGGER.info("Received: " + message);
+                            Server.LOGGER.info(() -> "Received: " + message);
                             socketServer.onMessageReceived(message);
                         }
                     }
@@ -121,7 +121,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         try {
             synchronized (outputLock) {
                 output.writeObject(message);
-                Server.LOGGER.info("Sent: " + message);
+                Server.LOGGER.info(() -> "Sent: " + message);
             }
         } catch (IOException e) {
             Server.LOGGER.severe(e.getMessage());
