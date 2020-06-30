@@ -547,7 +547,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             god2Image.setImage(img2);
             player2Img.setVisible(true);
 
-            turnInformationLabel.setText("Turn Of " + activePlayer);
+            turnInformationLabel.setText("Turn of " + activePlayer);
 
             if (players.size() == 3 && gods.size() == 3) {
                 // Sets 3rd player information.
