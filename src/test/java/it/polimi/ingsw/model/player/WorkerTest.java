@@ -169,7 +169,7 @@ public class WorkerTest {
     }
 
     @Test
-    public void add_remove_check_lockedMovement() {
+    public void Add_RemoveCheck_LockedMovement() {
         assertFalse(worker.checkLockedMovement(MoveType.UP));
         worker.addLockedMovement(MoveType.UP);
         assertTrue(worker.checkLockedMovement(MoveType.UP));
@@ -200,6 +200,12 @@ public class WorkerTest {
     @Test
     public void getColor_Worker_ReducedWorker() {
         assertEquals(worker.getColor(), reducedWorker.getColor());
+    }
+
+    @Test
+    public void toString_ReducedWorker() {
+        String expectedStr = "ReducedWorker{color=BLUE, position=Position{row=3, column=4}}";
+        assertEquals(expectedStr, reducedWorker.toString());
     }
 
     @Test

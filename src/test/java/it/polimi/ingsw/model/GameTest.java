@@ -127,6 +127,14 @@ public class GameTest {
     }
 
     @Test
+    public void getGods() {
+        List<God> parserGodList = GodParser.parseGods("gods.xml");
+        List<God> gameGodList = instance.getGods();
+
+        assertEquals(parserGodList, gameGodList);
+    }
+
+    @Test
     public void getPlayersNicknames() {
         assertEquals(List.of("mario", "anna"), instance.getPlayersNicknames());
     }

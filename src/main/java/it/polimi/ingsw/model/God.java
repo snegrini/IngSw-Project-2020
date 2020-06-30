@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This Class represents the God object.
+ * This Class represents a god of the game.
+ * A god may have one or more effects (powers) which can be activated by a player.
  */
 public class God implements Serializable {
 
@@ -22,7 +23,8 @@ public class God implements Serializable {
 
     /**
      * Default constructor.
-     * @param builder
+     *
+     * @param builder the builder to create a god object.
      */
     private God(Builder builder) {
         this.name = builder.name;

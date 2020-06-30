@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This Class represents the single Player object which contains the main info and methods.
+ * The Player is the main character of the Game.
  */
 public class Player extends Observable implements Serializable {
 

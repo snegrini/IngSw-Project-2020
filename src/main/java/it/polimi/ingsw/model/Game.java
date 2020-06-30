@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 /**
  * This Class represents the whole Game.
+ * It manages the players and their workers, the gods and the board used during a match.
  */
 public class Game extends Observable implements Serializable {
 

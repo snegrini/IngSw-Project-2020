@@ -19,7 +19,7 @@ public class GodTest {
     private Effect effect;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         effect = new SimpleEffect(PhaseType.YOUR_BUILD);
 
         god = new God.Builder("Name Test")
@@ -31,7 +31,7 @@ public class GodTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         god = null;
     }
 
@@ -72,5 +72,11 @@ public class GodTest {
         ReducedGod r2 = new ReducedGod(god);
         assertEquals(reducedGod, r2);
         assertEquals(reducedGod.hashCode(), r2.hashCode());
+    }
+
+    @Test
+    public void toString_ReducedGod() {
+        String expectedStr = "ReducedGod{name=Name Test}";
+        assertEquals(expectedStr, reducedGod.toString());
     }
 }
