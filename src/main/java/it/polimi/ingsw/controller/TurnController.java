@@ -49,7 +49,7 @@ public class TurnController implements Serializable {
     }
 
     /**
-     * @return nickname of the active player
+     * @return the nickname of the active player.
      */
     public String getActivePlayer() {
         return activePlayer;
@@ -58,7 +58,7 @@ public class TurnController implements Serializable {
     /**
      * Set the active player.
      *
-     * @param activePlayer is the active Player.
+     * @param activePlayer the active Player to be set.
      */
     public void setActivePlayer(String activePlayer) {
         this.activePlayer = activePlayer;
@@ -123,7 +123,9 @@ public class TurnController implements Serializable {
      * Initialize a new Turn.
      */
     public void newTurn() {
-        turnControllerNotify("Turn of " + activePlayer);
+        turnControllerNotify("Turn of " + activePlayer, activePlayer);
+        VirtualView vv = virtualViewMap.get(getActivePlayer());
+        vv.showGenericMessage("It's your turn!");
 
         StorageData storageData = new StorageData();
         storageData.store(gameController);
@@ -249,7 +251,10 @@ public class TurnController implements Serializable {
         if (3 == game.getNumCurrentPlayers()) {
             game.removeWorkers(activePlayer);
             // disconnect 3° player, notify all
-            turnControllerNotify(activePlayer + " LOOSE.");
+            turnControllerNotify("The player " + activePlayer + " LOOSE!", activePlayer);
+            VirtualView vv = virtualViewMap.get(getActivePlayer());
+            vv.showGenericMessage("YOU LOSE!");
+
             nicknameQueue.remove(activePlayer);
             game.removePlayerByNickname(activePlayer, false);
             broadcastMatchInfo();
@@ -342,17 +347,20 @@ public class TurnController implements Serializable {
         }
     }
 
-
     /**
-     * Sends a Message which contains Turn Information to every Players in Game.
+     * Sends a Message which contains Turn Information to all players but the one specified in the second argument.
      *
      * @param messageToNotify Message to send.
+     * @param excludeNickname name of the player to be excluded from the broadcast.
      */
-    private void turnControllerNotify(String messageToNotify) {
-        for (VirtualView vv : virtualViewMap.values()) {
-            vv.showGenericMessage(messageToNotify);
-            vv.showMatchInfo(null, null, activePlayer);
-        }
+    public void turnControllerNotify(String messageToNotify, String excludeNickname) {
+        virtualViewMap.entrySet().stream()
+                .filter(entry -> !excludeNickname.equals(entry.getKey()))
+                .map(Map.Entry::getValue)
+                .forEach(vv -> {
+                    vv.showGenericMessage(messageToNotify);
+                    vv.showMatchInfo(null, null, activePlayer);
+                });
     }
 
     /**

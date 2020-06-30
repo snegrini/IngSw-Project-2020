@@ -92,7 +92,7 @@ public class InputController implements Serializable {
     }
 
     public boolean checkFirstPlayerHandler(Message message) {
-        String firstPlayer = ((UsersInfoMessage) message).getActivePlayerNickname();
+        String firstPlayer = ((MatchInfoMessage) message).getActivePlayerNickname();
         if(gameController.getTurnController().getNicknameQueue().contains(firstPlayer)){
             return true;
         } else {

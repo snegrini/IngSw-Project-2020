@@ -20,6 +20,7 @@ import it.polimi.ingsw.view.VirtualView;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static it.polimi.ingsw.network.message.MessageType.PLAYERNUMBER_REPLY;
 
@@ -126,7 +127,7 @@ public class GameController implements Observer, Serializable {
                 break;
             case PICK_FIRST_PLAYER:
                 if (inputController.checkFirstPlayerHandler(receivedMessage)) {
-                    pickFirstPlayerHandler(((UsersInfoMessage) receivedMessage).getActivePlayerNickname());
+                    pickFirstPlayerHandler(((MatchInfoMessage) receivedMessage).getActivePlayerNickname());
                 }
                 break;
             case INIT_COLORS:
@@ -265,15 +266,12 @@ public class GameController implements Observer, Serializable {
         if (winConditions(destination)) {
             win();
         } else {
-
             // CHECK EFFECT YOUR_MOVE_AFTER
             turnController.setPhaseType(PhaseType.YOUR_MOVE_AFTER);
-
 
             if (!launchEffect()) {
                 turnController.nextPhase();
             }
-
         }
     }
 
@@ -422,7 +420,6 @@ public class GameController implements Observer, Serializable {
 
         for (VirtualView vv : virtualViewMap.values()) {
             vv.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), turnController.getActivePlayer());
-
         }
     }
 
@@ -478,7 +475,7 @@ public class GameController implements Observer, Serializable {
             availableGods = new ArrayList<>(receivedMessage.getGodList());
 
             broadcastGenericMessage("All Gods received from " + turnController.getActivePlayer()
-                    + ". Waiting for other players to pick . . .");
+                    + ". Waiting for other players to pick...");
 
             askGodToNextPlayer();
 
@@ -489,11 +486,11 @@ public class GameController implements Observer, Serializable {
             availableGods.remove(receivedMessage.getGodList().get(0));
 
             if (!availableGods.isEmpty()) {
-                broadcastGenericMessage("God received from " + turnController.getActivePlayer()
-                        + ". Waiting for other players to pick . . .");
+                virtualView.showGenericMessage("You chose your God. Please wait for the other players to pick!");
+                broadcastGenericMessage("The player " + turnController.getActivePlayer() + " picked his god.", turnController.getActivePlayer());
                 askGodToNextPlayer();
             } else {
-                // the last one who pick his god is the challenger, so He have to choose the first player.
+                // the last one who pick his god is the challenger, who has to choose the first player.
 
                 virtualView.askFirstPlayer(turnController.getNicknameQueue(), getActiveGods());
             }
@@ -510,8 +507,9 @@ public class GameController implements Observer, Serializable {
 
         turnController.setActivePlayer(firstPlayerNick);
 
-        broadcastGenericMessage("Initializing " + turnController.getActivePlayer() + ". . .");
+        broadcastGenericMessage("The player " + turnController.getActivePlayer() + " is choosing his color...", turnController.getActivePlayer());
         VirtualView virtualView = virtualViewMap.get(turnController.getActivePlayer());
+        virtualView.showGenericMessage("It's your turn. Please pick your color.");
         virtualView.askInitWorkerColor(availableColors);
     }
 
@@ -643,7 +641,7 @@ public class GameController implements Observer, Serializable {
 
 
     /**
-     * @return Virtual View Map
+     * @return Virtual View Map.
      */
     public Map<String, VirtualView> getVirtualViewMap() {
         return virtualViewMap;
@@ -665,7 +663,20 @@ public class GameController implements Observer, Serializable {
     }
 
     /**
-     * Sends a Message which contains Game Information to every Players in Game.
+     * Sends a Message which contains Game Information to all players but the one specified in the second argument.
+     *
+     * @param messageToNotify Message to send.
+     * @param excludeNickname name of the player to be excluded from the broadcast.
+     */
+    public void broadcastGenericMessage(String messageToNotify, String excludeNickname) {
+        virtualViewMap.entrySet().stream()
+                .filter(entry -> !excludeNickname.equals(entry.getKey()))
+                .map(Map.Entry::getValue)
+                .forEach(vv -> vv.showGenericMessage(messageToNotify));
+    }
+
+    /**
+     * Sends a Message which contains Game Information to every {@link Player} in Game.
      *
      * @param messageToNotify Message to send.
      */

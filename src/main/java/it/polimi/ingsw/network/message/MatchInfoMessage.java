@@ -4,14 +4,14 @@ import it.polimi.ingsw.model.ReducedGod;
 
 import java.util.List;
 
-public class UsersInfoMessage extends Message {
+public class MatchInfoMessage extends Message {
 
     private static final long serialVersionUID = -2011506753457265907L;
     private final List<String> activePlayers;
     private final List<ReducedGod> activeGods;
     private final String activePlayerNickname;
 
-    public UsersInfoMessage(String senderNickname, MessageType messageType, List<String> activePlayers, List<ReducedGod> activeGods, String activePlayerNickname) {
+    public MatchInfoMessage(String senderNickname, MessageType messageType, List<String> activePlayers, List<ReducedGod> activeGods, String activePlayerNickname) {
         super(senderNickname, messageType);
         this.activePlayers = activePlayers;
         this.activeGods = activeGods;

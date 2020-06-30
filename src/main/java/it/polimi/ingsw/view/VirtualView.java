@@ -21,7 +21,8 @@ public class VirtualView implements View, Observer {
 
     /**
      * Default constructor.
-     * @param clientHandler
+     *
+     * @param clientHandler the client handler the virtual view must send messages to.
      */
     public VirtualView(ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
@@ -52,12 +53,12 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
-        clientHandler.sendMessage(new UsersInfoMessage(Game.SERVER_NICKNAME, MessageType.MATCH_INFO, players, gods, activePlayer));
+        clientHandler.sendMessage(new MatchInfoMessage(Game.SERVER_NICKNAME, MessageType.MATCH_INFO, players, gods, activePlayer));
     }
 
     @Override
     public void askFirstPlayer(List<String> players, List<ReducedGod> gods) {
-        clientHandler.sendMessage(new UsersInfoMessage(Game.SERVER_NICKNAME, MessageType.PICK_FIRST_PLAYER, players, gods, null));
+        clientHandler.sendMessage(new MatchInfoMessage(Game.SERVER_NICKNAME, MessageType.PICK_FIRST_PLAYER, players, gods, null));
     }
 
     @Override

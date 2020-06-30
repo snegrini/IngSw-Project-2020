@@ -170,7 +170,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateFirstPlayer(String nickname) {
-        client.sendMessage(new UsersInfoMessage(this.nickname, MessageType.PICK_FIRST_PLAYER, null, null, nickname));
+        client.sendMessage(new MatchInfoMessage(this.nickname, MessageType.PICK_FIRST_PLAYER, null, null, nickname));
     }
 
     /**
@@ -221,11 +221,11 @@ public class ClientController implements ViewObserver, Observer {
                 taskQueue.execute(() -> view.showLoginResult(loginReply.isNicknameAccepted(), loginReply.isConnectionSuccessful(), this.nickname));
                 break;
             case MATCH_INFO:
-                UsersInfoMessage usersInfoMessage = (UsersInfoMessage) message;
+                MatchInfoMessage matchInfoMessage = (MatchInfoMessage) message;
                 taskQueue.execute(() -> view.showMatchInfo(
-                        usersInfoMessage.getActivePlayers(),
-                        usersInfoMessage.getActiveGods(),
-                        usersInfoMessage.getActivePlayerNickname()
+                        matchInfoMessage.getActivePlayers(),
+                        matchInfoMessage.getActiveGods(),
+                        matchInfoMessage.getActivePlayerNickname()
                 ));
                 break;
             case MOVE:
@@ -235,7 +235,7 @@ public class ClientController implements ViewObserver, Observer {
                 taskQueue.execute(() -> view.askMovingWorker(((PositionMessage) message).getPositionList()));
                 break;
             case PICK_FIRST_PLAYER:
-                UsersInfoMessage playersMessage = (UsersInfoMessage) message;
+                MatchInfoMessage playersMessage = (MatchInfoMessage) message;
                 taskQueue.execute(() -> view.askFirstPlayer(playersMessage.getActivePlayers(), playersMessage.getActiveGods()));
                 break;
             case PLAYERNUMBER_REQUEST:
