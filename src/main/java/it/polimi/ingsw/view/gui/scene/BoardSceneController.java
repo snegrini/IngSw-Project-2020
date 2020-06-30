@@ -50,9 +50,13 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     @FXML
     private ImageView god1Image;
     @FXML
+    private ImageView player1Img;
+    @FXML
     private Label player2Label;
     @FXML
     private ImageView god2Image;
+    @FXML
+    private ImageView player2Img;
     @FXML
     private Label player3Label;
     @FXML
@@ -102,6 +106,10 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         undoBg.setVisible(false);
         confirmBtn.setVisible(false);
         god3Image.setVisible(false);
+
+        player1Img.setVisible(false);
+        player2Img.setVisible(false);
+        player3Img.setVisible(false);
 
     }
 
@@ -532,9 +540,12 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             player1Label.setText(players.get(0));
             Image img1 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(0).getName().toLowerCase() + ".png"));
             god1Image.setImage(img1);
+            player1Img.setVisible(true);
+
             player2Label.setText(players.get(1));
             Image img2 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(1).getName().toLowerCase() + ".png"));
             god2Image.setImage(img2);
+            player2Img.setVisible(true);
 
             turnInformationLabel.setText("Turn Of " + activePlayer);
 

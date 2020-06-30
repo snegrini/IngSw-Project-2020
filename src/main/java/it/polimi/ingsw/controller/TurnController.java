@@ -289,7 +289,6 @@ public class TurnController implements Serializable {
      */
     public void nextPhase() {
         switch (getPhaseType()) {
-
             case YOUR_MOVE:
             case YOUR_MOVE_AFTER:
                 buildPhase();

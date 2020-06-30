@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -13,8 +14,11 @@ import javafx.stage.StageStyle;
 public class WinSceneController implements GenericSceneController {
     private final Stage stage;
 
-    private String winnerNickname;
+    private double xOffset;
+    private double yOffset;
 
+    @FXML
+    private BorderPane rootPane;
     @FXML
     private Label titleLbl;
     @FXML
@@ -33,17 +37,27 @@ public class WinSceneController implements GenericSceneController {
 
     @FXML
     public void initialize() {
-        nicknameLbl.setText(winnerNickname);
+        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::onRootPaneMousePressed);
+        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::onRootPaneMouseDragged);
         okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);
+    }
+
+    private void onRootPaneMousePressed(MouseEvent event) {
+        xOffset = stage.getX() - event.getScreenX();
+        yOffset = stage.getY() - event.getScreenY();
+    }
+
+    private void onRootPaneMouseDragged(MouseEvent event) {
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() + yOffset);
     }
 
     private void onOkBtnClick(MouseEvent event) {
         stage.close();
-
     }
 
     public void setWinnerNickname(String winnerNickname) {
-        this.winnerNickname = winnerNickname;
+        nicknameLbl.setText(winnerNickname);
     }
 
     public void displayWinScene() {
