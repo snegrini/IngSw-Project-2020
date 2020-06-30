@@ -252,6 +252,7 @@ public class TurnController implements Serializable {
             game.removeWorkers(activePlayer);
             // disconnect 3° player, notify all
             turnControllerNotify("The player " + activePlayer + " LOOSE!", activePlayer);
+            Server.LOGGER.info(activePlayer + "is dead.");
             VirtualView vv = virtualViewMap.get(getActivePlayer());
             vv.showGenericMessage("YOU LOSE!");
 
