@@ -149,7 +149,7 @@ public class Cli extends ViewObservable implements View {
         String question = "How many players are going to play? (You can choose between 2 or 3 players): ";
 
         try {
-            playerNumber = numberInput(2, 3, List.of(), question);
+            playerNumber = numberInput(2, 3, null, question);
             notifyObserver(obs -> obs.onUpdatePlayersNumber(playerNumber));
         } catch (ExecutionException e) {
             out.println(STR_INPUT_CANCELED);
@@ -253,6 +253,36 @@ public class Cli extends ViewObservable implements View {
         return number;
     }
 
+    /**
+     * Asks the user for a index number. An index number is a row or a column of a {@link Position} object.
+     * The index must be contained into the argument list of available indexes.
+     * A wrong number (not contained into the list) or a non-number will result in a new request of the input.
+     * An output question can be set via question parameter.
+     *
+     * @param availIndexList the list of available positions.
+     * @param question       a question which will be shown to the user.
+     * @return the number inserted by the user.
+     * @throws ExecutionException if the input stream thread is interrupted.
+     */
+    private int indexInput(List<Integer> availIndexList, String question) throws ExecutionException {
+        int number = -1;
+
+        do {
+            try {
+                out.print(question);
+                number = Integer.parseInt(readLine());
+
+                if (!availIndexList.contains(number)) {
+                    out.println("This number cannot be selected! Please try again.\n");
+                }
+            } catch (NumberFormatException e) {
+                out.println("Invalid input! Please try again.\n");
+            }
+        } while (number == -1 || !availIndexList.contains(number));
+
+        return number;
+    }
+
 
     /**
      * Ask player to choose the initial position of his two workers.
@@ -268,8 +298,8 @@ public class Cli extends ViewObservable implements View {
         try {
             for (int i = 0; i < 2; i++) {
                 out.println("Position for Worker " + (i + 1));
-                int chosenRow = numberInput(0, positions.get(positions.size() - 1).getRow(), List.of(), STR_ROW);
-                int chosenColumn = numberInput(0, positions.get(positions.size() - 1).getColumn(), List.of(), STR_COLUMN);
+                int chosenRow = numberInput(0, positions.get(positions.size() - 1).getRow(), null, STR_ROW);
+                int chosenColumn = numberInput(0, positions.get(positions.size() - 1).getColumn(), null, STR_COLUMN);
 
                 initPositions.add(new Position(chosenRow, chosenColumn));
             }
@@ -353,18 +383,19 @@ public class Cli extends ViewObservable implements View {
 
         out.println("Insert the position of the worker which you want to move:");
 
+
         try {
-            int chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
+            int chosenRow = indexInput(getRowsFromPosList(positionList), STR_ROW);
 
             // Column must be filtered from positions with chosenRow as the row.
-            List<Position> availableColList = new ArrayList<>();
+            List<Integer> availableColList = new ArrayList<>();
             for (Position pos : positionList) {
                 if (chosenRow == pos.getRow()) {
-                    availableColList.add(pos);
+                    availableColList.add(pos.getColumn());
                 }
             }
 
-            int chosenColumn = numberInput(findMinColumn(availableColList), findMaxColumn(availableColList), null, STR_COLUMN);
+            int chosenColumn = indexInput(availableColList, STR_COLUMN);
 
             Position pos = new Position(chosenRow, chosenColumn);
             notifyObserver(obs -> obs.onUpdatePickMovingWorker(pos));
@@ -690,73 +721,19 @@ public class Cli extends ViewObservable implements View {
         return strIndexBld.toString();
     }
 
-
     /**
-     * Finds and returns the min row in a list of positions.
-     * The minimum value is found by sorting the list and getting
-     * the first occurrence of the sorted list.
-     * A deep copy of the argument list if performed to avoid any modification
-     * of the original list.
+     * Returns a list of rows from the position list argument.
      *
-     * @param positions a list of positions.
-     * @return the integer of the maximum row position inside the list.
+     * @param positionList the position list to get the indexes from.
+     * @return a list of integer rows.
      */
-    private int findMinRow(List<Position> positions) {
-        List<Position> sortedList = new ArrayList<>(List.copyOf(positions));
-        sortedList.sort(Comparator.comparingInt(Position::getRow)
-                .thenComparingInt(Position::getColumn));
-        return sortedList.get(0).getRow();
-    }
+    private List<Integer> getRowsFromPosList(List<Position> positionList) {
+        List<Integer> rows = new ArrayList<>();
 
-    /**
-     * Finds and returns the max row in a list of positions.
-     * The maximum value is found by sorting the list and getting
-     * the last occurrence of the sorted list.
-     * A deep copy of the argument list if performed to avoid any modification
-     * of the original list.
-     *
-     * @param positions a list of positions.
-     * @return the integer of the maximum row position inside the list.
-     */
-    private int findMaxRow(List<Position> positions) {
-        List<Position> sortedList = new ArrayList<>(List.copyOf(positions));
-        sortedList.sort(Comparator.comparingInt(Position::getRow)
-                .thenComparingInt(Position::getColumn));
-        return sortedList.get(sortedList.size() - 1).getRow();
-    }
-
-    /**
-     * Finds and returns the min column in a list of positions.
-     * The minimum value is found by sorting the list and getting
-     * the first occurrence of the sorted list.
-     * A deep copy of the argument list if performed to avoid any modification
-     * of the original list.
-     *
-     * @param positions a list of positions.
-     * @return the integer of the maximum column position inside the list.
-     */
-    private int findMinColumn(List<Position> positions) {
-        List<Position> sortedList = new ArrayList<>(List.copyOf(positions));
-        sortedList.sort(Comparator.comparingInt(Position::getColumn)
-                .thenComparingInt(Position::getColumn));
-        return sortedList.get(0).getColumn();
-    }
-
-    /**
-     * Finds and returns the max column in a list of positions.
-     * The maximum value is found by sorting the list and getting
-     * the last occurrence of the sorted list.
-     * A deep copy of the argument list if performed to avoid any modification
-     * of the original list.
-     *
-     * @param positions a list of positions.
-     * @return the integer of the maximum column position inside the list.
-     */
-    private int findMaxColumn(List<Position> positions) {
-        List<Position> sortedList = new ArrayList<>(List.copyOf(positions));
-        sortedList.sort(Comparator.comparingInt(Position::getColumn)
-                .thenComparingInt(Position::getColumn));
-        return sortedList.get(sortedList.size() - 1).getColumn();
+        for (Position pos : positionList) {
+            rows.add(pos.getRow());
+        }
+        return rows;
     }
 
     private Position readPositionAndWait(List<Position> positionList, String message) throws ExecutionException {
@@ -765,20 +742,20 @@ public class Cli extends ViewObservable implements View {
 
         int chosenRow;
         int chosenColumn;
-        List<Position> availableColList = new ArrayList<>();
+        List<Integer> availableColList = new ArrayList<>();
 
         do {
-            chosenRow = numberInput(findMinRow(positionList), findMaxRow(positionList), null, STR_ROW);
+            chosenRow = indexInput(getRowsFromPosList(positionList), STR_ROW);
 
             // Column must be filtered from positions with chosenRow as the row.
             availableColList.clear();
             for (Position pos : positionList) {
                 if (chosenRow == pos.getRow()) {
-                    availableColList.add(pos);
+                    availableColList.add(pos.getColumn());
                 }
             }
 
-            chosenColumn = numberInput(findMinColumn(availableColList), findMaxColumn(availableColList), null, STR_COLUMN);
+            chosenColumn = indexInput(availableColList, STR_COLUMN);
         } while (waitForUndo());
 
         return new Position(chosenRow, chosenColumn);
