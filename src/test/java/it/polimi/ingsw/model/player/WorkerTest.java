@@ -111,8 +111,10 @@ public class WorkerTest {
 
     @Test
     public void getPossibleMoves_borderCase() {
+        // Setup worker on board
         Board board = Game.getInstance().getBoard();
         board.getSpace(3, 4).setWorker(worker);
+        assertEquals(new Position(3, 4), worker.getPosition());
 
         // Fill up the board to create an extreme condition.
         board.getSpace(2, 3).setDome(true);

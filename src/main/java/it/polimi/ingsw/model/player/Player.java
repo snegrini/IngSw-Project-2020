@@ -134,55 +134,33 @@ public class Player extends Observable implements Serializable {
      */
     public List<Position> getValidWorkersPositions() {
         List<Position> positionList = getWorkersPositions();
-        List<Position> tempPositionList = getWorkersPositions();
+        List<Position> badPositions = new ArrayList<>();
 
-        for (Position p : tempPositionList) {
-            List<Position> possibleMoves = getWorkerByPosition(p).getPossibleMoves();
+        for (Position pos : positionList) {
+            List<Position> possibleMoves = getWorkerByPosition(pos).getPossibleMoves();
 
-            if (possibleMoves.isEmpty()) {
-                checkEffect(p, positionList);
-            } else {
-                filterPossibleMoves(p, possibleMoves);
-
-                if (possibleMoves.isEmpty()) {
-                    positionList.remove(p);
-                }
+            // Check effect requirements
+            if (possibleMoves.isEmpty() && !checkEffect(pos)) {
+                badPositions.add(pos); // Add here and remove later
             }
         }
+        positionList.removeAll(badPositions);
 
         return positionList;
     }
 
     /**
-     * Removes from possibleMoves all positions in which the worker couldn't build.
+     * Checks the effect of the player's god.
+     * Returns {@code true} if the effect is requireable and is of type YOUR_MOVE, {@code false} otherwise.
      *
-     * @param p             generic position.
-     * @param possibleMoves list of positions.
+     * @param position the position to be used to check the effect.
+     * @return {@code true} if the effect is requireable and is of type YOUR_MOVE, {@code false} otherwise.
      */
-    private void filterPossibleMoves(Position p, List<Position> possibleMoves) {
-        List<Position> tempPossibleMoves = getWorkerByPosition(p).getPossibleMoves();
-
-        for (Position pos : tempPossibleMoves) {
-            Worker tempWorker = new Worker(pos);
-            if (tempWorker.getPossibleBuilds().isEmpty()) {
-                possibleMoves.remove(pos);
-            }
-        }
-    }
-
-    /**
-     * Removes from positionList if effect isn't requireble or effect type is not YOUR_MOVE.
-     *
-     * @param p            generic position.
-     * @param positionList list of position.
-     */
-    private void checkEffect(Position p, List<Position> positionList) {
+    private boolean checkEffect(Position position) {
         Effect effect = this.getGod().getEffectByType(PhaseType.YOUR_MOVE);
-        if (null == effect || !effect.require(getWorkerByPosition(p))) {
-            positionList.remove(p);
-        }
-    }
 
+        return effect != null && effect.require(getWorkerByPosition(position));
+    }
 
     @Override
     public boolean equals(Object o) {

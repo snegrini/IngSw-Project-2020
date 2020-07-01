@@ -177,10 +177,10 @@ public class InputController implements Serializable {
     private boolean moveCheck(Message message) {
         VirtualView virtualView = virtualViewMap.get(message.getNickname());
         PositionMessage positionMessage = ((PositionMessage) message);
-        Position choosenDest = positionMessage.getPositionList().get(0);
+        Position chosenDest = positionMessage.getPositionList().get(0);
         List<Position> possibleMovePositions = gameController.getTurnController().getActiveWorker().getPossibleMoves();
 
-        if (!positionMessage.getPositionList().isEmpty() && possibleMovePositions.contains(choosenDest)) {
+        if (!positionMessage.getPositionList().isEmpty() && possibleMovePositions.contains(chosenDest)) {
             return true;
         } else {
             virtualView.showGenericMessage("You didn't provided a valid Destination. Retry.");

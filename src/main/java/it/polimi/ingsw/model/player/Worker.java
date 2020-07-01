@@ -106,13 +106,7 @@ public class Worker implements Serializable {
         possibleMoves.removeAll(board.getNeighbourWorkers(position, false));
 
         // Remove all possible destination in which the worker couldn't build.
-        List<Position> tempPossibleMoves = board.getNeighbours(position);
-        tempPossibleMoves.removeAll(board.getNeighbourWorkers(position, false));
-        for (Position pos : tempPossibleMoves) {
-            if (this.getPossibleBuilds(pos, false).isEmpty()) {
-                possibleMoves.remove(pos);
-            }
-        }
+        possibleMoves.removeIf(pos -> getPossibleBuilds(pos, false).isEmpty());
 
         return possibleMoves.stream()
                 .filter(pos -> currentSpace.compareTo(board.getSpace(pos)) <= currentSpace.getLevel())
