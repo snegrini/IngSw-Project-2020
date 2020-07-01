@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class verifies that all messages sent by client contain valid information.
+ * This Class verifies that all messages sent by client contain valid information.
  */
 public class InputController implements Serializable {
 

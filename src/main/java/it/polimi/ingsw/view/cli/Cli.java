@@ -30,6 +30,9 @@ public class Cli extends ViewObservable implements View {
     private static final String STR_POSITION = "Position ";
     private static final String STR_INPUT_CANCELED = "User input canceled.";
 
+    /**
+     * Default constructor.
+     */
     public Cli() {
         out = System.out;
     }
@@ -759,6 +762,15 @@ public class Cli extends ViewObservable implements View {
         return rows;
     }
 
+    /**
+     * Reads a position from the input stream and wait for an undo operation by the user.
+     * See also {@link #waitForUndo()} for more details.
+     *
+     * @param positionList the list of possible positions to be selected.
+     * @param message      a string message to be shown on screen.
+     * @return a {@link Position} object with the coordinates read from the input stream.
+     * @throws ExecutionException if the input stream thread is interrupted.
+     */
     private Position readPositionAndWait(List<Position> positionList, String message) throws ExecutionException {
         printPositions(positionList);
         out.println(message);
