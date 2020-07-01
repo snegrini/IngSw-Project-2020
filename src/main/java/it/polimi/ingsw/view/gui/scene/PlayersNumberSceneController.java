@@ -45,7 +45,7 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
     }
 
     /**
-     * Handle click on Confirm button.
+     * Handles click on Confirm button.
      *
      * @param event
      */
@@ -58,7 +58,7 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
     }
 
     /**
-     * Handle click on Back button
+     * Handles click on Back button
      *
      * @param event
      */

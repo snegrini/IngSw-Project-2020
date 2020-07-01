@@ -62,18 +62,36 @@ public class WinSceneController implements GenericSceneController {
         stage.setY(event.getScreenY() + yOffset);
     }
 
+    /**
+     * Handles click on Ok button.
+     *
+     * @param event
+     */
     private void onOkBtnClick(MouseEvent event) {
         stage.close();
     }
 
+    /**
+     * Sets the name of the winner.
+     *
+     * @param winnerNickname
+     */
     public void setWinnerNickname(String winnerNickname) {
         nicknameLbl.setText(winnerNickname);
     }
 
+    /**
+     * Displays the victory scene.
+     */
     public void displayWinScene() {
         stage.showAndWait();
     }
 
+    /**
+     * Sets the win scene.
+     *
+     * @param scene
+     */
     public void setScene(Scene scene) {
         stage.setScene(scene);
     }

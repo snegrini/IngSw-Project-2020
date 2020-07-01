@@ -27,7 +27,7 @@ public class MenuSceneController extends ViewObservable implements GenericSceneC
     }
 
     /**
-     * Handle click on Play button.
+     * Handles click on Play button.
      *
      * @param event the mouse click event.
      */
