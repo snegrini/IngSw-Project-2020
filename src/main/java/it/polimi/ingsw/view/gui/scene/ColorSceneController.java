@@ -64,6 +64,7 @@ public class ColorSceneController extends ViewObservable implements GenericScene
      * Handle the click on the back to menu button.
      */
     private void onBackToMenuBtnClick(Event event) {
+        backToMenuBtn.setDisable(true);
         new Thread(() -> notifyObserver(ViewObserver::onDisconnection)).start();
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }

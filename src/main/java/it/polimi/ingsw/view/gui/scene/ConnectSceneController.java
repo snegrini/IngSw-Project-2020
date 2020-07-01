@@ -70,6 +70,9 @@ public class ConnectSceneController extends ViewObservable implements GenericSce
      * @param event the mouse click event.
      */
     private void onBackBtnClick(Event event) {
+        backBtn.setDisable(true);
+        connectBtn.setDisable(true);
+
         SceneController.changeRootPane(observers, event, "menu_scene.fxml");
     }
 }
