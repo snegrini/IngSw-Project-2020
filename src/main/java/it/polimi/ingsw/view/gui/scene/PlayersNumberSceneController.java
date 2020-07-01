@@ -10,6 +10,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * This class implements the scene where the game host chooses the number of players who are going to play.
+ */
 public class PlayersNumberSceneController extends ViewObservable implements GenericSceneController {
 
     @FXML
@@ -41,6 +44,11 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
         backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);
     }
 
+    /**
+     * Handle click on Confirm button.
+     *
+     * @param event
+     */
     private void onConfirmBtnClick(Event event) {
         confirmBtn.setDisable(true);
         RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
@@ -49,6 +57,11 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
         new Thread(() -> notifyObserver(obs -> obs.onUpdatePlayersNumber(playersNumber))).start();
     }
 
+    /**
+     * Handle click on Back button
+     *
+     * @param event
+     */
     private void onBackToMenuBtnClick(Event event) {
         backToMenuBtn.setDisable(true);
         new Thread(() -> notifyObserver(ViewObserver::onDisconnection)).start();
