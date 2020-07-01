@@ -667,7 +667,7 @@ public class Cli extends ViewObservable implements View {
     private void printFirstColumn(ReducedSpace[][] spaces, StringBuilder strBoardBld, int i, int j) {
         if (spaces[i][j].hasDome()) {
             strBoardBld.append(i).append(ColorCli.YELLOW_BOLD).append("  |  ")
-                    .append(ColorCli.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |")
+                    .append(ColorCli.CYAN_BOLD).append("∩").append(ColorCli.YELLOW_BOLD).append("  |")
                     .append(ColorCli.RESET);
         } else {
             if (spaces[i][j].getReducedWorker() != null) {
@@ -692,7 +692,7 @@ public class Cli extends ViewObservable implements View {
      */
     private void printOtherColumn(ReducedSpace[][] spaces, StringBuilder strBoardBld, int i, int j) {
         if (spaces[i][j].hasDome()) {
-            strBoardBld.append("  ").append(ColorCli.BLUE).append("∩").append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
+            strBoardBld.append("  ").append(ColorCli.CYAN_BOLD).append("∩").append(ColorCli.YELLOW_BOLD).append("  |").append(ColorCli.RESET);
         } else {
             if (spaces[i][j].getReducedWorker() != null) {
                 strBoardBld.append(" ").append(spaces[i][j].getLevel()).append(ColorCli.valueOf(spaces[i][j].getReducedWorker().getColor().getText()))

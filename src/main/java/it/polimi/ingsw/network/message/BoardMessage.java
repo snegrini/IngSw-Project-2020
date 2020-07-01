@@ -35,8 +35,7 @@ public class BoardMessage extends Message {
     @Override
     public String toString() {
         return "BoardMessage{" +
-                "nickname=" + getNickname() +
-                ", board=" + Arrays.toString(board) +
+                "board=" + Arrays.deepToString(board) +
                 '}';
     }
 }

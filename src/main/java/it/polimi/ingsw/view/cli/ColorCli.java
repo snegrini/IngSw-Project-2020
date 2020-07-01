@@ -11,11 +11,11 @@ public enum ColorCli {
     // Regular Colors. Normal color, no bold, background color etc.
     RED("\033[0;31m"),      // RED
     GREEN("\033[38;5;28m"),    // GREEN  "\u001B[32m"
-    YELLOW("\033[0;33m"),   // YELLOW
     BLUE("\033[0;34m"),     // BLUE
 
     // Bold
-    YELLOW_BOLD("\033[1;33m"); // YELLOW
+    YELLOW_BOLD("\033[1;33m"), // YELLOW
+    CYAN_BOLD("\033[1;36m");    // CYAN
 
     private final String code;
 
