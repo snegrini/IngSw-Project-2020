@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.ReducedGod;
 
 import java.util.List;
 
+/**
+ * Message which contains information about the current status of the match.
+ */
 public class MatchInfoMessage extends Message {
 
     private static final long serialVersionUID = -2011506753457265907L;

@@ -33,7 +33,6 @@ public class InputController implements Serializable {
         this.game = Game.getInstance();
         this.virtualViewMap = virtualViewMap;
         this.gameController = gameController;
-
     }
 
     /**

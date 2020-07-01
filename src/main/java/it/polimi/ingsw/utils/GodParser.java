@@ -19,7 +19,6 @@ import java.util.*;
 
 import static it.polimi.ingsw.model.enumerations.XMLName.*;
 
-
 /**
  * Provides the methods for processing the XML document with the gods configuration.
  */

@@ -13,7 +13,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+/**
+ * Main JavaFX class which starts the main stage and scene.
+ */
 public class JavaFXGui extends Application {
 
     @Override

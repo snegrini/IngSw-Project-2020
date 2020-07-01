@@ -7,6 +7,9 @@ import it.polimi.ingsw.model.enumerations.Color;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Custom observer interface for views. It supports different types of notification.
+ */
 public interface ViewObserver {
 
     /**

@@ -14,6 +14,9 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the {@link Worker} methods.
+ */
 public class WorkerTest {
 
     private Worker worker;

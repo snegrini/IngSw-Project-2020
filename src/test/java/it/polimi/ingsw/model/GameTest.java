@@ -20,6 +20,9 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the {@link Game} methods.
+ */
 public class GameTest {
 
     private Game instance;

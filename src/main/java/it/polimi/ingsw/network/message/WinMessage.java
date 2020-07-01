@@ -2,6 +2,9 @@ package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.model.Game;
 
+/**
+ * Message to notify that a player has won the game.
+ */
 public class WinMessage extends Message {
     private static final long serialVersionUID = 4516402749630283459L;
 

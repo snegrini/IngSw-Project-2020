@@ -12,6 +12,9 @@ import org.junit.Test;
 import static it.polimi.ingsw.model.enumerations.XMLName.PARAMETERS;
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the {@link SimpleEffect} methods.
+ */
 public class SimpleEffectTest {
 
     private Effect simpleEffect;

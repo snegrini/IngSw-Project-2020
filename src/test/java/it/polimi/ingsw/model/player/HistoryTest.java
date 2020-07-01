@@ -7,17 +7,20 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This class tests the {@link History} methods.
+ */
 public class HistoryTest {
 
     private History history;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         history = new History();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test

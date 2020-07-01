@@ -15,6 +15,9 @@ import static it.polimi.ingsw.model.board.Board.MAX_COLUMNS;
 import static it.polimi.ingsw.model.board.Board.MAX_ROWS;
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the {@link Board} methods.
+ */
 public class BoardTest {
 
     private Board board;

@@ -3,7 +3,7 @@ package it.polimi.ingsw.network.message;
 import it.polimi.ingsw.model.board.Position;
 
 /**
- * The message which contains
+ * Message which contains the positions available for the building phase.
  */
 public class BuildMessage extends Message {
     private static final long serialVersionUID = -5330536550018687004L;

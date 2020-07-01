@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Custom observable class that can be observed by implementing the {@link ViewObserver} interface and registering as listener.
+ */
 public abstract class ViewObservable {
 
     protected final List<ViewObserver> observers = new ArrayList<>();

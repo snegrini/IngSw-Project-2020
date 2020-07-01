@@ -9,6 +9,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * This class tests the {@link GodParser} method.
+ */
 public class GodParserTest {
 
     @Before

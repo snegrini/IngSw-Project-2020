@@ -8,6 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * Socket implementation of the {@link ClientHandler} interface.
+ */
 public class SocketClientHandler implements ClientHandler, Runnable {
     private final Socket client;
     private final SocketServer socketServer;

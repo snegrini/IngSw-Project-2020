@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.enumerations.Color;
 
 import java.util.List;
 
+/**
+ * Message which contains the colors available or the color picked from a user.
+ */
 public class ColorsMessage extends Message {
 
     private static final long serialVersionUID = -3704504226997118508L;

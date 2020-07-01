@@ -16,19 +16,22 @@ import java.util.Map;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * This class tests the {@link MoveLockDecorator} methods.
+ */
 public class MoveLockDecoratorTest {
 
     private Effect effect;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         Map<String, String> reqs = Map.of(XMLName.USERCONFIRM.getText(), "false", XMLName.MOVE.getText(), "UP");
         effect = new MoveLockDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), reqs, MoveType.UP);
         effect.addTargetType(XMLName.PARAMETERS, TargetType.ALL_OPP_WORKERS);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         effect = null;
         Game.resetInstance();
     }

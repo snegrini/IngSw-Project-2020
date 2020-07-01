@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.enumerations;
 
 /**
- * This Class contains all type of all phases inside every turn of the Game.
+ * This enum contains all type of all phases inside every turn of the Game.
  */
 public enum PhaseType {
     YOUR_TURN, YOUR_MOVE, YOUR_MOVE_AFTER,

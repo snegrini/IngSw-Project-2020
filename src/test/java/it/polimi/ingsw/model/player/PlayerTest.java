@@ -21,6 +21,9 @@ import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This class tests the {@link Player} methods.
+ */
 public class PlayerTest {
 
     private Player player;

@@ -13,6 +13,9 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the {@link MoveAgainDecorator} methods.
+ */
 public class MoveAgainDecoratorTest {
 
     private Effect effectCanGoBack;

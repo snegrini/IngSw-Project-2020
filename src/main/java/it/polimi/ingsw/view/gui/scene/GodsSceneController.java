@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class implements the scene where players choose their gods.
+ */
 public class GodsSceneController extends ViewObservable implements GenericSceneController {
 
     private List<ReducedGod> gods;

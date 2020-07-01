@@ -9,17 +9,20 @@ import java.util.Objects;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the {@link Position} methods.
+ */
 public class PositionTest {
 
     private Position position;
 
     @Before
-    public void setUp() throws Exception {
-        position = new Position(3,4);
+    public void setUp() {
+        position = new Position(3, 4);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
@@ -47,7 +50,7 @@ public class PositionTest {
     @Test
     public void equals_DifferentPosition_False() {
         Position testPosition = new Position(2, 1);
-        assertFalse(position.equals(testPosition));
+        assertNotEquals(position, testPosition);
     }
 
     @Test
@@ -60,7 +63,7 @@ public class PositionTest {
     @Test
     public void equals_SamePosition_True() {
         Position testPosition = new Position(3, 4);
-        assertTrue(position.equals(testPosition));
+        assertEquals(position, testPosition);
     }
 
     @Test

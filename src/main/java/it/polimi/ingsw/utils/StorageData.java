@@ -6,6 +6,9 @@ import it.polimi.ingsw.network.server.Server;
 import java.io.*;
 import java.nio.file.Files;
 
+/**
+ * This class is used to store and restore the status of the game.
+ */
 public class StorageData {
 
     /**

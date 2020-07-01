@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.ReducedGod;
 
 import java.util.List;
 
+/**
+ * Message which contains the gods available or the god picked from a user.
+ */
 public class GodListMessage extends Message {
 
     private static final long serialVersionUID = -1116045089001448271L;

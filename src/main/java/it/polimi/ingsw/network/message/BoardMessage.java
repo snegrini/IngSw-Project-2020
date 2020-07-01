@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.board.ReducedSpace;
 import java.util.Arrays;
 
 /**
- * The message which contains the board. Used to send the updated board to the client.
+ * Message which contains the board. Used to send the updated board to the client.
  */
 public class BoardMessage extends Message {
     private static final long serialVersionUID = -8014575220371739730L;

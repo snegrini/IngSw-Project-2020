@@ -17,6 +17,9 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the {@link MoveOverDecorator} methods.
+ */
 public class MoveOverDecoratorTest {
 
     private Effect effectSwapSpace;

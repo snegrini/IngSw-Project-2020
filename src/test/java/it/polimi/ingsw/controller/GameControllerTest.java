@@ -20,7 +20,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-
+/**
+ * This class tests the {@link GameController} behaviour by simulating more matches with different status.
+ * Methods are also tested.
+ */
 public class GameControllerTest {
 
     private Game game;

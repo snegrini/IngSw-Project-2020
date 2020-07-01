@@ -8,7 +8,11 @@ import javafx.application.Application;
 
 import java.util.logging.Level;
 
+/**
+ * Main of the client app.
+ */
 public class ClientApp {
+
     public static void main(String[] args) {
 
         boolean cliParam = false; // default value

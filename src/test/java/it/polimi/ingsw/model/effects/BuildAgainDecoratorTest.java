@@ -13,6 +13,9 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the {@link BuildAgainDecorator} methods.
+ */
 public class BuildAgainDecoratorTest {
 
     private Effect effect1;

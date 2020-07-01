@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Socket server that handles all the new socket connection.
+ */
 public class SocketServer implements Runnable {
     private final Server server;
     private final int port;

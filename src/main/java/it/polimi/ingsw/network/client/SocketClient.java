@@ -14,6 +14,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class represents a socket client implementation.
+ */
 public class SocketClient extends Client {
 
     private final Socket socket;

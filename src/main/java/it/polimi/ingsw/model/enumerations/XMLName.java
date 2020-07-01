@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.enumerations;
 
 /**
- * This Class contains all name associated to XML tag of the XML database of Gods.
+ * This enum contains all name associated to XML tag of the XML database of Gods.
  */
 public enum XMLName {
     NAME("name"),

@@ -9,7 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-
+/**
+ * Main server class that starts a socket server.
+ * It can handle different types of connections.
+ */
 public class Server {
 
     private final GameController gameController;

@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * This Class represents the single Worker object which contains the main info and methods.
+ * This class represents the single Worker object which contains the main info and methods.
  */
 public class Worker implements Serializable {
 

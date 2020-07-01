@@ -13,17 +13,20 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the {@link BuildDomeDecorator} methods.
+ */
 public class BuildDomeDecoratorTest {
 
     private Effect effect;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         effect = new BuildDomeDecorator(new SimpleEffect(PhaseType.YOUR_BUILD), Map.of());
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         effect = null;
         Game.resetInstance();
     }

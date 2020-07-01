@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * This class implements a the controller of a generic scene.
+ * This class implements the controller of a generic scene.
  */
 public class SceneController extends ViewObservable {
 

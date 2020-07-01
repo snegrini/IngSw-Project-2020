@@ -8,6 +8,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the {@link Space} methods.
+ */
 public class SpaceTest {
 
     private Space space;

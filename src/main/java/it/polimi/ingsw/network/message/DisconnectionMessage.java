@@ -2,6 +2,9 @@ package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.model.Game;
 
+/**
+ * Message to notify a disconnection to the other players.
+ */
 public class DisconnectionMessage extends Message {
 
     private static final long serialVersionUID = -5422965079989607600L;

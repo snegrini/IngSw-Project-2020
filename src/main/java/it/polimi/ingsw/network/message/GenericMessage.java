@@ -2,6 +2,9 @@ package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.model.Game;
 
+/**
+ * Message to notify generic information to the user.
+ */
 public class GenericMessage extends Message {
     private static final long serialVersionUID = 934399396584368694L;
 

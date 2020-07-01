@@ -27,6 +27,9 @@ import java.util.TimerTask;
 import static it.polimi.ingsw.controller.ClientController.UNDO_TIME;
 import static it.polimi.ingsw.view.gui.SceneController.GOD_IMAGE_PREFIX;
 
+/**
+ * This class implements the controller of the scene of the board. Most of the game will be played here.
+ */
 public class BoardSceneController extends ViewObservable implements GenericSceneController {
 
     private static final String GLASS_PANE_SELECTED = "glassPaneSelected";

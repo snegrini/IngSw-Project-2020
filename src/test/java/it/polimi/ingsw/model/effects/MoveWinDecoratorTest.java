@@ -17,6 +17,9 @@ import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * This class tests the {@link MoveWinDecorator} methods.
+ */
 public class MoveWinDecoratorTest {
 
     private Effect effect;

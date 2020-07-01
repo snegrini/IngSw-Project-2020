@@ -7,6 +7,9 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * This class tests the static methods of the {@link ClientController} which checks the server info.
+ */
 public class ClientControllerTest {
 
     @Before

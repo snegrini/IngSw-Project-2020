@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.board.Position;
 
 import java.util.List;
 
+/**
+ * Message which contains a list of positions.
+ */
 public class PositionMessage extends Message {
 
     private static final long serialVersionUID = 5786732391244362819L;
