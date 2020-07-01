@@ -18,8 +18,8 @@ public class AlertSceneController implements GenericSceneController {
 
     private final Stage stage;
 
-    private static double xOffset = 0;
-    private static double yOffset = 0;
+    private double xOffset;
+    private double yOffset;
 
     @FXML
     private BorderPane rootPane;
@@ -39,6 +39,8 @@ public class AlertSceneController implements GenericSceneController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setAlwaysOnTop(true);
+        xOffset = 0;
+        yOffset = 0;
     }
 
     @FXML

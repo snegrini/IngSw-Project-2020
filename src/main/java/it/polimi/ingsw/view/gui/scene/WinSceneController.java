@@ -11,11 +11,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+
+/**
+ * This class implements the scene which shows that a player has won the game.
+ */
 public class WinSceneController implements GenericSceneController {
     private final Stage stage;
 
-    private static double xOffset = 0;
-    private static double yOffset = 0;
+    private double xOffset;
+    private double yOffset;
 
     @FXML
     private BorderPane rootPane;
@@ -36,6 +40,8 @@ public class WinSceneController implements GenericSceneController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setAlwaysOnTop(true);
+        xOffset = 0;
+        yOffset = 0;
     }
 
     @FXML
