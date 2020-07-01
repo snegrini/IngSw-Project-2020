@@ -8,6 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * This class implements the main menu scene.
+ */
 public class MenuSceneController extends ViewObservable implements GenericSceneController {
 
     @FXML
@@ -23,6 +26,11 @@ public class MenuSceneController extends ViewObservable implements GenericSceneC
         quitBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> System.exit(0));
     }
 
+    /**
+     * Handle click on play button.
+     *
+     * @param event the mouse click event.
+     */
     private void onPlayBtnClick(Event event) {
         SceneController.changeRootPane(observers, event, "connect_scene.fxml");
     }
