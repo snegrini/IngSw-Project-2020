@@ -69,7 +69,7 @@ public class AlertSceneController implements GenericSceneController {
     }
 
     /**
-     * Handle the click on the Ok button.
+     * Handles the click on the Ok button.
      * An alert message will be shown.
      *
      * @param event the mouse click event.
@@ -79,7 +79,8 @@ public class AlertSceneController implements GenericSceneController {
     }
 
     /**
-     * Set the title of the Alert Scene.
+     * Sets the title of the Alert Scene.
+     *
      * @param str title of the Alert Scene.
      */
     public void setAlertTitle(String str) {
@@ -87,7 +88,7 @@ public class AlertSceneController implements GenericSceneController {
     }
 
     /**
-     * Set the message of the Alert Scene.
+     * Sets the message of the Alert Scene.
      * @param str message of the Alert Scene.
      */
     public void setAlertMessage(String str) {
@@ -95,15 +96,16 @@ public class AlertSceneController implements GenericSceneController {
     }
 
     /**
-     * Display Alert Message Pop-Up
+     * Displays Alert Message Pop-Up
      */
     public void displayAlert() {
         stage.showAndWait();
     }
 
     /**
-     * Set the scene of the stage.
-     * @param scene scene to be setted.
+     * Sets the scene of the stage.
+     *
+     * @param scene the scene to be set.
      */
     public void setScene(Scene scene) {
         stage.setScene(scene);

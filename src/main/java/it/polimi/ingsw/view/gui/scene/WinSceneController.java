@@ -27,6 +27,9 @@ public class WinSceneController implements GenericSceneController {
     private Button okBtn;
 
 
+    /**
+     * Default constructor.
+     */
     public WinSceneController() {
         stage = new Stage();
         stage.initOwner(SceneController.getActiveScene().getWindow());
@@ -65,7 +68,7 @@ public class WinSceneController implements GenericSceneController {
     /**
      * Handles click on Ok button.
      *
-     * @param event
+     * @param event the mouse click event.
      */
     private void onOkBtnClick(MouseEvent event) {
         stage.close();
@@ -74,7 +77,7 @@ public class WinSceneController implements GenericSceneController {
     /**
      * Sets the name of the winner.
      *
-     * @param winnerNickname
+     * @param winnerNickname the nickname of the winner.
      */
     public void setWinnerNickname(String winnerNickname) {
         nicknameLbl.setText(winnerNickname);
@@ -88,9 +91,9 @@ public class WinSceneController implements GenericSceneController {
     }
 
     /**
-     * Sets the win scene.
+     * Sets the scene of the stage.
      *
-     * @param scene
+     * @param scene the scene to be set.
      */
     public void setScene(Scene scene) {
         stage.setScene(scene);

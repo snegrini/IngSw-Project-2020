@@ -30,6 +30,9 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
     private int minPlayers;
     private int maxPlayers;
 
+    /**
+     * Default constructor.
+     */
     public PlayersNumberSceneController() {
         minPlayers = 0;
         maxPlayers = 0;
@@ -47,7 +50,7 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
     /**
      * Handles click on Confirm button.
      *
-     * @param event
+     * @param event the mouse click event.
      */
     private void onConfirmBtnClick(Event event) {
         confirmBtn.setDisable(true);
@@ -60,7 +63,7 @@ public class PlayersNumberSceneController extends ViewObservable implements Gene
     /**
      * Handles click on Back button
      *
-     * @param event
+     * @param event the mouse click event.
      */
     private void onBackToMenuBtnClick(Event event) {
         backToMenuBtn.setDisable(true);

@@ -117,6 +117,7 @@ public class GodInfoSceneController implements GenericSceneController {
 
     /**
      * Sets the scene.
+     *
      * @param scene scene of the stage.
      */
     public void setScene(Scene scene) {

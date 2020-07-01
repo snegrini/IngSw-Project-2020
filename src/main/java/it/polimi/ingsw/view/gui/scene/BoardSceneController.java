@@ -77,6 +77,9 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private Label turnInformationLabel;
 
 
+    /**
+     * Default constructor.
+     */
     public BoardSceneController() {
         availablePositionClicks = 0;
         clickedPositionList = new ArrayList<>();
