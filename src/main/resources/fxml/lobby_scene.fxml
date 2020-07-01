@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-           prefWidth="740.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="654.0"
+           prefWidth="1023.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Group>
@@ -35,26 +33,28 @@
                         <Font size="18.0"/>
                     </font>
                 </Text>
-                <Text fill="#451616" layoutX="148.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      styleClass="customText" text="Players connected: " wrappingWidth="143.47003173828125">
+                <Text fill="#451616" layoutX="130.0" layoutY="367.0" smooth="false" strokeType="OUTSIDE"
+                      strokeWidth="0.0" styleClass="customText" text="Players connected: " underline="true"
+                      wrappingWidth="143.47003173828125">
                     <font>
                         <Font size="16.0"/>
                     </font>
                 </Text>
-                <Label fx:id="playersLbl" layoutX="301.0" layoutY="355.0" prefHeight="34.0" prefWidth="140.0"
-                       styleClass="customText" text="player1, player2">
+                <Label fx:id="playersLbl" alignment="TOP_LEFT" layoutX="273.0" layoutY="342.0" prefHeight="64.0"
+                       prefWidth="200.0" styleClass="customText" text="player1, player2, player3" wrapText="true">
                     <font>
                         <Font size="16.0"/>
                     </font>
                 </Label>
-                <Text fill="#451616" layoutX="148.0" layoutY="436.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                <Text fill="#451616" layoutX="132.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0"
                       styleClass="customText" text="Waiting for other players to join:"
                       wrappingWidth="254.13677978515625">
                     <font>
                         <Font size="16.0"/>
                     </font>
                 </Text>
-                <Label fx:id="numbersLbl" layoutX="402.0" layoutY="415.0" styleClass="customText" text="0/0">
+                <Label fx:id="numbersLbl" layoutX="400.0" layoutY="413.0" styleClass="customText" text="0/0"
+                       textFill="#e15858">
                     <font>
                         <Font size="16.0"/>
                     </font>

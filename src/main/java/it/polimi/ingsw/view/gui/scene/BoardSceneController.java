@@ -110,7 +110,6 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         player1Img.setVisible(false);
         player2Img.setVisible(false);
         player3Img.setVisible(false);
-
     }
 
 
@@ -289,7 +288,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         undoTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                confirmBtn.fire();
+                onConfirmBtnClick(null);
             }
         }, UNDO_TIME);
     }
