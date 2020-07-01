@@ -26,6 +26,7 @@ public class MoveWinDecoratorTest {
         effect = new MoveWinDecorator(new SimpleEffect(PhaseType.YOUR_MOVE_AFTER), Map.of(),
                 MoveType.DOWN, 2);
 
+        // Setup a game
         Player p1 = new Player("mario");
         Player p2 = new Player("anna");
 
@@ -42,7 +43,6 @@ public class MoveWinDecoratorTest {
         p2.initWorkers(List.of(new Position(3, 3), new Position(1, 1)));
 
         Game game = Game.getInstance();
-        Board board = game.getBoard();
         game.initWorkersOnBoard(List.of(w1, w2, w3, w4));
         game.addPlayer(p1);
         game.addPlayer(p2);
