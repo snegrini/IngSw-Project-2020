@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-
+<?import java.net.URL?>
 <StackPane prefHeight="720.0" prefWidth="1280.0" styleClass="menuBackground" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1">
    <Group scaleX="2.0" scaleY="2.0" scaleZ="2.0" StackPane.alignment="CENTER">
@@ -45,7 +40,7 @@
                <Cursor fx:constant="HAND"/>
             </cursor>
          </Button>
-         <ListView fx:id="selectedGodsListView" layoutX="394.0" layoutY="127.0" prefHeight="99.0" prefWidth="90.0"
+         <ListView fx:id="selectedGodsListView" layoutX="376.0" layoutY="127.0" prefHeight="122.0" prefWidth="124.0"
                    styleClass="customText"/>
          <Button fx:id="confirmBtn" layoutX="357.0" layoutY="268.0" mnemonicParsing="false" prefHeight="26.0"
                  prefWidth="135.0" styleClass="godButton" stylesheets="@../css/gods_scene.css" text="Confirm"/>

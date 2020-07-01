@@ -176,7 +176,7 @@ public class SceneController extends ViewObservable {
      * @param description the description of the God.
      */
     public static void showGodInformation(String name, String caption, String description) {
-        FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/godInfo_scene.fxml"));
+        FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/god_info_scene.fxml"));
 
         Parent parent;
         try {

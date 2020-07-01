@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -19,6 +20,11 @@ public class GodInfoSceneController implements GenericSceneController {
     private final Stage stage;
     private String godName;
 
+    private static double xOffset = 0;
+    private static double yOffset = 0;
+
+    @FXML
+    private StackPane rootPane;
     @FXML
     private Label nameLbl;
     @FXML
@@ -43,7 +49,29 @@ public class GodInfoSceneController implements GenericSceneController {
 
     @FXML
     public void initialize() {
+        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::onRootPaneMousePressed);
+        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::onRootPaneMouseDragged);
         okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);
+    }
+
+    /**
+     * Handles the mouse pressed event preparing the coordinates for dragging the window.
+     *
+     * @param event the mouse pressed event.
+     */
+    private void onRootPaneMousePressed(MouseEvent event) {
+        xOffset = stage.getX() - event.getScreenX();
+        yOffset = stage.getY() - event.getScreenY();
+    }
+
+    /**
+     * Handles the mouse dragged event by moving the window around the screen.
+     *
+     * @param event the mouse dragged event.
+     */
+    private void onRootPaneMouseDragged(MouseEvent event) {
+        stage.setX(event.getScreenX() + xOffset);
+        stage.setY(event.getScreenY() + yOffset);
     }
 
     /**

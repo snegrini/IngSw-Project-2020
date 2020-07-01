@@ -14,8 +14,8 @@ import javafx.stage.StageStyle;
 public class WinSceneController implements GenericSceneController {
     private final Stage stage;
 
-    private double xOffset;
-    private double yOffset;
+    private static double xOffset = 0;
+    private static double yOffset = 0;
 
     @FXML
     private BorderPane rootPane;
@@ -42,11 +42,21 @@ public class WinSceneController implements GenericSceneController {
         okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);
     }
 
+    /**
+     * Handles the mouse pressed event preparing the coordinates for dragging the window.
+     *
+     * @param event the mouse pressed event.
+     */
     private void onRootPaneMousePressed(MouseEvent event) {
         xOffset = stage.getX() - event.getScreenX();
         yOffset = stage.getY() - event.getScreenY();
     }
 
+    /**
+     * Handles the mouse dragged event by moving the window around the screen.
+     *
+     * @param event the mouse dragged event.
+     */
     private void onRootPaneMouseDragged(MouseEvent event) {
         stage.setX(event.getScreenX() + xOffset);
         stage.setY(event.getScreenY() + yOffset);
