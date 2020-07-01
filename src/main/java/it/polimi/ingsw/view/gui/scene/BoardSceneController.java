@@ -289,7 +289,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         undoTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                onConfirmBtnClick(null);
+                confirmBtn.fire();
             }
         }, UNDO_TIME);
     }
