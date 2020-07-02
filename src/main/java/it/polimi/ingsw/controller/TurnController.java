@@ -280,7 +280,7 @@ public class TurnController implements Serializable {
         }
 
         for (VirtualView vv : virtualViewMap.values()) {
-            vv.showMatchInfo(nicknameQueue, gods, activePlayer);
+            vv.showMatchInfo(nicknameQueue, gods, gameController.getPlayersColors(), activePlayer);
         }
     }
 
@@ -355,7 +355,7 @@ public class TurnController implements Serializable {
      * @param excludeNickname name of the player to be excluded from the broadcast.
      */
     public void turnControllerNotify(String messageToNotify, String excludeNickname) {
-        virtualViewMap.values().forEach(vv -> vv.showMatchInfo(null, null, activePlayer));
+        virtualViewMap.values().forEach(vv -> vv.showMatchInfo(null, null, null,activePlayer));
         virtualViewMap.entrySet().stream()
                 .filter(entry -> !excludeNickname.equals(entry.getKey()))
                 .map(Map.Entry::getValue)

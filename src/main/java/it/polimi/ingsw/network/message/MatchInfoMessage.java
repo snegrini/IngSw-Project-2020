@@ -1,7 +1,9 @@
 package it.polimi.ingsw.network.message;
 
 import it.polimi.ingsw.model.ReducedGod;
+import it.polimi.ingsw.model.enumerations.Color;
 
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -9,15 +11,17 @@ import java.util.List;
  */
 public class MatchInfoMessage extends Message {
 
-    private static final long serialVersionUID = -2011506753457265907L;
+    // TODO Add serial
     private final List<String> activePlayers;
     private final List<ReducedGod> activeGods;
+    private final List<Color> activeColors;
     private final String activePlayerNickname;
 
-    public MatchInfoMessage(String senderNickname, MessageType messageType, List<String> activePlayers, List<ReducedGod> activeGods, String activePlayerNickname) {
+    public MatchInfoMessage(String senderNickname, MessageType messageType, List<String> activePlayers, List<ReducedGod> activeGods, List<Color> activeColors, String activePlayerNickname) {
         super(senderNickname, messageType);
         this.activePlayers = activePlayers;
         this.activeGods = activeGods;
+        this.activeColors = activeColors;
         this.activePlayerNickname = activePlayerNickname;
     }
 
@@ -33,12 +37,17 @@ public class MatchInfoMessage extends Message {
         return activeGods;
     }
 
+    public List<Color> getActiveColors() {
+        return activeColors;
+    }
+
     @Override
     public String toString() {
         return "MatchInfoMessage{" +
                 "nickname=" + getNickname() +
                 ", activePlayers=" + activePlayers +
                 ", activeGods=" + activeGods +
+                ", activeColors="+activeColors +
                 ", activePlayerNickname=" + activePlayerNickname +
                 '}';
     }

@@ -141,7 +141,7 @@ public interface View {
      * @param gods         the list of gods chosen by each player.
      * @param activePlayer the currently active player (player's turn).
      */
-    void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer);
+    void showMatchInfo(List<String> players, List<ReducedGod> gods, List<Color> colors, String activePlayer);
 
     /**
      * Asks the "chosen player" who he wants the game to start from.

@@ -114,7 +114,7 @@ public class GameControllerTest {
         gameController.onMessageReceived(three_godListMessage);
 
         // Challenger pick which is the first player.
-        MatchInfoMessage firstPlayer_MatchInfoMessage = new MatchInfoMessage(p1, MessageType.PICK_FIRST_PLAYER, null, null, "AndreaLanzi");
+        MatchInfoMessage firstPlayer_MatchInfoMessage = new MatchInfoMessage(p1, MessageType.PICK_FIRST_PLAYER, null, null, null,"AndreaLanzi");
         gameController.onMessageReceived(firstPlayer_MatchInfoMessage);
 
         // Users pick up their own colors and set their initial workers positions.
@@ -388,7 +388,7 @@ public class GameControllerTest {
         gameController.onMessageReceived(three_godListMessage);
 
         // Challenger pick which is the first player.
-        MatchInfoMessage firstPlayer_MatchInfoMessage = new MatchInfoMessage(p1, MessageType.PICK_FIRST_PLAYER, null, null, "AndreaLanzi");
+        MatchInfoMessage firstPlayer_MatchInfoMessage = new MatchInfoMessage(p1, MessageType.PICK_FIRST_PLAYER, null, null, null,"AndreaLanzi");
         gameController.onMessageReceived(firstPlayer_MatchInfoMessage);
 
         // Users pick up their own colors and set their initial workers positions.
