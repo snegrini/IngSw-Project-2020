@@ -9,9 +9,9 @@ La rete è stata gestita con l'utilizzo delle socket.
 Interazione e gameplay: linea di comando (CLI) e grafica (GUI).
 
 ## Componenti del gruppo
-- [__Samuele Negrini__](https://github.com/snegrini) - *Codice Persona: 10539341 - Matricola: 866797*
-- [__Andrea Lanzi__](https://github.com/AndreaLanzi-PoliMi) - *Codice Persona: 10566601 - Matricola: 868062* 
 - [__Samuel Kala__](https://github.com/samuelkala) - *Codice Persona: 10584699 - Matricola: 889701*
+- [__Andrea Lanzi__](https://github.com/AndreaLanzi-PoliMi) - *Codice Persona: 10566601 - Matricola: 868062* 
+- [__Samuele Negrini__](https://github.com/snegrini) - *Codice Persona: 10539341 - Matricola: 866797*
 
 
 ## Documentazione
