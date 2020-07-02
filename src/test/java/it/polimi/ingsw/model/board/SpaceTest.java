@@ -122,6 +122,13 @@ public class SpaceTest {
     }
 
     @Test
+    public void toString_ReducedSpace() {
+        reducedSpace = new ReducedSpace(space);
+        String expectedStr = "ReducedSpace{level=0, dome=false, reducedWorker=null}";
+        assertEquals(expectedStr, reducedSpace.toString());
+    }
+
+    @Test
     public void getWorker_Space_ReducedSpace() {
         Worker worker = new Worker(new Position(0, 0));
         space.setWorker(worker);
