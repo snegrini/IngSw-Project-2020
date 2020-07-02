@@ -44,8 +44,8 @@ Al seguente link è possibile consultare il report della coverage dei test effet
 - 2 FA (Funzionalità Avanzate):
     - __Persistenza:__ lo stato di una partita deve essere salvato su disco, in modo che la partita possa
         riprendere anche a seguito dell’interruzione dell’esecuzione del server.
-    - __Undo:__ permette a un giocatore di annullare la propria
-        mossa entro un periodo di 5 secondi da quando l’ha effettuata
+    - __Undo:__ permette a un giocatore di annullare la propria.
+        mossa entro un periodo di 5 secondi da quando l’ha effettuata.
 
 
 ## Compilazione e packaging
