@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
 <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <BorderPane>
             <center>
                 <Group BorderPane.alignment="CENTER">
                     <children>
-                        <AnchorPane prefHeight="703.0" prefWidth="1264.0" styleClass="boardPane">
+                        <AnchorPane layoutX="179.0" layoutY="22.0" prefHeight="703.0" prefWidth="1264.0"
+                                    styleClass="boardPane">
                             <children>
-                                <ImageView fx:id="undoBg" fitHeight="140.0" fitWidth="146.0" layoutX="1053.0" layoutY="472.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="undoBg" fitHeight="140.0" fitWidth="146.0" layoutX="1060.0"
+                                           layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/banners/confirm_banner.png" />
+                                        <Image url="@../images/banners/confirm_banner.png"/>
                                     </image>
                                 </ImageView>
-                                <ImageView fx:id="undoImg" fitHeight="77.0" fitWidth="102.0" layoutX="1082.0" layoutY="518.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="undoImg" fitHeight="77.0" fitWidth="102.0" layoutX="1089.0"
+                                           layoutY="57.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../images/buttons/undo.png" />
+                                        <Image url="@../images/buttons/undo.png"/>
                                     </image>
                                     <cursor>
-                                        <Cursor fx:constant="HAND" />
+                                        <Cursor fx:constant="HAND"/>
                                     </cursor>
                                 </ImageView>
-                                <Button fx:id="confirmBtn" layoutX="1055.0" layoutY="602.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="142.0" style="-fx-background-size: stretch;" styleClass="smallButton" text="Confirm">
+                                <Button fx:id="confirmBtn" layoutX="1062.0" layoutY="141.0" mnemonicParsing="false"
+                                        prefHeight="53.0" prefWidth="142.0" style="-fx-background-size: stretch;"
+                                        styleClass="smallButton" text="Confirm">
                                     <font>
-                                        <Font size="7.0" />
+                                        <Font size="7.0"/>
                                     </font>
                                 </Button>
                                 <ImageView fx:id="player1Img" fitHeight="56.0" fitWidth="173.0" layoutX="119.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
@@ -56,12 +52,17 @@
                                 <ImageView fx:id="god1Image" fitHeight="150.0" fitWidth="120.0" layoutX="140.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage" />
                                 <ImageView fx:id="god2Image" fitHeight="150.0" fitWidth="120.0" layoutX="140.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage" />
                                 <ImageView fx:id="god3Image" fitHeight="150.0" fitWidth="120.0" layoutX="141.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" styleClass="playerGodImage" />
-                                <ImageView fx:id="effectImage" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="1051.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" styleClass="effectImage">
+                                <ImageView fx:id="effectImage" disable="true" fitHeight="150.0" fitWidth="200.0"
+                                           layoutX="1058.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true"
+                                           styleClass="effectImage">
                                     <image>
-                                        <Image url="@../images/buttons/heropower_inactive.png" />
+                                        <Image url="@../images/buttons/heropower_inactive.png"/>
                                     </image>
                                 </ImageView>
-                                <Button fx:id="skipEffectBtn" disable="true" layoutX="1056.0" layoutY="184.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="142.0" style="-fx-background-size: stretch;" styleClass="smallButton" text="Skip Effect" />
+                                <Button fx:id="skipEffectBtn" disable="true" layoutX="1063.0" layoutY="370.0"
+                                        mnemonicParsing="false" prefHeight="53.0" prefWidth="142.0"
+                                        style="-fx-background-size: stretch;" styleClass="smallButton"
+                                        text="Skip Effect"/>
                                 <ImageView fx:id="turnInformationImg" fitHeight="150.0" fitWidth="200.0" layoutX="551.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../images/blocco.png" />
@@ -72,22 +73,26 @@
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="timerLbl" layoutX="1077.0" layoutY="481.0" styleClass="customText" text="5 seconds">
+                                <Label fx:id="timerLbl" layoutX="1084.0" layoutY="20.0" styleClass="customText"
+                                       text="5 seconds">
                                     <font>
-                                        <Font size="23.0" />
+                                        <Font size="23.0"/>
                                     </font>
                                 </Label>
-                                <GridPane fx:id="boardGrid" alignment="CENTER" hgap="20.0" layoutX="364.0" layoutY="78.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="545.0" vgap="20.0">
+                                <GridPane fx:id="boardGrid" alignment="CENTER" hgap="20.0" layoutX="370.0"
+                                          layoutY="83.0" maxHeight="1.7976931348623157E308"
+                                          maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="545.0"
+                                          vgap="20.0">
                                     <columnConstraints>
-                                        <ColumnConstraints minWidth="10.0" prefWidth="86.0" />
-                                        <ColumnConstraints minWidth="10.0" prefWidth="86.0" />
-                                        <ColumnConstraints minWidth="10.0" prefWidth="86.0" />
-                                        <ColumnConstraints minWidth="10.0" prefWidth="86.0" />
-                                        <ColumnConstraints minWidth="10.0" prefWidth="86.0" />
+                                        <ColumnConstraints minWidth="10.0" prefWidth="86.0"/>
+                                        <ColumnConstraints minWidth="10.0" prefWidth="86.0"/>
+                                        <ColumnConstraints minWidth="10.0" prefWidth="86.0"/>
+                                        <ColumnConstraints minWidth="10.0" prefWidth="86.0"/>
+                                        <ColumnConstraints minWidth="10.0" prefWidth="86.0"/>
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="86.0" />
-                                        <RowConstraints minHeight="10.0" prefHeight="86.0" />
+                                        <RowConstraints minHeight="10.0" prefHeight="86.0"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="86.0"/>
                                         <RowConstraints minHeight="10.0" prefHeight="86.0" />
                                         <RowConstraints minHeight="10.0" prefHeight="86.0" />
                                         <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="81.0" />
