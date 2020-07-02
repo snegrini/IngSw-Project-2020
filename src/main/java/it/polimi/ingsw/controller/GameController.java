@@ -316,8 +316,10 @@ public class GameController implements Observer, Serializable {
      */
     public void win() {
         broadcastWinMessage(turnController.getActivePlayer());
-        endGame();
+        //endGame();
+        setGameState(GameState.END);
     }
+
 
     /**
      * Broadcasts a message to all the clients connected.
@@ -745,6 +747,13 @@ public class GameController implements Observer, Serializable {
     public boolean isGameStarted() {
         return this.gameState != GameState.LOGIN;
     }
+
+    /**
+     * Checks if the game is already finished.
+     *
+     * @return {@code true} if the game is finished, {@code false} otherwise.
+     */
+    public boolean isGameFinished() { return this.gameState == GameState.END;}
 
     /**
      * Return Turn Controller of the Game.

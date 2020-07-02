@@ -88,9 +88,13 @@ public class Server {
 
                 gameController.endGame();
                 clientHandlerMap.clear();
+            } else if(gameController.isGameFinished()) {
+                gameController.endGame();
+                clientHandlerMap.clear();
             }
         }
     }
+
 
     /**
      * Returns the corresponding nickname of a ClientHandler.
