@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.board.ReducedSpace;
+import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.player.ReducedWorker;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.ViewObservable;
@@ -18,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,17 +53,23 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     @FXML
     private Label player1Label;
     @FXML
+    private Circle player1Color;
+    @FXML
     private ImageView god1Image;
     @FXML
     private ImageView player1Img;
     @FXML
     private Label player2Label;
     @FXML
+    private Circle player2Color;
+    @FXML
     private ImageView god2Image;
     @FXML
     private ImageView player2Img;
     @FXML
     private Label player3Label;
+    @FXML
+    private Circle player3Color;
     @FXML
     private ImageView player3Img;
     @FXML
@@ -118,6 +126,10 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         god1Image.setVisible(false);
         god2Image.setVisible(false);
         god3Image.setVisible(false);
+
+        player1Color.setVisible(false);
+        player2Color.setVisible(false);
+        player3Color.setVisible(false);
 
         player1Img.setVisible(false);
         player2Img.setVisible(false);
@@ -545,16 +557,21 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      * @param gods         a list of player's gods.
      * @param activePlayer the nickname of the playing player.
      */
-    public void updateMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
+    public void updateMatchInfo(List<String> players, List<Color> colors, List<ReducedGod> gods, String activePlayer) {
         if (players != null && gods != null) {
             this.gods = gods; // save gods for later usage.
             player1Label.setText(players.get(0));
+            player1Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(0).getText()));
+            player1Color.setVisible(true);
             Image img1 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(0).getName().toLowerCase() + ".png"));
             god1Image.setImage(img1);
             god1Image.setVisible(true);
             player1Img.setVisible(true);
 
             player2Label.setText(players.get(1));
+            player2Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(1).getText()));
+            player2Color.setVisible(true);
+
             Image img2 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(1).getName().toLowerCase() + ".png"));
             god2Image.setImage(img2);
             god2Image.setVisible(true);
@@ -566,6 +583,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             if (players.size() == 3 && gods.size() == 3) {
                 // Sets 3rd player information.
                 player3Label.setText(players.get(2));
+                player3Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(2).getText()));
+                player3Color.setVisible(true);
 
                 Image img3 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(2).getName().toLowerCase() + ".png"));
                 god3Image.setImage(img3);
@@ -575,6 +594,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             } else {
                 god3Image.setVisible(false);
                 player3Label.setVisible(false);
+                player3Color.setVisible(false);
                 player3Img.setVisible(false);
             }
         } else {
