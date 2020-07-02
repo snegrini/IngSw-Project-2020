@@ -139,6 +139,7 @@ public interface View {
      *
      * @param players      the list of currently playing players.
      * @param gods         the list of gods chosen by each player.
+     * @param colors       a list of player's color.
      * @param activePlayer the currently active player (player's turn).
      */
     void showMatchInfo(List<String> players, List<ReducedGod> gods, List<Color> colors, String activePlayer);

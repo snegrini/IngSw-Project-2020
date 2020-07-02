@@ -555,6 +555,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      *
      * @param players      a list of player's nicknames.
      * @param gods         a list of player's gods.
+     * @param colors       a list of player's color.
      * @param activePlayer the nickname of the playing player.
      */
     public void updateMatchInfo(List<String> players, List<ReducedGod> gods, List<Color> colors, String activePlayer) {
