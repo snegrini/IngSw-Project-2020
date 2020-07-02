@@ -2743,7 +2743,7 @@
             </g>
         </g>
         <g transform="translate(-78,-46) scale(1,1)">
-            <path fill="none" stroke="#ff0000" d="M 1712 264 L 1664 264 L 1664 936 L 672 936 L 672 1056"
+            <path fill="none" stroke="#ff0000" d="M 1712 272 L 1664 272 L 1664 936 L 672 936 L 672 1056"
                   stroke-miterlimit="10" stroke-dasharray="3"/>
         </g>
         <g transform="translate(-78,-46) scale(1,1)">
@@ -2753,6 +2753,44 @@
         <g transform="translate(-78,-46) scale(1,1)">
             <path fill="none" stroke="#ff0000"
                   d="M 663.580964487968 1035.6746502847518 L 672 1056 L 680.419035512032 1035.6746502847518 L 663.580964487968 1035.6746502847518"
+                  stroke-miterlimit="10"/>
+        </g>
+        <g transform="translate(-78,-46) scale(1,1)">
+            <rect fill="#C0C0C0" stroke="none" x="1623" y="167" width="95.72802734375" height="47" opacity="0.2"/>
+        </g>
+        <g transform="translate(-78,-46) scale(1,1)">
+            <rect fill="#ffffff" stroke="none" x="1616" y="160" width="95.72802734375" height="47"/>
+        </g>
+        <g transform="translate(-78,-46) scale(1,1)">
+            <path fill="none" stroke="#000000"
+                  d="M 1616 160 L 1711.72802734375 160 L 1711.72802734375 207 L 1616 207 L 1616 160 Z Z"
+                  stroke-miterlimit="10"/>
+        </g>
+        <g transform="translate(-78,-46) scale(1,1)">
+            <path fill="none" stroke="#000000" d="M 1616 198 L 1711.72802734375 198" stroke-miterlimit="10"/>
+        </g>
+        <g transform="translate(-78,-46) scale(1,1)">
+            <g>
+                <path fill="none" stroke="none"/>
+                <text fill="#000000" stroke="none" font-family="Arial" font-size="13px" font-style="normal"
+                      font-weight="normal" text-decoration="none" x="1620.5" y="177.5">«enumeration»
+                </text>
+            </g>
+        </g>
+        <g transform="translate(-78,-46) scale(1,1)">
+            <g>
+                <path fill="none" stroke="none"/>
+                <text fill="#000000" stroke="none" font-family="Arial" font-size="13px" font-style="normal"
+                      font-weight="bold" text-decoration="none" x="1630.986328125" y="192.5">GameState
+                </text>
+            </g>
+        </g>
+        <g transform="translate(-78,-46) scale(1,1)">
+            <path fill="none" stroke="#000000" d="M 1664 207 L 1664 256 L 1712 256" stroke-miterlimit="10"/>
+        </g>
+        <g transform="translate(-78,-46) scale(1,1)">
+            <path fill="none" stroke="#000000"
+                  d="M 1701.837325142376 260.209517756016 L 1712 256 L 1701.837325142376 251.790482243984"
                   stroke-miterlimit="10"/>
         </g>
     </g>
