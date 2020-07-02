@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class MatchInfoMessage extends Message {
 
-    // TODO Add serial
+    private static final long serialVersionUID = -9048130764283419918L;
     private final List<String> activePlayers;
     private final List<ReducedGod> activeGods;
     private final List<Color> activeColors;
