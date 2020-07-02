@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: ColorSceneController</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: ColorSceneController (it.polimi.ingsw.view.gui.scene)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">ColorSceneController</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 10)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 17)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
+        <i>4</i>&nbsp;import it.polimi.ingsw.observer.ViewObservable;
+        <i>5</i>&nbsp;import it.polimi.ingsw.observer.ViewObserver;
+        <i>6</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
+        <i>7</i>&nbsp;import javafx.event.Event;
+        <i>8</i>&nbsp;import javafx.fxml.FXML;
+        <i>9</i>&nbsp;import javafx.scene.control.Button;
+        <i>10</i>&nbsp;import javafx.scene.image.ImageView;
+        <i>11</i>&nbsp;import javafx.scene.input.MouseEvent;
+        <i>12</i>&nbsp;
+        <i>13</i>&nbsp;import java.util.ArrayList;
+        <i>14</i>&nbsp;import java.util.List;
+        <i>15</i>&nbsp;
+        <i>16</i>&nbsp;/**
+        <i>17</i>&nbsp; * This class implements the controller of the scene where users pick their own color.
+        <i>18</i>&nbsp; */
+        <i>19</i>&nbsp;public class ColorSceneController extends ViewObservable implements GenericSceneController {
+        <i>20</i>&nbsp;
+        <i>21</i>&nbsp; private List&lt;Color&gt; availableColors;
+        <i>22</i>&nbsp;
+        <i>23</i>&nbsp; @FXML
+        <i>24</i>&nbsp; private ImageView blueWorker;
+        <i>25</i>&nbsp; @FXML
+        <i>26</i>&nbsp; private ImageView greenWorker;
+        <i>27</i>&nbsp; @FXML
+        <i>28</i>&nbsp; private ImageView redWorker;
+        <i>29</i>&nbsp; @FXML
+        <i>30</i>&nbsp; private Button backToMenuBtn;
+        <i>31</i>&nbsp;
+        <i>32</i>&nbsp; /**
+        <i>33</i>&nbsp; * Default constructor.
+        <i>34</i>&nbsp; */
+        <b class="nc"><i>35</i>&nbsp; public ColorSceneController() {</b>
+        <b class="nc"><i>36</i>&nbsp; this.availableColors = new ArrayList&lt;&gt;();</b>
+        <i>37</i>&nbsp; }
+        <i>38</i>&nbsp;
+        <i>39</i>&nbsp; @FXML
+        <i>40</i>&nbsp; public void initialize() {
+        <b class="nc"><i>41</i>&nbsp; blueWorker.setDisable(!availableColors.contains(Color.BLUE));</b>
+        <b class="nc"><i>42</i>&nbsp; greenWorker.setDisable(!availableColors.contains(Color.GREEN));</b>
+        <b class="nc"><i>43</i>&nbsp; redWorker.setDisable(!availableColors.contains(Color.RED));</b>
+        <i>44</i>&nbsp;
+        <b class="nc"><i>45</i>&nbsp; blueWorker.addEventHandler(MouseEvent.MOUSE_CLICKED, event -&gt;
+            onWorkerClick(Color.BLUE));</b>
+        <b class="nc"><i>46</i>&nbsp; greenWorker.addEventHandler(MouseEvent.MOUSE_CLICKED, event -&gt;
+            onWorkerClick(Color.GREEN));</b>
+        <b class="nc"><i>47</i>&nbsp; redWorker.addEventHandler(MouseEvent.MOUSE_CLICKED, event -&gt;
+            onWorkerClick(Color.RED));</b>
+        <i>48</i>&nbsp;
+        <b class="nc"><i>49</i>&nbsp; backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED,
+            this::onBackToMenuBtnClick);</b>
+        <i>50</i>&nbsp; }
+        <i>51</i>&nbsp;
+        <i>52</i>&nbsp; /**
+        <i>53</i>&nbsp; * Handle the click on the worker.
+        <i>54</i>&nbsp; *
+        <i>55</i>&nbsp; * @param color color picked by user.
+        <i>56</i>&nbsp; */
+        <i>57</i>&nbsp; private void onWorkerClick(Color color) {
+        <b class="nc"><i>58</i>&nbsp; blueWorker.setDisable(true);</b>
+        <b class="nc"><i>59</i>&nbsp; greenWorker.setDisable(true);</b>
+        <b class="nc"><i>60</i>&nbsp; redWorker.setDisable(true);</b>
+        <b class="nc"><i>61</i>&nbsp; new Thread(() -&gt; notifyObserver(obs -&gt;
+            obs.onUpdateWorkersColor(color))).start();</b>
+        <i>62</i>&nbsp; }
+        <i>63</i>&nbsp;
+        <i>64</i>&nbsp; /**
+        <i>65</i>&nbsp; * Handle the click on the back to menu button.
+        <i>66</i>&nbsp; */
+        <i>67</i>&nbsp; private void onBackToMenuBtnClick(Event event) {
+        <b class="nc"><i>68</i>&nbsp; backToMenuBtn.setDisable(true);</b>
+        <b class="nc"><i>69</i>&nbsp; new Thread(() -&gt; notifyObserver(ViewObserver::onDisconnection)).start();</b>
+        <b class="nc"><i>70</i>&nbsp; SceneController.changeRootPane(observers, event, &quot;menu_scene.fxml&quot;);</b>
+        <i>71</i>&nbsp; }
+        <i>72</i>&nbsp;
+        <i>73</i>&nbsp; /**
+        <i>74</i>&nbsp; * Set the colors which are pickable by user.
+        <i>75</i>&nbsp; *
+        <i>76</i>&nbsp; * @param availableColors available colors.
+        <i>77</i>&nbsp; */
+        <i>78</i>&nbsp; public void setAvailableColors(List&lt;Color&gt; availableColors) {
+        <b class="nc"><i>79</i>&nbsp; this.availableColors = availableColors;</b>
+        <i>80</i>&nbsp; }
+        <i>81</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-07-02 21:36</div>
+</div>
+</body>
+</html>

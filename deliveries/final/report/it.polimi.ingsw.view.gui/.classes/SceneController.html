@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: SceneController</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.view.gui</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: SceneController (it.polimi.ingsw.view.gui)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">SceneController</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 12)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 64)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.network.client.Client;
+        <i>4</i>&nbsp;import it.polimi.ingsw.observer.ViewObservable;
+        <i>5</i>&nbsp;import it.polimi.ingsw.observer.ViewObserver;
+        <i>6</i>&nbsp;import it.polimi.ingsw.view.gui.scene.AlertSceneController;
+        <i>7</i>&nbsp;import it.polimi.ingsw.view.gui.scene.GenericSceneController;
+        <i>8</i>&nbsp;import it.polimi.ingsw.view.gui.scene.GodInfoSceneController;
+        <i>9</i>&nbsp;import it.polimi.ingsw.view.gui.scene.WinSceneController;
+        <i>10</i>&nbsp;import javafx.event.Event;
+        <i>11</i>&nbsp;import javafx.fxml.FXMLLoader;
+        <i>12</i>&nbsp;import javafx.scene.Node;
+        <i>13</i>&nbsp;import javafx.scene.Parent;
+        <i>14</i>&nbsp;import javafx.scene.Scene;
+        <i>15</i>&nbsp;
+        <i>16</i>&nbsp;import java.io.IOException;
+        <i>17</i>&nbsp;import java.util.List;
+        <i>18</i>&nbsp;
+        <i>19</i>&nbsp;/**
+        <i>20</i>&nbsp; * This class implements the controller of a generic scene.
+        <i>21</i>&nbsp; */
+        <b class="nc"><i>22</i>&nbsp;public class SceneController extends ViewObservable {</b>
+        <i>23</i>&nbsp;
+        <i>24</i>&nbsp; public static final String GOD_IMAGE_PREFIX = &quot;/images/gods/podium_&quot;;
+        <i>25</i>&nbsp;
+        <i>26</i>&nbsp; private static Scene activeScene;
+        <i>27</i>&nbsp; private static GenericSceneController activeController;
+        <i>28</i>&nbsp;
+        <i>29</i>&nbsp; /**
+        <i>30</i>&nbsp; * Returns the active scene.
+        <i>31</i>&nbsp; *
+        <i>32</i>&nbsp; * @return active scene.
+        <i>33</i>&nbsp; */
+        <i>34</i>&nbsp; public static Scene getActiveScene() {
+        <b class="nc"><i>35</i>&nbsp; return activeScene;</b>
+        <i>36</i>&nbsp; }
+        <i>37</i>&nbsp;
+        <i>38</i>&nbsp; /**
+        <i>39</i>&nbsp; * Returns the active controller.
+        <i>40</i>&nbsp; *
+        <i>41</i>&nbsp; * @return active controller.
+        <i>42</i>&nbsp; */
+        <i>43</i>&nbsp; public static GenericSceneController getActiveController() {
+        <b class="nc"><i>44</i>&nbsp; return activeController;</b>
+        <i>45</i>&nbsp; }
+        <i>46</i>&nbsp;
+        <i>47</i>&nbsp;
+        <i>48</i>&nbsp; /**
+        <i>49</i>&nbsp; * Changes the root panel of the scene argument.
+        <i>50</i>&nbsp; *
+        <i>51</i>&nbsp; * @param observerList a list of observers to be set into the scene controller.
+        <i>52</i>&nbsp; * @param scene the scene whose change the root panel. This will become the active scene.
+        <i>53</i>&nbsp; * @param fxml the new scene fxml name. It must include the extension &quot;.fxml&quot; (i.e.
+        next_scene.fxml).
+        <i>54</i>&nbsp; * @param &lt;T&gt; this is the type parameter.
+        <i>55</i>&nbsp; * @return the controller of the new scene loaded by the FXMLLoader.
+        <i>56</i>&nbsp; */
+        <i>57</i>&nbsp; public static &lt;T&gt; T changeRootPane(List&lt;ViewObserver&gt; observerList, Scene scene,
+        String fxml) {
+        <b class="nc"><i>58</i>&nbsp; T controller = null;</b>
+        <i>59</i>&nbsp;
+        <i>60</i>&nbsp; try {
+        <b class="nc"><i>61</i>&nbsp; FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(&quot;/fxml/&quot;
+            + fxml));</b>
+        <b class="nc"><i>62</i>&nbsp; Parent root = loader.load();</b>
+        <b class="nc"><i>63</i>&nbsp; controller = loader.getController();</b>
+        <b class="nc"><i>64</i>&nbsp; ((ViewObservable) controller).addAllObservers(observerList);</b>
+        <i>65</i>&nbsp;
+        <b class="nc"><i>66</i>&nbsp; activeController = (GenericSceneController) controller;</b>
+        <b class="nc"><i>67</i>&nbsp; activeScene = scene;</b>
+        <b class="nc"><i>68</i>&nbsp; activeScene.setRoot(root);</b>
+        <b class="nc"><i>69</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>70</i>&nbsp; Client.LOGGER.severe(e.getMessage());</b>
+        <b class="nc"><i>71</i>&nbsp; }</b>
+        <b class="nc"><i>72</i>&nbsp; return controller;</b>
+        <i>73</i>&nbsp; }
+        <i>74</i>&nbsp;
+        <i>75</i>&nbsp; /**
+        <i>76</i>&nbsp; * Changes the root panel of the scene argument.
+        <i>77</i>&nbsp; *
+        <i>78</i>&nbsp; * @param observerList a list of observers to be set into the scene controller.
+        <i>79</i>&nbsp; * @param event the event which is happened into the scene.
+        <i>80</i>&nbsp; * @param fxml the new scene fxml name. It must include the extension &quot;.fxml&quot; (i.e.
+        next_scene.fxml).
+        <i>81</i>&nbsp; * @param &lt;T&gt; this is the type parameter.
+        <i>82</i>&nbsp; * @return the controller of the new scene loaded by the FXMLLoader.
+        <i>83</i>&nbsp; */
+        <i>84</i>&nbsp; public static &lt;T&gt; T changeRootPane(List&lt;ViewObserver&gt; observerList, Event event,
+        String fxml) {
+        <b class="nc"><i>85</i>&nbsp; Scene scene = ((Node) event.getSource()).getScene();</b>
+        <b class="nc"><i>86</i>&nbsp; return changeRootPane(observerList, scene, fxml);</b>
+        <i>87</i>&nbsp; }
+        <i>88</i>&nbsp;
+        <i>89</i>&nbsp; /**
+        <i>90</i>&nbsp; * Changes the root panel of the active scene.
+        <i>91</i>&nbsp; *
+        <i>92</i>&nbsp; * @param observerList a list of observers to be set into the scene controller.
+        <i>93</i>&nbsp; * @param fxml the new scene fxml name. It must include the extension &quot;.fxml&quot; (i.e.
+        next_scene.fxml).
+        <i>94</i>&nbsp; * @param &lt;T&gt; this is the type parameter.
+        <i>95</i>&nbsp; * @return the controller of the new scene loaded by the FXMLLoader.
+        <i>96</i>&nbsp; */
+        <i>97</i>&nbsp; public static &lt;T&gt; T changeRootPane(List&lt;ViewObserver&gt; observerList, String fxml) {
+        <b class="nc"><i>98</i>&nbsp; return changeRootPane(observerList, activeScene, fxml);</b>
+        <i>99</i>&nbsp; }
+        <i>100</i>&nbsp;
+        <i>101</i>&nbsp; /**
+        <i>102</i>&nbsp; * Changes the root panel of the scene argument.
+        <i>103</i>&nbsp; * Offers the possibility to set a custom controller to the FXMLLoader.
+        <i>104</i>&nbsp; *
+        <i>105</i>&nbsp; * @param controller the custom controller that will be set into the FXMLLoader.
+        <i>106</i>&nbsp; * @param scene the scene whose change the root panel. This will become the active scene.
+        <i>107</i>&nbsp; * @param fxml the new scene fxml name. It must include the extension &quot;.fxml&quot; (i.e.
+        next_scene.fxml).
+        <i>108</i>&nbsp; */
+        <i>109</i>&nbsp; public static void changeRootPane(GenericSceneController controller, Scene scene, String fxml)
+        {
+        <i>110</i>&nbsp; try {
+        <b class="nc"><i>111</i>&nbsp; FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(&quot;/fxml/&quot;
+            + fxml));</b>
+        <i>112</i>&nbsp;
+        <i>113</i>&nbsp; // Setting the controller BEFORE the load() method.
+        <b class="nc"><i>114</i>&nbsp; loader.setController(controller);</b>
+        <b class="nc"><i>115</i>&nbsp; activeController = controller;</b>
+        <b class="nc"><i>116</i>&nbsp; Parent root = loader.load();</b>
+        <i>117</i>&nbsp;
+        <b class="nc"><i>118</i>&nbsp; activeScene = scene;</b>
+        <b class="nc"><i>119</i>&nbsp; activeScene.setRoot(root);</b>
+        <b class="nc"><i>120</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>121</i>&nbsp; Client.LOGGER.severe(e.getMessage());</b>
+        <b class="nc"><i>122</i>&nbsp; }</b>
+        <i>123</i>&nbsp; }
+        <i>124</i>&nbsp;
+        <i>125</i>&nbsp; /**
+        <i>126</i>&nbsp; * Changes the root panel of the scene argument.
+        <i>127</i>&nbsp; * Offers the possibility to set a custom controller to the FXMLLoader.
+        <i>128</i>&nbsp; *
+        <i>129</i>&nbsp; * @param controller the custom controller that will be set into the FXMLLoader.
+        <i>130</i>&nbsp; * @param event the event which is happened into the scene.
+        <i>131</i>&nbsp; * @param fxml the new scene fxml name. It must include the extension &quot;.fxml&quot; (i.e.
+        next_scene.fxml).
+        <i>132</i>&nbsp; */
+        <i>133</i>&nbsp; public static void changeRootPane(GenericSceneController controller, Event event, String fxml)
+        {
+        <b class="nc"><i>134</i>&nbsp; Scene scene = ((Node) event.getSource()).getScene();</b>
+        <b class="nc"><i>135</i>&nbsp; changeRootPane(controller, scene, fxml);</b>
+        <i>136</i>&nbsp; }
+        <i>137</i>&nbsp;
+        <i>138</i>&nbsp; /**
+        <i>139</i>&nbsp; * Changes the root panel of the active scene.
+        <i>140</i>&nbsp; * Offers the possibility to set a custom controller to the FXMLLoader.
+        <i>141</i>&nbsp; *
+        <i>142</i>&nbsp; * @param controller the custom controller that will be set into the FXMLLoader.
+        <i>143</i>&nbsp; * @param fxml the new scene fxml name. It must include the extension &quot;.fxml&quot; (i.e.
+        next_scene.fxml).
+        <i>144</i>&nbsp; */
+        <i>145</i>&nbsp; public static void changeRootPane(GenericSceneController controller, String fxml) {
+        <b class="nc"><i>146</i>&nbsp; changeRootPane(controller, activeScene, fxml);</b>
+        <i>147</i>&nbsp; }
+        <i>148</i>&nbsp;
+        <i>149</i>&nbsp; /**
+        <i>150</i>&nbsp; * Shows a custom message in a popup.
+        <i>151</i>&nbsp; *
+        <i>152</i>&nbsp; * @param title the title of the popup.
+        <i>153</i>&nbsp; * @param message the message of the popup.
+        <i>154</i>&nbsp; */
+        <i>155</i>&nbsp; public static void showAlert(String title, String message) {
+        <b class="nc"><i>156</i>&nbsp; FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(&quot;/fxml/alert_scene.fxml&quot;));</b>
+        <i>157</i>&nbsp;
+        <i>158</i>&nbsp; Parent parent;
+        <i>159</i>&nbsp; try {
+        <b class="nc"><i>160</i>&nbsp; parent = loader.load();</b>
+        <b class="nc"><i>161</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>162</i>&nbsp; Client.LOGGER.severe(e.getMessage());</b>
+        <i>163</i>&nbsp; return;
+        <b class="nc"><i>164</i>&nbsp; }</b>
+        <b class="nc"><i>165</i>&nbsp; AlertSceneController alertSceneController = loader.getController();</b>
+        <b class="nc"><i>166</i>&nbsp; Scene alertScene = new Scene(parent);</b>
+        <b class="nc"><i>167</i>&nbsp; alertSceneController.setScene(alertScene);</b>
+        <b class="nc"><i>168</i>&nbsp; alertSceneController.setAlertTitle(title);</b>
+        <b class="nc"><i>169</i>&nbsp; alertSceneController.setAlertMessage(message);</b>
+        <b class="nc"><i>170</i>&nbsp; alertSceneController.displayAlert();</b>
+        <i>171</i>&nbsp; }
+        <i>172</i>&nbsp;
+        <i>173</i>&nbsp; /**
+        <i>174</i>&nbsp; * Shows a Gods Information in a popup.
+        <i>175</i>&nbsp; *
+        <i>176</i>&nbsp; * @param name the name of the God.
+        <i>177</i>&nbsp; * @param caption the caption of the God.
+        <i>178</i>&nbsp; * @param description the description of the God.
+        <i>179</i>&nbsp; */
+        <i>180</i>&nbsp; public static void showGodInformation(String name, String caption, String description) {
+        <b class="nc"><i>181</i>&nbsp; FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(&quot;/fxml/god_info_scene.fxml&quot;));</b>
+        <i>182</i>&nbsp;
+        <i>183</i>&nbsp; Parent parent;
+        <i>184</i>&nbsp; try {
+        <b class="nc"><i>185</i>&nbsp; parent = loader.load();</b>
+        <b class="nc"><i>186</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>187</i>&nbsp; Client.LOGGER.severe(e.getMessage());</b>
+        <i>188</i>&nbsp; return;
+        <b class="nc"><i>189</i>&nbsp; }</b>
+        <b class="nc"><i>190</i>&nbsp; GodInfoSceneController godInfoSceneController = loader.getController();</b>
+        <b class="nc"><i>191</i>&nbsp; Scene godInfoScene = new Scene(parent);</b>
+        <b class="nc"><i>192</i>&nbsp; godInfoSceneController.setScene(godInfoScene);</b>
+        <b class="nc"><i>193</i>&nbsp; godInfoSceneController.setGodName(name);</b>
+        <b class="nc"><i>194</i>&nbsp; godInfoSceneController.setGodCaption(caption);</b>
+        <b class="nc"><i>195</i>&nbsp; godInfoSceneController.setGodDescription(description);</b>
+        <b class="nc"><i>196</i>&nbsp; godInfoSceneController.setGodImage();</b>
+        <b class="nc"><i>197</i>&nbsp; godInfoSceneController.displayGodInfo();</b>
+        <i>198</i>&nbsp; }
+        <i>199</i>&nbsp;
+        <i>200</i>&nbsp; /**
+        <i>201</i>&nbsp; * Shows the win message popup.
+        <i>202</i>&nbsp; *
+        <i>203</i>&nbsp; * @param nickname the nickname of the winning player.
+        <i>204</i>&nbsp; */
+        <i>205</i>&nbsp; public static void showWin(String nickname) {
+        <b class="nc"><i>206</i>&nbsp; FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(&quot;/fxml/win_scene.fxml&quot;));</b>
+        <i>207</i>&nbsp;
+        <i>208</i>&nbsp; Parent parent;
+        <i>209</i>&nbsp; try {
+        <b class="nc"><i>210</i>&nbsp; parent = loader.load();</b>
+        <b class="nc"><i>211</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>212</i>&nbsp; Client.LOGGER.severe(e.getMessage());</b>
+        <i>213</i>&nbsp; return;
+        <b class="nc"><i>214</i>&nbsp; }</b>
+        <b class="nc"><i>215</i>&nbsp; WinSceneController winSceneController = loader.getController();</b>
+        <b class="nc"><i>216</i>&nbsp; Scene winScene = new Scene(parent);</b>
+        <b class="nc"><i>217</i>&nbsp; winSceneController.setScene(winScene);</b>
+        <b class="nc"><i>218</i>&nbsp; winSceneController.setWinnerNickname(nickname);</b>
+        <b class="nc"><i>219</i>&nbsp; winSceneController.displayWinScene();</b>
+        <i>220</i>&nbsp; }
+        <i>221</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-07-02 21:36</div>
+</div>
+</body>
+</html>

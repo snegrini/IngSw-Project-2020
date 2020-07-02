@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: ColorCli</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.view.cli</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: ColorCli (it.polimi.ingsw.view.cli)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">ColorCli</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 3)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 11)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.cli;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;/**
+        <i>4</i>&nbsp; * This class contains all colors used in Cli.
+        <i>5</i>&nbsp; */
+        <b class="nc"><i>6</i>&nbsp;public enum ColorCli {</b>
+        <i>7</i>&nbsp; //Color end string, color reset
+        <b class="nc"><i>8</i>&nbsp; RESET(&quot;\033[0m&quot;),</b>
+        <b class="nc"><i>9</i>&nbsp; CLEAR(&quot;\033[H\033[2J&quot;),</b>
+        <i>10</i>&nbsp;
+        <i>11</i>&nbsp; // Regular Colors. Normal color, no bold, background color etc.
+        <b class="nc"><i>12</i>&nbsp; RED(&quot;\033[0;31m&quot;), // RED</b>
+        <b class="nc"><i>13</i>&nbsp; GREEN(&quot;\033[38;5;28m&quot;), // GREEN &quot;\u001B[32m&quot;</b>
+        <b class="nc"><i>14</i>&nbsp; BLUE(&quot;\033[0;34m&quot;), // BLUE</b>
+        <i>15</i>&nbsp;
+        <i>16</i>&nbsp; // Bold
+        <b class="nc"><i>17</i>&nbsp; YELLOW_BOLD(&quot;\033[1;33m&quot;), // YELLOW</b>
+        <b class="nc"><i>18</i>&nbsp; CYAN_BOLD(&quot;\033[1;36m&quot;); // CYAN</b>
+        <i>19</i>&nbsp;
+        <i>20</i>&nbsp; private final String code;
+        <i>21</i>&nbsp;
+        <b class="nc"><i>22</i>&nbsp; ColorCli(String code) {</b>
+        <b class="nc"><i>23</i>&nbsp; this.code = code;</b>
+        <i>24</i>&nbsp; }
+        <i>25</i>&nbsp;
+        <i>26</i>&nbsp; @Override
+        <i>27</i>&nbsp; public String toString() {
+        <b class="nc"><i>28</i>&nbsp; return code;</b>
+        <i>29</i>&nbsp; }
+        <i>30</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-07-02 21:36</div>
+</div>
+</body>
+</html>

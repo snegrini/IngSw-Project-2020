@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: SocketClientHandler</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.network.server</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: SocketClientHandler (it.polimi.ingsw.network.server)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">SocketClientHandler</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 8)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 48)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.network.server;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.network.message.Message;
+        <i>4</i>&nbsp;import it.polimi.ingsw.network.message.MessageType;
+        <i>5</i>&nbsp;
+        <i>6</i>&nbsp;import java.io.IOException;
+        <i>7</i>&nbsp;import java.io.ObjectInputStream;
+        <i>8</i>&nbsp;import java.io.ObjectOutputStream;
+        <i>9</i>&nbsp;import java.net.Socket;
+        <i>10</i>&nbsp;
+        <i>11</i>&nbsp;/**
+        <i>12</i>&nbsp; * Socket implementation of the {@link ClientHandler} interface.
+        <i>13</i>&nbsp; */
+        <i>14</i>&nbsp;public class SocketClientHandler implements ClientHandler, Runnable {
+        <i>15</i>&nbsp; private final Socket client;
+        <i>16</i>&nbsp; private final SocketServer socketServer;
+        <i>17</i>&nbsp;
+        <i>18</i>&nbsp; private boolean connected;
+        <i>19</i>&nbsp;
+        <i>20</i>&nbsp; private final Object inputLock;
+        <i>21</i>&nbsp; private final Object outputLock;
+        <i>22</i>&nbsp;
+        <i>23</i>&nbsp; private ObjectOutputStream output;
+        <i>24</i>&nbsp; private ObjectInputStream input;
+        <i>25</i>&nbsp;
+        <i>26</i>&nbsp; /**
+        <i>27</i>&nbsp; * Default constructor.
+        <i>28</i>&nbsp; *
+        <i>29</i>&nbsp; * @param socketServer the socket of the server.
+        <i>30</i>&nbsp; * @param client the client connecting.
+        <i>31</i>&nbsp; */
+        <b class="nc"><i>32</i>&nbsp; public SocketClientHandler(SocketServer socketServer, Socket client) {</b>
+        <b class="nc"><i>33</i>&nbsp; this.socketServer = socketServer;</b>
+        <b class="nc"><i>34</i>&nbsp; this.client = client;</b>
+        <b class="nc"><i>35</i>&nbsp; this.connected = true;</b>
+        <i>36</i>&nbsp;
+        <b class="nc"><i>37</i>&nbsp; this.inputLock = new Object();</b>
+        <b class="nc"><i>38</i>&nbsp; this.outputLock = new Object();</b>
+        <i>39</i>&nbsp;
+        <i>40</i>&nbsp; try {
+        <b class="nc"><i>41</i>&nbsp; this.output = new ObjectOutputStream(client.getOutputStream());</b>
+        <b class="nc"><i>42</i>&nbsp; this.input = new ObjectInputStream(client.getInputStream());</b>
+        <b class="nc"><i>43</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>44</i>&nbsp; Server.LOGGER.severe(e.getMessage());</b>
+        <b class="nc"><i>45</i>&nbsp; }</b>
+        <i>46</i>&nbsp; }
+        <i>47</i>&nbsp;
+        <i>48</i>&nbsp; @Override
+        <i>49</i>&nbsp; public void run() {
+        <i>50</i>&nbsp; try {
+        <b class="nc"><i>51</i>&nbsp; handleClientConnection();</b>
+        <b class="nc"><i>52</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>53</i>&nbsp; Server.LOGGER.severe(&quot;Client &quot; + client.getInetAddress() + &quot;
+            connection dropped.&quot;);</b>
+        <b class="nc"><i>54</i>&nbsp; disconnect();</b>
+        <b class="nc"><i>55</i>&nbsp; }</b>
+        <i>56</i>&nbsp; }
+        <i>57</i>&nbsp;
+        <i>58</i>&nbsp; /**
+        <i>59</i>&nbsp; * Handles the connection of a new client and keep listening to the socket for new messages.
+        <i>60</i>&nbsp; *
+        <i>61</i>&nbsp; * @throws IOException any of the usual Input/Output related exceptions.
+        <i>62</i>&nbsp; */
+        <i>63</i>&nbsp; private void handleClientConnection() throws IOException {
+        <b class="nc"><i>64</i>&nbsp; Server.LOGGER.info(&quot;Client connected from &quot; + client.getInetAddress());</b>
+        <i>65</i>&nbsp;
+        <i>66</i>&nbsp; try {
+        <b class="nc"><i>67</i>&nbsp; while (!Thread.currentThread().isInterrupted()) {</b>
+        <b class="nc"><i>68</i>&nbsp; synchronized (inputLock) {</b>
+        <b class="nc"><i>69</i>&nbsp; Message message = (Message) input.readObject();</b>
+        <i>70</i>&nbsp;
+        <b class="nc"><i>71</i>&nbsp; if (message != null &amp;&amp; message.getMessageType() != MessageType.PING) {</b>
+        <b class="nc"><i>72</i>&nbsp; if (message.getMessageType() == MessageType.LOGIN_REQUEST) {</b>
+        <b class="nc"><i>73</i>&nbsp; socketServer.addClient(message.getNickname(), this);</b>
+        <i>74</i>&nbsp; } else {
+        <b class="nc"><i>75</i>&nbsp; Server.LOGGER.info(() -&gt; &quot;Received: &quot; + message);</b>
+        <b class="nc"><i>76</i>&nbsp; socketServer.onMessageReceived(message);</b>
+        <i>77</i>&nbsp; }
+        <i>78</i>&nbsp; }
+        <b class="nc"><i>79</i>&nbsp; }</b>
+        <i>80</i>&nbsp; }
+        <b class="nc"><i>81</i>&nbsp; } catch (ClassCastException | ClassNotFoundException e) {</b>
+        <b class="nc"><i>82</i>&nbsp; Server.LOGGER.severe(&quot;Invalid stream from client&quot;);</b>
+        <b class="nc"><i>83</i>&nbsp; }</b>
+        <b class="nc"><i>84</i>&nbsp; client.close();</b>
+        <i>85</i>&nbsp; }
+        <i>86</i>&nbsp;
+        <i>87</i>&nbsp; /**
+        <i>88</i>&nbsp; * Returns the current status of the connection.
+        <i>89</i>&nbsp; *
+        <i>90</i>&nbsp; * @return {@code true} if the connection is still active, {@code false} otherwise.
+        <i>91</i>&nbsp; */
+        <i>92</i>&nbsp; @Override
+        <i>93</i>&nbsp; public boolean isConnected() {
+        <b class="nc"><i>94</i>&nbsp; return connected;</b>
+        <i>95</i>&nbsp; }
+        <i>96</i>&nbsp;
+        <i>97</i>&nbsp; /**
+        <i>98</i>&nbsp; * Disconnect the socket.
+        <i>99</i>&nbsp; */
+        <i>100</i>&nbsp; @Override
+        <i>101</i>&nbsp; public void disconnect() {
+        <b class="nc"><i>102</i>&nbsp; if (connected) {</b>
+        <i>103</i>&nbsp; try {
+        <b class="nc"><i>104</i>&nbsp; if (!client.isClosed()) {</b>
+        <b class="nc"><i>105</i>&nbsp; client.close();</b>
+        <i>106</i>&nbsp; }
+        <b class="nc"><i>107</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>108</i>&nbsp; Server.LOGGER.severe(e.getMessage());</b>
+        <b class="nc"><i>109</i>&nbsp; }</b>
+        <b class="nc"><i>110</i>&nbsp; connected = false;</b>
+        <b class="nc"><i>111</i>&nbsp; Thread.currentThread().interrupt();</b>
+        <i>112</i>&nbsp;
+        <b class="nc"><i>113</i>&nbsp; socketServer.onDisconnect(this);</b>
+        <i>114</i>&nbsp; }
+        <i>115</i>&nbsp; }
+        <i>116</i>&nbsp;
+        <i>117</i>&nbsp; /**
+        <i>118</i>&nbsp; * Sends a message to the client via socket.
+        <i>119</i>&nbsp; *
+        <i>120</i>&nbsp; * @param message the message to be sent.
+        <i>121</i>&nbsp; */
+        <i>122</i>&nbsp; @Override
+        <i>123</i>&nbsp; public void sendMessage(Message message) {
+        <i>124</i>&nbsp; try {
+        <b class="nc"><i>125</i>&nbsp; synchronized (outputLock) {</b>
+        <b class="nc"><i>126</i>&nbsp; output.writeObject(message);</b>
+        <b class="nc"><i>127</i>&nbsp; Server.LOGGER.info(() -&gt; &quot;Sent: &quot; + message);</b>
+        <b class="nc"><i>128</i>&nbsp; }</b>
+        <b class="nc"><i>129</i>&nbsp; } catch (IOException e) {</b>
+        <b class="nc"><i>130</i>&nbsp; Server.LOGGER.severe(e.getMessage());</b>
+        <b class="nc"><i>131</i>&nbsp; disconnect();</b>
+        <b class="nc"><i>132</i>&nbsp; }</b>
+        <i>133</i>&nbsp; }
+        <i>134</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-07-02 21:36</div>
+</div>
+</body>
+</html>

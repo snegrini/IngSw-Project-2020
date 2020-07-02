@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: ReducedSpace</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.model.board</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: ReducedSpace (it.polimi.ingsw.model.board)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">ReducedSpace</td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (1/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (5/ 5)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (11/ 11)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.board;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.model.player.ReducedWorker;
+        <i>4</i>&nbsp;
+        <i>5</i>&nbsp;import java.io.Serializable;
+        <i>6</i>&nbsp;
+        <i>7</i>&nbsp;/**
+        <i>8</i>&nbsp; * This class identifies a reduced version of the class {@link Space}.
+        <i>9</i>&nbsp; * It is used inside the messages between client and server in order to
+        <i>10</i>&nbsp; * avoid sending unnecessary methods to the client.
+        <i>11</i>&nbsp; */
+        <i>12</i>&nbsp;public class ReducedSpace implements Serializable {
+        <i>13</i>&nbsp; private static final long serialVersionUID = 961249489188346446L;
+        <i>14</i>&nbsp; private final int level;
+        <i>15</i>&nbsp; private final boolean dome;
+        <i>16</i>&nbsp; private final ReducedWorker reducedWorker;
+        <i>17</i>&nbsp;
+        <i>18</i>&nbsp; /**
+        <i>19</i>&nbsp; * Constructor of Reduced Space.
+        <i>20</i>&nbsp; *
+        <i>21</i>&nbsp; * @param space space to reduce.
+        <i>22</i>&nbsp; */
+        <b class="fc"><i>23</i>&nbsp; public ReducedSpace(Space space) {</b>
+        <b class="fc"><i>24</i>&nbsp; this.level = space.getLevel();</b>
+        <b class="fc"><i>25</i>&nbsp; this.dome = space.hasDome();</b>
+        <i>26</i>&nbsp;
+        <b class="fc"><i>27</i>&nbsp; if (space.getWorker() == null) {</b>
+        <b class="fc"><i>28</i>&nbsp; this.reducedWorker = null;</b>
+        <i>29</i>&nbsp; } else {
+        <b class="fc"><i>30</i>&nbsp; this.reducedWorker = new ReducedWorker(space.getWorker());</b>
+        <i>31</i>&nbsp; }
+        <b class="fc"><i>32</i>&nbsp; }</b>
+        <i>33</i>&nbsp;
+        <i>34</i>&nbsp; /**
+        <i>35</i>&nbsp; * Returns the level of the reduced space.
+        <i>36</i>&nbsp; *
+        <i>37</i>&nbsp; * @return level.
+        <i>38</i>&nbsp; */
+        <i>39</i>&nbsp; public int getLevel() {
+        <b class="fc"><i>40</i>&nbsp; return level;</b>
+        <i>41</i>&nbsp; }
+        <i>42</i>&nbsp;
+        <i>43</i>&nbsp; /**
+        <i>44</i>&nbsp; * Returns the presence of a dome on a space.
+        <i>45</i>&nbsp; *
+        <i>46</i>&nbsp; * @return {code @true} if contains a Dome {code @false} otherwise.
+        <i>47</i>&nbsp; */
+        <i>48</i>&nbsp; public boolean hasDome() {
+        <b class="fc"><i>49</i>&nbsp; return dome;</b>
+        <i>50</i>&nbsp; }
+        <i>51</i>&nbsp;
+        <i>52</i>&nbsp; /**
+        <i>53</i>&nbsp; * Return the occupant reduced worker on the space.
+        <i>54</i>&nbsp; *
+        <i>55</i>&nbsp; * @return Reduced Worker.
+        <i>56</i>&nbsp; */
+        <i>57</i>&nbsp; public ReducedWorker getReducedWorker() {
+        <b class="fc"><i>58</i>&nbsp; return reducedWorker;</b>
+        <i>59</i>&nbsp; }
+        <i>60</i>&nbsp;
+        <i>61</i>&nbsp; @Override
+        <i>62</i>&nbsp; public String toString() {
+        <b class="fc"><i>63</i>&nbsp; return &quot;ReducedSpace{&quot; +</b>
+        <i>64</i>&nbsp; &quot;level=&quot; + level +
+        <i>65</i>&nbsp; &quot;, dome=&quot; + dome +
+        <i>66</i>&nbsp; &quot;, reducedWorker=&quot; + reducedWorker +
+        <i>67</i>&nbsp; &#39;}&#39;;
+        <i>68</i>&nbsp; }
+        <i>69</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-07-02 21:36</div>
+</div>
+</body>
+</html>

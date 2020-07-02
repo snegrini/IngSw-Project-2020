@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: TurnController</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.controller</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: TurnController (it.polimi.ingsw.controller)</h1>
+
+    <table class="coverageStats">
+
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">TurnController</td>
+            <td class="coverageStat">
+  <span class="percent">
+    92%
+  </span>
+                <span class="absValue">
+    (23/ 25)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    74.6%
+  </span>
+                <span class="absValue">
+    (97/ 130)
+  </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="name">TurnController$1</td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (1/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (1/ 1)
+  </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="name"><strong>total</strong></td>
+            <td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+                <span class="absValue">
+    (24/ 26)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    74.8%
+  </span>
+                <span class="absValue">
+    (98/ 131)
+  </span>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.controller;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.model.Game;
+        <i>4</i>&nbsp;import it.polimi.ingsw.model.ReducedGod;
+        <i>5</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+        <i>6</i>&nbsp;import it.polimi.ingsw.model.effects.Effect;
+        <i>7</i>&nbsp;import it.polimi.ingsw.model.enumerations.PhaseType;
+        <i>8</i>&nbsp;import it.polimi.ingsw.model.player.Player;
+        <i>9</i>&nbsp;import it.polimi.ingsw.model.player.Worker;
+        <i>10</i>&nbsp;import it.polimi.ingsw.network.server.Server;
+        <i>11</i>&nbsp;import it.polimi.ingsw.utils.StorageData;
+        <i>12</i>&nbsp;import it.polimi.ingsw.view.VirtualView;
+        <i>13</i>&nbsp;
+        <i>14</i>&nbsp;import java.io.Serializable;
+        <i>15</i>&nbsp;import java.util.ArrayList;
+        <i>16</i>&nbsp;import java.util.List;
+        <i>17</i>&nbsp;import java.util.Map;
+        <i>18</i>&nbsp;
+        <i>19</i>&nbsp;/**
+        <i>20</i>&nbsp; * This Class contains all methods used to manage every single turn of the match.
+        <i>21</i>&nbsp; */
+        <i>22</i>&nbsp;public class TurnController implements Serializable {
+        <i>23</i>&nbsp;
+        <i>24</i>&nbsp; private static final long serialVersionUID = -5987205913389392005L;
+        <i>25</i>&nbsp; private final Game game;
+        <i>26</i>&nbsp; private final List&lt;String&gt; nicknameQueue;
+        <i>27</i>&nbsp; private String activePlayer;
+        <i>28</i>&nbsp; private Worker activeWorker;
+        <i>29</i>&nbsp; private Effect appliedEffect;
+        <i>30</i>&nbsp;
+        <i>31</i>&nbsp;
+        <i>32</i>&nbsp; transient Map&lt;String, VirtualView&gt; virtualViewMap;
+        <i>33</i>&nbsp; private PhaseType phaseType;
+        <i>34</i>&nbsp;
+        <i>35</i>&nbsp; private final GameController gameController;
+        <i>36</i>&nbsp;
+        <i>37</i>&nbsp; /**
+        <i>38</i>&nbsp; * Constructor of the Turn Controller.
+        <i>39</i>&nbsp; *
+        <i>40</i>&nbsp; * @param virtualViewMap Virtual View Map of all Clients.
+        <i>41</i>&nbsp; * @param gameController Game Controller.
+        <i>42</i>&nbsp; */
+        <b class="fc"><i>43</i>&nbsp; public TurnController(Map&lt;String, VirtualView&gt; virtualViewMap,
+            GameController gameController) {</b>
+        <b class="fc"><i>44</i>&nbsp; this.game = Game.getInstance();</b>
+        <b class="fc"><i>45</i>&nbsp; this.nicknameQueue = new ArrayList&lt;&gt;(game.getPlayersNicknames());</b>
+        <i>46</i>&nbsp;
+        <b class="fc"><i>47</i>&nbsp; this.activePlayer = nicknameQueue.get(0); // set first active player</b>
+        <b class="fc"><i>48</i>&nbsp; this.virtualViewMap = virtualViewMap;</b>
+        <b class="fc"><i>49</i>&nbsp; this.gameController = gameController;</b>
+        <b class="fc"><i>50</i>&nbsp; }</b>
+        <i>51</i>&nbsp;
+        <i>52</i>&nbsp; /**
+        <i>53</i>&nbsp; * @return the nickname of the active player.
+        <i>54</i>&nbsp; */
+        <i>55</i>&nbsp; public String getActivePlayer() {
+        <b class="fc"><i>56</i>&nbsp; return activePlayer;</b>
+        <i>57</i>&nbsp; }
+        <i>58</i>&nbsp;
+        <i>59</i>&nbsp; /**
+        <i>60</i>&nbsp; * Set the active player.
+        <i>61</i>&nbsp; *
+        <i>62</i>&nbsp; * @param activePlayer the active Player to be set.
+        <i>63</i>&nbsp; */
+        <i>64</i>&nbsp; public void setActivePlayer(String activePlayer) {
+        <b class="fc"><i>65</i>&nbsp; this.activePlayer = activePlayer;</b>
+        <b class="fc"><i>66</i>&nbsp; }</b>
+        <i>67</i>&nbsp;
+        <i>68</i>&nbsp; /**
+        <i>69</i>&nbsp; * Set next active player.
+        <i>70</i>&nbsp; */
+        <i>71</i>&nbsp; public void next() {
+        <i>72</i>&nbsp;
+        <b class="fc"><i>73</i>&nbsp; if (null != appliedEffect) {</b>
+        <b class="fc"><i>74</i>&nbsp; appliedEffect.clear(activeWorker);</b>
+        <b class="fc"><i>75</i>&nbsp; appliedEffect = null;</b>
+        <i>76</i>&nbsp; }
+        <i>77</i>&nbsp;
+        <i>78</i>&nbsp;
+        <b class="fc"><i>79</i>&nbsp; int currentActive = nicknameQueue.indexOf(activePlayer);</b>
+        <b class="fc"><i>80</i>&nbsp; if (currentActive + 1 &lt; game.getNumCurrentPlayers()) {</b>
+        <b class="fc"><i>81</i>&nbsp; currentActive = currentActive + 1;</b>
+        <i>82</i>&nbsp; } else {
+        <b class="fc"><i>83</i>&nbsp; currentActive = 0;</b>
+        <i>84</i>&nbsp; }
+        <b class="fc"><i>85</i>&nbsp; activePlayer = nicknameQueue.get(currentActive);</b>
+        <b class="fc"><i>86</i>&nbsp; phaseType = PhaseType.YOUR_MOVE;</b>
+        <b class="fc"><i>87</i>&nbsp; }</b>
+        <i>88</i>&nbsp;
+        <i>89</i>&nbsp; /**
+        <i>90</i>&nbsp; * Set the Active Worker.
+        <i>91</i>&nbsp; *
+        <i>92</i>&nbsp; * @param worker of Active Player.
+        <i>93</i>&nbsp; */
+        <i>94</i>&nbsp; public void setActiveWorker(Worker worker) {
+        <b class="fc"><i>95</i>&nbsp; this.activeWorker = worker;</b>
+        <b class="fc"><i>96</i>&nbsp; }</b>
+        <i>97</i>&nbsp;
+        <i>98</i>&nbsp; /**
+        <i>99</i>&nbsp; * @return the Active Worker.
+        <i>100</i>&nbsp; */
+        <i>101</i>&nbsp; public Worker getActiveWorker() {
+        <b class="fc"><i>102</i>&nbsp; return activeWorker;</b>
+        <i>103</i>&nbsp; }
+        <i>104</i>&nbsp;
+        <i>105</i>&nbsp; /**
+        <i>106</i>&nbsp; * Set the current Phase Type.
+        <i>107</i>&nbsp; *
+        <i>108</i>&nbsp; * @param turnPhaseType Phase Type.
+        <i>109</i>&nbsp; */
+        <i>110</i>&nbsp; public void setPhaseType(PhaseType turnPhaseType) {
+        <b class="fc"><i>111</i>&nbsp; this.phaseType = turnPhaseType;</b>
+        <b class="fc"><i>112</i>&nbsp; }</b>
+        <i>113</i>&nbsp;
+        <i>114</i>&nbsp;
+        <i>115</i>&nbsp; /**
+        <i>116</i>&nbsp; * @return the current Phase Type.
+        <i>117</i>&nbsp; */
+        <i>118</i>&nbsp; public PhaseType getPhaseType() {
+        <b class="fc"><i>119</i>&nbsp; return phaseType;</b>
+        <i>120</i>&nbsp; }
+        <i>121</i>&nbsp;
+        <i>122</i>&nbsp;
+        <i>123</i>&nbsp; /**
+        <i>124</i>&nbsp; * Initialize a new Turn.
+        <i>125</i>&nbsp; */
+        <i>126</i>&nbsp; public void newTurn() {
+        <b class="fc"><i>127</i>&nbsp; turnControllerNotify(&quot;Turn of &quot; + activePlayer, activePlayer);</b>
+        <b class="fc"><i>128</i>&nbsp; VirtualView vv = virtualViewMap.get(getActivePlayer());</b>
+        <b class="fc"><i>129</i>&nbsp; vv.showGenericMessage(&quot;It&#39;s your turn!&quot;);</b>
+        <i>130</i>&nbsp;
+        <b class="fc"><i>131</i>&nbsp; StorageData storageData = new StorageData();</b>
+        <b class="fc"><i>132</i>&nbsp; storageData.store(gameController);</b>
+        <i>133</i>&nbsp;
+        <b class="fc"><i>134</i>&nbsp; setPhaseType(PhaseType.YOUR_MOVE);</b>
+        <b class="fc"><i>135</i>&nbsp; pickWorker();</b>
+        <b class="fc"><i>136</i>&nbsp; }</b>
+        <i>137</i>&nbsp;
+        <i>138</i>&nbsp; /**
+        <i>139</i>&nbsp; * Ask to Active Player which Worker want to Move.
+        <i>140</i>&nbsp; */
+        <i>141</i>&nbsp; public void pickWorker() {
+        <b class="fc"><i>142</i>&nbsp; Player player = game.getPlayerByNickname(getActivePlayer());</b>
+        <b class="fc"><i>143</i>&nbsp; List&lt;Position&gt; positionList = new ArrayList&lt;&gt;(player.getValidWorkersPositions());</b>
+        <b class="fc"><i>144</i>&nbsp; VirtualView virtualView = virtualViewMap.get(getActivePlayer());</b>
+        <i>145</i>&nbsp;
+        <b class="fc"><i>146</i>&nbsp; if (positionList.isEmpty()) {</b>
+        <b class="nc"><i>147</i>&nbsp; lose();</b>
+        <i>148</i>&nbsp; } else {
+        <b class="fc"><i>149</i>&nbsp; virtualView.askMovingWorker(positionList);</b>
+        <i>150</i>&nbsp; }
+        <b class="fc"><i>151</i>&nbsp; }</b>
+        <i>152</i>&nbsp;
+        <i>153</i>&nbsp; /**
+        <i>154</i>&nbsp; * Ask to Active Player where to Move the Active Worker.
+        <i>155</i>&nbsp; *
+        <i>156</i>&nbsp; * @param skipEffect {@code true} if effect should be by-passed {@code false} ohterwise.
+        <i>157</i>&nbsp; */
+        <i>158</i>&nbsp; public void movePhase(boolean skipEffect) {
+        <b class="fc"><i>159</i>&nbsp; setPhaseType(PhaseType.YOUR_MOVE);</b>
+        <i>160</i>&nbsp; // EFFECT REQUIRE YOUR MOVE
+        <b class="fc"><i>161</i>&nbsp; phaseBody(skipEffect);</b>
+        <b class="fc"><i>162</i>&nbsp; }</b>
+        <i>163</i>&nbsp;
+        <i>164</i>&nbsp;
+        <i>165</i>&nbsp; /**
+        <i>166</i>&nbsp; * Convert every buildPhase() calls into buildPhase(false).
+        <i>167</i>&nbsp; */
+        <i>168</i>&nbsp; private void buildPhase() {
+        <b class="fc"><i>169</i>&nbsp; buildPhase(false);</b>
+        <b class="fc"><i>170</i>&nbsp; }</b>
+        <i>171</i>&nbsp;
+        <i>172</i>&nbsp; /**
+        <i>173</i>&nbsp; * Set the applied Effect.
+        <i>174</i>&nbsp; *
+        <i>175</i>&nbsp; * @param appliedEffect Effect already applied.
+        <i>176</i>&nbsp; */
+        <i>177</i>&nbsp; public void setAppliedEffect(Effect appliedEffect) {
+        <b class="fc"><i>178</i>&nbsp; this.appliedEffect = appliedEffect;</b>
+        <b class="fc"><i>179</i>&nbsp; }</b>
+        <i>180</i>&nbsp;
+        <i>181</i>&nbsp; /**
+        <i>182</i>&nbsp; * Ask to Active Player where to Build.
+        <i>183</i>&nbsp; *
+        <i>184</i>&nbsp; * @param skipEffect {@code true} if effect should be by-passed {@code false} ohterwise.
+        <i>185</i>&nbsp; */
+        <i>186</i>&nbsp; private void buildPhase(boolean skipEffect) {
+        <b class="fc"><i>187</i>&nbsp; setPhaseType(PhaseType.YOUR_BUILD);</b>
+        <i>188</i>&nbsp; // Check effect &quot;your build&quot;
+        <b class="fc"><i>189</i>&nbsp; phaseBody(skipEffect);</b>
+        <b class="fc"><i>190</i>&nbsp; }</b>
+        <i>191</i>&nbsp;
+        <i>192</i>&nbsp; /**
+        <i>193</i>&nbsp; * Shared istruction for both move &amp; build phases.
+        <i>194</i>&nbsp; *
+        <i>195</i>&nbsp; * @param skipEffect {@code true} if effect should be by-passed {@code false} ohterwise.
+        <i>196</i>&nbsp; */
+        <i>197</i>&nbsp; private void phaseBody(boolean skipEffect) {
+        <b class="fc"><i>198</i>&nbsp; VirtualView virtualView = virtualViewMap.get(getActivePlayer());</b>
+        <b class="fc"><i>199</i>&nbsp; Player player = game.getPlayerByNickname(activePlayer);</b>
+        <i>200</i>&nbsp;
+        <b class="fc"><i>201</i>&nbsp; if (checkEffectPhase(getPhaseType()) &amp;&amp; !skipEffect &amp;&amp;
+            requireEffect()) {</b>
+        <b class="fc"><i>202</i>&nbsp; Effect effect = player.getGod().getEffectByType(getPhaseType());</b>
+        <b class="fc"><i>203</i>&nbsp; if (effect.isUserConfirmNeeded()) {</b>
+        <b class="fc"><i>204</i>&nbsp; virtualView.askEnableEffect(false);</b>
+        <i>205</i>&nbsp; } else {
+        <b class="fc"><i>206</i>&nbsp; if (getPhaseType().equals(PhaseType.YOUR_MOVE) &amp;&amp;
+            !player.getGod().getName().equals(&quot;Prometheus&quot;)) {</b>
+        <b class="fc"><i>207</i>&nbsp; virtualView.askEnableEffect(true);</b>
+        <i>208</i>&nbsp; } else {
+        <b class="nc"><i>209</i>&nbsp; effect.apply(activeWorker, null);</b>
+        <b class="nc"><i>210</i>&nbsp; appliedEffect = effect;</b>
+        <b class="nc"><i>211</i>&nbsp; continueGame(virtualView);</b>
+        <i>212</i>&nbsp; }
+        <i>213</i>&nbsp; }
+        <b class="fc"><i>214</i>&nbsp; } else {</b>
+        <b class="fc"><i>215</i>&nbsp; continueGame(virtualView);</b>
+        <i>216</i>&nbsp; }
+        <b class="fc"><i>217</i>&nbsp; }</b>
+        <i>218</i>&nbsp;
+        <i>219</i>&nbsp; /**
+        <i>220</i>&nbsp; * Change phase of the active turn.
+        <i>221</i>&nbsp; *
+        <i>222</i>&nbsp; * @param virtualView Virtual View of active Player.
+        <i>223</i>&nbsp; */
+        <i>224</i>&nbsp; private void continueGame(VirtualView virtualView) {
+        <b class="fc"><i>225</i>&nbsp; switch (getPhaseType()) {</b>
+        <i>226</i>&nbsp; case YOUR_MOVE:
+        <b class="fc"><i>227</i>&nbsp; if (!getActiveWorker().getPossibleMoves().isEmpty()) {</b>
+        <b class="fc"><i>228</i>&nbsp; virtualView.askMove(getActiveWorker().getPossibleMoves());</b>
+        <i>229</i>&nbsp; } else {
+        <b class="nc"><i>230</i>&nbsp; lose();</b>
+        <i>231</i>&nbsp; }
+        <b class="nc"><i>232</i>&nbsp; break;</b>
+        <i>233</i>&nbsp; case YOUR_BUILD:
+        <b class="fc"><i>234</i>&nbsp; if (!getActiveWorker().getPossibleBuilds().isEmpty()) {</b>
+        <b class="fc"><i>235</i>&nbsp; virtualView.askBuild(getActiveWorker().getPossibleBuilds());</b>
+        <i>236</i>&nbsp; } else {
+        <b class="nc"><i>237</i>&nbsp; lose();</b>
+        <i>238</i>&nbsp; }
+        <b class="nc"><i>239</i>&nbsp; break;</b>
+        <i>240</i>&nbsp; default:
+        <b class="nc"><i>241</i>&nbsp; Server.LOGGER.warning(&quot;Invalid game state!&quot;);</b>
+        <i>242</i>&nbsp; break;
+        <i>243</i>&nbsp; }
+        <b class="fc"><i>244</i>&nbsp; }</b>
+        <i>245</i>&nbsp;
+        <i>246</i>&nbsp; /**
+        <i>247</i>&nbsp; * Method for Lose Phase: if there are 3 players then remove the looser&#39;s worker and
+        continue the game
+        <i>248</i>&nbsp; * else call endGame() and finish the Game.
+        <i>249</i>&nbsp; */
+        <i>250</i>&nbsp; private void lose() {
+        <i>251</i>&nbsp; // if players.size == 3 then remove looser&#39;s workers from board. And notify all.
+        <i>252</i>&nbsp; // else endgame.
+        <b class="nc"><i>253</i>&nbsp; if (3 == game.getNumCurrentPlayers()) {</b>
+        <b class="nc"><i>254</i>&nbsp; game.removeWorkers(activePlayer);</b>
+        <i>255</i>&nbsp; // disconnect 3� player, notify all
+        <b class="nc"><i>256</i>&nbsp; turnControllerNotify(&quot;The player &quot; + activePlayer + &quot; HAS LOST!&quot;,
+            activePlayer);</b>
+        <b class="nc"><i>257</i>&nbsp; Server.LOGGER.info(() -&gt; activePlayer + &quot; is dead.&quot;);</b>
+        <b class="nc"><i>258</i>&nbsp; VirtualView vv = virtualViewMap.get(getActivePlayer());</b>
+        <b class="nc"><i>259</i>&nbsp; vv.showGenericMessage(&quot;YOU HAVE LOST!&quot;);</b>
+        <i>260</i>&nbsp;
+        <b class="nc"><i>261</i>&nbsp; nicknameQueue.remove(activePlayer);</b>
+        <b class="nc"><i>262</i>&nbsp; game.removePlayerByNickname(activePlayer, false);</b>
+        <b class="nc"><i>263</i>&nbsp; broadcastMatchInfo();</b>
+        <b class="nc"><i>264</i>&nbsp; next();</b>
+        <b class="nc"><i>265</i>&nbsp; newTurn();</b>
+        <b class="nc"><i>266</i>&nbsp; } else {</b>
+        <i>267</i>&nbsp;
+        <b class="nc"><i>268</i>&nbsp; next();</b>
+        <i>269</i>&nbsp; // next player wins.
+        <b class="nc"><i>270</i>&nbsp; gameController.win();</b>
+        <i>271</i>&nbsp;
+        <i>272</i>&nbsp; }
+        <b class="nc"><i>273</i>&nbsp; }</b>
+        <i>274</i>&nbsp;
+        <i>275</i>&nbsp; /**
+        <i>276</i>&nbsp; * Broadcast Match Info to all Clients.
+        <i>277</i>&nbsp; */
+        <i>278</i>&nbsp; public void broadcastMatchInfo() {
+        <b class="fc"><i>279</i>&nbsp; List&lt;ReducedGod&gt; gods = new ArrayList&lt;&gt;();</b>
+        <b class="fc"><i>280</i>&nbsp; for (String s : nicknameQueue) {</b>
+        <b class="fc"><i>281</i>&nbsp; gods.add(new ReducedGod(game.getPlayerByNickname(s).getGod()));</b>
+        <b class="fc"><i>282</i>&nbsp; }</b>
+        <i>283</i>&nbsp;
+        <b class="fc"><i>284</i>&nbsp; for (VirtualView vv : virtualViewMap.values()) {</b>
+        <b class="fc"><i>285</i>&nbsp; vv.showMatchInfo(nicknameQueue, gods, gameController.getPlayersColors(),
+            activePlayer);</b>
+        <b class="fc"><i>286</i>&nbsp; }</b>
+        <b class="fc"><i>287</i>&nbsp; }</b>
+        <i>288</i>&nbsp;
+        <i>289</i>&nbsp;
+        <i>290</i>&nbsp; /**
+        <i>291</i>&nbsp; * Go to Next Phase.
+        <i>292</i>&nbsp; */
+        <i>293</i>&nbsp; public void nextPhase() {
+        <b class="fc"><i>294</i>&nbsp; switch (getPhaseType()) {</b>
+        <i>295</i>&nbsp; case YOUR_MOVE:
+        <i>296</i>&nbsp; case YOUR_MOVE_AFTER:
+        <b class="fc"><i>297</i>&nbsp; buildPhase();</b>
+        <b class="fc"><i>298</i>&nbsp; break;</b>
+        <i>299</i>&nbsp; case YOUR_BUILD:
+        <i>300</i>&nbsp; case YOUR_BUILD_AFTER:
+        <b class="fc"><i>301</i>&nbsp; next();</b>
+        <b class="fc"><i>302</i>&nbsp; newTurn();</b>
+        <b class="fc"><i>303</i>&nbsp; break;</b>
+        <i>304</i>&nbsp; default: // should never reach this condition.
+        <b class="nc"><i>305</i>&nbsp; Server.LOGGER.warning(&quot;Invalid game phase!&quot;);</b>
+        <i>306</i>&nbsp; break;
+        <i>307</i>&nbsp; }
+        <b class="fc"><i>308</i>&nbsp; }</b>
+        <i>309</i>&nbsp;
+        <i>310</i>&nbsp; /**
+        <i>311</i>&nbsp; * Check if Active Player&#39;s Effect is applicable in current Phase.
+        <i>312</i>&nbsp; *
+        <i>313</i>&nbsp; * @param currentPhaseType current Phase Type
+        <i>314</i>&nbsp; * @return {@code true} if Effect is applicable, {@code false} otherwise.
+        <i>315</i>&nbsp; */
+        <i>316</i>&nbsp; public boolean checkEffectPhase(PhaseType currentPhaseType) {
+        <b class="fc"><i>317</i>&nbsp; return
+            (game.getPlayerByNickname(getActivePlayer()).getGod().getEffectByType(currentPhaseType) != null);</b>
+        <i>318</i>&nbsp; }
+        <i>319</i>&nbsp;
+        <i>320</i>&nbsp; /**
+        <i>321</i>&nbsp; * @return {@code true} if Effect&#39; Require is satisfied, {@code false} otherwise.
+        <i>322</i>&nbsp; */
+        <i>323</i>&nbsp; public boolean requireEffect() {
+        <b class="fc"><i>324</i>&nbsp; return game.getPlayerByNickname(getActivePlayer()).getGod()</b>
+        <b class="fc"><i>325</i>&nbsp; .getEffectByType(getPhaseType())</b>
+        <b class="fc"><i>326</i>&nbsp; .require(getActiveWorker());</b>
+        <i>327</i>&nbsp; }
+        <i>328</i>&nbsp;
+        <i>329</i>&nbsp; /**
+        <i>330</i>&nbsp; * Resume to previous Phase.
+        <i>331</i>&nbsp; */
+        <i>332</i>&nbsp; public void resumePhase() {
+        <i>333</i>&nbsp;
+        <b class="fc"><i>334</i>&nbsp; switch (getPhaseType()) {</b>
+        <i>335</i>&nbsp; case YOUR_MOVE:
+        <b class="fc"><i>336</i>&nbsp; movePhase(true);</b>
+        <b class="fc"><i>337</i>&nbsp; break;</b>
+        <i>338</i>&nbsp; case YOUR_MOVE_AFTER:
+        <i>339</i>&nbsp; case YOUR_BUILD:
+        <b class="nc"><i>340</i>&nbsp; buildPhase(true);</b>
+        <b class="nc"><i>341</i>&nbsp; break;</b>
+        <i>342</i>&nbsp; case YOUR_BUILD_AFTER:
+        <b class="nc"><i>343</i>&nbsp; next();</b>
+        <b class="nc"><i>344</i>&nbsp; newTurn();</b>
+        <b class="nc"><i>345</i>&nbsp; break;</b>
+        <i>346</i>&nbsp; default: // Should never reach this condition.
+        <b class="nc"><i>347</i>&nbsp; Server.LOGGER.warning(&quot;Invalid game phase!&quot;);</b>
+        <i>348</i>&nbsp; break;
+        <i>349</i>&nbsp; }
+        <b class="fc"><i>350</i>&nbsp; }</b>
+        <i>351</i>&nbsp;
+        <i>352</i>&nbsp; /**
+        <i>353</i>&nbsp; * Sends a Match Info Message to all the players.
+        <i>354</i>&nbsp; * Sends a Generic Message which contains Turn Information to all players but the one specified
+        in the second argument.
+        <i>355</i>&nbsp; *
+        <i>356</i>&nbsp; * @param messageToNotify Message to send.
+        <i>357</i>&nbsp; * @param excludeNickname name of the player to be excluded from the broadcast.
+        <i>358</i>&nbsp; */
+        <i>359</i>&nbsp; public void turnControllerNotify(String messageToNotify, String excludeNickname) {
+        <b class="fc"><i>360</i>&nbsp; virtualViewMap.values().forEach(vv -&gt; vv.showMatchInfo(null, null, null,
+            activePlayer));</b>
+        <b class="fc"><i>361</i>&nbsp; virtualViewMap.entrySet().stream()</b>
+        <b class="fc"><i>362</i>&nbsp; .filter(entry -&gt; !excludeNickname.equals(entry.getKey()))</b>
+        <b class="fc"><i>363</i>&nbsp; .map(Map.Entry::getValue)</b>
+        <b class="fc"><i>364</i>&nbsp; .forEach(vv -&gt; vv.showGenericMessage(messageToNotify));</b>
+        <b class="fc"><i>365</i>&nbsp; }</b>
+        <i>366</i>&nbsp;
+        <i>367</i>&nbsp; /**
+        <i>368</i>&nbsp; * Returns a list of Players&#39; nicknames.
+        <i>369</i>&nbsp; *
+        <i>370</i>&nbsp; * @return a list of String.
+        <i>371</i>&nbsp; */
+        <i>372</i>&nbsp; public List&lt;String&gt; getNicknameQueue() {
+        <b class="fc"><i>373</i>&nbsp; return nicknameQueue;</b>
+        <i>374</i>&nbsp; }
+        <i>375</i>&nbsp;
+        <i>376</i>&nbsp; /**
+        <i>377</i>&nbsp; * Set the virtual view map.
+        <i>378</i>&nbsp; *
+        <i>379</i>&nbsp; * @param virtualViewMap Virtual View Map.
+        <i>380</i>&nbsp; */
+        <i>381</i>&nbsp; public void setVirtualViewMap(Map&lt;String, VirtualView&gt; virtualViewMap) {
+        <b class="nc"><i>382</i>&nbsp; this.virtualViewMap = virtualViewMap;</b>
+        <b class="nc"><i>383</i>&nbsp; }</b>
+        <i>384</i>&nbsp;
+        <i>385</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-07-02 21:36</div>
+</div>
+</body>
+</html>

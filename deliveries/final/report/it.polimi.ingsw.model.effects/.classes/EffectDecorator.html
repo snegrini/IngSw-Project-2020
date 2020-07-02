@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: EffectDecorator</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.model.effects</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: EffectDecorator (it.polimi.ingsw.model.effects)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">EffectDecorator</td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (1/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (4/ 4)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (5/ 5)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.effects;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+        <i>4</i>&nbsp;import it.polimi.ingsw.model.enumerations.XMLName;
+        <i>5</i>&nbsp;import it.polimi.ingsw.model.player.Worker;
+        <i>6</i>&nbsp;
+        <i>7</i>&nbsp;import java.util.Map;
+        <i>8</i>&nbsp;
+        <i>9</i>&nbsp;/**
+        <i>10</i>&nbsp; * Parent decorator for the Effect class. Used to add custom effects to a SimpleEffect.
+        <i>11</i>&nbsp; */
+        <b class="fc"><i>12</i>&nbsp;public abstract class EffectDecorator extends Effect {</b>
+        <i>13</i>&nbsp;
+        <i>14</i>&nbsp; private static final long serialVersionUID = -7206957104654092952L;
+        <i>15</i>&nbsp;
+        <i>16</i>&nbsp; protected Effect effect;
+        <i>17</i>&nbsp; protected int enabled;
+        <i>18</i>&nbsp; private Map&lt;String, String&gt; requirements;
+        <i>19</i>&nbsp;
+        <i>20</i>&nbsp; @Override
+        <i>21</i>&nbsp; public abstract void apply(Worker activeWorker, Position position);
+        <i>22</i>&nbsp;
+        <i>23</i>&nbsp; @Override
+        <i>24</i>&nbsp; public abstract void prepare(Worker worker);
+        <i>25</i>&nbsp;
+        <i>26</i>&nbsp; @Override
+        <i>27</i>&nbsp; public abstract boolean require(Worker worker);
+        <i>28</i>&nbsp;
+        <i>29</i>&nbsp; @Override
+        <i>30</i>&nbsp; public abstract void clear(Worker worker);
+        <i>31</i>&nbsp;
+        <i>32</i>&nbsp; @Override
+        <i>33</i>&nbsp; public boolean isUserConfirmNeeded() {
+        <b class="fc"><i>34</i>&nbsp; return
+            Boolean.parseBoolean(requirements.getOrDefault(XMLName.USERCONFIRM.getText(), &quot;true&quot;));</b>
+        <i>35</i>&nbsp; }
+        <i>36</i>&nbsp;
+        <i>37</i>&nbsp; /**
+        <i>38</i>&nbsp; * Set requirements of Effect.
+        <i>39</i>&nbsp; *
+        <i>40</i>&nbsp; * @param requirements requirements of Effect.
+        <i>41</i>&nbsp; */
+        <i>42</i>&nbsp; protected void setRequirements(Map&lt;String, String&gt; requirements) {
+        <b class="fc"><i>43</i>&nbsp; this.requirements = requirements;</b>
+        <b class="fc"><i>44</i>&nbsp; }</b>
+        <i>45</i>&nbsp;
+        <i>46</i>&nbsp; /**
+        <i>47</i>&nbsp; * Get Requirements of Effect.
+        <i>48</i>&nbsp; *
+        <i>49</i>&nbsp; * @return Requirements of Effect.
+        <i>50</i>&nbsp; */
+        <i>51</i>&nbsp; protected Map&lt;String, String&gt; getRequirements() {
+        <b class="fc"><i>52</i>&nbsp; return requirements;</b>
+        <i>53</i>&nbsp; }
+        <i>54</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-07-02 21:36</div>
+</div>
+</body>
+</html>

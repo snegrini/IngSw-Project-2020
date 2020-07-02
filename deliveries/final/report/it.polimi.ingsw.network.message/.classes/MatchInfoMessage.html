@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: MatchInfoMessage</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.network.message</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: MatchInfoMessage (it.polimi.ingsw.network.message)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">MatchInfoMessage</td>
+            <td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+                <span class="absValue">
+    (1/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+                <span class="absValue">
+    (2/ 6)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    58.3%
+  </span>
+                <span class="absValue">
+    (7/ 12)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.network.message;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.model.ReducedGod;
+        <i>4</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
+        <i>5</i>&nbsp;
+        <i>6</i>&nbsp;import java.util.List;
+        <i>7</i>&nbsp;
+        <i>8</i>&nbsp;/**
+        <i>9</i>&nbsp; * Message which contains information about the current status of the match.
+        <i>10</i>&nbsp; */
+        <i>11</i>&nbsp;public class MatchInfoMessage extends Message {
+        <i>12</i>&nbsp;
+        <i>13</i>&nbsp; private static final long serialVersionUID = -9048130764283419918L;
+        <i>14</i>&nbsp; private final List&lt;String&gt; activePlayers;
+        <i>15</i>&nbsp; private final List&lt;ReducedGod&gt; activeGods;
+        <i>16</i>&nbsp; private final List&lt;Color&gt; activeColors;
+        <i>17</i>&nbsp; private final String activePlayerNickname;
+        <i>18</i>&nbsp;
+        <i>19</i>&nbsp; public MatchInfoMessage(String senderNickname, MessageType messageType, List&lt;String&gt;
+        activePlayers, List&lt;ReducedGod&gt; activeGods, List&lt;Color&gt; activeColors, String activePlayerNickname) {
+        <b class="fc"><i>20</i>&nbsp; super(senderNickname, messageType);</b>
+        <b class="fc"><i>21</i>&nbsp; this.activePlayers = activePlayers;</b>
+        <b class="fc"><i>22</i>&nbsp; this.activeGods = activeGods;</b>
+        <b class="fc"><i>23</i>&nbsp; this.activeColors = activeColors;</b>
+        <b class="fc"><i>24</i>&nbsp; this.activePlayerNickname = activePlayerNickname;</b>
+        <b class="fc"><i>25</i>&nbsp; }</b>
+        <i>26</i>&nbsp;
+        <i>27</i>&nbsp; public String getActivePlayerNickname() {
+        <b class="fc"><i>28</i>&nbsp; return activePlayerNickname;</b>
+        <i>29</i>&nbsp; }
+        <i>30</i>&nbsp;
+        <i>31</i>&nbsp; public List&lt;String&gt; getActivePlayers() {
+        <b class="nc"><i>32</i>&nbsp; return activePlayers;</b>
+        <i>33</i>&nbsp; }
+        <i>34</i>&nbsp;
+        <i>35</i>&nbsp; public List&lt;ReducedGod&gt; getActiveGods() {
+        <b class="nc"><i>36</i>&nbsp; return activeGods;</b>
+        <i>37</i>&nbsp; }
+        <i>38</i>&nbsp;
+        <i>39</i>&nbsp; public List&lt;Color&gt; getActiveColors() {
+        <b class="nc"><i>40</i>&nbsp; return activeColors;</b>
+        <i>41</i>&nbsp; }
+        <i>42</i>&nbsp;
+        <i>43</i>&nbsp; @Override
+        <i>44</i>&nbsp; public String toString() {
+        <b class="nc"><i>45</i>&nbsp; return &quot;MatchInfoMessage{&quot; +</b>
+        <b class="nc"><i>46</i>&nbsp; &quot;nickname=&quot; + getNickname() +</b>
+        <i>47</i>&nbsp; &quot;, activePlayers=&quot; + activePlayers +
+        <i>48</i>&nbsp; &quot;, activeGods=&quot; + activeGods +
+        <i>49</i>&nbsp; &quot;, activeColors=&quot; + activeColors +
+        <i>50</i>&nbsp; &quot;, activePlayerNickname=&quot; + activePlayerNickname +
+        <i>51</i>&nbsp; &#39;}&#39;;
+        <i>52</i>&nbsp; }
+        <i>53</i>&nbsp;
+        <i>54</i>&nbsp;
+        <i>55</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-07-02 21:36</div>
+</div>
+</body>
+</html>

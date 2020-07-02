@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+    <title>Coverage Report :: Client</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">it.polimi.ingsw.network.client</a> ]
+    </div>
+
+    <h1>Coverage Summary for Class: Client (it.polimi.ingsw.network.client)</h1>
+
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Class, %
+            </th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">Client</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 2)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/ 2)
+  </span>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.network.client;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import it.polimi.ingsw.network.message.Message;
+        <i>4</i>&nbsp;import it.polimi.ingsw.observer.Observable;
+        <i>5</i>&nbsp;
+        <i>6</i>&nbsp;import java.util.logging.Logger;
+        <i>7</i>&nbsp;
+        <i>8</i>&nbsp;/**
+        <i>9</i>&nbsp; * Abstract class to communicate with the server. Every type of connection must implement this
+        interface.
+        <i>10</i>&nbsp; */
+        <b class="nc"><i>11</i>&nbsp;public abstract class Client extends Observable {</b>
+        <i>12</i>&nbsp;
+        <b class="nc"><i>13</i>&nbsp; public static final Logger LOGGER = Logger.getLogger(Client.class.getName());</b>
+        <i>14</i>&nbsp;
+        <i>15</i>&nbsp; /**
+        <i>16</i>&nbsp; * Sends a message to the server.
+        <i>17</i>&nbsp; *
+        <i>18</i>&nbsp; * @param message the message to be sent.
+        <i>19</i>&nbsp; */
+        <i>20</i>&nbsp; public abstract void sendMessage(Message message);
+        <i>21</i>&nbsp;
+        <i>22</i>&nbsp; /**
+        <i>23</i>&nbsp; * Asynchronously reads a message from the server and notifies the ClientController.
+        <i>24</i>&nbsp; */
+        <i>25</i>&nbsp; public abstract void readMessage();
+        <i>26</i>&nbsp;
+        <i>27</i>&nbsp; /**
+        <i>28</i>&nbsp; * Disconnects from the server.
+        <i>29</i>&nbsp; */
+        <i>30</i>&nbsp; public abstract void disconnect();
+        <i>31</i>&nbsp;
+        <i>32</i>&nbsp; /**
+        <i>33</i>&nbsp; * Enable a heartbeat (ping messages) to keep the connection alive.
+        <i>34</i>&nbsp; *
+        <i>35</i>&nbsp; * @param enabled set this argument to {@code true} to enable the heartbeat.
+        <i>36</i>&nbsp; * set to {@code false} to kill the heartbeat.
+        <i>37</i>&nbsp; */
+        <i>38</i>&nbsp; public abstract void enablePinger(boolean enabled);
+        <i>39</i>&nbsp;}
+    </div>
+</div>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2020-07-02 21:36</div>
+</div>
+</body>
+</html>
