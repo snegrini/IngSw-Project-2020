@@ -273,7 +273,7 @@ public class TurnController implements Serializable {
     /**
      * Broadcast Match Info to all Clients.
      */
-    private void broadcastMatchInfo() {
+    public void broadcastMatchInfo() {
         List<ReducedGod> gods = new ArrayList<>();
         for (String s : nicknameQueue) {
             gods.add(new ReducedGod(game.getPlayerByNickname(s).getGod()));

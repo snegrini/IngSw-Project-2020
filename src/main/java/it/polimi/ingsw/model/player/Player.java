@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.player;
 import it.polimi.ingsw.model.God;
 import it.polimi.ingsw.model.board.Position;
 import it.polimi.ingsw.model.effects.Effect;
+import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.model.enumerations.PhaseType;
 import it.polimi.ingsw.model.enumerations.PlayerState;
 import it.polimi.ingsw.observer.Observable;
@@ -175,4 +176,11 @@ public class Player extends Observable implements Serializable {
         return Objects.hash(nickname);
     }
 
+    /**
+     * Returns the color of the player's workers.
+     * @return color of the workers.
+     */
+    public Color getWorkersColor() {
+        return workers.get(0).getColor();
+    }
 }
