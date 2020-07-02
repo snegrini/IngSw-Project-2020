@@ -560,37 +560,47 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     public void updateMatchInfo(List<String> players, List<ReducedGod> gods, List<Color> colors, String activePlayer) {
         if (players != null && gods != null) {
             this.gods = gods; // save gods for later usage.
+
+            // Set info about the first player.
             player1Label.setText(players.get(0));
-            player1Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(0).getText()));
-            player1Color.setVisible(true);
             Image img1 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(0).getName().toLowerCase() + ".png"));
             god1Image.setImage(img1);
             god1Image.setVisible(true);
             player1Img.setVisible(true);
 
-            player2Label.setText(players.get(1));
-            player2Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(1).getText()));
+            // Set info about the second player.
             player2Color.setVisible(true);
-
             Image img2 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(1).getName().toLowerCase() + ".png"));
             god2Image.setImage(img2);
             god2Image.setVisible(true);
             player2Img.setVisible(true);
 
+            if (colors != null) {
+                player1Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(0).getText()));
+                player1Color.setVisible(true);
+
+                player2Label.setText(players.get(1));
+                player2Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(1).getText()));
+            }
+
             turnInformationLabel.setText("Turn of " + activePlayer);
             turnInformationImg.setVisible(true);
 
             if (players.size() == 3 && gods.size() == 3) {
-                // Sets 3rd player information.
+                // Set info about the third player.
                 player3Label.setText(players.get(2));
-                player3Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(2).getText()));
-                player3Color.setVisible(true);
+
 
                 Image img3 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(2).getName().toLowerCase() + ".png"));
                 god3Image.setImage(img3);
 
                 god3Image.setVisible(true);
                 player3Img.setVisible(true);
+
+                if (colors != null && colors.size() == 3) {
+                    player3Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(2).getText()));
+                    player3Color.setVisible(true);
+                }
             } else {
                 god3Image.setVisible(false);
                 player3Label.setVisible(false);
