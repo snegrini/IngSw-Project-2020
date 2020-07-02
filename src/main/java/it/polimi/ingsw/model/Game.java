@@ -56,10 +56,10 @@ public class Game extends Observable implements Serializable {
     /**
      * Restore an instance of the Game saved on a file.
      *
-     * @param instance Instance of the saved Game.
-     * @param board Board of the saved Game.
-     * @param players Player List of the saved Game.
-     * @param gods God List of the saved Game.
+     * @param instance            Instance of the saved Game.
+     * @param board               Board of the saved Game.
+     * @param players             Player List of the saved Game.
+     * @param gods                God List of the saved Game.
      * @param chosenPlayersNumber Number of Players playing in the saved Game.
      */
     public void restoreGame(Game instance, Board board, List<Player> players, List<God> gods, int chosenPlayersNumber) {

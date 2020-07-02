@@ -28,6 +28,7 @@ public class SceneController extends ViewObservable {
 
     /**
      * Returns the active scene.
+     *
      * @return active scene.
      */
     public static Scene getActiveScene() {
@@ -36,6 +37,7 @@ public class SceneController extends ViewObservable {
 
     /**
      * Returns the active controller.
+     *
      * @return active controller.
      */
     public static GenericSceneController getActiveController() {

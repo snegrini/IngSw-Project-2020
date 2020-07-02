@@ -44,6 +44,7 @@ public class History implements Serializable {
 
     /**
      * Return the last position of the move.
+     *
      * @return last position.
      */
     public Position getMovePosition() {
@@ -52,6 +53,7 @@ public class History implements Serializable {
 
     /**
      * Set the last position of the move.
+     *
      * @param lastPosition last position.
      */
     public void setMovePosition(Position lastPosition) {
@@ -60,6 +62,7 @@ public class History implements Serializable {
 
     /**
      * Return the previous level of the worker.
+     *
      * @return last level.
      */
     public int getMoveLevel() {
@@ -68,6 +71,7 @@ public class History implements Serializable {
 
     /**
      * Set the previous level of the worker.
+     *
      * @param lastLevel last level.
      */
     public void setMoveLevel(int lastLevel) {
@@ -85,6 +89,7 @@ public class History implements Serializable {
 
     /**
      * Sets the last position of the build.
+     *
      * @param lastPosition the last position of the build to be set.
      */
     public void setBuildPosition(Position lastPosition) {

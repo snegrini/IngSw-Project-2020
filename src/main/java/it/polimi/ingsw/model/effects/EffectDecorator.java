@@ -36,6 +36,7 @@ public abstract class EffectDecorator extends Effect {
 
     /**
      * Set requirements of Effect.
+     *
      * @param requirements requirements of Effect.
      */
     protected void setRequirements(Map<String, String> requirements) {
@@ -44,6 +45,7 @@ public abstract class EffectDecorator extends Effect {
 
     /**
      * Get Requirements of Effect.
+     *
      * @return Requirements of Effect.
      */
     protected Map<String, String> getRequirements() {

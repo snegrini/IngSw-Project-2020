@@ -27,6 +27,7 @@ public class Worker implements Serializable {
 
     /**
      * Default constructor.
+     *
      * @param position Initial Position of the Worker.
      */
     public Worker(Position position) {
@@ -37,6 +38,7 @@ public class Worker implements Serializable {
 
     /**
      * Constructor with color.
+     *
      * @param color Color of the Worker.
      */
     public Worker(Color color) {
@@ -46,6 +48,7 @@ public class Worker implements Serializable {
 
     /**
      * Set the initial Position of the Worker.
+     *
      * @param position Position of the Worker.
      */
     public void initPosition(Position position) {
@@ -183,6 +186,7 @@ public class Worker implements Serializable {
 
     /**
      * Return the Position of the Worker.
+     *
      * @return Position of the Worker.
      */
     public Position getPosition() {
@@ -255,6 +259,7 @@ public class Worker implements Serializable {
 
     /**
      * Return the Color of the Worker.
+     *
      * @return Color of the Worker.
      */
     public Color getColor() {
@@ -263,6 +268,7 @@ public class Worker implements Serializable {
 
     /**
      * Set the Color of the Worker.
+     *
      * @param color Color of the Worker.
      */
     public void setColor(Color color) {

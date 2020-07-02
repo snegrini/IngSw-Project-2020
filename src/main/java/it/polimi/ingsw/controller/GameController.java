@@ -61,7 +61,6 @@ public class GameController implements Observer, Serializable {
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
         this.inputController = new InputController(virtualViewMap, this);
         setGameState(GameState.LOGIN);
-
     }
 
     /**
@@ -72,24 +71,24 @@ public class GameController implements Observer, Serializable {
     public void onMessageReceived(Message receivedMessage) {
 
         VirtualView virtualView = virtualViewMap.get(receivedMessage.getNickname());
-            switch (gameState) {
-                case LOGIN:
-                    loginState(receivedMessage);
-                    break;
-                case INIT:
-                    if(inputController.checkUser(receivedMessage)) {
-                        initState(receivedMessage, virtualView);
-                    }
-                    break;
-                case IN_GAME:
-                    if(inputController.checkUser(receivedMessage)) {
+        switch (gameState) {
+            case LOGIN:
+                loginState(receivedMessage);
+                break;
+            case INIT:
+                if (inputController.checkUser(receivedMessage)) {
+                    initState(receivedMessage, virtualView);
+                }
+                break;
+            case IN_GAME:
+                if (inputController.checkUser(receivedMessage)) {
                     inGameState(receivedMessage);
-                    }
-                    break;
-                default: // Should never reach this condition
-                    Server.LOGGER.warning(STR_INVALID_STATE);
-                    break;
-            }
+                }
+                break;
+            default: // Should never reach this condition
+                Server.LOGGER.warning(STR_INVALID_STATE);
+                break;
+        }
     }
 
 
@@ -317,7 +316,6 @@ public class GameController implements Observer, Serializable {
      */
     public void win() {
         broadcastWinMessage(turnController.getActivePlayer());
-        //endGame();
         setGameState(GameState.END);
     }
 
@@ -615,12 +613,13 @@ public class GameController implements Observer, Serializable {
 
     /**
      * Returns the list of colors of players in nicknameQueue.
+     *
      * @return a list of colors.
      */
     public List<Color> getPlayersColors() {
         List<Color> colors = new ArrayList<>();
 
-        for(String n : turnController.getNicknameQueue()) {
+        for (String n : turnController.getNicknameQueue()) {
             Player p = game.getPlayerByNickname(n);
             colors.add(p.getWorkersColor());
         }
@@ -773,7 +772,9 @@ public class GameController implements Observer, Serializable {
      *
      * @return {@code true} if the game is finished, {@code false} otherwise.
      */
-    public boolean isGameFinished() { return this.gameState == GameState.END;}
+    public boolean isGameFinished() {
+        return this.gameState == GameState.END;
+    }
 
     /**
      * Return Turn Controller of the Game.

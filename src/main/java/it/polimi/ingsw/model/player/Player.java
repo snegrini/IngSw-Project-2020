@@ -178,6 +178,7 @@ public class Player extends Observable implements Serializable {
 
     /**
      * Returns the color of the player's workers.
+     *
      * @return color of the workers.
      */
     public Color getWorkersColor() {

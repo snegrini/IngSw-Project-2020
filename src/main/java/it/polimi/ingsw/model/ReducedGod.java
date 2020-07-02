@@ -18,6 +18,7 @@ public class ReducedGod implements Serializable {
 
     /**
      * Default constructor.
+     *
      * @param god God to reduce.
      */
     public ReducedGod(God god) {
@@ -28,6 +29,7 @@ public class ReducedGod implements Serializable {
 
     /**
      * Return the name of the God.
+     *
      * @return name of the God.
      */
     public String getName() {
@@ -37,6 +39,7 @@ public class ReducedGod implements Serializable {
 
     /**
      * Return the caption of the God.
+     *
      * @return caption of the God.
      */
     public String getCaption() {
@@ -45,6 +48,7 @@ public class ReducedGod implements Serializable {
 
     /**
      * Return the description of the God.
+     *
      * @return description of the God.
      */
     public String getDescription() {

@@ -35,6 +35,7 @@ public class God implements Serializable {
 
     /**
      * Return the name of the God.
+     *
      * @return name of the God.
      */
     public String getName() {
@@ -43,6 +44,7 @@ public class God implements Serializable {
 
     /**
      * Return the caption of the God.
+     *
      * @return caption of the God.
      */
     public String getCaption() {
@@ -51,6 +53,7 @@ public class God implements Serializable {
 
     /**
      * Return the description of the God.
+     *
      * @return description of the God.
      */
     public String getDescription() {
@@ -116,6 +119,7 @@ public class God implements Serializable {
 
         /**
          * Return a Builder with caption.
+         *
          * @param caption caption of the builder.
          * @return Builder with caption.
          */
@@ -127,6 +131,7 @@ public class God implements Serializable {
 
         /**
          * Return a Builder with description.
+         *
          * @param description description of the builder.
          * @return Builder with description.
          */
@@ -137,6 +142,7 @@ public class God implements Serializable {
 
         /**
          * Return a Builder with effects.
+         *
          * @param effects effects of the builder.
          * @return Builder with effects.
          */
@@ -147,6 +153,7 @@ public class God implements Serializable {
 
         /**
          * Return the God builded.
+         *
          * @return God builded with Builder.
          */
         public God build() {

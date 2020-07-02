@@ -105,6 +105,7 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
 
     /**
      * Handle click on back to menu button.
+     *
      * @param event the mouse click event.
      */
     private void onBackToMenuBtnClick(Event event) {
@@ -115,6 +116,7 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
 
     /**
      * Set nicknames of connected players.
+     *
      * @param nicknames nicknames of the players.
      */
     public void setNicknames(List<String> nicknames) {
@@ -123,6 +125,7 @@ public class FirstPlayerSceneController extends ViewObservable implements Generi
 
     /**
      * Set gods of all connected players.
+     *
      * @param gods gods of the players.
      */
     public void setGods(List<ReducedGod> gods) {

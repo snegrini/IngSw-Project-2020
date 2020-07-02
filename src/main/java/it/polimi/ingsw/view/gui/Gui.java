@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.board.ReducedSpace;
 import it.polimi.ingsw.model.enumerations.Color;
 import it.polimi.ingsw.network.message.MessageType;
 import it.polimi.ingsw.observer.ViewObservable;
-import it.polimi.ingsw.observer.ViewObserver;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.scene.*;
 import javafx.application.Platform;

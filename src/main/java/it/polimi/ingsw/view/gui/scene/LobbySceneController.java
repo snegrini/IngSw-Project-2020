@@ -36,6 +36,7 @@ public class LobbySceneController extends ViewObservable implements GenericScene
 
     /**
      * Handle click on back to menu button.
+     *
      * @param event the mouse click event.
      */
     private void onBackToMenuBtnClick(Event event) {
@@ -46,6 +47,7 @@ public class LobbySceneController extends ViewObservable implements GenericScene
 
     /**
      * Set nicknames already logged in game.
+     *
      * @param nicknames list of nicknames.
      */
     public void setNicknames(List<String> nicknames) {
@@ -54,6 +56,7 @@ public class LobbySceneController extends ViewObservable implements GenericScene
 
     /**
      * Set number of max players chosen by first user.
+     *
      * @param maxPlayers number of max players in game.
      */
     public void setMaxPlayers(int maxPlayers) {

@@ -63,6 +63,7 @@ public abstract class Effect extends Observable implements Serializable {
 
     /**
      * Return the phase type of this Effect.
+     *
      * @return Phase Type of current Effect.
      */
     public PhaseType getPhaseType() {
@@ -83,6 +84,7 @@ public abstract class Effect extends Observable implements Serializable {
 
     /**
      * Return the target type of the Effect.
+     *
      * @param xmlName Name from file.
      * @return Target Type.
      */
@@ -92,7 +94,8 @@ public abstract class Effect extends Observable implements Serializable {
 
     /**
      * Add a Target Type to the map.
-     * @param xmlName Name from file.
+     *
+     * @param xmlName    Name from file.
      * @param targetType Target Type to add.
      */
     public void addTargetType(XMLName xmlName, TargetType targetType) {
@@ -101,6 +104,7 @@ public abstract class Effect extends Observable implements Serializable {
 
     /**
      * Return the map of the target type.
+     *
      * @return Map of Target Type.
      */
     protected Map<XMLName, TargetType> getTargetTypeMap() {
@@ -109,6 +113,7 @@ public abstract class Effect extends Observable implements Serializable {
 
     /**
      * Set the target type map.
+     *
      * @param targetTypeMap Target Type Map.
      */
     protected void setTargetTypeMap(Map<XMLName, TargetType> targetTypeMap) {
@@ -117,6 +122,7 @@ public abstract class Effect extends Observable implements Serializable {
 
     /**
      * Returns if this Effect needs a user confirm in order to be activated.
+     *
      * @return {code @true} if Effect needs a user confirm {code @false} otherwise.
      */
     public abstract boolean isUserConfirmNeeded();

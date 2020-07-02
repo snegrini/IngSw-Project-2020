@@ -17,6 +17,7 @@ public class ReducedSpace implements Serializable {
 
     /**
      * Constructor of Reduced Space.
+     *
      * @param space space to reduce.
      */
     public ReducedSpace(Space space) {
@@ -32,6 +33,7 @@ public class ReducedSpace implements Serializable {
 
     /**
      * Returns the level of the reduced space.
+     *
      * @return level.
      */
     public int getLevel() {
@@ -40,6 +42,7 @@ public class ReducedSpace implements Serializable {
 
     /**
      * Returns the presence of a dome on a space.
+     *
      * @return {code @true} if contains a Dome {code @false} otherwise.
      */
     public boolean hasDome() {

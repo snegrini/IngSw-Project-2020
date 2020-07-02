@@ -26,6 +26,7 @@ public class InputController implements Serializable {
 
     /**
      * Constructor of the Input Controller Class.
+     *
      * @param virtualViewMap Virtual View Map.
      * @param gameController Game Controller.
      */
@@ -37,6 +38,7 @@ public class InputController implements Serializable {
 
     /**
      * Verify data sent by client to server.
+     *
      * @param message Message from Client.
      * @return {code @true} if Message contains valid data {@code false} otherwise.
      */
@@ -73,8 +75,9 @@ public class InputController implements Serializable {
 
     /**
      * Check if a nickname is valid or not.
+     *
      * @param nickname new client's nickname.
-     * @param view view for active client.
+     * @param view     view for active client.
      * @return {code @true} if it's a valid nickname {code @false} otherwise.
      */
     public boolean checkLoginNickname(String nickname, View view) {
@@ -92,7 +95,7 @@ public class InputController implements Serializable {
 
     public boolean checkFirstPlayerHandler(Message message) {
         String firstPlayer = ((MatchInfoMessage) message).getActivePlayerNickname();
-        if(gameController.getTurnController().getNicknameQueue().contains(firstPlayer)){
+        if (gameController.getTurnController().getNicknameQueue().contains(firstPlayer)) {
             return true;
         } else {
             VirtualView virtualView = virtualViewMap.get(message.getNickname());
@@ -111,19 +114,20 @@ public class InputController implements Serializable {
     private boolean pickMovingCheck(Message message) {
         Position workerPosition = ((PositionMessage) message).getPositionList().get(0);
         String activePlayerNickname = gameController.getTurnController().getActivePlayer();
-    Worker pickedWorker =  game.getPlayerByNickname(activePlayerNickname).getWorkerByPosition(workerPosition);
-        if ( null != pickedWorker) {
-        return true;
-    } else {
-        VirtualView virtualView = virtualViewMap.get(message.getNickname());
-        virtualView.showGenericMessage("You don't have a worker in this position.");
-        gameController.getTurnController().pickWorker();
-        return false;
+        Worker pickedWorker = game.getPlayerByNickname(activePlayerNickname).getWorkerByPosition(workerPosition);
+        if (null != pickedWorker) {
+            return true;
+        } else {
+            VirtualView virtualView = virtualViewMap.get(message.getNickname());
+            virtualView.showGenericMessage("You don't have a worker in this position.");
+            gameController.getTurnController().pickWorker();
+            return false;
+        }
     }
-}
 
     /**
      * Check initializing workers positions.
+     *
      * @param message message from client.
      * @return {code @true} if are two valid position {code @false} otherwise.
      */
@@ -153,6 +157,7 @@ public class InputController implements Serializable {
 
     /**
      * Check player number reply message.
+     *
      * @param message message from client.
      * @return {code @true} if it's a valid number {code @false} otherwise.
      */
@@ -170,6 +175,7 @@ public class InputController implements Serializable {
 
     /**
      * Check of Moving Worker message.
+     *
      * @param message message from client.
      * @return {code @true} if it's a valid position {code @false} otherwise.
      */
@@ -190,6 +196,7 @@ public class InputController implements Serializable {
 
     /**
      * Check God List messages.
+     *
      * @param message message from client.
      * @return {code @true} if it's a valid set of gods {code @false} otherwise.
      */
@@ -216,6 +223,7 @@ public class InputController implements Serializable {
 
     /**
      * Check Color messages.
+     *
      * @param message message from client.
      * @return {code @true} if it's a valid color {code @false} otherwise.
      */
@@ -239,6 +247,7 @@ public class InputController implements Serializable {
 
     /**
      * Check of Building Worker message.
+     *
      * @param message message from client.
      * @return {code @true} if it's a valid position {code @false} otherwise.
      */

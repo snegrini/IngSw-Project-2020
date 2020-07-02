@@ -13,6 +13,7 @@ public class SimpleEffect extends Effect {
 
     /**
      * Default constructor
+     *
      * @param phaseType Phase Type of the Effect.
      */
     public SimpleEffect(PhaseType phaseType) {

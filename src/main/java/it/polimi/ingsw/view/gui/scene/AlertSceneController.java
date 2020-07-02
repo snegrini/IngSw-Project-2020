@@ -91,6 +91,7 @@ public class AlertSceneController implements GenericSceneController {
 
     /**
      * Sets the message of the Alert Scene.
+     *
      * @param str message of the Alert Scene.
      */
     public void setAlertMessage(String str) {

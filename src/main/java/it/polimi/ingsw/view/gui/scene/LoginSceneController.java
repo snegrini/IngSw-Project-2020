@@ -30,6 +30,7 @@ public class LoginSceneController extends ViewObservable implements GenericScene
 
     /**
      * Handle click on Join button.
+     *
      * @param event the mouse click event.
      */
     private void onJoinBtnClick(Event event) {
@@ -42,6 +43,7 @@ public class LoginSceneController extends ViewObservable implements GenericScene
 
     /**
      * Handle click on back to menu button.
+     *
      * @param event the mouse click event.
      */
     private void onBackToMenuBtnClick(Event event) {

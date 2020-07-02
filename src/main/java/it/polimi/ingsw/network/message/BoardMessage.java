@@ -20,7 +20,7 @@ public class BoardMessage extends Message {
     public BoardMessage(ReducedSpace[][] board) {
         super(Game.SERVER_NICKNAME, MessageType.BOARD);
         this.board = board;
- 
+
     }
 
     /**

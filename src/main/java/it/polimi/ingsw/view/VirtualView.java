@@ -30,6 +30,7 @@ public class VirtualView implements View, Observer {
 
     /**
      * Returns the client handler associated to a client.
+     *
      * @return client handler.
      */
     public ClientHandler getClientHandler() {

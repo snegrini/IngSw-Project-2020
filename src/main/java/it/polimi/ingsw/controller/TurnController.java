@@ -36,6 +36,7 @@ public class TurnController implements Serializable {
 
     /**
      * Constructor of the Turn Controller.
+     *
      * @param virtualViewMap Virtual View Map of all Clients.
      * @param gameController Game Controller.
      */
@@ -217,6 +218,7 @@ public class TurnController implements Serializable {
 
     /**
      * Change phase of the active turn.
+     *
      * @param virtualView Virtual View of active Player.
      */
     private void continueGame(VirtualView virtualView) {
@@ -355,7 +357,7 @@ public class TurnController implements Serializable {
      * @param excludeNickname name of the player to be excluded from the broadcast.
      */
     public void turnControllerNotify(String messageToNotify, String excludeNickname) {
-        virtualViewMap.values().forEach(vv -> vv.showMatchInfo(null, null, null,activePlayer));
+        virtualViewMap.values().forEach(vv -> vv.showMatchInfo(null, null, null, activePlayer));
         virtualViewMap.entrySet().stream()
                 .filter(entry -> !excludeNickname.equals(entry.getKey()))
                 .map(Map.Entry::getValue)
@@ -373,6 +375,7 @@ public class TurnController implements Serializable {
 
     /**
      * Set the virtual view map.
+     *
      * @param virtualViewMap Virtual View Map.
      */
     public void setVirtualViewMap(Map<String, VirtualView> virtualViewMap) {

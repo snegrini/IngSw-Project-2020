@@ -264,7 +264,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
 
     /**
      * Handle the type of the space clicked by player.
-     * @param clickedNode clicked node of the board.
+     *
+     * @param clickedNode     clicked node of the board.
      * @param clickedPosition clicked position of the board.
      */
     private void handleSpaceClickType(Node clickedNode, Position clickedPosition) {

@@ -51,6 +51,7 @@ public class ColorSceneController extends ViewObservable implements GenericScene
 
     /**
      * Handle the click on the worker.
+     *
      * @param color color picked by user.
      */
     private void onWorkerClick(Color color) {
@@ -71,6 +72,7 @@ public class ColorSceneController extends ViewObservable implements GenericScene
 
     /**
      * Set the colors which are pickable by user.
+     *
      * @param availableColors available colors.
      */
     public void setAvailableColors(List<Color> availableColors) {

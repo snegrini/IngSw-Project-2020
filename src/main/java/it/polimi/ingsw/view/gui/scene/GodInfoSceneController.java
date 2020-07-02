@@ -87,6 +87,7 @@ public class GodInfoSceneController implements GenericSceneController {
 
     /**
      * Sets the god's name.
+     *
      * @param str name of the god.
      */
     public void setGodName(String str) {
@@ -96,6 +97,7 @@ public class GodInfoSceneController implements GenericSceneController {
 
     /**
      * Sets the god's caption.
+     *
      * @param str caption of the god.
      */
     public void setGodCaption(String str) {
@@ -104,6 +106,7 @@ public class GodInfoSceneController implements GenericSceneController {
 
     /**
      * Sets the god's description.
+     *
      * @param str description of the god.
      */
     public void setGodDescription(String str) {

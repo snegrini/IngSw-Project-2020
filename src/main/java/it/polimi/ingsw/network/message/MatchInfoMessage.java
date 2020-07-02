@@ -3,7 +3,6 @@ package it.polimi.ingsw.network.message;
 import it.polimi.ingsw.model.ReducedGod;
 import it.polimi.ingsw.model.enumerations.Color;
 
-import javax.swing.*;
 import java.util.List;
 
 /**
@@ -47,7 +46,7 @@ public class MatchInfoMessage extends Message {
                 "nickname=" + getNickname() +
                 ", activePlayers=" + activePlayers +
                 ", activeGods=" + activeGods +
-                ", activeColors="+activeColors +
+                ", activeColors=" + activeColors +
                 ", activePlayerNickname=" + activePlayerNickname +
                 '}';
     }
