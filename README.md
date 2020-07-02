@@ -32,8 +32,8 @@ Al seguente link è possibile consultare il report della coverage dei test effet
 |Libreria/Plugin|Descrizione|
 |---------------|-----------|
 |__Maven__|Strumento di automazione della compilazione utilizzato principalmente per progetti Java.|
-|__JavaFx__|Libreria grafica per realizzare interfacce utente |
-|__JUnit__|Framework di unit testing|
+|__JavaFx__|Libreria grafica per realizzare interfacce utente.|
+|__JUnit__|Framework di unit testing.|
 
 ## Funzionalità
 ### Funzionalità Sviluppate
@@ -42,10 +42,8 @@ Al seguente link è possibile consultare il report della coverage dei test effet
 - GUI
 - Socket
 - 2 FA (Funzionalità Avanzate):
-    - __Persistenza:__ lo stato di una partita deve essere salvato su disco, in modo che la partita possa
-        riprendere anche a seguito dell’interruzione dell’esecuzione del server.
-    - __Undo:__ permette a un giocatore di annullare la propria.
-        mossa entro un periodo di 5 secondi da quando l’ha effettuata.
+    - __Persistenza:__ lo stato di una partita deve essere salvato su disco, in modo che la partita possa riprendere anche a seguito dell’interruzione dell’esecuzione del server.
+    - __Undo:__ permette a un giocatore di annullare la propria mossa entro un periodo di 5 secondi da quando l’ha effettuata.
 
 
 ## Compilazione e packaging
