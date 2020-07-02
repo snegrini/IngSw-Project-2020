@@ -17,12 +17,16 @@ Interazione e gameplay: linea di comando (CLI) e grafica (GUI).
 ## Documentazione
 
 ### UML
-I seguenti diagrammi delle classi rappresentano il primo, il modello secondo il quale il gioco dovrebbe essere stato implementato, il secondo contiene invece i diagrammi del prodotto finale nelle parti critiche riscontrate.
-- [UML Iniziali](https://github.com/snegrini/ing-sw-2020-kala-lanzi-negrini/blob/master/deliveries/archive/uml/uml_model_initial.jpg)
+I seguenti diagrammi delle classi rappresentano rispettivamente il modello iniziale sviluppato durante la fase di progettazione e i diagrammi del prodotto finale nelle parti critiche riscontrate.
+- [UML Iniziali](https://github.com/snegrini/ing-sw-2020-kala-lanzi-negrini/tree/master/deliveries/archive/uml/uml_model_initial.jpg)
 - [UML Finali](https://github.com/snegrini/ing-sw-2020-kala-lanzi-negrini/tree/master/deliveries/final/uml)
 
 ### JavaDoc
-La seguente documentazione include una descrizione per la maggior parte delle classi e dei metodi utilizzati, segue le tecniche di documentazione di Java e può essere consultata al seguente indirizzo: [Javadoc](N/A)
+La seguente documentazione include una descrizione per la maggior parte delle classi e dei metodi utilizzati, segue le tecniche di documentazione di Java e può essere consultata al seguente indirizzo: [Javadoc](https://github.com/snegrini/ing-sw-2020-kala-lanzi-negrini/tree/master/deliveries/final/javadoc)
+
+### Coverage report
+Al seguente link è possibile consultare il report della coverage dei test effettuati con Junit: [Report](https://github.com/snegrini/ing-sw-2020-kala-lanzi-negrini/tree/master/deliveries/final/report)
+
 
 ### Librerie e Plugins
 |Libreria/Plugin|Descrizione|
@@ -55,14 +59,14 @@ I jar compilati verranno posizionati all'interno della cartella ```target/``` co
 ```santorini-client.jar``` e ```santorini-server.jar```.
 
 ### Jars
-I Jar del progetto possono essere scaricati al seguente link: [Jars](N/A).
+I Jar del progetto possono essere scaricati al seguente link: [Jars](https://github.com/snegrini/ing-sw-2020-kala-lanzi-negrini/tree/master/deliveries/final/jar).
 
 
 ## Esecuzione
 Questo progetto richiede una versione di Java 11 o superiore per essere eseguito correttamente.
 
 ### Santorini Client
-Le seguenti istruzioni descrivono come eseguire il client CLI o GUI.
+Le seguenti istruzioni descrivono come eseguire il client con interfaccia CLI o GUI.
 
 #### CLI
 Per lanciare Santorini Client CLI digitare da terminale il comando:
