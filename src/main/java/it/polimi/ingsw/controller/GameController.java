@@ -420,7 +420,8 @@ public class GameController implements Observer, Serializable {
         }
 
         for (VirtualView vv : virtualViewMap.values()) {
-            vv.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), turnController.getActivePlayer());
+
+            vv.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), getPlayersColors(), turnController.getActivePlayer());
         }
     }
 
@@ -535,7 +536,7 @@ public class GameController implements Observer, Serializable {
 
         virtualView.showBoard(game.getReducedSpaceBoard());
         virtualView.askInitWorkersPositions(game.getFreePositions());
-        virtualView.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), turnController.getActivePlayer());
+        virtualView.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), getPlayersColors(), turnController.getActivePlayer());
 
     }
 
@@ -608,6 +609,25 @@ public class GameController implements Observer, Serializable {
         colorList.add(Color.GREEN);
         return colorList;
     }
+
+
+    /**
+     * Returns the list of colors of players in nicknameQueue.
+     * @return a list of colors.
+     */
+    public List<Color> getPlayersColors() {
+        List<Color> colors = new ArrayList<>();
+
+        for(String n : turnController.getNicknameQueue()) {
+            Player p = game.getPlayerByNickname(n);
+            Position pos = p.getWorkersPositions().get(0);
+            Worker w = p.getWorkerByPosition(pos);
+            colors.add(w.getColor());
+        }
+
+        return colors;
+    }
+
 
     /**
      * Returns a List of Gods sorted with their own players.

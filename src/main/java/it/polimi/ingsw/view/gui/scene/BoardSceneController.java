@@ -557,7 +557,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
      * @param gods         a list of player's gods.
      * @param activePlayer the nickname of the playing player.
      */
-    public void updateMatchInfo(List<String> players, List<Color> colors, List<ReducedGod> gods, String activePlayer) {
+    public void updateMatchInfo(List<String> players, List<ReducedGod> gods, List<Color> colors, String activePlayer) {
         if (players != null && gods != null) {
             this.gods = gods; // save gods for later usage.
             player1Label.setText(players.get(0));

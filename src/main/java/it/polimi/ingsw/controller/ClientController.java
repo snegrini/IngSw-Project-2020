@@ -170,7 +170,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateFirstPlayer(String nickname) {
-        client.sendMessage(new MatchInfoMessage(this.nickname, MessageType.PICK_FIRST_PLAYER, null, null, nickname));
+        client.sendMessage(new MatchInfoMessage(this.nickname, MessageType.PICK_FIRST_PLAYER, null, null, null, nickname));
     }
 
     /**
@@ -225,6 +225,7 @@ public class ClientController implements ViewObserver, Observer {
                 taskQueue.execute(() -> view.showMatchInfo(
                         matchInfoMessage.getActivePlayers(),
                         matchInfoMessage.getActiveGods(),
+                        matchInfoMessage.getActiveColors(),
                         matchInfoMessage.getActivePlayerNickname()
                 ));
                 break;

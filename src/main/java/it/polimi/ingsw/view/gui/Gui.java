@@ -179,9 +179,9 @@ public class Gui extends ViewObservable implements View {
     }
 
     @Override
-    public void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
+    public void showMatchInfo(List<String> players, List<ReducedGod> gods, List<Color> colors, String activePlayer) {
         BoardSceneController bsc = getBoardSceneController();
-        Platform.runLater(() -> bsc.updateMatchInfo(players, gods, activePlayer));
+        Platform.runLater(() -> bsc.updateMatchInfo(players, gods, colors, activePlayer));
     }
 
     @Override

@@ -527,7 +527,7 @@ public class Cli extends ViewObservable implements View {
     }
 
     @Override
-    public void showMatchInfo(List<String> players, List<ReducedGod> gods, String activePlayer) {
+    public void showMatchInfo(List<String> players, List<ReducedGod> gods, List<Color> colors, String activePlayer) {
         // Do nothing. Updates are reprinted to the terminal automatically by each method.
     }
 
