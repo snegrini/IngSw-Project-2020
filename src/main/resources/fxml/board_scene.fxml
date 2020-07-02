@@ -61,11 +61,7 @@
                                 </Label>
                                 <ImageView fx:id="god1Image" fitHeight="150.0" fitWidth="120.0" layoutX="140.0"
                                            layoutY="122.0" pickOnBounds="true" preserveRatio="true"
-                                           styleClass="playerGodImage">
-                                    <image>
-                                        <Image url="@../images/gods/podium_atlas.png"/>
-                                    </image>
-                                </ImageView>
+                                           styleClass="playerGodImage"/>
                                 <ImageView fx:id="god2Image" fitHeight="150.0" fitWidth="120.0" layoutX="140.0"
                                            layoutY="327.0" pickOnBounds="true" preserveRatio="true"
                                            styleClass="playerGodImage"/>

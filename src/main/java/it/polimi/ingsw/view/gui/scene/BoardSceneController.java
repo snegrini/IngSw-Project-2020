@@ -569,7 +569,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             player1Img.setVisible(true);
 
             // Set info about the second player.
-            player2Color.setVisible(true);
+            player2Label.setText(players.get(1));
+
             Image img2 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(1).getName().toLowerCase() + ".png"));
             god2Image.setImage(img2);
             god2Image.setVisible(true);
@@ -579,8 +580,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
                 player1Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(0).getText()));
                 player1Color.setVisible(true);
 
-                player2Label.setText(players.get(1));
                 player2Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(1).getText()));
+                player2Color.setVisible(true);
             }
 
             turnInformationLabel.setText("Turn of " + activePlayer);
@@ -589,7 +590,6 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             if (players.size() == 3 && gods.size() == 3) {
                 // Set info about the third player.
                 player3Label.setText(players.get(2));
-
 
                 Image img3 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(2).getName().toLowerCase() + ".png"));
                 god3Image.setImage(img3);
