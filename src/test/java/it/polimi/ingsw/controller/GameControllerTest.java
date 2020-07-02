@@ -346,7 +346,7 @@ public class GameControllerTest {
         p1_apply = new PositionMessage(p1, MessageType.APPLY_EFFECT, List.of(new Position(1, 2)));
         gameController.onMessageReceived(p1_apply);
 
-        assertNull(Game.getInstance().getPlayerByNickname("AndreaLanzi"));
+        assertEquals(true, gameController.isGameFinished());
 
     }
 

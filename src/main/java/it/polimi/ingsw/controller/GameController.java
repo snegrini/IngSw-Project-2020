@@ -299,6 +299,7 @@ public class GameController implements Observer, Serializable {
         setGameState(GameState.IN_GAME);
         broadcastGenericMessage("Game Started!");
 
+        turnController.broadcastMatchInfo();
         turnController.newTurn();
     }
 
@@ -536,7 +537,7 @@ public class GameController implements Observer, Serializable {
 
         virtualView.showBoard(game.getReducedSpaceBoard());
         virtualView.askInitWorkersPositions(game.getFreePositions());
-        virtualView.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), getPlayersColors(), turnController.getActivePlayer());
+        virtualView.showMatchInfo(turnController.getNicknameQueue(), getActiveGods(), null, turnController.getActivePlayer());
 
     }
 
@@ -565,6 +566,7 @@ public class GameController implements Observer, Serializable {
         } else {
             turnController.next();
             startGame();
+
         }
     }
 
@@ -620,9 +622,7 @@ public class GameController implements Observer, Serializable {
 
         for(String n : turnController.getNicknameQueue()) {
             Player p = game.getPlayerByNickname(n);
-            Position pos = p.getWorkersPositions().get(0);
-            Worker w = p.getWorkerByPosition(pos);
-            colors.add(w.getColor());
+            colors.add(p.getWorkersColor());
         }
 
         return colors;
