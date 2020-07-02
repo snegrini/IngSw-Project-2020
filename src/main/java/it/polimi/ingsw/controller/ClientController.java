@@ -255,6 +255,7 @@ public class ClientController implements ViewObserver, Observer {
                 break;
             case WIN_FX:
                 WinMessage winMessage = (WinMessage) message;
+                client.disconnect();
                 taskQueue.execute(() -> view.showWinMessage(winMessage.getWinnerNickname()));
                 break;
             case LOBBY:

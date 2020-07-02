@@ -78,8 +78,8 @@
                                         mnemonicParsing="false" prefHeight="53.0" prefWidth="142.0"
                                         style="-fx-background-size: stretch;" styleClass="smallButton"
                                         text="Skip Effect"/>
-                                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="551.0" layoutY="652.0"
-                                           pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="turnInformationImg" fitHeight="150.0" fitWidth="200.0" layoutX="551.0"
+                                           layoutY="652.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../images/blocco.png"/>
                                     </image>

@@ -78,6 +78,8 @@ public class BoardSceneController extends ViewObservable implements GenericScene
     private Button confirmBtn;
     @FXML
     private Label turnInformationLabel;
+    @FXML
+    private ImageView turnInformationImg;
 
 
     /**
@@ -106,11 +108,15 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         player3Label.setText("");
 
         turnInformationLabel.setText("");
+        turnInformationImg.setVisible(false);
 
         timerLbl.setVisible(false);
         undoImg.setVisible(false);
         undoBg.setVisible(false);
         confirmBtn.setVisible(false);
+
+        god1Image.setVisible(false);
+        god2Image.setVisible(false);
         god3Image.setVisible(false);
 
         player1Img.setVisible(false);
@@ -545,14 +551,17 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             player1Label.setText(players.get(0));
             Image img1 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(0).getName().toLowerCase() + ".png"));
             god1Image.setImage(img1);
+            god1Image.setVisible(true);
             player1Img.setVisible(true);
 
             player2Label.setText(players.get(1));
             Image img2 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(1).getName().toLowerCase() + ".png"));
             god2Image.setImage(img2);
+            god2Image.setVisible(true);
             player2Img.setVisible(true);
 
             turnInformationLabel.setText("Turn of " + activePlayer);
+            turnInformationImg.setVisible(true);
 
             if (players.size() == 3 && gods.size() == 3) {
                 // Sets 3rd player information.
@@ -570,6 +579,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
             }
         } else {
             turnInformationLabel.setText("Turn of " + activePlayer);
+            turnInformationImg.setVisible(true);
         }
     }
 }
