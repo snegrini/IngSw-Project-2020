@@ -301,4 +301,19 @@ public class GameTest {
 
         assertEquals(List.of(w2), instance.getWorkersByTargetType(w1, TargetType.YOUR_WORKER));
     }
+
+    @Test
+    public void restoreGame() {
+        this.instance.setChosenMaxPlayers(3);
+
+        Game.resetInstance();
+        Game freshGame = Game.getInstance();
+        assertNotEquals(this.instance, freshGame);
+
+        freshGame.restoreGame(this.instance.getBoard(), this.instance.getPlayers(), this.instance.getGods(), 3);
+        assertArrayEquals(this.instance.getBoard().getSpaces(), freshGame.getBoard().getSpaces());
+        assertEquals(this.instance.getPlayers(), freshGame.getPlayers());
+        assertEquals(this.instance.getGods(), freshGame.getGods());
+        assertEquals(this.instance.getChosenPlayersNumber(), freshGame.getChosenPlayersNumber());
+    }
 }

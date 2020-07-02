@@ -430,12 +430,11 @@ public class GameController implements Observer, Serializable {
      * @param savedGameController Controller from file.
      */
     private void restoreControllers(GameController savedGameController) {
-        Game restoredInstanceGame = savedGameController.game;
         Board restoredBoard = savedGameController.game.getBoard();
         List<Player> restoredPlayers = savedGameController.game.getPlayers();
         List<God> restoredGods = savedGameController.game.getGods();
         int restoredChoosenPlayerNumber = savedGameController.game.getChosenPlayersNumber();
-        this.game.restoreGame(restoredInstanceGame, restoredBoard, restoredPlayers, restoredGods, restoredChoosenPlayerNumber);
+        this.game.restoreGame(restoredBoard, restoredPlayers, restoredGods, restoredChoosenPlayerNumber);
 
         this.turnController = savedGameController.turnController;
         this.gameState = savedGameController.gameState;
