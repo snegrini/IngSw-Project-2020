@@ -763,7 +763,7 @@ public class GameController implements Observer, Serializable {
      * @return {@code true} if the game isn't started yet, {@code false} otherwise.
      */
     public boolean isGameStarted() {
-        return this.gameState != GameState.LOGIN;
+        return this.gameState != GameState.LOGIN && this.gameState != GameState.END;
     }
 
     /**
