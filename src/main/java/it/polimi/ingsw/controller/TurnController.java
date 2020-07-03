@@ -251,6 +251,17 @@ public class TurnController implements Serializable {
         // if players.size == 3 then remove looser's workers from board. And notify all.
         // else endgame.
         if (3 == game.getNumCurrentPlayers()) {
+
+
+
+            Effect currentEffect = game.getPlayerByNickname(getActivePlayer()).getGod().getEffectByType(PhaseType.YOUR_MOVE_AFTER);
+            if (null != currentEffect) {
+                Player player = game.getPlayerByNickname(activePlayer);
+                Position pos = player.getWorkersPositions().get(0);
+                currentEffect.clear(player.getWorkerByPosition(pos));
+            }
+
+
             game.removeWorkers(activePlayer);
             // disconnect 3° player, notify all
             turnControllerNotify("The player " + activePlayer + " HAS LOST!", activePlayer);
