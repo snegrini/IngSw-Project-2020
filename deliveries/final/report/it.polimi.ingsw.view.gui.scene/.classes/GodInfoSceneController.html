@@ -1,220 +1,222 @@
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-    <title>Coverage Report :: GodInfoSceneController</title>
-    <style type="text/css">
-        @import "../../.css/coverage.css";
-    </style>
+  <title>Coverage Report :: GodInfoSceneController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
 </head>
 
 <body>
 <div class="header"></div>
 
 <div class="content">
-    <div class="breadCrumbs">
-        [ <a href="../../index.html">all classes</a> ]
-        [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
-    </div>
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
+</div>
 
-    <h1>Coverage Summary for Class: GodInfoSceneController (it.polimi.ingsw.view.gui.scene)</h1>
+<h1>Coverage Summary for Class: GodInfoSceneController (it.polimi.ingsw.view.gui.scene)</h1>
 
-    <table class="coverageStats">
-        <tr>
-            <th class="name">Class</th>
-            <th class="coverageStat
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
 ">
-                Class, %
-            </th>
-            <th class="coverageStat
+  Class, %
+</th>
+<th class="coverageStat 
 ">
-                Method, %
-            </th>
-            <th class="coverageStat
+  Method, %
+</th>
+<th class="coverageStat 
 ">
-                Line, %
-            </th>
-        </tr>
-        <tr>
-            <td class="name">GodInfoSceneController</td>
-            <td class="coverageStat">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GodInfoSceneController</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 1)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 11)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 24)
   </span>
-            </td>
-        </tr>
+</td>
+</tr>
 
-    </table>
+</table>
 
-    <br/>
-    <br/>
+<br/>
+<br/>
 
 
-    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
-        <i>2</i>&nbsp;
-        <i>3</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
-        <i>4</i>&nbsp;import javafx.fxml.FXML;
-        <i>5</i>&nbsp;import javafx.scene.Scene;
-        <i>6</i>&nbsp;import javafx.scene.control.Button;
-        <i>7</i>&nbsp;import javafx.scene.control.Label;
-        <i>8</i>&nbsp;import javafx.scene.image.Image;
-        <i>9</i>&nbsp;import javafx.scene.image.ImageView;
-        <i>10</i>&nbsp;import javafx.scene.input.MouseEvent;
-        <i>11</i>&nbsp;import javafx.scene.layout.StackPane;
-        <i>12</i>&nbsp;import javafx.stage.Modality;
-        <i>13</i>&nbsp;import javafx.stage.Stage;
-        <i>14</i>&nbsp;import javafx.stage.StageStyle;
-        <i>15</i>&nbsp;
-        <i>16</i>&nbsp;/**
-        <i>17</i>&nbsp; * This class implements the scene which shows information about a given god.
-        <i>18</i>&nbsp; */
-        <i>19</i>&nbsp;public class GodInfoSceneController implements GenericSceneController {
-        <i>20</i>&nbsp; private final Stage stage;
-        <i>21</i>&nbsp; private String godName;
-        <i>22</i>&nbsp;
-        <i>23</i>&nbsp; private double xOffset;
-        <i>24</i>&nbsp; private double yOffset;
-        <i>25</i>&nbsp;
-        <i>26</i>&nbsp; @FXML
-        <i>27</i>&nbsp; private StackPane rootPane;
-        <i>28</i>&nbsp; @FXML
-        <i>29</i>&nbsp; private Label nameLbl;
-        <i>30</i>&nbsp; @FXML
-        <i>31</i>&nbsp; private Label captionLbl;
-        <i>32</i>&nbsp; @FXML
-        <i>33</i>&nbsp; private Label descriptionLbl;
-        <i>34</i>&nbsp; @FXML
-        <i>35</i>&nbsp; private Button okBtn;
-        <i>36</i>&nbsp; @FXML
-        <i>37</i>&nbsp; private ImageView godImg;
-        <i>38</i>&nbsp;
-        <i>39</i>&nbsp; /**
-        <i>40</i>&nbsp; * Default constructor.
-        <i>41</i>&nbsp; */
-        <b class="nc"><i>42</i>&nbsp; public GodInfoSceneController() {</b>
-        <b class="nc"><i>43</i>&nbsp; stage = new Stage();</b>
-        <b class="nc"><i>44</i>&nbsp; stage.initOwner(SceneController.getActiveScene().getWindow());</b>
-        <b class="nc"><i>45</i>&nbsp; stage.initModality(Modality.APPLICATION_MODAL);</b>
-        <b class="nc"><i>46</i>&nbsp; stage.initStyle(StageStyle.UNDECORATED);</b>
-        <b class="nc"><i>47</i>&nbsp; stage.setAlwaysOnTop(true);</b>
-        <b class="nc"><i>48</i>&nbsp; xOffset = 0;</b>
-        <b class="nc"><i>49</i>&nbsp; yOffset = 0;</b>
-        <i>50</i>&nbsp; }
-        <i>51</i>&nbsp;
-        <i>52</i>&nbsp; @FXML
-        <i>53</i>&nbsp; public void initialize() {
-        <b class="nc"><i>54</i>&nbsp; rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::onRootPaneMousePressed);</b>
-        <b class="nc"><i>55</i>&nbsp; rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::onRootPaneMouseDragged);</b>
-        <b class="nc"><i>56</i>&nbsp; okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);</b>
-        <i>57</i>&nbsp; }
-        <i>58</i>&nbsp;
-        <i>59</i>&nbsp; /**
-        <i>60</i>&nbsp; * Handles the mouse pressed event preparing the coordinates for dragging the window.
-        <i>61</i>&nbsp; *
-        <i>62</i>&nbsp; * @param event the mouse pressed event.
-        <i>63</i>&nbsp; */
-        <i>64</i>&nbsp; private void onRootPaneMousePressed(MouseEvent event) {
-        <b class="nc"><i>65</i>&nbsp; xOffset = stage.getX() - event.getScreenX();</b>
-        <b class="nc"><i>66</i>&nbsp; yOffset = stage.getY() - event.getScreenY();</b>
-        <i>67</i>&nbsp; }
-        <i>68</i>&nbsp;
-        <i>69</i>&nbsp; /**
-        <i>70</i>&nbsp; * Handles the mouse dragged event by moving the window around the screen.
-        <i>71</i>&nbsp; *
-        <i>72</i>&nbsp; * @param event the mouse dragged event.
-        <i>73</i>&nbsp; */
-        <i>74</i>&nbsp; private void onRootPaneMouseDragged(MouseEvent event) {
-        <b class="nc"><i>75</i>&nbsp; stage.setX(event.getScreenX() + xOffset);</b>
-        <b class="nc"><i>76</i>&nbsp; stage.setY(event.getScreenY() + yOffset);</b>
-        <i>77</i>&nbsp; }
-        <i>78</i>&nbsp;
-        <i>79</i>&nbsp; /**
-        <i>80</i>&nbsp; * Handles click on ok button.
-        <i>81</i>&nbsp; *
-        <i>82</i>&nbsp; * @param event the mouse click event.
-        <i>83</i>&nbsp; */
-        <i>84</i>&nbsp; private void onOkBtnClick(MouseEvent event) {
-        <b class="nc"><i>85</i>&nbsp; stage.close();</b>
-        <i>86</i>&nbsp; }
-        <i>87</i>&nbsp;
-        <i>88</i>&nbsp; /**
-        <i>89</i>&nbsp; * Sets the god&#39;s name.
-        <i>90</i>&nbsp; *
-        <i>91</i>&nbsp; * @param str name of the god.
-        <i>92</i>&nbsp; */
-        <i>93</i>&nbsp; public void setGodName(String str) {
-        <b class="nc"><i>94</i>&nbsp; nameLbl.setText(str);</b>
-        <b class="nc"><i>95</i>&nbsp; godName = str;</b>
-        <i>96</i>&nbsp; }
-        <i>97</i>&nbsp;
-        <i>98</i>&nbsp; /**
-        <i>99</i>&nbsp; * Sets the god&#39;s caption.
-        <i>100</i>&nbsp; *
-        <i>101</i>&nbsp; * @param str caption of the god.
-        <i>102</i>&nbsp; */
-        <i>103</i>&nbsp; public void setGodCaption(String str) {
-        <b class="nc"><i>104</i>&nbsp; captionLbl.setText(str);</b>
-        <i>105</i>&nbsp; }
-        <i>106</i>&nbsp;
-        <i>107</i>&nbsp; /**
-        <i>108</i>&nbsp; * Sets the god&#39;s description.
-        <i>109</i>&nbsp; *
-        <i>110</i>&nbsp; * @param str description of the god.
-        <i>111</i>&nbsp; */
-        <i>112</i>&nbsp; public void setGodDescription(String str) {
-        <b class="nc"><i>113</i>&nbsp; descriptionLbl.setText(str);</b>
-        <i>114</i>&nbsp; }
-        <i>115</i>&nbsp;
-        <i>116</i>&nbsp; /**
-        <i>117</i>&nbsp; * Display the god&#39;s info.
-        <i>118</i>&nbsp; */
-        <i>119</i>&nbsp; public void displayGodInfo() {
-        <b class="nc"><i>120</i>&nbsp; stage.showAndWait();</b>
-        <i>121</i>&nbsp; }
-        <i>122</i>&nbsp;
-        <i>123</i>&nbsp; /**
-        <i>124</i>&nbsp; * Sets the scene.
-        <i>125</i>&nbsp; *
-        <i>126</i>&nbsp; * @param scene scene of the stage.
-        <i>127</i>&nbsp; */
-        <i>128</i>&nbsp; public void setScene(Scene scene) {
-        <b class="nc"><i>129</i>&nbsp; stage.setScene(scene);</b>
-        <i>130</i>&nbsp; }
-        <i>131</i>&nbsp;
-        <i>132</i>&nbsp; /**
-        <i>133</i>&nbsp; * Sets the god&#39;s image.
-        <i>134</i>&nbsp; */
-        <i>135</i>&nbsp; public void setGodImage() {
-        <b class="nc"><i>136</i>&nbsp; Image img = new Image(getClass().getResourceAsStream(&quot;/images/gods/podium_&quot;
-            + godName.toLowerCase() + &quot;.png&quot;));</b>
-        <b class="nc"><i>137</i>&nbsp; godImg.setImage(img);</b>
-        <i>138</i>&nbsp; }
-        <i>139</i>&nbsp;}
-    </div>
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
+<i>4</i>&nbsp;import javafx.fxml.FXML;
+<i>5</i>&nbsp;import javafx.scene.Scene;
+<i>6</i>&nbsp;import javafx.scene.control.Button;
+<i>7</i>&nbsp;import javafx.scene.control.Label;
+<i>8</i>&nbsp;import javafx.scene.image.Image;
+<i>9</i>&nbsp;import javafx.scene.image.ImageView;
+<i>10</i>&nbsp;import javafx.scene.input.MouseEvent;
+<i>11</i>&nbsp;import javafx.scene.layout.StackPane;
+<i>12</i>&nbsp;import javafx.stage.Modality;
+<i>13</i>&nbsp;import javafx.stage.Stage;
+<i>14</i>&nbsp;import javafx.stage.StageStyle;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;/**
+<i>17</i>&nbsp; * This class implements the scene which shows information about a given god.
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;public class GodInfoSceneController implements GenericSceneController {
+<i>20</i>&nbsp;    private final Stage stage;
+<i>21</i>&nbsp;    private String godName;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    private double xOffset;
+<i>24</i>&nbsp;    private double yOffset;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @FXML
+<i>27</i>&nbsp;    private StackPane rootPane;
+<i>28</i>&nbsp;    @FXML
+<i>29</i>&nbsp;    private Label nameLbl;
+<i>30</i>&nbsp;    @FXML
+<i>31</i>&nbsp;    private Label captionLbl;
+<i>32</i>&nbsp;    @FXML
+<i>33</i>&nbsp;    private Label descriptionLbl;
+<i>34</i>&nbsp;    @FXML
+<i>35</i>&nbsp;    private Button okBtn;
+<i>36</i>&nbsp;    @FXML
+<i>37</i>&nbsp;    private ImageView godImg;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * Default constructor.
+<i>41</i>&nbsp;     */
+<b class="nc"><i>42</i>&nbsp;    public GodInfoSceneController() {</b>
+<b class="nc"><i>43</i>&nbsp;        stage = new Stage();</b>
+<b class="nc"><i>44</i>&nbsp;        stage.initOwner(SceneController.getActiveScene().getWindow());</b>
+<b class="nc"><i>45</i>&nbsp;        stage.initModality(Modality.APPLICATION_MODAL);</b>
+<b class="nc"><i>46</i>&nbsp;        stage.initStyle(StageStyle.UNDECORATED);</b>
+<b class="nc"><i>47</i>&nbsp;        stage.setAlwaysOnTop(true);</b>
+<b class="nc"><i>48</i>&nbsp;        xOffset = 0;</b>
+<b class="nc"><i>49</i>&nbsp;        yOffset = 0;</b>
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    @FXML
+<i>53</i>&nbsp;    public void initialize() {
+<b class="nc"><i>54</i>&nbsp;        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::onRootPaneMousePressed);</b>
+<b class="nc"><i>55</i>&nbsp;        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::onRootPaneMouseDragged);</b>
+<b class="nc"><i>56</i>&nbsp;        okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    /**
+<i>60</i>&nbsp;     * Handles the mouse pressed event preparing the coordinates for dragging the window.
+<i>61</i>&nbsp;     *
+<i>62</i>&nbsp;     * @param event the mouse pressed event.
+<i>63</i>&nbsp;     */
+<i>64</i>&nbsp;    private void onRootPaneMousePressed(MouseEvent event) {
+<b class="nc"><i>65</i>&nbsp;        xOffset = stage.getX() - event.getScreenX();</b>
+<b class="nc"><i>66</i>&nbsp;        yOffset = stage.getY() - event.getScreenY();</b>
+<i>67</i>&nbsp;    }
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * Handles the mouse dragged event by moving the window around the screen.
+<i>71</i>&nbsp;     *
+<i>72</i>&nbsp;     * @param event the mouse dragged event.
+<i>73</i>&nbsp;     */
+<i>74</i>&nbsp;    private void onRootPaneMouseDragged(MouseEvent event) {
+<b class="nc"><i>75</i>&nbsp;        stage.setX(event.getScreenX() + xOffset);</b>
+<b class="nc"><i>76</i>&nbsp;        stage.setY(event.getScreenY() + yOffset);</b>
+<i>77</i>&nbsp;    }
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    /**
+<i>80</i>&nbsp;     * Handles click on ok button.
+<i>81</i>&nbsp;     *
+<i>82</i>&nbsp;     * @param event the mouse click event.
+<i>83</i>&nbsp;     */
+<i>84</i>&nbsp;    private void onOkBtnClick(MouseEvent event) {
+<b class="nc"><i>85</i>&nbsp;        stage.close();</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    /**
+<i>89</i>&nbsp;     * Sets the god&#39;s name.
+<i>90</i>&nbsp;     *
+<i>91</i>&nbsp;     * @param str name of the god.
+<i>92</i>&nbsp;     */
+<i>93</i>&nbsp;    public void setGodName(String str) {
+<b class="nc"><i>94</i>&nbsp;        nameLbl.setText(str);</b>
+<b class="nc"><i>95</i>&nbsp;        godName = str;</b>
+<i>96</i>&nbsp;    }
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;    /**
+<i>99</i>&nbsp;     * Sets the god&#39;s caption.
+<i>100</i>&nbsp;     *
+<i>101</i>&nbsp;     * @param str caption of the god.
+<i>102</i>&nbsp;     */
+<i>103</i>&nbsp;    public void setGodCaption(String str) {
+<b class="nc"><i>104</i>&nbsp;        captionLbl.setText(str);</b>
+<i>105</i>&nbsp;    }
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;    /**
+<i>108</i>&nbsp;     * Sets the god&#39;s description.
+<i>109</i>&nbsp;     *
+<i>110</i>&nbsp;     * @param str description of the god.
+<i>111</i>&nbsp;     */
+<i>112</i>&nbsp;    public void setGodDescription(String str) {
+<b class="nc"><i>113</i>&nbsp;        descriptionLbl.setText(str);</b>
+<i>114</i>&nbsp;    }
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    /**
+<i>117</i>&nbsp;     * Display the god&#39;s info.
+<i>118</i>&nbsp;     */
+<i>119</i>&nbsp;    public void displayGodInfo() {
+<b class="nc"><i>120</i>&nbsp;        stage.showAndWait();</b>
+<i>121</i>&nbsp;    }
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;    /**
+<i>124</i>&nbsp;     * Sets the scene.
+<i>125</i>&nbsp;     *
+<i>126</i>&nbsp;     * @param scene scene of the stage.
+<i>127</i>&nbsp;     */
+<i>128</i>&nbsp;    public void setScene(Scene scene) {
+<b class="nc"><i>129</i>&nbsp;        stage.setScene(scene);</b>
+<i>130</i>&nbsp;    }
+<i>131</i>&nbsp;
+<i>132</i>&nbsp;    /**
+<i>133</i>&nbsp;     * Sets the god&#39;s image.
+<i>134</i>&nbsp;     */
+<i>135</i>&nbsp;    public void setGodImage() {
+<b class="nc"><i>136</i>&nbsp;        Image img = new Image(getClass().getResourceAsStream(&quot;/images/gods/podium_&quot; + godName.toLowerCase() + &quot;.png&quot;));</b>
+<b class="nc"><i>137</i>&nbsp;        godImg.setImage(img);</b>
+<i>138</i>&nbsp;    }
+<i>139</i>&nbsp;}
+</div>
 </div>
 
 <div class="footer">
-
-    <div style="float:right;">generated on 2020-07-02 21:36</div>
+    
+    <div style="float:right;">generated on 2020-07-03 11:24</div>
 </div>
 </body>
 </html>

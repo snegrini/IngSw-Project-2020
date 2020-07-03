@@ -1,107 +1,110 @@
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-    <title>Coverage Report :: PrepareEffectMessage</title>
-    <style type="text/css">
-        @import "../../.css/coverage.css";
-    </style>
+  <title>Coverage Report :: PrepareEffectMessage</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
 </head>
 
 <body>
 <div class="header"></div>
 
 <div class="content">
-    <div class="breadCrumbs">
-        [ <a href="../../index.html">all classes</a> ]
-        [ <a href="../index.html">it.polimi.ingsw.network.message</a> ]
-    </div>
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.network.message</a> ]
+</div>
 
-    <h1>Coverage Summary for Class: PrepareEffectMessage (it.polimi.ingsw.network.message)</h1>
+<h1>Coverage Summary for Class: PrepareEffectMessage (it.polimi.ingsw.network.message)</h1>
 
-    <table class="coverageStats">
-        <tr>
-            <th class="name">Class</th>
-            <th class="coverageStat
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
 ">
-                Class, %
-            </th>
-            <th class="coverageStat
+  Class, %
+</th>
+<th class="coverageStat 
 ">
-                Method, %
-            </th>
-            <th class="coverageStat
+  Method, %
+</th>
+<th class="coverageStat 
 ">
-                Line, %
-            </th>
-        </tr>
-        <tr>
-            <td class="name">PrepareEffectMessage</td>
-            <td class="coverageStat">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PrepareEffectMessage</td>
+<td class="coverageStat">
   <span class="percent">
     100%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (1/ 1)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
-    66.7%
+    66,7%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (2/ 3)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
-    66.7%
+    66,7%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (4/ 6)
   </span>
-            </td>
-        </tr>
+</td>
+</tr>
 
-    </table>
+</table>
 
-    <br/>
-    <br/>
+<br/>
+<br/>
 
 
-    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.network.message;
-        <i>2</i>&nbsp;
-        <i>3</i>&nbsp;/**
-        <i>4</i>&nbsp; * Message used to notify the preparation phase of a god&#39;s effect.
-        <i>5</i>&nbsp; */
-        <i>6</i>&nbsp;public class PrepareEffectMessage extends Message {
-        <i>7</i>&nbsp; private static final long serialVersionUID = -2346126431323407902L;
-        <i>8</i>&nbsp; private final boolean enableEffect;
-        <i>9</i>&nbsp;
-        <i>10</i>&nbsp; public PrepareEffectMessage(String nickname, boolean enableEffect) {
-        <b class="fc"><i>11</i>&nbsp; super(nickname, MessageType.ENABLE_EFFECT);</b>
-        <b class="fc"><i>12</i>&nbsp; this.enableEffect = enableEffect;</b>
-        <b class="fc"><i>13</i>&nbsp; }</b>
-        <i>14</i>&nbsp;
-        <i>15</i>&nbsp;
-        <i>16</i>&nbsp; public boolean isEnableEffect() {
-        <b class="fc"><i>17</i>&nbsp; return enableEffect;</b>
-        <i>18</i>&nbsp; }
-        <i>19</i>&nbsp;
-        <i>20</i>&nbsp; @Override
-        <i>21</i>&nbsp; public String toString() {
-        <b class="nc"><i>22</i>&nbsp; return &quot;EnableEffect{&quot; +</b>
-        <b class="nc"><i>23</i>&nbsp; &quot;nickname=&quot; + getNickname() +</b>
-        <i>24</i>&nbsp; &quot;, enableEffect=&quot; + enableEffect +
-        <i>25</i>&nbsp; &#39;}&#39;;
-        <i>26</i>&nbsp; }
-        <i>27</i>&nbsp;}
-    </div>
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.network.message;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; * Message used to notify the preparation phase of a god&#39;s effect.
+<i>5</i>&nbsp; */
+<i>6</i>&nbsp;public class PrepareEffectMessage extends Message {
+<i>7</i>&nbsp;    private static final long serialVersionUID = -2346126431323407902L;
+<i>8</i>&nbsp;    private final boolean enableEffect;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;    public PrepareEffectMessage(String nickname, boolean enableEffect) {
+<b class="fc"><i>11</i>&nbsp;        super(nickname, MessageType.ENABLE_EFFECT);</b>
+<b class="fc"><i>12</i>&nbsp;        this.enableEffect = enableEffect;</b>
+<b class="fc"><i>13</i>&nbsp;    }</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    public boolean isEnableEffect() {
+<b class="fc"><i>17</i>&nbsp;        return enableEffect;</b>
+<i>18</i>&nbsp;    }
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @Override
+<i>21</i>&nbsp;    public String toString() {
+<b class="nc"><i>22</i>&nbsp;        return &quot;EnableEffect{&quot; +</b>
+<b class="nc"><i>23</i>&nbsp;                &quot;nickname=&quot; + getNickname() +</b>
+<i>24</i>&nbsp;                &quot;, enableEffect=&quot; + enableEffect +
+<i>25</i>&nbsp;                &#39;}&#39;;
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;}
+</div>
 </div>
 
 <div class="footer">
-
-    <div style="float:right;">generated on 2020-07-02 21:36</div>
+    
+    <div style="float:right;">generated on 2020-07-03 11:24</div>
 </div>
 </body>
 </html>

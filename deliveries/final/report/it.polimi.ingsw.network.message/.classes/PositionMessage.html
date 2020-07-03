@@ -1,121 +1,123 @@
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-    <title>Coverage Report :: PositionMessage</title>
-    <style type="text/css">
-        @import "../../.css/coverage.css";
-    </style>
+  <title>Coverage Report :: PositionMessage</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
 </head>
 
 <body>
 <div class="header"></div>
 
 <div class="content">
-    <div class="breadCrumbs">
-        [ <a href="../../index.html">all classes</a> ]
-        [ <a href="../index.html">it.polimi.ingsw.network.message</a> ]
-    </div>
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.network.message</a> ]
+</div>
 
-    <h1>Coverage Summary for Class: PositionMessage (it.polimi.ingsw.network.message)</h1>
+<h1>Coverage Summary for Class: PositionMessage (it.polimi.ingsw.network.message)</h1>
 
-    <table class="coverageStats">
-        <tr>
-            <th class="name">Class</th>
-            <th class="coverageStat
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
 ">
-                Class, %
-            </th>
-            <th class="coverageStat
+  Class, %
+</th>
+<th class="coverageStat 
 ">
-                Method, %
-            </th>
-            <th class="coverageStat
+  Method, %
+</th>
+<th class="coverageStat 
 ">
-                Line, %
-            </th>
-        </tr>
-        <tr>
-            <td class="name">PositionMessage</td>
-            <td class="coverageStat">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PositionMessage</td>
+<td class="coverageStat">
   <span class="percent">
     100%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (1/ 1)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
-    66.7%
+    66,7%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (2/ 3)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
-    66.7%
+    66,7%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (4/ 6)
   </span>
-            </td>
-        </tr>
+</td>
+</tr>
 
-    </table>
+</table>
 
-    <br/>
-    <br/>
+<br/>
+<br/>
 
 
-    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.network.message;
-        <i>2</i>&nbsp;
-        <i>3</i>&nbsp;import it.polimi.ingsw.model.board.Position;
-        <i>4</i>&nbsp;
-        <i>5</i>&nbsp;import java.util.List;
-        <i>6</i>&nbsp;
-        <i>7</i>&nbsp;/**
-        <i>8</i>&nbsp; * Message which contains a list of positions.
-        <i>9</i>&nbsp; */
-        <i>10</i>&nbsp;public class PositionMessage extends Message {
-        <i>11</i>&nbsp;
-        <i>12</i>&nbsp; private static final long serialVersionUID = 5786732391244362819L;
-        <i>13</i>&nbsp; private final List&lt;Position&gt; positionList;
-        <i>14</i>&nbsp;
-        <i>15</i>&nbsp;
-        <i>16</i>&nbsp; /**
-        <i>17</i>&nbsp; * Contains a list of positions.
-        <i>18</i>&nbsp; *
-        <i>19</i>&nbsp; * @param nickname of Player.
-        <i>20</i>&nbsp; * @param messageType type of the Message.
-        <i>21</i>&nbsp; * @param positionList list of Positions.
-        <i>22</i>&nbsp; */
-        <i>23</i>&nbsp; public PositionMessage(String nickname, MessageType messageType, List&lt;Position&gt;
-        positionList) {
-        <b class="fc"><i>24</i>&nbsp; super(nickname, messageType);</b>
-        <b class="fc"><i>25</i>&nbsp; this.positionList = positionList;</b>
-        <b class="fc"><i>26</i>&nbsp; }</b>
-        <i>27</i>&nbsp;
-        <i>28</i>&nbsp;
-        <i>29</i>&nbsp; @Override
-        <i>30</i>&nbsp; public String toString() {
-        <b class="nc"><i>31</i>&nbsp; return &quot;PositionMessage{&quot; +</b>
-        <b class="nc"><i>32</i>&nbsp; &quot;nickname=&quot; + getNickname() +</b>
-        <i>33</i>&nbsp; &quot;, positionList=&quot; + positionList +
-        <i>34</i>&nbsp; &#39;}&#39;;
-        <i>35</i>&nbsp; }
-        <i>36</i>&nbsp;
-        <i>37</i>&nbsp; public List&lt;Position&gt; getPositionList() {
-        <b class="fc"><i>38</i>&nbsp; return positionList;</b>
-        <i>39</i>&nbsp; }
-        <i>40</i>&nbsp;}
-    </div>
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.network.message;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.util.List;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * Message which contains a list of positions.
+<i>9</i>&nbsp; */
+<i>10</i>&nbsp;public class PositionMessage extends Message {
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    private static final long serialVersionUID = 5786732391244362819L;
+<i>13</i>&nbsp;    private final List&lt;Position&gt; positionList;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * Contains a list of positions.
+<i>18</i>&nbsp;     *
+<i>19</i>&nbsp;     * @param nickname     of Player.
+<i>20</i>&nbsp;     * @param messageType  type of the Message.
+<i>21</i>&nbsp;     * @param positionList list of Positions.
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    public PositionMessage(String nickname, MessageType messageType, List&lt;Position&gt; positionList) {
+<b class="fc"><i>24</i>&nbsp;        super(nickname, messageType);</b>
+<b class="fc"><i>25</i>&nbsp;        this.positionList = positionList;</b>
+<b class="fc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    @Override
+<i>30</i>&nbsp;    public String toString() {
+<b class="nc"><i>31</i>&nbsp;        return &quot;PositionMessage{&quot; +</b>
+<b class="nc"><i>32</i>&nbsp;                &quot;nickname=&quot; + getNickname() +</b>
+<i>33</i>&nbsp;                &quot;, positionList=&quot; + positionList +
+<i>34</i>&nbsp;                &#39;}&#39;;
+<i>35</i>&nbsp;    }
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    public List&lt;Position&gt; getPositionList() {
+<b class="fc"><i>38</i>&nbsp;        return positionList;</b>
+<i>39</i>&nbsp;    }
+<i>40</i>&nbsp;}
+</div>
 </div>
 
 <div class="footer">
-
-    <div style="float:right;">generated on 2020-07-02 21:36</div>
+    
+    <div style="float:right;">generated on 2020-07-03 11:24</div>
 </div>
 </body>
 </html>

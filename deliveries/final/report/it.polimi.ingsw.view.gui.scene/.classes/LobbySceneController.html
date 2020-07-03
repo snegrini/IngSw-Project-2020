@@ -1,155 +1,156 @@
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-    <title>Coverage Report :: LobbySceneController</title>
-    <style type="text/css">
-        @import "../../.css/coverage.css";
-    </style>
+  <title>Coverage Report :: LobbySceneController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
 </head>
 
 <body>
 <div class="header"></div>
 
 <div class="content">
-    <div class="breadCrumbs">
-        [ <a href="../../index.html">all classes</a> ]
-        [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
-    </div>
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
+</div>
 
-    <h1>Coverage Summary for Class: LobbySceneController (it.polimi.ingsw.view.gui.scene)</h1>
+<h1>Coverage Summary for Class: LobbySceneController (it.polimi.ingsw.view.gui.scene)</h1>
 
-    <table class="coverageStats">
-        <tr>
-            <th class="name">Class</th>
-            <th class="coverageStat
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
 ">
-                Class, %
-            </th>
-            <th class="coverageStat
+  Class, %
+</th>
+<th class="coverageStat 
 ">
-                Method, %
-            </th>
-            <th class="coverageStat
+  Method, %
+</th>
+<th class="coverageStat 
 ">
-                Line, %
-            </th>
-        </tr>
-        <tr>
-            <td class="name">LobbySceneController</td>
-            <td class="coverageStat">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LobbySceneController</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 1)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 7)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 11)
   </span>
-            </td>
-        </tr>
+</td>
+</tr>
 
-    </table>
+</table>
 
-    <br/>
-    <br/>
+<br/>
+<br/>
 
 
-    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
-        <i>2</i>&nbsp;
-        <i>3</i>&nbsp;import it.polimi.ingsw.observer.ViewObservable;
-        <i>4</i>&nbsp;import it.polimi.ingsw.observer.ViewObserver;
-        <i>5</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
-        <i>6</i>&nbsp;import javafx.event.Event;
-        <i>7</i>&nbsp;import javafx.fxml.FXML;
-        <i>8</i>&nbsp;import javafx.scene.control.Button;
-        <i>9</i>&nbsp;import javafx.scene.control.Label;
-        <i>10</i>&nbsp;import javafx.scene.input.MouseEvent;
-        <i>11</i>&nbsp;
-        <i>12</i>&nbsp;import java.util.List;
-        <i>13</i>&nbsp;
-        <i>14</i>&nbsp;/**
-        <i>15</i>&nbsp; * This class implements the scene where players wait for other players to join the game.
-        <i>16</i>&nbsp; */
-        <b class="nc"><i>17</i>&nbsp;public class LobbySceneController extends ViewObservable implements
-            GenericSceneController {</b>
-        <i>18</i>&nbsp;
-        <i>19</i>&nbsp; private List&lt;String&gt; nicknames;
-        <i>20</i>&nbsp; private int maxPlayers;
-        <i>21</i>&nbsp;
-        <i>22</i>&nbsp; @FXML
-        <i>23</i>&nbsp; private Label playersLbl;
-        <i>24</i>&nbsp; @FXML
-        <i>25</i>&nbsp; private Label numbersLbl;
-        <i>26</i>&nbsp; @FXML
-        <i>27</i>&nbsp; private Button backToMenuBtn;
-        <i>28</i>&nbsp;
-        <i>29</i>&nbsp; @FXML
-        <i>30</i>&nbsp; public void initialize() {
-        <b class="nc"><i>31</i>&nbsp; playersLbl.setText(String.join(&quot;, &quot;, nicknames));</b>
-        <b class="nc"><i>32</i>&nbsp; numbersLbl.setText(nicknames.size() + &quot;/&quot; + maxPlayers);</b>
-        <i>33</i>&nbsp;
-        <b class="nc"><i>34</i>&nbsp; backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED,
-            this::onBackToMenuBtnClick);</b>
-        <i>35</i>&nbsp; }
-        <i>36</i>&nbsp;
-        <i>37</i>&nbsp; /**
-        <i>38</i>&nbsp; * Handle click on back to menu button.
-        <i>39</i>&nbsp; *
-        <i>40</i>&nbsp; * @param event the mouse click event.
-        <i>41</i>&nbsp; */
-        <i>42</i>&nbsp; private void onBackToMenuBtnClick(Event event) {
-        <b class="nc"><i>43</i>&nbsp; backToMenuBtn.setDisable(true);</b>
-        <b class="nc"><i>44</i>&nbsp; new Thread(() -&gt; notifyObserver(ViewObserver::onDisconnection)).start();</b>
-        <b class="nc"><i>45</i>&nbsp; SceneController.changeRootPane(observers, event, &quot;menu_scene.fxml&quot;);</b>
-        <i>46</i>&nbsp; }
-        <i>47</i>&nbsp;
-        <i>48</i>&nbsp; /**
-        <i>49</i>&nbsp; * Set nicknames already logged in game.
-        <i>50</i>&nbsp; *
-        <i>51</i>&nbsp; * @param nicknames list of nicknames.
-        <i>52</i>&nbsp; */
-        <i>53</i>&nbsp; public void setNicknames(List&lt;String&gt; nicknames) {
-        <b class="nc"><i>54</i>&nbsp; this.nicknames = nicknames;</b>
-        <i>55</i>&nbsp; }
-        <i>56</i>&nbsp;
-        <i>57</i>&nbsp; /**
-        <i>58</i>&nbsp; * Set number of max players chosen by first user.
-        <i>59</i>&nbsp; *
-        <i>60</i>&nbsp; * @param maxPlayers number of max players in game.
-        <i>61</i>&nbsp; */
-        <i>62</i>&nbsp; public void setMaxPlayers(int maxPlayers) {
-        <b class="nc"><i>63</i>&nbsp; this.maxPlayers = maxPlayers;</b>
-        <i>64</i>&nbsp; }
-        <i>65</i>&nbsp;
-        <i>66</i>&nbsp; /**
-        <i>67</i>&nbsp; * Update nicknames and number of players connecte every time a user join.
-        <i>68</i>&nbsp; */
-        <i>69</i>&nbsp; public void updateValues() {
-        <b class="nc"><i>70</i>&nbsp; playersLbl.setText(String.join(&quot;, &quot;, this.nicknames));</b>
-        <b class="nc"><i>71</i>&nbsp; numbersLbl.setText(this.nicknames.size() + &quot;/&quot; + this.maxPlayers);</b>
-        <i>72</i>&nbsp; }
-        <i>73</i>&nbsp;}
-    </div>
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.observer.ViewObservable;
+<i>4</i>&nbsp;import it.polimi.ingsw.observer.ViewObserver;
+<i>5</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
+<i>6</i>&nbsp;import javafx.event.Event;
+<i>7</i>&nbsp;import javafx.fxml.FXML;
+<i>8</i>&nbsp;import javafx.scene.control.Button;
+<i>9</i>&nbsp;import javafx.scene.control.Label;
+<i>10</i>&nbsp;import javafx.scene.input.MouseEvent;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.util.List;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;/**
+<i>15</i>&nbsp; * This class implements the scene where players wait for other players to join the game.
+<i>16</i>&nbsp; */
+<b class="nc"><i>17</i>&nbsp;public class LobbySceneController extends ViewObservable implements GenericSceneController {</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    private List&lt;String&gt; nicknames;
+<i>20</i>&nbsp;    private int maxPlayers;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    @FXML
+<i>23</i>&nbsp;    private Label playersLbl;
+<i>24</i>&nbsp;    @FXML
+<i>25</i>&nbsp;    private Label numbersLbl;
+<i>26</i>&nbsp;    @FXML
+<i>27</i>&nbsp;    private Button backToMenuBtn;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    @FXML
+<i>30</i>&nbsp;    public void initialize() {
+<b class="nc"><i>31</i>&nbsp;        playersLbl.setText(String.join(&quot;, &quot;, nicknames));</b>
+<b class="nc"><i>32</i>&nbsp;        numbersLbl.setText(nicknames.size() + &quot;/&quot; + maxPlayers);</b>
+<i>33</i>&nbsp;
+<b class="nc"><i>34</i>&nbsp;        backToMenuBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBackToMenuBtnClick);</b>
+<i>35</i>&nbsp;    }
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Handle click on back to menu button.
+<i>39</i>&nbsp;     *
+<i>40</i>&nbsp;     * @param event the mouse click event.
+<i>41</i>&nbsp;     */
+<i>42</i>&nbsp;    private void onBackToMenuBtnClick(Event event) {
+<b class="nc"><i>43</i>&nbsp;        backToMenuBtn.setDisable(true);</b>
+<b class="nc"><i>44</i>&nbsp;        new Thread(() -&gt; notifyObserver(ViewObserver::onDisconnection)).start();</b>
+<b class="nc"><i>45</i>&nbsp;        SceneController.changeRootPane(observers, event, &quot;menu_scene.fxml&quot;);</b>
+<i>46</i>&nbsp;    }
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * Set nicknames already logged in game.
+<i>50</i>&nbsp;     *
+<i>51</i>&nbsp;     * @param nicknames list of nicknames.
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    public void setNicknames(List&lt;String&gt; nicknames) {
+<b class="nc"><i>54</i>&nbsp;        this.nicknames = nicknames;</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Set number of max players chosen by first user.
+<i>59</i>&nbsp;     *
+<i>60</i>&nbsp;     * @param maxPlayers number of max players in game.
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    public void setMaxPlayers(int maxPlayers) {
+<b class="nc"><i>63</i>&nbsp;        this.maxPlayers = maxPlayers;</b>
+<i>64</i>&nbsp;    }
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    /**
+<i>67</i>&nbsp;     * Update nicknames and number of players connecte every time a user join.
+<i>68</i>&nbsp;     */
+<i>69</i>&nbsp;    public void updateValues() {
+<b class="nc"><i>70</i>&nbsp;        playersLbl.setText(String.join(&quot;, &quot;, this.nicknames));</b>
+<b class="nc"><i>71</i>&nbsp;        numbersLbl.setText(this.nicknames.size() + &quot;/&quot; + this.maxPlayers);</b>
+<i>72</i>&nbsp;    }
+<i>73</i>&nbsp;}
+</div>
 </div>
 
 <div class="footer">
-
-    <div style="float:right;">generated on 2020-07-02 21:36</div>
+    
+    <div style="float:right;">generated on 2020-07-03 11:24</div>
 </div>
 </body>
 </html>

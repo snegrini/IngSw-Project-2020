@@ -1,765 +1,745 @@
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-    <title>Coverage Report :: BoardSceneController</title>
-    <style type="text/css">
-        @import "../../.css/coverage.css";
-    </style>
+  <title>Coverage Report :: BoardSceneController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
 </head>
 
 <body>
 <div class="header"></div>
 
 <div class="content">
-    <div class="breadCrumbs">
-        [ <a href="../../index.html">all classes</a> ]
-        [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
-    </div>
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
+</div>
 
-    <h1>Coverage Summary for Class: BoardSceneController (it.polimi.ingsw.view.gui.scene)</h1>
+<h1>Coverage Summary for Class: BoardSceneController (it.polimi.ingsw.view.gui.scene)</h1>
 
-    <table class="coverageStats">
+<table class="coverageStats">
 
-        <tr>
-            <th class="name">Class</th>
-            <th class="coverageStat
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
 ">
-                Method, %
-            </th>
-            <th class="coverageStat
+  Method, %
+</th>
+<th class="coverageStat 
 ">
-                Line, %
-            </th>
-        </tr>
-        <tr>
-            <td class="name">BoardSceneController</td>
-            <td class="coverageStat">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BoardSceneController</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 37)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 195)
   </span>
-            </td>
-        </tr>
-        <tr>
-            <td class="name">BoardSceneController$1</td>
-            <td class="coverageStat">
+</td>
+</tr>
+  <tr>
+    <td class="name">BoardSceneController$1</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 2)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 2)
   </span>
-            </td>
-        </tr>
-        <tr>
-            <td class="name">BoardSceneController$2</td>
-            <td class="coverageStat">
+</td>
+  </tr>
+  <tr>
+    <td class="name">BoardSceneController$2</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 1)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 1)
   </span>
-            </td>
-        </tr>
-        <tr>
-            <td class="name"><strong>total</strong></td>
-            <td class="coverageStat">
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 40)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 198)
   </span>
-            </td>
-        </tr>
-    </table>
+</td>
+</tr>
+</table>
 
-    <br/>
-    <br/>
+<br/>
+<br/>
 
 
-    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
-        <i>2</i>&nbsp;
-        <i>3</i>&nbsp;import it.polimi.ingsw.model.ReducedGod;
-        <i>4</i>&nbsp;import it.polimi.ingsw.model.board.Board;
-        <i>5</i>&nbsp;import it.polimi.ingsw.model.board.Position;
-        <i>6</i>&nbsp;import it.polimi.ingsw.model.board.ReducedSpace;
-        <i>7</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
-        <i>8</i>&nbsp;import it.polimi.ingsw.model.player.ReducedWorker;
-        <i>9</i>&nbsp;import it.polimi.ingsw.network.message.MessageType;
-        <i>10</i>&nbsp;import it.polimi.ingsw.observer.ViewObservable;
-        <i>11</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
-        <i>12</i>&nbsp;import javafx.collections.ObservableList;
-        <i>13</i>&nbsp;import javafx.fxml.FXML;
-        <i>14</i>&nbsp;import javafx.scene.Node;
-        <i>15</i>&nbsp;import javafx.scene.control.Button;
-        <i>16</i>&nbsp;import javafx.scene.control.Label;
-        <i>17</i>&nbsp;import javafx.scene.image.Image;
-        <i>18</i>&nbsp;import javafx.scene.image.ImageView;
-        <i>19</i>&nbsp;import javafx.scene.input.MouseEvent;
-        <i>20</i>&nbsp;import javafx.scene.layout.GridPane;
-        <i>21</i>&nbsp;import javafx.scene.layout.StackPane;
-        <i>22</i>&nbsp;import javafx.scene.shape.Circle;
-        <i>23</i>&nbsp;
-        <i>24</i>&nbsp;import java.util.ArrayList;
-        <i>25</i>&nbsp;import java.util.List;
-        <i>26</i>&nbsp;import java.util.Timer;
-        <i>27</i>&nbsp;import java.util.TimerTask;
-        <i>28</i>&nbsp;
-        <i>29</i>&nbsp;import static it.polimi.ingsw.controller.ClientController.UNDO_TIME;
-        <i>30</i>&nbsp;import static it.polimi.ingsw.view.gui.SceneController.GOD_IMAGE_PREFIX;
-        <i>31</i>&nbsp;
-        <i>32</i>&nbsp;/**
-        <i>33</i>&nbsp; * This class implements the controller of the scene of the board. Most of the game will be
-        played here.
-        <i>34</i>&nbsp; */
-        <i>35</i>&nbsp;public class BoardSceneController extends ViewObservable implements GenericSceneController {
-        <i>36</i>&nbsp;
-        <i>37</i>&nbsp; private static final String GLASS_PANE_SELECTED = &quot;glassPaneSelected&quot;;
-        <i>38</i>&nbsp;
-        <i>39</i>&nbsp; private int availablePositionClicks;
-        <i>40</i>&nbsp; private final List&lt;Position&gt; clickedPositionList;
-        <i>41</i>&nbsp; private MessageType spaceClickType;
-        <i>42</i>&nbsp; private Node tempNode;
-        <i>43</i>&nbsp; private Position tempPosition;
-        <i>44</i>&nbsp; private List&lt;ReducedGod&gt; gods;
-        <i>45</i>&nbsp; private List&lt;Position&gt; enabledSpaces;
-        <i>46</i>&nbsp;
-        <i>47</i>&nbsp; private Timer undoTimer;
-        <i>48</i>&nbsp;
-        <i>49</i>&nbsp; @FXML
-        <i>50</i>&nbsp; private GridPane boardGrid;
-        <i>51</i>&nbsp; @FXML
-        <i>52</i>&nbsp; private ImageView effectImage;
-        <i>53</i>&nbsp; @FXML
-        <i>54</i>&nbsp; private Label player1Label;
-        <i>55</i>&nbsp; @FXML
-        <i>56</i>&nbsp; private Circle player1Color;
-        <i>57</i>&nbsp; @FXML
-        <i>58</i>&nbsp; private ImageView god1Image;
-        <i>59</i>&nbsp; @FXML
-        <i>60</i>&nbsp; private ImageView player1Img;
-        <i>61</i>&nbsp; @FXML
-        <i>62</i>&nbsp; private Label player2Label;
-        <i>63</i>&nbsp; @FXML
-        <i>64</i>&nbsp; private Circle player2Color;
-        <i>65</i>&nbsp; @FXML
-        <i>66</i>&nbsp; private ImageView god2Image;
-        <i>67</i>&nbsp; @FXML
-        <i>68</i>&nbsp; private ImageView player2Img;
-        <i>69</i>&nbsp; @FXML
-        <i>70</i>&nbsp; private Label player3Label;
-        <i>71</i>&nbsp; @FXML
-        <i>72</i>&nbsp; private Circle player3Color;
-        <i>73</i>&nbsp; @FXML
-        <i>74</i>&nbsp; private ImageView player3Img;
-        <i>75</i>&nbsp; @FXML
-        <i>76</i>&nbsp; private ImageView god3Image;
-        <i>77</i>&nbsp; @FXML
-        <i>78</i>&nbsp; private ImageView undoImg;
-        <i>79</i>&nbsp; @FXML
-        <i>80</i>&nbsp; private ImageView undoBg;
-        <i>81</i>&nbsp; @FXML
-        <i>82</i>&nbsp; private Label timerLbl;
-        <i>83</i>&nbsp; @FXML
-        <i>84</i>&nbsp; private Button skipEffectBtn;
-        <i>85</i>&nbsp; @FXML
-        <i>86</i>&nbsp; private Button confirmBtn;
-        <i>87</i>&nbsp; @FXML
-        <i>88</i>&nbsp; private Label turnInformationLabel;
-        <i>89</i>&nbsp; @FXML
-        <i>90</i>&nbsp; private ImageView turnInformationImg;
-        <i>91</i>&nbsp;
-        <i>92</i>&nbsp;
-        <i>93</i>&nbsp; /**
-        <i>94</i>&nbsp; * Default constructor.
-        <i>95</i>&nbsp; */
-        <b class="nc"><i>96</i>&nbsp; public BoardSceneController() {</b>
-        <b class="nc"><i>97</i>&nbsp; availablePositionClicks = 0;</b>
-        <b class="nc"><i>98</i>&nbsp; clickedPositionList = new ArrayList&lt;&gt;();</b>
-        <b class="nc"><i>99</i>&nbsp; spaceClickType = MessageType.INIT_WORKERSPOSITIONS;</b>
-        <i>100</i>&nbsp; }
-        <i>101</i>&nbsp;
-        <i>102</i>&nbsp; @FXML
-        <i>103</i>&nbsp; public void initialize() {
-        <b class="nc"><i>104</i>&nbsp; boardGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSpaceClick);</b>
-        <b class="nc"><i>105</i>&nbsp; effectImage.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onEffectImageClick);</b>
-        <b class="nc"><i>106</i>&nbsp; skipEffectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED,
-            this::onSkipEffectBtnClick);</b>
-        <b class="nc"><i>107</i>&nbsp; undoImg.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onUndoImgClick);</b>
-        <b class="nc"><i>108</i>&nbsp; confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED,
-            this::onConfirmBtnClick);</b>
-        <i>109</i>&nbsp;
-        <b class="nc"><i>110</i>&nbsp; god1Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod1ImageClick);</b>
-        <b class="nc"><i>111</i>&nbsp; god2Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod2ImageClick);</b>
-        <b class="nc"><i>112</i>&nbsp; god3Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod3ImageClick);</b>
-        <i>113</i>&nbsp;
-        <b class="nc"><i>114</i>&nbsp; player1Label.setText(&quot;&quot;);</b>
-        <b class="nc"><i>115</i>&nbsp; player2Label.setText(&quot;&quot;);</b>
-        <b class="nc"><i>116</i>&nbsp; player3Label.setText(&quot;&quot;);</b>
-        <i>117</i>&nbsp;
-        <b class="nc"><i>118</i>&nbsp; turnInformationLabel.setText(&quot;&quot;);</b>
-        <b class="nc"><i>119</i>&nbsp; turnInformationImg.setVisible(false);</b>
-        <i>120</i>&nbsp;
-        <b class="nc"><i>121</i>&nbsp; timerLbl.setVisible(false);</b>
-        <b class="nc"><i>122</i>&nbsp; undoImg.setVisible(false);</b>
-        <b class="nc"><i>123</i>&nbsp; undoBg.setVisible(false);</b>
-        <b class="nc"><i>124</i>&nbsp; confirmBtn.setVisible(false);</b>
-        <i>125</i>&nbsp;
-        <b class="nc"><i>126</i>&nbsp; god1Image.setVisible(false);</b>
-        <b class="nc"><i>127</i>&nbsp; god2Image.setVisible(false);</b>
-        <b class="nc"><i>128</i>&nbsp; god3Image.setVisible(false);</b>
-        <i>129</i>&nbsp;
-        <b class="nc"><i>130</i>&nbsp; player1Color.setVisible(false);</b>
-        <b class="nc"><i>131</i>&nbsp; player2Color.setVisible(false);</b>
-        <b class="nc"><i>132</i>&nbsp; player3Color.setVisible(false);</b>
-        <i>133</i>&nbsp;
-        <b class="nc"><i>134</i>&nbsp; player1Img.setVisible(false);</b>
-        <b class="nc"><i>135</i>&nbsp; player2Img.setVisible(false);</b>
-        <b class="nc"><i>136</i>&nbsp; player3Img.setVisible(false);</b>
-        <i>137</i>&nbsp; }
-        <i>138</i>&nbsp;
-        <i>139</i>&nbsp;
-        <i>140</i>&nbsp; /**
-        <i>141</i>&nbsp; * Handle the click on the first player god image.
-        <i>142</i>&nbsp; * Info about the god will be shown.
-        <i>143</i>&nbsp; *
-        <i>144</i>&nbsp; * @param event the mouse click event.
-        <i>145</i>&nbsp; */
-        <i>146</i>&nbsp; private void onGod1ImageClick(MouseEvent event) {
-        <b class="nc"><i>147</i>&nbsp; ReducedGod god = gods.get(0);</b>
-        <b class="nc"><i>148</i>&nbsp; SceneController.showGodInformation(god.getName(), god.getCaption(),
-            god.getDescription());</b>
-        <i>149</i>&nbsp; }
-        <i>150</i>&nbsp;
-        <i>151</i>&nbsp; /**
-        <i>152</i>&nbsp; * Handle the click on the second player god image.
-        <i>153</i>&nbsp; * Info about the god will be shown.
-        <i>154</i>&nbsp; *
-        <i>155</i>&nbsp; * @param event the mouse click event.
-        <i>156</i>&nbsp; */
-        <i>157</i>&nbsp; private void onGod2ImageClick(MouseEvent event) {
-        <b class="nc"><i>158</i>&nbsp; ReducedGod god = gods.get(1);</b>
-        <b class="nc"><i>159</i>&nbsp; SceneController.showGodInformation(god.getName(), god.getCaption(),
-            god.getDescription());</b>
-        <i>160</i>&nbsp; }
-        <i>161</i>&nbsp;
-        <i>162</i>&nbsp; /**
-        <i>163</i>&nbsp; * Handle the click on the third player god image.
-        <i>164</i>&nbsp; * Info about the god will be shown.
-        <i>165</i>&nbsp; *
-        <i>166</i>&nbsp; * @param event the mouse click event.
-        <i>167</i>&nbsp; */
-        <i>168</i>&nbsp; private void onGod3ImageClick(MouseEvent event) {
-        <b class="nc"><i>169</i>&nbsp; ReducedGod god = gods.get(2);</b>
-        <b class="nc"><i>170</i>&nbsp; SceneController.showGodInformation(god.getName(), god.getCaption(),
-            god.getDescription());</b>
-        <i>171</i>&nbsp; }
-        <i>172</i>&nbsp;
-        <i>173</i>&nbsp; /**
-        <i>174</i>&nbsp; * Handle the click on a generic space.
-        <i>175</i>&nbsp; * The opacity of the selected space will be edited.
-        <i>176</i>&nbsp; *
-        <i>177</i>&nbsp; * @param event the mouse click event.
-        <i>178</i>&nbsp; */
-        <i>179</i>&nbsp; private void onSpaceClick(MouseEvent event) {
-        <b class="nc"><i>180</i>&nbsp; Node clickedNode = event.getPickResult().getIntersectedNode();</b>
-        <b class="nc"><i>181</i>&nbsp; Integer row = GridPane.getRowIndex(clickedNode);</b>
-        <b class="nc"><i>182</i>&nbsp; Integer col = GridPane.getColumnIndex(clickedNode);</b>
-        <i>183</i>&nbsp;
-        <b class="nc"><i>184</i>&nbsp; if (row != null &amp;&amp; col != null &amp;&amp; availablePositionClicks &gt;=
-            1) {</b>
-        <b class="nc"><i>185</i>&nbsp; availablePositionClicks--;</b>
-        <b class="nc"><i>186</i>&nbsp; clickedNode.setOpacity(10);</b>
-        <b class="nc"><i>187</i>&nbsp; Position clickedPosition = new Position(row, col);</b>
-        <b class="nc"><i>188</i>&nbsp; handleSpaceClickType(clickedNode, clickedPosition);</b>
-        <i>189</i>&nbsp; }
-        <i>190</i>&nbsp; }
-        <i>191</i>&nbsp;
-        <i>192</i>&nbsp; /**
-        <i>193</i>&nbsp; * Handle the click on the undo image.
-        <i>194</i>&nbsp; * Action of the player will be cancelled.
-        <i>195</i>&nbsp; *
-        <i>196</i>&nbsp; * @param event the mouse click event.
-        <i>197</i>&nbsp; */
-        <i>198</i>&nbsp; private void onUndoImgClick(MouseEvent event) {
-        <b class="nc"><i>199</i>&nbsp; undoTimer.cancel();</b>
-        <b class="nc"><i>200</i>&nbsp; timerLbl.setVisible(false);</b>
-        <b class="nc"><i>201</i>&nbsp; undoImg.setVisible(false);</b>
-        <b class="nc"><i>202</i>&nbsp; undoBg.setVisible(false);</b>
-        <b class="nc"><i>203</i>&nbsp; confirmBtn.setVisible(false);</b>
-        <b class="nc"><i>204</i>&nbsp; tempNode.getStyleClass().remove(GLASS_PANE_SELECTED);</b>
-        <b class="nc"><i>205</i>&nbsp; setEnabledSpaces(enabledSpaces);</b>
-        <i>206</i>&nbsp;
-        <b class="nc"><i>207</i>&nbsp; availablePositionClicks++;</b>
-        <i>208</i>&nbsp; }
-        <i>209</i>&nbsp;
-        <i>210</i>&nbsp; /**
-        <i>211</i>&nbsp; * Handle the click on the Confirm Button.
-        <i>212</i>&nbsp; * Action of the player will be confirmed.
-        <i>213</i>&nbsp; *
-        <i>214</i>&nbsp; * @param event the mouse click event.
-        <i>215</i>&nbsp; */
-        <i>216</i>&nbsp; private void onConfirmBtnClick(MouseEvent event) {
-        <b class="nc"><i>217</i>&nbsp; undoTimer.cancel();</b>
-        <b class="nc"><i>218</i>&nbsp; timerLbl.setVisible(false);</b>
-        <b class="nc"><i>219</i>&nbsp; undoImg.setVisible(false);</b>
-        <b class="nc"><i>220</i>&nbsp; undoBg.setVisible(false);</b>
-        <b class="nc"><i>221</i>&nbsp; confirmBtn.setVisible(false);</b>
-        <i>222</i>&nbsp;
-        <b class="nc"><i>223</i>&nbsp; availablePositionClicks--;</b>
-        <i>224</i>&nbsp;
-        <b class="nc"><i>225</i>&nbsp; switch (spaceClickType) {</b>
-        <i>226</i>&nbsp; case MOVE:
-        <b class="nc"><i>227</i>&nbsp; handleMove(tempPosition);</b>
-        <b class="nc"><i>228</i>&nbsp; break;</b>
-        <i>229</i>&nbsp; case BUILD:
-        <b class="nc"><i>230</i>&nbsp; handleBuild(tempPosition);</b>
-        <b class="nc"><i>231</i>&nbsp; break;</b>
-        <i>232</i>&nbsp; case BUILD_FX:
-        <i>233</i>&nbsp; case MOVE_FX:
-        <b class="nc"><i>234</i>&nbsp; handleApplyFx(tempPosition);</b>
-        <b class="nc"><i>235</i>&nbsp; break;</b>
-        <i>236</i>&nbsp; default:
-        <i>237</i>&nbsp; break;
-        <i>238</i>&nbsp; }
-        <i>239</i>&nbsp;
-        <b class="nc"><i>240</i>&nbsp; tempPosition = null;</b>
-        <i>241</i>&nbsp; }
-        <i>242</i>&nbsp;
-        <i>243</i>&nbsp; /**
-        <i>244</i>&nbsp; * Handle the click on the effect image.
-        <i>245</i>&nbsp; * Effect of the player&#39;s god will be activated.
-        <i>246</i>&nbsp; *
-        <i>247</i>&nbsp; * @param event the mouse click event.
-        <i>248</i>&nbsp; */
-        <i>249</i>&nbsp; private void onEffectImageClick(MouseEvent event) {
-        <b class="nc"><i>250</i>&nbsp; enableEffectControls(false);</b>
-        <b class="nc"><i>251</i>&nbsp; new Thread(() -&gt; notifyObserver(obs -&gt;
-            obs.onUpdateEnableEffect(true))).start();</b>
-        <i>252</i>&nbsp; }
-        <i>253</i>&nbsp;
-        <i>254</i>&nbsp; /**
-        <i>255</i>&nbsp; * Handle the click on the skip effect button.
-        <i>256</i>&nbsp; * Effect of the player&#39;s god will not be activated.
-        <i>257</i>&nbsp; *
-        <i>258</i>&nbsp; * @param event the mouse click event.
-        <i>259</i>&nbsp; */
-        <i>260</i>&nbsp; private void onSkipEffectBtnClick(MouseEvent event) {
-        <b class="nc"><i>261</i>&nbsp; enableEffectControls(false);</b>
-        <b class="nc"><i>262</i>&nbsp; new Thread(() -&gt; notifyObserver(obs -&gt;
-            obs.onUpdateEnableEffect(false))).start();</b>
-        <i>263</i>&nbsp; }
-        <i>264</i>&nbsp;
-        <i>265</i>&nbsp; /**
-        <i>266</i>&nbsp; * Handle the type of the space clicked by player.
-        <i>267</i>&nbsp; *
-        <i>268</i>&nbsp; * @param clickedNode clicked node of the board.
-        <i>269</i>&nbsp; * @param clickedPosition clicked position of the board.
-        <i>270</i>&nbsp; */
-        <i>271</i>&nbsp; private void handleSpaceClickType(Node clickedNode, Position clickedPosition) {
-        <b class="nc"><i>272</i>&nbsp; switch (spaceClickType) {</b>
-        <i>273</i>&nbsp; case INIT_WORKERSPOSITIONS:
-        <b class="nc"><i>274</i>&nbsp; handleInitWorkers(clickedNode, clickedPosition);</b>
-        <b class="nc"><i>275</i>&nbsp; break;</b>
-        <i>276</i>&nbsp; case PICK_MOVING_WORKER:
-        <b class="nc"><i>277</i>&nbsp; handlePickMovingWorker(clickedNode, clickedPosition);</b>
-        <b class="nc"><i>278</i>&nbsp; break;</b>
-        <i>279</i>&nbsp; case MOVE:
-        <i>280</i>&nbsp; case BUILD:
-        <i>281</i>&nbsp; case MOVE_FX:
-        <i>282</i>&nbsp; case BUILD_FX:
-        <b class="nc"><i>283</i>&nbsp; waitForUndo(clickedNode, clickedPosition);</b>
-        <b class="nc"><i>284</i>&nbsp; break;</b>
-        <i>285</i>&nbsp; default:
-        <i>286</i>&nbsp; break;
-        <i>287</i>&nbsp; }
-        <i>288</i>&nbsp; }
-        <i>289</i>&nbsp;
-        <i>290</i>&nbsp;
-        <i>291</i>&nbsp; /**
-        <i>292</i>&nbsp; * Waits 5 seconds before sending the data to the server.
-        <i>293</i>&nbsp; * The user can Undo his last operation by clicking on the undo button.
-        <i>294</i>&nbsp; * After 5 seconds an automatic confirm will be sent to the server.
-        <i>295</i>&nbsp; * The user can skip this delay by clicking on the confirm button.
-        <i>296</i>&nbsp; *
-        <i>297</i>&nbsp; * @param clickedNode the clicked node of the grid.
-        <i>298</i>&nbsp; * @param clickedPosition the clicked position on the grid.
-        <i>299</i>&nbsp; */
-        <i>300</i>&nbsp; private void waitForUndo(Node clickedNode, Position clickedPosition) {
-        <b class="nc"><i>301</i>&nbsp; clickedNode.setDisable(true);</b>
-        <b class="nc"><i>302</i>&nbsp; disableAllSpaces();</b>
-        <b class="nc"><i>303</i>&nbsp; clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);</b>
-        <i>304</i>&nbsp;
-        <b class="nc"><i>305</i>&nbsp; undoImg.setVisible(true);</b>
-        <b class="nc"><i>306</i>&nbsp; undoBg.setVisible(true);</b>
-        <b class="nc"><i>307</i>&nbsp; confirmBtn.setVisible(true);</b>
-        <b class="nc"><i>308</i>&nbsp; timerLbl.setVisible(true);</b>
-        <b class="nc"><i>309</i>&nbsp; tempNode = clickedNode;</b>
-        <b class="nc"><i>310</i>&nbsp; tempPosition = clickedPosition;</b>
-        <i>311</i>&nbsp;
-        <b class="nc"><i>312</i>&nbsp; undoTimer = new Timer();</b>
-        <b class="nc"><i>313</i>&nbsp; undoTimer.schedule(new TimerTask() {</b>
-        <i>314</i>&nbsp; @Override
-        <i>315</i>&nbsp; public void run() {
-        <b class="nc"><i>316</i>&nbsp; onConfirmBtnClick(null);</b>
-        <i>317</i>&nbsp; }
-        <i>318</i>&nbsp; }, UNDO_TIME);
-        <i>319</i>&nbsp; }
-        <i>320</i>&nbsp;
-        <i>321</i>&nbsp;
-        <i>322</i>&nbsp; /**
-        <i>323</i>&nbsp; * Handles the initial setup of the workers onto the board.
-        <i>324</i>&nbsp; * The player may click twice on the board to setup the initial workers&#39; position.
-        <i>325</i>&nbsp; * Data will be sent to the server after the second click has been committed.
-        <i>326</i>&nbsp; *
-        <i>327</i>&nbsp; * @param clickedNode the clicked node.
-        <i>328</i>&nbsp; * @param clickedPosition the clicked position on the grid.
-        <i>329</i>&nbsp; */
-        <i>330</i>&nbsp; private void handleInitWorkers(Node clickedNode, Position clickedPosition) {
-        <b class="nc"><i>331</i>&nbsp; clickedPositionList.add(clickedPosition);</b>
-        <b class="nc"><i>332</i>&nbsp; clickedNode.setDisable(true);</b>
-        <b class="nc"><i>333</i>&nbsp; clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);</b>
-        <i>334</i>&nbsp;
-        <b class="nc"><i>335</i>&nbsp; if (availablePositionClicks == 0) { // Last click done.</b>
-        <i>336</i>&nbsp; // Disable all the spaces.
-        <b class="nc"><i>337</i>&nbsp; disableAllSpaces();</b>
-        <b class="nc"><i>338</i>&nbsp; removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);</b>
-        <i>339</i>&nbsp;
-        <i>340</i>&nbsp; // Notify views only when all the required positions have been selected.
-        <b class="nc"><i>341</i>&nbsp; new Thread(() -&gt; notifyObserver(obs -&gt;
-            obs.onUpdateInitWorkerPosition(clickedPositionList))).start();</b>
-        <i>342</i>&nbsp; }
-        <i>343</i>&nbsp; }
-        <i>344</i>&nbsp;
-        <i>345</i>&nbsp; /**
-        <i>346</i>&nbsp; * Handles the click for the worker to be used in this turn.
-        <i>347</i>&nbsp; *
-        <i>348</i>&nbsp; * @param clickedNode the clicked node.
-        <i>349</i>&nbsp; * @param clickedPosition the clicked position on the grid.
-        <i>350</i>&nbsp; */
-        <i>351</i>&nbsp; private void handlePickMovingWorker(Node clickedNode, Position clickedPosition) {
-        <b class="nc"><i>352</i>&nbsp; disableAllSpaces();</b>
-        <b class="nc"><i>353</i>&nbsp; clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);</b>
-        <b class="nc"><i>354</i>&nbsp; new Thread(() -&gt; notifyObserver(obs -&gt;
-            obs.onUpdatePickMovingWorker(clickedPosition))).start();</b>
-        <i>355</i>&nbsp; }
-        <i>356</i>&nbsp;
-        <i>357</i>&nbsp; /**
-        <i>358</i>&nbsp; * Handles the click for the move position of the worker.
-        <i>359</i>&nbsp; *
-        <i>360</i>&nbsp; * @param clickedPosition the clicked position on the grid.
-        <i>361</i>&nbsp; */
-        <i>362</i>&nbsp; private void handleMove(Position clickedPosition) {
-        <b class="nc"><i>363</i>&nbsp; disableAllSpaces();</b>
-        <b class="nc"><i>364</i>&nbsp; removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);</b>
-        <b class="nc"><i>365</i>&nbsp; new Thread(() -&gt; notifyObserver(obs -&gt;
-            obs.onUpdateMove(clickedPosition))).start();</b>
-        <i>366</i>&nbsp; }
-        <i>367</i>&nbsp;
-        <i>368</i>&nbsp; /**
-        <i>369</i>&nbsp; * Handles the click for the build position.
-        <i>370</i>&nbsp; *
-        <i>371</i>&nbsp; * @param clickedPosition the clicked position on the grid.
-        <i>372</i>&nbsp; */
-        <i>373</i>&nbsp; private void handleBuild(Position clickedPosition) {
-        <b class="nc"><i>374</i>&nbsp; disableAllSpaces();</b>
-        <b class="nc"><i>375</i>&nbsp; removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);</b>
-        <b class="nc"><i>376</i>&nbsp; new Thread(() -&gt; notifyObserver(obs -&gt;
-            obs.onUpdateBuild(clickedPosition))).start();</b>
-        <i>377</i>&nbsp; }
-        <i>378</i>&nbsp;
-        <i>379</i>&nbsp; /**
-        <i>380</i>&nbsp; * Handles the click for the move or build position of the worker during an effect.
-        <i>381</i>&nbsp; *
-        <i>382</i>&nbsp; * @param clickedPosition the clicked position on the grid.
-        <i>383</i>&nbsp; */
-        <i>384</i>&nbsp; private void handleApplyFx(Position clickedPosition) {
-        <b class="nc"><i>385</i>&nbsp; disableAllSpaces();</b>
-        <b class="nc"><i>386</i>&nbsp; removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);</b>
-        <b class="nc"><i>387</i>&nbsp; new Thread(() -&gt; notifyObserver(obs -&gt;
-            obs.onUpdateApplyEffect(clickedPosition))).start();</b>
-        <i>388</i>&nbsp; }
-        <i>389</i>&nbsp;
-        <i>390</i>&nbsp; /**
-        <i>391</i>&nbsp; * Sets the click type which will be handled after the click itself.
-        <i>392</i>&nbsp; * This is needed in order to differentiate the various click on the same grid
-        <i>393</i>&nbsp; * and perform the right operation.
-        <i>394</i>&nbsp; *
-        <i>395</i>&nbsp; * @param spaceClickType the click type for the next phase.
-        <i>396</i>&nbsp; */
-        <i>397</i>&nbsp; public void setSpaceClickType(MessageType spaceClickType) {
-        <b class="nc"><i>398</i>&nbsp; this.spaceClickType = spaceClickType;</b>
-        <i>399</i>&nbsp; }
-        <i>400</i>&nbsp;
-        <i>401</i>&nbsp; /**
-        <i>402</i>&nbsp; * Removes a CSS class from all the grid spaces.
-        <i>403</i>&nbsp; *
-        <i>404</i>&nbsp; * @param cssClass the name of the css class to be removed.
-        <i>405</i>&nbsp; */
-        <i>406</i>&nbsp; private void removeCssClassFromAllSpaces(String cssClass) {
-        <b class="nc"><i>407</i>&nbsp; ObservableList&lt;Node&gt; spaceList = boardGrid.getChildren();</b>
-        <b class="nc"><i>408</i>&nbsp; for (Node space : spaceList) {</b>
-        <b class="nc"><i>409</i>&nbsp; space.getStyleClass().remove(cssClass);</b>
-        <b class="nc"><i>410</i>&nbsp; }</b>
-        <i>411</i>&nbsp; }
-        <i>412</i>&nbsp;
-        <i>413</i>&nbsp; /**
-        <i>414</i>&nbsp; * Sets the clickable positions on the board grid.
-        <i>415</i>&nbsp; *
-        <i>416</i>&nbsp; * @param availablePositionClicks the new positions which can be clicked.
-        <i>417</i>&nbsp; */
-        <i>418</i>&nbsp; public void setAvailablePositionClicks(int availablePositionClicks) {
-        <b class="nc"><i>419</i>&nbsp; this.availablePositionClicks = availablePositionClicks;</b>
-        <i>420</i>&nbsp; }
-        <i>421</i>&nbsp;
-        <i>422</i>&nbsp; /**
-        <i>423</i>&nbsp; * Updates the spaces on the board with the latest info received from the server.
-        <i>424</i>&nbsp; *
-        <i>425</i>&nbsp; * @param reducedSpaces every spaces of the board.
-        <i>426</i>&nbsp; */
-        <i>427</i>&nbsp; public void updateSpaces(ReducedSpace[][] reducedSpaces) {
-        <b class="nc"><i>428</i>&nbsp; ObservableList&lt;Node&gt; spaceList = boardGrid.getChildren();</b>
-        <b class="nc"><i>429</i>&nbsp; for (Node space : spaceList) {</b>
-        <b class="nc"><i>430</i>&nbsp; Position tempPos = new Position(GridPane.getRowIndex(space),
-            GridPane.getColumnIndex(space));</b>
-        <i>431</i>&nbsp;
-        <b class="nc"><i>432</i>&nbsp; if (isGridPositionOnBoard(tempPos)) {</b>
-        <b class="nc"><i>433</i>&nbsp; ObservableList&lt;Node&gt; children = ((StackPane) space).getChildren();</b>
-        <b class="nc"><i>434</i>&nbsp; Node spaceNode = children.get(0); // panel for the levels</b>
-        <b class="nc"><i>435</i>&nbsp; Node spaceWorkerNode = children.get(1); // panel for the dome/worker</b>
-        <b class="nc"><i>436</i>&nbsp; ReducedSpace redSp = reducedSpaces[tempPos.getRow()][tempPos.getColumn()];</b>
-        <i>437</i>&nbsp;
-        <i>438</i>&nbsp; // NOTE: always call first setGridSpaceLevel, because it clears all the other styles.
-        <i>439</i>&nbsp; // The dome will be set in the worker panel since they mutually exclude.
-        <b class="nc"><i>440</i>&nbsp; setGridSpaceLevel(spaceNode, redSp.getLevel());</b>
-        <b class="nc"><i>441</i>&nbsp; setGridSpaceWorker(spaceWorkerNode, redSp.getReducedWorker(),
-            redSp.hasDome());</b>
-        <i>442</i>&nbsp; }
-        <b class="nc"><i>443</i>&nbsp; }</b>
-        <i>444</i>&nbsp; }
-        <i>445</i>&nbsp;
-        <i>446</i>&nbsp; /**
-        <i>447</i>&nbsp; * Enables the spaces on the board. All the others spaces will be disabled.
-        <i>448</i>&nbsp; *
-        <i>449</i>&nbsp; * @param positionList the list of spaces to enable.
-        <i>450</i>&nbsp; */
-        <i>451</i>&nbsp; public void setEnabledSpaces(List&lt;Position&gt; positionList) {
-        <b class="nc"><i>452</i>&nbsp; this.enabledSpaces = positionList;</b>
-        <i>453</i>&nbsp;
-        <b class="nc"><i>454</i>&nbsp; ObservableList&lt;Node&gt; spaceList = boardGrid.getChildren();</b>
-        <b class="nc"><i>455</i>&nbsp; for (Node space : spaceList) {</b>
-        <b class="nc"><i>456</i>&nbsp; Position tempPos = new Position(GridPane.getRowIndex(space),
-            GridPane.getColumnIndex(space));</b>
-        <b class="nc"><i>457</i>&nbsp; space.setDisable(!positionList.contains(tempPos)); // Enabled if in list.</b>
-        <b class="nc"><i>458</i>&nbsp; }</b>
-        <i>459</i>&nbsp; }
-        <i>460</i>&nbsp;
-        <i>461</i>&nbsp; /**
-        <i>462</i>&nbsp; * Disables the spaces on the board. The others spaces will not be affected.
-        <i>463</i>&nbsp; *
-        <i>464</i>&nbsp; * @param positionList the list of spaces to disable.
-        <i>465</i>&nbsp; */
-        <i>466</i>&nbsp; public void setDisabledSpaces(List&lt;Position&gt; positionList) {
-        <b class="nc"><i>467</i>&nbsp; ObservableList&lt;Node&gt; spaceList = boardGrid.getChildren();</b>
-        <b class="nc"><i>468</i>&nbsp; for (Node space : spaceList) {</b>
-        <b class="nc"><i>469</i>&nbsp; Position tempPos = new Position(GridPane.getRowIndex(space),
-            GridPane.getColumnIndex(space));</b>
-        <b class="nc"><i>470</i>&nbsp; if (positionList.contains(tempPos)) {</b>
-        <b class="nc"><i>471</i>&nbsp; space.setDisable(true);</b>
-        <i>472</i>&nbsp; }
-        <b class="nc"><i>473</i>&nbsp; }</b>
-        <i>474</i>&nbsp; }
-        <i>475</i>&nbsp;
-        <i>476</i>&nbsp; /**
-        <i>477</i>&nbsp; * Disables all the spaces on the board.
-        <i>478</i>&nbsp; */
-        <i>479</i>&nbsp; private void disableAllSpaces() {
-        <b class="nc"><i>480</i>&nbsp; ObservableList&lt;Node&gt; spaceList = boardGrid.getChildren();</b>
-        <b class="nc"><i>481</i>&nbsp; for (Node space : spaceList) {</b>
-        <b class="nc"><i>482</i>&nbsp; space.setDisable(true);</b>
-        <b class="nc"><i>483</i>&nbsp; }</b>
-        <i>484</i>&nbsp; }
-        <i>485</i>&nbsp;
-        <i>486</i>&nbsp; /**
-        <i>487</i>&nbsp; * Sets the CSS style on the grid space argument based on the given level.
-        <i>488</i>&nbsp; *
-        <i>489</i>&nbsp; * @param gridSpace the Node of the grid board to be modified.
-        <i>490</i>&nbsp; * @param level the level to be set.
-        <i>491</i>&nbsp; */
-        <i>492</i>&nbsp; private void setGridSpaceLevel(Node gridSpace, int level) {
-        <b class="nc"><i>493</i>&nbsp; switch (level) {</b>
-        <i>494</i>&nbsp; case 0:
-        <i>495</i>&nbsp; // no buildings over it.
-        <b class="nc"><i>496</i>&nbsp; break;</b>
-        <i>497</i>&nbsp; case 1:
-        <b class="nc"><i>498</i>&nbsp; gridSpace.getStyleClass().add(&quot;lvlOne&quot;);</b>
-        <b class="nc"><i>499</i>&nbsp; break;</b>
-        <i>500</i>&nbsp; case 2:
-        <b class="nc"><i>501</i>&nbsp; gridSpace.getStyleClass().add(&quot;lvlTwo&quot;);</b>
-        <b class="nc"><i>502</i>&nbsp; break;</b>
-        <i>503</i>&nbsp; case 3:
-        <b class="nc"><i>504</i>&nbsp; gridSpace.getStyleClass().add(&quot;lvlThree&quot;);</b>
-        <b class="nc"><i>505</i>&nbsp; break;</b>
-        <i>506</i>&nbsp; default:
-        <i>507</i>&nbsp; break;
-        <i>508</i>&nbsp; }
-        <i>509</i>&nbsp; }
-        <i>510</i>&nbsp;
-        <i>511</i>&nbsp; /**
-        <i>512</i>&nbsp; * Sets the CSS style on the grid space argument based on the given worker or optional dome.
-        <i>513</i>&nbsp; *
-        <i>514</i>&nbsp; * @param gridSpace the Node of the grid board to be modified.
-        <i>515</i>&nbsp; * @param reducedWorker the worker of the space. Can be null if no worker is on the space.
-        <i>516</i>&nbsp; * @param dome a boolean value to identify the dome on the space.
-        <i>517</i>&nbsp; */
-        <i>518</i>&nbsp; private void setGridSpaceWorker(Node gridSpace, ReducedWorker reducedWorker, boolean dome) {
-        <i>519</i>&nbsp; // Remove the previous worker (if any)
-        <b class="nc"><i>520</i>&nbsp; gridSpace.getStyleClass().removeIf(s -&gt; s.startsWith(&quot;worker&quot;));</b>
-        <i>521</i>&nbsp;
-        <b class="nc"><i>522</i>&nbsp; if (reducedWorker != null) {</b>
-        <b class="nc"><i>523</i>&nbsp; String strColor = reducedWorker.getColor().getText();</b>
-        <b class="nc"><i>524</i>&nbsp; strColor = strColor.substring(0, 1) + strColor.substring(1).toLowerCase();</b>
-        <i>525</i>&nbsp;
-        <b class="nc"><i>526</i>&nbsp; gridSpace.getStyleClass().add(&quot;worker&quot; + strColor);</b>
-        <b class="nc"><i>527</i>&nbsp; } else if (dome) {</b>
-        <b class="nc"><i>528</i>&nbsp; gridSpace.getStyleClass().add(&quot;dome&quot;);</b>
-        <i>529</i>&nbsp; }
-        <i>530</i>&nbsp; }
-        <i>531</i>&nbsp;
-        <i>532</i>&nbsp; /**
-        <i>533</i>&nbsp; * Checks if the given position is on board.
-        <i>534</i>&nbsp; *
-        <i>535</i>&nbsp; * @param position the position to be checked.
-        <i>536</i>&nbsp; * @return {@code true} if the position is valid (on board), {@code false} otherwise.
-        <i>537</i>&nbsp; */
-        <i>538</i>&nbsp; private boolean isGridPositionOnBoard(Position position) {
-        <b class="nc"><i>539</i>&nbsp; return position.getRow() &gt;= 0 &amp;&amp; position.getRow() &lt; Board.MAX_ROWS</b>
-        <b class="nc"><i>540</i>&nbsp; &amp;&amp; position.getColumn() &gt;= 0 &amp;&amp; position.getColumn() &lt;
-            Board.MAX_COLUMNS;</b>
-        <i>541</i>&nbsp; }
-        <i>542</i>&nbsp;
-        <i>543</i>&nbsp; /**
-        <i>544</i>&nbsp; * Enables or disables the effect controls.
-        <i>545</i>&nbsp; *
-        <i>546</i>&nbsp; * @param enable set to {@code true} to enable the controls, {@code false} to disable.
-        <i>547</i>&nbsp; */
-        <i>548</i>&nbsp; public void enableEffectControls(boolean enable) {
-        <b class="nc"><i>549</i>&nbsp; effectImage.setDisable(!enable);</b>
-        <b class="nc"><i>550</i>&nbsp; skipEffectBtn.setDisable(!enable);</b>
-        <i>551</i>&nbsp; }
-        <i>552</i>&nbsp;
-        <i>553</i>&nbsp; /**
-        <i>554</i>&nbsp; * Updates the displayed infos about the current match.
-        <i>555</i>&nbsp; * Infos are about the list of players, the turn of the player.
-        <i>556</i>&nbsp; *
-        <i>557</i>&nbsp; * @param players a list of player&#39;s nicknames.
-        <i>558</i>&nbsp; * @param gods a list of player&#39;s gods.
-        <i>559</i>&nbsp; * @param colors a list of player&#39;s color.
-        <i>560</i>&nbsp; * @param activePlayer the nickname of the playing player.
-        <i>561</i>&nbsp; */
-        <i>562</i>&nbsp; public void updateMatchInfo(List&lt;String&gt; players, List&lt;ReducedGod&gt; gods, List&lt;Color&gt;
-        colors, String activePlayer) {
-        <b class="nc"><i>563</i>&nbsp; if (players != null &amp;&amp; gods != null) {</b>
-        <b class="nc"><i>564</i>&nbsp; this.gods = gods; // save gods for later usage.</b>
-        <i>565</i>&nbsp;
-        <i>566</i>&nbsp; // Set info about the first player.
-        <b class="nc"><i>567</i>&nbsp; player1Label.setText(players.get(0));</b>
-        <b class="nc"><i>568</i>&nbsp; Image img1 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX +
-            gods.get(0).getName().toLowerCase() + &quot;.png&quot;));</b>
-        <b class="nc"><i>569</i>&nbsp; god1Image.setImage(img1);</b>
-        <b class="nc"><i>570</i>&nbsp; god1Image.setVisible(true);</b>
-        <b class="nc"><i>571</i>&nbsp; player1Img.setVisible(true);</b>
-        <i>572</i>&nbsp;
-        <i>573</i>&nbsp; // Set info about the second player.
-        <b class="nc"><i>574</i>&nbsp; player2Label.setText(players.get(1));</b>
-        <i>575</i>&nbsp;
-        <b class="nc"><i>576</i>&nbsp; Image img2 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX +
-            gods.get(1).getName().toLowerCase() + &quot;.png&quot;));</b>
-        <b class="nc"><i>577</i>&nbsp; god2Image.setImage(img2);</b>
-        <b class="nc"><i>578</i>&nbsp; god2Image.setVisible(true);</b>
-        <b class="nc"><i>579</i>&nbsp; player2Img.setVisible(true);</b>
-        <i>580</i>&nbsp;
-        <b class="nc"><i>581</i>&nbsp; if (colors != null) {</b>
-        <b class="nc"><i>582</i>&nbsp; player1Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(0).getText()));</b>
-        <b class="nc"><i>583</i>&nbsp; player1Color.setVisible(true);</b>
-        <i>584</i>&nbsp;
-        <b class="nc"><i>585</i>&nbsp; player2Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(1).getText()));</b>
-        <b class="nc"><i>586</i>&nbsp; player2Color.setVisible(true);</b>
-        <i>587</i>&nbsp; }
-        <i>588</i>&nbsp;
-        <b class="nc"><i>589</i>&nbsp; turnInformationLabel.setText(&quot;Turn of &quot; + activePlayer);</b>
-        <b class="nc"><i>590</i>&nbsp; turnInformationImg.setVisible(true);</b>
-        <i>591</i>&nbsp;
-        <b class="nc"><i>592</i>&nbsp; if (players.size() == 3 &amp;&amp; gods.size() == 3) {</b>
-        <i>593</i>&nbsp; // Set info about the third player.
-        <b class="nc"><i>594</i>&nbsp; player3Label.setText(players.get(2));</b>
-        <i>595</i>&nbsp;
-        <b class="nc"><i>596</i>&nbsp; Image img3 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX +
-            gods.get(2).getName().toLowerCase() + &quot;.png&quot;));</b>
-        <b class="nc"><i>597</i>&nbsp; god3Image.setImage(img3);</b>
-        <i>598</i>&nbsp;
-        <b class="nc"><i>599</i>&nbsp; god3Image.setVisible(true);</b>
-        <b class="nc"><i>600</i>&nbsp; player3Img.setVisible(true);</b>
-        <i>601</i>&nbsp;
-        <b class="nc"><i>602</i>&nbsp; if (colors != null &amp;&amp; colors.size() == 3) {</b>
-        <b class="nc"><i>603</i>&nbsp; player3Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(2).getText()));</b>
-        <b class="nc"><i>604</i>&nbsp; player3Color.setVisible(true);</b>
-        <i>605</i>&nbsp; }
-        <b class="nc"><i>606</i>&nbsp; } else {</b>
-        <b class="nc"><i>607</i>&nbsp; god3Image.setVisible(false);</b>
-        <b class="nc"><i>608</i>&nbsp; player3Label.setVisible(false);</b>
-        <b class="nc"><i>609</i>&nbsp; player3Color.setVisible(false);</b>
-        <b class="nc"><i>610</i>&nbsp; player3Img.setVisible(false);</b>
-        <i>611</i>&nbsp; }
-        <b class="nc"><i>612</i>&nbsp; } else {</b>
-        <b class="nc"><i>613</i>&nbsp; turnInformationLabel.setText(&quot;Turn of &quot; + activePlayer);</b>
-        <b class="nc"><i>614</i>&nbsp; turnInformationImg.setVisible(true);</b>
-        <i>615</i>&nbsp; }
-        <i>616</i>&nbsp; }
-        <i>617</i>&nbsp;}
-    </div>
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.ReducedGod;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.board.Board;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.board.ReducedSpace;
+<i>7</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
+<i>8</i>&nbsp;import it.polimi.ingsw.model.player.ReducedWorker;
+<i>9</i>&nbsp;import it.polimi.ingsw.network.message.MessageType;
+<i>10</i>&nbsp;import it.polimi.ingsw.observer.ViewObservable;
+<i>11</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
+<i>12</i>&nbsp;import javafx.collections.ObservableList;
+<i>13</i>&nbsp;import javafx.fxml.FXML;
+<i>14</i>&nbsp;import javafx.scene.Node;
+<i>15</i>&nbsp;import javafx.scene.control.Button;
+<i>16</i>&nbsp;import javafx.scene.control.Label;
+<i>17</i>&nbsp;import javafx.scene.image.Image;
+<i>18</i>&nbsp;import javafx.scene.image.ImageView;
+<i>19</i>&nbsp;import javafx.scene.input.MouseEvent;
+<i>20</i>&nbsp;import javafx.scene.layout.GridPane;
+<i>21</i>&nbsp;import javafx.scene.layout.StackPane;
+<i>22</i>&nbsp;import javafx.scene.shape.Circle;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;import java.util.ArrayList;
+<i>25</i>&nbsp;import java.util.List;
+<i>26</i>&nbsp;import java.util.Timer;
+<i>27</i>&nbsp;import java.util.TimerTask;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;import static it.polimi.ingsw.controller.ClientController.UNDO_TIME;
+<i>30</i>&nbsp;import static it.polimi.ingsw.view.gui.SceneController.GOD_IMAGE_PREFIX;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;/**
+<i>33</i>&nbsp; * This class implements the controller of the scene of the board. Most of the game will be played here.
+<i>34</i>&nbsp; */
+<i>35</i>&nbsp;public class BoardSceneController extends ViewObservable implements GenericSceneController {
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    private static final String GLASS_PANE_SELECTED = &quot;glassPaneSelected&quot;;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    private int availablePositionClicks;
+<i>40</i>&nbsp;    private final List&lt;Position&gt; clickedPositionList;
+<i>41</i>&nbsp;    private MessageType spaceClickType;
+<i>42</i>&nbsp;    private Node tempNode;
+<i>43</i>&nbsp;    private Position tempPosition;
+<i>44</i>&nbsp;    private List&lt;ReducedGod&gt; gods;
+<i>45</i>&nbsp;    private List&lt;Position&gt; enabledSpaces;
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    private Timer undoTimer;
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    @FXML
+<i>50</i>&nbsp;    private GridPane boardGrid;
+<i>51</i>&nbsp;    @FXML
+<i>52</i>&nbsp;    private ImageView effectImage;
+<i>53</i>&nbsp;    @FXML
+<i>54</i>&nbsp;    private Label player1Label;
+<i>55</i>&nbsp;    @FXML
+<i>56</i>&nbsp;    private Circle player1Color;
+<i>57</i>&nbsp;    @FXML
+<i>58</i>&nbsp;    private ImageView god1Image;
+<i>59</i>&nbsp;    @FXML
+<i>60</i>&nbsp;    private ImageView player1Img;
+<i>61</i>&nbsp;    @FXML
+<i>62</i>&nbsp;    private Label player2Label;
+<i>63</i>&nbsp;    @FXML
+<i>64</i>&nbsp;    private Circle player2Color;
+<i>65</i>&nbsp;    @FXML
+<i>66</i>&nbsp;    private ImageView god2Image;
+<i>67</i>&nbsp;    @FXML
+<i>68</i>&nbsp;    private ImageView player2Img;
+<i>69</i>&nbsp;    @FXML
+<i>70</i>&nbsp;    private Label player3Label;
+<i>71</i>&nbsp;    @FXML
+<i>72</i>&nbsp;    private Circle player3Color;
+<i>73</i>&nbsp;    @FXML
+<i>74</i>&nbsp;    private ImageView player3Img;
+<i>75</i>&nbsp;    @FXML
+<i>76</i>&nbsp;    private ImageView god3Image;
+<i>77</i>&nbsp;    @FXML
+<i>78</i>&nbsp;    private ImageView undoImg;
+<i>79</i>&nbsp;    @FXML
+<i>80</i>&nbsp;    private ImageView undoBg;
+<i>81</i>&nbsp;    @FXML
+<i>82</i>&nbsp;    private Label timerLbl;
+<i>83</i>&nbsp;    @FXML
+<i>84</i>&nbsp;    private Button skipEffectBtn;
+<i>85</i>&nbsp;    @FXML
+<i>86</i>&nbsp;    private Button confirmBtn;
+<i>87</i>&nbsp;    @FXML
+<i>88</i>&nbsp;    private Label turnInformationLabel;
+<i>89</i>&nbsp;    @FXML
+<i>90</i>&nbsp;    private ImageView turnInformationImg;
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    /**
+<i>94</i>&nbsp;     * Default constructor.
+<i>95</i>&nbsp;     */
+<b class="nc"><i>96</i>&nbsp;    public BoardSceneController() {</b>
+<b class="nc"><i>97</i>&nbsp;        availablePositionClicks = 0;</b>
+<b class="nc"><i>98</i>&nbsp;        clickedPositionList = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>99</i>&nbsp;        spaceClickType = MessageType.INIT_WORKERSPOSITIONS;</b>
+<i>100</i>&nbsp;    }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;    @FXML
+<i>103</i>&nbsp;    public void initialize() {
+<b class="nc"><i>104</i>&nbsp;        boardGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSpaceClick);</b>
+<b class="nc"><i>105</i>&nbsp;        effectImage.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onEffectImageClick);</b>
+<b class="nc"><i>106</i>&nbsp;        skipEffectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSkipEffectBtnClick);</b>
+<b class="nc"><i>107</i>&nbsp;        undoImg.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onUndoImgClick);</b>
+<b class="nc"><i>108</i>&nbsp;        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onConfirmBtnClick);</b>
+<i>109</i>&nbsp;
+<b class="nc"><i>110</i>&nbsp;        god1Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod1ImageClick);</b>
+<b class="nc"><i>111</i>&nbsp;        god2Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod2ImageClick);</b>
+<b class="nc"><i>112</i>&nbsp;        god3Image.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onGod3ImageClick);</b>
+<i>113</i>&nbsp;
+<b class="nc"><i>114</i>&nbsp;        player1Label.setText(&quot;&quot;);</b>
+<b class="nc"><i>115</i>&nbsp;        player2Label.setText(&quot;&quot;);</b>
+<b class="nc"><i>116</i>&nbsp;        player3Label.setText(&quot;&quot;);</b>
+<i>117</i>&nbsp;
+<b class="nc"><i>118</i>&nbsp;        turnInformationLabel.setText(&quot;&quot;);</b>
+<b class="nc"><i>119</i>&nbsp;        turnInformationImg.setVisible(false);</b>
+<i>120</i>&nbsp;
+<b class="nc"><i>121</i>&nbsp;        timerLbl.setVisible(false);</b>
+<b class="nc"><i>122</i>&nbsp;        undoImg.setVisible(false);</b>
+<b class="nc"><i>123</i>&nbsp;        undoBg.setVisible(false);</b>
+<b class="nc"><i>124</i>&nbsp;        confirmBtn.setVisible(false);</b>
+<i>125</i>&nbsp;
+<b class="nc"><i>126</i>&nbsp;        god1Image.setVisible(false);</b>
+<b class="nc"><i>127</i>&nbsp;        god2Image.setVisible(false);</b>
+<b class="nc"><i>128</i>&nbsp;        god3Image.setVisible(false);</b>
+<i>129</i>&nbsp;
+<b class="nc"><i>130</i>&nbsp;        player1Color.setVisible(false);</b>
+<b class="nc"><i>131</i>&nbsp;        player2Color.setVisible(false);</b>
+<b class="nc"><i>132</i>&nbsp;        player3Color.setVisible(false);</b>
+<i>133</i>&nbsp;
+<b class="nc"><i>134</i>&nbsp;        player1Img.setVisible(false);</b>
+<b class="nc"><i>135</i>&nbsp;        player2Img.setVisible(false);</b>
+<b class="nc"><i>136</i>&nbsp;        player3Img.setVisible(false);</b>
+<i>137</i>&nbsp;    }
+<i>138</i>&nbsp;
+<i>139</i>&nbsp;
+<i>140</i>&nbsp;    /**
+<i>141</i>&nbsp;     * Handle the click on the first player god image.
+<i>142</i>&nbsp;     * Info about the god will be shown.
+<i>143</i>&nbsp;     *
+<i>144</i>&nbsp;     * @param event the mouse click event.
+<i>145</i>&nbsp;     */
+<i>146</i>&nbsp;    private void onGod1ImageClick(MouseEvent event) {
+<b class="nc"><i>147</i>&nbsp;        ReducedGod god = gods.get(0);</b>
+<b class="nc"><i>148</i>&nbsp;        SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());</b>
+<i>149</i>&nbsp;    }
+<i>150</i>&nbsp;
+<i>151</i>&nbsp;    /**
+<i>152</i>&nbsp;     * Handle the click on the second player god image.
+<i>153</i>&nbsp;     * Info about the god will be shown.
+<i>154</i>&nbsp;     *
+<i>155</i>&nbsp;     * @param event the mouse click event.
+<i>156</i>&nbsp;     */
+<i>157</i>&nbsp;    private void onGod2ImageClick(MouseEvent event) {
+<b class="nc"><i>158</i>&nbsp;        ReducedGod god = gods.get(1);</b>
+<b class="nc"><i>159</i>&nbsp;        SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());</b>
+<i>160</i>&nbsp;    }
+<i>161</i>&nbsp;
+<i>162</i>&nbsp;    /**
+<i>163</i>&nbsp;     * Handle the click on the third player god image.
+<i>164</i>&nbsp;     * Info about the god will be shown.
+<i>165</i>&nbsp;     *
+<i>166</i>&nbsp;     * @param event the mouse click event.
+<i>167</i>&nbsp;     */
+<i>168</i>&nbsp;    private void onGod3ImageClick(MouseEvent event) {
+<b class="nc"><i>169</i>&nbsp;        ReducedGod god = gods.get(2);</b>
+<b class="nc"><i>170</i>&nbsp;        SceneController.showGodInformation(god.getName(), god.getCaption(), god.getDescription());</b>
+<i>171</i>&nbsp;    }
+<i>172</i>&nbsp;
+<i>173</i>&nbsp;    /**
+<i>174</i>&nbsp;     * Handle the click on a generic space.
+<i>175</i>&nbsp;     * The opacity of the selected space will be edited.
+<i>176</i>&nbsp;     *
+<i>177</i>&nbsp;     * @param event the mouse click event.
+<i>178</i>&nbsp;     */
+<i>179</i>&nbsp;    private void onSpaceClick(MouseEvent event) {
+<b class="nc"><i>180</i>&nbsp;        Node clickedNode = event.getPickResult().getIntersectedNode();</b>
+<b class="nc"><i>181</i>&nbsp;        Integer row = GridPane.getRowIndex(clickedNode);</b>
+<b class="nc"><i>182</i>&nbsp;        Integer col = GridPane.getColumnIndex(clickedNode);</b>
+<i>183</i>&nbsp;
+<b class="nc"><i>184</i>&nbsp;        if (row != null &amp;&amp; col != null &amp;&amp; availablePositionClicks &gt;= 1) {</b>
+<b class="nc"><i>185</i>&nbsp;            availablePositionClicks--;</b>
+<b class="nc"><i>186</i>&nbsp;            clickedNode.setOpacity(10);</b>
+<b class="nc"><i>187</i>&nbsp;            Position clickedPosition = new Position(row, col);</b>
+<b class="nc"><i>188</i>&nbsp;            handleSpaceClickType(clickedNode, clickedPosition);</b>
+<i>189</i>&nbsp;        }
+<i>190</i>&nbsp;    }
+<i>191</i>&nbsp;
+<i>192</i>&nbsp;    /**
+<i>193</i>&nbsp;     * Handle the click on the undo image.
+<i>194</i>&nbsp;     * Action of the player will be cancelled.
+<i>195</i>&nbsp;     *
+<i>196</i>&nbsp;     * @param event the mouse click event.
+<i>197</i>&nbsp;     */
+<i>198</i>&nbsp;    private void onUndoImgClick(MouseEvent event) {
+<b class="nc"><i>199</i>&nbsp;        undoTimer.cancel();</b>
+<b class="nc"><i>200</i>&nbsp;        timerLbl.setVisible(false);</b>
+<b class="nc"><i>201</i>&nbsp;        undoImg.setVisible(false);</b>
+<b class="nc"><i>202</i>&nbsp;        undoBg.setVisible(false);</b>
+<b class="nc"><i>203</i>&nbsp;        confirmBtn.setVisible(false);</b>
+<b class="nc"><i>204</i>&nbsp;        tempNode.getStyleClass().remove(GLASS_PANE_SELECTED);</b>
+<b class="nc"><i>205</i>&nbsp;        setEnabledSpaces(enabledSpaces);</b>
+<i>206</i>&nbsp;
+<b class="nc"><i>207</i>&nbsp;        availablePositionClicks++;</b>
+<i>208</i>&nbsp;    }
+<i>209</i>&nbsp;
+<i>210</i>&nbsp;    /**
+<i>211</i>&nbsp;     * Handle the click on the Confirm Button.
+<i>212</i>&nbsp;     * Action of the player will be confirmed.
+<i>213</i>&nbsp;     *
+<i>214</i>&nbsp;     * @param event the mouse click event.
+<i>215</i>&nbsp;     */
+<i>216</i>&nbsp;    private void onConfirmBtnClick(MouseEvent event) {
+<b class="nc"><i>217</i>&nbsp;        undoTimer.cancel();</b>
+<b class="nc"><i>218</i>&nbsp;        timerLbl.setVisible(false);</b>
+<b class="nc"><i>219</i>&nbsp;        undoImg.setVisible(false);</b>
+<b class="nc"><i>220</i>&nbsp;        undoBg.setVisible(false);</b>
+<b class="nc"><i>221</i>&nbsp;        confirmBtn.setVisible(false);</b>
+<i>222</i>&nbsp;
+<b class="nc"><i>223</i>&nbsp;        availablePositionClicks--;</b>
+<i>224</i>&nbsp;
+<b class="nc"><i>225</i>&nbsp;        switch (spaceClickType) {</b>
+<i>226</i>&nbsp;            case MOVE:
+<b class="nc"><i>227</i>&nbsp;                handleMove(tempPosition);</b>
+<b class="nc"><i>228</i>&nbsp;                break;</b>
+<i>229</i>&nbsp;            case BUILD:
+<b class="nc"><i>230</i>&nbsp;                handleBuild(tempPosition);</b>
+<b class="nc"><i>231</i>&nbsp;                break;</b>
+<i>232</i>&nbsp;            case BUILD_FX:
+<i>233</i>&nbsp;            case MOVE_FX:
+<b class="nc"><i>234</i>&nbsp;                handleApplyFx(tempPosition);</b>
+<b class="nc"><i>235</i>&nbsp;                break;</b>
+<i>236</i>&nbsp;            default:
+<i>237</i>&nbsp;                break;
+<i>238</i>&nbsp;        }
+<i>239</i>&nbsp;
+<b class="nc"><i>240</i>&nbsp;        tempPosition = null;</b>
+<i>241</i>&nbsp;    }
+<i>242</i>&nbsp;
+<i>243</i>&nbsp;    /**
+<i>244</i>&nbsp;     * Handle the click on the effect image.
+<i>245</i>&nbsp;     * Effect of the player&#39;s god will be activated.
+<i>246</i>&nbsp;     *
+<i>247</i>&nbsp;     * @param event the mouse click event.
+<i>248</i>&nbsp;     */
+<i>249</i>&nbsp;    private void onEffectImageClick(MouseEvent event) {
+<b class="nc"><i>250</i>&nbsp;        enableEffectControls(false);</b>
+<b class="nc"><i>251</i>&nbsp;        new Thread(() -&gt; notifyObserver(obs -&gt; obs.onUpdateEnableEffect(true))).start();</b>
+<i>252</i>&nbsp;    }
+<i>253</i>&nbsp;
+<i>254</i>&nbsp;    /**
+<i>255</i>&nbsp;     * Handle the click on the skip effect button.
+<i>256</i>&nbsp;     * Effect of the player&#39;s god will not be activated.
+<i>257</i>&nbsp;     *
+<i>258</i>&nbsp;     * @param event the mouse click event.
+<i>259</i>&nbsp;     */
+<i>260</i>&nbsp;    private void onSkipEffectBtnClick(MouseEvent event) {
+<b class="nc"><i>261</i>&nbsp;        enableEffectControls(false);</b>
+<b class="nc"><i>262</i>&nbsp;        new Thread(() -&gt; notifyObserver(obs -&gt; obs.onUpdateEnableEffect(false))).start();</b>
+<i>263</i>&nbsp;    }
+<i>264</i>&nbsp;
+<i>265</i>&nbsp;    /**
+<i>266</i>&nbsp;     * Handle the type of the space clicked by player.
+<i>267</i>&nbsp;     *
+<i>268</i>&nbsp;     * @param clickedNode     clicked node of the board.
+<i>269</i>&nbsp;     * @param clickedPosition clicked position of the board.
+<i>270</i>&nbsp;     */
+<i>271</i>&nbsp;    private void handleSpaceClickType(Node clickedNode, Position clickedPosition) {
+<b class="nc"><i>272</i>&nbsp;        switch (spaceClickType) {</b>
+<i>273</i>&nbsp;            case INIT_WORKERSPOSITIONS:
+<b class="nc"><i>274</i>&nbsp;                handleInitWorkers(clickedNode, clickedPosition);</b>
+<b class="nc"><i>275</i>&nbsp;                break;</b>
+<i>276</i>&nbsp;            case PICK_MOVING_WORKER:
+<b class="nc"><i>277</i>&nbsp;                handlePickMovingWorker(clickedNode, clickedPosition);</b>
+<b class="nc"><i>278</i>&nbsp;                break;</b>
+<i>279</i>&nbsp;            case MOVE:
+<i>280</i>&nbsp;            case BUILD:
+<i>281</i>&nbsp;            case MOVE_FX:
+<i>282</i>&nbsp;            case BUILD_FX:
+<b class="nc"><i>283</i>&nbsp;                waitForUndo(clickedNode, clickedPosition);</b>
+<b class="nc"><i>284</i>&nbsp;                break;</b>
+<i>285</i>&nbsp;            default:
+<i>286</i>&nbsp;                break;
+<i>287</i>&nbsp;        }
+<i>288</i>&nbsp;    }
+<i>289</i>&nbsp;
+<i>290</i>&nbsp;
+<i>291</i>&nbsp;    /**
+<i>292</i>&nbsp;     * Waits 5 seconds before sending the data to the server.
+<i>293</i>&nbsp;     * The user can Undo his last operation by clicking on the undo button.
+<i>294</i>&nbsp;     * After 5 seconds an automatic confirm will be sent to the server.
+<i>295</i>&nbsp;     * The user can skip this delay by clicking on the confirm button.
+<i>296</i>&nbsp;     *
+<i>297</i>&nbsp;     * @param clickedNode     the clicked node of the grid.
+<i>298</i>&nbsp;     * @param clickedPosition the clicked position on the grid.
+<i>299</i>&nbsp;     */
+<i>300</i>&nbsp;    private void waitForUndo(Node clickedNode, Position clickedPosition) {
+<b class="nc"><i>301</i>&nbsp;        clickedNode.setDisable(true);</b>
+<b class="nc"><i>302</i>&nbsp;        disableAllSpaces();</b>
+<b class="nc"><i>303</i>&nbsp;        clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);</b>
+<i>304</i>&nbsp;
+<b class="nc"><i>305</i>&nbsp;        undoImg.setVisible(true);</b>
+<b class="nc"><i>306</i>&nbsp;        undoBg.setVisible(true);</b>
+<b class="nc"><i>307</i>&nbsp;        confirmBtn.setVisible(true);</b>
+<b class="nc"><i>308</i>&nbsp;        timerLbl.setVisible(true);</b>
+<b class="nc"><i>309</i>&nbsp;        tempNode = clickedNode;</b>
+<b class="nc"><i>310</i>&nbsp;        tempPosition = clickedPosition;</b>
+<i>311</i>&nbsp;
+<b class="nc"><i>312</i>&nbsp;        undoTimer = new Timer();</b>
+<b class="nc"><i>313</i>&nbsp;        undoTimer.schedule(new TimerTask() {</b>
+<i>314</i>&nbsp;            @Override
+<i>315</i>&nbsp;            public void run() {
+<b class="nc"><i>316</i>&nbsp;                onConfirmBtnClick(null);</b>
+<i>317</i>&nbsp;            }
+<i>318</i>&nbsp;        }, UNDO_TIME);
+<i>319</i>&nbsp;    }
+<i>320</i>&nbsp;
+<i>321</i>&nbsp;
+<i>322</i>&nbsp;    /**
+<i>323</i>&nbsp;     * Handles the initial setup of the workers onto the board.
+<i>324</i>&nbsp;     * The player may click twice on the board to setup the initial workers&#39; position.
+<i>325</i>&nbsp;     * Data will be sent to the server after the second click has been committed.
+<i>326</i>&nbsp;     *
+<i>327</i>&nbsp;     * @param clickedNode     the clicked node.
+<i>328</i>&nbsp;     * @param clickedPosition the clicked position on the grid.
+<i>329</i>&nbsp;     */
+<i>330</i>&nbsp;    private void handleInitWorkers(Node clickedNode, Position clickedPosition) {
+<b class="nc"><i>331</i>&nbsp;        clickedPositionList.add(clickedPosition);</b>
+<b class="nc"><i>332</i>&nbsp;        clickedNode.setDisable(true);</b>
+<b class="nc"><i>333</i>&nbsp;        clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);</b>
+<i>334</i>&nbsp;
+<b class="nc"><i>335</i>&nbsp;        if (availablePositionClicks == 0) { // Last click done.</b>
+<i>336</i>&nbsp;            // Disable all the spaces.
+<b class="nc"><i>337</i>&nbsp;            disableAllSpaces();</b>
+<b class="nc"><i>338</i>&nbsp;            removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);</b>
+<i>339</i>&nbsp;
+<i>340</i>&nbsp;            // Notify views only when all the required positions have been selected.
+<b class="nc"><i>341</i>&nbsp;            new Thread(() -&gt; notifyObserver(obs -&gt; obs.onUpdateInitWorkerPosition(clickedPositionList))).start();</b>
+<i>342</i>&nbsp;        }
+<i>343</i>&nbsp;    }
+<i>344</i>&nbsp;
+<i>345</i>&nbsp;    /**
+<i>346</i>&nbsp;     * Handles the click for the worker to be used in this turn.
+<i>347</i>&nbsp;     *
+<i>348</i>&nbsp;     * @param clickedNode     the clicked node.
+<i>349</i>&nbsp;     * @param clickedPosition the clicked position on the grid.
+<i>350</i>&nbsp;     */
+<i>351</i>&nbsp;    private void handlePickMovingWorker(Node clickedNode, Position clickedPosition) {
+<b class="nc"><i>352</i>&nbsp;        disableAllSpaces();</b>
+<b class="nc"><i>353</i>&nbsp;        clickedNode.getStyleClass().add(GLASS_PANE_SELECTED);</b>
+<b class="nc"><i>354</i>&nbsp;        new Thread(() -&gt; notifyObserver(obs -&gt; obs.onUpdatePickMovingWorker(clickedPosition))).start();</b>
+<i>355</i>&nbsp;    }
+<i>356</i>&nbsp;
+<i>357</i>&nbsp;    /**
+<i>358</i>&nbsp;     * Handles the click for the move position of the worker.
+<i>359</i>&nbsp;     *
+<i>360</i>&nbsp;     * @param clickedPosition the clicked position on the grid.
+<i>361</i>&nbsp;     */
+<i>362</i>&nbsp;    private void handleMove(Position clickedPosition) {
+<b class="nc"><i>363</i>&nbsp;        disableAllSpaces();</b>
+<b class="nc"><i>364</i>&nbsp;        removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);</b>
+<b class="nc"><i>365</i>&nbsp;        new Thread(() -&gt; notifyObserver(obs -&gt; obs.onUpdateMove(clickedPosition))).start();</b>
+<i>366</i>&nbsp;    }
+<i>367</i>&nbsp;
+<i>368</i>&nbsp;    /**
+<i>369</i>&nbsp;     * Handles the click for the build position.
+<i>370</i>&nbsp;     *
+<i>371</i>&nbsp;     * @param clickedPosition the clicked position on the grid.
+<i>372</i>&nbsp;     */
+<i>373</i>&nbsp;    private void handleBuild(Position clickedPosition) {
+<b class="nc"><i>374</i>&nbsp;        disableAllSpaces();</b>
+<b class="nc"><i>375</i>&nbsp;        removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);</b>
+<b class="nc"><i>376</i>&nbsp;        new Thread(() -&gt; notifyObserver(obs -&gt; obs.onUpdateBuild(clickedPosition))).start();</b>
+<i>377</i>&nbsp;    }
+<i>378</i>&nbsp;
+<i>379</i>&nbsp;    /**
+<i>380</i>&nbsp;     * Handles the click for the move or build position of the worker during an effect.
+<i>381</i>&nbsp;     *
+<i>382</i>&nbsp;     * @param clickedPosition the clicked position on the grid.
+<i>383</i>&nbsp;     */
+<i>384</i>&nbsp;    private void handleApplyFx(Position clickedPosition) {
+<b class="nc"><i>385</i>&nbsp;        disableAllSpaces();</b>
+<b class="nc"><i>386</i>&nbsp;        removeCssClassFromAllSpaces(GLASS_PANE_SELECTED);</b>
+<b class="nc"><i>387</i>&nbsp;        new Thread(() -&gt; notifyObserver(obs -&gt; obs.onUpdateApplyEffect(clickedPosition))).start();</b>
+<i>388</i>&nbsp;    }
+<i>389</i>&nbsp;
+<i>390</i>&nbsp;    /**
+<i>391</i>&nbsp;     * Sets the click type which will be handled after the click itself.
+<i>392</i>&nbsp;     * This is needed in order to differentiate the various click on the same grid
+<i>393</i>&nbsp;     * and perform the right operation.
+<i>394</i>&nbsp;     *
+<i>395</i>&nbsp;     * @param spaceClickType the click type for the next phase.
+<i>396</i>&nbsp;     */
+<i>397</i>&nbsp;    public void setSpaceClickType(MessageType spaceClickType) {
+<b class="nc"><i>398</i>&nbsp;        this.spaceClickType = spaceClickType;</b>
+<i>399</i>&nbsp;    }
+<i>400</i>&nbsp;
+<i>401</i>&nbsp;    /**
+<i>402</i>&nbsp;     * Removes a CSS class from all the grid spaces.
+<i>403</i>&nbsp;     *
+<i>404</i>&nbsp;     * @param cssClass the name of the css class to be removed.
+<i>405</i>&nbsp;     */
+<i>406</i>&nbsp;    private void removeCssClassFromAllSpaces(String cssClass) {
+<b class="nc"><i>407</i>&nbsp;        ObservableList&lt;Node&gt; spaceList = boardGrid.getChildren();</b>
+<b class="nc"><i>408</i>&nbsp;        for (Node space : spaceList) {</b>
+<b class="nc"><i>409</i>&nbsp;            space.getStyleClass().remove(cssClass);</b>
+<b class="nc"><i>410</i>&nbsp;        }</b>
+<i>411</i>&nbsp;    }
+<i>412</i>&nbsp;
+<i>413</i>&nbsp;    /**
+<i>414</i>&nbsp;     * Sets the clickable positions on the board grid.
+<i>415</i>&nbsp;     *
+<i>416</i>&nbsp;     * @param availablePositionClicks the new positions which can be clicked.
+<i>417</i>&nbsp;     */
+<i>418</i>&nbsp;    public void setAvailablePositionClicks(int availablePositionClicks) {
+<b class="nc"><i>419</i>&nbsp;        this.availablePositionClicks = availablePositionClicks;</b>
+<i>420</i>&nbsp;    }
+<i>421</i>&nbsp;
+<i>422</i>&nbsp;    /**
+<i>423</i>&nbsp;     * Updates the spaces on the board with the latest info received from the server.
+<i>424</i>&nbsp;     *
+<i>425</i>&nbsp;     * @param reducedSpaces every spaces of the board.
+<i>426</i>&nbsp;     */
+<i>427</i>&nbsp;    public void updateSpaces(ReducedSpace[][] reducedSpaces) {
+<b class="nc"><i>428</i>&nbsp;        ObservableList&lt;Node&gt; spaceList = boardGrid.getChildren();</b>
+<b class="nc"><i>429</i>&nbsp;        for (Node space : spaceList) {</b>
+<b class="nc"><i>430</i>&nbsp;            Position tempPos = new Position(GridPane.getRowIndex(space), GridPane.getColumnIndex(space));</b>
+<i>431</i>&nbsp;
+<b class="nc"><i>432</i>&nbsp;            if (isGridPositionOnBoard(tempPos)) {</b>
+<b class="nc"><i>433</i>&nbsp;                ObservableList&lt;Node&gt; children = ((StackPane) space).getChildren();</b>
+<b class="nc"><i>434</i>&nbsp;                Node spaceNode = children.get(0); // panel for the levels</b>
+<b class="nc"><i>435</i>&nbsp;                Node spaceWorkerNode = children.get(1); // panel for the dome/worker</b>
+<b class="nc"><i>436</i>&nbsp;                ReducedSpace redSp = reducedSpaces[tempPos.getRow()][tempPos.getColumn()];</b>
+<i>437</i>&nbsp;
+<i>438</i>&nbsp;                // NOTE: always call first setGridSpaceLevel, because it clears all the other styles.
+<i>439</i>&nbsp;                // The dome will be set in the worker panel since they mutually exclude.
+<b class="nc"><i>440</i>&nbsp;                setGridSpaceLevel(spaceNode, redSp.getLevel());</b>
+<b class="nc"><i>441</i>&nbsp;                setGridSpaceWorker(spaceWorkerNode, redSp.getReducedWorker(), redSp.hasDome());</b>
+<i>442</i>&nbsp;            }
+<b class="nc"><i>443</i>&nbsp;        }</b>
+<i>444</i>&nbsp;    }
+<i>445</i>&nbsp;
+<i>446</i>&nbsp;    /**
+<i>447</i>&nbsp;     * Enables the spaces on the board. All the others spaces will be disabled.
+<i>448</i>&nbsp;     *
+<i>449</i>&nbsp;     * @param positionList the list of spaces to enable.
+<i>450</i>&nbsp;     */
+<i>451</i>&nbsp;    public void setEnabledSpaces(List&lt;Position&gt; positionList) {
+<b class="nc"><i>452</i>&nbsp;        this.enabledSpaces = positionList;</b>
+<i>453</i>&nbsp;
+<b class="nc"><i>454</i>&nbsp;        ObservableList&lt;Node&gt; spaceList = boardGrid.getChildren();</b>
+<b class="nc"><i>455</i>&nbsp;        for (Node space : spaceList) {</b>
+<b class="nc"><i>456</i>&nbsp;            Position tempPos = new Position(GridPane.getRowIndex(space), GridPane.getColumnIndex(space));</b>
+<b class="nc"><i>457</i>&nbsp;            space.setDisable(!positionList.contains(tempPos)); // Enabled if in list.</b>
+<b class="nc"><i>458</i>&nbsp;        }</b>
+<i>459</i>&nbsp;    }
+<i>460</i>&nbsp;
+<i>461</i>&nbsp;    /**
+<i>462</i>&nbsp;     * Disables the spaces on the board. The others spaces will not be affected.
+<i>463</i>&nbsp;     *
+<i>464</i>&nbsp;     * @param positionList the list of spaces to disable.
+<i>465</i>&nbsp;     */
+<i>466</i>&nbsp;    public void setDisabledSpaces(List&lt;Position&gt; positionList) {
+<b class="nc"><i>467</i>&nbsp;        ObservableList&lt;Node&gt; spaceList = boardGrid.getChildren();</b>
+<b class="nc"><i>468</i>&nbsp;        for (Node space : spaceList) {</b>
+<b class="nc"><i>469</i>&nbsp;            Position tempPos = new Position(GridPane.getRowIndex(space), GridPane.getColumnIndex(space));</b>
+<b class="nc"><i>470</i>&nbsp;            if (positionList.contains(tempPos)) {</b>
+<b class="nc"><i>471</i>&nbsp;                space.setDisable(true);</b>
+<i>472</i>&nbsp;            }
+<b class="nc"><i>473</i>&nbsp;        }</b>
+<i>474</i>&nbsp;    }
+<i>475</i>&nbsp;
+<i>476</i>&nbsp;    /**
+<i>477</i>&nbsp;     * Disables all the spaces on the board.
+<i>478</i>&nbsp;     */
+<i>479</i>&nbsp;    private void disableAllSpaces() {
+<b class="nc"><i>480</i>&nbsp;        ObservableList&lt;Node&gt; spaceList = boardGrid.getChildren();</b>
+<b class="nc"><i>481</i>&nbsp;        for (Node space : spaceList) {</b>
+<b class="nc"><i>482</i>&nbsp;            space.setDisable(true);</b>
+<b class="nc"><i>483</i>&nbsp;        }</b>
+<i>484</i>&nbsp;    }
+<i>485</i>&nbsp;
+<i>486</i>&nbsp;    /**
+<i>487</i>&nbsp;     * Sets the CSS style on the grid space argument based on the given level.
+<i>488</i>&nbsp;     *
+<i>489</i>&nbsp;     * @param gridSpace the Node of the grid board to be modified.
+<i>490</i>&nbsp;     * @param level     the level to be set.
+<i>491</i>&nbsp;     */
+<i>492</i>&nbsp;    private void setGridSpaceLevel(Node gridSpace, int level) {
+<b class="nc"><i>493</i>&nbsp;        switch (level) {</b>
+<i>494</i>&nbsp;            case 0:
+<i>495</i>&nbsp;                // no buildings over it.
+<b class="nc"><i>496</i>&nbsp;                break;</b>
+<i>497</i>&nbsp;            case 1:
+<b class="nc"><i>498</i>&nbsp;                gridSpace.getStyleClass().add(&quot;lvlOne&quot;);</b>
+<b class="nc"><i>499</i>&nbsp;                break;</b>
+<i>500</i>&nbsp;            case 2:
+<b class="nc"><i>501</i>&nbsp;                gridSpace.getStyleClass().add(&quot;lvlTwo&quot;);</b>
+<b class="nc"><i>502</i>&nbsp;                break;</b>
+<i>503</i>&nbsp;            case 3:
+<b class="nc"><i>504</i>&nbsp;                gridSpace.getStyleClass().add(&quot;lvlThree&quot;);</b>
+<b class="nc"><i>505</i>&nbsp;                break;</b>
+<i>506</i>&nbsp;            default:
+<i>507</i>&nbsp;                break;
+<i>508</i>&nbsp;        }
+<i>509</i>&nbsp;    }
+<i>510</i>&nbsp;
+<i>511</i>&nbsp;    /**
+<i>512</i>&nbsp;     * Sets the CSS style on the grid space argument based on the given worker or optional dome.
+<i>513</i>&nbsp;     *
+<i>514</i>&nbsp;     * @param gridSpace     the Node of the grid board to be modified.
+<i>515</i>&nbsp;     * @param reducedWorker the worker of the space. Can be null if no worker is on the space.
+<i>516</i>&nbsp;     * @param dome          a boolean value to identify the dome on the space.
+<i>517</i>&nbsp;     */
+<i>518</i>&nbsp;    private void setGridSpaceWorker(Node gridSpace, ReducedWorker reducedWorker, boolean dome) {
+<i>519</i>&nbsp;        // Remove the previous worker (if any)
+<b class="nc"><i>520</i>&nbsp;        gridSpace.getStyleClass().removeIf(s -&gt; s.startsWith(&quot;worker&quot;));</b>
+<i>521</i>&nbsp;
+<b class="nc"><i>522</i>&nbsp;        if (reducedWorker != null) {</b>
+<b class="nc"><i>523</i>&nbsp;            String strColor = reducedWorker.getColor().getText();</b>
+<b class="nc"><i>524</i>&nbsp;            strColor = strColor.substring(0, 1) + strColor.substring(1).toLowerCase();</b>
+<i>525</i>&nbsp;
+<b class="nc"><i>526</i>&nbsp;            gridSpace.getStyleClass().add(&quot;worker&quot; + strColor);</b>
+<b class="nc"><i>527</i>&nbsp;        } else if (dome) {</b>
+<b class="nc"><i>528</i>&nbsp;            gridSpace.getStyleClass().add(&quot;dome&quot;);</b>
+<i>529</i>&nbsp;        }
+<i>530</i>&nbsp;    }
+<i>531</i>&nbsp;
+<i>532</i>&nbsp;    /**
+<i>533</i>&nbsp;     * Checks if the given position is on board.
+<i>534</i>&nbsp;     *
+<i>535</i>&nbsp;     * @param position the position to be checked.
+<i>536</i>&nbsp;     * @return {@code true} if the position is valid (on board), {@code false} otherwise.
+<i>537</i>&nbsp;     */
+<i>538</i>&nbsp;    private boolean isGridPositionOnBoard(Position position) {
+<b class="nc"><i>539</i>&nbsp;        return position.getRow() &gt;= 0 &amp;&amp; position.getRow() &lt; Board.MAX_ROWS</b>
+<b class="nc"><i>540</i>&nbsp;                &amp;&amp; position.getColumn() &gt;= 0 &amp;&amp; position.getColumn() &lt; Board.MAX_COLUMNS;</b>
+<i>541</i>&nbsp;    }
+<i>542</i>&nbsp;
+<i>543</i>&nbsp;    /**
+<i>544</i>&nbsp;     * Enables or disables the effect controls.
+<i>545</i>&nbsp;     *
+<i>546</i>&nbsp;     * @param enable set to {@code true} to enable the controls, {@code false} to disable.
+<i>547</i>&nbsp;     */
+<i>548</i>&nbsp;    public void enableEffectControls(boolean enable) {
+<b class="nc"><i>549</i>&nbsp;        effectImage.setDisable(!enable);</b>
+<b class="nc"><i>550</i>&nbsp;        skipEffectBtn.setDisable(!enable);</b>
+<i>551</i>&nbsp;    }
+<i>552</i>&nbsp;
+<i>553</i>&nbsp;    /**
+<i>554</i>&nbsp;     * Updates the displayed infos about the current match.
+<i>555</i>&nbsp;     * Infos are about the list of players, the turn of the player.
+<i>556</i>&nbsp;     *
+<i>557</i>&nbsp;     * @param players      a list of player&#39;s nicknames.
+<i>558</i>&nbsp;     * @param gods         a list of player&#39;s gods.
+<i>559</i>&nbsp;     * @param colors       a list of player&#39;s color.
+<i>560</i>&nbsp;     * @param activePlayer the nickname of the playing player.
+<i>561</i>&nbsp;     */
+<i>562</i>&nbsp;    public void updateMatchInfo(List&lt;String&gt; players, List&lt;ReducedGod&gt; gods, List&lt;Color&gt; colors, String activePlayer) {
+<b class="nc"><i>563</i>&nbsp;        if (players != null &amp;&amp; gods != null) {</b>
+<b class="nc"><i>564</i>&nbsp;            this.gods = gods; // save gods for later usage.</b>
+<i>565</i>&nbsp;
+<i>566</i>&nbsp;            // Set info about the first player.
+<b class="nc"><i>567</i>&nbsp;            player1Label.setText(players.get(0));</b>
+<b class="nc"><i>568</i>&nbsp;            Image img1 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(0).getName().toLowerCase() + &quot;.png&quot;));</b>
+<b class="nc"><i>569</i>&nbsp;            god1Image.setImage(img1);</b>
+<b class="nc"><i>570</i>&nbsp;            god1Image.setVisible(true);</b>
+<b class="nc"><i>571</i>&nbsp;            player1Img.setVisible(true);</b>
+<i>572</i>&nbsp;
+<i>573</i>&nbsp;            // Set info about the second player.
+<b class="nc"><i>574</i>&nbsp;            player2Label.setText(players.get(1));</b>
+<i>575</i>&nbsp;
+<b class="nc"><i>576</i>&nbsp;            Image img2 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(1).getName().toLowerCase() + &quot;.png&quot;));</b>
+<b class="nc"><i>577</i>&nbsp;            god2Image.setImage(img2);</b>
+<b class="nc"><i>578</i>&nbsp;            god2Image.setVisible(true);</b>
+<b class="nc"><i>579</i>&nbsp;            player2Img.setVisible(true);</b>
+<i>580</i>&nbsp;
+<b class="nc"><i>581</i>&nbsp;            if (colors != null) {</b>
+<b class="nc"><i>582</i>&nbsp;                player1Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(0).getText()));</b>
+<b class="nc"><i>583</i>&nbsp;                player1Color.setVisible(true);</b>
+<i>584</i>&nbsp;
+<b class="nc"><i>585</i>&nbsp;                player2Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(1).getText()));</b>
+<b class="nc"><i>586</i>&nbsp;                player2Color.setVisible(true);</b>
+<i>587</i>&nbsp;            }
+<i>588</i>&nbsp;
+<b class="nc"><i>589</i>&nbsp;            turnInformationLabel.setText(&quot;Turn of &quot; + activePlayer);</b>
+<b class="nc"><i>590</i>&nbsp;            turnInformationImg.setVisible(true);</b>
+<i>591</i>&nbsp;
+<b class="nc"><i>592</i>&nbsp;            if (players.size() == 3 &amp;&amp; gods.size() == 3) {</b>
+<i>593</i>&nbsp;                // Set info about the third player.
+<b class="nc"><i>594</i>&nbsp;                player3Label.setText(players.get(2));</b>
+<i>595</i>&nbsp;
+<b class="nc"><i>596</i>&nbsp;                Image img3 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(2).getName().toLowerCase() + &quot;.png&quot;));</b>
+<b class="nc"><i>597</i>&nbsp;                god3Image.setImage(img3);</b>
+<i>598</i>&nbsp;
+<b class="nc"><i>599</i>&nbsp;                god3Image.setVisible(true);</b>
+<b class="nc"><i>600</i>&nbsp;                player3Img.setVisible(true);</b>
+<i>601</i>&nbsp;
+<b class="nc"><i>602</i>&nbsp;                if (colors != null &amp;&amp; colors.size() == 3) {</b>
+<b class="nc"><i>603</i>&nbsp;                    player3Color.setFill(javafx.scene.paint.Color.valueOf(colors.get(2).getText()));</b>
+<b class="nc"><i>604</i>&nbsp;                    player3Color.setVisible(true);</b>
+<i>605</i>&nbsp;                }
+<b class="nc"><i>606</i>&nbsp;            } else {</b>
+<b class="nc"><i>607</i>&nbsp;                god3Image.setVisible(false);</b>
+<b class="nc"><i>608</i>&nbsp;                player3Label.setVisible(false);</b>
+<b class="nc"><i>609</i>&nbsp;                player3Color.setVisible(false);</b>
+<b class="nc"><i>610</i>&nbsp;                player3Img.setVisible(false);</b>
+<i>611</i>&nbsp;            }
+<b class="nc"><i>612</i>&nbsp;        } else {</b>
+<b class="nc"><i>613</i>&nbsp;            turnInformationLabel.setText(&quot;Turn of &quot; + activePlayer);</b>
+<b class="nc"><i>614</i>&nbsp;            turnInformationImg.setVisible(true);</b>
+<i>615</i>&nbsp;        }
+<i>616</i>&nbsp;    }
+<i>617</i>&nbsp;}
+</div>
 </div>
 
 <div class="footer">
-
-    <div style="float:right;">generated on 2020-07-02 21:36</div>
+    
+    <div style="float:right;">generated on 2020-07-03 11:24</div>
 </div>
 </body>
 </html>

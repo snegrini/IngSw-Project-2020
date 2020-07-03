@@ -1,270 +1,270 @@
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-    <title>Coverage Report :: Player</title>
-    <style type="text/css">
-        @import "../../.css/coverage.css";
-    </style>
+  <title>Coverage Report :: Player</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
 </head>
 
 <body>
 <div class="header"></div>
 
 <div class="content">
-    <div class="breadCrumbs">
-        [ <a href="../../index.html">all classes</a> ]
-        [ <a href="../index.html">it.polimi.ingsw.model.player</a> ]
-    </div>
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.model.player</a> ]
+</div>
 
-    <h1>Coverage Summary for Class: Player (it.polimi.ingsw.model.player)</h1>
+<h1>Coverage Summary for Class: Player (it.polimi.ingsw.model.player)</h1>
 
-    <table class="coverageStats">
-        <tr>
-            <th class="name">Class</th>
-            <th class="coverageStat
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
 ">
-                Class, %
-            </th>
-            <th class="coverageStat
+  Class, %
+</th>
+<th class="coverageStat 
 ">
-                Method, %
-            </th>
-            <th class="coverageStat
+  Method, %
+</th>
+<th class="coverageStat 
 ">
-                Line, %
-            </th>
-        </tr>
-        <tr>
-            <td class="name">Player</td>
-            <td class="coverageStat">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Player</td>
+<td class="coverageStat">
   <span class="percent">
     100%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (1/ 1)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     100%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (15/ 15)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     100%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (42/ 42)
   </span>
-            </td>
-        </tr>
+</td>
+</tr>
 
-    </table>
+</table>
 
-    <br/>
-    <br/>
+<br/>
+<br/>
 
 
-    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.player;
-        <i>2</i>&nbsp;
-        <i>3</i>&nbsp;import it.polimi.ingsw.model.God;
-        <i>4</i>&nbsp;import it.polimi.ingsw.model.board.Position;
-        <i>5</i>&nbsp;import it.polimi.ingsw.model.effects.Effect;
-        <i>6</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
-        <i>7</i>&nbsp;import it.polimi.ingsw.model.enumerations.PhaseType;
-        <i>8</i>&nbsp;import it.polimi.ingsw.model.enumerations.PlayerState;
-        <i>9</i>&nbsp;import it.polimi.ingsw.observer.Observable;
-        <i>10</i>&nbsp;
-        <i>11</i>&nbsp;import java.io.Serializable;
-        <i>12</i>&nbsp;import java.util.ArrayList;
-        <i>13</i>&nbsp;import java.util.List;
-        <i>14</i>&nbsp;import java.util.Objects;
-        <i>15</i>&nbsp;
-        <i>16</i>&nbsp;/**
-        <i>17</i>&nbsp; * The Player is the main character of the Game.
-        <i>18</i>&nbsp; */
-        <i>19</i>&nbsp;public class Player extends Observable implements Serializable {
-        <i>20</i>&nbsp;
-        <i>21</i>&nbsp; private static final long serialVersionUID = 7470069648548034935L;
-        <i>22</i>&nbsp;
-        <i>23</i>&nbsp; private final String nickname;
-        <i>24</i>&nbsp; private final List&lt;Worker&gt; workers;
-        <i>25</i>&nbsp; private God god;
-        <i>26</i>&nbsp; private PlayerState state;
-        <i>27</i>&nbsp;
-        <i>28</i>&nbsp; /**
-        <i>29</i>&nbsp; * Default constructor.
-        <i>30</i>&nbsp; *
-        <i>31</i>&nbsp; * @param nickname nickname of the Player.
-        <i>32</i>&nbsp; */
-        <b class="fc"><i>33</i>&nbsp; public Player(String nickname) {</b>
-        <b class="fc"><i>34</i>&nbsp; this.nickname = nickname;</b>
-        <b class="fc"><i>35</i>&nbsp; this.workers = new ArrayList&lt;&gt;();</b>
-        <b class="fc"><i>36</i>&nbsp; }</b>
-        <i>37</i>&nbsp;
-        <i>38</i>&nbsp; /**
-        <i>39</i>&nbsp; * Return the nickname of the Player.
-        <i>40</i>&nbsp; *
-        <i>41</i>&nbsp; * @return nickname of the Player.
-        <i>42</i>&nbsp; */
-        <i>43</i>&nbsp; public String getNickname() {
-        <b class="fc"><i>44</i>&nbsp; return nickname;</b>
-        <i>45</i>&nbsp; }
-        <i>46</i>&nbsp;
-        <i>47</i>&nbsp; /**
-        <i>48</i>&nbsp; * Returns the worker given his position.
-        <i>49</i>&nbsp; *
-        <i>50</i>&nbsp; * @param position the position where the worker should be returned.
-        <i>51</i>&nbsp; * @return Returns the worker given his position.
-        <i>52</i>&nbsp; * {@code null} is returned if no worker is found.
-        <i>53</i>&nbsp; */
-        <i>54</i>&nbsp; public Worker getWorkerByPosition(Position position) {
-        <b class="fc"><i>55</i>&nbsp; return workers.stream()</b>
-        <b class="fc"><i>56</i>&nbsp; .filter(w -&gt; position.equals(w.getPosition()))</b>
-        <b class="fc"><i>57</i>&nbsp; .findFirst()</b>
-        <b class="fc"><i>58</i>&nbsp; .orElse(null);</b>
-        <i>59</i>&nbsp; }
-        <i>60</i>&nbsp;
-        <i>61</i>&nbsp; /**
-        <i>62</i>&nbsp; * Adds the given worker to the Player.
-        <i>63</i>&nbsp; *
-        <i>64</i>&nbsp; * @param worker the worker to be added.
-        <i>65</i>&nbsp; */
-        <i>66</i>&nbsp; public void addWorker(Worker worker) {
-        <b class="fc"><i>67</i>&nbsp; workers.add(worker);</b>
-        <b class="fc"><i>68</i>&nbsp; }</b>
-        <i>69</i>&nbsp;
-        <i>70</i>&nbsp; /**
-        <i>71</i>&nbsp; * Sets the workers at the given positions. This method should be called only on game start.
-        <i>72</i>&nbsp; * The positions list argument must be of the same size of the player workers.
-        <i>73</i>&nbsp; *
-        <i>74</i>&nbsp; * @param positions a list of positions.
-        <i>75</i>&nbsp; */
-        <i>76</i>&nbsp; public void initWorkers(List&lt;Position&gt; positions) {
-        <b class="fc"><i>77</i>&nbsp; for (int i = 0; i &lt; workers.size(); i++) {</b>
-        <b class="fc"><i>78</i>&nbsp; workers.get(i).initPosition(positions.get(i));</b>
-        <i>79</i>&nbsp; }
-        <b class="fc"><i>80</i>&nbsp; }</b>
-        <i>81</i>&nbsp;
-        <i>82</i>&nbsp; /**
-        <i>83</i>&nbsp; * Return the God associated to this Player.
-        <i>84</i>&nbsp; *
-        <i>85</i>&nbsp; * @return God of the Player.
-        <i>86</i>&nbsp; */
-        <i>87</i>&nbsp; public God getGod() {
-        <b class="fc"><i>88</i>&nbsp; return god;</b>
-        <i>89</i>&nbsp; }
-        <i>90</i>&nbsp;
-        <i>91</i>&nbsp; /**
-        <i>92</i>&nbsp; * Set the God associated to the PLayer.
-        <i>93</i>&nbsp; *
-        <i>94</i>&nbsp; * @param god God of the Player.
-        <i>95</i>&nbsp; */
-        <i>96</i>&nbsp; public void setGod(God god) {
-        <b class="fc"><i>97</i>&nbsp; this.god = god;</b>
-        <b class="fc"><i>98</i>&nbsp; }</b>
-        <i>99</i>&nbsp;
-        <i>100</i>&nbsp; /**
-        <i>101</i>&nbsp; * Return the State of the Player.
-        <i>102</i>&nbsp; *
-        <i>103</i>&nbsp; * @return State of the Player.
-        <i>104</i>&nbsp; */
-        <i>105</i>&nbsp; public PlayerState getState() {
-        <b class="fc"><i>106</i>&nbsp; return state;</b>
-        <i>107</i>&nbsp; }
-        <i>108</i>&nbsp;
-        <i>109</i>&nbsp; /**
-        <i>110</i>&nbsp; * Set the State of the Player.
-        <i>111</i>&nbsp; *
-        <i>112</i>&nbsp; * @param state State of the Player.
-        <i>113</i>&nbsp; */
-        <i>114</i>&nbsp; public void setState(PlayerState state) {
-        <b class="fc"><i>115</i>&nbsp; this.state = state;</b>
-        <b class="fc"><i>116</i>&nbsp; }</b>
-        <i>117</i>&nbsp;
-        <i>118</i>&nbsp; /**
-        <i>119</i>&nbsp; * Return a list of positions of player&#39;s workers.
-        <i>120</i>&nbsp; *
-        <i>121</i>&nbsp; * @return Position List of Workers.
-        <i>122</i>&nbsp; */
-        <i>123</i>&nbsp; public List&lt;Position&gt; getWorkersPositions() {
-        <b class="fc"><i>124</i>&nbsp; List&lt;Position&gt; positionList = new ArrayList&lt;&gt;();</b>
-        <b class="fc"><i>125</i>&nbsp; for (Worker w : workers) {</b>
-        <b class="fc"><i>126</i>&nbsp; positionList.add(w.getPosition());</b>
-        <b class="fc"><i>127</i>&nbsp; }</b>
-        <b class="fc"><i>128</i>&nbsp; return positionList;</b>
-        <i>129</i>&nbsp; }
-        <i>130</i>&nbsp;
-        <i>131</i>&nbsp; /**
-        <i>132</i>&nbsp; * Returns a list of positions only of the player&#39;s workers that can be moved.
-        <i>133</i>&nbsp; *
-        <i>134</i>&nbsp; * @return Position List of Workers.
-        <i>135</i>&nbsp; */
-        <i>136</i>&nbsp; public List&lt;Position&gt; getValidWorkersPositions() {
-        <b class="fc"><i>137</i>&nbsp; List&lt;Position&gt; positionList = getWorkersPositions();</b>
-        <b class="fc"><i>138</i>&nbsp; List&lt;Position&gt; badPositions = new ArrayList&lt;&gt;();</b>
-        <i>139</i>&nbsp;
-        <b class="fc"><i>140</i>&nbsp; for (Position pos : positionList) {</b>
-        <b class="fc"><i>141</i>&nbsp; List&lt;Position&gt; possibleMoves = getWorkerByPosition(pos).getPossibleMoves();</b>
-        <i>142</i>&nbsp;
-        <i>143</i>&nbsp; // Check effect requirements
-        <b class="fc"><i>144</i>&nbsp; if (possibleMoves.isEmpty() &amp;&amp; !checkEffect(pos)) {</b>
-        <b class="fc"><i>145</i>&nbsp; badPositions.add(pos); // Add here and remove later</b>
-        <i>146</i>&nbsp; }
-        <b class="fc"><i>147</i>&nbsp; }</b>
-        <b class="fc"><i>148</i>&nbsp; positionList.removeAll(badPositions);</b>
-        <i>149</i>&nbsp;
-        <b class="fc"><i>150</i>&nbsp; return positionList;</b>
-        <i>151</i>&nbsp; }
-        <i>152</i>&nbsp;
-        <i>153</i>&nbsp; /**
-        <i>154</i>&nbsp; * Checks the effect of the player&#39;s god.
-        <i>155</i>&nbsp; * Returns {@code true} if the effect is requireable and is of type YOUR_MOVE, {@code false}
-        otherwise.
-        <i>156</i>&nbsp; *
-        <i>157</i>&nbsp; * @param position the position to be used to check the effect.
-        <i>158</i>&nbsp; * @return {@code true} if the effect is requireable and is of type YOUR_MOVE, {@code false}
-        otherwise.
-        <i>159</i>&nbsp; */
-        <i>160</i>&nbsp; private boolean checkEffect(Position position) {
-        <b class="fc"><i>161</i>&nbsp; Effect effect = this.getGod().getEffectByType(PhaseType.YOUR_MOVE);</b>
-        <i>162</i>&nbsp;
-        <b class="fc"><i>163</i>&nbsp; return effect != null &amp;&amp;
-            effect.require(getWorkerByPosition(position));</b>
-        <i>164</i>&nbsp; }
-        <i>165</i>&nbsp;
-        <i>166</i>&nbsp; @Override
-        <i>167</i>&nbsp; public boolean equals(Object o) {
-        <b class="fc"><i>168</i>&nbsp; if (this == o) return true;</b>
-        <b class="fc"><i>169</i>&nbsp; if (o == null || getClass() != o.getClass()) return false;</b>
-        <b class="fc"><i>170</i>&nbsp; Player player = (Player) o;</b>
-        <b class="fc"><i>171</i>&nbsp; return nickname.equals(player.nickname);</b>
-        <i>172</i>&nbsp; }
-        <i>173</i>&nbsp;
-        <i>174</i>&nbsp; @Override
-        <i>175</i>&nbsp; public int hashCode() {
-        <b class="fc"><i>176</i>&nbsp; return Objects.hash(nickname);</b>
-        <i>177</i>&nbsp; }
-        <i>178</i>&nbsp;
-        <i>179</i>&nbsp; /**
-        <i>180</i>&nbsp; * Returns the color of the player&#39;s workers.
-        <i>181</i>&nbsp; *
-        <i>182</i>&nbsp; * @return color of the workers.
-        <i>183</i>&nbsp; */
-        <i>184</i>&nbsp; public Color getWorkersColor() {
-        <b class="fc"><i>185</i>&nbsp; return workers.get(0).getColor();</b>
-        <i>186</i>&nbsp; }
-        <i>187</i>&nbsp;}
-    </div>
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.model.player;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.God;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.effects.Effect;
+<i>6</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
+<i>7</i>&nbsp;import it.polimi.ingsw.model.enumerations.PhaseType;
+<i>8</i>&nbsp;import it.polimi.ingsw.model.enumerations.PlayerState;
+<i>9</i>&nbsp;import it.polimi.ingsw.observer.Observable;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.io.Serializable;
+<i>12</i>&nbsp;import java.util.ArrayList;
+<i>13</i>&nbsp;import java.util.List;
+<i>14</i>&nbsp;import java.util.Objects;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;/**
+<i>17</i>&nbsp; * The Player is the main character of the Game.
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;public class Player extends Observable implements Serializable {
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    private static final long serialVersionUID = 7470069648548034935L;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    private final String nickname;
+<i>24</i>&nbsp;    private final List&lt;Worker&gt; workers;
+<i>25</i>&nbsp;    private God god;
+<i>26</i>&nbsp;    private PlayerState state;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * Default constructor.
+<i>30</i>&nbsp;     *
+<i>31</i>&nbsp;     * @param nickname nickname of the Player.
+<i>32</i>&nbsp;     */
+<b class="fc"><i>33</i>&nbsp;    public Player(String nickname) {</b>
+<b class="fc"><i>34</i>&nbsp;        this.nickname = nickname;</b>
+<b class="fc"><i>35</i>&nbsp;        this.workers = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>36</i>&nbsp;    }</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * Return the nickname of the Player.
+<i>40</i>&nbsp;     *
+<i>41</i>&nbsp;     * @return nickname of the Player.
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    public String getNickname() {
+<b class="fc"><i>44</i>&nbsp;        return nickname;</b>
+<i>45</i>&nbsp;    }
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    /**
+<i>48</i>&nbsp;     * Returns the worker given his position.
+<i>49</i>&nbsp;     *
+<i>50</i>&nbsp;     * @param position the position where the worker should be returned.
+<i>51</i>&nbsp;     * @return Returns the worker given his position.
+<i>52</i>&nbsp;     * {@code null} is returned if no worker is found.
+<i>53</i>&nbsp;     */
+<i>54</i>&nbsp;    public Worker getWorkerByPosition(Position position) {
+<b class="fc"><i>55</i>&nbsp;        return workers.stream()</b>
+<b class="fc"><i>56</i>&nbsp;                .filter(w -&gt; position.equals(w.getPosition()))</b>
+<b class="fc"><i>57</i>&nbsp;                .findFirst()</b>
+<b class="fc"><i>58</i>&nbsp;                .orElse(null);</b>
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /**
+<i>62</i>&nbsp;     * Adds the given worker to the Player.
+<i>63</i>&nbsp;     *
+<i>64</i>&nbsp;     * @param worker the worker to be added.
+<i>65</i>&nbsp;     */
+<i>66</i>&nbsp;    public void addWorker(Worker worker) {
+<b class="fc"><i>67</i>&nbsp;        workers.add(worker);</b>
+<b class="fc"><i>68</i>&nbsp;    }</b>
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    /**
+<i>71</i>&nbsp;     * Sets the workers at the given positions. This method should be called only on game start.
+<i>72</i>&nbsp;     * The positions list argument must be of the same size of the player workers.
+<i>73</i>&nbsp;     *
+<i>74</i>&nbsp;     * @param positions a list of positions.
+<i>75</i>&nbsp;     */
+<i>76</i>&nbsp;    public void initWorkers(List&lt;Position&gt; positions) {
+<b class="fc"><i>77</i>&nbsp;        for (int i = 0; i &lt; workers.size(); i++) {</b>
+<b class="fc"><i>78</i>&nbsp;            workers.get(i).initPosition(positions.get(i));</b>
+<i>79</i>&nbsp;        }
+<b class="fc"><i>80</i>&nbsp;    }</b>
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    /**
+<i>83</i>&nbsp;     * Return the God associated to this Player.
+<i>84</i>&nbsp;     *
+<i>85</i>&nbsp;     * @return God of the Player.
+<i>86</i>&nbsp;     */
+<i>87</i>&nbsp;    public God getGod() {
+<b class="fc"><i>88</i>&nbsp;        return god;</b>
+<i>89</i>&nbsp;    }
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;    /**
+<i>92</i>&nbsp;     * Set the God associated to the PLayer.
+<i>93</i>&nbsp;     *
+<i>94</i>&nbsp;     * @param god God of the Player.
+<i>95</i>&nbsp;     */
+<i>96</i>&nbsp;    public void setGod(God god) {
+<b class="fc"><i>97</i>&nbsp;        this.god = god;</b>
+<b class="fc"><i>98</i>&nbsp;    }</b>
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;    /**
+<i>101</i>&nbsp;     * Return the State of the Player.
+<i>102</i>&nbsp;     *
+<i>103</i>&nbsp;     * @return State of the Player.
+<i>104</i>&nbsp;     */
+<i>105</i>&nbsp;    public PlayerState getState() {
+<b class="fc"><i>106</i>&nbsp;        return state;</b>
+<i>107</i>&nbsp;    }
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;    /**
+<i>110</i>&nbsp;     * Set the State of the Player.
+<i>111</i>&nbsp;     *
+<i>112</i>&nbsp;     * @param state State of the Player.
+<i>113</i>&nbsp;     */
+<i>114</i>&nbsp;    public void setState(PlayerState state) {
+<b class="fc"><i>115</i>&nbsp;        this.state = state;</b>
+<b class="fc"><i>116</i>&nbsp;    }</b>
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;    /**
+<i>119</i>&nbsp;     * Return a list of positions of player&#39;s workers.
+<i>120</i>&nbsp;     *
+<i>121</i>&nbsp;     * @return Position List of Workers.
+<i>122</i>&nbsp;     */
+<i>123</i>&nbsp;    public List&lt;Position&gt; getWorkersPositions() {
+<b class="fc"><i>124</i>&nbsp;        List&lt;Position&gt; positionList = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>125</i>&nbsp;        for (Worker w : workers) {</b>
+<b class="fc"><i>126</i>&nbsp;            positionList.add(w.getPosition());</b>
+<b class="fc"><i>127</i>&nbsp;        }</b>
+<b class="fc"><i>128</i>&nbsp;        return positionList;</b>
+<i>129</i>&nbsp;    }
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;    /**
+<i>132</i>&nbsp;     * Returns a list of positions only of the player&#39;s workers that can be moved.
+<i>133</i>&nbsp;     *
+<i>134</i>&nbsp;     * @return Position List of Workers.
+<i>135</i>&nbsp;     */
+<i>136</i>&nbsp;    public List&lt;Position&gt; getValidWorkersPositions() {
+<b class="fc"><i>137</i>&nbsp;        List&lt;Position&gt; positionList = getWorkersPositions();</b>
+<b class="fc"><i>138</i>&nbsp;        List&lt;Position&gt; badPositions = new ArrayList&lt;&gt;();</b>
+<i>139</i>&nbsp;
+<b class="fc"><i>140</i>&nbsp;        for (Position pos : positionList) {</b>
+<b class="fc"><i>141</i>&nbsp;            List&lt;Position&gt; possibleMoves = getWorkerByPosition(pos).getPossibleMoves();</b>
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;            // Check effect requirements
+<b class="fc"><i>144</i>&nbsp;            if (possibleMoves.isEmpty() &amp;&amp; !checkEffect(pos)) {</b>
+<b class="fc"><i>145</i>&nbsp;                badPositions.add(pos); // Add here and remove later</b>
+<i>146</i>&nbsp;            }
+<b class="fc"><i>147</i>&nbsp;        }</b>
+<b class="fc"><i>148</i>&nbsp;        positionList.removeAll(badPositions);</b>
+<i>149</i>&nbsp;
+<b class="fc"><i>150</i>&nbsp;        return positionList;</b>
+<i>151</i>&nbsp;    }
+<i>152</i>&nbsp;
+<i>153</i>&nbsp;    /**
+<i>154</i>&nbsp;     * Checks the effect of the player&#39;s god.
+<i>155</i>&nbsp;     * Returns {@code true} if the effect is requireable and is of type YOUR_MOVE, {@code false} otherwise.
+<i>156</i>&nbsp;     *
+<i>157</i>&nbsp;     * @param position the position to be used to check the effect.
+<i>158</i>&nbsp;     * @return {@code true} if the effect is requireable and is of type YOUR_MOVE, {@code false} otherwise.
+<i>159</i>&nbsp;     */
+<i>160</i>&nbsp;    private boolean checkEffect(Position position) {
+<b class="fc"><i>161</i>&nbsp;        Effect effect = this.getGod().getEffectByType(PhaseType.YOUR_MOVE);</b>
+<i>162</i>&nbsp;
+<b class="fc"><i>163</i>&nbsp;        return effect != null &amp;&amp; effect.require(getWorkerByPosition(position));</b>
+<i>164</i>&nbsp;    }
+<i>165</i>&nbsp;
+<i>166</i>&nbsp;    @Override
+<i>167</i>&nbsp;    public boolean equals(Object o) {
+<b class="fc"><i>168</i>&nbsp;        if (this == o) return true;</b>
+<b class="fc"><i>169</i>&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="fc"><i>170</i>&nbsp;        Player player = (Player) o;</b>
+<b class="fc"><i>171</i>&nbsp;        return nickname.equals(player.nickname);</b>
+<i>172</i>&nbsp;    }
+<i>173</i>&nbsp;
+<i>174</i>&nbsp;    @Override
+<i>175</i>&nbsp;    public int hashCode() {
+<b class="fc"><i>176</i>&nbsp;        return Objects.hash(nickname);</b>
+<i>177</i>&nbsp;    }
+<i>178</i>&nbsp;
+<i>179</i>&nbsp;    /**
+<i>180</i>&nbsp;     * Returns the color of the player&#39;s workers.
+<i>181</i>&nbsp;     *
+<i>182</i>&nbsp;     * @return color of the workers.
+<i>183</i>&nbsp;     */
+<i>184</i>&nbsp;    public Color getWorkersColor() {
+<b class="fc"><i>185</i>&nbsp;        return workers.get(0).getColor();</b>
+<i>186</i>&nbsp;    }
+<i>187</i>&nbsp;}
+</div>
 </div>
 
 <div class="footer">
-
-    <div style="float:right;">generated on 2020-07-02 21:36</div>
+    
+    <div style="float:right;">generated on 2020-07-03 11:24</div>
 </div>
 </body>
 </html>
