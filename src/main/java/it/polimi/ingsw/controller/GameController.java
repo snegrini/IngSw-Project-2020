@@ -317,6 +317,7 @@ public class GameController implements Observer, Serializable {
     public void win() {
         broadcastWinMessage(turnController.getActivePlayer());
         setGameState(GameState.END);
+        endGame();
     }
 
 
