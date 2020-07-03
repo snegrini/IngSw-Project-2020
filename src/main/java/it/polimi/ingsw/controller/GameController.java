@@ -20,6 +20,7 @@ import it.polimi.ingsw.view.VirtualView;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Logger;
 
 import static it.polimi.ingsw.network.message.MessageType.PLAYERNUMBER_REPLY;
 
@@ -342,6 +343,7 @@ public class GameController implements Observer, Serializable {
         storageData.delete();
 
         initGameController();
+        Server.LOGGER.info("Game finished. Server ready for a new Game.");
     }
 
     // INIT METHODS:
@@ -765,15 +767,6 @@ public class GameController implements Observer, Serializable {
      */
     public boolean isGameStarted() {
         return this.gameState != GameState.LOGIN && this.gameState != GameState.END;
-    }
-
-    /**
-     * Checks if the game is already finished.
-     *
-     * @return {@code true} if the game is finished, {@code false} otherwise.
-     */
-    public boolean isGameFinished() {
-        return this.gameState == GameState.END;
     }
 
     /**
