@@ -124,6 +124,7 @@ public class SocketClientHandler implements ClientHandler, Runnable {
         try {
             synchronized (outputLock) {
                 output.writeObject(message);
+                output.reset();
                 Server.LOGGER.info(() -> "Sent: " + message);
             }
         } catch (IOException e) {

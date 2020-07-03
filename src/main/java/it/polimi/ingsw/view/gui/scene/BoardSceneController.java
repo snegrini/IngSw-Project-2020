@@ -563,6 +563,7 @@ public class BoardSceneController extends ViewObservable implements GenericScene
         if (players != null && gods != null) {
             this.gods = gods; // save gods for later usage.
 
+
             // Set info about the first player.
             player1Label.setText(players.get(0));
             Image img1 = new Image(getClass().getResourceAsStream(GOD_IMAGE_PREFIX + gods.get(0).getName().toLowerCase() + ".png"));
