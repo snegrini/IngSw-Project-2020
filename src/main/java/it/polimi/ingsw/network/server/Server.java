@@ -21,9 +21,12 @@ public class Server {
 
     public static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
+    private final Object lock;
+
     public Server(GameController gameController) {
         this.gameController = gameController;
         this.clientHandlerMap = Collections.synchronizedMap(new HashMap<>());
+        this.lock = new Object();
     }
 
     /**
@@ -74,20 +77,22 @@ public class Server {
      * @param clientHandler the client disconnecting.
      */
     public void onDisconnect(ClientHandler clientHandler) {
-        String nickname = getNicknameFromClientHandler(clientHandler);
+        synchronized (lock) {
+            String nickname = getNicknameFromClientHandler(clientHandler);
 
-        if (nickname != null) {
+            if (nickname != null) {
 
-            boolean gameStarted = gameController.isGameStarted();
-            removeClient(nickname, !gameStarted); // enable lobby notifications only if the game didn't start yet.
+                boolean gameStarted = gameController.isGameStarted();
+                removeClient(nickname, !gameStarted); // enable lobby notifications only if the game didn't start yet.
 
-            // Resets server status only if the game was already started.
-            // Otherwise the server will wait for a new player to connect.
-            if (gameStarted) {
-                gameController.broadcastDisconnectionMessage(nickname, " disconnected from the server. GAME ENDED.");
+                // Resets server status only if the game was already started.
+                // Otherwise the server will wait for a new player to connect.
+                if (gameStarted) {
+                    gameController.broadcastDisconnectionMessage(nickname, " disconnected from the server. GAME ENDED.");
 
-                gameController.endGame();
-                clientHandlerMap.clear();
+                    gameController.endGame();
+                    clientHandlerMap.clear();
+                }
             }
         }
     }
