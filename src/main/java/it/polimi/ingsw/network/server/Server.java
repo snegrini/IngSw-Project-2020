@@ -85,6 +85,10 @@ public class Server {
                 boolean gameStarted = gameController.isGameStarted();
                 removeClient(nickname, !gameStarted); // enable lobby notifications only if the game didn't start yet.
 
+                if(!gameController.getTurnController().getNicknameQueue().contains(nickname)) {
+                    return;
+                }
+
                 // Resets server status only if the game was already started.
                 // Otherwise the server will wait for a new player to connect.
                 if (gameStarted) {

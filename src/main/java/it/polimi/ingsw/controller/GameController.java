@@ -317,7 +317,7 @@ public class GameController implements Observer, Serializable {
      */
     public void win() {
         broadcastWinMessage(turnController.getActivePlayer());
-        setGameState(GameState.END);
+
         endGame();
     }
 
@@ -766,7 +766,7 @@ public class GameController implements Observer, Serializable {
      * @return {@code true} if the game isn't started yet, {@code false} otherwise.
      */
     public boolean isGameStarted() {
-        return this.gameState != GameState.LOGIN && this.gameState != GameState.END;
+        return this.gameState != GameState.LOGIN;
     }
 
     /**
