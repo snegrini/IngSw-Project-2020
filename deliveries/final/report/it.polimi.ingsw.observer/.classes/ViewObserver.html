@@ -1,148 +1,151 @@
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-    <title>Coverage Report :: ViewObserver</title>
-    <style type="text/css">
-        @import "../../.css/coverage.css";
-    </style>
+  <title>Coverage Report :: ViewObserver</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
 </head>
 
 <body>
 <div class="header"></div>
 
 <div class="content">
-    <div class="breadCrumbs">
-        [ <a href="../../index.html">all classes</a> ]
-        [ <a href="../index.html">it.polimi.ingsw.observer</a> ]
-    </div>
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.observer</a> ]
+</div>
 
-    <h1>Coverage Summary for Class: ViewObserver (it.polimi.ingsw.observer)</h1>
+<h1>Coverage Summary for Class: ViewObserver (it.polimi.ingsw.observer)</h1>
 
-    <table class="coverageStats">
-        <tr>
-            <th class="name">Class</th>
-        </tr>
-        <tr>
-            <td class="name">ViewObserver</td>
-        </tr>
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ViewObserver</td>
+</tr>
 
-    </table>
+</table>
 
-    <br/>
-    <br/>
+<br/>
+<br/>
 
 
-    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.observer;
-        <i>2</i>&nbsp;
-        <i>3</i>&nbsp;import it.polimi.ingsw.model.ReducedGod;
-        <i>4</i>&nbsp;import it.polimi.ingsw.model.board.Position;
-        <i>5</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
-        <i>6</i>&nbsp;
-        <i>7</i>&nbsp;import java.util.List;
-        <i>8</i>&nbsp;import java.util.Map;
-        <i>9</i>&nbsp;
-        <i>10</i>&nbsp;/**
-        <i>11</i>&nbsp; * Custom observer interface for views. It supports different types of notification.
-        <i>12</i>&nbsp; */
-        <i>13</i>&nbsp;public interface ViewObserver {
-        <i>14</i>&nbsp;
-        <i>15</i>&nbsp; /**
-        <i>16</i>&nbsp; * Create a new connection to the server with the updated info.
-        <i>17</i>&nbsp; *
-        <i>18</i>&nbsp; * @param serverInfo a map of server address and server port.
-        <i>19</i>&nbsp; */
-        <i>20</i>&nbsp; void onUpdateServerInfo(Map&lt;String, String&gt; serverInfo);
-        <i>21</i>&nbsp;
-        <i>22</i>&nbsp; /**
-        <i>23</i>&nbsp; * Sends a message to the server with the updated nickname.
-        <i>24</i>&nbsp; *
-        <i>25</i>&nbsp; * @param nickname the nickname to be sent.
-        <i>26</i>&nbsp; */
-        <i>27</i>&nbsp; void onUpdateNickname(String nickname);
-        <i>28</i>&nbsp;
-        <i>29</i>&nbsp; /**
-        <i>30</i>&nbsp; * Sends a message to the server with the player number chosen by the user.
-        <i>31</i>&nbsp; *
-        <i>32</i>&nbsp; * @param playersNumber the number of players.
-        <i>33</i>&nbsp; */
-        <i>34</i>&nbsp; void onUpdatePlayersNumber(int playersNumber);
-        <i>35</i>&nbsp;
-        <i>36</i>&nbsp; /**
-        <i>37</i>&nbsp; * Sends a message to the server with the workers color chosen by the user.
-        <i>38</i>&nbsp; *
-        <i>39</i>&nbsp; * @param color the color of the workers.
-        <i>40</i>&nbsp; */
-        <i>41</i>&nbsp; void onUpdateWorkersColor(Color color);
-        <i>42</i>&nbsp;
-        <i>43</i>&nbsp; /**
-        <i>44</i>&nbsp; * Sends a message to the server with the gods chosen by the user.
-        <i>45</i>&nbsp; *
-        <i>46</i>&nbsp; * @param reducedGods the list of gods chosen by the user.
-        <i>47</i>&nbsp; */
-        <i>48</i>&nbsp; void onUpdateGod(List&lt;ReducedGod&gt; reducedGods);
-        <i>49</i>&nbsp;
-        <i>50</i>&nbsp; /**
-        <i>51</i>&nbsp; * Sends a message to the server with the position of the worker to be moved chosen by the user.
-        <i>52</i>&nbsp; *
-        <i>53</i>&nbsp; * @param position the position of the worker to be moved.
-        <i>54</i>&nbsp; */
-        <i>55</i>&nbsp; void onUpdatePickMovingWorker(Position position);
-        <i>56</i>&nbsp;
-        <i>57</i>&nbsp; /**
-        <i>58</i>&nbsp; * Sends a message to the server with the initial position of the workers chosen by the user.
-        <i>59</i>&nbsp; *
-        <i>60</i>&nbsp; * @param positions the list of the initial position of the workers.
-        <i>61</i>&nbsp; */
-        <i>62</i>&nbsp; void onUpdateInitWorkerPosition(List&lt;Position&gt; positions);
-        <i>63</i>&nbsp;
-        <i>64</i>&nbsp; /**
-        <i>65</i>&nbsp; * Sends a message to the server with the new position of the moving worker chosen by the user.
-        <i>66</i>&nbsp; *
-        <i>67</i>&nbsp; * @param destination the new position of the moving worker.
-        <i>68</i>&nbsp; */
-        <i>69</i>&nbsp; void onUpdateMove(Position destination);
-        <i>70</i>&nbsp;
-        <i>71</i>&nbsp; /**
-        <i>72</i>&nbsp; * Sends a message to the server with the position of the block to be built chosen by the user.
-        <i>73</i>&nbsp; *
-        <i>74</i>&nbsp; * @param position the position of the block to be built.
-        <i>75</i>&nbsp; */
-        <i>76</i>&nbsp; void onUpdateBuild(Position position);
-        <i>77</i>&nbsp;
-        <i>78</i>&nbsp; /**
-        <i>79</i>&nbsp; * Sends a message to the server with the choice of the user about his god effect.
-        <i>80</i>&nbsp; *
-        <i>81</i>&nbsp; * @param response the choice of the user about his god effect.
-        <i>82</i>&nbsp; */
-        <i>83</i>&nbsp; void onUpdateEnableEffect(boolean response);
-        <i>84</i>&nbsp;
-        <i>85</i>&nbsp; /**
-        <i>86</i>&nbsp; * Sends a message to the server with the choice of the user about his god effect.
-        <i>87</i>&nbsp; *
-        <i>88</i>&nbsp; * @param dest the choice of the user about his god effect.
-        <i>89</i>&nbsp; */
-        <i>90</i>&nbsp; void onUpdateApplyEffect(Position dest);
-        <i>91</i>&nbsp;
-        <i>92</i>&nbsp; /**
-        <i>93</i>&nbsp; * Sends a message to the server with the nickname of the first player chosen by the user.
-        <i>94</i>&nbsp; *
-        <i>95</i>&nbsp; * @param nickname the nickname of the first player.
-        <i>96</i>&nbsp; */
-        <i>97</i>&nbsp; void onUpdateFirstPlayer(String nickname);
-        <i>98</i>&nbsp;
-        <i>99</i>&nbsp; /**
-        <i>100</i>&nbsp; * Handles a disconnection wanted by the user.
-        <i>101</i>&nbsp; * (e.g. a click on the back button into the GUI).
-        <i>102</i>&nbsp; */
-        <i>103</i>&nbsp; void onDisconnection();
-        <i>104</i>&nbsp;}
-    </div>
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.observer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.model.ReducedGod;
+<i>4</i>&nbsp;import it.polimi.ingsw.model.board.Position;
+<i>5</i>&nbsp;import it.polimi.ingsw.model.enumerations.Color;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;import java.util.Map;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * Custom observer interface for views. It supports different types of notification.
+<i>12</i>&nbsp; */
+<i>13</i>&nbsp;public interface ViewObserver {
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * Create a new connection to the server with the updated info.
+<i>17</i>&nbsp;     *
+<i>18</i>&nbsp;     * @param serverInfo a map of server address and server port.
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    void onUpdateServerInfo(Map&lt;String, String&gt; serverInfo);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * Sends a message to the server with the updated nickname.
+<i>24</i>&nbsp;     *
+<i>25</i>&nbsp;     * @param nickname the nickname to be sent.
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    void onUpdateNickname(String nickname);
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * Sends a message to the server with the player number chosen by the user.
+<i>31</i>&nbsp;     *
+<i>32</i>&nbsp;     * @param playersNumber the number of players.
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    void onUpdatePlayersNumber(int playersNumber);
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * Sends a message to the server with the workers color chosen by the user.
+<i>38</i>&nbsp;     *
+<i>39</i>&nbsp;     * @param color the color of the workers.
+<i>40</i>&nbsp;     */
+<i>41</i>&nbsp;    void onUpdateWorkersColor(Color color);
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * Sends a message to the server with the gods chosen by the user.
+<i>45</i>&nbsp;     *
+<i>46</i>&nbsp;     * @param reducedGods the list of gods chosen by the user.
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    void onUpdateGod(List&lt;ReducedGod&gt; reducedGods);
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * Sends a message to the server with the position of the worker to be moved chosen by the user.
+<i>52</i>&nbsp;     *
+<i>53</i>&nbsp;     * @param position the position of the worker to be moved.
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    void onUpdatePickMovingWorker(Position position);
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Sends a message to the server with the initial position of the workers chosen by the user.
+<i>59</i>&nbsp;     *
+<i>60</i>&nbsp;     * @param positions the list of the initial position of the workers.
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    void onUpdateInitWorkerPosition(List&lt;Position&gt; positions);
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    /**
+<i>65</i>&nbsp;     * Sends a message to the server with the new position of the moving worker chosen by the user.
+<i>66</i>&nbsp;     *
+<i>67</i>&nbsp;     * @param destination the new position of the moving worker.
+<i>68</i>&nbsp;     */
+<i>69</i>&nbsp;    void onUpdateMove(Position destination);
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    /**
+<i>72</i>&nbsp;     * Sends a message to the server with the position of the block to be built chosen by the user.
+<i>73</i>&nbsp;     *
+<i>74</i>&nbsp;     * @param position the position of the block to be built.
+<i>75</i>&nbsp;     */
+<i>76</i>&nbsp;    void onUpdateBuild(Position position);
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /**
+<i>79</i>&nbsp;     * Sends a message to the server with the choice of the user about his god effect.
+<i>80</i>&nbsp;     *
+<i>81</i>&nbsp;     * @param response the choice of the user about his god effect.
+<i>82</i>&nbsp;     */
+<i>83</i>&nbsp;    void onUpdateEnableEffect(boolean response);
+<i>84</i>&nbsp;
+<i>85</i>&nbsp;    /**
+<i>86</i>&nbsp;     * Sends a message to the server with the choice of the user about his god effect.
+<i>87</i>&nbsp;     *
+<i>88</i>&nbsp;     * @param dest the choice of the user about his god effect.
+<i>89</i>&nbsp;     */
+<i>90</i>&nbsp;    void onUpdateApplyEffect(Position dest);
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;    /**
+<i>93</i>&nbsp;     * Sends a message to the server with the nickname of the first player chosen by the user.
+<i>94</i>&nbsp;     *
+<i>95</i>&nbsp;     * @param nickname the nickname of the first player.
+<i>96</i>&nbsp;     */
+<i>97</i>&nbsp;    void onUpdateFirstPlayer(String nickname);
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    /**
+<i>100</i>&nbsp;     * Handles a disconnection wanted by the user.
+<i>101</i>&nbsp;     * (e.g. a click on the back button into the GUI).
+<i>102</i>&nbsp;     */
+<i>103</i>&nbsp;    void onDisconnection();
+<i>104</i>&nbsp;}
+</div>
 </div>
 
 <div class="footer">
-
-    <div style="float:right;">generated on 2020-07-02 21:36</div>
+    
+    <div style="float:right;">generated on 2020-07-03 11:24</div>
 </div>
 </body>
 </html>

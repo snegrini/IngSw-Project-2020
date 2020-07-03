@@ -1,187 +1,190 @@
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-    <title>Coverage Report :: WinSceneController</title>
-    <style type="text/css">
-        @import "../../.css/coverage.css";
-    </style>
+  <title>Coverage Report :: WinSceneController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
 </head>
 
 <body>
 <div class="header"></div>
 
 <div class="content">
-    <div class="breadCrumbs">
-        [ <a href="../../index.html">all classes</a> ]
-        [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
-    </div>
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
+</div>
 
-    <h1>Coverage Summary for Class: WinSceneController (it.polimi.ingsw.view.gui.scene)</h1>
+<h1>Coverage Summary for Class: WinSceneController (it.polimi.ingsw.view.gui.scene)</h1>
 
-    <table class="coverageStats">
-        <tr>
-            <th class="name">Class</th>
-            <th class="coverageStat
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
 ">
-                Class, %
-            </th>
-            <th class="coverageStat
+  Class, %
+</th>
+<th class="coverageStat 
 ">
-                Method, %
-            </th>
-            <th class="coverageStat
+  Method, %
+</th>
+<th class="coverageStat 
 ">
-                Line, %
-            </th>
-        </tr>
-        <tr>
-            <td class="name">WinSceneController</td>
-            <td class="coverageStat">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WinSceneController</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 1)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 8)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 19)
   </span>
-            </td>
-        </tr>
+</td>
+</tr>
 
-    </table>
+</table>
 
-    <br/>
-    <br/>
+<br/>
+<br/>
 
 
-    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
-        <i>2</i>&nbsp;
-        <i>3</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
-        <i>4</i>&nbsp;import javafx.fxml.FXML;
-        <i>5</i>&nbsp;import javafx.scene.Scene;
-        <i>6</i>&nbsp;import javafx.scene.control.Button;
-        <i>7</i>&nbsp;import javafx.scene.control.Label;
-        <i>8</i>&nbsp;import javafx.scene.input.MouseEvent;
-        <i>9</i>&nbsp;import javafx.scene.layout.BorderPane;
-        <i>10</i>&nbsp;import javafx.stage.Modality;
-        <i>11</i>&nbsp;import javafx.stage.Stage;
-        <i>12</i>&nbsp;import javafx.stage.StageStyle;
-        <i>13</i>&nbsp;
-        <i>14</i>&nbsp;
-        <i>15</i>&nbsp;/**
-        <i>16</i>&nbsp; * This class implements the scene which shows that a player has won the game.
-        <i>17</i>&nbsp; */
-        <i>18</i>&nbsp;public class WinSceneController implements GenericSceneController {
-        <i>19</i>&nbsp; private final Stage stage;
-        <i>20</i>&nbsp;
-        <i>21</i>&nbsp; private double xOffset;
-        <i>22</i>&nbsp; private double yOffset;
-        <i>23</i>&nbsp;
-        <i>24</i>&nbsp; @FXML
-        <i>25</i>&nbsp; private BorderPane rootPane;
-        <i>26</i>&nbsp; @FXML
-        <i>27</i>&nbsp; private Label titleLbl;
-        <i>28</i>&nbsp; @FXML
-        <i>29</i>&nbsp; private Label nicknameLbl;
-        <i>30</i>&nbsp; @FXML
-        <i>31</i>&nbsp; private Button okBtn;
-        <i>32</i>&nbsp;
-        <i>33</i>&nbsp;
-        <i>34</i>&nbsp; /**
-        <i>35</i>&nbsp; * Default constructor.
-        <i>36</i>&nbsp; */
-        <b class="nc"><i>37</i>&nbsp; public WinSceneController() {</b>
-        <b class="nc"><i>38</i>&nbsp; stage = new Stage();</b>
-        <b class="nc"><i>39</i>&nbsp; stage.initOwner(SceneController.getActiveScene().getWindow());</b>
-        <b class="nc"><i>40</i>&nbsp; stage.initModality(Modality.APPLICATION_MODAL);</b>
-        <b class="nc"><i>41</i>&nbsp; stage.initStyle(StageStyle.UNDECORATED);</b>
-        <b class="nc"><i>42</i>&nbsp; stage.setAlwaysOnTop(true);</b>
-        <b class="nc"><i>43</i>&nbsp; xOffset = 0;</b>
-        <b class="nc"><i>44</i>&nbsp; yOffset = 0;</b>
-        <i>45</i>&nbsp; }
-        <i>46</i>&nbsp;
-        <i>47</i>&nbsp; @FXML
-        <i>48</i>&nbsp; public void initialize() {
-        <b class="nc"><i>49</i>&nbsp; rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::onRootPaneMousePressed);</b>
-        <b class="nc"><i>50</i>&nbsp; rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::onRootPaneMouseDragged);</b>
-        <b class="nc"><i>51</i>&nbsp; okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);</b>
-        <i>52</i>&nbsp; }
-        <i>53</i>&nbsp;
-        <i>54</i>&nbsp; /**
-        <i>55</i>&nbsp; * Handles the mouse pressed event preparing the coordinates for dragging the window.
-        <i>56</i>&nbsp; *
-        <i>57</i>&nbsp; * @param event the mouse pressed event.
-        <i>58</i>&nbsp; */
-        <i>59</i>&nbsp; private void onRootPaneMousePressed(MouseEvent event) {
-        <b class="nc"><i>60</i>&nbsp; xOffset = stage.getX() - event.getScreenX();</b>
-        <b class="nc"><i>61</i>&nbsp; yOffset = stage.getY() - event.getScreenY();</b>
-        <i>62</i>&nbsp; }
-        <i>63</i>&nbsp;
-        <i>64</i>&nbsp; /**
-        <i>65</i>&nbsp; * Handles the mouse dragged event by moving the window around the screen.
-        <i>66</i>&nbsp; *
-        <i>67</i>&nbsp; * @param event the mouse dragged event.
-        <i>68</i>&nbsp; */
-        <i>69</i>&nbsp; private void onRootPaneMouseDragged(MouseEvent event) {
-        <b class="nc"><i>70</i>&nbsp; stage.setX(event.getScreenX() + xOffset);</b>
-        <b class="nc"><i>71</i>&nbsp; stage.setY(event.getScreenY() + yOffset);</b>
-        <i>72</i>&nbsp; }
-        <i>73</i>&nbsp;
-        <i>74</i>&nbsp; /**
-        <i>75</i>&nbsp; * Handles click on Ok button.
-        <i>76</i>&nbsp; *
-        <i>77</i>&nbsp; * @param event the mouse click event.
-        <i>78</i>&nbsp; */
-        <i>79</i>&nbsp; private void onOkBtnClick(MouseEvent event) {
-        <b class="nc"><i>80</i>&nbsp; stage.close();</b>
-        <i>81</i>&nbsp; }
-        <i>82</i>&nbsp;
-        <i>83</i>&nbsp; /**
-        <i>84</i>&nbsp; * Sets the name of the winner.
-        <i>85</i>&nbsp; *
-        <i>86</i>&nbsp; * @param winnerNickname the nickname of the winner.
-        <i>87</i>&nbsp; */
-        <i>88</i>&nbsp; public void setWinnerNickname(String winnerNickname) {
-        <b class="nc"><i>89</i>&nbsp; nicknameLbl.setText(winnerNickname);</b>
-        <i>90</i>&nbsp; }
-        <i>91</i>&nbsp;
-        <i>92</i>&nbsp; /**
-        <i>93</i>&nbsp; * Displays the victory scene.
-        <i>94</i>&nbsp; */
-        <i>95</i>&nbsp; public void displayWinScene() {
-        <b class="nc"><i>96</i>&nbsp; stage.showAndWait();</b>
-        <i>97</i>&nbsp; }
-        <i>98</i>&nbsp;
-        <i>99</i>&nbsp; /**
-        <i>100</i>&nbsp; * Sets the scene of the stage.
-        <i>101</i>&nbsp; *
-        <i>102</i>&nbsp; * @param scene the scene to be set.
-        <i>103</i>&nbsp; */
-        <i>104</i>&nbsp; public void setScene(Scene scene) {
-        <b class="nc"><i>105</i>&nbsp; stage.setScene(scene);</b>
-        <i>106</i>&nbsp; }
-        <i>107</i>&nbsp;}
-    </div>
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
+<i>4</i>&nbsp;import javafx.fxml.FXML;
+<i>5</i>&nbsp;import javafx.scene.Scene;
+<i>6</i>&nbsp;import javafx.scene.control.Button;
+<i>7</i>&nbsp;import javafx.scene.control.Label;
+<i>8</i>&nbsp;import javafx.scene.input.MouseEvent;
+<i>9</i>&nbsp;import javafx.scene.layout.BorderPane;
+<i>10</i>&nbsp;import javafx.stage.Modality;
+<i>11</i>&nbsp;import javafx.stage.Stage;
+<i>12</i>&nbsp;import javafx.stage.StageStyle;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;/**
+<i>16</i>&nbsp; * This class implements the scene which shows that a player has won the game.
+<i>17</i>&nbsp; */
+<i>18</i>&nbsp;public class WinSceneController implements GenericSceneController {
+<i>19</i>&nbsp;    private final Stage stage;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    private double xOffset;
+<i>22</i>&nbsp;    private double yOffset;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @FXML
+<i>25</i>&nbsp;    private BorderPane rootPane;
+<i>26</i>&nbsp;    @FXML
+<i>27</i>&nbsp;    private Label titleLbl;
+<i>28</i>&nbsp;    @FXML
+<i>29</i>&nbsp;    private Label nicknameLbl;
+<i>30</i>&nbsp;    @FXML
+<i>31</i>&nbsp;    private Button okBtn;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * Default constructor.
+<i>36</i>&nbsp;     */
+<b class="nc"><i>37</i>&nbsp;    public WinSceneController() {</b>
+<b class="nc"><i>38</i>&nbsp;        stage = new Stage();</b>
+<b class="nc"><i>39</i>&nbsp;        stage.initOwner(SceneController.getActiveScene().getWindow());</b>
+<b class="nc"><i>40</i>&nbsp;        stage.initModality(Modality.APPLICATION_MODAL);</b>
+<b class="nc"><i>41</i>&nbsp;        stage.initStyle(StageStyle.UNDECORATED);</b>
+<b class="nc"><i>42</i>&nbsp;        stage.setAlwaysOnTop(true);</b>
+<b class="nc"><i>43</i>&nbsp;        xOffset = 0;</b>
+<b class="nc"><i>44</i>&nbsp;        yOffset = 0;</b>
+<i>45</i>&nbsp;    }
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    @FXML
+<i>48</i>&nbsp;    public void initialize() {
+<b class="nc"><i>49</i>&nbsp;        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::onRootPaneMousePressed);</b>
+<b class="nc"><i>50</i>&nbsp;        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::onRootPaneMouseDragged);</b>
+<b class="nc"><i>51</i>&nbsp;        okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * Handles the mouse pressed event preparing the coordinates for dragging the window.
+<i>56</i>&nbsp;     *
+<i>57</i>&nbsp;     * @param event the mouse pressed event.
+<i>58</i>&nbsp;     */
+<i>59</i>&nbsp;    private void onRootPaneMousePressed(MouseEvent event) {
+<b class="nc"><i>60</i>&nbsp;        xOffset = stage.getX() - event.getScreenX();</b>
+<b class="nc"><i>61</i>&nbsp;        yOffset = stage.getY() - event.getScreenY();</b>
+<i>62</i>&nbsp;    }
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    /**
+<i>65</i>&nbsp;     * Handles the mouse dragged event by moving the window around the screen.
+<i>66</i>&nbsp;     *
+<i>67</i>&nbsp;     * @param event the mouse dragged event.
+<i>68</i>&nbsp;     */
+<i>69</i>&nbsp;    private void onRootPaneMouseDragged(MouseEvent event) {
+<b class="nc"><i>70</i>&nbsp;        stage.setX(event.getScreenX() + xOffset);</b>
+<b class="nc"><i>71</i>&nbsp;        stage.setY(event.getScreenY() + yOffset);</b>
+<i>72</i>&nbsp;    }
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    /**
+<i>75</i>&nbsp;     * Handles click on Ok button.
+<i>76</i>&nbsp;     *
+<i>77</i>&nbsp;     * @param event the mouse click event.
+<i>78</i>&nbsp;     */
+<i>79</i>&nbsp;    private void onOkBtnClick(MouseEvent event) {
+<b class="nc"><i>80</i>&nbsp;        stage.close();</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    /**
+<i>84</i>&nbsp;     * Sets the name of the winner.
+<i>85</i>&nbsp;     *
+<i>86</i>&nbsp;     * @param winnerNickname the nickname of the winner.
+<i>87</i>&nbsp;     */
+<i>88</i>&nbsp;    public void setWinnerNickname(String winnerNickname) {
+<b class="nc"><i>89</i>&nbsp;        nicknameLbl.setText(winnerNickname);</b>
+<i>90</i>&nbsp;    }
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;    /**
+<i>93</i>&nbsp;     * Displays the victory scene.
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    public void displayWinScene() {
+<b class="nc"><i>96</i>&nbsp;        stage.showAndWait();</b>
+<i>97</i>&nbsp;    }
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    /**
+<i>100</i>&nbsp;     * Sets the scene of the stage.
+<i>101</i>&nbsp;     *
+<i>102</i>&nbsp;     * @param scene the scene to be set.
+<i>103</i>&nbsp;     */
+<i>104</i>&nbsp;    public void setScene(Scene scene) {
+<b class="nc"><i>105</i>&nbsp;        stage.setScene(scene);</b>
+<i>106</i>&nbsp;    }
+<i>107</i>&nbsp;}
+</div>
 </div>
 
 <div class="footer">
-
-    <div style="float:right;">generated on 2020-07-02 21:36</div>
+    
+    <div style="float:right;">generated on 2020-07-03 11:24</div>
 </div>
 </body>
 </html>

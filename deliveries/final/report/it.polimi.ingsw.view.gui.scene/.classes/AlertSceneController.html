@@ -1,196 +1,199 @@
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-    <title>Coverage Report :: AlertSceneController</title>
-    <style type="text/css">
-        @import "../../.css/coverage.css";
-    </style>
+  <title>Coverage Report :: AlertSceneController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
 </head>
 
 <body>
 <div class="header"></div>
 
 <div class="content">
-    <div class="breadCrumbs">
-        [ <a href="../../index.html">all classes</a> ]
-        [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
-    </div>
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.view.gui.scene</a> ]
+</div>
 
-    <h1>Coverage Summary for Class: AlertSceneController (it.polimi.ingsw.view.gui.scene)</h1>
+<h1>Coverage Summary for Class: AlertSceneController (it.polimi.ingsw.view.gui.scene)</h1>
 
-    <table class="coverageStats">
-        <tr>
-            <th class="name">Class</th>
-            <th class="coverageStat
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
 ">
-                Class, %
-            </th>
-            <th class="coverageStat
+  Class, %
+</th>
+<th class="coverageStat 
 ">
-                Method, %
-            </th>
-            <th class="coverageStat
+  Method, %
+</th>
+<th class="coverageStat 
 ">
-                Line, %
-            </th>
-        </tr>
-        <tr>
-            <td class="name">AlertSceneController</td>
-            <td class="coverageStat">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AlertSceneController</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 1)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 9)
   </span>
-            </td>
-            <td class="coverageStat">
+</td>
+<td class="coverageStat">
   <span class="percent">
     0%
   </span>
-                <span class="absValue">
+  <span class="absValue">
     (0/ 20)
   </span>
-            </td>
-        </tr>
+</td>
+</tr>
 
-    </table>
+</table>
 
-    <br/>
-    <br/>
+<br/>
+<br/>
 
 
-    <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
-        <i>2</i>&nbsp;
-        <i>3</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
-        <i>4</i>&nbsp;import javafx.fxml.FXML;
-        <i>5</i>&nbsp;import javafx.scene.Scene;
-        <i>6</i>&nbsp;import javafx.scene.control.Button;
-        <i>7</i>&nbsp;import javafx.scene.control.Label;
-        <i>8</i>&nbsp;import javafx.scene.input.MouseEvent;
-        <i>9</i>&nbsp;import javafx.scene.layout.BorderPane;
-        <i>10</i>&nbsp;import javafx.stage.Modality;
-        <i>11</i>&nbsp;import javafx.stage.Stage;
-        <i>12</i>&nbsp;import javafx.stage.StageStyle;
-        <i>13</i>&nbsp;
-        <i>14</i>&nbsp;/**
-        <i>15</i>&nbsp; * This class implements the controller of a generic Alert Scene.
-        <i>16</i>&nbsp; */
-        <i>17</i>&nbsp;public class AlertSceneController implements GenericSceneController {
-        <i>18</i>&nbsp;
-        <i>19</i>&nbsp; private final Stage stage;
-        <i>20</i>&nbsp;
-        <i>21</i>&nbsp; private double xOffset;
-        <i>22</i>&nbsp; private double yOffset;
-        <i>23</i>&nbsp;
-        <i>24</i>&nbsp; @FXML
-        <i>25</i>&nbsp; private BorderPane rootPane;
-        <i>26</i>&nbsp; @FXML
-        <i>27</i>&nbsp; private Label titleLbl;
-        <i>28</i>&nbsp; @FXML
-        <i>29</i>&nbsp; private Label messageLbl;
-        <i>30</i>&nbsp; @FXML
-        <i>31</i>&nbsp; private Button okBtn;
-        <i>32</i>&nbsp;
-        <i>33</i>&nbsp; /**
-        <i>34</i>&nbsp; * Default constructor.
-        <i>35</i>&nbsp; */
-        <b class="nc"><i>36</i>&nbsp; public AlertSceneController() {</b>
-        <b class="nc"><i>37</i>&nbsp; stage = new Stage();</b>
-        <b class="nc"><i>38</i>&nbsp; stage.initOwner(SceneController.getActiveScene().getWindow());</b>
-        <b class="nc"><i>39</i>&nbsp; stage.initModality(Modality.APPLICATION_MODAL);</b>
-        <b class="nc"><i>40</i>&nbsp; stage.initStyle(StageStyle.UNDECORATED);</b>
-        <b class="nc"><i>41</i>&nbsp; stage.setAlwaysOnTop(true);</b>
-        <b class="nc"><i>42</i>&nbsp; xOffset = 0;</b>
-        <b class="nc"><i>43</i>&nbsp; yOffset = 0;</b>
-        <i>44</i>&nbsp; }
-        <i>45</i>&nbsp;
-        <i>46</i>&nbsp; @FXML
-        <i>47</i>&nbsp; public void initialize() {
-        <b class="nc"><i>48</i>&nbsp; rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::onRootPaneMousePressed);</b>
-        <b class="nc"><i>49</i>&nbsp; rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::onRootPaneMouseDragged);</b>
-        <b class="nc"><i>50</i>&nbsp; okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);</b>
-        <i>51</i>&nbsp; }
-        <i>52</i>&nbsp;
-        <i>53</i>&nbsp; /**
-        <i>54</i>&nbsp; * Handles the mouse pressed event preparing the coordinates for dragging the window.
-        <i>55</i>&nbsp; *
-        <i>56</i>&nbsp; * @param event the mouse pressed event.
-        <i>57</i>&nbsp; */
-        <i>58</i>&nbsp; private void onRootPaneMousePressed(MouseEvent event) {
-        <b class="nc"><i>59</i>&nbsp; xOffset = stage.getX() - event.getScreenX();</b>
-        <b class="nc"><i>60</i>&nbsp; yOffset = stage.getY() - event.getScreenY();</b>
-        <i>61</i>&nbsp; }
-        <i>62</i>&nbsp;
-        <i>63</i>&nbsp; /**
-        <i>64</i>&nbsp; * Handles the mouse dragged event by moving the window around the screen.
-        <i>65</i>&nbsp; *
-        <i>66</i>&nbsp; * @param event the mouse dragged event.
-        <i>67</i>&nbsp; */
-        <i>68</i>&nbsp; private void onRootPaneMouseDragged(MouseEvent event) {
-        <b class="nc"><i>69</i>&nbsp; stage.setX(event.getScreenX() + xOffset);</b>
-        <b class="nc"><i>70</i>&nbsp; stage.setY(event.getScreenY() + yOffset);</b>
-        <i>71</i>&nbsp; }
-        <i>72</i>&nbsp;
-        <i>73</i>&nbsp; /**
-        <i>74</i>&nbsp; * Handles the click on the Ok button.
-        <i>75</i>&nbsp; * An alert message will be shown.
-        <i>76</i>&nbsp; *
-        <i>77</i>&nbsp; * @param event the mouse click event.
-        <i>78</i>&nbsp; */
-        <i>79</i>&nbsp; private void onOkBtnClick(MouseEvent event) {
-        <b class="nc"><i>80</i>&nbsp; stage.close();</b>
-        <i>81</i>&nbsp; }
-        <i>82</i>&nbsp;
-        <i>83</i>&nbsp; /**
-        <i>84</i>&nbsp; * Sets the title of the Alert Scene.
-        <i>85</i>&nbsp; *
-        <i>86</i>&nbsp; * @param str title of the Alert Scene.
-        <i>87</i>&nbsp; */
-        <i>88</i>&nbsp; public void setAlertTitle(String str) {
-        <b class="nc"><i>89</i>&nbsp; titleLbl.setText(str);</b>
-        <i>90</i>&nbsp; }
-        <i>91</i>&nbsp;
-        <i>92</i>&nbsp; /**
-        <i>93</i>&nbsp; * Sets the message of the Alert Scene.
-        <i>94</i>&nbsp; *
-        <i>95</i>&nbsp; * @param str message of the Alert Scene.
-        <i>96</i>&nbsp; */
-        <i>97</i>&nbsp; public void setAlertMessage(String str) {
-        <b class="nc"><i>98</i>&nbsp; messageLbl.setText(str);</b>
-        <i>99</i>&nbsp; }
-        <i>100</i>&nbsp;
-        <i>101</i>&nbsp; /**
-        <i>102</i>&nbsp; * Displays Alert Message Pop-Up
-        <i>103</i>&nbsp; */
-        <i>104</i>&nbsp; public void displayAlert() {
-        <b class="nc"><i>105</i>&nbsp; stage.showAndWait();</b>
-        <i>106</i>&nbsp; }
-        <i>107</i>&nbsp;
-        <i>108</i>&nbsp; /**
-        <i>109</i>&nbsp; * Sets the scene of the stage.
-        <i>110</i>&nbsp; *
-        <i>111</i>&nbsp; * @param scene the scene to be set.
-        <i>112</i>&nbsp; */
-        <i>113</i>&nbsp; public void setScene(Scene scene) {
-        <b class="nc"><i>114</i>&nbsp; stage.setScene(scene);</b>
-        <i>115</i>&nbsp; }
-        <i>116</i>&nbsp;}
-    </div>
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.view.gui.scene;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.view.gui.SceneController;
+<i>4</i>&nbsp;import javafx.fxml.FXML;
+<i>5</i>&nbsp;import javafx.scene.Scene;
+<i>6</i>&nbsp;import javafx.scene.control.Button;
+<i>7</i>&nbsp;import javafx.scene.control.Label;
+<i>8</i>&nbsp;import javafx.scene.input.MouseEvent;
+<i>9</i>&nbsp;import javafx.scene.layout.BorderPane;
+<i>10</i>&nbsp;import javafx.stage.Modality;
+<i>11</i>&nbsp;import javafx.stage.Stage;
+<i>12</i>&nbsp;import javafx.stage.StageStyle;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;/**
+<i>15</i>&nbsp; * This class implements the controller of a generic Alert Scene.
+<i>16</i>&nbsp; */
+<i>17</i>&nbsp;public class AlertSceneController implements GenericSceneController {
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    private final Stage stage;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    private double xOffset;
+<i>22</i>&nbsp;    private double yOffset;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @FXML
+<i>25</i>&nbsp;    private BorderPane rootPane;
+<i>26</i>&nbsp;    @FXML
+<i>27</i>&nbsp;    private Label titleLbl;
+<i>28</i>&nbsp;    @FXML
+<i>29</i>&nbsp;    private Label messageLbl;
+<i>30</i>&nbsp;    @FXML
+<i>31</i>&nbsp;    private Button okBtn;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * Default constructor.
+<i>35</i>&nbsp;     */
+<b class="nc"><i>36</i>&nbsp;    public AlertSceneController() {</b>
+<b class="nc"><i>37</i>&nbsp;        stage = new Stage();</b>
+<b class="nc"><i>38</i>&nbsp;        stage.initOwner(SceneController.getActiveScene().getWindow());</b>
+<b class="nc"><i>39</i>&nbsp;        stage.initModality(Modality.APPLICATION_MODAL);</b>
+<b class="nc"><i>40</i>&nbsp;        stage.initStyle(StageStyle.UNDECORATED);</b>
+<b class="nc"><i>41</i>&nbsp;        stage.setAlwaysOnTop(true);</b>
+<b class="nc"><i>42</i>&nbsp;        xOffset = 0;</b>
+<b class="nc"><i>43</i>&nbsp;        yOffset = 0;</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    @FXML
+<i>47</i>&nbsp;    public void initialize() {
+<b class="nc"><i>48</i>&nbsp;        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED, this::onRootPaneMousePressed);</b>
+<b class="nc"><i>49</i>&nbsp;        rootPane.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::onRootPaneMouseDragged);</b>
+<b class="nc"><i>50</i>&nbsp;        okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtnClick);</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    /**
+<i>54</i>&nbsp;     * Handles the mouse pressed event preparing the coordinates for dragging the window.
+<i>55</i>&nbsp;     *
+<i>56</i>&nbsp;     * @param event the mouse pressed event.
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    private void onRootPaneMousePressed(MouseEvent event) {
+<b class="nc"><i>59</i>&nbsp;        xOffset = stage.getX() - event.getScreenX();</b>
+<b class="nc"><i>60</i>&nbsp;        yOffset = stage.getY() - event.getScreenY();</b>
+<i>61</i>&nbsp;    }
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    /**
+<i>64</i>&nbsp;     * Handles the mouse dragged event by moving the window around the screen.
+<i>65</i>&nbsp;     *
+<i>66</i>&nbsp;     * @param event the mouse dragged event.
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    private void onRootPaneMouseDragged(MouseEvent event) {
+<b class="nc"><i>69</i>&nbsp;        stage.setX(event.getScreenX() + xOffset);</b>
+<b class="nc"><i>70</i>&nbsp;        stage.setY(event.getScreenY() + yOffset);</b>
+<i>71</i>&nbsp;    }
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    /**
+<i>74</i>&nbsp;     * Handles the click on the Ok button.
+<i>75</i>&nbsp;     * An alert message will be shown.
+<i>76</i>&nbsp;     *
+<i>77</i>&nbsp;     * @param event the mouse click event.
+<i>78</i>&nbsp;     */
+<i>79</i>&nbsp;    private void onOkBtnClick(MouseEvent event) {
+<b class="nc"><i>80</i>&nbsp;        stage.close();</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    /**
+<i>84</i>&nbsp;     * Sets the title of the Alert Scene.
+<i>85</i>&nbsp;     *
+<i>86</i>&nbsp;     * @param str title of the Alert Scene.
+<i>87</i>&nbsp;     */
+<i>88</i>&nbsp;    public void setAlertTitle(String str) {
+<b class="nc"><i>89</i>&nbsp;        titleLbl.setText(str);</b>
+<i>90</i>&nbsp;    }
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;    /**
+<i>93</i>&nbsp;     * Sets the message of the Alert Scene.
+<i>94</i>&nbsp;     *
+<i>95</i>&nbsp;     * @param str message of the Alert Scene.
+<i>96</i>&nbsp;     */
+<i>97</i>&nbsp;    public void setAlertMessage(String str) {
+<b class="nc"><i>98</i>&nbsp;        messageLbl.setText(str);</b>
+<i>99</i>&nbsp;    }
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;    /**
+<i>102</i>&nbsp;     * Displays Alert Message Pop-Up
+<i>103</i>&nbsp;     */
+<i>104</i>&nbsp;    public void displayAlert() {
+<b class="nc"><i>105</i>&nbsp;        stage.showAndWait();</b>
+<i>106</i>&nbsp;    }
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     * Sets the scene of the stage.
+<i>110</i>&nbsp;     *
+<i>111</i>&nbsp;     * @param scene the scene to be set.
+<i>112</i>&nbsp;     */
+<i>113</i>&nbsp;    public void setScene(Scene scene) {
+<b class="nc"><i>114</i>&nbsp;        stage.setScene(scene);</b>
+<i>115</i>&nbsp;    }
+<i>116</i>&nbsp;}
+</div>
 </div>
 
 <div class="footer">
-
-    <div style="float:right;">generated on 2020-07-02 21:36</div>
+    
+    <div style="float:right;">generated on 2020-07-03 11:24</div>
 </div>
 </body>
 </html>
