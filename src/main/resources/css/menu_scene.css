@@ -5,6 +5,11 @@
 
 .playBtn {
     -fx-background-image: url("../images/playbutton2.png");
+
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
 }
 
 .playBtn:hover {
@@ -14,6 +19,11 @@
 
 .quitBtn {
     -fx-background-image: url("../images/Exitbutton2.png");
+
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
 }
 
 .quitBtn:hover {
