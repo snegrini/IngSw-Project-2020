@@ -8,12 +8,6 @@ La rete è stata gestita con l'utilizzo delle socket.
 
 Interazione e gameplay: linea di comando (CLI) e grafica (GUI).
 
-## Componenti del gruppo
-- [__Samuel Kala__](https://github.com/samuelkala) - *Codice Persona: 10584699 - Matricola: 889701*
-- [__Andrea Lanzi__](https://github.com/AndreaLanzi-PoliMi) - *Codice Persona: 10566601 - Matricola: 868062* 
-- [__Samuele Negrini__](https://github.com/snegrini) - *Codice Persona: 10539341 - Matricola: 866797*
-
-
 ## Documentazione
 
 ### UML
@@ -86,3 +80,8 @@ java -jar santorini-server.jar [--port <port_number>]
 ```
 #### Parametri
 - `--port` `-p` : permette di specificare la porta del server. Se non specificato il valore di default è __16847__;
+
+## Componenti del gruppo
+- [__Samuel Kala__](https://github.com/samuelkala)
+- [__Andrea Lanzi__](https://github.com/AndreaLanzi-PoliMi)
+- [__Samuele Negrini__](https://github.com/snegrini)
